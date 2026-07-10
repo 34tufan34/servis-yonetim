@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-23-0";
+const CACHE_NAME = "servis-sys-v4-24-0";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -11,7 +11,7 @@ const APP_SHELL = [
 
 async function cacheShell() {
   const cache = await caches.open(CACHE_NAME);
-  await cache.addAll(APP_SHELL);
+  await cache.addAll(APP_SHELL.map((url) => new Request(url, { cache: "reload" })));
 }
 
 self.addEventListener("install", (event) => {
@@ -30,12 +30,31 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
 
+  const requestUrl = new URL(request.url);
+  const isFuelPriceFile = requestUrl.origin === self.location.origin && requestUrl.pathname.endsWith("/fuel-prices.json");
+
+  // Yakıt fiyatı dinamik veridir: önce internetten alınır, yalnızca bağlantı yoksa son kayıt gösterilir.
+  if (isFuelPriceFile) {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      try {
+        const fresh = await fetch(request, { cache: "no-store" });
+        if (!fresh.ok) throw new Error(`HTTP ${fresh.status}`);
+        await cache.put("./fuel-prices.json", fresh.clone());
+        return fresh;
+      } catch {
+        return (await cache.match("./fuel-prices.json")) || Response.error();
+      }
+    })());
+    return;
+  }
+
   if (request.mode === "navigate") {
     event.respondWith((async () => {
       try {
-        const fresh = await fetch(request);
+        const fresh = await fetch(request, { cache: "no-store" });
         const cache = await caches.open(CACHE_NAME);
-        cache.put("./index.html", fresh.clone());
+        await cache.put("./index.html", fresh.clone());
         return fresh;
       } catch {
         return (await caches.match(request)) || (await caches.match("./index.html"));
@@ -49,9 +68,9 @@ self.addEventListener("fetch", (event) => {
     if (cached) return cached;
     try {
       const fresh = await fetch(request);
-      if (new URL(request.url).origin === self.location.origin) {
+      if (requestUrl.origin === self.location.origin) {
         const cache = await caches.open(CACHE_NAME);
-        cache.put(request, fresh.clone());
+        await cache.put(request, fresh.clone());
       }
       return fresh;
     } catch {
@@ -61,6 +80,11 @@ self.addEventListener("fetch", (event) => {
 });
 
 self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+    return;
+  }
+
   if (event.data?.type === "REFRESH_CACHE") {
     event.waitUntil((async () => {
       await caches.delete(CACHE_NAME);
