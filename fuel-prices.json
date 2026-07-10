@@ -1,22 +1,22 @@
 {
   "region": "İstanbul Avrupa",
-  "updatedAt": "2026-07-10T17:14:23.539Z",
-  "lastAttemptAt": "2026-07-10T17:14:23.539Z",
-  "source": "GitHub Actions · Resmî Shell/OPET sayfaları",
-  "status": "partial",
+  "updatedAt": "2026-07-10T17:58:18.168Z",
+  "lastAttemptAt": "2026-07-10T17:58:18.168Z",
+  "priceDate": "2026-07-10",
+  "source": "Doviz.com dağıtıcı tablosu",
+  "sourceUrl": "https://www.doviz.com/akaryakit-fiyatlari",
+  "status": "ok",
   "shell": {
-    "diesel": null,
-    "product": "Shell FuelSave Motorin",
-    "updated": false,
+    "diesel": 69.88,
+    "product": "Shell Motorin",
+    "updated": true,
     "officialUrl": "https://www.shell.com.tr/suruculer/shell-yakitlari/akaryakit-pompa-satis-fiyatlari.html"
   },
   "opet": {
-    "diesel": 71.79,
-    "product": "Motorin",
+    "diesel": 69.84,
+    "product": "OPET Motorin",
     "updated": true,
     "officialUrl": "https://www.opet.com.tr/akaryakit-fiyatlari/istanbul-avrupa"
   },
-  "errors": {
-    "shell": "Shell sayfasında motorin ürünü yanında geçerli fiyat bulunamadı."
-  }
+  "errors": {}
 }
