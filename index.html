@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.24.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.24.2</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -7708,7 +7708,21 @@
     }
 
     .fuel-brand-logo.shell-logo {
-      background: #ffd500;
+      width: 58px;
+      height: 58px;
+      background: transparent;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+    }
+
+    .fuel-brand-logo.shell-logo img {
+      width: 56px;
+      height: 57px;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.28));
     }
 
     .fuel-brand-logo.opet-logo {
@@ -7919,7 +7933,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.24.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.24.2</div>
         </div>
       </div>
 
@@ -8026,12 +8040,7 @@
                 <div>
                   <div class="fuel-price-brand">
                     <span class="fuel-brand-logo shell-logo" aria-label="Shell logosu">
-                      <svg viewBox="0 0 96 72" role="img" aria-hidden="true">
-                        <rect width="96" height="72" fill="#ffd500"/>
-                        <path d="M11 54c2-17 9-30 19-38C36 11 42 8 48 6c6 2 12 5 18 10 10 8 17 21 19 38l-10 9H21z" fill="#ffd500" stroke="#dd1d21" stroke-width="6" stroke-linejoin="round"/>
-                        <path d="M48 11v43M31 18l10 36M65 18 55 54M20 30l15 27M76 30 61 57" fill="none" stroke="#dd1d21" stroke-width="4" stroke-linecap="round"/>
-                        <path d="M22 61h52" stroke="#dd1d21" stroke-width="6" stroke-linecap="round"/>
-                      </svg>
+                      <img src="data:image/png;base64,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" alt="Shell logosu" width="56" height="57">
                     </span>
                     <span class="fuel-brand-copy"><strong>Shell</strong><small id="shellFuelProduct">FuelSave Motorin</small></span>
                   </div>
@@ -10756,7 +10765,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.24.0</strong>
+                <strong>v4.24.2</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -10785,7 +10794,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.24.0";
+    const APP_VERSION = "4.24.2";
     const SCHEMA_VERSION = 22;
     const LOCAL_BACKUP_KEY = "SYS_V1_LOCAL_BACKUPS";
     const LOCAL_BACKUP_META_KEY = "SYS_V1_LOCAL_BACKUP_META";
