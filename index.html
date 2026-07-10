@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.24.2</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.24.4</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -6283,11 +6283,17 @@
 
     /* v4.17 - İş, okul ve araç bazlı kârlılık analizi */
     .profitability-panel {
-      min-height: 0;
+      /* Finans sekmesinin kaydırılabilir flex alanında panelin ekran
+         yüksekliğine sıkışıp içeriğin dışarı taşmasını engeller. */
+      flex: 0 0 auto;
+      width: 100%;
+      height: auto;
+      min-height: auto;
       padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      overflow: visible;
     }
 
     .profitability-controls {
@@ -7726,8 +7732,20 @@
     }
 
     .fuel-brand-logo.opet-logo {
-      background: #fff;
-      padding: 6px 7px;
+      width: 78px;
+      height: 38px;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+    }
+
+    .fuel-brand-logo.opet-logo svg {
+      width: 76px;
+      height: 34px;
+      overflow: visible;
+      filter: drop-shadow(0 5px 9px rgba(0,0,0,.24));
     }
 
     .fuel-brand-copy {
@@ -7933,7 +7951,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.24.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.24.4</div>
         </div>
       </div>
 
@@ -8058,8 +8076,7 @@
                   <div class="fuel-price-brand">
                     <span class="fuel-brand-logo opet-logo" aria-label="OPET logosu">
                       <svg viewBox="0 0 150 54" role="img" aria-hidden="true">
-                        <rect width="150" height="54" rx="8" fill="#fff"/>
-                        <g fill="#0088c9">
+<g fill="#0088c9">
                           <path d="M4 16h31l-4 8H2zM2 28h28l-4 8H0zM8 40h18l-4 7H5z"/>
                           <text x="25" y="41" font-family="Arial, Helvetica, sans-serif" font-size="43" font-style="italic" font-weight="900">opet</text>
                         </g>
@@ -10765,7 +10782,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.24.2</strong>
+                <strong>v4.24.4</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -10794,7 +10811,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.24.2";
+    const APP_VERSION = "4.24.4";
     const SCHEMA_VERSION = 22;
     const LOCAL_BACKUP_KEY = "SYS_V1_LOCAL_BACKUPS";
     const LOCAL_BACKUP_META_KEY = "SYS_V1_LOCAL_BACKUP_META";
