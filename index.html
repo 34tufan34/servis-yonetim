@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.23.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.24.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -7919,7 +7919,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.23.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.24.0</div>
         </div>
       </div>
 
@@ -8016,8 +8016,8 @@
               </div>
               <div class="fuel-live-actions">
                 <span class="pill" id="fuelLiveBadge">Hazırlanıyor</span>
-                <button class="btn small primary" id="refreshFuelOfficialHtmlBtn" type="button">Resmî Sayfadan Güncelle</button>
-                <button class="btn small" id="refreshFuelPricesBtn" type="button">Kayıtlı Kaynağı Yenile</button>
+                <button class="btn small primary" id="refreshFuelOfficialHtmlBtn" type="button">Motorin Fiyatlarını Güncelle</button>
+                <button class="btn small" id="refreshFuelPricesBtn" type="button">Kaynağı Yeniden Oku</button>
               </div>
             </div>
 
@@ -10513,14 +10513,13 @@
               <div class="field">
                 <label for="fuelDataMode">Veri Kaynağı</label>
                 <select id="fuelDataMode">
-                  <option value="html">Resmî sayfa metni</option>
-                  <option value="endpoint">Canlı JSON servisi</option>
+                  <option value="endpoint">GitHub Canlı Fiyat Dosyası</option>
                   <option value="manual">Manuel fiyat</option>
                 </select>
               </div>
               <div class="field wide">
                 <label for="fuelLiveEndpoint">Canlı JSON Servis Adresi</label>
-                <input id="fuelLiveEndpoint" inputmode="url" placeholder="https://.../fuel-prices?region={region}" />
+                <input id="fuelLiveEndpoint" inputmode="url" value="./fuel-prices.json" placeholder="./fuel-prices.json" />
               </div>
               <div class="field">
                 <label for="fuelShellManualPrice">Shell Manuel Fiyat</label>
@@ -10533,7 +10532,7 @@
             </div>
 
             <div class="settings-actions">
-              <button class="btn primary" id="refreshFuelOfficialHtmlSettingsBtn" type="button">Resmî Sayfadan Güncelle</button>
+              <button class="btn primary" id="refreshFuelOfficialHtmlSettingsBtn" type="button">Şimdi Güncelle</button>
               <button class="btn" id="saveFuelSettingsBtn" type="button">Ayarları Kaydet</button>
               <button class="btn" id="testFuelConnectionBtn" type="button">Kayıtlı Kaynağı Test Et</button>
               <button class="btn" id="applyManualFuelBtn" type="button">Manuel Fiyatı Uygula</button>
@@ -10545,7 +10544,7 @@
             </div>
 
             <div class="fuel-connection-note" id="fuelConnectionNote">
-              <strong>Resmî Sayfadan Güncelle</strong> önce Shell ve OPET sayfalarını doğrudan okumayı, engellenirse metin köprülerini denemeyi dener. Resmî sitenin güvenlik veya dinamik içerik yapısı fiyatı gizlerse mevcut fiyat korunur; aşağıdaki metin yapıştırma alanı güvenli yedek yöntemdir.
+              <strong>GitHub canlı fiyat dosyası</strong> Shell ve OPET motorin fiyatlarını <code>fuel-prices.json</code> üzerinden okur. Bu dosya GitHub Actions tarafından otomatik güncellenir. Bağlantı geçici olarak kesilirse son geçerli fiyat korunur.
             </div>
 
             <details class="fuel-html-fallback">
@@ -10757,7 +10756,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.23.0</strong>
+                <strong>v4.24.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -10786,7 +10785,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.23.0";
+    const APP_VERSION = "4.24.0";
     const SCHEMA_VERSION = 22;
     const LOCAL_BACKUP_KEY = "SYS_V1_LOCAL_BACKUPS";
     const LOCAL_BACKUP_META_KEY = "SYS_V1_LOCAL_BACKUP_META";
@@ -10829,9 +10828,9 @@
         autoBackupIntervalMinutes: 30,
         fuelRegion: "istanbul-avrupa",
         fuelAutoRefresh: true,
-        fuelRefreshMinutes: 60,
-        fuelDataMode: "html",
-        fuelLiveEndpoint: "",
+        fuelRefreshMinutes: 180,
+        fuelDataMode: "endpoint",
+        fuelLiveEndpoint: "./fuel-prices.json",
         fuelShellManualPrice: 0,
         fuelOpetManualPrice: 0,
         fuelPriceCache: {
@@ -20636,7 +20635,7 @@
 
 
 
-    // v4.23 - Resmî sayfa metninden motorin fiyatı + güncel marka logoları
+    // v4.24 - GitHub canlı JSON motorin fiyatları + PWA önbellek düzeltmesi
     let fuelRefreshTimer = null;
     let fuelFetchInProgress = false;
 
@@ -20644,24 +20643,52 @@
       shell: "https://www.shell.com.tr/suruculer/shell-yakitlari/akaryakit-pompa-satis-fiyatlari.html",
       opet: "https://www.opet.com.tr/akaryakit-fiyatlari/istanbul-avrupa"
     };
+    const DEFAULT_FUEL_ENDPOINT = "./fuel-prices.json";
+
+    function migrateFuelSourceSettings() {
+      if (!state.settings || typeof state.settings !== "object") state.settings = {};
+      let changed = false;
+      if (!String(state.settings.fuelLiveEndpoint || "").trim()) {
+        state.settings.fuelLiveEndpoint = DEFAULT_FUEL_ENDPOINT;
+        changed = true;
+      }
+      if (state.settings.fuelDataMode !== "manual" && state.settings.fuelDataMode !== "endpoint") {
+        state.settings.fuelDataMode = "endpoint";
+        changed = true;
+      }
+      if (!Number.isFinite(Number(state.settings.fuelRefreshMinutes)) || Number(state.settings.fuelRefreshMinutes) < 30) {
+        state.settings.fuelRefreshMinutes = 180;
+        changed = true;
+      }
+      const cache = state.settings.fuelPriceCache;
+      if (cache && typeof cache === "object" && cache.status === "error" && fuelNumber(cache.shell) == null && fuelNumber(cache.opet) == null) {
+        cache.status = "idle";
+        cache.message = "";
+        changed = true;
+      }
+      if (changed) {
+        state.appVersion = APP_VERSION;
+        state.schemaVersion = SCHEMA_VERSION;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+    }
 
     function fuelSettings() {
       const rawCache = state.settings?.fuelPriceCache;
-      const endpoint = String(state.settings?.fuelLiveEndpoint || "").trim();
-      const rawMode = String(state.settings?.fuelDataMode || "html");
-      let dataMode = ["html", "endpoint", "manual"].includes(rawMode) ? rawMode : "html";
-      if (dataMode === "endpoint" && !endpoint) dataMode = "html";
+      const endpoint = String(state.settings?.fuelLiveEndpoint || DEFAULT_FUEL_ENDPOINT).trim() || DEFAULT_FUEL_ENDPOINT;
+      const rawMode = String(state.settings?.fuelDataMode || "endpoint");
+      const dataMode = rawMode === "manual" ? "manual" : "endpoint";
       return {
         region: state.settings?.fuelRegion || "istanbul-avrupa",
         autoRefresh: state.settings?.fuelAutoRefresh !== false,
-        refreshMinutes: Math.max(30, Number(state.settings?.fuelRefreshMinutes || 60)),
+        refreshMinutes: Math.max(30, Number(state.settings?.fuelRefreshMinutes || 180)),
         dataMode,
         endpoint,
         shellManual: Number(state.settings?.fuelShellManualPrice || 0),
         opetManual: Number(state.settings?.fuelOpetManualPrice || 0),
         cache: rawCache && typeof rawCache === "object" ? rawCache : {
           region: "istanbul-avrupa", updatedAt: null, source: "", shell: null, opet: null,
-          shellProduct: "FuelSave Motorin", opetProduct: "Ultra Force Motorin",
+          shellProduct: "Shell Motorin", opetProduct: "OPET Motorin",
           previousShell: null, previousOpet: null, status: "idle", message: ""
         }
       };
@@ -20744,7 +20771,7 @@
       setFuelCard("#opetFuelCard", "#opetFuelPrice", "#opetFuelMeta", "#opetFuelChange", "#opetFuelProduct", cache.opet, cache.previousOpet, cache, "Opet");
 
       if (status) {
-        if (fuelFetchInProgress) status.textContent = "Resmî fiyat sayfaları okunuyor...";
+        if (fuelFetchInProgress) status.textContent = "GitHub canlı fiyat dosyası okunuyor...";
         else if (cache.status === "error") status.textContent = cache.message || "Fiyat kaynağına bağlanılamadı; son kayıt gösteriliyor.";
         else if (hasAny) status.textContent = `${fuelRegionLabel(cfg.region)} · Son güncelleme ${fuelUpdatedLabel(cache)}${stale ? " · Fiyat eski olabilir" : ""}`;
         else status.textContent = cfg.dataMode === "manual" ? "Manuel fiyat bekleniyor." : "Henüz motorin fiyatı alınmadı.";
@@ -20754,9 +20781,9 @@
         badge.classList.toggle("active", hasAny && !stale && cache.status !== "error");
       }
       if (settingsBadge) {
-        const labels = { html: "Resmî HTML", endpoint: "Canlı JSON", manual: "Manuel Mod" };
+        const labels = { endpoint: "GitHub Canlı JSON", manual: "Manuel Mod" };
         settingsBadge.textContent = labels[cfg.dataMode] || "Veri Kaynağı";
-        settingsBadge.classList.toggle("active", cfg.dataMode !== "endpoint" || Boolean(cfg.endpoint));
+        settingsBadge.classList.toggle("active", cfg.dataMode === "manual" || Boolean(cfg.endpoint));
       }
 
       const controls = {
@@ -20936,40 +20963,51 @@
       const updatedAt = source.updatedAt || source.updated_at || source.timestamp || new Date().toISOString();
       const region = source.region || source.location || fuelSettings().region;
       if (shell == null && opet == null) throw new Error("JSON içinde Shell veya OPET motorin fiyatı bulunamadı.");
-      return { shell, opet, updatedAt, region, shellProduct: source.shellProduct || source.shell_product || "FuelSave Motorin", opetProduct: source.opetProduct || source.opet_product || "Ultra Force Motorin", source: source.source || source.provider || "Canlı JSON servisi" };
+      return {
+        shell,
+        opet,
+        updatedAt,
+        region,
+        shellProduct: source.shell?.product || source.shellProduct || source.shell_product || "Shell Motorin",
+        opetProduct: source.opet?.product || source.opetProduct || source.opet_product || "OPET Motorin",
+        source: source.source || source.provider || "GitHub canlı fiyat dosyası"
+      };
     }
 
     async function refreshFuelPrices(options = {}) {
       if (fuelFetchInProgress) return false;
+      migrateFuelSourceSettings();
       const cfg = fuelSettings();
-      if (cfg.dataMode === "html") return refreshFuelPricesFromOfficialHtml(options);
       if (cfg.dataMode === "manual") {
         if (!options.silent) showToast("Veri kaynağı manuel modda. Manuel Fiyatı Uygula butonunu kullan.");
         return false;
-      }
-      if (!cfg.endpoint) {
-        state.settings.fuelDataMode = "html";
-        saveState();
-        return refreshFuelPricesFromOfficialHtml(options);
       }
 
       fuelFetchInProgress = true;
       renderFuelPricePanel();
       try {
-        const url = cfg.endpoint.replaceAll("{region}", encodeURIComponent(cfg.region));
-        const response = await fetch(url, { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } });
-        if (!response.ok) throw new Error(`Servis yanıtı: ${response.status}`);
+        const endpointText = (cfg.endpoint || DEFAULT_FUEL_ENDPOINT).replaceAll("{region}", encodeURIComponent(cfg.region));
+        const url = new URL(endpointText, window.location.href);
+        url.searchParams.set("_fuel", String(Date.now()));
+        const response = await fetch(url.href, {
+          method: "GET",
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
+        });
+        if (!response.ok) throw new Error(`Fiyat dosyası yanıtı: ${response.status}`);
         const payload = await response.json();
         const parsed = extractFuelPayload(payload);
         const previous = cfg.cache || {};
+        state.settings.fuelDataMode = "endpoint";
+        state.settings.fuelLiveEndpoint = cfg.endpoint || DEFAULT_FUEL_ENDPOINT;
         state.settings.fuelPriceCache = {
           region: parsed.region || cfg.region,
           updatedAt: parsed.updatedAt || new Date().toISOString(),
           source: parsed.source,
           shell: parsed.shell ?? previous.shell ?? null,
           opet: parsed.opet ?? previous.opet ?? null,
-          shellProduct: parsed.shellProduct || previous.shellProduct || "FuelSave Motorin",
-          opetProduct: parsed.opetProduct || previous.opetProduct || "Ultra Force Motorin",
+          shellProduct: parsed.shellProduct || previous.shellProduct || "Shell Motorin",
+          opetProduct: parsed.opetProduct || previous.opetProduct || "OPET Motorin",
           previousShell: parsed.shell != null && fuelNumber(previous.shell) != null && parsed.shell !== fuelNumber(previous.shell) ? previous.shell : previous.previousShell ?? previous.shell ?? null,
           previousOpet: parsed.opet != null && fuelNumber(previous.opet) != null && parsed.opet !== fuelNumber(previous.opet) ? previous.opet : previous.previousOpet ?? previous.opet ?? null,
           status: "ok",
@@ -20978,18 +21016,18 @@
         fuelFetchInProgress = false;
         saveState();
         appendAudit("Yakıt", "Motorin fiyatları güncellendi", `${fuelRegionLabel(cfg.region)} · Shell ${fuelPriceText(parsed.shell)} · OPET ${fuelPriceText(parsed.opet)}`);
-        if (!options.silent) showToast("Motorin fiyatları güncellendi.");
+        if (!options.silent) showToast("Shell ve OPET motorin fiyatları güncellendi.");
         scheduleFuelRefresh();
         return true;
       } catch (error) {
         console.error("Yakıt fiyatı alınamadı:", error);
         const cache = cfg.cache || {};
         cache.status = "error";
-        cache.message = `Canlı fiyat alınamadı: ${error.message || "bağlantı hatası"}`;
+        cache.message = `GitHub fiyat dosyası okunamadı: ${error.message || "bağlantı hatası"}. Son geçerli fiyat korunuyor.`;
         state.settings.fuelPriceCache = cache;
         fuelFetchInProgress = false;
         saveState();
-        if (!options.silent) showToast("Canlı motorin fiyatı alınamadı. Son kayıt korunuyor.");
+        if (!options.silent) showToast("Canlı motorin fiyatı alınamadı. Bağlantıyı kontrol edin; son kayıt korundu.");
         scheduleFuelRefresh();
         return false;
       }
@@ -21043,9 +21081,9 @@
       state.settings.fuelRegion = $("#fuelRegion")?.value || "istanbul-avrupa";
       state.settings.fuelAutoRefresh = $("#fuelAutoRefresh")?.value !== "false";
       state.settings.fuelRefreshMinutes = Math.max(30, Number($("#fuelRefreshMinutes")?.value || 60));
-      const selectedMode = $("#fuelDataMode")?.value || "html";
-      state.settings.fuelDataMode = ["html", "endpoint", "manual"].includes(selectedMode) ? selectedMode : "html";
-      state.settings.fuelLiveEndpoint = String($("#fuelLiveEndpoint")?.value || "").trim();
+      const selectedMode = $("#fuelDataMode")?.value || "endpoint";
+      state.settings.fuelDataMode = selectedMode === "manual" ? "manual" : "endpoint";
+      state.settings.fuelLiveEndpoint = String($("#fuelLiveEndpoint")?.value || DEFAULT_FUEL_ENDPOINT).trim() || DEFAULT_FUEL_ENDPOINT;
       state.settings.fuelShellManualPrice = fuelNumber($("#fuelShellManualPrice")?.value) || 0;
       state.settings.fuelOpetManualPrice = fuelNumber($("#fuelOpetManualPrice")?.value) || 0;
       saveState();
@@ -21069,8 +21107,8 @@
     }
 
     function bindFuelPriceEvents() {
-      $("#refreshFuelOfficialHtmlBtn")?.addEventListener("click", () => refreshFuelPricesFromOfficialHtml());
-      $("#refreshFuelOfficialHtmlSettingsBtn")?.addEventListener("click", () => refreshFuelPricesFromOfficialHtml());
+      $("#refreshFuelOfficialHtmlBtn")?.addEventListener("click", () => refreshFuelPrices());
+      $("#refreshFuelOfficialHtmlSettingsBtn")?.addEventListener("click", () => refreshFuelPrices());
       $("#refreshFuelPricesBtn")?.addEventListener("click", () => refreshFuelPrices());
       $("#testFuelConnectionBtn")?.addEventListener("click", () => refreshFuelPrices());
       $("#saveFuelSettingsBtn")?.addEventListener("click", saveFuelSettings);
@@ -21086,11 +21124,14 @@
     }
 
     function initFuelPriceTracking() {
+      migrateFuelSourceSettings();
       renderFuelPricePanel();
       scheduleFuelRefresh();
       const cfg = fuelSettings();
-      if (cfg.autoRefresh && cfg.dataMode !== "manual" && fuelCacheAgeMinutes(cfg.cache) >= cfg.refreshMinutes) {
-        window.setTimeout(() => refreshFuelPrices({ silent: true }), 1800);
+      const missingPrice = fuelNumber(cfg.cache?.shell) == null || fuelNumber(cfg.cache?.opet) == null;
+      const needsRefresh = cfg.cache?.status === "error" || missingPrice || fuelCacheAgeMinutes(cfg.cache) >= cfg.refreshMinutes;
+      if (cfg.autoRefresh && cfg.dataMode !== "manual" && needsRefresh) {
+        window.setTimeout(() => refreshFuelPrices({ silent: true }), 900);
       }
     }
 
@@ -21157,16 +21198,25 @@
     }
 
     async function refreshOfflineCache() {
+      if (!pwaRegistration && "serviceWorker" in navigator && location.protocol !== "file:") {
+        try {
+          pwaRegistration = await navigator.serviceWorker.getRegistration("./") || await navigator.serviceWorker.register("./sw.js", { scope: "./" });
+          await navigator.serviceWorker.ready;
+        } catch (error) {
+          console.error("Servis çalışanı hazırlanamadı:", error);
+        }
+      }
       if (!pwaRegistration) {
         setPwaStatus(location.protocol === "file:"
           ? "Yerel HTML dosyası zaten bağlantısız çalışır. Gerçek PWA önbelleği için paketi HTTPS veya localhost üzerinden aç."
-          : "Servis çalışanı henüz hazır değil.", "risk");
+          : "Servis çalışanı hazırlanamadı. Sayfayı yenileyip tekrar deneyin.", "risk");
         return;
       }
       try {
         await pwaRegistration.update();
-        pwaRegistration.active?.postMessage({ type: "REFRESH_CACHE" });
-        setPwaStatus("Çevrimdışı uygulama dosyaları güncelleme denetimine alındı.", "ready");
+        const worker = pwaRegistration.waiting || pwaRegistration.active || pwaRegistration.installing;
+        worker?.postMessage({ type: "REFRESH_CACHE" });
+        setPwaStatus("Çevrimdışı dosyalar yenilendi. Uygulamayı kapatıp yeniden açın.", "ready");
         appendAudit("Yedek", "Çevrimdışı önbellek güncellendi", `Uygulama v${APP_VERSION}`);
       } catch (error) {
         console.error("PWA önbelleği güncellenemedi:", error);
@@ -21208,8 +21258,7 @@
     async function initPwa() {
       updateThemeChoiceState();
       updateInstallButton();
-
-      if (isStandaloneMode()) return;
+      const standalone = isStandaloneMode();
 
       if (location.protocol === "file:") {
         setPwaBadge("Yerel Dosya");
@@ -21226,8 +21275,10 @@
       try {
         pwaRegistration = await navigator.serviceWorker.register("./sw.js", { scope: "./" });
         await navigator.serviceWorker.ready;
-        setPwaBadge("Çevrimdışı Hazır", true);
-        setPwaStatus("Çevrimdışı uygulama dosyaları hazır. Tarayıcı kurulum izni verdiğinde Kur butonu etkinleşecek.", "ready");
+        setPwaBadge(standalone ? "Kurulu" : "Çevrimdışı Hazır", true);
+        setPwaStatus(standalone
+          ? "Uygulama kurulu ve çevrimdışı dosyalar hazır."
+          : "Çevrimdışı uygulama dosyaları hazır. Tarayıcı kurulum izni verdiğinde Kur butonu etkinleşecek.", "ready");
         updateInstallButton();
       } catch (error) {
         console.error("Service worker kaydedilemedi:", error);
