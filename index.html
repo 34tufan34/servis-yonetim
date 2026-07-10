@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.25.1</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.26.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -4474,7 +4474,7 @@
 
     .payment-entry-card {
       display: grid;
-      grid-template-columns: minmax(210px, 1.25fr) 140px 130px 145px 160px minmax(180px, 1fr) auto;
+      grid-template-columns: repeat(4, minmax(165px, 1fr));
       gap: 9px;
       align-items: end;
       padding: 12px;
@@ -4486,8 +4486,33 @@
         rgba(255,255,255,.028);
     }
 
+    .school-payment-invoice-box {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(145px, 1fr));
+      gap: 9px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(74, 222, 128, .24);
+      background: rgba(74, 222, 128, .055);
+    }
+
+    .school-payment-invoice-box.hidden {
+      display: none;
+    }
+
+    .school-payment-mode-note {
+      grid-column: 1 / -1;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.4;
+      padding: 0 2px;
+    }
+
     .payment-entry-actions {
+      grid-column: 1 / -1;
       display: flex;
+      justify-content: flex-end;
       align-items: end;
       gap: 7px;
     }
@@ -4498,7 +4523,7 @@
 
     .payment-summary {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
       gap: 8px;
       margin-bottom: 9px;
     }
@@ -4590,14 +4615,19 @@
         grid-template-columns: repeat(4, minmax(150px, 1fr));
       }
 
+      .school-payment-invoice-box {
+        grid-template-columns: repeat(3, minmax(145px, 1fr));
+      }
+
       .payment-entry-actions {
-        grid-column: span 2;
+        grid-column: 1 / -1;
       }
     }
 
     @media (max-width: 900px) {
       .payment-filter-controls,
-      .payment-entry-card {
+      .payment-entry-card,
+      .school-payment-invoice-box {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -4613,6 +4643,7 @@
     @media (max-width: 620px) {
       .payment-filter-controls,
       .payment-entry-card,
+      .school-payment-invoice-box,
       .payment-summary {
         grid-template-columns: 1fr;
       }
@@ -7977,6 +8008,111 @@
       .fuel-settings-grid .wide { grid-column: auto; }
     }
 
+  
+    /* v4.26.0 - Araç KM analizi ve cihaz içi evrak arşivi */
+    .vehicle-expense-fuel-fields {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(245, 158, 11, .26);
+      background: rgba(245, 158, 11, .055);
+    }
+    .vehicle-expense-fuel-fields.active { display: grid; }
+
+    .vehicle-km-layout,
+    .document-archive-layout {
+      display: grid;
+      grid-template-columns: minmax(330px, 390px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .vehicle-km-form-panel,
+    .vehicle-km-list-panel,
+    .document-upload-panel,
+    .document-list-panel {
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(var(--accent-rgb), .09), transparent 34%),
+        rgba(255,255,255,.025);
+      min-width: 0;
+    }
+
+    .vehicle-km-form,
+    .document-upload-form { display: grid; gap: 10px; }
+
+    .vehicle-km-summary,
+    .document-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .vehicle-km-table-host .table-wrap,
+    .document-table-host .table-wrap {
+      max-height: 64vh;
+      overflow: auto;
+      border-radius: 16px;
+    }
+
+    .vehicle-km-table-host table { min-width: 1550px; }
+    .document-table-host table { min-width: 1250px; }
+    .vehicle-km-profit { font-weight: 900; color: var(--success); }
+    .vehicle-km-loss { font-weight: 900; color: var(--danger); }
+    .vehicle-km-source { color: var(--muted); font-size: 10px; line-height: 1.35; }
+
+    .document-file-note {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(var(--accent-rgb), .36);
+      background: rgba(var(--accent-rgb), .055);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .document-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .document-type-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 30px;
+      padding: 5px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      background: rgba(var(--accent-rgb), .08);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .05em;
+    }
+    .document-file-name {
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .document-expiry-danger { color: var(--danger); font-weight: 850; }
+    .document-expiry-warning { color: var(--warning); font-weight: 850; }
+    .document-expiry-ok { color: var(--success); font-weight: 850; }
+
+    @media (max-width: 1180px) {
+      .vehicle-km-layout,
+      .document-archive-layout { grid-template-columns: 1fr; }
+      .vehicle-km-table-host .table-wrap,
+      .document-table-host .table-wrap { max-height: none; }
+    }
+    @media (max-width: 720px) {
+      .vehicle-expense-fuel-fields { grid-template-columns: 1fr; }
+      .vehicle-km-summary,
+      .document-summary { grid-template-columns: 1fr 1fr; }
+    }
+
   </style>
 </head>
 
@@ -8025,7 +8161,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.25.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.26.0</div>
         </div>
       </div>
 
@@ -8890,6 +9026,8 @@
           <div class="vehicle-module-tabs" id="vehicleModuleTabs">
             <button class="vehicle-module-tab active" type="button" data-vehicle-subtab="cards">Araç Kartları</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="maintenance">Bakım Geçmişi</button>
+            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="km">KM Analizi</button>
+            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="files">Evrak Dosyaları</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="alerts">Evrak / Uyarılar</button>
           </div>
 
@@ -9012,6 +9150,103 @@
               <div class="vehicle-alert-list" id="vehicleAlertList"></div>
             </section>
           </div>
+
+          <div class="vehicle-sub-screen" id="vehicle-sub-km">
+            <div class="vehicle-km-layout">
+              <section class="vehicle-km-form-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Aylık Kilometre Kaydı</h2>
+                    <div class="panel-sub">Dönem başlangıç ve bitiş kilometresi, gerçek KM başı yakıt ve kârlılık hesabının temelidir.</div>
+                  </div>
+                </div>
+                <form class="vehicle-km-form" id="vehicleKmRecordForm">
+                  <input type="hidden" id="vehicleKmRecordId" />
+                  <div class="field"><label for="vehicleKmVehicle">Araç *</label><select id="vehicleKmVehicle" required></select></div>
+                  <div class="field"><label for="vehicleKmRecordMonth">Dönem *</label><input id="vehicleKmRecordMonth" type="month" required /></div>
+                  <div class="two">
+                    <div class="field"><label for="vehicleKmStart">Başlangıç KM *</label><input id="vehicleKmStart" type="number" min="0" step="1" placeholder="Örn. 184000" required /></div>
+                    <div class="field"><label for="vehicleKmEnd">Bitiş KM *</label><input id="vehicleKmEnd" type="number" min="0" step="1" placeholder="Örn. 186450" required /></div>
+                  </div>
+                  <div class="field"><label for="vehicleKmNote">Not</label><textarea id="vehicleKmNote" placeholder="Sayaç fotoğrafı, dönem açıklaması veya özel not..."></textarea></div>
+                  <div class="document-file-note">Yakıt tüketiminin hesaplanması için Finans → Araç Giderleri → Yakıt kaydında litre bilgisini de girin.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" type="submit">KM Kaydını Kaydet</button>
+                    <button class="btn" id="clearVehicleKmBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="vehicle-km-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">KM Başına Maliyet ve Kârlılık</h2>
+                    <div class="panel-sub">Yakıt tüketimi, yakıt maliyeti, toplam maliyet, gelir ve net kâr/zarar kilometre başına hesaplanır.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <input id="vehicleKmMonth" type="month" />
+                  <select id="vehicleKmVehicleFilter"></select>
+                </div>
+                <div class="vehicle-km-summary" id="vehicleKmSummary"></div>
+                <div class="vehicle-km-table-host" id="vehicleKmTableHost"></div>
+              </section>
+            </div>
+          </div>
+
+          <div class="vehicle-sub-screen" id="vehicle-sub-files">
+            <div class="document-archive-layout">
+              <section class="document-upload-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Evrak Dosyası Kaydet</h2>
+                    <div class="panel-sub">Resim veya PDF dosyasını cihazda sakla; paylaş butonuyla WhatsApp dahil sistem paylaşım menüsünü aç.</div>
+                  </div>
+                </div>
+                <form class="document-upload-form" id="vehicleDocumentFileForm">
+                  <div class="field"><label for="documentTitle">Evrak Başlığı *</label><input id="documentTitle" placeholder="Örn. 2026 Trafik Sigortası Poliçesi" required /></div>
+                  <div class="two">
+                    <div class="field">
+                      <label for="documentCategory">Evrak Türü</label>
+                      <select id="documentCategory">
+                        <option value="Ruhsat">Ruhsat</option><option value="Muayene">Muayene</option><option value="Trafik Sigortası">Trafik Sigortası</option><option value="Kasko">Kasko</option><option value="Yetki Belgesi">Yetki Belgesi</option><option value="Sözleşme">Sözleşme</option><option value="Fatura">Fatura</option><option value="Okul Evrakı">Okul Evrakı</option><option value="Personel Evrakı">Personel Evrakı</option><option value="Diğer">Diğer</option>
+                      </select>
+                    </div>
+                    <div class="field"><label for="documentVehicle">Bağlı Araç</label><select id="documentVehicle"></select></div>
+                  </div>
+                  <div class="two">
+                    <div class="field"><label for="documentExpiryDate">Geçerlilik / Bitiş Tarihi</label><input id="documentExpiryDate" type="date" /></div>
+                    <div class="field"><label for="documentFile">Dosya *</label><input id="documentFile" type="file" accept="image/*,application/pdf,.pdf" required /></div>
+                  </div>
+                  <div class="field"><label for="documentNote">Açıklama</label><textarea id="documentNote" placeholder="Poliçe no, açıklama, ilgili kişi veya paylaşım notu..."></textarea></div>
+                  <div class="document-file-note">Dosyalar cihazın tarayıcı deposunda saklanır. En fazla 15 MB resim veya PDF yüklenebilir. JSON yedeği evrak listesini içerir ancak dosyanın kendisini içermez.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" type="submit">Evrakı Kaydet</button>
+                    <button class="btn" id="clearDocumentFileBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="document-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Evrak Dosyaları</h2>
+                    <div class="panel-sub">Dosyayı aç, indir veya cihaz paylaşım menüsünden WhatsApp ile gönder.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <select id="documentCategoryFilter">
+                    <option value="Tümü">Tür: Tümü</option><option value="Ruhsat">Ruhsat</option><option value="Muayene">Muayene</option><option value="Trafik Sigortası">Trafik Sigortası</option><option value="Kasko">Kasko</option><option value="Yetki Belgesi">Yetki Belgesi</option><option value="Sözleşme">Sözleşme</option><option value="Fatura">Fatura</option><option value="Okul Evrakı">Okul Evrakı</option><option value="Personel Evrakı">Personel Evrakı</option><option value="Diğer">Diğer</option>
+                  </select>
+                  <select id="documentVehicleFilter"></select>
+                  <input id="documentSearch" placeholder="Başlık, dosya adı, araç, tür veya not ara..." />
+                </div>
+                <div class="document-summary" id="documentSummary"></div>
+                <div class="document-table-host" id="documentTableHost"></div>
+              </section>
+            </div>
+          </div>
+
         </div>
 
         <div class="tab-screen hidden" id="tab-trips">
@@ -9597,8 +9832,8 @@
           <div class="card panel payment-panel">
             <div class="panel-header">
               <div>
-                <h2 class="panel-title">Öğrenci Tahsilat Takibi</h2>
-                <div class="panel-sub">Ay bazında beklenen ücret, yapılan ödemeler, eksik tahsilat ve veli borç durumunu izle.</div>
+                <h2 class="panel-title">Öğrenci Fatura ve Tahsilat Takibi</h2>
+                <div class="panel-sub">Her öğrenci ve ay için faturalı veya faturasız çalışma türünü seç; KDV, tahsilat ve kalan alacağı ayrı izle.</div>
               </div>
             </div>
 
@@ -9623,6 +9858,14 @@
                 </select>
               </div>
               <div class="field">
+                <label for="schoolPaymentBillingFilter">Fatura Türü</label>
+                <select id="schoolPaymentBillingFilter">
+                  <option value="Tümü">Tür: Tümü</option>
+                  <option value="invoiced">Faturalı</option>
+                  <option value="unbilled">Faturasız</option>
+                </select>
+              </div>
+              <div class="field">
                 <label for="schoolPaymentSearch">Ara</label>
                 <input id="schoolPaymentSearch" placeholder="Öğrenci, veli, telefon, okul veya sınıf ara..." />
               </div>
@@ -9634,15 +9877,46 @@
                 <select id="schoolPaymentStudent"></select>
               </div>
               <div class="field">
-                <label for="schoolPaymentExpected">Aylık Ücret</label>
+                <label for="schoolPaymentExpected">Aylık Hizmet Ücreti (KDV Hariç)</label>
                 <input id="schoolPaymentExpected" disabled />
               </div>
               <div class="field">
-                <label for="schoolPaymentAmount">Ödenen Tutar</label>
-                <input id="schoolPaymentAmount" type="number" min="0.01" step="0.01" placeholder="0" />
+                <label for="schoolPaymentBillingMode">Tahsilat Türü</label>
+                <select id="schoolPaymentBillingMode">
+                  <option value="unbilled">Faturasız Tahsilat</option>
+                  <option value="invoiced">Faturalı Tahsilat</option>
+                </select>
               </div>
               <div class="field">
-                <label for="schoolPaymentDate">Ödeme Tarihi</label>
+                <label id="schoolPaymentAmountLabel" for="schoolPaymentAmount">Tahsil Edilen Tutar</label>
+                <input id="schoolPaymentAmount" type="number" min="0" step="0.01" placeholder="0" />
+              </div>
+
+              <div class="school-payment-invoice-box hidden" id="schoolPaymentInvoiceBox">
+                <div class="field">
+                  <label for="schoolPaymentVatRate">KDV Oranı (%)</label>
+                  <input id="schoolPaymentVatRate" type="number" min="0" max="100" step="0.01" value="10" />
+                </div>
+                <div class="field">
+                  <label for="schoolPaymentVatAmount">Hesaplanan KDV</label>
+                  <input id="schoolPaymentVatAmount" value="₺0" disabled />
+                </div>
+                <div class="field">
+                  <label for="schoolPaymentGrossAmount">KDV Dahil Tahsilat Hedefi</label>
+                  <input id="schoolPaymentGrossAmount" value="₺0" disabled />
+                </div>
+                <div class="field">
+                  <label for="schoolPaymentInvoiceNo">Fatura Numarası</label>
+                  <input id="schoolPaymentInvoiceNo" placeholder="Fatura no" />
+                </div>
+                <div class="field">
+                  <label for="schoolPaymentInvoiceDate">Fatura Tarihi</label>
+                  <input id="schoolPaymentInvoiceDate" type="date" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="schoolPaymentDate">Tahsilat Tarihi</label>
                 <input id="schoolPaymentDate" type="date" />
               </div>
               <div class="field">
@@ -9656,10 +9930,11 @@
               </div>
               <div class="field">
                 <label for="schoolPaymentNote">Not</label>
-                <input id="schoolPaymentNote" placeholder="Açıklama veya ödeme notu" />
+                <input id="schoolPaymentNote" placeholder="Açıklama, ödeme veya fatura notu" />
               </div>
+              <div class="school-payment-mode-note" id="schoolPaymentModeNote">Faturasız tahsilatta KDV eklenmez. Faturalı tahsilatta aylık ücrete varsayılan %10 KDV eklenir.</div>
               <div class="payment-entry-actions">
-                <button class="btn primary" id="saveSchoolPaymentBtn" type="button">Ödeme Ekle</button>
+                <button class="btn primary" id="saveSchoolPaymentBtn" type="button">Faturasız Tahsilat Ekle</button>
               </div>
             </div>
 
@@ -9842,6 +10117,12 @@
                       <label for="vehicleExpenseAmount">Tutar (₺) *</label>
                       <input id="vehicleExpenseAmount" type="number" min="0.01" step="0.01" placeholder="0" required />
                     </div>
+                  </div>
+
+
+                  <div class="vehicle-expense-fuel-fields" id="vehicleExpenseFuelFields">
+                    <div class="field"><label for="vehicleExpenseFuelLiters">Alınan Yakıt (Litre) *</label><input id="vehicleExpenseFuelLiters" type="number" min="0.01" step="0.01" placeholder="Örn. 62.40" /></div>
+                    <div class="field"><label for="vehicleExpenseFuelUnitPrice">Litre Fiyatı</label><input id="vehicleExpenseFuelUnitPrice" value="₺0" disabled /></div>
                   </div>
 
                   <div class="two">
@@ -10135,20 +10416,38 @@
 
                 <div class="two">
                   <div class="field">
-                    <label for="financeInvoiceAmount">Fatura Tutarı</label>
+                    <label for="financeInvoiceAmount">KDV Hariç Tutar (Matrah)</label>
                     <input id="financeInvoiceAmount" type="number" min="0" step="0.01" placeholder="0" />
                   </div>
                   <div class="field">
-                    <label for="financeDueDate">Son Ödeme Tarihi</label>
-                    <input id="financeDueDate" type="date" />
+                    <label for="financeVatRate">KDV Oranı (%)</label>
+                    <input id="financeVatRate" type="number" min="0" max="100" step="0.01" value="10" />
                   </div>
                 </div>
+
+                <div class="two">
+                  <div class="field">
+                    <label for="financeVatAmount">Hesaplanan KDV</label>
+                    <input id="financeVatAmount" value="₺0" disabled />
+                  </div>
+                  <div class="field">
+                    <label for="financeInvoiceGrossAmount">KDV Dahil Fatura Toplamı</label>
+                    <input id="financeInvoiceGrossAmount" value="₺0" disabled />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="financeDueDate">Son Ödeme Tarihi</label>
+                  <input id="financeDueDate" type="date" />
+                </div>
+
+                <div class="field-mini-note">KDV, tahsilat ve kasa girişine eklenir; işletme geliri ve kârlılık hesabına eklenmez.</div>
 
                 <div class="form-section-title">Tahsilat</div>
 
                 <div class="two">
                   <div class="field">
-                    <label for="financeCollectedAmount">Tahsil Edilen</label>
+                    <label for="financeCollectedAmount">Tahsil Edilen (KDV Dahil)</label>
                     <input id="financeCollectedAmount" type="number" min="0" step="0.01" placeholder="0" />
                   </div>
                   <div class="field">
@@ -10415,6 +10714,14 @@
                   <option value="Ödenmedi">Ödenmedi</option>
                   <option value="Fazla">Fazla</option>
                   <option value="Ücret Yok">Ücret Yok</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="financeSchoolBilling">Fatura Türü</label>
+                <select id="financeSchoolBilling">
+                  <option value="Tümü">Tür: Tümü</option>
+                  <option value="invoiced">Faturalı</option>
+                  <option value="unbilled">Faturasız</option>
                 </select>
               </div>
               <div class="field">
@@ -10892,7 +11199,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.25.1</strong>
+                <strong>v4.26.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -10921,10 +11228,19 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.25.1";
-    const SCHEMA_VERSION = 24;
+    const APP_VERSION = "4.26.0";
+    const SCHEMA_VERSION = 27;
+    const DEFAULT_FINANCE_VAT_RATE = 10;
+    const SCHOOL_BILLING_MODE_LABELS = {
+      invoiced: "Faturalı",
+      unbilled: "Faturasız"
+    };
     const LOCAL_BACKUP_KEY = "SYS_V1_LOCAL_BACKUPS";
     const LOCAL_BACKUP_META_KEY = "SYS_V1_LOCAL_BACKUP_META";
+    const DOCUMENT_DB_NAME = "SYS_DOCUMENT_FILES_V1";
+    const DOCUMENT_DB_VERSION = 1;
+    const DOCUMENT_STORE_NAME = "files";
+    const DOCUMENT_MAX_FILE_SIZE = 15 * 1024 * 1024;
 
     const defaultState = () => ({
       appVersion: APP_VERSION,
@@ -10936,6 +11252,8 @@
       financeRecords: [],
       vehicleExpenses: [],
       vehicleMaintenance: [],
+      vehicleKmRecords: [],
+      documents: [],
       staffPayments: [],
       users: [],
       auditLogs: [],
@@ -10971,6 +11289,7 @@
         fuelShellManualPrice: 0,
         fuelOpetManualPrice: 0,
         schoolWhatsappAutoOpen: true,
+        financeDefaultVatRate: 10,
         fuelPriceCache: {
           region: "istanbul-avrupa",
           updatedAt: null,
@@ -11075,6 +11394,8 @@
           financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
           vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
           vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+          vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
+          documents: Array.isArray(parsed.documents) ? parsed.documents : [],
           staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
           users: Array.isArray(parsed.users) ? parsed.users : [],
           auditLogs: Array.isArray(parsed.auditLogs) ? parsed.auditLogs : [],
@@ -13380,13 +13701,356 @@
     }
 
 
+
+    function vehicleKmRecordFor(vehicleId, month) {
+      return state.vehicleKmRecords.find((record) => record.vehicleId === vehicleId && record.month === month) || null;
+    }
+
+    function vehicleKmDistanceInfo(vehicleId, month = getFinanceMonth()) {
+      const manual = vehicleKmRecordFor(vehicleId, month);
+      const startKm = Number(manual?.startKm || 0);
+      const endKm = Number(manual?.endKm || 0);
+      if (manual && endKm > startKm) {
+        return { distance: endKm - startKm, startKm, endKm, source: "Aylık sayaç kaydı", manual: true, recordId: manual.id };
+      }
+      const readings = [];
+      state.vehicleExpenses.forEach((expense) => {
+        if (expense.vehicleId === vehicleId && String(expense.date || "").startsWith(month) && Number(expense.km || 0) > 0) readings.push(Number(expense.km));
+      });
+      state.vehicleMaintenance.forEach((record) => {
+        if (record.vehicleId === vehicleId && String(record.date || "").startsWith(month) && Number(record.km || 0) > 0) readings.push(Number(record.km));
+      });
+      const unique = [...new Set(readings)].sort((a, b) => a - b);
+      if (unique.length >= 2) {
+        const distance = unique[unique.length - 1] - unique[0];
+        if (distance > 0) return { distance, startKm: unique[0], endKm: unique[unique.length - 1], source: "Gider / bakım KM okumaları", manual: false, recordId: "" };
+      }
+      return { distance: 0, startKm: 0, endKm: 0, source: "KM kaydı yetersiz", manual: false, recordId: "" };
+    }
+
+    function profitabilityVehicleKm(vehicleId, month = getFinanceMonth()) {
+      const info = vehicleKmDistanceInfo(vehicleId, month);
+      return info.distance > 0 ? info.distance : null;
+    }
+
+    function vehicleExpenseFuelLiters(expense) {
+      const direct = Number(expense?.fuelLiters || 0);
+      if (direct > 0) return direct;
+      const note = String(expense?.note || "").replace(",", ".");
+      const match = note.match(/(\d+(?:\.\d+)?)\s*(?:lt|l|litre|liter)\b/i);
+      return match ? Number(match[1] || 0) : 0;
+    }
+
+    function updateVehicleExpenseFuelPreview() {
+      const isFuel = $("#vehicleExpenseType")?.value === "Yakıt";
+      $("#vehicleExpenseFuelFields")?.classList.toggle("active", isFuel);
+      const amount = Math.max(0, Number($("#vehicleExpenseAmount")?.value || 0));
+      const liters = Math.max(0, Number($("#vehicleExpenseFuelLiters")?.value || 0));
+      if ($("#vehicleExpenseFuelUnitPrice")) $("#vehicleExpenseFuelUnitPrice").value = formatTRY(liters > 0 ? amount / liters : 0);
+      if (!isFuel && $("#vehicleExpenseFuelLiters")) $("#vehicleExpenseFuelLiters").value = "";
+    }
+
+    function renderVehicleKmOptions() {
+      const vehicles = [...state.vehicles].sort((a, b) => String(a.plate || "").localeCompare(String(b.plate || ""), "tr-TR"));
+      const formSelect = $("#vehicleKmVehicle");
+      const filterSelect = $("#vehicleKmVehicleFilter");
+      if (formSelect) {
+        const selected = formSelect.value || "";
+        formSelect.innerHTML = ['<option value="">Araç seçin</option>'].concat(vehicles.map((v) => `<option value="${escapeHtml(v.id)}">${escapeHtml(v.plate || "Plakasız")} · ${escapeHtml(v.driverName || "Şoför yok")}</option>`)).join("");
+        formSelect.value = [...formSelect.options].some((o) => o.value === selected) ? selected : "";
+      }
+      if (filterSelect) {
+        const selected = filterSelect.value || "Tümü";
+        filterSelect.innerHTML = ['<option value="Tümü">Araç: Tümü</option>'].concat(vehicles.map((v) => `<option value="${escapeHtml(v.id)}">${escapeHtml(v.plate || "Plakasız")}</option>`)).join("");
+        filterSelect.value = [...filterSelect.options].some((o) => o.value === selected) ? selected : "Tümü";
+      }
+      if ($("#vehicleKmMonth") && !$("#vehicleKmMonth").value) $("#vehicleKmMonth").value = getFinanceMonth();
+      if ($("#vehicleKmRecordMonth") && !$("#vehicleKmRecordMonth").value) $("#vehicleKmRecordMonth").value = $("#vehicleKmMonth")?.value || getFinanceMonth();
+    }
+
+    function clearVehicleKmForm() {
+      $("#vehicleKmRecordForm")?.reset();
+      if ($("#vehicleKmRecordId")) $("#vehicleKmRecordId").value = "";
+      renderVehicleKmOptions();
+      if ($("#vehicleKmRecordMonth")) $("#vehicleKmRecordMonth").value = $("#vehicleKmMonth")?.value || getFinanceMonth();
+    }
+
+    function saveVehicleKmRecord(event) {
+      event.preventDefault();
+      const vehicleId = $("#vehicleKmVehicle")?.value || "";
+      const month = $("#vehicleKmRecordMonth")?.value || "";
+      const startKm = Number($("#vehicleKmStart")?.value || 0);
+      const endKm = Number($("#vehicleKmEnd")?.value || 0);
+      if (!vehicleId || !month || startKm < 0 || endKm <= startKm) {
+        showToast("Araç, dönem ve başlangıçtan büyük bitiş kilometresi zorunlu.");
+        return;
+      }
+      const existing = vehicleKmRecordFor(vehicleId, month);
+      const id = $("#vehicleKmRecordId")?.value || existing?.id || uid("vehicleKm");
+      const record = { id, vehicleId, month, startKm, endKm, distanceKm: endKm - startKm, note: $("#vehicleKmNote")?.value.trim() || "", createdAt: existing?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
+      const index = state.vehicleKmRecords.findIndex((item) => item.id === id);
+      if (index >= 0) state.vehicleKmRecords[index] = record; else state.vehicleKmRecords.push(record);
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId);
+      if (vehicle) vehicle.currentKm = Math.max(Number(vehicle.currentKm || 0), endKm);
+      saveState();
+      clearVehicleKmForm();
+      showToast(`${vehicle?.plate || "Araç"} için ${record.distanceKm.toLocaleString("tr-TR")} km kaydedildi.`);
+    }
+
+    function editVehicleKmRecord(id) {
+      const record = state.vehicleKmRecords.find((item) => item.id === id);
+      if (!record) return;
+      activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km"); renderVehicleKmOptions();
+      $("#vehicleKmRecordId").value = record.id;
+      $("#vehicleKmVehicle").value = record.vehicleId || "";
+      $("#vehicleKmRecordMonth").value = record.month || getFinanceMonth();
+      $("#vehicleKmStart").value = record.startKm || "";
+      $("#vehicleKmEnd").value = record.endKm || "";
+      $("#vehicleKmNote").value = record.note || "";
+      scrollContentTop();
+    }
+
+    function deleteVehicleKmRecord(id) {
+      if (!state.vehicleKmRecords.some((item) => item.id === id)) return;
+      if (!confirm("Bu aylık kilometre kaydı silinsin mi?")) return;
+      state.vehicleKmRecords = state.vehicleKmRecords.filter((item) => item.id !== id);
+      saveState(); clearVehicleKmForm(); showToast("Kilometre kaydı silindi.");
+    }
+
+    function renderVehicleKmAnalysis() {
+      const summary = $("#vehicleKmSummary"), host = $("#vehicleKmTableHost");
+      if (!summary || !host) return;
+      renderVehicleKmOptions();
+      const month = $("#vehicleKmMonth")?.value || getFinanceMonth();
+      const filter = $("#vehicleKmVehicleFilter")?.value || "Tümü";
+      const rows = profitabilityVehicleRows(month).filter((row) => filter === "Tümü" || row.id === filter);
+      const distance = rows.reduce((s,r)=>s+Number(r.estimatedKm||0),0);
+      const liters = rows.reduce((s,r)=>s+Number(r.fuelLiters||0),0);
+      const fuelCost = rows.reduce((s,r)=>s+Number(r.fuelCost||0),0);
+      const revenue = rows.reduce((s,r)=>s+Number(r.revenue||0),0);
+      const cost = rows.reduce((s,r)=>s+Number(r.totalCost||0),0);
+      const net = rows.reduce((s,r)=>s+Number(r.net||0),0);
+      const consumption = distance > 0 && liters > 0 ? liters / distance * 100 : null;
+      const fuelKm = distance > 0 ? fuelCost / distance : null;
+      const costKm = distance > 0 ? cost / distance : null;
+      const revenueKm = distance > 0 ? revenue / distance : null;
+      const netKm = distance > 0 ? net / distance : null;
+      summary.innerHTML = [
+        {label:"Toplam Mesafe",value:distance>0?`${distance.toLocaleString("tr-TR")} km`:"-",risk:distance<=0,note:distance>0?"Sayaç / KM okumaları":"Başlangıç ve bitiş KM girin"},
+        {label:"Yakıt Tüketimi",value:consumption===null?"-":`${consumption.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`,risk:false},
+        {label:"Yakıt Maliyeti / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false},
+        {label:"Toplam Maliyet / KM",value:costKm===null?"-":`${formatTRY(costKm)} / km`,risk:false},
+        {label:"Gelir / KM",value:revenueKm===null?"-":`${formatTRY(revenueKm)} / km`,risk:false},
+        {label:netKm===null?"KM Sonucu":netKm>=0?"KM Başına Kâr":"KM Başına Zarar",value:netKm===null?"-":`${formatTRY(Math.abs(netKm))} / km`,risk:netKm!==null&&netKm<0,note:netKm===null?"KM verisi yetersiz":netKm>=0?"Gelir maliyetin üzerinde":"Maliyet gelirin üzerinde"}
+      ].map(financeSummaryChipHtml).join("");
+      if (!rows.length) { host.innerHTML='<div class="empty">Seçilen araç ve dönem için analiz kaydı yok.</div>'; return; }
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt</th><th>Tüketim</th><th>Yakıt ₺/KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
+        const info=row.kmInfo||vehicleKmDistanceInfo(row.id,month);
+        const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
+        const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</strong><br><span class="muted">${escapeHtml(formatTRY(row.fuelCost||0))}</span></td><td>${row.fuelConsumptionPer100===null?"-":`<strong>${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2}))} L/100 km</strong>`}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
+      }).join("")}</tbody></table></div>`;
+    }
+
+    function openDocumentDb() {
+      return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) return reject(new Error("Tarayıcı dosya depolamayı desteklemiyor."));
+        const request = indexedDB.open(DOCUMENT_DB_NAME, DOCUMENT_DB_VERSION);
+        request.onupgradeneeded = () => {
+          const db=request.result;
+          if (!db.objectStoreNames.contains(DOCUMENT_STORE_NAME)) db.createObjectStore(DOCUMENT_STORE_NAME,{keyPath:"id"});
+        };
+        request.onsuccess=()=>resolve(request.result);
+        request.onerror=()=>reject(request.error||new Error("Evrak veritabanı açılamadı."));
+      });
+    }
+
+    async function putDocumentBlob(id,file) {
+      const db=await openDocumentDb();
+      try {
+        await new Promise((resolve,reject)=>{
+          const tx=db.transaction(DOCUMENT_STORE_NAME,"readwrite");
+          tx.objectStore(DOCUMENT_STORE_NAME).put({id,blob:file,fileName:file.name,mimeType:file.type||"application/octet-stream",size:file.size,updatedAt:new Date().toISOString()});
+          tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error||new Error("Dosya kaydedilemedi.")); tx.onabort=()=>reject(tx.error||new Error("Dosya kaydı iptal edildi."));
+        });
+      } finally { db.close(); }
+    }
+
+    async function getDocumentBlobRecord(id) {
+      const db=await openDocumentDb();
+      try {
+        return await new Promise((resolve,reject)=>{
+          const tx=db.transaction(DOCUMENT_STORE_NAME,"readonly");
+          const request=tx.objectStore(DOCUMENT_STORE_NAME).get(id);
+          request.onsuccess=()=>resolve(request.result||null); request.onerror=()=>reject(request.error||new Error("Dosya okunamadı."));
+        });
+      } finally { db.close(); }
+    }
+
+    async function removeDocumentBlob(id) {
+      const db=await openDocumentDb();
+      try {
+        await new Promise((resolve,reject)=>{
+          const tx=db.transaction(DOCUMENT_STORE_NAME,"readwrite");
+          tx.objectStore(DOCUMENT_STORE_NAME).delete(id);
+          tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error||new Error("Dosya silinemedi."));
+        });
+      } finally { db.close(); }
+    }
+
+    async function clearDocumentBlobStore() {
+      if (!("indexedDB" in window)) return;
+      const db=await openDocumentDb();
+      try {
+        await new Promise((resolve,reject)=>{
+          const tx=db.transaction(DOCUMENT_STORE_NAME,"readwrite");
+          tx.objectStore(DOCUMENT_STORE_NAME).clear();
+          tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error||new Error("Evrak deposu temizlenemedi."));
+        });
+      } finally { db.close(); }
+    }
+
+    function formatDocumentSize(bytes) {
+      const value=Number(bytes||0);
+      if (value<1024) return `${value} B`;
+      if (value<1024*1024) return `${(value/1024).toLocaleString("tr-TR",{maximumFractionDigits:1})} KB`;
+      return `${(value/(1024*1024)).toLocaleString("tr-TR",{maximumFractionDigits:1})} MB`;
+    }
+
+    function documentExpiryInfo(value) {
+      if (!value) return {label:"Süresiz",className:"",days:null};
+      const today=new Date(todayISO()+"T00:00:00"), date=new Date(value+"T00:00:00");
+      if (Number.isNaN(date.getTime())) return {label:"-",className:"",days:null};
+      const days=Math.ceil((date-today)/86400000);
+      if (days<0) return {label:`${Math.abs(days)} gün geçti`,className:"document-expiry-danger",days};
+      if (days<=30) return {label:`${days} gün kaldı`,className:"document-expiry-warning",days};
+      return {label:jobDateText(value),className:"document-expiry-ok",days};
+    }
+
+    function documentMimeLabel(meta) {
+      const mime=String(meta?.mimeType||"").toLowerCase();
+      if (mime==="application/pdf"||String(meta?.fileName||"").toLowerCase().endsWith(".pdf")) return "PDF";
+      if (mime.startsWith("image/")) return "RESİM";
+      return "DOSYA";
+    }
+
+    function renderDocumentArchiveOptions() {
+      const vehicles=[...state.vehicles].sort((a,b)=>String(a.plate||"").localeCompare(String(b.plate||""),"tr-TR"));
+      const form=$("#documentVehicle"), filter=$("#documentVehicleFilter");
+      if (form) {
+        const selected=form.value||"";
+        form.innerHTML=['<option value="">Genel evrak / araç bağlantısı yok</option>'].concat(vehicles.map((v)=>`<option value="${escapeHtml(v.id)}">${escapeHtml(v.plate||"Plakasız")} · ${escapeHtml(v.driverName||"Şoför yok")}</option>`)).join("");
+        form.value=[...form.options].some((o)=>o.value===selected)?selected:"";
+      }
+      if (filter) {
+        const selected=filter.value||"Tümü";
+        filter.innerHTML=['<option value="Tümü">Araç: Tümü</option>','<option value="Genel">Genel Evrak</option>'].concat(vehicles.map((v)=>`<option value="${escapeHtml(v.id)}">${escapeHtml(v.plate||"Plakasız")}</option>`)).join("");
+        filter.value=[...filter.options].some((o)=>o.value===selected)?selected:"Tümü";
+      }
+    }
+
+    function clearDocumentArchiveForm() {
+      $("#vehicleDocumentFileForm")?.reset(); renderDocumentArchiveOptions();
+    }
+
+    async function saveDocumentArchiveFile(event) {
+      event.preventDefault();
+      const file=$("#documentFile")?.files?.[0], title=$("#documentTitle")?.value.trim()||"";
+      if (!title||!file) return showToast("Evrak başlığı ve dosya zorunlu.");
+      const isPdf=file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf");
+      const isImage=String(file.type||"").startsWith("image/");
+      if (!isPdf&&!isImage) return showToast("Yalnızca resim veya PDF dosyası kaydedilebilir.");
+      if (file.size>DOCUMENT_MAX_FILE_SIZE) return showToast("Dosya 15 MB sınırını aşıyor.");
+      const id=uid("document");
+      try {
+        navigator.storage?.persist?.().catch(()=>{});
+        await putDocumentBlob(id,file);
+        state.documents.push({id,title,category:$("#documentCategory")?.value||"Diğer",vehicleId:$("#documentVehicle")?.value||"",expiryDate:$("#documentExpiryDate")?.value||"",note:$("#documentNote")?.value.trim()||"",fileName:file.name,mimeType:file.type||(isPdf?"application/pdf":"image/*"),size:file.size,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+        saveState(); clearDocumentArchiveForm(); showToast("Evrak dosyası cihazda kaydedildi.");
+      } catch(error) {
+        console.error("Evrak kaydedilemedi:",error); showToast("Evrak kaydedilemedi. Depolama iznini ve boş alanı kontrol et.");
+      }
+    }
+
+    function documentRows() {
+      const category=$("#documentCategoryFilter")?.value||"Tümü", vehicleFilter=$("#documentVehicleFilter")?.value||"Tümü", search=normalize($("#documentSearch")?.value||"");
+      return [...state.documents].filter((m)=>category==="Tümü"||m.category===category).filter((m)=>{
+        if (vehicleFilter==="Tümü") return true;
+        if (vehicleFilter==="Genel") return !m.vehicleId;
+        return m.vehicleId===vehicleFilter;
+      }).filter((m)=>{
+        if (!search) return true;
+        const v=state.vehicles.find((item)=>item.id===m.vehicleId);
+        return normalize([m.title,m.category,m.fileName,m.note,v?.plate,v?.driverName].join(" ")).includes(search);
+      }).sort((a,b)=>String(b.updatedAt||b.createdAt||"").localeCompare(String(a.updatedAt||a.createdAt||"")));
+    }
+
+    function renderDocumentArchive() {
+      const summary=$("#documentSummary"),host=$("#documentTableHost");
+      if (!summary||!host) return;
+      renderDocumentArchiveOptions();
+      const rows=documentRows(), totalSize=rows.reduce((s,m)=>s+Number(m.size||0),0);
+      const pdf=rows.filter((m)=>documentMimeLabel(m)==="PDF").length, images=rows.filter((m)=>documentMimeLabel(m)==="RESİM").length;
+      const expiring=rows.filter((m)=>{const i=documentExpiryInfo(m.expiryDate);return i.days!==null&&i.days<=30;}).length;
+      summary.innerHTML=[
+        {label:"Toplam Evrak",value:`${rows.length} dosya`,risk:false},{label:"PDF",value:`${pdf} dosya`,risk:false},{label:"Resim",value:`${images} dosya`,risk:false},{label:"Yaklaşan / Geçen",value:`${expiring} evrak`,risk:expiring>0},{label:"Cihaz Kullanımı",value:formatDocumentSize(totalSize),risk:false}
+      ].map(financeSummaryChipHtml).join("");
+      if (!rows.length) { host.innerHTML='<div class="empty">Bu filtrede kayıtlı evrak dosyası yok.</div>'; return; }
+      host.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Dosya</th><th>Evrak</th><th>Bağlantı</th><th>Boyut</th><th>Bitiş / Durum</th><th>Kayıt Tarihi</th><th>Açıklama</th><th>İşlem</th></tr></thead><tbody>${rows.map((m)=>{
+        const v=state.vehicles.find((item)=>item.id===m.vehicleId), expiry=documentExpiryInfo(m.expiryDate);
+        return `<tr><td><span class="document-type-badge">${escapeHtml(documentMimeLabel(m))}</span><br><div class="document-file-name" title="${escapeHtml(m.fileName||"")}">${escapeHtml(m.fileName||"Dosya")}</div></td><td><strong>${escapeHtml(m.title||"-")}</strong><br><span class="muted">${escapeHtml(m.category||"Diğer")}</span></td><td>${v?`<strong>${escapeHtml(v.plate)}</strong><br><span class="muted">${escapeHtml(v.driverName||"Şoför yok")}</span>`:'<span class="muted">Genel evrak</span>'}</td><td>${escapeHtml(formatDocumentSize(m.size))}</td><td><strong class="${escapeHtml(expiry.className)}">${escapeHtml(expiry.label)}</strong>${m.expiryDate?`<br><span class="muted">${escapeHtml(jobDateText(m.expiryDate))}</span>`:""}</td><td>${escapeHtml(formatDateTime(m.createdAt))}</td><td>${escapeHtml(m.note||"-")}</td><td><div class="document-actions"><button class="btn small" type="button" data-action="open-document-file" data-id="${escapeHtml(m.id)}">Aç</button><button class="btn small primary" type="button" data-action="share-document-file" data-id="${escapeHtml(m.id)}">WhatsApp / Paylaş</button><button class="btn small" type="button" data-action="download-document-file" data-id="${escapeHtml(m.id)}">İndir</button><button class="btn small danger" type="button" data-action="delete-document-file" data-id="${escapeHtml(m.id)}">Sil</button></div></td></tr>`;
+      }).join("")}</tbody></table></div>`;
+    }
+
+    async function resolveStoredDocument(id) {
+      const meta=state.documents.find((item)=>item.id===id);
+      if (!meta) { showToast("Evrak kaydı bulunamadı."); return null; }
+      try {
+        const stored=await getDocumentBlobRecord(id);
+        if (!stored?.blob) { showToast("Dosya bu cihazda bulunamadı. JSON yedeğinden yalnız evrak listesi gelmiş olabilir."); return null; }
+        return {meta,file:new File([stored.blob],meta.fileName||stored.fileName||"evrak",{type:meta.mimeType||stored.mimeType||stored.blob.type||"application/octet-stream"})};
+      } catch(error) { console.error(error); showToast("Evrak dosyası okunamadı."); return null; }
+    }
+
+    async function openStoredDocument(id) {
+      const r=await resolveStoredDocument(id); if (!r) return;
+      const url=URL.createObjectURL(r.file), opened=window.open(url,"_blank","noopener,noreferrer");
+      if (!opened) { const a=document.createElement("a"); a.href=url; a.download=r.file.name; document.body.appendChild(a); a.click(); a.remove(); }
+      setTimeout(()=>URL.revokeObjectURL(url),120000);
+    }
+
+    async function downloadStoredDocument(id,showMessage=true) {
+      const r=await resolveStoredDocument(id); if (!r) return false;
+      const url=URL.createObjectURL(r.file),a=document.createElement("a"); a.href=url;a.download=r.file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+      if (showMessage) showToast("Evrak dosyası indirildi."); return true;
+    }
+
+    async function shareStoredDocument(id) {
+      const r=await resolveStoredDocument(id); if (!r) return;
+      const data={title:r.meta.title||"Servis Yönetim Sistemi Evrakı",text:r.meta.note||`${r.meta.title||"Evrak"} · ${r.meta.category||"Belge"}`,files:[r.file]};
+      try {
+        const supported=navigator.share&&(!navigator.canShare||navigator.canShare({files:[r.file]}));
+        if (supported) { await navigator.share(data); showToast("Paylaşım menüsü açıldı. WhatsApp'ı seçebilirsiniz."); return; }
+      } catch(error) { if (error?.name==="AbortError") return; console.error(error); }
+      if (await downloadStoredDocument(id,false)) showToast("Doğrudan paylaşım desteklenmiyor. Evrak indirildi; WhatsApp'tan ekleyebilirsiniz.");
+    }
+
+    async function deleteStoredDocument(id) {
+      const meta=state.documents.find((item)=>item.id===id); if (!meta) return;
+      if (!confirm(`${meta.title||"Evrak"} dosyası ve kaydı silinsin mi?`)) return;
+      try { await removeDocumentBlob(id); } catch(error) { console.error(error); }
+      state.documents=state.documents.filter((item)=>item.id!==id); saveState(); showToast("Evrak dosyası silindi.");
+    }
+
     function activateVehicleSubTab(name = "cards") {
-      const valid = ["cards", "maintenance", "alerts"].includes(name) ? name : "cards";
+      const valid = ["cards", "maintenance", "km", "files", "alerts"].includes(name) ? name : "cards";
       $$("#vehicleModuleTabs .vehicle-module-tab").forEach((button) => button.classList.toggle("active", button.dataset.vehicleSubtab === valid));
       $$("#tab-vehicles .vehicle-sub-screen").forEach((screen) => screen.classList.remove("active"));
       const screen = $(`#vehicle-sub-${valid}`);
       if (screen) screen.classList.add("active");
       if (valid === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); }
+      if (valid === "km") { renderVehicleKmOptions(); renderVehicleKmAnalysis(); }
+      if (valid === "files") { renderDocumentArchiveOptions(); renderDocumentArchive(); }
       if (valid === "alerts") renderVehicleAlerts();
     }
 
@@ -13452,6 +14116,17 @@
           alerts.push({ vehicleId: vehicle.id, plate: vehicle.plate, kind: "Atama", severity: "danger", message: `${vehicle.status || "Pasif"} araç ${assignments.jobs.length} personel işi ve ${assignments.schools.length} okul kaydında aktif kullanılıyor.` });
         }
       });
+
+      state.documents
+        .filter((meta) => meta.expiryDate && (!vehicleId || meta.vehicleId === vehicleId))
+        .forEach((meta) => {
+          const days = daysFromToday(meta.expiryDate);
+          if (days === null || days > 30) return;
+          const vehicle = state.vehicles.find((item) => item.id === meta.vehicleId);
+          const plate = vehicle?.plate || (meta.vehicleId ? "Araç" : "Genel Evrak");
+          if (days < 0) alerts.push({ vehicleId: meta.vehicleId || "", documentId: meta.id, plate, kind: meta.category || "Evrak Dosyası", severity: "danger", message: `${meta.title || "Evrak"} ${Math.abs(days)} gün önce sona erdi (${jobDateText(meta.expiryDate)}).` });
+          else alerts.push({ vehicleId: meta.vehicleId || "", documentId: meta.id, plate, kind: meta.category || "Evrak Dosyası", severity: "warning", message: `${meta.title || "Evrak"} için ${days === 0 ? "bugün son gün" : `${days} gün kaldı`} (${jobDateText(meta.expiryDate)}).` });
+        });
 
       const order = { danger: 0, warning: 1, info: 2 };
       return alerts.sort((a, b) => (order[a.severity] - order[b.severity]) || String(a.plate).localeCompare(String(b.plate), "tr-TR"));
@@ -13605,14 +14280,22 @@
       const inspection = alerts.filter((a) => a.kind === "Muayene" || a.kind === "Egzoz muayenesi").length;
       const insurance = alerts.filter((a) => a.kind === "Trafik sigortası" || a.kind === "Kasko").length;
       const maintenance = alerts.filter((a) => a.kind.includes("Bakım")).length;
+      const uploadedDocuments = alerts.filter((a) => a.documentId).length;
       const cards = [
-        {label:"Kritik", value:`${critical} kayıt`, risk:critical>0}, {label:"30 Gün İçinde", value:`${approaching} kayıt`, risk:approaching>0},
-        {label:"Muayene", value:`${inspection} uyarı`, risk:inspection>0}, {label:"Sigorta / Kasko", value:`${insurance} uyarı`, risk:insurance>0},
-        {label:"Bakım", value:`${maintenance} uyarı`, risk:maintenance>0}
+        {label:"Kritik", value:`${critical} kayıt`, risk:critical>0},
+        {label:"30 Gün İçinde", value:`${approaching} kayıt`, risk:approaching>0},
+        {label:"Muayene", value:`${inspection} uyarı`, risk:inspection>0},
+        {label:"Sigorta / Kasko", value:`${insurance} uyarı`, risk:insurance>0},
+        {label:"Bakım", value:`${maintenance} uyarı`, risk:maintenance>0},
+        {label:"Yüklenen Evrak", value:`${uploadedDocuments} uyarı`, risk:uploadedDocuments>0}
       ];
       summary.innerHTML = cards.map((c) => `<div class="insight-chip ${c.risk ? "risk" : ""}"><div class="insight-label">${escapeHtml(c.label)}</div><div class="insight-value">${escapeHtml(c.value)}</div></div>`).join("");
       if (!alerts.length) { list.innerHTML = `<div class="empty">Araç bakım ve evrak kayıtları güncel görünüyor.</div>`; return; }
-      list.innerHTML = alerts.map((a) => `<button class="vehicle-alert-card ${escapeHtml(a.severity)}" type="button" data-action="open-vehicle-record" data-id="${escapeHtml(a.vehicleId)}"><span class="vehicle-alert-plate">${escapeHtml(a.plate || "Araç")}</span><span><strong>${escapeHtml(a.kind)}</strong><span class="vehicle-alert-message">${escapeHtml(a.message)}</span></span><span class="vehicle-alert-state">${a.severity === "danger" ? "Kritik" : "Yaklaşıyor"} →</span></button>`).join("");
+      list.innerHTML = alerts.map((a) => {
+        const action = a.documentId ? "open-document-archive" : "open-vehicle-record";
+        const id = a.documentId || a.vehicleId || "";
+        return `<button class="vehicle-alert-card ${escapeHtml(a.severity)}" type="button" data-action="${action}" data-id="${escapeHtml(id)}"><span class="vehicle-alert-plate">${escapeHtml(a.plate || "Araç")}</span><span><strong>${escapeHtml(a.kind)}</strong><span class="vehicle-alert-message">${escapeHtml(a.message)}</span></span><span class="vehicle-alert-state">${a.severity === "danger" ? "Kritik" : "Yaklaşıyor"} →</span></button>`;
+      }).join("");
     }
 
     function openVehicleAlerts() {
@@ -13631,7 +14314,7 @@
       host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Durum</th><th>Plaka / KM</th><th>Bakım</th><th>Evrak Sağlığı</th><th>Şoför</th><th>İşlem</th></tr></thead><tbody>${rows.map((vehicle) => {
         const health = vehicleHealth(vehicle);
         const nextMaintenance = vehicle.nextMaintenanceDate ? jobDateText(vehicle.nextMaintenanceDate) : vehicle.nextMaintenanceKm ? Number(vehicle.nextMaintenanceKm).toLocaleString("tr-TR") + " km" : "Plan yok";
-        return `<tr><td><span class="pill ${vehicle.status === "Aktif" ? "active" : "passive"}">${escapeHtml(vehicle.status || "Aktif")}</span></td><td><strong>${escapeHtml(vehicle.plate)}</strong><br><span class="muted">${Number(vehicle.currentKm || 0).toLocaleString("tr-TR")} km · ${escapeHtml(vehicle.capacity)} kişi</span></td><td>${vehicle.lastMaintenanceDate ? escapeHtml(jobDateText(vehicle.lastMaintenanceDate)) : "Kayıt yok"}<br><span class="muted">Sonraki: ${escapeHtml(nextMaintenance)}</span></td><td><span class="vehicle-health-pill ${escapeHtml(health.className)}">${escapeHtml(health.label)}</span><br><span class="muted">Muayene: ${vehicle.inspectionExpiry ? escapeHtml(jobDateText(vehicle.inspectionExpiry)) : "Eksik"}</span></td><td>${escapeHtml(vehicle.driverName || "-")}<br><span class="muted">${escapeHtml(vehicle.driverPhone || "-")}</span></td><td><button class="btn small" data-action="edit-vehicle" data-id="${escapeHtml(vehicle.id)}">Düzenle</button><button class="btn small" data-action="maintenance-vehicle" data-id="${escapeHtml(vehicle.id)}">Bakım</button><button class="btn small danger" data-action="delete-vehicle" data-id="${escapeHtml(vehicle.id)}">Sil</button></td></tr>`;
+        return `<tr><td><span class="pill ${vehicle.status === "Aktif" ? "active" : "passive"}">${escapeHtml(vehicle.status || "Aktif")}</span></td><td><strong>${escapeHtml(vehicle.plate)}</strong><br><span class="muted">${Number(vehicle.currentKm || 0).toLocaleString("tr-TR")} km · ${escapeHtml(vehicle.capacity)} kişi</span></td><td>${vehicle.lastMaintenanceDate ? escapeHtml(jobDateText(vehicle.lastMaintenanceDate)) : "Kayıt yok"}<br><span class="muted">Sonraki: ${escapeHtml(nextMaintenance)}</span></td><td><span class="vehicle-health-pill ${escapeHtml(health.className)}">${escapeHtml(health.label)}</span><br><span class="muted">Muayene: ${vehicle.inspectionExpiry ? escapeHtml(jobDateText(vehicle.inspectionExpiry)) : "Eksik"}</span></td><td>${escapeHtml(vehicle.driverName || "-")}<br><span class="muted">${escapeHtml(vehicle.driverPhone || "-")}</span></td><td><button class="btn small" data-action="edit-vehicle" data-id="${escapeHtml(vehicle.id)}">Düzenle</button><button class="btn small" data-action="maintenance-vehicle" data-id="${escapeHtml(vehicle.id)}">Bakım</button><button class="btn small primary" data-action="open-vehicle-km" data-id="${escapeHtml(vehicle.id)}">KM Analizi</button><button class="btn small danger" data-action="delete-vehicle" data-id="${escapeHtml(vehicle.id)}">Sil</button></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -15194,6 +15877,136 @@
       return snapshot ? Number(snapshot.feeSnapshot || 0) : Number(student.monthlyFee || 0);
     }
 
+    function schoolPaymentRecordBillingMode(record) {
+      return record?.billingMode === "invoiced" ? "invoiced" : "unbilled";
+    }
+
+    function schoolBillingModeLabel(mode) {
+      return SCHOOL_BILLING_MODE_LABELS[mode === "invoiced" ? "invoiced" : "unbilled"];
+    }
+
+    function schoolMonthBillingInfo(student, month) {
+      const records = student ? paymentsForStudentMonth(student.id, month) : [];
+      const firstRecord = records[0] || null;
+      // Eski okul tahsilat kayıtlarında fatura türü yoktu. Veri bozulmaması için bunlar faturasız kabul edilir.
+      const billingMode = firstRecord ? schoolPaymentRecordBillingMode(firstRecord) : "unbilled";
+      const netExpected = roundFinanceMoney(studentMonthExpected(student, month));
+      const vatRate = billingMode === "invoiced"
+        ? financeVatRate(firstRecord?.vatRate, DEFAULT_FINANCE_VAT_RATE)
+        : 0;
+      const vatAmount = billingMode === "invoiced"
+        ? roundFinanceMoney(netExpected * vatRate / 100)
+        : 0;
+      const cashExpected = roundFinanceMoney(netExpected + vatAmount);
+      const paid = roundFinanceMoney(records.reduce((sum, payment) => sum + Number(payment.amount || 0), 0));
+      const remaining = Math.max(roundFinanceMoney(cashExpected - paid), 0);
+      const excess = Math.max(roundFinanceMoney(paid - cashExpected), 0);
+      const invoiceRecord = records.find((payment) => payment.invoiceNo || payment.invoiceDate || payment.billingMode === "invoiced") || null;
+      const lastPayment = [...records].reverse().find((payment) => Number(payment.amount || 0) > 0) || null;
+      return {
+        records,
+        billingMode,
+        billingLabel: schoolBillingModeLabel(billingMode),
+        netExpected,
+        vatRate,
+        vatAmount,
+        cashExpected,
+        paid,
+        remaining,
+        excess,
+        invoiceNo: invoiceRecord?.invoiceNo || "",
+        invoiceDate: invoiceRecord?.invoiceDate || "",
+        lastPayment,
+        modeLocked: records.length > 0
+      };
+    }
+
+    function schoolPaymentFormMode() {
+      return $("#schoolPaymentBillingMode")?.value === "invoiced" ? "invoiced" : "unbilled";
+    }
+
+    function updateSchoolPaymentInvoicePreview() {
+      const student = getStudent($("#schoolPaymentStudent")?.value || "");
+      const month = $("#schoolPaymentMonth")?.value || currentMonthISO();
+      const stored = schoolMonthBillingInfo(student, month);
+      const modeSelect = $("#schoolPaymentBillingMode");
+      let mode = schoolPaymentFormMode();
+
+      if (stored.modeLocked) {
+        mode = stored.billingMode;
+        if (modeSelect) {
+          modeSelect.value = mode;
+          modeSelect.disabled = true;
+        }
+      } else if (modeSelect) {
+        modeSelect.disabled = false;
+      }
+
+      const invoiceBox = $("#schoolPaymentInvoiceBox");
+      invoiceBox?.classList.toggle("hidden", mode !== "invoiced");
+
+      const netExpected = roundFinanceMoney(studentMonthExpected(student, month));
+      const vatInput = $("#schoolPaymentVatRate");
+      const invoiceNoInput = $("#schoolPaymentInvoiceNo");
+      const invoiceDateInput = $("#schoolPaymentInvoiceDate");
+
+      if (mode === "invoiced") {
+        const vatRate = stored.modeLocked
+          ? stored.vatRate
+          : financeVatRate(vatInput?.value, DEFAULT_FINANCE_VAT_RATE);
+        const vatAmount = roundFinanceMoney(netExpected * vatRate / 100);
+        const gross = roundFinanceMoney(netExpected + vatAmount);
+
+        if (vatInput) {
+          vatInput.value = String(vatRate);
+          vatInput.disabled = stored.modeLocked;
+        }
+        if ($("#schoolPaymentVatAmount")) $("#schoolPaymentVatAmount").value = formatTRY(vatAmount);
+        if ($("#schoolPaymentGrossAmount")) $("#schoolPaymentGrossAmount").value = formatTRY(gross);
+        if (invoiceNoInput) {
+          invoiceNoInput.disabled = stored.modeLocked;
+          invoiceNoInput.value = stored.modeLocked ? stored.invoiceNo : invoiceNoInput.value;
+        }
+        if (invoiceDateInput) {
+          invoiceDateInput.disabled = stored.modeLocked;
+          invoiceDateInput.value = stored.modeLocked ? stored.invoiceDate : (invoiceDateInput.value || todayISO());
+        }
+        if ($("#schoolPaymentAmountLabel")) $("#schoolPaymentAmountLabel").textContent = "Tahsil Edilen (KDV Dahil)";
+        if ($("#schoolPaymentAmount")) $("#schoolPaymentAmount").placeholder = `Kalan: ${formatTRY(Math.max(gross - stored.paid, 0))}`;
+        if ($("#saveSchoolPaymentBtn")) {
+          $("#saveSchoolPaymentBtn").textContent = stored.modeLocked ? "KDV Dahil Tahsilat Ekle" : "Fatura / Tahsilat Kaydet";
+        }
+        if ($("#schoolPaymentModeNote")) {
+          $("#schoolPaymentModeNote").textContent = stored.modeLocked
+            ? `Bu ayın tahsilat türü Faturalı olarak sabitlendi. Fatura: ${stored.invoiceNo || "numara yok"} · ${stored.invoiceDate || "tarih yok"}`
+            : "Faturalı kayıtta aylık hizmet ücretine KDV eklenir. Fatura sıfır tahsilatla kaydedilebilir; ödeme daha sonra eklenebilir.";
+        }
+      } else {
+        if (vatInput) {
+          vatInput.value = "0";
+          vatInput.disabled = false;
+        }
+        if ($("#schoolPaymentVatAmount")) $("#schoolPaymentVatAmount").value = formatTRY(0);
+        if ($("#schoolPaymentGrossAmount")) $("#schoolPaymentGrossAmount").value = formatTRY(netExpected);
+        if (invoiceNoInput) {
+          invoiceNoInput.disabled = false;
+          invoiceNoInput.value = "";
+        }
+        if (invoiceDateInput) {
+          invoiceDateInput.disabled = false;
+          invoiceDateInput.value = "";
+        }
+        if ($("#schoolPaymentAmountLabel")) $("#schoolPaymentAmountLabel").textContent = "Tahsil Edilen (Faturasız)";
+        if ($("#schoolPaymentAmount")) $("#schoolPaymentAmount").placeholder = `Kalan: ${formatTRY(Math.max(netExpected - stored.paid, 0))}`;
+        if ($("#saveSchoolPaymentBtn")) $("#saveSchoolPaymentBtn").textContent = "Faturasız Tahsilat Ekle";
+        if ($("#schoolPaymentModeNote")) {
+          $("#schoolPaymentModeNote").textContent = stored.modeLocked
+            ? "Bu ayın tahsilat türü Faturasız olarak sabitlendi. KDV ve fatura bilgisi uygulanmaz."
+            : "Faturasız tahsilatta aylık hizmet ücreti kadar kasa girişi oluşur; KDV ve fatura kaydı eklenmez.";
+        }
+      }
+    }
+
     function studentMonthPaid(studentId, month) {
       return paymentsForStudentMonth(studentId, month).reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
     }
@@ -15243,25 +16056,49 @@
       const studentId = $("#schoolPaymentStudent")?.value || "";
       const month = $("#schoolPaymentMonth")?.value || currentMonthISO();
       const expectedInput = $("#schoolPaymentExpected");
-      const info = $("#schoolPaymentStudentInfo");
+      const infoHost = $("#schoolPaymentStudentInfo");
       const student = getStudent(studentId);
 
       if (!student) {
         if (expectedInput) expectedInput.value = "-";
-        if (info) info.textContent = "Öğrenci seçildiğinde ay içindeki tahsilat özeti burada görünür.";
+        if ($("#schoolPaymentBillingMode")) {
+          $("#schoolPaymentBillingMode").disabled = false;
+          $("#schoolPaymentBillingMode").value = "unbilled";
+        }
+        if ($("#schoolPaymentInvoiceNo")) $("#schoolPaymentInvoiceNo").value = "";
+        if ($("#schoolPaymentInvoiceDate")) $("#schoolPaymentInvoiceDate").value = "";
+        if (infoHost) infoHost.textContent = "Öğrenci seçildiğinde fatura ve tahsilat özeti burada görünür.";
+        updateSchoolPaymentInvoicePreview();
         return;
       }
 
-      const expected = studentMonthExpected(student, month);
-      const paid = studentMonthPaid(student.id, month);
-      const status = paymentStatus(expected, paid);
-      const remaining = Math.max(expected - paid, 0);
-      const excess = Math.max(paid - expected, 0);
-      const records = paymentsForStudentMonth(student.id, month);
+      const stored = schoolMonthBillingInfo(student, month);
+      if ($("#schoolPaymentBillingMode")) {
+        $("#schoolPaymentBillingMode").value = stored.modeLocked ? stored.billingMode : schoolPaymentFormMode();
+      }
+      if (stored.modeLocked && stored.billingMode === "invoiced") {
+        if ($("#schoolPaymentInvoiceNo")) $("#schoolPaymentInvoiceNo").value = stored.invoiceNo;
+        if ($("#schoolPaymentInvoiceDate")) $("#schoolPaymentInvoiceDate").value = stored.invoiceDate;
+        if ($("#schoolPaymentVatRate")) $("#schoolPaymentVatRate").value = String(stored.vatRate);
+      }
 
-      if (expectedInput) expectedInput.value = formatTRY(expected);
-      if (info) {
-        info.innerHTML = `<strong>${escapeHtml(student.name)}</strong> · ${escapeHtml(schoolLabel(student.schoolId))} · ${escapeHtml(month)} · Beklenen <strong>${escapeHtml(formatTRY(expected))}</strong> · Tahsil edilen <strong>${escapeHtml(formatTRY(paid))}</strong> · ${excess > 0 ? `Fazla <strong>${escapeHtml(formatTRY(excess))}</strong>` : `Kalan <strong>${escapeHtml(formatTRY(remaining))}</strong>`} · Durum <strong>${escapeHtml(status.label)}</strong> · ${records.length} ödeme kaydı`;
+      updateSchoolPaymentInvoicePreview();
+
+      const selectedMode = stored.modeLocked ? stored.billingMode : schoolPaymentFormMode();
+      const vatRate = selectedMode === "invoiced"
+        ? financeVatRate($("#schoolPaymentVatRate")?.value, DEFAULT_FINANCE_VAT_RATE)
+        : 0;
+      const netExpected = roundFinanceMoney(studentMonthExpected(student, month));
+      const vatAmount = selectedMode === "invoiced" ? roundFinanceMoney(netExpected * vatRate / 100) : 0;
+      const cashExpected = roundFinanceMoney(netExpected + vatAmount);
+      const paid = stored.paid;
+      const status = paymentStatus(cashExpected, paid);
+      const remaining = Math.max(roundFinanceMoney(cashExpected - paid), 0);
+      const excess = Math.max(roundFinanceMoney(paid - cashExpected), 0);
+
+      if (expectedInput) expectedInput.value = formatTRY(netExpected);
+      if (infoHost) {
+        infoHost.innerHTML = `<strong>${escapeHtml(student.name)}</strong> · ${escapeHtml(schoolLabel(student.schoolId))} · ${escapeHtml(month)} · Tür <strong>${escapeHtml(schoolBillingModeLabel(selectedMode))}</strong> · KDV hariç ücret <strong>${escapeHtml(formatTRY(netExpected))}</strong> · KDV <strong>${escapeHtml(formatTRY(vatAmount))}</strong> · Kasa hedefi <strong>${escapeHtml(formatTRY(cashExpected))}</strong> · Tahsil edilen <strong>${escapeHtml(formatTRY(paid))}</strong> · ${excess > 0 ? `Fazla <strong>${escapeHtml(formatTRY(excess))}</strong>` : `Kalan <strong>${escapeHtml(formatTRY(remaining))}</strong>`} · Durum <strong>${escapeHtml(status.label)}</strong>${stored.billingMode === "invoiced" && stored.modeLocked ? ` · Fatura <strong>${escapeHtml(stored.invoiceNo || "No yok")}</strong>` : ""}`;
       }
     }
 
@@ -15269,24 +16106,39 @@
       const month = $("#schoolPaymentMonth")?.value || currentMonthISO();
       const schoolId = $("#schoolPaymentSchool")?.value || "Tümü";
       const statusFilter = $("#schoolPaymentStatus")?.value || "Tümü";
+      const billingFilter = $("#schoolPaymentBillingFilter")?.value || "Tümü";
       const search = normalize($("#schoolPaymentSearch")?.value || "");
 
       return state.students
         .filter((student) => student.status === "Aktif" || paymentsForStudentMonth(student.id, month).length > 0)
         .map((student) => {
           const school = getSchool(student.schoolId);
-          const expected = studentMonthExpected(student, month);
-          const records = paymentsForStudentMonth(student.id, month);
-          const paid = records.reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
-          const remaining = Math.max(expected - paid, 0);
-          const excess = Math.max(paid - expected, 0);
-          const status = paymentStatus(expected, paid);
-          const lastPayment = records.length ? records[records.length - 1] : null;
-          return { student, school, expected, paid, remaining, excess, status, records, lastPayment };
+          const billing = schoolMonthBillingInfo(student, month);
+          const status = paymentStatus(billing.cashExpected, billing.paid);
+          return {
+            student,
+            school,
+            expected: billing.netExpected,
+            netExpected: billing.netExpected,
+            billingMode: billing.billingMode,
+            billingLabel: billing.billingLabel,
+            vatRate: billing.vatRate,
+            vatAmount: billing.vatAmount,
+            cashExpected: billing.cashExpected,
+            paid: billing.paid,
+            remaining: billing.remaining,
+            excess: billing.excess,
+            status,
+            records: billing.records,
+            lastPayment: billing.lastPayment,
+            invoiceNo: billing.invoiceNo,
+            invoiceDate: billing.invoiceDate
+          };
         })
         .filter((row) => {
           if (schoolId !== "Tümü" && row.student.schoolId !== schoolId) return false;
           if (statusFilter !== "Tümü" && row.status.label !== statusFilter) return false;
+          if (billingFilter !== "Tümü" && row.billingMode !== billingFilter) return false;
           if (search) {
             const haystack = normalize([
               row.student.name,
@@ -15294,7 +16146,9 @@
               row.student.guardianName,
               row.student.guardianPhone,
               row.school?.name,
-              row.status.label
+              row.status.label,
+              row.billingLabel,
+              row.invoiceNo
             ].join(" "));
             if (!haystack.includes(search)) return false;
           }
@@ -15309,16 +16163,24 @@
       if (!summaryHost || !tableHost) return;
 
       const rows = getSchoolPaymentRows();
-      const expectedTotal = rows.reduce((sum, row) => sum + row.expected, 0);
+      const netExpectedTotal = rows.reduce((sum, row) => sum + row.netExpected, 0);
+      const vatTotal = rows.reduce((sum, row) => sum + row.vatAmount, 0);
+      const cashExpectedTotal = rows.reduce((sum, row) => sum + row.cashExpected, 0);
       const paidTotal = rows.reduce((sum, row) => sum + row.paid, 0);
       const remainingTotal = rows.reduce((sum, row) => sum + row.remaining, 0);
+      const invoicedCount = rows.filter((row) => row.billingMode === "invoiced").length;
+      const unbilledCount = rows.filter((row) => row.billingMode === "unbilled").length;
       const unpaidCount = rows.filter((row) => row.status.label === "Ödenmedi").length;
       const partialCount = rows.filter((row) => row.status.label === "Eksik").length;
 
       const chips = [
-        { label: "Beklenen Tahsilat", value: formatTRY(expectedTotal), risk: false },
+        { label: "KDV Hariç Tahakkuk", value: formatTRY(netExpectedTotal), risk: false },
+        { label: "Hesaplanan KDV", value: formatTRY(vatTotal), risk: false },
+        { label: "Kasa Tahsilat Hedefi", value: formatTRY(cashExpectedTotal), risk: false },
         { label: "Tahsil Edilen", value: formatTRY(paidTotal), risk: false },
         { label: "Kalan Alacak", value: formatTRY(remainingTotal), risk: remainingTotal > 0 },
+        { label: "Faturalı", value: `${invoicedCount} öğrenci`, risk: false },
+        { label: "Faturasız", value: `${unbilledCount} öğrenci`, risk: false },
         { label: "Ödeme Yapmayan", value: unpaidCount, risk: unpaidCount > 0 },
         { label: "Eksik Ödeme", value: partialCount, risk: partialCount > 0 }
       ];
@@ -15337,16 +16199,19 @@
 
       tableHost.innerHTML = `
         <div class="table-wrap">
-          <table>
+          <table style="min-width:1540px">
             <thead>
               <tr>
+                <th>Tür</th>
                 <th>Durum</th>
                 <th>Öğrenci / Veli</th>
                 <th>Okul / Sınıf</th>
-                <th>Aylık Ücret</th>
+                <th>KDV Hariç Ücret</th>
+                <th>KDV</th>
+                <th>Tahsilat Hedefi</th>
                 <th>Tahsil Edilen</th>
                 <th>Kalan / Fazla</th>
-                <th>Son Ödeme</th>
+                <th>Fatura / Son Ödeme</th>
                 <th>Kayıt</th>
                 <th>İşlem</th>
               </tr>
@@ -15354,18 +16219,21 @@
             <tbody>
               ${rows.map((row) => `
                 <tr>
+                  <td><span class="pill ${row.billingMode === "invoiced" ? "active" : ""}">${escapeHtml(row.billingLabel)}</span></td>
                   <td><span class="pill ${escapeHtml(row.status.className)}">${escapeHtml(row.status.label)}</span></td>
                   <td><strong>${escapeHtml(row.student.name || "-")}</strong><br><span class="muted">${escapeHtml(row.student.guardianName || "-")} · ${escapeHtml(row.student.guardianPhone || "-")}</span></td>
                   <td>${escapeHtml(row.school?.name || "Okul yok")}<br><span class="muted">${escapeHtml(row.student.className || "Sınıf yok")}</span></td>
-                  <td><strong>${escapeHtml(formatTRY(row.expected))}</strong></td>
+                  <td><strong>${escapeHtml(formatTRY(row.netExpected))}</strong></td>
+                  <td><strong>${escapeHtml(formatTRY(row.vatAmount))}</strong>${row.billingMode === "invoiced" ? `<br><span class="muted">%${escapeHtml(String(row.vatRate))}</span>` : ""}</td>
+                  <td><strong>${escapeHtml(formatTRY(row.cashExpected))}</strong></td>
                   <td><strong>${escapeHtml(formatTRY(row.paid))}</strong></td>
                   <td>${row.excess > 0 ? `<strong>${escapeHtml(formatTRY(row.excess))} fazla</strong>` : `<strong>${escapeHtml(formatTRY(row.remaining))}</strong>`}</td>
-                  <td>${row.lastPayment ? `${escapeHtml(row.lastPayment.date || "-")}<br><span class="muted">${escapeHtml(row.lastPayment.method || "-")} · ${escapeHtml(formatTRY(row.lastPayment.amount))}</span>` : "-"}</td>
-                  <td><span class="pill">${row.records.length} ödeme</span></td>
+                  <td>${row.billingMode === "invoiced" ? `<strong>${escapeHtml(row.invoiceNo || "Fatura no yok")}</strong><br><span class="muted">${escapeHtml(row.invoiceDate || "Tarih yok")}</span>` : `<span class="muted">Fatura yok</span>`}${row.lastPayment ? `<br><span class="muted">Son: ${escapeHtml(row.lastPayment.date || "-")} · ${escapeHtml(formatTRY(row.lastPayment.amount))}</span>` : ""}</td>
+                  <td><span class="pill">${row.records.length} kayıt</span></td>
                   <td>
                     <div class="payment-actions">
-                      <button class="btn small primary" type="button" data-action="select-payment-student" data-id="${escapeHtml(row.student.id)}">Ödeme Gir</button>
-                      ${row.lastPayment ? `<button class="btn small danger" type="button" data-action="delete-school-payment" data-id="${escapeHtml(row.lastPayment.id)}">Son Kaydı Sil</button>` : ""}
+                      <button class="btn small primary" type="button" data-action="select-payment-student" data-id="${escapeHtml(row.student.id)}">Kaydı Aç</button>
+                      ${row.records.length ? `<button class="btn small danger" type="button" data-action="delete-school-payment" data-id="${escapeHtml(row.records[row.records.length - 1].id)}">Son Kaydı Sil</button>` : ""}
                     </div>
                   </td>
                 </tr>
@@ -15386,19 +16254,60 @@
       const student = getStudent(studentId);
 
       if (!student) {
-        showToast("Ödeme kaydı için öğrenci seç.");
+        showToast("Kayıt için öğrenci seç.");
         return;
       }
 
-      const expected = studentMonthExpected(student, month);
-      if (expected <= 0) {
+      const existing = schoolMonthBillingInfo(student, month);
+      const selectedMode = schoolPaymentFormMode();
+      const billingMode = existing.modeLocked ? existing.billingMode : selectedMode;
+      if (existing.modeLocked && selectedMode !== existing.billingMode) {
+        showToast(`Bu ay ${existing.billingLabel} olarak başlamış. Türü değiştirmek için önce ayın kayıtlarını sil.`);
+        return;
+      }
+
+      const netExpected = roundFinanceMoney(studentMonthExpected(student, month));
+      if (netExpected <= 0) {
         showToast("Bu öğrencinin aylık ücreti tanımlı değil. Önce öğrenci kaydındaki ücreti gir.");
         return;
       }
 
-      if (!Number.isFinite(amount) || amount <= 0) {
-        showToast("Ödenen tutar sıfırdan büyük olmalı.");
-        return;
+      let vatRate = 0;
+      let vatAmount = 0;
+      let cashExpected = netExpected;
+      let invoiceNo = "";
+      let invoiceDate = "";
+
+      if (billingMode === "invoiced") {
+        vatRate = existing.modeLocked
+          ? existing.vatRate
+          : financeVatRate($("#schoolPaymentVatRate")?.value, DEFAULT_FINANCE_VAT_RATE);
+        vatAmount = roundFinanceMoney(netExpected * vatRate / 100);
+        cashExpected = roundFinanceMoney(netExpected + vatAmount);
+        invoiceNo = existing.modeLocked ? existing.invoiceNo : ($("#schoolPaymentInvoiceNo")?.value.trim() || "");
+        invoiceDate = existing.modeLocked ? existing.invoiceDate : ($("#schoolPaymentInvoiceDate")?.value || "");
+
+        if (!invoiceNo) {
+          showToast("Faturalı kayıt için fatura numarasını gir.");
+          return;
+        }
+        if (!invoiceDate) {
+          showToast("Faturalı kayıt için fatura tarihini gir.");
+          return;
+        }
+        if (!Number.isFinite(amount) || amount < 0) {
+          showToast("Tahsil edilen tutar sıfır veya daha büyük olmalı.");
+          return;
+        }
+        if (existing.modeLocked && amount <= 0) {
+          showToast("Fatura zaten kayıtlı. Yeni tahsilat için sıfırdan büyük tutar gir.");
+          return;
+        }
+      } else {
+        if (!Number.isFinite(amount) || amount <= 0) {
+          showToast("Faturasız tahsilat tutarı sıfırdan büyük olmalı.");
+          return;
+        }
       }
 
       state.schoolPayments.push({
@@ -15406,11 +16315,18 @@
         studentId,
         schoolId: student.schoolId || "",
         month,
-        amount,
+        billingMode,
+        amount: roundFinanceMoney(amount),
         date,
         method,
         note,
-        feeSnapshot: expected,
+        feeSnapshot: netExpected,
+        vatRate,
+        vatAmount,
+        invoiceNetAmount: netExpected,
+        invoiceGrossAmount: cashExpected,
+        invoiceNo,
+        invoiceDate,
         createdAt: new Date().toISOString()
       });
 
@@ -15419,7 +16335,11 @@
       $("#schoolPaymentAmount").value = "";
       $("#schoolPaymentNote").value = "";
       updateSchoolPaymentStudentInfo();
-      showToast("Ödeme kaydı eklendi.");
+      showToast(
+        billingMode === "invoiced"
+          ? (amount > 0 ? `Faturalı tahsilat kaydedildi. KDV dahil ${formatTRY(amount)} kasa girişi.` : `Fatura kaydedildi. KDV dahil hedef ${formatTRY(cashExpected)}.`)
+          : `Faturasız tahsilat kaydedildi: ${formatTRY(amount)}.`
+      );
     }
 
     function selectSchoolPaymentStudent(studentId) {
@@ -15444,7 +16364,9 @@
       const payment = state.schoolPayments.find((item) => item.id === paymentId);
       if (!payment) return;
       const student = getStudent(payment.studentId);
-      if (!confirm(`${student?.name || "Öğrenci"} için ${formatTRY(payment.amount)} tutarındaki son ödeme silinsin mi?`)) return;
+      const typeLabel = schoolBillingModeLabel(schoolPaymentRecordBillingMode(payment));
+      const recordText = Number(payment.amount || 0) > 0 ? `${formatTRY(payment.amount)} tutarındaki ${typeLabel.toLocaleLowerCase("tr-TR")} tahsilat` : `${payment.invoiceNo || "numarasız"} fatura kaydı`;
+      if (!confirm(`${student?.name || "Öğrenci"} için ${recordText} silinsin mi?`)) return;
       state.schoolPayments = state.schoolPayments.filter((item) => item.id !== paymentId);
       saveState();
       showToast("Ödeme kaydı silindi.");
@@ -16054,6 +16976,49 @@
       return state.financeRecords.find((record) => record.jobId === jobId && record.month === month) || null;
     }
 
+    function roundFinanceMoney(value) {
+      return Math.round((Number(value || 0) + Number.EPSILON) * 100) / 100;
+    }
+
+    function financeVatRate(value, fallback = DEFAULT_FINANCE_VAT_RATE) {
+      const number = Number(value);
+      if (!Number.isFinite(number) || number < 0) return Number(fallback || 0);
+      return Math.min(number, 100);
+    }
+
+    function financeInvoiceBreakdown(record = {}) {
+      const hasLegacyInvoiceAmount = Number(record.invoiceAmount || 0) > 0;
+      const hasInvoice = Boolean(record.invoiceNo || record.invoiceDate || record.invoiceIssued || hasLegacyInvoiceAmount || Number(record.invoiceNetAmount || 0) > 0);
+      const vatRate = financeVatRate(record.vatRate, state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
+
+      // v4.26.0 ve öncesinde invoiceAmount KDV hariç tutardı.
+      // Yeni kayıtlarda invoiceNetAmount matrah, invoiceAmount ise KDV dahil genel toplamdır.
+      const hasNewVatFields = record.invoiceNetAmount !== undefined || record.vatAmount !== undefined || record.invoiceGrossAmount !== undefined;
+      const invoiceNetAmount = roundFinanceMoney(
+        hasNewVatFields
+          ? Number(record.invoiceNetAmount || 0)
+          : Number(record.invoiceAmount || 0)
+      );
+      const vatAmount = roundFinanceMoney(
+        record.vatAmount !== undefined
+          ? Number(record.vatAmount || 0)
+          : invoiceNetAmount * vatRate / 100
+      );
+      const invoiceGrossAmount = roundFinanceMoney(
+        hasNewVatFields
+          ? Number(record.invoiceGrossAmount ?? record.invoiceAmount ?? (invoiceNetAmount + vatAmount))
+          : invoiceNetAmount + vatAmount
+      );
+
+      return {
+        hasInvoice,
+        invoiceNetAmount: hasInvoice ? invoiceNetAmount : 0,
+        vatRate,
+        vatAmount: hasInvoice ? vatAmount : 0,
+        invoiceGrossAmount: hasInvoice ? invoiceGrossAmount : 0
+      };
+    }
+
     function financeRecordValues(job, month) {
       const record = getFinanceRecord(job.id, month) || {};
       const plannedTrips = jobPlannedTripsForMonth(job, month);
@@ -16068,19 +17033,24 @@
       const extra = Number(record.extraAmount || 0);
       const deduction = Number(record.deduction || 0);
       const accrual = Math.max(baseAccrual + extra - deduction, 0);
-      const invoiceAmount = Number(record.invoiceAmount || 0);
+      const invoice = financeInvoiceBreakdown(record);
+      const invoiceNetAmount = invoice.invoiceNetAmount;
+      const vatRate = invoice.vatRate;
+      const vatAmount = invoice.vatAmount;
+      const invoiceAmount = invoice.invoiceGrossAmount;
+      const hasInvoice = invoice.hasInvoice;
       const collected = Number(record.collectedAmount || 0);
-      const receivable = Math.max(accrual - collected, 0);
+      const receivableBase = hasInvoice ? invoiceAmount : accrual;
+      const receivable = Math.max(receivableBase - collected, 0);
       const vehicleExpense = vehicleExpenseTotalForJob(job.id, month);
       const staffExpense = staffPaymentCostForJob(job.id, month);
       const netContribution = accrual - vehicleExpense - staffExpense;
-      return { record, plannedTrips, realizedTrips, expected, automatic, manualEnabled, manualAccrual, baseAccrual, extra, deduction, accrual, invoiceAmount, collected, receivable, vehicleExpense, staffExpense, netContribution };
+      return { record, plannedTrips, realizedTrips, expected, automatic, manualEnabled, manualAccrual, baseAccrual, extra, deduction, accrual, hasInvoice, invoiceNetAmount, vatRate, vatAmount, invoiceAmount, invoiceGrossAmount: invoiceAmount, collected, receivable, cashTarget: receivableBase, vehicleExpense, staffExpense, netContribution };
     }
 
     function financeStatus(values) {
-      const { record, accrual, invoiceAmount, collected } = values;
-      const hasInvoice = Boolean(record.invoiceNo || record.invoiceDate || invoiceAmount > 0);
-      const invoiceBase = invoiceAmount > 0 ? invoiceAmount : accrual;
+      const { record, accrual, invoiceAmount, hasInvoice, collected } = values;
+      const invoiceBase = hasInvoice ? invoiceAmount : accrual;
       const dueDate = record.dueDate || "";
       const remainingInvoice = Math.max(invoiceBase - collected, 0);
       if (accrual <= 0 && !hasInvoice && collected <= 0) return { label: "Hakediş Yok", className: "finance-empty" };
@@ -16149,6 +17119,20 @@
       return Math.max(base + extra - deduction, 0);
     }
 
+    function financeInvoiceFormValues() {
+      const invoiceNetAmount = Math.max(Number($("#financeInvoiceAmount")?.value || 0), 0);
+      const vatRate = financeVatRate($("#financeVatRate")?.value, state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
+      const vatAmount = roundFinanceMoney(invoiceNetAmount * vatRate / 100);
+      const invoiceGrossAmount = roundFinanceMoney(invoiceNetAmount + vatAmount);
+      return { invoiceNetAmount: roundFinanceMoney(invoiceNetAmount), vatRate, vatAmount, invoiceGrossAmount };
+    }
+
+    function updateFinanceVatPreview() {
+      const values = financeInvoiceFormValues();
+      if ($("#financeVatAmount")) $("#financeVatAmount").value = formatTRY(values.vatAmount);
+      if ($("#financeInvoiceGrossAmount")) $("#financeInvoiceGrossAmount").value = formatTRY(values.invoiceGrossAmount);
+    }
+
 
     function toggleFinanceManualOverride(fillAutomatic = false) {
       const checkbox = $("#financeManualOverride");
@@ -16173,6 +17157,9 @@
         $("#financePreviewAccrual").textContent = formatTRY(0);
         $("#financePreviewModel").textContent = "-";
         $("#financeAdjustedAccrual").value = formatTRY(0);
+        if ($("#financeInvoiceAmount")) $("#financeInvoiceAmount").value = "";
+        if ($("#financeVatRate")) $("#financeVatRate").value = String(state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
+        updateFinanceVatPreview();
         return;
       }
       const values = financeRecordValues(job, month);
@@ -16189,6 +17176,7 @@
         invoiceInput.value = netAccrual || "";
         invoiceInput.dataset.autoValue = String(netAccrual || "");
       }
+      updateFinanceVatPreview();
     }
 
     function clearFinanceRecordForm(selectFirst = false) {
@@ -16203,6 +17191,7 @@
       $("#financePaymentDate").value = "";
       if ($("#financeManualAccrual")) $("#financeManualAccrual").disabled = true;
       if ($("#financeInvoiceAmount")) $("#financeInvoiceAmount").dataset.autoValue = "";
+      if ($("#financeVatRate")) $("#financeVatRate").value = String(state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
       $("#financeManualOverride")?.closest(".finance-manual-box")?.classList.remove("is-active");
       updateFinanceRecordPreview();
       $("#deleteFinanceRecordBtn").disabled = true;
@@ -16229,8 +17218,9 @@
       toggleFinanceManualOverride(false);
       $("#financeInvoiceNo").value = record?.invoiceNo || "";
       $("#financeInvoiceDate").value = record?.invoiceDate || "";
-      $("#financeInvoiceAmount").value = record?.invoiceAmount || (record ? "" : values.accrual || "");
+      $("#financeInvoiceAmount").value = values.invoiceNetAmount || (record ? "" : values.accrual || "");
       $("#financeInvoiceAmount").dataset.autoValue = record ? "" : String(values.accrual || "");
+      $("#financeVatRate").value = String(record?.vatRate ?? state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
       $("#financeDueDate").value = record?.dueDate || "";
       $("#financeCollectedAmount").value = record?.collectedAmount || "";
       $("#financePaymentDate").value = record?.paymentDate || "";
@@ -16259,8 +17249,11 @@
       const adjusted = financeAdjustedFromForm();
       const invoiceNo = $("#financeInvoiceNo").value.trim();
       const invoiceDate = $("#financeInvoiceDate").value;
-      let invoiceAmount = Number($("#financeInvoiceAmount").value || 0);
-      if ((invoiceNo || invoiceDate) && invoiceAmount <= 0) invoiceAmount = adjusted;
+      let invoiceNetAmount = Number($("#financeInvoiceAmount").value || 0);
+      if ((invoiceNo || invoiceDate) && invoiceNetAmount <= 0) invoiceNetAmount = adjusted;
+      const vatRate = financeVatRate($("#financeVatRate").value, state.settings?.financeDefaultVatRate ?? DEFAULT_FINANCE_VAT_RATE);
+      const vatAmount = roundFinanceMoney(invoiceNetAmount * vatRate / 100);
+      const invoiceGrossAmount = roundFinanceMoney(invoiceNetAmount + vatAmount);
       const collectedAmount = Number($("#financeCollectedAmount").value || 0);
 
       const record = {
@@ -16273,7 +17266,12 @@
         deduction: Number($("#financeDeduction").value || 0),
         invoiceNo,
         invoiceDate,
-        invoiceAmount,
+        invoiceIssued: Boolean(invoiceNo || invoiceDate || invoiceNetAmount > 0),
+        invoiceNetAmount: roundFinanceMoney(invoiceNetAmount),
+        vatRate,
+        vatAmount,
+        invoiceAmount: invoiceGrossAmount,
+        invoiceGrossAmount,
         dueDate: $("#financeDueDate").value,
         collectedAmount,
         paymentDate: $("#financePaymentDate").value,
@@ -16282,7 +17280,7 @@
         updatedAt: new Date().toISOString()
       };
 
-      if (record.extraAmount < 0 || record.deduction < 0 || record.invoiceAmount < 0 || record.collectedAmount < 0) {
+      if (record.extraAmount < 0 || record.deduction < 0 || record.invoiceNetAmount < 0 || record.vatAmount < 0 || record.invoiceAmount < 0 || record.collectedAmount < 0) {
         showToast("Tutar alanları negatif olamaz.");
         return;
       }
@@ -16294,7 +17292,7 @@
       else state.financeRecords.push(record);
       saveState();
       fillFinanceRecordForm(jobId);
-      showToast(manualAccrualEnabled ? "Manuel hakediş, fatura ve tahsilat kaydı güncellendi." : "Hakediş, fatura ve tahsilat kaydı güncellendi.");
+      showToast(manualAccrualEnabled ? "Manuel hakediş, %10 KDV, fatura ve tahsilat kaydı güncellendi." : "Hakediş, %10 KDV, fatura ve tahsilat kaydı güncellendi.");
     }
 
     function deleteFinanceRecord() {
@@ -16335,9 +17333,12 @@
       const rows = financeJobsForMonth(month).map((job) => financeRecordValues(job, month));
       const expected = rows.reduce((sum, row) => sum + row.expected, 0);
       const accrual = rows.reduce((sum, row) => sum + row.accrual, 0);
+      const invoiceNet = rows.reduce((sum, row) => sum + row.invoiceNetAmount, 0);
+      const vat = rows.reduce((sum, row) => sum + row.vatAmount, 0);
       const invoiced = rows.reduce((sum, row) => sum + row.invoiceAmount, 0);
       const collected = rows.reduce((sum, row) => sum + row.collected, 0);
       const receivable = rows.reduce((sum, row) => sum + row.receivable, 0);
+      const cashTarget = rows.reduce((sum, row) => sum + row.cashTarget, 0);
       const vehicleExpense = rows.reduce((sum, row) => sum + Number(row.vehicleExpense || 0), 0);
       const staffExpense = rows.reduce((sum, row) => sum + Number(row.staffExpense || 0), 0);
       const netContribution = accrual - vehicleExpense - staffExpense;
@@ -16356,9 +17357,12 @@
         rows,
         expected,
         accrual,
+        invoiceNet,
+        vat,
         invoiced,
         collected,
         receivable,
+        cashTarget,
         overdueCount,
         overdueReceivable,
         vehicleExpense,
@@ -16374,24 +17378,39 @@
     function schoolFinanceRows(month = getFinanceMonth(), useFilters = true) {
       const schoolId = useFilters ? ($("#financeSchoolFilter")?.value || "Tümü") : "Tümü";
       const statusFilter = useFilters ? ($("#financeSchoolStatus")?.value || "Tümü") : "Tümü";
+      const billingFilter = useFilters ? ($("#financeSchoolBilling")?.value || "Tümü") : "Tümü";
       const search = useFilters ? normalize($("#financeSchoolSearch")?.value || "") : "";
 
       return state.students
         .filter((student) => student.status === "Aktif" || paymentsForStudentMonth(student.id, month).length > 0)
         .map((student) => {
           const school = getSchool(student.schoolId);
-          const expected = studentMonthExpected(student, month);
-          const records = paymentsForStudentMonth(student.id, month);
-          const paid = records.reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
-          const remaining = Math.max(expected - paid, 0);
-          const excess = Math.max(paid - expected, 0);
-          const status = paymentStatus(expected, paid);
-          const lastPayment = records.length ? records[records.length - 1] : null;
-          return { student, school, expected, paid, remaining, excess, status, records, lastPayment };
+          const billing = schoolMonthBillingInfo(student, month);
+          const status = paymentStatus(billing.cashExpected, billing.paid);
+          return {
+            student,
+            school,
+            expected: billing.netExpected,
+            netExpected: billing.netExpected,
+            billingMode: billing.billingMode,
+            billingLabel: billing.billingLabel,
+            vatRate: billing.vatRate,
+            vatAmount: billing.vatAmount,
+            cashExpected: billing.cashExpected,
+            paid: billing.paid,
+            remaining: billing.remaining,
+            excess: billing.excess,
+            status,
+            records: billing.records,
+            lastPayment: billing.lastPayment,
+            invoiceNo: billing.invoiceNo,
+            invoiceDate: billing.invoiceDate
+          };
         })
         .filter((row) => {
           if (schoolId !== "Tümü" && row.student.schoolId !== schoolId) return false;
           if (statusFilter !== "Tümü" && row.status.label !== statusFilter) return false;
+          if (billingFilter !== "Tümü" && row.billingMode !== billingFilter) return false;
           if (search) {
             const haystack = normalize([
               row.student.name,
@@ -16399,7 +17418,9 @@
               row.student.guardianName,
               row.student.guardianPhone,
               row.school?.name,
-              row.status.label
+              row.status.label,
+              row.billingLabel,
+              row.invoiceNo
             ].join(" "));
             if (!haystack.includes(search)) return false;
           }
@@ -16410,22 +17431,47 @@
 
     function schoolFinanceTotals(month = getFinanceMonth(), useFilters = false) {
       const rows = schoolFinanceRows(month, useFilters);
-      const expected = rows.reduce((sum, row) => sum + row.expected, 0);
+      const expected = rows.reduce((sum, row) => sum + row.netExpected, 0);
+      const vat = rows.reduce((sum, row) => sum + row.vatAmount, 0);
+      const cashExpected = rows.reduce((sum, row) => sum + row.cashExpected, 0);
       const paid = rows.reduce((sum, row) => sum + row.paid, 0);
       const remaining = rows.reduce((sum, row) => sum + row.remaining, 0);
       const excess = rows.reduce((sum, row) => sum + row.excess, 0);
+      const invoicedCount = rows.filter((row) => row.billingMode === "invoiced").length;
+      const unbilledCount = rows.filter((row) => row.billingMode === "unbilled").length;
       const paidCount = rows.filter((row) => row.status.label === "Ödendi" || row.status.label === "Fazla").length;
       const unpaidCount = rows.filter((row) => row.status.label === "Ödenmedi").length;
       const partialCount = rows.filter((row) => row.status.label === "Eksik").length;
       const schoolIds = new Set(rows.map((row) => row.student.schoolId).filter(Boolean));
       const vehicleExpense = [...schoolIds].reduce((sum, schoolId) => sum + vehicleExpenseTotalForSchool(schoolId, month), 0);
       const staffExpense = [...schoolIds].reduce((sum, schoolId) => sum + staffPaymentCostForSchool(schoolId, month), 0);
+      // KDV işletme geliri değildir. Okul kârlılığı KDV hariç tahakkuk üzerinden hesaplanır.
       const netContribution = expected - vehicleExpense - staffExpense;
       const isPastMonth = String(month || "") < currentMonthISO();
       const overdueRemaining = isPastMonth ? remaining : 0;
       const overdueUnpaidCount = isPastMonth ? unpaidCount : 0;
       const overduePartialCount = isPastMonth ? partialCount : 0;
-      return { rows, expected, paid, remaining, excess, paidCount, unpaidCount, partialCount, vehicleExpense, staffExpense, netContribution, isPastMonth, overdueRemaining, overdueUnpaidCount, overduePartialCount };
+      return {
+        rows,
+        expected,
+        vat,
+        cashExpected,
+        paid,
+        remaining,
+        excess,
+        invoicedCount,
+        unbilledCount,
+        paidCount,
+        unpaidCount,
+        partialCount,
+        vehicleExpense,
+        staffExpense,
+        netContribution,
+        isPastMonth,
+        overdueRemaining,
+        overdueUnpaidCount,
+        overduePartialCount
+      };
     }
 
     function financeSummaryChipHtml(chip) {
@@ -16457,6 +17503,7 @@
       const totalAccrual = personnel.accrual + school.expected;
       const totalCollected = personnel.collected + school.paid;
       const totalReceivable = personnel.receivable + school.remaining;
+      const totalVat = personnel.vat + school.vat;
       const netResult = totalAccrual - vehicle.total - staff.total;
       const overdueReceivable = personnel.overdueReceivable + school.overdueRemaining;
       const overdueReceivableCount = personnel.overdueCount + school.overdueUnpaidCount + school.overduePartialCount;
@@ -16465,10 +17512,11 @@
         { label: "Toplam Beklenen Gelir", value: formatTRY(totalExpected), risk: false },
         { label: "Personel Hakediş", value: formatTRY(personnel.accrual), risk: false },
         { label: "Okul Tahakkuku", value: formatTRY(school.expected), risk: false },
-        { label: "Toplam Tahsilat", value: formatTRY(totalCollected), risk: false },
+        { label: "Toplam Tahsilat", value: formatTRY(totalCollected), risk: false, note: "Faturalı personel ve okul kayıtlarında KDV dahil kasa girişi" },
+        { label: "Hesaplanan KDV", value: formatTRY(totalVat), risk: false, note: `Personel ${formatTRY(personnel.vat)} · Okul ${formatTRY(school.vat)} · kâr hesabına eklenmez` },
         { label: "Araç Giderleri", value: formatTRY(vehicle.total), risk: vehicle.riskCount > 0, note: vehicle.riskCount > 0 ? `${vehicle.riskCount} bağlantı veya pay hatası` : "Normal operasyon gideri", action: "finance-jump-vehicle-expenses" },
         { label: "Şoför / Rehber Ödemeleri", value: formatTRY(staff.total), risk: staff.riskCount > 0, note: staff.overdueCount > 0 ? `${staff.overdueCount} vadesi geçmiş ödeme` : (staff.allocationRiskCount > 0 ? `${staff.allocationRiskCount} bağlantı/pay hatası` : "Normal personel gideri"), action: "finance-jump-staff-payments" },
-        { label: "Net Operasyon Sonucu", value: formatTRY(netResult), risk: netResult < 0, note: netResult < 0 ? "Giderler geliri aşıyor" : "" },
+        { label: "Net Operasyon Sonucu", value: formatTRY(netResult), risk: netResult < 0, note: netResult < 0 ? "Giderler geliri aşıyor" : "KDV hariç operasyon sonucu" },
         { label: "Toplam Alacak", value: formatTRY(totalReceivable), risk: overdueReceivable > 0, note: overdueReceivable > 0 ? `${overdueReceivableCount} vadesi geçmiş kayıt` : "Vadesi geçmemiş bakiye", action: "finance-jump-general-receivable" },
         { label: "Riskli / Eksik Kayıt", value: `${riskCount} kayıt`, risk: riskCount > 0, note: riskCount > 0 ? "Fiyat, bağlantı, pay veya vade sorunu" : "Kritik sorun yok", action: "finance-jump-general-risk" }
       ];
@@ -16491,12 +17539,16 @@
       if (!host) return;
       const totals = schoolFinanceTotals(getFinanceMonth(), true);
       const chips = [
-        { label: "Beklenen Öğrenci Ücreti", value: formatTRY(totals.expected), risk: false },
+        { label: "KDV Hariç Öğrenci Ücreti", value: formatTRY(totals.expected), risk: false, note: "Okul servis geliri ve kârlılık matrahı" },
+        { label: "Hesaplanan Okul KDV", value: formatTRY(totals.vat), risk: false, note: "Yalnızca faturalı öğrenci kayıtları" },
+        { label: "Kasa Tahsilat Hedefi", value: formatTRY(totals.cashExpected), risk: false, note: "Faturalı kayıtlarda KDV dahil" },
         { label: "Veli Tahsilatı", value: formatTRY(totals.paid), risk: false },
-        { label: "Kalan Okul Alacağı", value: formatTRY(totals.remaining), risk: totals.overdueRemaining > 0, note: totals.overdueRemaining > 0 ? "Geçmiş aya ait tahsil edilmemiş bakiye" : "Seçili ayın açık bakiyesi", action: "finance-jump-school-receivable" },
+        { label: "Kalan Okul Alacağı", value: formatTRY(totals.remaining), risk: totals.overdueRemaining > 0, note: totals.overdueRemaining > 0 ? "Geçmiş aya ait tahsil edilmemiş bakiye" : "Seçili ayın KDV dahil açık bakiyesi", action: "finance-jump-school-receivable" },
+        { label: "Faturalı Öğrenci", value: `${totals.invoicedCount} öğrenci`, risk: false },
+        { label: "Faturasız Öğrenci", value: `${totals.unbilledCount} öğrenci`, risk: false },
         { label: "Okula Bağlı Araç Gideri", value: formatTRY(totals.vehicleExpense), risk: false, note: "Normal operasyon gideri", action: "finance-jump-vehicle-expenses" },
         { label: "Şoför / Rehber Gideri", value: formatTRY(totals.staffExpense), risk: false, note: "Normal personel gideri", action: "finance-jump-staff-payments" },
-        { label: "Okul Net Katkı", value: formatTRY(totals.netContribution), risk: totals.netContribution < 0, note: totals.netContribution < 0 ? "Giderler okul tahakkukunu aşıyor" : "" },
+        { label: "Okul Net Katkı", value: formatTRY(totals.netContribution), risk: totals.netContribution < 0, note: totals.netContribution < 0 ? "Giderler KDV hariç okul tahakkukunu aşıyor" : "KDV hariç kârlılık" },
         { label: "Tam Ödeyen", value: `${totals.paidCount} öğrenci`, risk: false },
         { label: "Ödeme Yapmayan", value: `${totals.unpaidCount} öğrenci`, risk: totals.overdueUnpaidCount > 0, note: totals.overdueUnpaidCount > 0 ? "Geçmiş ay tahsilatı yapılmamış" : "Seçili ay henüz kapanmadı", action: "finance-jump-school-unpaid" },
         { label: "Eksik Ödeme", value: `${totals.partialCount} öğrenci`, risk: totals.overduePartialCount > 0, note: totals.overduePartialCount > 0 ? "Geçmiş ay tahsilatı eksik" : "Seçili ay henüz kapanmadı", action: "finance-jump-school-partial" }
@@ -16514,30 +17566,36 @@
       }
       host.innerHTML = `
         <div class="table-wrap">
-          <table>
+          <table style="min-width:1500px">
             <thead>
               <tr>
+                <th>Tür</th>
                 <th>Durum</th>
                 <th>Öğrenci / Veli</th>
                 <th>Okul / Sınıf</th>
-                <th>Aylık Ücret</th>
+                <th>KDV Hariç Ücret</th>
+                <th>KDV</th>
+                <th>Kasa Hedefi</th>
                 <th>Tahsil Edilen</th>
                 <th>Kalan / Fazla</th>
-                <th>Son Ödeme</th>
+                <th>Fatura / Son Ödeme</th>
                 <th>İşlem</th>
               </tr>
             </thead>
             <tbody>
               ${rows.map((row) => `
                 <tr>
+                  <td><span class="pill ${row.billingMode === "invoiced" ? "active" : ""}">${escapeHtml(row.billingLabel)}</span></td>
                   <td><span class="pill ${escapeHtml(row.status.className)}">${escapeHtml(row.status.label)}</span></td>
                   <td><strong>${escapeHtml(row.student.name || "-")}</strong><br><span class="muted">${escapeHtml(row.student.guardianName || "-")} · ${escapeHtml(row.student.guardianPhone || "-")}</span></td>
                   <td>${escapeHtml(row.school?.name || "Okul yok")}<br><span class="muted">${escapeHtml(row.student.className || "Sınıf yok")}</span></td>
-                  <td><strong>${escapeHtml(formatTRY(row.expected))}</strong></td>
-                  <td><strong>${escapeHtml(formatTRY(row.paid))}</strong><br><span class="muted">${row.records.length} ödeme</span></td>
+                  <td><strong>${escapeHtml(formatTRY(row.netExpected))}</strong></td>
+                  <td><strong>${escapeHtml(formatTRY(row.vatAmount))}</strong>${row.billingMode === "invoiced" ? `<br><span class="muted">%${escapeHtml(String(row.vatRate))}</span>` : ""}</td>
+                  <td><strong>${escapeHtml(formatTRY(row.cashExpected))}</strong></td>
+                  <td><strong>${escapeHtml(formatTRY(row.paid))}</strong><br><span class="muted">${row.records.filter((record) => Number(record.amount || 0) > 0).length} tahsilat</span></td>
                   <td>${row.excess > 0 ? `<strong>${escapeHtml(formatTRY(row.excess))} fazla</strong>` : `<strong>${escapeHtml(formatTRY(row.remaining))}</strong>`}</td>
-                  <td>${row.lastPayment ? `${escapeHtml(jobDateText(row.lastPayment.date || ""))}<br><span class="muted">${escapeHtml(row.lastPayment.method || "-")} · ${escapeHtml(formatTRY(row.lastPayment.amount))}</span>` : "-"}</td>
-                  <td><button class="btn small primary" type="button" data-action="finance-school-payment" data-id="${escapeHtml(row.student.id)}">Tahsilata Git</button></td>
+                  <td>${row.billingMode === "invoiced" ? `<strong>${escapeHtml(row.invoiceNo || "No yok")}</strong><br><span class="muted">${escapeHtml(row.invoiceDate || "Tarih yok")}</span>` : `<span class="muted">Faturasız</span>`}${row.lastPayment ? `<br><span class="muted">Son: ${escapeHtml(jobDateText(row.lastPayment.date || ""))} · ${escapeHtml(formatTRY(row.lastPayment.amount))}</span>` : ""}</td>
+                  <td><button class="btn small primary" type="button" data-action="finance-school-payment" data-id="${escapeHtml(row.student.id)}">Kaydı Aç</button></td>
                 </tr>
               `).join("")}
             </tbody>
@@ -16649,13 +17707,30 @@
         showToast("Dışa aktarılacak okul finans kaydı yok.");
         return;
       }
-      const header = ["Ay", "Durum", "Öğrenci", "Veli", "Veli Telefonu", "Okul", "Sınıf", "Aylık Ücret", "Tahsil Edilen", "Kalan", "Fazla", "Son Ödeme Tarihi", "Son Ödeme Yöntemi", "Ödeme Kaydı"];
+      const header = ["Ay", "Fatura Türü", "Durum", "Öğrenci", "Veli", "Veli Telefonu", "Okul", "Sınıf", "KDV Hariç Aylık Ücret", "KDV Oranı %", "KDV Tutarı", "KDV Dahil Tahsilat Hedefi", "Tahsil Edilen", "Kalan", "Fazla", "Fatura No", "Fatura Tarihi", "Son Ödeme Tarihi", "Son Ödeme Yöntemi", "Kayıt Sayısı"];
       const lines = [header.map(csvCell).join(";")];
       rows.forEach((row) => {
         lines.push([
-          getFinanceMonth(), row.status.label, row.student.name || "", row.student.guardianName || "", row.student.guardianPhone || "",
-          row.school?.name || "", row.student.className || "", row.expected, row.paid, row.remaining, row.excess,
-          row.lastPayment?.date || "", row.lastPayment?.method || "", row.records.length
+          getFinanceMonth(),
+          row.billingLabel,
+          row.status.label,
+          row.student.name || "",
+          row.student.guardianName || "",
+          row.student.guardianPhone || "",
+          row.school?.name || "",
+          row.student.className || "",
+          row.netExpected,
+          row.vatRate,
+          row.vatAmount,
+          row.cashExpected,
+          row.paid,
+          row.remaining,
+          row.excess,
+          row.invoiceNo || "",
+          row.invoiceDate || "",
+          row.lastPayment?.date || "",
+          row.lastPayment?.method || "",
+          row.records.length
         ].map(csvCell).join(";"));
       });
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
@@ -16669,7 +17744,6 @@
       URL.revokeObjectURL(url);
       showToast("Okul finans CSV indirildi.");
     }
-
 
     const STAFF_PAYMENT_MODELS = {
       monthly: "Aylık Sabit",
@@ -17350,6 +18424,7 @@
         .filter((expense) => types.includes(expense.type))
         .reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
       const fuel = byType(["Yakıt"]);
+      const fuelLiters = rows.filter((expense) => expense.type === "Yakıt").reduce((sum, expense) => sum + vehicleExpenseFuelLiters(expense), 0);
       const maintenance = byType(["Bakım", "Arıza", "Lastik", "Muayene", "Sigorta", "MTV"]);
       const driver = byType(["Şoför Ödemesi"]);
       const other = total - fuel - maintenance - driver;
@@ -17379,7 +18454,7 @@
         }
         return false;
       }).length;
-      return { rows, total, fuel, maintenance, driver, other, topVehicle, topVehicleAmount: topEntry?.[1] || 0, unlinkedCount, sharedCount, personnelAllocated, schoolAllocated, riskCount, count: rows.length };
+      return { rows, total, fuel, fuelLiters, maintenance, driver, other, topVehicle, topVehicleAmount: topEntry?.[1] || 0, unlinkedCount, sharedCount, personnelAllocated, schoolAllocated, riskCount, count: rows.length };
     }
 
     function renderVehicleExpenseOptions() {
@@ -17534,6 +18609,7 @@
       if ($("#vehicleExpenseSchoolShare")) $("#vehicleExpenseSchoolShare").value = "50";
       if (selectFirst && state.vehicles[0]) $("#vehicleExpenseVehicle").value = state.vehicles[0].id;
       $("#deleteVehicleExpenseBtn").disabled = true;
+      updateVehicleExpenseFuelPreview();
       updateVehicleExpenseLink();
     }
 
@@ -17545,8 +18621,13 @@
       const vehicleId = $("#vehicleExpenseVehicle").value;
       const type = $("#vehicleExpenseType").value;
       const amount = Number($("#vehicleExpenseAmount").value || 0);
+      const fuelLiters = type === "Yakıt" ? Number($("#vehicleExpenseFuelLiters")?.value || 0) : 0;
       if (!date || !vehicleId || !type || amount <= 0) {
         showToast("Tarih, araç, gider türü ve geçerli tutar zorunlu.");
+        return;
+      }
+      if (type === "Yakıt" && fuelLiters <= 0) {
+        showToast("Yakıt giderinde alınan litre bilgisi zorunlu.");
         return;
       }
       const vehicle = state.vehicles.find((item) => item.id === vehicleId);
@@ -17588,6 +18669,8 @@
         driverName: vehicle?.driverName || existing?.driverName || "",
         type,
         amount,
+        fuelLiters: type === "Yakıt" ? roundFinanceMoney(fuelLiters) : 0,
+        fuelUnitPrice: type === "Yakıt" && fuelLiters > 0 ? roundFinanceMoney(amount / fuelLiters) : 0,
         km: Number($("#vehicleExpenseKm").value || 0),
         paymentMethod: $("#vehicleExpensePaymentMethod").value || "Nakit",
         allocationMode,
@@ -17622,6 +18705,7 @@
       $("#vehicleExpenseVehicle").value = expense.vehicleId || "";
       $("#vehicleExpenseType").value = expense.type || "Diğer";
       $("#vehicleExpenseAmount").value = expense.amount || "";
+      $("#vehicleExpenseFuelLiters").value = vehicleExpenseFuelLiters(expense) || "";
       $("#vehicleExpenseKm").value = expense.km || "";
       $("#vehicleExpensePaymentMethod").value = expense.paymentMethod || "Nakit";
       const allocationMode = vehicleExpenseAllocationMode(expense);
@@ -17634,6 +18718,7 @@
       $("#vehicleExpenseSupplier").value = expense.supplier || "";
       $("#vehicleExpenseNote").value = expense.note || "";
       $("#deleteVehicleExpenseBtn").disabled = false;
+      updateVehicleExpenseFuelPreview();
       updateVehicleExpenseLink();
       scrollToFinanceArea("#vehicleExpenseSection");
     }
@@ -17658,6 +18743,7 @@
       const chips = [
         { label: "Toplam Araç Gideri", value: formatTRY(totals.total), risk: false, note: "Gider olması tek başına uyarı değildir" },
         { label: "Yakıt", value: formatTRY(totals.fuel), risk: false },
+        { label: "Yakıt Litresi", value: `${totals.fuelLiters.toLocaleString("tr-TR", { maximumFractionDigits: 2 })} L`, risk: false },
         { label: "Bakım / Arıza", value: formatTRY(totals.maintenance), risk: false },
         { label: "Şoför Ödemesi", value: formatTRY(totals.driver), risk: false },
         { label: "Personel Payı", value: formatTRY(totals.personnelAllocated), risk: false },
@@ -17704,6 +18790,7 @@
                 <th>Araç / Şoför</th>
                 <th>Gider Türü</th>
                 <th>Tutar</th>
+                <th>Yakıt / Birim</th>
                 <th>KM</th>
                 <th>Operasyon / Dağıtım</th>
                 <th>Belge / Ödeme</th>
@@ -17721,6 +18808,7 @@
                     <td><strong>${escapeHtml(vehicle?.plate || expense.vehiclePlate || "Araç silinmiş")}</strong><br><span class="muted">${escapeHtml(vehicle?.driverName || expense.driverName || "Şoför yok")}</span></td>
                     <td><span class="pill">${escapeHtml(expense.type || "Diğer")}</span></td>
                     <td><strong>${escapeHtml(formatTRY(expense.amount || 0))}</strong></td>
+                    <td>${expense.type === "Yakıt" ? `<strong>${escapeHtml(vehicleExpenseFuelLiters(expense).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L</strong><br><span class="muted">${vehicleExpenseFuelLiters(expense) > 0 ? `${escapeHtml(formatTRY(Number(expense.amount || 0) / vehicleExpenseFuelLiters(expense)))} / L` : "Litre eksik"}</span>` : "-"}</td>
                     <td>${expense.km ? escapeHtml(Number(expense.km).toLocaleString("tr-TR")) : "-"}</td>
                     <td><span class="pill ${vehicleExpenseAllocationMode(expense) === "shared" ? "allocation-pill" : ""}">${escapeHtml(vehicleExpenseLinkType(expense))}</span><br><strong>${escapeHtml(operation.title)}</strong><br><span class="muted">${escapeHtml(operation.sub)}</span></td>
                     <td>${escapeHtml(expense.receiptNo || "Belge yok")}<br><span class="muted">${escapeHtml(expense.paymentMethod || "-")} · ${escapeHtml(expense.supplier || "Tedarikçi yok")}</span></td>
@@ -17744,6 +18832,7 @@
       renderVehicleExpenseTable();
       if ($("#vehicleExpenseDate") && !$("#vehicleExpenseDate").value) $("#vehicleExpenseDate").value = todayISO();
       if ($("#deleteVehicleExpenseBtn") && !$("#vehicleExpenseId")?.value) $("#deleteVehicleExpenseBtn").disabled = true;
+      updateVehicleExpenseFuelPreview();
       updateVehicleExpenseLink();
     }
 
@@ -17761,14 +18850,14 @@
         showToast("Dışa aktarılacak araç gideri yok.");
         return;
       }
-      const header = ["Tarih", "Plaka", "Şoför", "Gider Türü", "Toplam Tutar", "KM", "Bağlantı Türü", "Personel Payı %", "Personel Payı Tutar", "Okul Payı %", "Okul Payı Tutar", "İş / Okul", "Firma", "Fiş / Fatura No", "Tedarikçi", "Ödeme Yöntemi", "Not"];
+      const header = ["Tarih", "Plaka", "Şoför", "Gider Türü", "Toplam Tutar", "Yakıt Litre", "Litre Fiyatı", "KM", "Bağlantı Türü", "Personel Payı %", "Personel Payı Tutar", "Okul Payı %", "Okul Payı Tutar", "İş / Okul", "Firma", "Fiş / Fatura No", "Tedarikçi", "Ödeme Yöntemi", "Not"];
       const lines = [header.map(csvCell).join(";")];
       rows.forEach((expense) => {
         const operation = vehicleExpenseOperationLabel(expense);
         lines.push([
           expense.date || "", expense.vehiclePlate || state.vehicles.find((vehicle) => vehicle.id === expense.vehicleId)?.plate || "",
           expense.driverName || state.vehicles.find((vehicle) => vehicle.id === expense.vehicleId)?.driverName || "",
-          expense.type || "", Number(expense.amount || 0), Number(expense.km || 0), vehicleExpenseLinkType(expense),
+          expense.type || "", Number(expense.amount || 0), vehicleExpenseFuelLiters(expense), vehicleExpenseFuelLiters(expense) > 0 ? Number(expense.amount || 0) / vehicleExpenseFuelLiters(expense) : 0, Number(expense.km || 0), vehicleExpenseLinkType(expense),
           vehicleExpensePersonnelShare(expense), vehicleExpensePersonnelAmount(expense), vehicleExpenseSchoolShare(expense), vehicleExpenseSchoolAmount(expense),
           operation.title, expense.companyName || "", expense.receiptNo || "", expense.supplier || "", expense.paymentMethod || "", expense.note || ""
         ].map(csvCell).join(";"));
@@ -17849,8 +18938,13 @@
       return [...ids].map((schoolId) => {
         const school = getSchool(schoolId);
         const rows = financeRows.filter((row) => row.student.schoolId === schoolId);
-        const revenue = rows.reduce((sum, row) => sum + Number(row.expected || 0), 0);
+        const revenue = rows.reduce((sum, row) => sum + Number(row.netExpected || 0), 0);
+        const vat = rows.reduce((sum, row) => sum + Number(row.vatAmount || 0), 0);
+        const cashExpected = rows.reduce((sum, row) => sum + Number(row.cashExpected || 0), 0);
         const collected = rows.reduce((sum, row) => sum + Number(row.paid || 0), 0);
+        const receivable = rows.reduce((sum, row) => sum + Number(row.remaining || 0), 0);
+        const invoicedCount = rows.filter((row) => row.billingMode === "invoiced").length;
+        const unbilledCount = rows.filter((row) => row.billingMode === "unbilled").length;
         const vehicleCost = vehicleExpenseTotalForSchool(schoolId, month);
         const staffCost = staffPaymentCostForSchool(schoolId, month);
         const totalCost = vehicleCost + staffCost;
@@ -17864,7 +18958,12 @@
           name: school?.name || "Silinmiş okul",
           secondary: `${rows.length} öğrenci · ${school?.driverName || state.vehicles.find((vehicle) => vehicle.id === school?.vehicleId)?.driverName || "Şoför yok"}`,
           revenue,
+          vat,
+          cashExpected,
           collected,
+          receivable,
+          invoicedCount,
+          unbilledCount,
           vehicleCost,
           staffCost,
           totalCost,
@@ -17904,20 +19003,6 @@
         }, 0);
     }
 
-    function profitabilityVehicleKm(vehicleId, month = getFinanceMonth()) {
-      const readings = [];
-      state.vehicleExpenses.forEach((expense) => {
-        if (expense.vehicleId === vehicleId && String(expense.date || "").startsWith(month) && Number(expense.km || 0) > 0) readings.push(Number(expense.km));
-      });
-      state.vehicleMaintenance.forEach((record) => {
-        if (record.vehicleId === vehicleId && String(record.date || "").startsWith(month) && Number(record.km || 0) > 0) readings.push(Number(record.km));
-      });
-      const unique = [...new Set(readings)].sort((a, b) => a - b);
-      if (unique.length < 2) return null;
-      const distance = unique[unique.length - 1] - unique[0];
-      return distance > 0 ? distance : null;
-    }
-
     function profitabilityVehicleRows(month = getFinanceMonth()) {
       return state.vehicles.map((vehicle) => {
         const jobs = financeJobsForMonth(month).filter((job) => profitabilityJobVehicleId(job) === vehicle.id);
@@ -17930,9 +19015,11 @@
         const schoolCollected = schoolRows.reduce((sum, row) => sum + Number(row.paid || 0), 0);
         const revenue = personnelRevenue + schoolRevenue;
         const collected = personnelCollected + schoolCollected;
-        const vehicleCost = state.vehicleExpenses
-          .filter((expense) => expense.vehicleId === vehicle.id && String(expense.date || "").startsWith(month))
-          .reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
+        const vehicleExpenseRowsForMonth = state.vehicleExpenses.filter((expense) => expense.vehicleId === vehicle.id && String(expense.date || "").startsWith(month));
+        const vehicleCost = vehicleExpenseRowsForMonth.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
+        const fuelRows = vehicleExpenseRowsForMonth.filter((expense) => expense.type === "Yakıt");
+        const fuelCost = fuelRows.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
+        const fuelLiters = fuelRows.reduce((sum, expense) => sum + vehicleExpenseFuelLiters(expense), 0);
         const staffCost = staffPaymentCostForVehicle(vehicle.id, month);
         const totalCost = vehicleCost + staffCost;
         const net = revenue - totalCost;
@@ -17940,26 +19027,22 @@
         const personnelTrips = jobValues.reduce((sum, values) => sum + Number(values.realizedTrips || 0), 0);
         const schoolTrips = state.schoolServiceSessions.filter((session) => schools.some((school) => school.id === session.schoolId) && String(session.date || "").startsWith(month) && session.status === "Tamamlandı").length;
         const activity = personnelTrips + schoolTrips;
-        const estimatedKm = profitabilityVehicleKm(vehicle.id, month);
+        const kmInfo = vehicleKmDistanceInfo(vehicle.id, month);
+        const estimatedKm = kmInfo.distance > 0 ? kmInfo.distance : null;
+        const fuelConsumptionPer100 = estimatedKm && fuelLiters > 0 ? fuelLiters / estimatedKm * 100 : null;
+        const fuelCostPerKm = estimatedKm ? fuelCost / estimatedKm : null;
+        const vehicleCostPerKm = estimatedKm ? vehicleCost / estimatedKm : null;
+        const kmCost = estimatedKm ? totalCost / estimatedKm : null;
+        const revenuePerKm = estimatedKm ? revenue / estimatedKm : null;
+        const netPerKm = estimatedKm ? net / estimatedKm : null;
         const stateInfo = profitabilityState({ revenue, totalCost, net });
         return {
-          kind: "vehicles",
-          id: vehicle.id,
-          name: vehicle.plate || "Plakasız araç",
+          kind: "vehicles", id: vehicle.id, name: vehicle.plate || "Plakasız araç",
           secondary: `${vehicle.driverName || "Şoför yok"} · ${jobs.length} iş · ${schools.length} okul`,
-          revenue,
-          collected,
-          vehicleCost,
-          staffCost,
-          totalCost,
-          net,
-          margin,
-          activity,
-          activityLabel: "sefer",
-          unitRevenue: activity > 0 ? revenue / activity : null,
-          unitCost: activity > 0 ? totalCost / activity : null,
-          estimatedKm,
-          kmCost: estimatedKm ? totalCost / estimatedKm : null,
+          revenue, collected, vehicleCost, fuelCost, fuelLiters, staffCost, totalCost, net, margin, activity,
+          activityLabel: "sefer", unitRevenue: activity > 0 ? revenue / activity : null,
+          unitCost: activity > 0 ? totalCost / activity : null, estimatedKm, kmInfo,
+          fuelConsumptionPer100, fuelCostPerKm, vehicleCostPerKm, kmCost, revenuePerKm, netPerKm,
           status: stateInfo
         };
       }).filter((row) => row.revenue > 0 || row.totalCost > 0 || state.vehicles.find((vehicle) => vehicle.id === row.id)?.status === "Aktif")
@@ -18069,7 +19152,7 @@
         ? "Araçla ilişkilendirilen personel ve okul geliri, araç gideri ve personel maliyeti karşılaştırılır."
         : (view === "schools" ? "Öğrenci tahakkukundan okulun doğrudan araç ve personel maliyetleri düşülür." : "Hakedişten işe doğrudan bağlanan araç ve personel maliyetleri düşülür.");
       if (note) note.textContent = view === "vehicles"
-        ? "Araç geliri; araca bağlı personel işleri ve okullar üzerinden atanır. Kilometre maliyeti yalnız aynı ay içinde en az iki kilometre okuması varsa tahmini olarak hesaplanır. Genel giderler araçlara otomatik dağıtılmaz."
+        ? "Araç geliri; araca bağlı personel işleri ve okullar üzerinden atanır. KM analizi önce aylık başlangıç/bitiş sayaç kaydını, yoksa gider ve bakım KM okumalarını kullanır. Yakıt tüketimi için yakıt giderine litre girilmelidir. Genel giderler araçlara otomatik dağıtılmaz."
         : "Bu ekran operasyonel net katkıyı gösterir. Yalnız doğrudan bağlanmış araç ve şoför/rehber maliyetleri kullanılır; genel merkez giderleri dağıtılmadığı için sonuç muhasebe net kârı değildir.";
 
       if (!rows.length) {
@@ -18083,7 +19166,7 @@
       }
 
       if (view === "vehicles") {
-        host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Operasyon</th><th>Gelir</th><th>Tahsilat</th><th>Araç Gideri</th><th>Personel Maliyeti</th><th>Toplam Maliyet</th><th>Net Katkı</th><th>Marj</th><th>Sefer Başına</th><th>Tahmini KM</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${escapeHtml(String(row.activity || 0))} sefer</strong></td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.collected))}</strong></td><td>${escapeHtml(formatTRY(row.vehicleCost))}</td><td>${escapeHtml(formatTRY(row.staffCost))}</td><td><strong>${escapeHtml(formatTRY(row.totalCost))}</strong></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td>${row.margin === null ? "-" : `%${escapeHtml(row.margin.toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}`}</td><td>Gelir ${row.unitRevenue === null ? "-" : escapeHtml(formatTRY(row.unitRevenue))}<br><span class="muted">Maliyet ${row.unitCost === null ? "-" : escapeHtml(formatTRY(row.unitCost))}</span></td><td>${row.estimatedKm ? `${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km<br><span class="muted">${escapeHtml(formatTRY(row.kmCost))}/km</span>` : "Yetersiz okuma"}</td><td>${profitabilityStatusHtml(row)}</td><td><button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderlere Git</button></td></tr>`).join("")}</tbody></table></div>`;
+        host.innerHTML = `<div class="table-wrap"><table style="min-width:1850px"><thead><tr><th>Araç</th><th>Operasyon</th><th>Gelir</th><th>Toplam Maliyet</th><th>Net Katkı</th><th>Marj</th><th>Mesafe</th><th>Yakıt Litre</th><th>L/100 KM</th><th>Yakıt ₺/KM</th><th>Toplam ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${escapeHtml(String(row.activity || 0))} sefer</strong><br><span class="muted">Tahsilat ${escapeHtml(formatTRY(row.collected))}</span></td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.totalCost))}</strong><br><span class="muted">Araç ${escapeHtml(formatTRY(row.vehicleCost))} · Personel ${escapeHtml(formatTRY(row.staffCost))}</span></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td>${row.margin === null ? "-" : `%${escapeHtml(row.margin.toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}`}</td><td>${row.estimatedKm ? `<strong>${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km</strong><br><span class="muted">${escapeHtml(row.kmInfo?.source || "")}</span>` : "Yetersiz KM"}</td><td>${escapeHtml(Number(row.fuelLiters || 0).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L</td><td>${row.fuelConsumptionPer100 === null ? "-" : `${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L`}</td><td>${row.fuelCostPerKm === null ? "-" : escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td><strong>${row.kmCost === null ? "-" : escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm === null ? "-" : escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${row.netPerKm !== null && row.netPerKm < 0 ? "profit-negative" : "profit-positive"}">${row.netPerKm === null ? "-" : escapeHtml(formatTRY(row.netPerKm))}</strong></td><td>${profitabilityStatusHtml(row)}<br><span class="muted">${row.netPerKm === null ? "KM sonucu yok" : row.netPerKm < 0 ? "KM başına zarar" : "KM başına kâr"}</span></td><td><button class="btn small primary" type="button" data-action="open-vehicle-km" data-id="${escapeHtml(row.id)}">KM Analizi</button><button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderlere Git</button></td></tr>`).join("")}</tbody></table></div>`;
         return;
       }
 
@@ -18286,6 +19369,7 @@
         ${financeReportKpisHtml([
           { label: "Toplam Gelir", value: formatTRY(totals.revenue) },
           { label: "Toplam Tahsilat", value: formatTRY(totals.collected) },
+          { label: "Hesaplanan KDV", value: formatTRY(totals.vat) },
           { label: "Toplam Gider", value: formatTRY(totals.totalExpense) },
           { label: "Net Operasyon Sonucu", value: formatTRY(totals.net), risk: totals.net < 0 },
           { label: "Toplam Alacak", value: formatTRY(totals.receivable), risk: personnel.overdueReceivable + school.overdueRemaining > 0 },
@@ -18313,42 +19397,89 @@
       const selected = $("#financeReportJob")?.value || "Tümü";
       const rows = financeJobsForMonth(month).filter((job) => selected === "Tümü" || job.id === selected).map((job) => ({ job, values: financeRecordValues(job, month) }));
       const totals = rows.reduce((acc, row) => {
-        acc.expected += row.values.expected; acc.accrual += row.values.accrual; acc.collected += row.values.collected; acc.receivable += row.values.receivable; acc.vehicle += row.values.vehicleExpense; acc.staff += row.values.staffExpense; acc.net += row.values.netContribution; acc.planned += row.values.plannedTrips; acc.realized += row.values.realizedTrips; return acc;
-      }, { expected:0, accrual:0, collected:0, receivable:0, vehicle:0, staff:0, net:0, planned:0, realized:0 });
+        acc.expected += row.values.expected; acc.accrual += row.values.accrual; acc.vat += row.values.vatAmount; acc.invoiced += row.values.invoiceAmount; acc.collected += row.values.collected; acc.receivable += row.values.receivable; acc.vehicle += row.values.vehicleExpense; acc.staff += row.values.staffExpense; acc.net += row.values.netContribution; acc.planned += row.values.plannedTrips; acc.realized += row.values.realizedTrips; return acc;
+      }, { expected:0, accrual:0, vat:0, invoiced:0, collected:0, receivable:0, vehicle:0, staff:0, net:0, planned:0, realized:0 });
       const tableRows = rows.map(({ job, values }) => {
         const company = getCompany(job.companyId);
         const status = financeStatus(values);
         const margin = values.accrual > 0 ? values.netContribution / values.accrual * 100 : null;
-        return `<tr><td><strong>${escapeHtml(job.name || "-")}</strong><br><span>${escapeHtml(company?.name || "Firma yok")} · ${escapeHtml(job.contractNo || "No yok")}</span></td><td>${escapeHtml(job.billingModel === "monthly" ? "Aylık sabit" : "Tek sefer")}</td><td>${escapeHtml(String(values.plannedTrips))} / ${escapeHtml(String(values.realizedTrips))}</td><td class="money">${escapeHtml(formatTRY(values.accrual))}</td><td class="money">${escapeHtml(formatTRY(values.vehicleExpense + values.staffExpense))}</td><td class="money ${values.netContribution < 0 ? "negative" : "positive"}">${escapeHtml(formatTRY(values.netContribution))}</td><td>${margin === null ? "-" : `%${escapeHtml(margin.toLocaleString("tr-TR", { maximumFractionDigits:1 }))}`}</td><td class="money">${escapeHtml(formatTRY(values.collected))}</td><td class="money">${escapeHtml(formatTRY(values.receivable))}</td><td><span class="report-status ${status.label === "Vadesi Geçti" ? "risk" : "ok"}">${escapeHtml(status.label)}</span></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(job.name || "-")}</strong><br><span>${escapeHtml(company?.name || "Firma yok")} · ${escapeHtml(job.contractNo || "No yok")}</span></td><td>${escapeHtml(job.billingModel === "monthly" ? "Aylık sabit" : "Tek sefer")}</td><td>${escapeHtml(String(values.plannedTrips))} / ${escapeHtml(String(values.realizedTrips))}</td><td class="money">${escapeHtml(formatTRY(values.accrual))}</td><td class="money">${escapeHtml(formatTRY(values.vatAmount))}</td><td class="money">${escapeHtml(formatTRY(values.invoiceAmount))}</td><td class="money">${escapeHtml(formatTRY(values.vehicleExpense + values.staffExpense))}</td><td class="money ${values.netContribution < 0 ? "negative" : "positive"}">${escapeHtml(formatTRY(values.netContribution))}</td><td>${margin === null ? "-" : `%${escapeHtml(margin.toLocaleString("tr-TR", { maximumFractionDigits:1 }))}`}</td><td class="money">${escapeHtml(formatTRY(values.collected))}</td><td class="money">${escapeHtml(formatTRY(values.receivable))}</td><td><span class="report-status ${status.label === "Vadesi Geçti" ? "risk" : "ok"}">${escapeHtml(status.label)}</span></td></tr>`;
       });
       return `${financeReportHeaderHtml("Personel Servisi Finans Raporu", "İş ve sözleşme bazında planlanan sefer, gerçekleşen hakediş, maliyet, tahsilat ve kârlılık.", month)}${financeReportKpisHtml([
-        { label:"Planlanan Gelir", value:formatTRY(totals.expected) }, { label:"Gerçekleşen Hakediş", value:formatTRY(totals.accrual) }, { label:"Tahsilat", value:formatTRY(totals.collected) }, { label:"Kalan Alacak", value:formatTRY(totals.receivable), risk:totals.receivable>0 && month<currentMonthISO() },
-        { label:"Araç Gideri", value:formatTRY(totals.vehicle) }, { label:"Şoför / Rehber", value:formatTRY(totals.staff) }, { label:"Net Katkı", value:formatTRY(totals.net), risk:totals.net<0 }, { label:"Plan / Gerçek", value:`${totals.planned} / ${totals.realized} sefer` }
-      ])}<div class="report-section"><div class="report-section-title"><strong>İş ve Sözleşme Detayı</strong><span>${rows.length} kayıt</span></div>${financeReportTableHtml(["İş / Firma", "Model", "Plan / Gerçek", "Hakediş", "Maliyet", "Net", "Marj", "Tahsilat", "Alacak", "Durum"], tableRows)}</div>${financeReportFooterHtml()}`;
+        { label:"Planlanan Gelir", value:formatTRY(totals.expected) }, { label:"Gerçekleşen Hakediş", value:formatTRY(totals.accrual) }, { label:"Hesaplanan KDV", value:formatTRY(totals.vat) }, { label:"KDV Dahil Fatura", value:formatTRY(totals.invoiced) },
+        { label:"Tahsilat", value:formatTRY(totals.collected) }, { label:"Kalan Alacak", value:formatTRY(totals.receivable), risk:totals.receivable>0 && month<currentMonthISO() }, { label:"Araç Gideri", value:formatTRY(totals.vehicle) }, { label:"Şoför / Rehber", value:formatTRY(totals.staff) }, { label:"Net Katkı", value:formatTRY(totals.net), risk:totals.net<0 }, { label:"Plan / Gerçek", value:`${totals.planned} / ${totals.realized} sefer` }
+      ])}<div class="report-section"><div class="report-section-title"><strong>İş ve Sözleşme Detayı</strong><span>${rows.length} kayıt</span></div>${financeReportTableHtml(["İş / Firma", "Model", "Plan / Gerçek", "Hakediş", "KDV", "Fatura Toplamı", "Maliyet", "Net", "Marj", "Tahsilat", "Alacak", "Durum"], tableRows)}</div>${financeReportFooterHtml()}`;
     }
 
     function renderSchoolFinanceReport(month) {
       const selected = $("#financeReportSchool")?.value || "Tümü";
       const rows = profitabilitySchoolRows(month).filter((row) => selected === "Tümü" || row.id === selected);
-      const totals = rows.reduce((acc, row) => { acc.revenue += row.revenue; acc.collected += row.collected; acc.vehicle += row.vehicleCost; acc.staff += row.staffCost; acc.cost += row.totalCost; acc.net += row.net; acc.students += Number(row.studentCount || 0); return acc; }, { revenue:0, collected:0, vehicle:0, staff:0, cost:0, net:0, students:0 });
-      const tableRows = rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary || "-")}</span></td><td>${escapeHtml(String(row.studentCount || 0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.collected))}</td><td class="money">${escapeHtml(formatTRY(Math.max(row.revenue-row.collected,0)))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin===null?"-":`%${escapeHtml(row.margin.toLocaleString("tr-TR",{maximumFractionDigits:1}))}`}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
-      return `${financeReportHeaderHtml("Okul Servisi Finans Raporu", "Okul bazında öğrenci tahakkuku, veli tahsilatı, operasyon maliyetleri ve net katkı.", month)}${financeReportKpisHtml([
-        {label:"Öğrenci Tahakkuku",value:formatTRY(totals.revenue)}, {label:"Veli Tahsilatı",value:formatTRY(totals.collected)}, {label:"Kalan Alacak",value:formatTRY(Math.max(totals.revenue-totals.collected,0)),risk:month<currentMonthISO()&&totals.revenue>totals.collected}, {label:"Aktif Öğrenci",value:`${totals.students} öğrenci`},
-        {label:"Araç Gideri",value:formatTRY(totals.vehicle)}, {label:"Şoför / Rehber",value:formatTRY(totals.staff)}, {label:"Toplam Maliyet",value:formatTRY(totals.cost)}, {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0}
-      ])}<div class="report-section"><div class="report-section-title"><strong>Okul Bazlı Finans</strong><span>${rows.length} okul</span></div>${financeReportTableHtml(["Okul", "Öğrenci", "Tahakkuk", "Tahsilat", "Alacak", "Araç", "Personel", "Net", "Marj", "Durum"],tableRows)}</div>${financeReportFooterHtml()}`;
+      const totals = rows.reduce((acc, row) => {
+        acc.revenue += row.revenue;
+        acc.vat += row.vat;
+        acc.cashExpected += row.cashExpected;
+        acc.collected += row.collected;
+        acc.receivable += row.receivable;
+        acc.invoiced += row.invoicedCount;
+        acc.unbilled += row.unbilledCount;
+        acc.vehicle += row.vehicleCost;
+        acc.staff += row.staffCost;
+        acc.cost += row.totalCost;
+        acc.net += row.net;
+        acc.students += Number(row.studentCount || 0);
+        return acc;
+      }, { revenue:0, vat:0, cashExpected:0, collected:0, receivable:0, invoiced:0, unbilled:0, vehicle:0, staff:0, cost:0, net:0, students:0 });
+
+      const tableRows = rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary || "-")}</span></td><td>${escapeHtml(String(row.studentCount || 0))}</td><td>${escapeHtml(`${row.invoicedCount} / ${row.unbilledCount}`)}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.vat))}</td><td class="money">${escapeHtml(formatTRY(row.cashExpected))}</td><td class="money">${escapeHtml(formatTRY(row.collected))}</td><td class="money">${escapeHtml(formatTRY(row.receivable))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin===null?"-":`%${escapeHtml(row.margin.toLocaleString("tr-TR",{maximumFractionDigits:1}))}`}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
+
+      return `${financeReportHeaderHtml("Okul Servisi Finans Raporu", "Faturalı ve faturasız öğrenci tahakkukları, KDV, veli tahsilatı, operasyon maliyetleri ve net katkı.", month)}${financeReportKpisHtml([
+        {label:"KDV Hariç Öğrenci Tahakkuku",value:formatTRY(totals.revenue)},
+        {label:"Hesaplanan KDV",value:formatTRY(totals.vat)},
+        {label:"KDV Dahil Kasa Hedefi",value:formatTRY(totals.cashExpected)},
+        {label:"Veli Tahsilatı",value:formatTRY(totals.collected)},
+        {label:"Kalan Alacak",value:formatTRY(totals.receivable),risk:month<currentMonthISO()&&totals.receivable>0},
+        {label:"Faturalı / Faturasız",value:`${totals.invoiced} / ${totals.unbilled}`},
+        {label:"Aktif Öğrenci",value:`${totals.students} öğrenci`},
+        {label:"Araç Gideri",value:formatTRY(totals.vehicle)},
+        {label:"Şoför / Rehber",value:formatTRY(totals.staff)},
+        {label:"Toplam Maliyet",value:formatTRY(totals.cost)},
+        {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0,note:"KDV hariç"}
+      ])}<div class="report-section"><div class="report-section-title"><strong>Okul Bazlı Finans</strong><span>${rows.length} okul</span></div>${financeReportTableHtml(["Okul", "Öğrenci", "Faturalı / Faturasız", "KDV Hariç Tahakkuk", "KDV", "Kasa Hedefi", "Tahsilat", "Alacak", "Araç", "Personel", "Net", "Marj", "Durum"],tableRows)}</div>${financeReportFooterHtml()}`;
     }
 
     function renderVehicleFinanceReport(month) {
       const selected = $("#financeReportVehicle")?.value || "Tümü";
       const rows = profitabilityVehicleRows(month).filter((row) => selected === "Tümü" || row.id === selected);
-      const totals = rows.reduce((acc,row)=>{acc.revenue+=row.revenue;acc.collected+=row.collected;acc.vehicle+=row.vehicleCost;acc.staff+=row.staffCost;acc.cost+=row.totalCost;acc.net+=row.net;acc.trips+=row.activity;return acc;},{revenue:0,collected:0,vehicle:0,staff:0,cost:0,net:0,trips:0});
+      const totals = rows.reduce((acc,row)=>{
+        acc.revenue+=row.revenue; acc.collected+=row.collected; acc.vehicle+=row.vehicleCost;
+        acc.fuelCost+=row.fuelCost; acc.fuelLiters+=row.fuelLiters; acc.staff+=row.staffCost;
+        acc.cost+=row.totalCost; acc.net+=row.net; acc.trips+=row.activity; acc.km+=Number(row.estimatedKm||0);
+        return acc;
+      },{revenue:0,collected:0,vehicle:0,fuelCost:0,fuelLiters:0,staff:0,cost:0,net:0,trips:0,km:0});
       const alerts = getVehicleAlerts().filter((alert) => selected === "Tümü" || alert.vehicleId === selected);
-      const tableRows = rows.map((row)=>{ const vehicle=state.vehicles.find((item)=>item.id===row.id); const alertCount=getVehicleAlerts(row.id).length; return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.kmCost===null||row.kmCost===undefined?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`; });
+      const consumption = totals.km > 0 && totals.fuelLiters > 0 ? totals.fuelLiters / totals.km * 100 : null;
+      const kmCost = totals.km > 0 ? totals.cost / totals.km : null;
+      const kmRevenue = totals.km > 0 ? totals.revenue / totals.km : null;
+      const kmNet = totals.km > 0 ? totals.net / totals.km : null;
+      const tableRows = rows.map((row)=>{
+        const vehicle=state.vehicles.find((item)=>item.id===row.id);
+        const alertCount=getVehicleAlerts(row.id).length;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.estimatedKm?escapeHtml(`${row.estimatedKm.toLocaleString("tr-TR")} km`):"-"}</td><td>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</td><td>${row.fuelConsumptionPer100===null?"-":escapeHtml(`${row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`)}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`;
+      });
       const alertItems=alerts.slice(0,12).map((alert)=>({risk:alert.severity==="danger",text:`${alert.plate||"Araç"}: ${alert.message||alert.title||"Uyarı"}`}));
-      return `${financeReportHeaderHtml("Araç Maliyet ve Kârlılık Raporu", "Araç bazında üretilen gelir, doğrudan maliyet, net katkı, kilometre maliyeti ve evrak uyarıları.", month)}${financeReportKpisHtml([
-        {label:"Araç Geliri",value:formatTRY(totals.revenue)}, {label:"Tahsilat",value:formatTRY(totals.collected)}, {label:"Araç Gideri",value:formatTRY(totals.vehicle)}, {label:"Şoför / Rehber",value:formatTRY(totals.staff)},
-        {label:"Toplam Maliyet",value:formatTRY(totals.cost)}, {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0}, {label:"Gerçekleşen Sefer",value:`${totals.trips} sefer`}, {label:"Bakım / Evrak Uyarısı",value:`${alerts.length} kayıt`,risk:alerts.length>0}
-      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı Performans</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç", "Sefer", "Gelir", "Araç Gideri", "Personel", "Toplam Maliyet", "Net", "KM Maliyeti", "Uyarı", "Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
+      return `${financeReportHeaderHtml("Araç KM, Maliyet ve Kârlılık Raporu", "Araç bazında yakıt tüketimi, kilometre maliyeti, kilometre başına gelir ve kâr/zarar analizi.", month)}${financeReportKpisHtml([
+        {label:"Araç Geliri",value:formatTRY(totals.revenue)},
+        {label:"Toplam Maliyet",value:formatTRY(totals.cost)},
+        {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0},
+        {label:"Toplam Mesafe",value:totals.km>0?`${totals.km.toLocaleString("tr-TR")} km`:"-"},
+        {label:"Yakıt",value:`${totals.fuelLiters.toLocaleString("tr-TR",{maximumFractionDigits:2})} L · ${formatTRY(totals.fuelCost)}`},
+        {label:"Tüketim",value:consumption===null?"-":`${consumption.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`},
+        {label:"Toplam Maliyet / KM",value:kmCost===null?"-":`${formatTRY(kmCost)} / km`},
+        {label:"Gelir / KM",value:kmRevenue===null?"-":`${formatTRY(kmRevenue)} / km`},
+        {label:kmNet!==null&&kmNet<0?"Zarar / KM":"Kâr / KM",value:kmNet===null?"-":`${formatTRY(Math.abs(kmNet))} / km`,risk:kmNet!==null&&kmNet<0},
+        {label:"Gerçekleşen Sefer",value:`${totals.trips} sefer`},
+        {label:"Bakım / Evrak Uyarısı",value:`${alerts.length} kayıt`,risk:alerts.length>0}
+      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı KM Performansı</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç","Sefer","Gelir","Toplam Maliyet","Net","Mesafe","Yakıt Litre","L/100 KM","Yakıt ₺/KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Uyarı","Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
     }
 
     function renderFinanceReport() {
@@ -18462,14 +19593,14 @@
         const rows = financeJobsForMonth(month).filter((job)=>selected==="Tümü"||job.id===selected).map((job)=>{const company=getCompany(job.companyId);const v=financeRecordValues(job,month);const s=financeStatus(v);return [month,job.contractNo||"",job.name,company?.name||"",v.plannedTrips,v.realizedTrips,v.accrual,v.vehicleExpense,v.staffExpense,v.netContribution,v.collected,v.receivable,s.label];});
         downloadFinanceReportCsv(`personel-servisi-raporu-${month}.csv`,["Ay","Sözleşme No","İş","Firma","Planlanan Sefer","Gerçekleşen Sefer","Hakediş","Araç Gideri","Şoför/Rehber","Net Katkı","Tahsilat","Alacak","Durum"],rows);
       } else if (type === "school") {
-        const selected=$("#financeReportSchool")?.value||"Tümü"; const rows=profitabilitySchoolRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.studentCount||0,row.revenue,row.collected,Math.max(row.revenue-row.collected,0),row.vehicleCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.status.label]);
-        downloadFinanceReportCsv(`okul-servisi-raporu-${month}.csv`,["Ay","Okul","Öğrenci","Tahakkuk","Tahsilat","Alacak","Araç Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Durum"],rows);
+        const selected=$("#financeReportSchool")?.value||"Tümü"; const rows=profitabilitySchoolRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.studentCount||0,row.invoicedCount||0,row.unbilledCount||0,row.revenue,row.vat,row.cashExpected,row.collected,row.receivable,row.vehicleCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.status.label]);
+        downloadFinanceReportCsv(`okul-servisi-raporu-${month}.csv`,["Ay","Okul","Öğrenci","Faturalı Öğrenci","Faturasız Öğrenci","KDV Hariç Tahakkuk","KDV","KDV Dahil Kasa Hedefi","Tahsilat","Alacak","Araç Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Durum"],rows);
       } else if (type === "vehicle") {
-        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.vehicleCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.kmCost??"",getVehicleAlerts(row.id).length,row.status.label]);
-        downloadFinanceReportCsv(`arac-raporu-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Araç Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Tahmini KM","KM Maliyeti","Uyarı","Durum"],rows);
+        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.vehicleCost,row.fuelCost,row.fuelLiters,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.fuelConsumptionPer100??"",row.fuelCostPerKm??"",row.vehicleCostPerKm??"",row.kmCost??"",row.revenuePerKm??"",row.netPerKm??"",getVehicleAlerts(row.id).length,row.status.label]);
+        downloadFinanceReportCsv(`arac-km-raporu-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Araç Gideri","Yakıt Gideri","Yakıt Litre","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Mesafe KM","Litre/100 KM","Yakıt TL/KM","Araç Gideri TL/KM","Toplam Maliyet TL/KM","Gelir TL/KM","Net TL/KM","Uyarı","Durum"],rows);
       } else {
         const totals=financeOverviewTotals(month); const p=totals.personnel,s=totals.school,v=totals.vehicle,st=totals.staff;
-        const rows=[["Toplam Gelir",totals.revenue],["Toplam Tahsilat",totals.collected],["Toplam Gider",totals.totalExpense],["Net Operasyon Sonucu",totals.net],["Toplam Alacak",totals.receivable],["Personel Hakedişi",p.accrual],["Okul Tahakkuku",s.expected],["Araç Giderleri",v.total],["Şoför/Rehber Giderleri",st.total],["Vadesi Geçen Firma Faturası",p.overdueCount],["Geçmiş Dönem Okul Borcu",s.overdueUnpaidCount+s.overduePartialCount],["Araç Bakım/Evrak Uyarısı",getVehicleAlerts().length]].map((row)=>[month,...row]);
+        const rows=[["Toplam Gelir",totals.revenue],["Hesaplanan KDV",totals.vat],["Toplam Tahsilat",totals.collected],["Toplam Gider",totals.totalExpense],["Net Operasyon Sonucu",totals.net],["Toplam Alacak",totals.receivable],["Personel Hakedişi",p.accrual],["Okul Tahakkuku (KDV Hariç)",s.expected],["Okul KDV",s.vat],["Okul Kasa Hedefi",s.cashExpected],["Araç Giderleri",v.total],["Şoför/Rehber Giderleri",st.total],["Vadesi Geçen Firma Faturası",p.overdueCount],["Geçmiş Dönem Okul Borcu",s.overdueUnpaidCount+s.overduePartialCount],["Araç Bakım/Evrak Uyarısı",getVehicleAlerts().length]].map((row)=>[month,...row]);
         downloadFinanceReportCsv(`genel-yonetim-raporu-${month}.csv`,["Ay","Gösterge","Değer"],rows);
       }
       showToast("Rapor CSV indirildi.");
@@ -18525,9 +19656,11 @@
       const revenue = personnel.accrual + school.expected;
       const collected = personnel.collected + school.paid;
       const receivable = personnel.receivable + school.remaining;
+      const cashTarget = personnel.cashTarget + school.cashExpected;
+      const vat = personnel.vat + school.vat;
       const totalExpense = vehicle.total + staff.total;
       const net = revenue - totalExpense;
-      return { personnel, school, vehicle, staff, totalExpense, revenue, collected, receivable, net };
+      return { personnel, school, vehicle, staff, totalExpense, revenue, collected, receivable, cashTarget, vat, net };
     }
 
     function renderFinanceTrendChart() {
@@ -18633,11 +19766,12 @@
       const host = $("#financeFlowSummary");
       if (!host) return;
       const totals = financeOverviewTotals(getFinanceMonth());
-      const collectionRate = totals.revenue > 0 ? totals.collected / totals.revenue * 100 : 0;
+      const collectionRate = totals.cashTarget > 0 ? totals.collected / totals.cashTarget * 100 : 0;
       const overdueReceivable = totals.personnel.overdueReceivable + totals.school.overdueRemaining;
       const chips = [
         { label: "Toplam Gelir / Tahakkuk", value: formatTRY(totals.revenue), risk: false },
-        { label: "Toplam Tahsilat", value: formatTRY(totals.collected), risk: false },
+        { label: "Toplam Tahsilat", value: formatTRY(totals.collected), risk: false, note: "Personel faturalarında KDV dahil" },
+        { label: "Hesaplanan KDV", value: formatTRY(totals.vat), risk: false, note: "Kasa / alacak hesabında var, kâr hesabında yok" },
         { label: "Araç Gideri", value: formatTRY(totals.vehicle.total), risk: totals.vehicle.riskCount > 0, note: totals.vehicle.riskCount > 0 ? `${totals.vehicle.riskCount} bağlantı veya pay hatası` : "Normal operasyon gideri", action: "finance-jump-vehicle-expenses" },
         { label: "Şoför / Rehber Gideri", value: formatTRY(totals.staff.total), risk: totals.staff.riskCount > 0, note: totals.staff.overdueCount > 0 ? `${totals.staff.overdueCount} vadesi geçmiş ödeme` : (totals.staff.allocationRiskCount > 0 ? `${totals.staff.allocationRiskCount} bağlantı/pay hatası` : "Normal personel gideri"), action: "finance-jump-staff-payments" },
         { label: "Toplam Gider", value: formatTRY(totals.totalExpense), risk: false, note: "Gelirle birlikte değerlendirilir" },
@@ -18654,12 +19788,12 @@
       const totals = financeOverviewTotals(getFinanceMonth());
       const generalVehicle = Math.max(totals.vehicle.total - totals.vehicle.personnelAllocated - totals.vehicle.schoolAllocated, 0);
       const rows = [
-        { name: "Personel Servisi", revenue: totals.personnel.accrual, collected: totals.personnel.collected, vehicle: totals.vehicle.personnelAllocated, staff: totals.staff.personnelAllocated, receivable: totals.personnel.receivable },
-        { name: "Okul Servisi", revenue: totals.school.expected, collected: totals.school.paid, vehicle: totals.vehicle.schoolAllocated, staff: totals.staff.schoolAllocated, receivable: totals.school.remaining },
-        { name: "Genel / Bağlantısız Gider", revenue: 0, collected: 0, vehicle: generalVehicle, staff: totals.staff.generalAllocated, receivable: 0 },
-        { name: "GENEL TOPLAM", revenue: totals.revenue, collected: totals.collected, vehicle: totals.vehicle.total, staff: totals.staff.total, receivable: totals.receivable, total: true }
+        { name: "Personel Servisi", revenue: totals.personnel.accrual, vat: totals.personnel.vat, collected: totals.personnel.collected, vehicle: totals.vehicle.personnelAllocated, staff: totals.staff.personnelAllocated, receivable: totals.personnel.receivable },
+        { name: "Okul Servisi", revenue: totals.school.expected, vat: totals.school.vat, collected: totals.school.paid, vehicle: totals.vehicle.schoolAllocated, staff: totals.staff.schoolAllocated, receivable: totals.school.remaining },
+        { name: "Genel / Bağlantısız Gider", revenue: 0, vat: 0, collected: 0, vehicle: generalVehicle, staff: totals.staff.generalAllocated, receivable: 0 },
+        { name: "GENEL TOPLAM", revenue: totals.revenue, vat: totals.vat, collected: totals.collected, vehicle: totals.vehicle.total, staff: totals.staff.total, receivable: totals.receivable, total: true }
       ].map((row) => ({ ...row, expense: row.vehicle + row.staff, net: row.revenue - row.vehicle - row.staff }));
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Finans Kaynağı</th><th>Gelir / Tahakkuk</th><th>Tahsilat</th><th>Araç Gideri</th><th>Şoför / Rehber</th><th>Toplam Gider</th><th>Net Sonuç</th><th>Kalan Alacak</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong>${row.total ? '<br><span class="muted">Seçili dönemin birleşik sonucu</span>' : ''}</td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.collected))}</strong></td><td><strong>${escapeHtml(formatTRY(row.vehicle))}</strong></td><td><strong>${escapeHtml(formatTRY(row.staff))}</strong></td><td><strong>${escapeHtml(formatTRY(row.expense))}</strong></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td><strong>${escapeHtml(formatTRY(row.receivable))}</strong></td></tr>`).join("")}</tbody></table></div>`;
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Finans Kaynağı</th><th>Gelir / Tahakkuk</th><th>KDV</th><th>Tahsilat</th><th>Araç Gideri</th><th>Şoför / Rehber</th><th>Toplam Gider</th><th>Net Sonuç</th><th>Kalan Alacak</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong>${row.total ? '<br><span class="muted">Seçili dönemin birleşik sonucu</span>' : ''}</td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.vat))}</strong></td><td><strong>${escapeHtml(formatTRY(row.collected))}</strong></td><td><strong>${escapeHtml(formatTRY(row.vehicle))}</strong></td><td><strong>${escapeHtml(formatTRY(row.staff))}</strong></td><td><strong>${escapeHtml(formatTRY(row.expense))}</strong></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td><strong>${escapeHtml(formatTRY(row.receivable))}</strong></td></tr>`).join("")}</tbody></table></div>`;
     }
 
     function renderFinancePersonnelProfitTable() {
@@ -18691,11 +19825,11 @@
         host.innerHTML = '<div class="empty">Seçilen ay için fatura veya tahsilat takibi yapılacak iş yok.</div>';
         return;
       }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>İş / Firma</th><th>Fatura No</th><th>Fatura Tarihi</th><th>Fatura Tutarı</th><th>Vade</th><th>Tahsilat</th><th>Kalan</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map(({ job, values }) => {
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>İş / Firma</th><th>Fatura No</th><th>Fatura Tarihi</th><th>Matrah</th><th>KDV</th><th>Genel Toplam</th><th>Vade</th><th>Tahsilat</th><th>Kalan</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map(({ job, values }) => {
         const company = getCompany(job.companyId);
         const record = values.record || {};
         const status = financeStatus(values);
-        return `<tr><td><strong>${escapeHtml(job.name)}</strong><br><span class="muted">${escapeHtml(company?.name || "Firma yok")}</span></td><td>${escapeHtml(record.invoiceNo || "Kesilmedi")}</td><td>${record.invoiceDate ? escapeHtml(jobDateText(record.invoiceDate)) : "-"}</td><td><strong>${escapeHtml(formatTRY(values.invoiceAmount))}</strong></td><td>${record.dueDate ? escapeHtml(jobDateText(record.dueDate)) : "-"}</td><td><strong>${escapeHtml(formatTRY(values.collected))}</strong><br><span class="muted">${record.paymentDate ? escapeHtml(jobDateText(record.paymentDate)) : "Tarih yok"}</span></td><td><strong>${escapeHtml(formatTRY(values.receivable))}</strong></td><td><span class="pill ${escapeHtml(status.className)}">${escapeHtml(status.label)}</span></td><td><button class="btn small primary" type="button" data-action="edit-finance" data-id="${escapeHtml(job.id)}">Kaydı Aç</button></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(job.name)}</strong><br><span class="muted">${escapeHtml(company?.name || "Firma yok")}</span></td><td>${escapeHtml(record.invoiceNo || "Kesilmedi")}</td><td>${record.invoiceDate ? escapeHtml(jobDateText(record.invoiceDate)) : "-"}</td><td><strong>${escapeHtml(formatTRY(values.invoiceNetAmount))}</strong></td><td><strong>${escapeHtml(formatTRY(values.vatAmount))}</strong><br><span class="muted">%${escapeHtml(String(values.vatRate))}</span></td><td><strong>${escapeHtml(formatTRY(values.invoiceAmount))}</strong></td><td>${record.dueDate ? escapeHtml(jobDateText(record.dueDate)) : "-"}</td><td><strong>${escapeHtml(formatTRY(values.collected))}</strong><br><span class="muted">${record.paymentDate ? escapeHtml(jobDateText(record.paymentDate)) : "Tarih yok"}</span></td><td><strong>${escapeHtml(formatTRY(values.receivable))}</strong></td><td><span class="pill ${escapeHtml(status.className)}">${escapeHtml(status.label)}</span></td><td><button class="btn small primary" type="button" data-action="edit-finance" data-id="${escapeHtml(job.id)}">Kaydı Aç</button></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -18706,9 +19840,11 @@
       const totals = personnelFinanceTotals(getFinanceMonth());
       const chips = [
         { label: "Personel Planlanan Gelir", value: formatTRY(totals.expected), risk: false },
-        { label: "Gerçekleşen Hakediş", value: formatTRY(totals.accrual), risk: false },
-        { label: "Faturalanan", value: formatTRY(totals.invoiced), risk: false },
-        { label: "Firma Tahsilatı", value: formatTRY(totals.collected), risk: false },
+        { label: "Gerçekleşen Hakediş", value: formatTRY(totals.accrual), risk: false, note: "KDV hariç işletme geliri" },
+        { label: "Fatura Matrahı", value: formatTRY(totals.invoiceNet), risk: false },
+        { label: "Hesaplanan KDV", value: formatTRY(totals.vat), risk: false, note: "Kâr hesabına eklenmez" },
+        { label: "KDV Dahil Faturalanan", value: formatTRY(totals.invoiced), risk: false },
+        { label: "Firma Tahsilatı", value: formatTRY(totals.collected), risk: false, note: "KDV dahil kasa girişi" },
         { label: "Personel Alacağı", value: formatTRY(totals.receivable), risk: totals.overdueReceivable > 0, note: totals.overdueReceivable > 0 ? `${totals.overdueCount} vadesi geçmiş fatura` : "Vadesi geçmemiş bakiye", action: "finance-jump-personnel-receivable" },
         { label: "İşe Bağlı Araç Gideri", value: formatTRY(totals.vehicleExpense), risk: false, note: "Normal operasyon gideri", action: "finance-jump-vehicle-expenses" },
         { label: "Şoför / Rehber Gideri", value: formatTRY(totals.staffExpense), risk: false, note: "Normal personel gideri", action: "finance-jump-staff-payments" },
@@ -18758,7 +19894,7 @@
                     <td><strong>${escapeHtml(formatTRY(values.vehicleExpense))}</strong><br><span class="muted">Bu işe bağlı araç gideri</span></td>
                     <td><strong>${escapeHtml(formatTRY(values.staffExpense))}</strong><br><span class="muted">Şoför / rehber maliyeti</span></td>
                     <td><strong class="${values.netContribution < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(values.netContribution))}</strong><br><span class="muted">Hakediş − tüm giderler</span></td>
-                    <td>${record?.invoiceNo ? escapeHtml(record.invoiceNo) : "Kesilmedi"}<br><span class="muted">${record?.invoiceDate ? escapeHtml(jobDateText(record.invoiceDate)) : "-"} · ${escapeHtml(formatTRY(values.invoiceAmount))}</span></td>
+                    <td>${record?.invoiceNo ? escapeHtml(record.invoiceNo) : "Kesilmedi"}<br><span class="muted">${record?.invoiceDate ? escapeHtml(jobDateText(record.invoiceDate)) : "-"} · Matrah ${escapeHtml(formatTRY(values.invoiceNetAmount))} + KDV ${escapeHtml(formatTRY(values.vatAmount))} = ${escapeHtml(formatTRY(values.invoiceAmount))}</span></td>
                     <td><strong>${escapeHtml(formatTRY(values.collected))}</strong><br><span class="muted">${record?.paymentDate ? escapeHtml(jobDateText(record.paymentDate)) : "Tarih yok"}</span></td>
                     <td><strong>${escapeHtml(formatTRY(values.receivable))}</strong><br><span class="muted">Vade: ${record?.dueDate ? escapeHtml(jobDateText(record.dueDate)) : "-"}</span></td>
                     <td><span class="pill ${escapeHtml(status.className)}">${escapeHtml(status.label)}</span></td>
@@ -18803,7 +19939,7 @@
         showToast("Dışa aktarılacak hakediş kaydı yok.");
         return;
       }
-      const header = ["Ay", "Sözleşme No", "İş", "Firma", "Fiyat Modeli", "Planlanan Sefer", "Gerçekleşen Sefer", "Otomatik Hakediş", "Manuel Kullanıldı", "Manuel Hakediş", "Ek Hizmet", "Kesinti", "Net Hakediş", "Araç Gideri", "Şoför/Rehber Gideri", "Net Katkı", "Fatura No", "Fatura Tarihi", "Fatura Tutarı", "Vade", "Tahsil Edilen", "Tahsilat Tarihi", "Kalan Alacak", "Durum", "Not"];
+      const header = ["Ay", "Sözleşme No", "İş", "Firma", "Fiyat Modeli", "Planlanan Sefer", "Gerçekleşen Sefer", "Otomatik Hakediş", "Manuel Kullanıldı", "Manuel Hakediş", "Ek Hizmet", "Kesinti", "Net Hakediş", "Araç Gideri", "Şoför/Rehber Gideri", "Net Katkı", "Fatura No", "Fatura Tarihi", "Fatura Matrahı", "KDV Oranı %", "KDV Tutarı", "KDV Dahil Fatura Toplamı", "Vade", "Tahsil Edilen (KDV Dahil)", "Tahsilat Tarihi", "Kalan Alacak", "Durum", "Not"];
       const lines = [header.map(csvCell).join(";")];
       rows.forEach(({ job, values, status }) => {
         const company = getCompany(job.companyId);
@@ -18811,7 +19947,7 @@
         lines.push([
           getFinanceMonth(), job.contractNo || "", job.name, company?.name || "", job.billingModel === "monthly" ? "Aylık Sabit" : "Tek Sefer",
           values.plannedTrips, values.realizedTrips, values.automatic, values.manualEnabled ? "Evet" : "Hayır", values.manualAccrual,
-          values.extra, values.deduction, values.accrual, values.vehicleExpense, values.staffExpense, values.netContribution, record.invoiceNo || "", record.invoiceDate || "", values.invoiceAmount,
+          values.extra, values.deduction, values.accrual, values.vehicleExpense, values.staffExpense, values.netContribution, record.invoiceNo || "", record.invoiceDate || "", values.invoiceNetAmount, values.vatRate, values.vatAmount, values.invoiceAmount,
           record.dueDate || "", values.collected, record.paymentDate || "", values.receivable, status.label, record.note || ""
         ].map(csvCell).join(";"));
       });
@@ -18864,6 +20000,10 @@
       renderVehiclesTable();
       renderVehicleMaintenanceOptions();
       renderVehicleMaintenanceTable();
+      renderVehicleKmOptions();
+      renderVehicleKmAnalysis();
+      renderDocumentArchiveOptions();
+      renderDocumentArchive();
       renderVehicleAlerts();
       renderTripsTable();
       renderBackupRecovery();
@@ -19205,6 +20345,8 @@
         state.jobs = state.jobs.map((job) => job.vehicleId === id ? { ...job, vehicleId: "" } : job);
         state.vehicleExpenses = state.vehicleExpenses.map((expense) => expense.vehicleId === id ? { ...expense, vehicleId: "" } : expense);
         state.vehicleMaintenance = state.vehicleMaintenance.map((record) => record.vehicleId === id ? { ...record, vehicleId: "" } : record);
+        state.vehicleKmRecords = state.vehicleKmRecords.filter((record) => record.vehicleId !== id);
+        state.documents = state.documents.map((meta) => meta.vehicleId === id ? { ...meta, vehicleId: "" } : meta);
       }
 
       saveState();
@@ -19356,7 +20498,7 @@
     }
 
     function localBackupRecordCount(snapshot) {
-      const keys = ["people", "companies", "jobs", "financeRecords", "vehicleExpenses", "vehicleMaintenance", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
+      const keys = ["people", "companies", "jobs", "financeRecords", "vehicleExpenses", "vehicleMaintenance", "vehicleKmRecords", "documents", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
       return keys.reduce((total, key) => total + (Array.isArray(snapshot?.[key]) ? snapshot[key].length : 0), 0);
     }
 
@@ -19373,6 +20515,8 @@
         financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
         vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
         vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+        vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
+        documents: Array.isArray(parsed.documents) ? parsed.documents : [],
         staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
         users: Array.isArray(parsed.users) ? parsed.users : [],
         auditLogs: Array.isArray(parsed.auditLogs) ? parsed.auditLogs : [],
@@ -19625,7 +20769,7 @@
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
-      showToast("Yedek dosyası indirildi.");
+      showToast("JSON yedeği indirildi. Evrak dosyalarının kendisi cihazda kalır.");
     }
 
     function importData(file) {
@@ -19653,6 +20797,8 @@
             financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
             vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
             vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+            vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
+            documents: Array.isArray(parsed.documents) ? parsed.documents : [],
             staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
             routes: Array.isArray(parsed.routes) ? parsed.routes : [],
             vehicles: Array.isArray(parsed.vehicles) ? parsed.vehicles : [],
@@ -19739,8 +20885,12 @@
 
       const demoJob = state.jobs[state.jobs.length - 1];
       state.vehicleExpenses.push(
-        { id: uid("vehicleExpense"), date: todayISO(), vehicleId: v1, vehiclePlate: "34 ABC 123", driverName: "Mehmet Kaya", type: "Yakıt", amount: 4200, km: 184250, paymentMethod: "Kredi Kartı", jobId: demoJob?.id || "", jobName: demoJob?.name || "", companyId: c1, companyName: "ABC Matbaa", schoolId: "", schoolName: "", receiptNo: "YKT-DEMO-01", supplier: "Demo Akaryakıt", note: "Personel işi demo yakıt gideri", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+        { id: uid("vehicleExpense"), date: todayISO(), vehicleId: v1, vehiclePlate: "34 ABC 123", driverName: "Mehmet Kaya", type: "Yakıt", amount: 4200, fuelLiters: 60, fuelUnitPrice: 70, km: 184250, paymentMethod: "Kredi Kartı", jobId: demoJob?.id || "", jobName: demoJob?.name || "", companyId: c1, companyName: "ABC Matbaa", schoolId: "", schoolName: "", receiptNo: "YKT-DEMO-01", supplier: "Demo Akaryakıt", note: "Personel işi demo yakıt gideri", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
         { id: uid("vehicleExpense"), date: todayISO(), vehicleId: v2, vehiclePlate: "34 DEF 456", driverName: "Ali Demir", type: "Bakım", amount: 2750, km: 126400, paymentMethod: "Havale / EFT", jobId: "", jobName: "", companyId: "", companyName: "", schoolId: s1, schoolName: "Cumhuriyet Ortaokulu", receiptNo: "BKM-DEMO-01", supplier: "Demo Servis", note: "Okul aracı periyodik bakım", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
+      );
+
+      state.vehicleKmRecords.push(
+        { id: uid("vehicleKm"), vehicleId: v1, month: currentMonthISO(), startKm: 182000, endKm: 184250, distanceKm: 2250, note: "Demo aylık KM kaydı", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
       );
 
       state.staffPayments.push(
@@ -19834,6 +20984,9 @@
       ["financeExtraAmount", "financeDeduction", "financeManualAccrual"].forEach((id) => {
         $("#" + id)?.addEventListener("input", updateFinanceRecordPreview);
       });
+      ["financeInvoiceAmount", "financeVatRate"].forEach((id) => {
+        $("#" + id)?.addEventListener("input", updateFinanceVatPreview);
+      });
       $("#financeManualOverride")?.addEventListener("change", () => toggleFinanceManualOverride(true));
       $("#financeInvoiceDate")?.addEventListener("change", () => {
         const job = getJob($("#financeRecordJob")?.value || "");
@@ -19845,7 +20998,7 @@
       $("#clearFinanceRecordBtn")?.addEventListener("click", () => clearFinanceRecordForm());
       $("#deleteFinanceRecordBtn")?.addEventListener("click", deleteFinanceRecord);
       $("#exportFinanceCsvBtn")?.addEventListener("click", exportFinanceCsv);
-      ["financeSchoolFilter", "financeSchoolStatus"].forEach((id) => {
+      ["financeSchoolFilter", "financeSchoolStatus", "financeSchoolBilling"].forEach((id) => {
         $("#" + id)?.addEventListener("change", () => {
           renderFinanceGeneralSummary();
           renderFinanceSchoolSummary();
@@ -19932,7 +21085,12 @@
       $("#vehicleExpenseSchool")?.addEventListener("change", () => updateVehicleExpenseLink("school"));
       $("#vehicleExpensePersonnelShare")?.addEventListener("input", () => syncVehicleExpenseShares("personnel"));
       $("#vehicleExpenseSchoolShare")?.addEventListener("input", () => syncVehicleExpenseShares("school"));
-      $("#vehicleExpenseAmount")?.addEventListener("input", () => updateVehicleExpenseLink("amount"));
+      $("#vehicleExpenseAmount")?.addEventListener("input", () => {
+        updateVehicleExpenseFuelPreview();
+        updateVehicleExpenseLink("amount");
+      });
+      $("#vehicleExpenseType")?.addEventListener("change", updateVehicleExpenseFuelPreview);
+      $("#vehicleExpenseFuelLiters")?.addEventListener("input", updateVehicleExpenseFuelPreview);
       $("#vehicleExpenseForm")?.addEventListener("submit", saveVehicleExpense);
       $("#newVehicleExpenseBtn")?.addEventListener("click", () => {
         clearVehicleExpenseForm(true);
@@ -19952,6 +21110,18 @@
       $("#vehicleForm").addEventListener("submit", saveVehicle);
       $("#vehicleMaintenanceForm")?.addEventListener("submit", saveVehicleMaintenance);
       $("#clearVehicleMaintenanceBtn")?.addEventListener("click", () => clearVehicleMaintenanceForm());
+      $("#vehicleKmRecordForm")?.addEventListener("submit", saveVehicleKmRecord);
+      $("#clearVehicleKmBtn")?.addEventListener("click", clearVehicleKmForm);
+      $("#vehicleKmMonth")?.addEventListener("change", () => {
+        if ($("#vehicleKmRecordMonth") && !$("#vehicleKmRecordId")?.value) $("#vehicleKmRecordMonth").value = $("#vehicleKmMonth").value;
+        renderVehicleKmAnalysis();
+      });
+      $("#vehicleKmVehicleFilter")?.addEventListener("change", renderVehicleKmAnalysis);
+      $("#vehicleDocumentFileForm")?.addEventListener("submit", saveDocumentArchiveFile);
+      $("#clearDocumentFileBtn")?.addEventListener("click", clearDocumentArchiveForm);
+      $("#documentCategoryFilter")?.addEventListener("change", renderDocumentArchive);
+      $("#documentVehicleFilter")?.addEventListener("change", renderDocumentArchive);
+      $("#documentSearch")?.addEventListener("input", renderDocumentArchive);
       $("#maintenanceVehicleFilter")?.addEventListener("change", renderVehicleMaintenanceTable);
       $("#maintenanceSearch")?.addEventListener("input", renderVehicleMaintenanceTable);
       $("#tripForm").addEventListener("submit", saveTrip);
@@ -20009,7 +21179,7 @@
       });
       $("#refreshSchoolReportBtn").addEventListener("click", renderSchoolReport);
 
-      ["schoolPaymentMonth", "schoolPaymentSchool", "schoolPaymentStatus"].forEach((id) => {
+      ["schoolPaymentMonth", "schoolPaymentSchool", "schoolPaymentStatus", "schoolPaymentBillingFilter"].forEach((id) => {
         const element = $(`#${id}`);
         if (!element) return;
         element.addEventListener("change", () => {
@@ -20020,6 +21190,11 @@
       });
       $("#schoolPaymentSearch")?.addEventListener("input", renderSchoolPayments);
       $("#schoolPaymentStudent")?.addEventListener("change", updateSchoolPaymentStudentInfo);
+      $("#schoolPaymentBillingMode")?.addEventListener("change", updateSchoolPaymentStudentInfo);
+      $("#schoolPaymentVatRate")?.addEventListener("input", () => {
+        updateSchoolPaymentInvoicePreview();
+        updateSchoolPaymentStudentInfo();
+      });
       $("#saveSchoolPaymentBtn")?.addEventListener("click", saveSchoolPayment);
 
       ["studentSearch", "studentSchoolFilter", "studentStatusFilter", "schoolSearch", "schoolStatusFilter"].forEach((id) => {
@@ -20205,6 +21380,23 @@
         if (action === "delete-maintenance") deleteVehicleMaintenance(id);
         if (action === "open-vehicle-alerts") openVehicleAlerts();
         if (action === "open-vehicle-record") openVehicleRecord(id);
+        if (action === "open-vehicle-km") {
+          activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km");
+          if ($("#vehicleKmVehicleFilter")) $("#vehicleKmVehicleFilter").value = id || "Tümü";
+          renderVehicleKmAnalysis(); scrollContentTop();
+        }
+        if (action === "new-vehicle-km") {
+          activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km"); clearVehicleKmForm();
+          if ($("#vehicleKmVehicle")) $("#vehicleKmVehicle").value = id || "";
+          scrollContentTop();
+        }
+        if (action === "edit-vehicle-km") editVehicleKmRecord(id);
+        if (action === "delete-vehicle-km") deleteVehicleKmRecord(id);
+        if (action === "open-document-archive") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("files"); renderDocumentArchive(); scrollContentTop(); }
+        if (action === "open-document-file") openStoredDocument(id);
+        if (action === "share-document-file") shareStoredDocument(id);
+        if (action === "download-document-file") downloadStoredDocument(id);
+        if (action === "delete-document-file") deleteStoredDocument(id);
         if (action === "delete-vehicle") deleteById("vehicles", id, "Araç silindi. Bağlı seferler güncellendi.");
         if (action === "edit-trip") editTrip(id);
         if (action === "delete-trip") deleteById("trips", id, "Sefer silindi.");
@@ -20295,6 +21487,9 @@
           clearRouteForm();
           clearVehicleForm();
           clearVehicleMaintenanceForm();
+          clearVehicleKmForm();
+          clearDocumentArchiveForm();
+          clearDocumentBlobStore().catch((error) => console.error("Evrak deposu temizlenemedi:", error));
           clearTripForm();
           clearStudentForm();
           clearSchoolForm();
