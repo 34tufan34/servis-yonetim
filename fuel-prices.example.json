@@ -1,0 +1,11 @@
+{
+  "region": "İstanbul Avrupa",
+  "updatedAt": "2026-07-10T12:00:00+03:00",
+  "source": "Örnek canlı fiyat servisi",
+  "shell": {
+    "diesel": 0
+  },
+  "opet": {
+    "diesel": 0
+  }
+}

@@ -1,0 +1,28 @@
+SERVİS YÖNETİM SİSTEMİ v4.23.0 - PWA KURULUMU
+
+1. Bu klasörü bir HTTPS sunucusuna yükleyin veya bilgisayarda localhost üzerinden açın.
+2. index.html dosyasını Chrome/Edge ile açın.
+3. Ayarlar / Yedek > Uygulamayı Kur bölümüne girin.
+4. "Uygulamayı Kur" butonuna basın.
+
+Hızlı yerel test:
+- Bu klasörde terminal açın.
+- Python varsa: python -m http.server 8080
+- Tarayıcıdan: http://localhost:8080
+
+Not:
+- file:// ile açılan index.html tek dosya olarak çalışır; ancak gerçek PWA kurulumu ve servis çalışanı için HTTPS veya localhost gerekir.
+- Operasyon verileri cihazın tarayıcı depolamasında tutulur. JSON ve yerel yedek sistemini kullanmaya devam edin.
+
+
+CANLI MOTORIN FIYATLARI
+- Bölge: İstanbul Avrupa
+- Komuta Paneli Shell ve Opet kartları içerir.
+- Gerçek otomatik fiyat için Ayarlar bölümüne CORS uyumlu JSON servis adresi girilmelidir.
+- Beklenen JSON örneği: {"region":"İstanbul Avrupa","updatedAt":"2026-07-10T12:00:00+03:00","shell":{"diesel":55.10},"opet":{"diesel":55.20}}
+
+
+YAKIT FIYATI GUNCELLEME
+- Komuta Paneli > Resmi Sayfadan Guncelle butonu Shell ve OPET sayfa metinlerini tarar.
+- Tarayici guvenligi veya dinamik sayfa engeli olursa Ayarlar > Canli Motorin Fiyatlari altindaki metin yapistirma yontemini kullanin.
+- Son basarili fiyat cihazda saklanir.
