@@ -1,0 +1,20 @@
+{
+  "region": "İstanbul Avrupa",
+  "updatedAt": null,
+  "lastAttemptAt": null,
+  "source": "GitHub Actions kurulumu bekleniyor",
+  "status": "waiting",
+  "shell": {
+    "diesel": null,
+    "product": "Shell FuelSave Motorin",
+    "updated": false,
+    "officialUrl": "https://www.shell.com.tr/suruculer/shell-yakitlari/akaryakit-pompa-satis-fiyatlari.html"
+  },
+  "opet": {
+    "diesel": null,
+    "product": "OPET Ultra Force Motorin",
+    "updated": false,
+    "officialUrl": "https://www.opet.com.tr/akaryakit-fiyatlari/istanbul-avrupa"
+  },
+  "errors": {}
+}
