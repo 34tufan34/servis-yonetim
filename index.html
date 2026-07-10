@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.25.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.25.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8025,7 +8025,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.25.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.25.1</div>
         </div>
       </div>
 
@@ -8610,6 +8610,17 @@
                     </div>
                   </div>
 
+                  <div class="field">
+                    <label for="companyEveningFinalAddress">Akşam Servisi Son Nokta</label>
+                    <input id="companyEveningFinalAddress" placeholder="Örn. Tepecik Meydan / araç park yeri / eve dönüş noktası" />
+                    <div class="field-mini-note">Akşam sıralı harita, personeller bırakıldıktan sonra bu noktada biter.</div>
+                  </div>
+
+                  <div class="field">
+                    <label for="companyEveningFinalMapQuery">Akşam Son Nokta Harita Arama Metni</label>
+                    <input id="companyEveningFinalMapQuery" placeholder="Örn. Tepecik Meydan Büyükçekmece İstanbul" />
+                  </div>
+
                   <div class="two">
                     <div class="field">
                       <label for="companyDefaultVehicle">Firma Servis Aracı / Plaka</label>
@@ -9118,7 +9129,7 @@
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Görsel temizlik</strong><br>Boş günlerde “Dokunmadık” yazısı kaldırıldı. 1 tek / 2 tek alt yazıları kutunun kenarından yukarı alındı.</div></div>
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Alt satır sabitlendi</strong><br>1 tek / 2 tek yazıları kartın alt bölümünde sabit konuma alındı; alt kenara yapışması engellendi.</div></div>
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Firma araç bağlantısı</strong><br>Araçlar sekmesinde kaydedilen plaka Firma Kaydı içinde seçilir. Servis Başlat ekranında firma seçilince araç otomatik gelir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis saha akışı</strong><br>Servis Başlat canlı duruma geçti. Manuel sıra değiştirme ve sıralı harita açma eklendi.</div></div>
+              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis saha akışı</strong><br>Servis Başlat canlı duruma geçti. Manuel sıra değiştirme ve sıralı harita açma eklendi. Sabah rotası kayıtlı işyerinde, akşam rotası kullanıcı tarafından belirlenen son noktada biter.</div></div>
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Büyük servis listesi</strong><br>Servis Başlat altındaki personel listesi artık ayrı büyük görünümde açılabilir. Çetele açılış alanına da görsel boş durum tasarımı eklendi.</div></div>
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis liste açılış tasarımı</strong><br>Başlat ekranındaki büyük liste çağrı alanında yazı ortalandı ve yanına görsel blok eklendi.</div></div>
               <div class="check-item"><span class="pill active">Hazır</span><div><strong>Ayarlar / Yedek düzeni</strong><br>Yedek alma, içe aktarma, demo veri ve CSV dışa aktarma operasyon ekranlarından kaldırılıp Ayarlar / Yedek paneline taşındı.</div></div>
@@ -10881,7 +10892,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.25.0</strong>
+                <strong>v4.25.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -10910,8 +10921,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.25.0";
-    const SCHEMA_VERSION = 23;
+    const APP_VERSION = "4.25.1";
+    const SCHEMA_VERSION = 24;
     const LOCAL_BACKUP_KEY = "SYS_V1_LOCAL_BACKUPS";
     const LOCAL_BACKUP_META_KEY = "SYS_V1_LOCAL_BACKUP_META";
 
@@ -11459,6 +11470,8 @@
         mapQuery: $("#companyMapQuery").value.trim(),
         morningTime: $("#companyMorningTime").value || "07:00",
         eveningTime: $("#companyEveningTime").value || "18:00",
+        eveningFinalAddress: $("#companyEveningFinalAddress").value.trim(),
+        eveningFinalMapQuery: $("#companyEveningFinalMapQuery").value.trim(),
         defaultVehicleId: $("#companyDefaultVehicle").value,
         tripPrice: Number($("#companyTripPrice").value || state.settings?.personnelTripPrice || 2250),
         status: $("#companyStatus").value,
@@ -11518,6 +11531,8 @@
       $("#companyMapQuery").value = company.mapQuery || "";
       $("#companyMorningTime").value = company.morningTime || "07:00";
       $("#companyEveningTime").value = company.eveningTime || "18:00";
+      $("#companyEveningFinalAddress").value = company.eveningFinalAddress || "";
+      $("#companyEveningFinalMapQuery").value = company.eveningFinalMapQuery || "";
       renderCompanyVehicleOptions();
       $("#companyDefaultVehicle").value = company.defaultVehicleId || "";
       $("#companyTripPrice").value = company.tripPrice || state.settings?.personnelTripPrice || 2250;
@@ -11565,7 +11580,7 @@
               <tr>
                 <th>Durum</th>
                 <th>Firma</th>
-                <th>Adres</th>
+                <th>Rota Hedefleri</th>
                 <th>Saatler</th>
                 <th>Firma Aracı</th>
                 <th>Tek Sefer</th>
@@ -11581,7 +11596,10 @@
                   <tr>
                     <td><span class="pill ${company.status === "Aktif" ? "active" : "passive"}">${escapeHtml(company.status || "Aktif")}</span></td>
                     <td><strong>${escapeHtml(company.name)}</strong><br><span class="muted">${escapeHtml(company.code || "")}</span></td>
-                    <td>${escapeHtml(company.address || company.mapQuery || "-")}</td>
+                    <td>
+                      <strong>Sabah işyeri:</strong> ${escapeHtml(company.mapQuery || company.address || "-")}<br>
+                      <span class="muted"><strong>Akşam son:</strong> ${escapeHtml(company.eveningFinalMapQuery || company.eveningFinalAddress || "Tanımlanmadı")}</span>
+                    </td>
                     <td>Sabah: ${escapeHtml(company.morningTime || "07:00")}<br>Akşam: ${escapeHtml(company.eveningTime || "18:00")}</td>
                     <td>${escapeHtml(vehicleShortLabel(company.defaultVehicleId))}</td>
                     <td>${formatTRY(company.tripPrice || state.settings?.personnelTripPrice || 0)}</td>
@@ -11969,40 +11987,87 @@
       showToast("Manuel sıra sıfırlandı.");
     }
 
+    function companyWorkplaceMapQuery(company) {
+      return String(company?.mapQuery || company?.address || "").trim();
+    }
+
+    function companyEveningFinalMapQuery(company) {
+      return String(company?.eveningFinalMapQuery || company?.eveningFinalAddress || "").trim();
+    }
+
     function openOrderedMap() {
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
+      const selectedJob = getSelectedServiceJob();
+      const company = selectedJob ? getCompany(selectedJob.companyId) : getCompanyByRoute(routeId);
 
-      if (!routeId) {
+      if (!routeId || !company) {
         showToast("Önce firma seç.");
         return;
       }
 
-      const queries = servicePeopleFor(date, routeId, period)
+      const personnelStops = servicePeopleFor(date, routeId, period)
         .map((person) => personMapQueryForPeriod(person, period))
         .map((query) => String(query || "").trim())
         .filter(Boolean);
 
-      if (!queries.length) {
-        showToast("Haritada açılacak adres yok.");
+      if (!personnelStops.length) {
+        showToast("Haritada açılacak personel adresi yok.");
         return;
       }
 
-      if (queries.length === 1) {
-        window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(queries[0])}`, "_blank", "noopener,noreferrer");
+      const workplace = companyWorkplaceMapQuery(company);
+      if (!workplace) {
+        showToast("Firma kaydındaki işyeri harita adresi eksik.");
         return;
       }
 
-      const destination = queries[queries.length - 1];
-      const waypoints = queries.slice(0, -1).slice(0, 9);
-      const url = `https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${encodeURIComponent(destination)}&waypoints=${encodeURIComponent(waypoints.join("|"))}`;
-      window.open(url, "_blank", "noopener,noreferrer");
+      const params = new URLSearchParams({
+        api: "1",
+        travelmode: "driving"
+      });
 
-      if (queries.length > 10) {
-        showToast("Google Maps sınırı nedeniyle ilk 10 adres rota olarak açıldı.");
+      let usedPersonnelCount = 0;
+      let fallbackEveningTarget = false;
+
+      if (period === "morning") {
+        // Mevcut konum → sıralı personel durakları → kayıtlı işyeri.
+        const waypoints = personnelStops.slice(0, 9);
+        usedPersonnelCount = waypoints.length;
+        params.set("destination", workplace);
+        params.set("waypoints", waypoints.join("|"));
       } else {
-        showToast("Sıralı rota haritada açıldı.");
+        // Kayıtlı işyeri → sıralı personel durakları → kullanıcının belirlediği son nokta.
+        const configuredFinal = companyEveningFinalMapQuery(company);
+        params.set("origin", workplace);
+
+        if (configuredFinal) {
+          const waypoints = personnelStops.slice(0, 9);
+          usedPersonnelCount = waypoints.length;
+          params.set("destination", configuredFinal);
+          params.set("waypoints", waypoints.join("|"));
+        } else {
+          // Eski kayıtların bozulmaması için son nokta girilmemişse son personelde bitir.
+          fallbackEveningTarget = true;
+          const destination = personnelStops[personnelStops.length - 1];
+          const waypoints = personnelStops.slice(0, -1).slice(0, 9);
+          usedPersonnelCount = waypoints.length + 1;
+          params.set("destination", destination);
+          if (waypoints.length) params.set("waypoints", waypoints.join("|"));
+        }
+      }
+
+      window.open(`https://www.google.com/maps/dir/?${params.toString()}`, "_blank", "noopener,noreferrer");
+
+      if (usedPersonnelCount < personnelStops.length) {
+        showToast(`Google Maps sınırı nedeniyle ilk ${usedPersonnelCount} personel durağı açıldı.`);
+      } else if (fallbackEveningTarget) {
+        showToast("Akşam son nokta tanımlı değil; rota son personelde bitirildi.");
+      } else if (period === "morning") {
+        showToast("Rota personellerden sonra kayıtlı işyerinde bitecek.");
+      } else {
+        showToast("Rota işyerinden başlayıp belirlediğin son noktada bitecek.");
       }
     }
 
@@ -12212,6 +12277,18 @@
       const serviceVehicleId = job?.vehicleId || company?.defaultVehicleId || "";
       const people = servicePeopleFor(date, routeId, period);
       const session = getServiceSession(date, routeId, period);
+
+      const vehicleLine = $("#serviceVehicleLine");
+      if (vehicleLine) {
+        const workplace = companyWorkplaceMapQuery(company);
+        const eveningFinal = companyEveningFinalMapQuery(company);
+        const targetLabel = period === "morning"
+          ? `Son hedef: ${workplace || "İşyeri adresi eksik"}`
+          : `Başlangıç: ${workplace || "İşyeri adresi eksik"} · Son hedef: ${eveningFinal || "Son personel (özel son nokta girilmedi)"}`;
+        vehicleLine.innerHTML = company
+          ? `${job ? `<strong>İş:</strong> ${escapeHtml(job.name)} · ` : ""}<strong>Firma:</strong> ${escapeHtml(company.name)} · <strong>Araç:</strong> ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")} · <strong>${escapeHtml(targetLabel)}</strong>`
+          : "Firma seçilmedi.";
+      }
 
       if (session) normalizeServiceSessionIndex(session, people, period);
 
