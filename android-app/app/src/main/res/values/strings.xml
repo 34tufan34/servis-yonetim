@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Servis Yönetim Sistemi</string>
+    <string name="offline_message">Bağlantı kurulamadı. İnterneti kontrol edip yeniden deneyin. Daha önce açılmış çevrimdışı sürüm varsa uygulamayı kapatıp tekrar açın.</string>
+</resources>
