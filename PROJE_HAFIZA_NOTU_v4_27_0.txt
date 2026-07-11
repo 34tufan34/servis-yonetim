@@ -1,0 +1,39 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU
+Sürüm: v4.27.0
+Tarih: 2026-07-11
+
+PROJE:
+- GitHub deposu: 34tufan34/servis-yonetim
+- Yayın: GitHub Pages
+- Ana uygulama: index.html
+- PWA: sw.js, manifest.webmanifest
+- Yakıt verisi: fuel-prices.json
+
+LİSANS ALTYAPISI:
+- Cloudflare Worker: servis-lisans-api
+- API adresi: https://servis-lisans-api.ops-429.workers.dev
+- D1 veritabanı: servis-lisans-db
+- Worker binding adı: DB
+- Tablolar: licenses, devices, license_events
+- Cihaz bazlı etkinleştirme: POST /activate
+- Otomatik doğrulama: POST /validate
+- Çevrimdışı kullanım süresi: son başarılı kontrolden sonra 7 gün
+- Lisans bilgileri operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+- Operasyon verileri Cloudflare'a gönderilmez.
+
+SÜRÜM DURUMU:
+- Uygulama sürümü: 4.27.0
+- Veri şeması: 27 (operasyon veri şeması değişmedi)
+- PWA önbelleği: servis-sys-v4-27-0
+- v4.26.0 özellikleri korunmuştur.
+- Lisans doğrulama kapısı ve Ayarlar > Lisans Bilgisi kartı eklenmiştir.
+
+KRİTİK KURALLAR:
+- GitHub Pages adresi değişmemeli.
+- APK paket adı değişmemeli.
+- Yeni APK aynı imza anahtarıyla imzalanmalı.
+- localStorage.clear() veya IndexedDB silme işlemi güncellemede kullanılmamalı.
+- Lisans Worker kodu ve D1 veritabanı korunmalı.
+
+SON TAM YEDEK:
+- servis-yonetim_v4_27_0_lisansli_tam_yedek.zip

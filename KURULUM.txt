@@ -1,28 +1,41 @@
-SERVİS YÖNETİM SİSTEMİ v4.23.0 - PWA KURULUMU
+SERVİS YÖNETİM SİSTEMİ v4.27.0 - PWA / LİSANSLI SÜRÜM
 
-1. Bu klasörü bir HTTPS sunucusuna yükleyin veya bilgisayarda localhost üzerinden açın.
-2. index.html dosyasını Chrome/Edge ile açın.
-3. Ayarlar / Yedek > Uygulamayı Kur bölümüne girin.
-4. "Uygulamayı Kur" butonuna basın.
+GITHUB PAGES KURULUMU
+1. Bu paketteki dosyaları GitHub deposunun ana dizinine yükleyin.
+2. Ana uygulama dosyası index.html'dir.
+3. GitHub Pages yayınlandıktan sonra uygulamayı HTTPS adresinden açın.
+4. İlk açılışta lisans kodu istenir.
+
+LİSANS SİSTEMİ
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+- Lisans, cihaz bazında Cloudflare D1 veritabanından doğrulanır.
+- İlk etkinleştirmede cihaz lisansa kaydedilir.
+- Sonraki açılışlarda lisans otomatik kontrol edilir.
+- İnternet kesilirse son başarılı doğrulamadan itibaren 7 gün çevrimdışı kullanım sağlanır.
+- Araç, personel, tahsilat, finans ve evrak kayıtları lisans sunucusuna gönderilmez.
+- Operasyon verileri cihazın kendi localStorage / IndexedDB alanında kalır.
+
+GÜNCELLEME
+- index.html, sw.js ve diğer uygulama dosyaları GitHub'da güncellendiğinde bütün kullanıcılar yeni program sürümünü alır.
+- Her kullanıcının cihazındaki işletme verileri birbirinden bağımsız kalır.
+- GitHub Pages adresi, APK paket adı ve APK imzası değiştirilmemelidir.
+
+YEDEKLEME
+- Önemli değişikliklerden önce JSON yedek alın.
+- Araç evraklarının Blob dosyaları JSON yedeğe dahil değildir; ayrıca saklanmalıdır.
+- Uygulama kaldırılırsa veya cihaz verileri temizlenirse yerel kayıtlar kaybolabilir.
+
+PWA KURULUMU
+1. index.html dosyasını Chrome/Edge ile HTTPS üzerinden açın.
+2. Ayarlar / Yedek > Uygulamayı Kur bölümüne girin.
+3. "Uygulamayı Kur" butonuna basın.
 
 Hızlı yerel test:
 - Bu klasörde terminal açın.
 - Python varsa: python -m http.server 8080
 - Tarayıcıdan: http://localhost:8080
 
-Not:
-- file:// ile açılan index.html tek dosya olarak çalışır; ancak gerçek PWA kurulumu ve servis çalışanı için HTTPS veya localhost gerekir.
-- Operasyon verileri cihazın tarayıcı depolamasında tutulur. JSON ve yerel yedek sistemini kullanmaya devam edin.
-
-
-CANLI MOTORIN FIYATLARI
+CANLI MOTORİN FİYATLARI
 - Bölge: İstanbul Avrupa
 - Komuta Paneli Shell ve Opet kartları içerir.
-- Gerçek otomatik fiyat için Ayarlar bölümüne CORS uyumlu JSON servis adresi girilmelidir.
-- Beklenen JSON örneği: {"region":"İstanbul Avrupa","updatedAt":"2026-07-10T12:00:00+03:00","shell":{"diesel":55.10},"opet":{"diesel":55.20}}
-
-
-YAKIT FIYATI GUNCELLEME
-- Komuta Paneli > Resmi Sayfadan Guncelle butonu Shell ve OPET sayfa metinlerini tarar.
-- Tarayici guvenligi veya dinamik sayfa engeli olursa Ayarlar > Canli Motorin Fiyatlari altindaki metin yapistirma yontemini kullanin.
-- Son basarili fiyat cihazda saklanir.
+- Dinamik fiyat dosyası: fuel-prices.json

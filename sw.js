@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-25-1";
+const CACHE_NAME = "servis-sys-v4-27-0";
 const APP_SHELL = [
   "./",
   "./index.html",

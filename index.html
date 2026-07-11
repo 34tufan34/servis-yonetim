@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.26.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.27.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8113,10 +8113,164 @@
       .document-summary { grid-template-columns: 1fr 1fr; }
     }
 
+
+    /* v4.27.0 - Cihaz bazlı çevrim içi lisans doğrulama */
+    body.license-locked { overflow: hidden; }
+    body.license-locked .app {
+      filter: blur(9px) saturate(.62);
+      transform: scale(.994);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .license-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 11000;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(var(--accent-rgb, 225,29,46), .24), transparent 34%),
+        radial-gradient(circle at 86% 84%, rgba(27,120,255,.12), transparent 34%),
+        rgba(3, 5, 9, .93);
+      backdrop-filter: blur(24px);
+    }
+
+    .license-gate.hidden { display: none; }
+
+    .license-card {
+      width: min(570px, 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(var(--accent-rgb, 225,29,46), .17), transparent 35%),
+        linear-gradient(180deg, color-mix(in srgb, var(--panel) 96%, #fff 4%), var(--panel));
+      box-shadow: 0 38px 110px rgba(0,0,0,.62);
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .license-brand { display: flex; align-items: center; gap: 14px; }
+    .license-brand-mark {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--red), color-mix(in srgb, var(--red) 45%, #000));
+      box-shadow: 0 18px 38px rgba(var(--accent-rgb, 225,29,46), .24);
+      font-weight: 950;
+      letter-spacing: -.05em;
+    }
+    .license-title { font-size: 27px; line-height: 1; letter-spacing: -.045em; font-weight: 920; }
+    .license-copy { margin-top: 7px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .license-form { display: grid; gap: 12px; }
+    .license-key-input {
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-weight: 850;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .license-status {
+      display: none;
+      padding: 11px 13px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .license-status.show { display: block; }
+    .license-status.error {
+      color: #ffd4d9;
+      border-color: rgba(255,77,94,.34);
+      background: rgba(255,77,94,.12);
+    }
+    .license-status.success {
+      color: #d9ffe8;
+      border-color: rgba(43,207,121,.32);
+      background: rgba(43,207,121,.10);
+    }
+    .license-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 8px;
+    }
+    .license-meta > div {
+      min-width: 0;
+      padding: 10px 11px;
+      border-radius: 13px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+    .license-meta span { display: block; color: var(--muted); font-size: 10px; }
+    .license-meta strong { display: block; margin-top: 4px; overflow-wrap: anywhere; font-size: 12px; }
+    .license-hint {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .license-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .license-actions .btn.primary { flex: 1 1 220px; }
+    .license-loading .license-form { opacity: .58; pointer-events: none; }
+
+    #screen-settings .settings-license-card { grid-column: span 4; order: 7; }
+    #screen-settings .settings-version-card { order: 8; }
+    #screen-settings #userManagementCard { order: 9; }
+    #screen-settings #auditLogCard { order: 10; }
+    .license-settings-value { overflow-wrap: anywhere; }
+
+    @media (max-width: 720px) {
+      .license-card { padding: 22px; border-radius: 23px; }
+      .license-meta { grid-template-columns: 1fr; }
+      #screen-settings .settings-license-card { grid-column: 1 / -1; }
+    }
+
   </style>
 </head>
 
-<body class="auth-locked">
+<body class="auth-locked license-locked">
+
+
+  <div class="license-gate" id="licenseGate" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
+    <div class="license-card" id="licenseCard">
+      <div class="license-brand">
+        <div class="license-brand-mark">SYS</div>
+        <div>
+          <div class="license-title" id="licenseTitle">Lisans Doğrulama</div>
+          <div class="license-copy" id="licenseCopy">Uygulamayı bu cihazda kullanmak için lisans kodunu doğrula.</div>
+        </div>
+      </div>
+
+      <form class="license-form" id="licenseForm" novalidate>
+        <div class="field">
+          <label for="licenseKeyInput">Lisans Kodu</label>
+          <input class="license-key-input" id="licenseKeyInput" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="64" required />
+        </div>
+        <div class="license-status" id="licenseStatus" aria-live="polite"></div>
+        <div class="license-actions">
+          <button class="btn primary" id="activateLicenseBtn" type="submit">Lisansı Etkinleştir</button>
+          <button class="btn hidden" id="retryLicenseBtn" type="button">Tekrar Kontrol Et</button>
+        </div>
+      </form>
+
+      <div class="license-meta hidden" id="licenseGateMeta">
+        <div><span>Firma</span><strong id="licenseGateCompany">-</strong></div>
+        <div><span>Cihaz</span><strong id="licenseGateDevice">-</strong></div>
+      </div>
+
+      <div class="license-hint">
+        İşletme kayıtların bu lisans sunucusuna gönderilmez. Araç, personel, tahsilat ve evrak verileri yalnızca bu cihazda kalır.
+        İnternet kesilirse son başarılı kontrolden itibaren 7 gün çevrimdışı çalışabilirsin.
+      </div>
+    </div>
+  </div>
 
   <div class="auth-gate" id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <div class="auth-card">
@@ -8161,7 +8315,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.26.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.27.0</div>
         </div>
       </div>
 
@@ -11188,6 +11342,44 @@
             <div class="audit-list" id="auditList"></div>
           </div>
 
+
+          <div class="card panel settings-panel settings-license-card" id="licenseSettingsCard">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Lisans Bilgisi</h2>
+                <div class="panel-sub">Bu cihazın lisans durumu ve son doğrulama bilgisi.</div>
+              </div>
+              <span class="pill" id="licenseSettingsBadge">Kontrol Ediliyor</span>
+            </div>
+
+            <div class="version-box">
+              <div>
+                <span>Firma</span>
+                <strong class="license-settings-value" id="licenseSettingsCompany">-</strong>
+              </div>
+              <div>
+                <span>Cihaz Kullanımı</span>
+                <strong id="licenseSettingsDevices">-</strong>
+              </div>
+              <div>
+                <span>Bitiş Tarihi</span>
+                <strong id="licenseSettingsExpiry">-</strong>
+              </div>
+              <div>
+                <span>Son Doğrulama</span>
+                <strong id="licenseSettingsChecked">-</strong>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button class="btn" id="revalidateLicenseBtn" type="button">Lisansı Şimdi Kontrol Et</button>
+            </div>
+
+            <div class="settings-note" id="licenseSettingsNote">
+              Lisans durumu hazırlanıyor.
+            </div>
+          </div>
+
           <div class="card panel settings-panel settings-version-card">
             <div class="panel-header">
               <div>
@@ -11199,7 +11391,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.26.0</strong>
+                <strong>v4.27.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -11228,7 +11420,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.26.0";
+    const APP_VERSION = "4.27.0";
     const SCHEMA_VERSION = 27;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -11241,6 +11433,10 @@
     const DOCUMENT_DB_VERSION = 1;
     const DOCUMENT_STORE_NAME = "files";
     const DOCUMENT_MAX_FILE_SIZE = 15 * 1024 * 1024;
+    const LICENSE_API_URL = "https://servis-lisans-api.ops-429.workers.dev";
+    const LICENSE_STORAGE_KEY = "SYS_LICENSE_V1";
+    const LICENSE_DEVICE_KEY = "SYS_LICENSE_DEVICE_V1";
+    const LICENSE_OFFLINE_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
 
     const defaultState = () => ({
       appVersion: APP_VERSION,
@@ -22861,6 +23057,265 @@
     }
 
 
+    // v4.27.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+    let currentLicenseSession = null;
+
+    function createLicenseDeviceId() {
+      const cryptoId = globalThis.crypto?.randomUUID?.();
+      if (cryptoId) return `SYS-${cryptoId}`;
+      return `SYS-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+    }
+
+    function getLicenseDeviceId() {
+      let deviceId = String(localStorage.getItem(LICENSE_DEVICE_KEY) || "").trim();
+      if (deviceId.length >= 8) return deviceId;
+      deviceId = createLicenseDeviceId();
+      localStorage.setItem(LICENSE_DEVICE_KEY, deviceId);
+      return deviceId;
+    }
+
+    function readLicenseRecord() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(LICENSE_STORAGE_KEY) || "null");
+        return parsed && typeof parsed === "object" ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveLicenseRecord(record) {
+      localStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify(record));
+      currentLicenseSession = record;
+      renderLicenseSettings();
+    }
+
+    function normalizeClientLicenseKey(value) {
+      return String(value || "").trim().toUpperCase().replace(/\s+/g, "");
+    }
+
+    function setLicenseGateStatus(message, tone = "") {
+      const box = $("#licenseStatus");
+      if (!box) return;
+      box.textContent = message || "";
+      box.classList.toggle("show", Boolean(message));
+      box.classList.toggle("error", tone === "error");
+      box.classList.toggle("success", tone === "success");
+    }
+
+    function setLicenseLoading(active) {
+      $("#licenseCard")?.classList.toggle("license-loading", Boolean(active));
+      const button = $("#activateLicenseBtn");
+      if (button) {
+        button.disabled = Boolean(active);
+        button.textContent = active ? "Kontrol Ediliyor..." : "Lisansı Etkinleştir";
+      }
+      const retry = $("#retryLicenseBtn");
+      if (retry) retry.disabled = Boolean(active);
+    }
+
+    function showLicenseGate(message = "", options = {}) {
+      document.body.classList.add("license-locked");
+      $("#licenseGate")?.classList.remove("hidden");
+      $("#licenseForm")?.classList.remove("hidden");
+      $("#retryLicenseBtn")?.classList.toggle("hidden", !options.showRetry);
+      $("#licenseGateMeta")?.classList.toggle("hidden", !options.showMeta);
+      if (options.companyName) $("#licenseGateCompany").textContent = options.companyName;
+      $("#licenseGateDevice").textContent = getLicenseDeviceId();
+      setLicenseGateStatus(message, options.tone || "");
+      window.setTimeout(() => $("#licenseKeyInput")?.focus(), 50);
+    }
+
+    function unlockLicensedApp(record, offline = false) {
+      currentLicenseSession = record;
+      $("#licenseGate")?.classList.add("hidden");
+      document.body.classList.remove("license-locked");
+      renderLicenseSettings();
+      if (offline) {
+        window.setTimeout(() => showToast("İnternet yok: lisans son doğrulamaya göre çevrimdışı kullanılıyor."), 350);
+      }
+    }
+
+    function licenseGraceRemaining(record) {
+      const checked = Date.parse(record?.lastValidatedAt || "");
+      if (!Number.isFinite(checked)) return 0;
+      return Math.max(0, LICENSE_OFFLINE_GRACE_MS - (Date.now() - checked));
+    }
+
+    function isLicenseServerDenial(status) {
+      return status >= 400 && status < 500;
+    }
+
+    async function requestLicenseApi(path, payload) {
+      let response;
+      try {
+        response = await fetch(`${LICENSE_API_URL}${path}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store"
+        });
+      } catch (error) {
+        const networkError = new Error("Lisans sunucusuna ulaşılamadı.");
+        networkError.kind = "network";
+        networkError.cause = error;
+        throw networkError;
+      }
+
+      let data = null;
+      try { data = await response.json(); } catch { data = null; }
+
+      if (!response.ok || !data?.ok) {
+        const error = new Error(data?.message || `Lisans kontrolü başarısız oldu. HTTP ${response.status}`);
+        error.kind = isLicenseServerDenial(response.status) ? "denied" : "server";
+        error.status = response.status;
+        error.code = data?.code || "LICENSE_REQUEST_FAILED";
+        throw error;
+      }
+      return data;
+    }
+
+    function buildLicenseRecord(licenseKey, data) {
+      return {
+        licenseKey,
+        deviceId: data.deviceId || getLicenseDeviceId(),
+        companyName: data.license?.companyName || "Lisanslı Kullanıcı",
+        status: data.license?.status || "active",
+        maxDevices: Number(data.license?.maxDevices || 1),
+        activeDevices: Number(data.license?.activeDevices || 1),
+        expiresAt: data.license?.expiresAt || null,
+        lastValidatedAt: data.checkedAt || new Date().toISOString(),
+        appVersion: APP_VERSION
+      };
+    }
+
+    async function activateClientLicense(event) {
+      event?.preventDefault?.();
+      const licenseKey = normalizeClientLicenseKey($("#licenseKeyInput")?.value);
+      if (licenseKey.length < 8) {
+        setLicenseGateStatus("Geçerli lisans kodunu gir.", "error");
+        return;
+      }
+      setLicenseLoading(true);
+      setLicenseGateStatus("Lisans ve cihaz hakkı kontrol ediliyor...");
+      try {
+        const data = await requestLicenseApi("/activate", {
+          licenseKey,
+          deviceId: getLicenseDeviceId(),
+          deviceName: `Servis Yönetim · ${navigator.platform || "Cihaz"}`
+        });
+        const record = buildLicenseRecord(licenseKey, data);
+        saveLicenseRecord(record);
+        setLicenseGateStatus(data.message || "Lisans etkinleştirildi.", "success");
+        window.setTimeout(() => unlockLicensedApp(record), 450);
+      } catch (error) {
+        console.error("Lisans etkinleştirme hatası:", error);
+        setLicenseGateStatus(error.message || "Lisans etkinleştirilemedi.", "error");
+      } finally {
+        setLicenseLoading(false);
+      }
+    }
+
+    async function validateStoredLicense({ manual = false } = {}) {
+      const record = readLicenseRecord();
+      if (!record?.licenseKey) {
+        showLicenseGate("Bu cihaz henüz lisanslanmamış. Lisans kodunu gir.");
+        return false;
+      }
+
+      $("#licenseKeyInput").value = record.licenseKey;
+      setLicenseLoading(true);
+      showLicenseGate(manual ? "Lisans yeniden kontrol ediliyor..." : "Lisans kontrol ediliyor...", {
+        showMeta: true,
+        companyName: record.companyName
+      });
+
+      try {
+        const data = await requestLicenseApi("/validate", {
+          licenseKey: record.licenseKey,
+          deviceId: record.deviceId || getLicenseDeviceId()
+        });
+        const next = buildLicenseRecord(record.licenseKey, data);
+        saveLicenseRecord(next);
+        setLicenseGateStatus("Lisans geçerli.", "success");
+        window.setTimeout(() => unlockLicensedApp(next), manual ? 250 : 160);
+        return true;
+      } catch (error) {
+        console.error("Lisans doğrulama hatası:", error);
+        const grace = licenseGraceRemaining(record);
+        if ((error.kind === "network" || error.kind === "server") && grace > 0) {
+          unlockLicensedApp(record, true);
+          renderLicenseSettings("offline");
+          return true;
+        }
+
+        const graceMessage = (error.kind === "network" || error.kind === "server")
+          ? " İnternet bağlantısı kurulduğunda yeniden dene. Çevrimdışı kullanım süresi dolmuş."
+          : "";
+        showLicenseGate(`${error.message || "Lisans doğrulanamadı."}${graceMessage}`, {
+          tone: "error",
+          showRetry: true,
+          showMeta: true,
+          companyName: record.companyName
+        });
+        return false;
+      } finally {
+        setLicenseLoading(false);
+      }
+    }
+
+    function formatLicenseDate(value, includeTime = false) {
+      if (!value) return "Süresiz";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return String(value);
+      return new Intl.DateTimeFormat("tr-TR", includeTime
+        ? { dateStyle: "short", timeStyle: "short" }
+        : { dateStyle: "medium" }
+      ).format(date);
+    }
+
+    function renderLicenseSettings(mode = "online") {
+      const record = currentLicenseSession || readLicenseRecord();
+      const badge = $("#licenseSettingsBadge");
+      if (!record) {
+        if (badge) badge.textContent = "Lisans Yok";
+        return;
+      }
+      $("#licenseSettingsCompany").textContent = record.companyName || "-";
+      $("#licenseSettingsDevices").textContent = `${record.activeDevices || 1} / ${record.maxDevices || 1}`;
+      $("#licenseSettingsExpiry").textContent = record.expiresAt ? formatLicenseDate(record.expiresAt) : "Süresiz";
+      $("#licenseSettingsChecked").textContent = formatLicenseDate(record.lastValidatedAt, true);
+      if (badge) {
+        badge.textContent = mode === "offline" ? "Çevrimdışı Geçerli" : "Aktif";
+        badge.classList.toggle("active", true);
+      }
+      const note = $("#licenseSettingsNote");
+      if (note) {
+        const remaining = Math.ceil(licenseGraceRemaining(record) / (24 * 60 * 60 * 1000));
+        note.textContent = mode === "offline"
+          ? `Sunucuya ulaşılamadı. Son başarılı doğrulamaya göre çevrimdışı kullanım sürüyor. Yaklaşık ${remaining} gün hak kaldı.`
+          : "Lisans doğrulandı. İşletme verileri cihazda kalır; lisans sunucusuna gönderilmez.";
+      }
+    }
+
+    function bindLicenseEvents() {
+      $("#licenseForm")?.addEventListener("submit", activateClientLicense);
+      $("#retryLicenseBtn")?.addEventListener("click", () => validateStoredLicense({ manual: true }));
+      $("#revalidateLicenseBtn")?.addEventListener("click", () => validateStoredLicense({ manual: true }));
+      $("#licenseKeyInput")?.addEventListener("input", (event) => {
+        const cursor = event.target.selectionStart;
+        event.target.value = normalizeClientLicenseKey(event.target.value);
+        try { event.target.setSelectionRange(cursor, cursor); } catch {}
+      });
+    }
+
+    async function initLicenseGate() {
+      bindLicenseEvents();
+      renderLicenseSettings();
+      await validateStoredLicense();
+    }
+
+
+    initLicenseGate();
     bindEvents();
     bindSecurityEvents();
     bindBackupRecoveryEvents();
