@@ -14,14 +14,21 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.json.JSONObject;
 
 public final class AndroidBridge {
     private final MainActivity activity;
@@ -39,6 +46,68 @@ public final class AndroidBridge {
     @JavascriptInterface
     public String getWebVersion() {
         return AppConfig.WEB_VERSION;
+    }
+
+
+    /**
+     * Lisans isteğini Android'in yerel ağ katmanından gönderir.
+     * Böylece bazı WebView sürümlerindeki CORS / fetch sorunları aşılır.
+     */
+    @JavascriptInterface
+    public String requestLicense(String path, String jsonPayload) {
+        JSONObject result = new JSONObject();
+        HttpURLConnection connection = null;
+
+        try {
+            if (!"/activate".equals(path) && !"/validate".equals(path)) {
+                throw new IllegalArgumentException("Geçersiz lisans adresi");
+            }
+
+            String payloadText = jsonPayload == null ? "{}" : jsonPayload;
+            if (payloadText.length() > 4096) {
+                throw new IllegalArgumentException("Lisans isteği çok büyük");
+            }
+
+            URL url = new URL(AppConfig.LICENSE_API_URL + path);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + AppConfig.APK_VERSION);
+
+            byte[] payload = payloadText.getBytes(StandardCharsets.UTF_8);
+            connection.setFixedLengthStreamingMode(payload.length);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(payload);
+            }
+
+            int status = connection.getResponseCode();
+            InputStream input = status >= 200 && status < 400
+                    ? connection.getInputStream()
+                    : connection.getErrorStream();
+
+            result.put("transportOk", true);
+            result.put("status", status);
+            result.put("body", readText(input));
+        } catch (Exception error) {
+            try {
+                result.put("transportOk", false);
+                result.put("status", 0);
+                result.put("message", error.getMessage() == null
+                        ? "Lisans sunucusuna ulaşılamadı."
+                        : error.getMessage());
+            } catch (Exception ignored) {
+                return "{\"transportOk\":false,\"status\":0,\"message\":\"Lisans sunucusuna ulaşılamadı.\"}";
+            }
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+
+        return result.toString();
     }
 
     @JavascriptInterface
@@ -152,6 +221,21 @@ public final class AndroidBridge {
                 toast("Dosya kaydedilemedi.");
             }
         });
+    }
+
+
+    private String readText(InputStream input) throws Exception {
+        if (input == null) return "";
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(input, StandardCharsets.UTF_8)
+        )) {
+            StringBuilder body = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                body.append(line).append('\n');
+            }
+            return body.toString().trim();
+        }
     }
 
     private byte[] decodeDataUrl(String dataUrl) throws Exception {
