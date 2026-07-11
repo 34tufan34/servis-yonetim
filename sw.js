@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-34-0";
+const CACHE_NAME = "servis-sys-v4-35-1";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -34,7 +34,6 @@ self.addEventListener("fetch", (event) => {
   const requestUrl = new URL(request.url);
   const isFuelPriceFile = requestUrl.origin === self.location.origin && requestUrl.pathname.endsWith("/fuel-prices.json");
 
-  // Yakıt fiyatı dinamik veridir: önce internetten alınır, yalnızca bağlantı yoksa son kayıt gösterilir.
   if (isFuelPriceFile) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
@@ -85,7 +84,6 @@ self.addEventListener("message", (event) => {
     self.skipWaiting();
     return;
   }
-
   if (event.data?.type === "REFRESH_CACHE") {
     event.waitUntil((async () => {
       await caches.delete(CACHE_NAME);

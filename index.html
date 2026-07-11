@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.35.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.35.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -5100,6 +5100,44 @@
     .finance-general-summary .insight-label { font-size: 10px; }
     .finance-general-summary .insight-value { font-size: 16px; }
 
+    .finance-risk-detail {
+      display: grid;
+      gap: 7px;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid rgba(225,29,46,.24);
+      border-radius: 15px;
+      background: rgba(225,29,46,.035);
+    }
+    .finance-risk-detail.hidden { display: none; }
+    .finance-risk-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .finance-risk-detail-head strong { font-size: 12px; }
+    .finance-risk-detail-head span { color: var(--muted); font-size: 9px; line-height: 1.4; text-align: right; }
+    .finance-risk-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(135px,.75fr) minmax(0,1.7fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+    .finance-risk-row:hover { border-color: rgba(var(--accent-rgb),.42); background: rgba(var(--accent-rgb),.055); }
+    .finance-risk-row strong { font-size: 10px; }
+    .finance-risk-row span { color: var(--muted); font-size: 9px; line-height: 1.4; overflow-wrap: anywhere; }
+    .finance-risk-count { min-width: 64px; padding: 5px 8px; border-radius: 999px; background: rgba(225,29,46,.12); color: #fda4af !important; font-weight: 900; text-align: center; white-space: nowrap; }
+    @media (max-width: 760px) {
+      .finance-risk-detail-head { flex-direction: column; }
+      .finance-risk-detail-head span { text-align: left; }
+      .finance-risk-row { grid-template-columns: 1fr auto; }
+      .finance-risk-row > span:not(.finance-risk-count) { grid-column: 1 / -1; }
+    }
+
     .finance-section-heading {
       flex: 0 0 auto;
       display: flex;
@@ -8051,7 +8089,17 @@
       user-select: none;
     }
     .fuel-manual-total-check.hidden { display: none; }
-    .fuel-manual-total-check input { width: 16px; height: 16px; accent-color: var(--accent); }
+    .fuel-manual-total-check input {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      padding: 0;
+      align-self: center;
+      vertical-align: middle;
+      accent-color: var(--accent);
+    }
+    .fuel-manual-total-check span { display: inline-flex; align-items: center; min-height: 16px; line-height: 1.2; }
     #vehicleExpenseAmount.fuel-manual { border-color: rgba(245, 158, 11, .55); background: rgba(245, 158, 11, .055); }
 
     .vehicle-km-chart-grid {
@@ -8187,7 +8235,7 @@
     }
 
 
-    /* v4.31.0 - Öğretici, telif ve iletişim alanı */
+    /* v4.31.0 - Telif ve iletişim alanı */
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -8267,151 +8315,6 @@
       font-size: 9px;
       font-weight: 900;
       letter-spacing: .12em;
-    }
-
-    #screen-tutorial { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
-    #screen-tutorial::-webkit-scrollbar { width: 8px; }
-    #screen-tutorial::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 999px; }
-    .tutorial-shell { display: grid; gap: 16px; padding: 2px 4px 18px 0; }
-    .tutorial-hero {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      gap: 18px;
-      padding: 24px;
-      background:
-        radial-gradient(circle at 92% 6%, rgba(var(--accent-rgb), .20), transparent 34%),
-        linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
-    }
-    .tutorial-hero::after {
-      content: "REHBER";
-      position: absolute;
-      right: -10px;
-      top: 12px;
-      font-size: clamp(62px, 11vw, 150px);
-      font-weight: 950;
-      letter-spacing: -.08em;
-      color: rgba(255,255,255,.025);
-      pointer-events: none;
-    }
-    .tutorial-hero-copy { position: relative; z-index: 1; max-width: 860px; }
-    .tutorial-kicker { color: var(--red); font-size: 11px; font-weight: 950; letter-spacing: .14em; }
-    .tutorial-hero h2 { margin: 8px 0 10px; font-size: clamp(27px, 4vw, 48px); line-height: .98; letter-spacing: -.055em; }
-    .tutorial-hero p,
-    .tutorial-contact-card p { margin: 0; color: var(--muted); line-height: 1.65; }
-    .tutorial-order {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0,1fr));
-      gap: 8px;
-    }
-    .tutorial-order > div {
-      min-width: 0;
-      padding: 13px 12px;
-      border-radius: 15px;
-      border: 1px solid var(--line);
-      background: rgba(0,0,0,.16);
-    }
-    .tutorial-order span { display: block; color: var(--red); font-size: 10px; font-weight: 950; }
-    .tutorial-order strong { display: block; margin-top: 5px; font-size: 13px; }
-    .tutorial-order small { display: block; margin-top: 4px; color: var(--muted); line-height: 1.35; }
-    .tutorial-alert {
-      position: relative;
-      z-index: 1;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,182,72,.28);
-      background: rgba(255,182,72,.08);
-      color: color-mix(in srgb, var(--text) 88%, #ffb648);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .tutorial-alert.compact { margin-top: auto; }
-    .tutorial-path-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
-    .tutorial-path { padding: 20px; }
-    .tutorial-path-head { display: flex; flex-direction: column; gap: 5px; }
-    .tutorial-path-head span { color: var(--red); font-size: 10px; font-weight: 950; letter-spacing: .12em; }
-    .tutorial-path-head strong { font-size: 19px; }
-    .tutorial-path ol { margin: 15px 0 0; padding-left: 21px; color: var(--muted); line-height: 1.58; }
-    .tutorial-path li + li { margin-top: 8px; }
-    .tutorial-path b { color: var(--text); }
-    .tutorial-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
-    .tutorial-step-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px; min-width: 0; }
-    .tutorial-step-number {
-      position: absolute;
-      z-index: 2;
-      right: 28px;
-      top: 27px;
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--red);
-      color: #fff;
-      font-weight: 950;
-      box-shadow: 0 10px 26px rgba(var(--accent-rgb), .25);
-    }
-    .tutorial-visual {
-      min-height: 156px;
-      border-radius: 17px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 15% 12%, rgba(var(--accent-rgb), .11), transparent 42%),
-        rgba(0,0,0,.15);
-    }
-    .tutorial-visual svg { display: block; width: 100%; height: auto; color: var(--muted); }
-    .tv-frame { fill: rgba(255,255,255,.02); stroke: rgba(255,255,255,.12); stroke-width: 2; }
-    .tv-field { fill: rgba(255,255,255,.055); stroke: rgba(255,255,255,.08); stroke-width: 1.5; }
-    .tv-accent { fill: var(--red); }
-    .tv-accent-soft { fill: rgba(var(--accent-rgb), .16); stroke: rgba(var(--accent-rgb), .34); stroke-width: 1.5; }
-    .tv-avatar { fill: rgba(255,255,255,.07); stroke: rgba(255,255,255,.18); stroke-width: 2; }
-    .tv-success { fill: var(--success); }
-    .tv-success-soft { fill: rgba(43,207,121,.12); stroke: rgba(43,207,121,.26); }
-    .tv-danger-soft { fill: rgba(255,77,94,.11); stroke: rgba(255,77,94,.25); }
-    .tv-cloud { fill: rgba(var(--accent-rgb), .08); stroke: rgba(var(--accent-rgb), .45); stroke-width: 3; }
-    .tv-download { fill: none; stroke: var(--red); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
-    .tv-route { fill: none; stroke: rgba(var(--accent-rgb), .65); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 16 12; }
-    .tv-chart { fill: none; stroke: var(--red); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
-    .tv-title { fill: var(--text); font: 900 15px Inter, sans-serif; letter-spacing: 1px; }
-    .tv-pill-title { text-anchor: middle; dominant-baseline: middle; }
-    .tv-label { fill: var(--muted); font: 800 10px Inter, sans-serif; letter-spacing: .7px; }
-    .tv-money { fill: var(--text); font: 950 24px Inter, sans-serif; }
-    .tv-car { fill: #fff; font: 950 12px Inter, sans-serif; text-anchor: middle; }
-    .tv-ok { fill: #062b17; font: 950 10px Inter, sans-serif; }
-    .tutorial-step-card h3 { margin: 0; font-size: 19px; letter-spacing: -.025em; }
-    .tutorial-step-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.58; }
-    .tutorial-required { padding: 10px 11px; border-radius: 12px; background: rgba(255,255,255,.035); color: var(--muted); font-size: 11px; }
-    .tutorial-required span { color: var(--red); font-weight: 950; margin-right: 5px; }
-    .tutorial-step-card > .btn,
-    .tutorial-button-row { margin-top: auto; }
-    .tutorial-button-row { display: flex; flex-wrap: wrap; gap: 7px; }
-    .tutorial-button-row .btn { flex: 1 1 130px; }
-    .tutorial-contact-card { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 22px; }
-    .tutorial-contact-card h3 { margin: 7px 0 8px; font-size: 23px; }
-    .tutorial-contact-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
-    .tutorial-contact-actions a { text-decoration: none; }
-    .tutorial-copyright { padding: 10px 2px 0; color: var(--muted); text-align: center; font-size: 11px; }
-
-    @media (max-width: 1240px) {
-      .tutorial-order { grid-template-columns: repeat(3, minmax(0,1fr)); }
-      .tutorial-card-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width: 820px) {
-      .tutorial-path-grid,
-      .tutorial-card-grid { grid-template-columns: 1fr; }
-      .tutorial-order { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .tutorial-contact-card { align-items: flex-start; flex-direction: column; }
-      .tutorial-contact-actions { justify-content: flex-start; width: 100%; }
-      .tutorial-contact-actions .btn { flex: 1 1 190px; }
-    }
-    @media (max-width: 520px) {
-      .tutorial-order { grid-template-columns: 1fr; }
-      .tutorial-hero { padding: 18px; }
-      .tutorial-step-card { padding: 14px; }
-      .tutorial-step-number { right: 22px; top: 23px; }
     }
 
     /* v4.31.0 - Cihaz bazlı çevrim içi lisans doğrulama */
@@ -9007,7 +8910,7 @@
 
   
 
-    /* v4.35.0 - Yönetim planlama, bütçe, nakit akışı ve yıllık karşılaştırma */
+    /* v4.35.1 - Yönetim planlama, bütçe, nakit akışı ve yıllık karşılaştırma */
     .finance-management-tools { margin-top: 16px; flex: 0 0 auto; }
     #finance-tab-overview > .finance-chart-grid { flex: 0 0 auto; min-height: 552px; }
     .finance-management-heading { margin: 4px 0 10px; }
@@ -9305,7 +9208,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.35.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.35.1</div>
         </div>
       </div>
 
@@ -9339,10 +9242,6 @@
         <details class="sidebar-contact" id="sidebarContact">
           <summary>Bana Ulaş</summary>
           <div class="sidebar-contact-panel">
-            <button class="sidebar-guide-link" id="openTutorialBtn" type="button">
-              <span>Program Öğreticisi</span>
-              <small>Resimli kullanım rehberini aç</small>
-            </button>
             <div class="sidebar-contact-label">İLETİŞİM</div>
             <a href="https://wa.me/905074277773?text=Merhaba%20Servis%20Y%C3%B6netim%20Sistemi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp · 0507 427 77 73</a>
             <a href="tel:+905074277773">Telefon · 0507 427 77 73</a>
@@ -9517,7 +9416,6 @@
           <button class="tab" data-tab="ledger">Çetele</button>
           <button class="tab" data-tab="vehicles">Araçlar</button>
           <button class="tab" data-tab="warnings">Uyarılar</button>
-          <button class="tab" data-tab="control">Kontrol Listesi</button>
         </div>
 
         <div class="tab-screen hidden" id="tab-people">
@@ -10429,78 +10327,6 @@
           </div>
         </div>
 
-        <div class="tab-screen hidden" id="tab-control">
-          <div class="card panel control-panel">
-            <div class="panel-header">
-              <div>
-                <h2 class="panel-title">Personel Servisi Kontrol Listesi</h2>
-                <div class="panel-sub">Bu bölüm geliştirme pusulası gibi kullanılacak.</div>
-              </div>
-            </div>
-
-            <div class="notice">
-              İlk aşamada bilinçli olarak karmaşık finans ve okul servisi mantığına girmedik. Önce personel servisinin kemikleri sağlam olacak.
-            </div>
-
-            <div class="checklist">
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Personel kayıt altyapısı</strong><br>Sicil, ad, telefon, firma, departman, güzergah, vardiya, biniş noktası, tarih, durum ve not alanları.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Güzergah altyapısı</strong><br>Rota kodu, ad, saat, km ve durak listesi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Araç & şoför altyapısı</strong><br>Plaka, kapasite, şoför adı, telefon ve durum takibi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Sefer planı başlangıcı</strong><br>Tarih, yön, rota, araç ve not eşleştirmesi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Yedekleme</strong><br>JSON dışa aktarma ve içe aktarma.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Sabit panel düzeni</strong><br>Sol menü, üst başlık, özet kartlar, sekmeler, kayıt formu ve liste başlıkları sabit kaldı. Liste kolon başlıkları ve kontrol listesi başlığı sabit kalır. Sadece kayıt satırları ve kontrol maddeleri kendi içinde kaydırılır.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Operasyon kontrolü</strong><br>Güzergahsız aktif personel, çift telefon, geçmiş ayrılma tarihi ve kapasite riski ayrı Uyarılar sekmesinde gösterilir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>CSV dışa aktarma</strong><br>Filtrelenmiş personel listesi Excel uyumlu CSV olarak indirilebilir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Günlük çetele</strong><br>Sabah gidiş, akşam dönüş, tek sefer fiyatı, günlük/aylık gelir ve personel yoklama takibi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Otomatik izin</strong><br>Personel detayında izin bitiş tarihi girilirse çetele ekranında ilgili tarihe kadar otomatik izinli görünür.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Adres ve sıra altyapısı</strong><br>Sabah biniş adresi, akşam iniş adresi, ayrı harita arama metinleri, sabah alma sırası ve akşam bırakma sırası eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis Başlat ekranı</strong><br>Seçilen tarih, firma servisi ve sefer yönüne göre sıradaki personel, harita, Bindi/Yok/İzinli akışı ve çeteleye işleme eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Sade operasyon akışı</strong><br>Servis Başlat en öne alındı. Sefer Planı ve teknik servis grupları kullanıcı akışından çıkarıldı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Firma otomasyonu</strong><br>Firma çalışma saatleri, varsayılan araç ve fiyat bilgisi servis/çetele akışını otomatik besler.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Kompakt servis ekranı</strong><br>Servis Başlat ekranında üst alan daraltıldı, alt personel akışı için daha fazla görünür alan açıldı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Firma formu düzeltildi</strong><br>Kaydet/Vazgeç/Temizle üst başlığa taşındı. Firma ve servis ayarı iki bölüme ayrıldı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Takvim çetele</strong><br>Eski günlük çetele yerine aylık kutucuk takvimi geldi. Her kutu boş → 1 tek → 2 tek → boş döngüsüyle çalışır.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Hizalama düzeltmesi</strong><br>Firma Servis Ayarı sekmesi aktif edildi. Servis Başlat alanında otomatik bilgi yazısı kutunun üstüne alındı ve butonlarla hizalandı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Çetele v2</strong><br>Hafta sonu pasif, bugün vurgusu, tatil/izin işaretleme, ay sonu hakediş özeti ve butonsuz kutu dokunma eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Büyük çetele görünümü</strong><br>Çetele artık yeni sekme açmaz. Aynı pencerede tam ekran açılır; Geri Dön ile normal ekrana dönülür.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Görsel temizlik</strong><br>Boş günlerde “Dokunmadık” yazısı kaldırıldı. 1 tek / 2 tek alt yazıları kutunun kenarından yukarı alındı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Alt satır sabitlendi</strong><br>1 tek / 2 tek yazıları kartın alt bölümünde sabit konuma alındı; alt kenara yapışması engellendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Firma araç bağlantısı</strong><br>Araçlar sekmesinde kaydedilen plaka Firma Kaydı içinde seçilir. Servis Başlat ekranında firma seçilince araç otomatik gelir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis saha akışı</strong><br>Servis Başlat canlı duruma geçti. Manuel sıra değiştirme ve sıralı harita açma eklendi. Sabah rotası kayıtlı işyerinde, akşam rotası kullanıcı tarafından belirlenen son noktada biter.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Büyük servis listesi</strong><br>Servis Başlat altındaki personel listesi artık ayrı büyük görünümde açılabilir. Çetele açılış alanına da görsel boş durum tasarımı eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis liste açılış tasarımı</strong><br>Başlat ekranındaki büyük liste çağrı alanında yazı ortalandı ve yanına görsel blok eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Ayarlar / Yedek düzeni</strong><br>Yedek alma, içe aktarma, demo veri ve CSV dışa aktarma operasyon ekranlarından kaldırılıp Ayarlar / Yedek paneline taşındı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis liste görseli düzeltildi</strong><br>Listeyi Aç çağrı alanındaki görsel çerçevenin içine düzgün oturtuldu ve alanla daha uyumlu hale getirildi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Çetele renk ayrımı</strong><br>1 tek günleri uyarı rengine, 2 tek günleri yeşil tamamlandı rengine ayrıldı. Servis liste görseli yeniden merkezlendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Görsel merkezleme düzeltildi</strong><br>Servis listesi açılışındaki görsel, arka kutusunun gerçek merkezine sabitlendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Görsel tam görünür düzeltme</strong><br>Servis listesi ikon görseli küçültüldü, çerçevenin içinde ortalandı ve altının kesilmesi engellendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Servis liste alanı yeniden kuruldu</strong><br>Eski çakışan görsel sınıfları devre dışı bırakıldı. İkon, yazı ve buton aynı çerçevede dikey ortalandı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>İnce konum ayarı</strong><br>Servis liste açılış alanındaki ikon ve yazılar yaklaşık 4 mm yukarı alındı.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Ayarlar başlık tekrarı kaldırıldı</strong><br>Ayarlar / Yedek ekranındaki ikinci aynı başlık silindi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Tema seçimi eklendi</strong><br>Ayarlar bölümünden koyu, açık, turkuaz veya sistem teması seçilebilir. Seçim cihazda kayıtlı kalır.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Çoklu tema seti</strong><br>Lacivert, bordo, mor, yeşil, kehribar ve gri tema eklendi. Tema sayısı sistem seçeneğiyle birlikte 10 oldu.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Okul Servisi ilk omurga</strong><br>Öğrenci kayıtları ile okul tanımları çalışır hale getirildi. Öğrenci, veli, adres, sıra, ücret, okul saatleri, araç ve şoför bağlantıları eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Ortak veri ve yedek</strong><br>Okul servisi kayıtları mevcut personel verilerini bozmadan aynı cihaz kaydına ve JSON yedeğine dahil edildi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Okul servisi saha akışı</strong><br>Servis başlatma ve bitirme, sabah-akşam ayrı sıralama, Bindi/Yok/İzinli yoklaması ve tarih bazlı günlük kayıt eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Veli WhatsApp bilgilendirme sistemi</strong><br>Bindi, indi, başka adreste indi, okula varış ve gecikme mesajları; veli bazlı bildirim tercihi ve bildirim kaydı eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Canlı Komuta göstergesi</strong><br>Personel veya okul servisi başlatıldığında Komuta Paneli’ndeki ilgili kart, sol menü ikonu ve Servis Canlı butonu hareketli duruma geçer.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Rehber personel</strong><br>Rehber kaydı, okul/araç ve sabah-akşam görev bağlantısı, geçici yedek rehber, Servis Başlat ve Komuta Paneli gösterimi eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Okul sıralı harita</strong><br>Sabah öğrenci sırasından okula, akşam okuldan bırakma sırasına göre Google Haritalar rotası eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Okul yoklama raporu</strong><br>Ay ve okul bazında tamamlanan sefer, Bindi, Yok, İzinli ve Bekliyor özeti ile öğrenci detay tablosu eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Çetele-finans sözleşme bağlantısı</strong><br>Çetele artık iş / sözleşme seçimiyle kaydedilir. Manuel çetele seferleri doğru hakedişe bağlanır ve Finans ekranında kontrollü manuel hakediş düzeltmesi yapılabilir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Personel işleri ve sözleşmeler</strong><br>Alınan işler firma, tarih, çalışma günleri, araç, fiyat modeli, fatura günü ve ödeme vadesiyle kaydedilir. Aktif iş Servis Başlat ekranına aktarılabilir.</div></div>
-'              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Öğrenci tahsilat takibi</strong><br>Ay ve okul bazında beklenen ücret, ödeme girişi, kısmi/fazla ödeme, kalan borç, veli özeti ve hatalı son ödemeyi silme eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Personel servisi hakediş</strong><br>İş ve ay bazında planlanan/gerçekleşen sefer, otomatik hakediş, ek hizmet, kesinti, fatura, vade ve tahsilat takibi eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Birleşik finans özeti</strong><br>Okul öğrenci ücretleri ve veli tahsilatları Finans Özet ekranına bağlandı. Personel hakedişi, okul tahakkuku, toplam tahsilat ve toplam alacak tek ekranda görünür.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Finans uyarı kısayolları</strong><br>Kırmızı finans kartları tıklanabilir hale getirildi. Alacak, eksik ödeme, bağlantısız sefer ve fiyat eksikliği ilgili kayıt ekranına yönlendirir.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Araç giderleri ve net sonuç</strong><br>Yakıt, bakım, arıza, lastik, sigorta, şoför ve diğer giderler araçla birlikte personel işi veya okul servisine bağlanır. Genel finans net sonucu ve iş bazlı net katkı otomatik hesaplanır.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Ortak araç gider paylaştırma</strong><br>Aynı araç personel ve okul servisinde çalışıyorsa tek gider kaydı yüzdeyle iki operasyona dağıtılır. Toplam maliyet bir kez sayılır; personel işi ve okul kârlılığı yalnız kendi payını kullanır.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Şoför / rehber ödeme takibi</strong><br>Aylık sabit, sefer başına, günlük veya karma hakediş; avans, kesinti, ödeme, kalan borç ve personel/okul maliyet dağıtımı eklendi.</div></div>
-              <div class="check-item"><span class="pill active">Hazır</span><div><strong>Resmî sayfadan motorin fiyatı</strong><br>Komuta Paneli’nde güncel Shell ve OPET marka görünümleri, resmî sayfa metninden manuel güncelleme, otomatik yenileme, son fiyat önbelleği ve metin yapıştırma yedeği bulunur.</div></div>
-              <div class="check-item"><span class="pill">Sonraki</span><div><strong>APK hazırlığı</strong><br>PWA/Capacitor mantığı, versiyonlama, veri migrasyonu, güncelleme planı.</div></div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section class="module-screen active" id="screen-school">
@@ -11089,19 +10915,19 @@
           </section>
 
           <div class="tabs finance-tabs" id="financeTabs">
-            <button class="tab active" type="button" data-finance-tab="overview">1. Genel Özet</button>
-            <button class="tab" type="button" data-finance-tab="flow">2. Gelir / Gider</button>
-            <button class="tab" type="button" data-finance-tab="personnel">3. Personel Finans</button>
-            <button class="tab" type="button" data-finance-tab="accruals">4. Personel Hakedişleri</button>
-            <button class="tab" type="button" data-finance-tab="school">5. Okul Finans</button>
-            <button class="tab" type="button" data-finance-tab="invoices">6. Fatura Tahsilat</button>
-            <button class="tab" type="button" data-finance-tab="maintenance">7. Bakım & Mekanik</button>
-            <button class="tab" type="button" data-finance-tab="cost-report">8. Maliyet Dağılımı</button>
-            <button class="tab" type="button" data-finance-tab="profitability">9. Kârlılık</button>
-            <button class="tab" type="button" data-finance-tab="private-use">10. Özel Kullanım</button>
-            <button class="tab" type="button" data-finance-tab="staff">11. Şoför / Rehber</button>
-            <button class="tab" type="button" data-finance-tab="km">12. KM Analizi</button>
-            <button class="tab" type="button" data-finance-tab="reports">13. Raporlar</button>
+            <button class="tab active" type="button" data-finance-tab="overview">Genel Özet</button>
+            <button class="tab" type="button" data-finance-tab="flow">Gelir / Gider</button>
+            <button class="tab" type="button" data-finance-tab="personnel">Personel Finans</button>
+            <button class="tab" type="button" data-finance-tab="accruals">Personel Hakedişleri</button>
+            <button class="tab" type="button" data-finance-tab="school">Okul Finans</button>
+            <button class="tab" type="button" data-finance-tab="invoices">Fatura Tahsilat</button>
+            <button class="tab" type="button" data-finance-tab="maintenance">Bakım & Mekanik</button>
+            <button class="tab" type="button" data-finance-tab="cost-report">Maliyet Dağılımı</button>
+            <button class="tab" type="button" data-finance-tab="profitability">Kârlılık</button>
+            <button class="tab" type="button" data-finance-tab="private-use">Özel Kullanım</button>
+            <button class="tab" type="button" data-finance-tab="staff">Şoför / Rehber</button>
+            <button class="tab" type="button" data-finance-tab="km">KM Analizi</button>
+            <button class="tab" type="button" data-finance-tab="reports">Raporlar</button>
           </div>
 
           <div class="finance-tab-screen" id="finance-tab-overview">
@@ -11113,6 +10939,7 @@
                 </div>
               </div>
               <div class="finance-general-summary" id="financeGeneralSummary"></div>
+              <div class="finance-risk-detail hidden" id="financeRiskDetail"></div>
             </section>
 
             <div class="finance-chart-grid">
@@ -12170,212 +11997,6 @@
         </div>
       </section>
 
-      <section class="module-screen" id="screen-tutorial">
-        <div class="tutorial-shell">
-          <section class="card tutorial-hero">
-            <div class="tutorial-hero-copy">
-              <div class="tutorial-kicker">İLK KURULUM REHBERİ</div>
-              <h2>Önce veri omurgasını kur. Sonra servisi başlat.</h2>
-              <p>Programın doğru çalışması için kayıtları rastgele değil, aşağıdaki sırayla gir. Eksik temel veri; yanlış rota, eksik tahsilat ve hatalı rapor üretir.</p>
-            </div>
-            <div class="tutorial-order" aria-label="Zorunlu veri giriş sırası">
-              <div><span>01</span><strong>Araç</strong><small>Plaka, şoför, telefon</small></div>
-              <div><span>02</span><strong>Firma / Okul</strong><small>Ad, adres, harita</small></div>
-              <div><span>03</span><strong>İş / Sözleşme</strong><small>Fiyat, dönem, araç</small></div>
-              <div><span>04</span><strong>Personel / Öğrenci</strong><small>Adres, sıra, bağlantı</small></div>
-              <div><span>05</span><strong>Servis</strong><small>Günlük operasyon</small></div>
-              <div><span>06</span><strong>Finans + Yedek</strong><small>Tahsilat, gider, güvenlik</small></div>
-            </div>
-            <div class="tutorial-alert"><strong>Kritik:</strong> Araç, firma/okul ve kişi kayıtları tamamlanmadan canlı servis başlatma. İlk gerçek kayıt öncesinde JSON yedek al.</div>
-          </section>
-
-          <section class="tutorial-path-grid">
-            <div class="card tutorial-path personnel-path">
-              <div class="tutorial-path-head"><span>PERSONEL SERVİSİ</span><strong>Doğru başlangıç sırası</strong></div>
-              <ol>
-                <li><b>Araç:</b> Plaka, şoför adı, telefon, kapasite ve yakıt bilgisi.</li>
-                <li><b>Firma:</b> Firma adı, açık adres ve harita arama metni.</li>
-                <li><b>İş / Sözleşme:</b> Firma, araç, çalışma düzeni, fiyat ve ödeme dönemi.</li>
-                <li><b>Personel:</b> Ad soyad, firma, vardiya, biniş noktası, sabah/akşam sıra ve adres.</li>
-              </ol>
-            </div>
-            <div class="card tutorial-path school-path">
-              <div class="tutorial-path-head"><span>OKUL SERVİSİ</span><strong>Doğru başlangıç sırası</strong></div>
-              <ol>
-                <li><b>Araç:</b> Plaka, şoför adı ve şoför telefonu.</li>
-                <li><b>Okul:</b> Adres, giriş/çıkış saati, araç ve veli WhatsApp grup adı.</li>
-                <li><b>Rehber:</b> Rehber adı, telefon, araç ve görev dönemi.</li>
-                <li><b>Öğrenci:</b> Öğrenci/veli, telefon, okul, adres, sıra ve aylık ücret.</li>
-              </ol>
-            </div>
-          </section>
-
-          <section class="tutorial-card-grid">
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">1</div>
-              <div class="tutorial-visual" aria-label="Araç kayıt ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Araç kayıt ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="44" width="160" height="28" rx="9" class="tv-accent"/>
-                  <rect x="42" y="92" width="198" height="48" rx="10" class="tv-field"/>
-                  <rect x="260" y="92" width="218" height="48" rx="10" class="tv-field"/>
-                  <rect x="42" y="156" width="198" height="48" rx="10" class="tv-field"/>
-                  <rect x="260" y="156" width="218" height="48" rx="10" class="tv-field"/>
-                  <text x="122" y="58" class="tv-title tv-pill-title">ARAÇ KAYDI</text>
-                  <text x="58" y="113" class="tv-label">PLAKA *</text><text x="276" y="113" class="tv-label">ŞOFÖR ADI *</text>
-                  <text x="58" y="177" class="tv-label">TELEFON *</text><text x="276" y="177" class="tv-label">KAPASİTE / YAKIT</text>
-                </svg>
-              </div>
-              <h3>Araç kaydını önce oluştur</h3>
-              <p>Plaka, şoför ve telefon bilgisi; sözleşme, okul, servis ve KM analizinin ortak temelidir.</p>
-              <div class="tutorial-required"><span>Zorunlu</span> Plaka · Şoför · Telefon</div>
-              <button class="btn small primary" type="button" data-tutorial-target="vehicles">Araçlar bölümünü aç</button>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">2</div>
-              <div class="tutorial-visual" aria-label="Firma ve sözleşme ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Firma ve sözleşme ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="44" width="150" height="28" rx="9" class="tv-accent"/>
-                  <rect x="42" y="92" width="436" height="42" rx="10" class="tv-field"/>
-                  <rect x="42" y="150" width="278" height="54" rx="10" class="tv-field"/>
-                  <rect x="338" y="150" width="140" height="54" rx="10" class="tv-accent-soft"/>
-                  <text x="117" y="58" class="tv-title tv-pill-title">FİRMA + İŞ</text>
-                  <text x="58" y="117" class="tv-label">FİRMA ADI VE AÇIK ADRES *</text>
-                  <text x="58" y="176" class="tv-label">İŞ / SÖZLEŞME · ARAÇ · DÖNEM</text>
-                  <text x="365" y="181" class="tv-money">₺ FİYAT</text>
-                </svg>
-              </div>
-              <h3>Firma ve işi birbirine bağla</h3>
-              <p>Firma adresi hedef noktayı; sözleşme ise araç, çalışma düzeni, fiyat ve finans hesaplarını belirler.</p>
-              <div class="tutorial-button-row">
-                <button class="btn small" type="button" data-tutorial-target="companies">Firmaları aç</button>
-                <button class="btn small primary" type="button" data-tutorial-target="jobs">İş / Sözleşmeyi aç</button>
-              </div>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">3</div>
-              <div class="tutorial-visual" aria-label="Personel ve öğrenci kayıt ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Kişi kayıt ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <circle cx="92" cy="104" r="38" class="tv-avatar"/>
-                  <rect x="150" y="70" width="328" height="32" rx="9" class="tv-field"/>
-                  <rect x="150" y="116" width="328" height="32" rx="9" class="tv-field"/>
-                  <rect x="42" y="174" width="204" height="42" rx="10" class="tv-field"/>
-                  <rect x="266" y="174" width="212" height="42" rx="10" class="tv-accent-soft"/>
-                  <text x="164" y="91" class="tv-label">AD SOYAD · FİRMA / OKUL *</text>
-                  <text x="164" y="137" class="tv-label">TELEFON · ADRES · DURAK *</text>
-                  <text x="58" y="199" class="tv-label">SABAH / AKŞAM SIRASI</text>
-                  <text x="286" y="199" class="tv-label">HARİTA ARAMA METNİ</text>
-                </svg>
-              </div>
-              <h3>Kişiyi adres ve sırayla kaydet</h3>
-              <p>Sadece isim girmek yetmez. Doğru servis sırası için sabah/akşam adresi, harita metni ve sıra bilgisi gerekir.</p>
-              <div class="tutorial-button-row">
-                <button class="btn small" type="button" data-tutorial-target="people">Personeli aç</button>
-                <button class="btn small primary" type="button" data-tutorial-target="students">Öğrencileri aç</button>
-              </div>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">4</div>
-              <div class="tutorial-visual" aria-label="Canlı servis ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Canlı servis ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="42" width="436" height="54" rx="14" class="tv-accent-soft"/>
-                  <circle cx="90" cy="164" r="38" class="tv-accent"/>
-                  <path d="M127 164 H360" class="tv-route"/>
-                  <circle cx="392" cy="164" r="30" class="tv-avatar"/>
-                  <rect x="354" y="210" width="124" height="22" rx="11" class="tv-success"/>
-                  <text x="58" y="75" class="tv-title">SERVİSİ BAŞLAT</text>
-                  <text x="69" y="170" class="tv-car">BUS</text>
-                  <text x="366" y="217" class="tv-ok">CANLI</text>
-                </svg>
-              </div>
-              <h3>Servisi kayıtlar tamamlanınca başlat</h3>
-              <p>Tarih ve iş/okul seçildiğinde program kayıt sırasını, aracı ve hedefleri otomatik hazırlar.</p>
-              <div class="tutorial-button-row">
-                <button class="btn small" type="button" data-tutorial-target="personnel-operation">Personel servisini aç</button>
-                <button class="btn small primary" type="button" data-tutorial-target="school-operation">Okul servisini aç</button>
-              </div>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">5</div>
-              <div class="tutorial-visual" aria-label="Finans ve KM ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Finans ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="42" width="132" height="72" rx="14" class="tv-success-soft"/>
-                  <rect x="194" y="42" width="132" height="72" rx="14" class="tv-danger-soft"/>
-                  <rect x="346" y="42" width="132" height="72" rx="14" class="tv-accent-soft"/>
-                  <path d="M56 210 L124 162 L190 184 L258 126 L326 150 L396 98 L468 118" class="tv-chart"/>
-                  <text x="58" y="68" class="tv-label">GELİR</text><text x="210" y="68" class="tv-label">GİDER</text><text x="362" y="68" class="tv-label">TL / KM</text>
-                  <text x="58" y="99" class="tv-money">₺</text><text x="210" y="99" class="tv-money">₺</text><text x="362" y="99" class="tv-money">KM</text>
-                </svg>
-              </div>
-              <h3>Finansı gerçek verilerle besle</h3>
-              <p>Tahsilat, fatura, araç gideri, yakıt litresi/birim fiyatı ve aylık başlangıç-bitiş KM kayıtları birlikte tutulmalı.</p>
-              <div class="tutorial-required"><span>Kontrol</span> Gelir · Gider · Yakıt · KM · Tahsilat</div>
-              <button class="btn small primary" type="button" data-tutorial-target="finance">Finans bölümünü aç</button>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">6</div>
-              <div class="tutorial-visual" aria-label="Yedekleme ekranı görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Yedekleme ekranı şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <path d="M260 56 C214 56 178 88 178 128 C145 133 122 156 122 184 C122 216 148 234 182 234 H362 C397 234 424 209 424 178 C424 147 400 124 370 120 C360 83 318 56 260 56Z" class="tv-cloud"/>
-                  <path d="M260 104 V190 M225 155 L260 190 L295 155" class="tv-download"/>
-                  <rect x="42" y="42" width="150" height="28" rx="9" class="tv-accent-soft"/>
-                  <text x="117" y="56" class="tv-title tv-pill-title">JSON YEDEK</text>
-                </svg>
-              </div>
-              <h3>Her büyük işlemden sonra yedek al</h3>
-              <p>Telefon değişimi, uygulama verisinin silinmesi veya cihaz arızası yerel kayıtları kaybettirebilir. JSON yedeği ayrı yerde sakla.</p>
-              <div class="tutorial-alert compact"><strong>Not:</strong> Yüklenen resim ve PDF Blob dosyalarını ayrıca sakla; JSON yedeği dosya içeriklerini taşımaz.</div>
-              <button class="btn small primary" type="button" data-tutorial-target="backup">Ayarlar / Yedek bölümünü aç</button>
-            </article>
-
-            <article class="card tutorial-step-card">
-              <div class="tutorial-step-number">7</div>
-              <div class="tutorial-visual" aria-label="Araç özel kullanım ve bakım maliyeti görseli">
-                <svg viewBox="0 0 520 260" role="img" aria-label="Araç maliyet yönetimi şeması">
-                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="42" width="182" height="34" rx="10" class="tv-accent"/>
-                  <rect x="42" y="98" width="205" height="104" rx="14" class="tv-field"/>
-                  <rect x="269" y="98" width="209" height="104" rx="14" class="tv-accent-soft"/>
-                  <text x="133" y="64" class="tv-title tv-pill-title">ARAÇ MALİYETİ</text>
-                  <text x="60" y="125" class="tv-label">ÖZEL KULLANIM</text><text x="60" y="154" class="tv-money">KM + YAKIT</text>
-                  <text x="287" y="125" class="tv-label">BAKIM / TAMİRAT</text><text x="287" y="154" class="tv-money">AYLIK PAY</text>
-                </svg>
-              </div>
-              <h3>Özel kullanım ve mekanik maliyeti ayır</h3>
-              <p>İş dışı kilometreyi bilgi amaçlı izle. Bakım, lastik, tamirat ve parça giderlerini gerçek ödeme ve aylık dağıtım olarak ayrı gör.</p>
-              <div class="tutorial-required"><span>Yeni</span> Özel KM · Yakıt tahmini · Bakım dağıtımı</div>
-              <button class="btn small primary" type="button" data-tutorial-target="vehicle-cost">Araç maliyet yönetimini aç</button>
-            </article>
-
-          </section>
-
-          <section class="card tutorial-contact-card">
-            <div>
-              <div class="tutorial-kicker">DESTEK VE İLETİŞİM</div>
-              <h3>Kurulum veya kullanım sırasında takıldın mı?</h3>
-              <p>Servis Yönetim Sistemi ile ilgili destek için doğrudan iletişim kanallarını kullanabilirsin.</p>
-            </div>
-            <div class="tutorial-contact-actions">
-              <a class="btn primary" href="https://wa.me/905074277773?text=Merhaba%20Servis%20Y%C3%B6netim%20Sistemi%20hakk%C4%B1nda%20destek%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp · 0507 427 77 73</a>
-              <a class="btn" href="tel:+905074277773">Telefon Et</a>
-              <a class="btn" href="mailto:ops@tufanprintops.com?subject=Servis%20Y%C3%B6netim%20Sistemi%20Destek">ops@tufanprintops.com</a>
-            </div>
-          </section>
-
-          <div class="tutorial-copyright">© 2026 · Tüm hakları Tufan Kırbıyık’a aittir.</div>
-        </div>
-      </section>
-
       <section class="module-screen" id="screen-settings">
 
         <div class="settings-grid">
@@ -12653,18 +12274,17 @@
           <div class="card panel settings-panel danger-zone settings-danger-card">
             <div class="panel-header">
               <div>
-                <h2 class="panel-title">Test / Demo</h2>
-                <div class="panel-sub">Sadece test ve kontrol için kullanılır.</div>
+                <h2 class="panel-title">Veri Sıfırlama</h2>
+                <div class="panel-sub">Cihazdaki bütün operasyon ve finans kayıtlarını kalıcı olarak temizler.</div>
               </div>
             </div>
 
             <div class="settings-actions">
-              <button class="btn danger" id="demoBtn" type="button">Demo Veri Yükle</button>
-              <button class="btn danger" id="resetBtn" type="button">Tüm Test Verisini Sil</button>
+              <button class="btn danger" id="resetBtn" type="button">Tüm Verileri Sil</button>
             </div>
 
             <div class="settings-note">
-              Gerçek verilerle çalışırken bu alanı dikkatli kullan. Büyük değişikliklerden önce JSON yedek al.
+              Bu işlem geri alınamaz. İşleme başlamadan önce JSON yedeği ve evrak dosyalarının ayrı kopyasını al.
             </div>
           </div>
 
@@ -12730,8 +12350,8 @@
 
                 <div class="role-permission-note">
                   <div><strong>Yönetici:</strong> Tüm modüller, silme, yedek ve kullanıcı yönetimi.</div>
-                  <div><strong>Operasyon:</strong> Komuta, personel, okul operasyonları ve Öğretici. Finans kapalıdır.</div>
-                  <div><strong>Muhasebe:</strong> Finans, okul tahsilatı, raporlar ve Öğretici. Operasyon ekranları kapalıdır.</div>
+                  <div><strong>Operasyon:</strong> Komuta, personel ve okul operasyonları. Finans kapalıdır.</div>
+                  <div><strong>Muhasebe:</strong> Finans, okul tahsilatı ve raporlar. Operasyon ekranları kapalıdır.</div>
                 </div>
               </form>
 
@@ -12816,7 +12436,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.35.0</strong>
+                <strong>v4.35.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12845,8 +12465,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.35.0 - Bütçe, nakit akışı, akıllı maliyet uyarıları ve yıllık yönetim karşılaştırması eklendi.
-    const APP_VERSION = "4.35.0";
+    // v4.35.1 - Bütçe, nakit akışı, akıllı maliyet uyarıları ve yıllık yönetim karşılaştırması eklendi.
+    const APP_VERSION = "4.35.1";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -19653,6 +19273,107 @@
       `;
     }
 
+    function vehicleExpenseRiskReason(expense) {
+      const mode = vehicleExpenseAllocationMode(expense);
+      if (!expense.vehicleId || !state.vehicles.some((vehicle) => vehicle.id === expense.vehicleId)) return "Araç bağlantısı eksik";
+      if (Number(expense.amount || 0) <= 0) return "Tutar sıfır veya geçersiz";
+      if ((mode === "personnel" || mode === "shared") && (!expense.jobId || !getJob(expense.jobId))) return "Personel işi / sözleşme bağlantısı eksik";
+      if ((mode === "school" || mode === "shared") && (!expense.schoolId || !getSchool(expense.schoolId))) return "Okul bağlantısı eksik";
+      if (mode === "shared") {
+        const personnel = Number(expense.personnelSharePercent ?? expense.personnelShare ?? 50);
+        const school = Number(expense.schoolSharePercent ?? expense.schoolShare ?? (100 - personnel));
+        if (personnel <= 0 || school <= 0 || Math.abs(personnel + school - 100) > 0.01) return "Personel / okul payları toplamı %100 değil";
+      }
+      return "Bağlantı veya pay bilgisi eksik";
+    }
+
+    function staffPaymentRiskReason(record, status) {
+      const mode = staffPaymentAllocationMode(record);
+      if (status?.label === "Vadesi Geçti") return "Ödeme vadesi geçti";
+      if (!record.workerId || !record.workerName) return "Şoför / rehber bağlantısı eksik";
+      if ((mode === "personnel" || mode === "shared") && (!record.jobId || !getJob(record.jobId))) return "Personel işi / sözleşme bağlantısı eksik";
+      if ((mode === "school" || mode === "shared") && (!record.schoolId || !getSchool(record.schoolId))) return "Okul bağlantısı eksik";
+      if (mode === "shared") {
+        const personnel = Number(record.personnelSharePercent ?? 50);
+        const school = Number(record.schoolSharePercent ?? (100 - personnel));
+        if (personnel <= 0 || school <= 0 || Math.abs(personnel + school - 100) > 0.01) return "Personel / okul payları toplamı %100 değil";
+      }
+      return "Bağlantı veya pay bilgisi eksik";
+    }
+
+    function renderFinanceRiskDetail(month = getFinanceMonth()) {
+      const host = $("#financeRiskDetail");
+      if (!host) return;
+      const personnel = personnelFinanceTotals(month);
+      const school = schoolFinanceTotals(month, false);
+      const items = [];
+
+      if (personnel.missingPrice > 0) {
+        const names = personnel.missingPriceJobs.slice(0, 4).map((job) => job.name || job.contractNo || "İsimsiz iş");
+        items.push({ title: "Sözleşme fiyatı eksik", count: personnel.missingPrice, unit: "iş", detail: names.join(" · "), action: "finance-jump-personnel-warning" });
+      }
+      if (personnel.unlinkedTrips > 0) {
+        const samples = state.dispatches
+          .filter((dispatch) => String(dispatch.date || "").startsWith(month) && dispatchTripCount(dispatch) > 0 && !dispatch.jobId)
+          .slice(0, 4)
+          .map((dispatch) => `${dispatch.date || "Tarih yok"} · ${dispatchTripCount(dispatch)} sefer`);
+        items.push({ title: "Sözleşmeye bağlanmamış sefer", count: personnel.unlinkedTrips, unit: "sefer", detail: samples.join(" · ") || "Çetele kayıtlarında iş / sözleşme seçilmemiş.", action: "finance-jump-personnel-warning" });
+      }
+      if (school.overdueUnpaidCount > 0) {
+        const names = school.rows.filter((row) => row.status.label === "Ödenmedi").slice(0,4).map((row) => row.student.name || "Öğrenci");
+        items.push({ title: "Vadesi geçmiş okul tahsilatı", count: school.overdueUnpaidCount, unit: "öğrenci", detail: `${names.join(" · ")} · Ödeme kaydı bulunmuyor.`, action: "finance-jump-school-unpaid" });
+      }
+      if (school.overduePartialCount > 0) {
+        const names = school.rows.filter((row) => row.status.label === "Eksik").slice(0,4).map((row) => row.student.name || "Öğrenci");
+        items.push({ title: "Eksik okul tahsilatı", count: school.overduePartialCount, unit: "öğrenci", detail: `${names.join(" · ")} · Kalan bakiye açık.`, action: "finance-jump-school-partial" });
+      }
+
+      const staffRiskRows = staffPaymentRows(month, false).filter(({ record, status }) => {
+        const mode = staffPaymentAllocationMode(record);
+        if (status.label === "Vadesi Geçti") return true;
+        if (!record.workerId || !record.workerName) return true;
+        if ((mode === "personnel" || mode === "shared") && (!record.jobId || !getJob(record.jobId))) return true;
+        if ((mode === "school" || mode === "shared") && (!record.schoolId || !getSchool(record.schoolId))) return true;
+        if (mode === "shared") {
+          const personnelShare = Number(record.personnelSharePercent ?? 50);
+          const schoolShare = Number(record.schoolSharePercent ?? (100 - personnelShare));
+          if (personnelShare <= 0 || schoolShare <= 0 || Math.abs(personnelShare + schoolShare - 100) > 0.01) return true;
+        }
+        return false;
+      });
+      if (staffRiskRows.length) {
+        const detail = staffRiskRows.slice(0,4).map(({record,status}) => `${record.workerName || "Çalışan yok"}: ${staffPaymentRiskReason(record,status)}`).join(" · ");
+        items.push({ title: "Şoför / rehber kaydı", count: staffRiskRows.length, unit: "kayıt", detail, action: "finance-jump-staff-payments" });
+      }
+
+      const vehicleRiskRows = vehicleExpenseRows(month, false).filter((expense) => {
+        const mode = vehicleExpenseAllocationMode(expense);
+        if (!expense.vehicleId || !state.vehicles.some((vehicle) => vehicle.id === expense.vehicleId)) return true;
+        if (Number(expense.amount || 0) <= 0) return true;
+        if ((mode === "personnel" || mode === "shared") && (!expense.jobId || !getJob(expense.jobId))) return true;
+        if ((mode === "school" || mode === "shared") && (!expense.schoolId || !getSchool(expense.schoolId))) return true;
+        if (mode === "shared") {
+          const personnelShare = Number(expense.personnelSharePercent ?? expense.personnelShare ?? 50);
+          const schoolShare = Number(expense.schoolSharePercent ?? expense.schoolShare ?? (100 - personnelShare));
+          if (personnelShare <= 0 || schoolShare <= 0 || Math.abs(personnelShare + schoolShare - 100) > 0.01) return true;
+        }
+        return false;
+      });
+      if (vehicleRiskRows.length) {
+        const detail = vehicleRiskRows.slice(0,4).map((expense) => `${expense.vehiclePlate || state.vehicles.find((vehicle)=>vehicle.id===expense.vehicleId)?.plate || "Araç yok"} · ${expense.type || "Gider"}: ${vehicleExpenseRiskReason(expense)}`).join(" · ");
+        items.push({ title: "Araç gideri kaydı", count: vehicleRiskRows.length, unit: "kayıt", detail, action: "finance-jump-vehicle-expenses" });
+      }
+
+      host.classList.toggle("hidden", items.length === 0);
+      host.innerHTML = items.length ? `
+        <div class="finance-risk-detail-head">
+          <strong>Riskin kaynağı</strong>
+          <span>Her satır sorunun hangi kayıttan geldiğini gösterir. Satıra dokunarak ilgili kayıt ekranına gidebilirsin.</span>
+        </div>
+        ${items.map((item) => `<button class="finance-risk-row" type="button" data-action="${escapeHtml(item.action)}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.detail || "Detay bulunamadı")}</span><span class="finance-risk-count">${escapeHtml(String(item.count))} ${escapeHtml(item.unit || "uyarı")}</span></button>`).join("")}
+      ` : "";
+    }
+
     function renderFinanceGeneralSummary() {
       const host = $("#financeGeneralSummary");
       if (!host) return;
@@ -19669,7 +19390,33 @@
       const netResult = totalAccrual - vehicle.total - staff.total;
       const overdueReceivable = personnel.overdueReceivable + school.overdueRemaining;
       const overdueReceivableCount = personnel.overdueCount + school.overdueUnpaidCount + school.overduePartialCount;
-      const riskCount = personnel.warningCount + school.overdueUnpaidCount + school.overduePartialCount + staff.riskCount + vehicle.riskCount;
+      const staffRiskRecordCount = staffPaymentRows(month, false).filter(({ record, status }) => {
+        const mode = staffPaymentAllocationMode(record);
+        if (status.label === "Vadesi Geçti") return true;
+        if (!record.workerId || !record.workerName) return true;
+        if ((mode === "personnel" || mode === "shared") && (!record.jobId || !getJob(record.jobId))) return true;
+        if ((mode === "school" || mode === "shared") && (!record.schoolId || !getSchool(record.schoolId))) return true;
+        if (mode === "shared") {
+          const personnelShare = Number(record.personnelSharePercent ?? 50);
+          const schoolShare = Number(record.schoolSharePercent ?? (100 - personnelShare));
+          if (personnelShare <= 0 || schoolShare <= 0 || Math.abs(personnelShare + schoolShare - 100) > 0.01) return true;
+        }
+        return false;
+      }).length;
+      const vehicleRiskRecordCount = vehicleExpenseRows(month, false).filter((expense) => {
+        const mode = vehicleExpenseAllocationMode(expense);
+        if (!expense.vehicleId || !state.vehicles.some((vehicle) => vehicle.id === expense.vehicleId)) return true;
+        if (Number(expense.amount || 0) <= 0) return true;
+        if ((mode === "personnel" || mode === "shared") && (!expense.jobId || !getJob(expense.jobId))) return true;
+        if ((mode === "school" || mode === "shared") && (!expense.schoolId || !getSchool(expense.schoolId))) return true;
+        if (mode === "shared") {
+          const personnelShare = Number(expense.personnelSharePercent ?? expense.personnelShare ?? 50);
+          const schoolShare = Number(expense.schoolSharePercent ?? expense.schoolShare ?? (100 - personnelShare));
+          if (personnelShare <= 0 || schoolShare <= 0 || Math.abs(personnelShare + schoolShare - 100) > 0.01) return true;
+        }
+        return false;
+      }).length;
+      const riskCount = personnel.warningCount + school.overdueUnpaidCount + school.overduePartialCount + staffRiskRecordCount + vehicleRiskRecordCount;
       const chips = [
         { label: "Toplam Beklenen Gelir", value: formatTRY(totalExpected), risk: false },
         { label: "Personel Hakediş", value: formatTRY(personnel.accrual), risk: false },
@@ -19680,9 +19427,10 @@
         { label: "Şoför / Rehber Ödemeleri", value: formatTRY(staff.total), risk: staff.riskCount > 0, note: staff.overdueCount > 0 ? `${staff.overdueCount} vadesi geçmiş ödeme` : (staff.allocationRiskCount > 0 ? `${staff.allocationRiskCount} bağlantı/pay hatası` : "Normal personel gideri"), action: "finance-jump-staff-payments" },
         { label: "Net Operasyon Sonucu", value: formatTRY(netResult), risk: netResult < 0, note: netResult < 0 ? "Giderler geliri aşıyor" : "KDV hariç operasyon sonucu" },
         { label: "Toplam Alacak", value: formatTRY(totalReceivable), risk: overdueReceivable > 0, note: overdueReceivable > 0 ? `${overdueReceivableCount} vadesi geçmiş kayıt` : "Vadesi geçmemiş bakiye", action: "finance-jump-general-receivable" },
-        { label: "Riskli / Eksik Kayıt", value: `${riskCount} kayıt`, risk: riskCount > 0, note: riskCount > 0 ? "Fiyat, bağlantı, pay veya vade sorunu" : "Kritik sorun yok", action: "finance-jump-general-risk" }
+        { label: "Riskli / Eksik Kayıt", value: `${riskCount} uyarı`, risk: riskCount > 0, note: riskCount > 0 ? "Kaynaklar aşağıda tek tek gösteriliyor" : "Kritik sorun yok", action: "finance-show-risk-details" }
       ];
       host.innerHTML = chips.map(financeSummaryChipHtml).join("");
+      renderFinanceRiskDetail(month);
     }
 
     function renderFinanceSchoolOptions() {
@@ -23039,7 +22787,6 @@
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
         finance: ["Finans Özet", "Gelir-gider, özel kullanım, bakım-mekanik, maliyet dağıtımı, KM analizi, hakediş, fatura-tahsilat ve okul finansı tek merkezde yönetilir."],
-        tutorial: ["Öğretici", "İlk veri giriş sırasını görsellerle izle; zorunlu alanları tamamla ve doğru bölüme tek tıkla geç."],
         settings: ["Ayarlar / Yedek", "Veri güvenliği, sürümleme ve APK hazırlığı için temel bölüm."]
       };
 
@@ -23049,32 +22796,6 @@
       $("#sidebar").classList.remove("open");
       const scroller = $("#contentScroll");
       if (scroller) scroller.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function openTutorialTarget(target) {
-      const actions = {
-        vehicles: () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cards"); },
-        "vehicle-cost": () => { activateModule("finance"); activateFinanceTab("cost-report"); },
-        companies: () => { activateModule("personnel"); activateTab("companies"); },
-        jobs: () => { activateModule("personnel"); activateTab("jobs"); },
-        people: () => { activateModule("personnel"); activateTab("people"); },
-        students: () => { activateModule("school"); activateSchoolTab("students"); },
-        schools: () => { activateModule("school"); activateSchoolTab("schools"); },
-        guides: () => { activateModule("school"); activateSchoolTab("guides"); },
-        "personnel-operation": () => { activateModule("personnel"); activateTab("service"); },
-        "school-operation": () => { activateModule("school"); activateSchoolTab("operation"); },
-        finance: () => { activateModule("finance"); activateFinanceTab("overview"); },
-        backup: () => {
-          activateModule("settings");
-          window.setTimeout(() => {
-            const backupPanel = $("#backupBtn")?.closest(".settings-panel");
-            backupPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 120);
-        }
-      };
-      const action = actions[target];
-      if (!action) return;
-      action();
     }
 
     function activateTab(tabName) {
@@ -23538,104 +23259,6 @@
       reader.readAsText(file);
     }
 
-    function loadDemoData() {
-      if (state.people.length || state.jobs.length || state.routes.length || state.vehicles.length || state.trips.length || state.students.length || state.schools.length || state.guides.length || state.staffPayments.length) {
-        if (!confirm("Mevcut test verisinin üzerine demo kayıtları eklensin mi?")) return;
-      }
-
-      const r1 = uid("route");
-      const r2 = uid("route");
-      const c1 = uid("company");
-      const v1 = uid("vehicle");
-      const v2 = uid("vehicle");
-      const s1 = uid("school");
-      const g1 = uid("guide");
-
-      state.companies.push(
-        { id: c1, code: "ABC", name: "ABC Matbaa", address: "ABC Matbaa Fabrika Adresi", mapQuery: "ABC Matbaa Fabrika", morningTime: "07:00", eveningTime: "18:00", defaultVehicleId: v1, tripPrice: 2250, status: "Aktif", routeId: r1 }
-      );
-
-      state.routes.push(
-        { id: r1, code: "ABC", name: "ABC Matbaa", time: "07:15", km: "18.5", stops: ["ABC Matbaa Fabrika Adresi"], companyId: c1, autoCompanyRoute: true },
-        { id: r2, code: "ABC-2", name: "ABC Matbaa Ek Hat", time: "07:05", km: "22", stops: ["Park", "Okul Önü", "Köprü", "ABC Matbaa Fabrika Adresi"], companyId: c1 }
-      );
-
-      state.vehicles.push(
-        { id: v1, plate: "34 ABC 123", capacity: 16, driverName: "Mehmet Kaya", driverPhone: "05xx xxx xx xx", status: "Aktif" },
-        { id: v2, plate: "34 DEF 456", capacity: 19, driverName: "Ali Demir", driverPhone: "05xx xxx xx xx", status: "Aktif" }
-      );
-
-      state.jobs.push(
-        { id: uid("job"), contractNo: "SZ-2026-001", name: "ABC Matbaa Gündüz Vardiyası", companyId: c1, routeId: r1, status: "Aktif", startDate: todayISO(), endDate: "", direction: "both", plannedTripsPerDay: 2, workDays: ["1", "2", "3", "4", "5"], billingModel: "trip", tripPrice: 2250, monthlyPrice: 0, vehicleId: v1, morningTime: "07:00", eveningTime: "18:00", invoiceDay: 1, dueDays: 30, routeDescription: "Meydan - Hastane - ABC Matbaa", note: "Demo personel servis işi", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-      );
-
-      state.schools.push(
-        { id: s1, name: "Cumhuriyet Ortaokulu", address: "Cumhuriyet Ortaokulu Ana Giriş", mapQuery: "Cumhuriyet Ortaokulu", entryTime: "08:30", exitTime: "15:30", vehicleId: v2, driverName: "Ali Demir", driverPhone: "05xx xxx xx xx", status: "Aktif" }
-      );
-
-      state.guides.push(
-        { id: g1, name: "Zeynep Kaya", phone: "05xx xxx xx xx", schoolId: s1, vehicleId: v2, duty: "both", status: "Aktif", backupGuideId: "", backupUntil: "" }
-      );
-
-      const demoStudent1 = uid("student");
-      const demoStudent2 = uid("student");
-      state.students.push(
-        { id: demoStudent1, name: "Deniz Yılmaz", schoolId: s1, className: "5-A", guardianName: "Ayşe Yılmaz", guardianPhone: "05xx xxx xx xx", homeAddress: "Meydan gidiş yönü durağı", mapQuery: "Meydan gidiş yönü durağı", morningOrder: "1", eveningOrder: "2", monthlyFee: 3500, status: "Aktif" },
-        { id: demoStudent2, name: "Ece Demir", schoolId: s1, className: "6-B", guardianName: "Mehmet Demir", guardianPhone: "05xx xxx xx xx", homeAddress: "Hastane önü ana durak", mapQuery: "Hastane önü ana durak", morningOrder: "2", eveningOrder: "1", monthlyFee: 3500, status: "Aktif" }
-      );
-
-      state.schoolPayments.push(
-        { id: uid("schoolPayment"), studentId: demoStudent1, schoolId: s1, month: currentMonthISO(), amount: 3500, date: todayISO(), method: "Havale / EFT", note: "Demo tam ödeme", feeSnapshot: 3500, createdAt: new Date().toISOString() },
-        { id: uid("schoolPayment"), studentId: demoStudent2, schoolId: s1, month: currentMonthISO(), amount: 1500, date: todayISO(), method: "Nakit", note: "Demo kısmi ödeme", feeSnapshot: 3500, createdAt: new Date().toISOString() }
-      );
-
-      const demoJob = state.jobs[state.jobs.length - 1];
-      state.vehicleExpenses.push(
-        { id: uid("vehicleExpense"), date: todayISO(), vehicleId: v1, vehiclePlate: "34 ABC 123", driverName: "Mehmet Kaya", type: "Yakıt", amount: 4200, fuelLiters: 60, fuelUnitPrice: 70, km: 184250, paymentMethod: "Kredi Kartı", jobId: demoJob?.id || "", jobName: demoJob?.name || "", companyId: c1, companyName: "ABC Matbaa", schoolId: "", schoolName: "", receiptNo: "YKT-DEMO-01", supplier: "Demo Akaryakıt", note: "Personel işi demo yakıt gideri", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
-        { id: uid("vehicleExpense"), date: todayISO(), vehicleId: v2, vehiclePlate: "34 DEF 456", driverName: "Ali Demir", type: "Bakım", amount: 2750, km: 126400, paymentMethod: "Havale / EFT", jobId: "", jobName: "", companyId: "", companyName: "", schoolId: s1, schoolName: "Cumhuriyet Ortaokulu", receiptNo: "BKM-DEMO-01", supplier: "Demo Servis", note: "Okul aracı periyodik bakım", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-      );
-
-      state.vehicleKmRecords.push(
-        { id: uid("vehicleKm"), vehicleId: v1, month: currentMonthISO(), startKm: 182000, endKm: 184250, distanceKm: 2250, note: "Demo aylık KM kaydı", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-      );
-
-      state.staffPayments.push(
-        {
-          id: uid("staffPayment"), month: currentMonthISO(), workerType: "driver", workerId: v1,
-          workerName: "Mehmet Kaya", workerPhone: "05xx xxx xx xx", vehicleId: v1,
-          paymentModel: "monthly", monthlyAmount: 28000, unitAmount: 0,
-          allocationMode: "personnel", jobId: demoJob?.id || "", schoolId: "",
-          personnelSharePercent: 100, schoolSharePercent: 0,
-          additionalAmount: 1500, deductionAmount: 500, advanceAmount: 5000, paidAmount: 10000,
-          dueDate: monthBounds(currentMonthISO()).last, paymentDate: todayISO(), paymentMethod: "Havale / EFT",
-          note: "Demo şoför aylık hakediş kaydı", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-        },
-        {
-          id: uid("staffPayment"), month: currentMonthISO(), workerType: "guide", workerId: g1,
-          workerName: "Zeynep Kaya", workerPhone: "05xx xxx xx xx", vehicleId: v2,
-          paymentModel: "monthly", monthlyAmount: 18000, unitAmount: 0,
-          allocationMode: "school", jobId: "", schoolId: s1,
-          personnelSharePercent: 0, schoolSharePercent: 100,
-          additionalAmount: 0, deductionAmount: 0, advanceAmount: 3000, paidAmount: 0,
-          dueDate: monthBounds(currentMonthISO()).last, paymentDate: "", paymentMethod: "Havale / EFT",
-          note: "Demo rehber personel hakedişi", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-        }
-      );
-
-      state.people.push(
-        { id: uid("person"), employeeNo: "1001", name: "Ahmet Yılmaz", phone: "05xx xxx xx xx", companyId: c1, company: "ABC Matbaa", department: "Üretim", routeId: r1, shift: "Gündüz", status: "Aktif", stop: "Meydan", morningOrder: "1", eveningOrder: "2", morningAddress: "Meydan gidiş yönü durağı", morningMapQuery: "Meydan gidiş yönü durağı", eveningAddress: "Meydan dönüş yönü durağı", eveningMapQuery: "Meydan dönüş yönü durağı", startDate: todayISO(), endDate: "", leaveUntil: "", note: "" },
-        { id: uid("person"), employeeNo: "1002", name: "Ayşe Demir", phone: "05xx xxx xx xx", companyId: c1, company: "ABC Matbaa", department: "Kalite", routeId: r1, shift: "Gündüz", status: "Aktif", stop: "Hastane", morningOrder: "2", eveningOrder: "1", morningAddress: "Hastane önü gidiş durağı", morningMapQuery: "Hastane önü gidiş durağı", eveningAddress: "Hastane karşı dönüş durağı", eveningMapQuery: "Hastane karşı dönüş durağı", startDate: todayISO(), endDate: "", leaveUntil: "", note: "Pazartesi geç binebilir." },
-        { id: uid("person"), employeeNo: "1003", name: "Murat Çelik", phone: "05xx xxx xx xx", companyId: c1, company: "ABC Matbaa", department: "Paketleme", routeId: r2, shift: "Gece", status: "Aktif", stop: "Park", morningOrder: "1", eveningOrder: "1", morningAddress: "Park giriş yönü durağı", morningMapQuery: "Park giriş yönü durağı", eveningAddress: "Park dönüş yönü durağı", eveningMapQuery: "Park dönüş yönü durağı", startDate: todayISO(), endDate: "", leaveUntil: "", note: "" }
-      );
-
-      state.trips.push(
-        { id: uid("trip"), date: new Date().toISOString().slice(0, 10), direction: "Gidiş", routeId: r1, vehicleId: v1, note: "Demo sefer" }
-      );
-
-      saveState();
-      showToast("Demo veri yüklendi.");
-    }
-
     function scrollContentTop() {
       const scroller = $("#contentScroll");
       if (scroller) scroller.scrollTo({ top: 0, behavior: "smooth" });
@@ -23647,15 +23270,6 @@
     function bindEvents() {
       $$(".nav-btn").forEach((button) => {
         button.addEventListener("click", () => activateModule(button.dataset.module));
-      });
-
-      $$("#screen-tutorial [data-tutorial-target]").forEach((button) => {
-        button.addEventListener("click", () => openTutorialTarget(button.dataset.tutorialTarget));
-      });
-
-      $("#openTutorialBtn")?.addEventListener("click", () => {
-        activateModule("tutorial");
-        $("#sidebarContact")?.removeAttribute("open");
       });
 
       $$("#personnelTabs .tab").forEach((button) => {
@@ -24081,6 +23695,7 @@
         if (action === "edit-finance") { activateModule("finance"); activateFinanceTab("invoices"); fillFinanceRecordForm(id); scrollToFinanceArea("#financeRecordForm"); }
         if (action === "finance-school-payment") openSchoolPaymentsFromFinance(id);
         if (action === "finance-jump-general-receivable") openGeneralFinanceReceivable();
+        if (action === "finance-show-risk-details") { activateModule("finance"); activateFinanceTab("overview"); renderFinanceRiskDetail(); scrollToFinanceArea("#financeRiskDetail"); }
         if (action === "finance-jump-general-risk") openGeneralFinanceRisk();
         if (action === "finance-jump-personnel-receivable") openPersonnelFinanceReceivables();
         if (action === "finance-jump-personnel-warning") openPersonnelFinanceWarnings();
@@ -24219,13 +23834,10 @@
         });
       }
 
-      const demoBtn = $("#demoBtn");
-      if (demoBtn) demoBtn.addEventListener("click", loadDemoData);
-
       const resetBtn = $("#resetBtn");
       if (resetBtn) {
         resetBtn.addEventListener("click", () => {
-          if (!confirm("Tüm test verisi silinecek. Emin misin?")) return;
+          if (!confirm("Cihazdaki tüm kayıtlar silinecek. Bu işlem geri alınamaz. Emin misin?")) return;
           state = defaultState();
           saveState();
           clearPersonForm();
@@ -24243,7 +23855,7 @@
           clearStudentForm();
           clearSchoolForm();
           clearGuideForm();
-          showToast("Tüm test verisi silindi.");
+          showToast("Tüm kayıtlar silindi.");
         });
       }
 
@@ -24263,7 +23875,7 @@
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "personnel", "school", "finance", "tutorial", "settings"],
+        modules: ["command", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -24272,7 +23884,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "personnel", "school", "tutorial", "settings"],
+        modules: ["command", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
@@ -24281,7 +23893,7 @@
         canReset: false
       },
       accounting: {
-        modules: ["school", "finance", "tutorial", "settings"],
+        modules: ["school", "finance", "settings"],
         schoolTabs: ["students", "payments", "reports"],
         financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: false,
@@ -24558,10 +24170,10 @@
       $$(".admin-only-card").forEach((card) => card.classList.toggle("permission-hidden", !rules.canManageUsers));
 
       const backupCard = $("#backupBtn")?.closest(".settings-panel");
-      const demoCard = $("#resetBtn")?.closest(".settings-panel");
+      const resetCard = $("#resetBtn")?.closest(".settings-panel");
       const csvCard = $("#exportPeopleCsvSettingsBtn")?.closest(".settings-panel");
       if (backupCard) backupCard.classList.toggle("permission-hidden", !rules.canImport);
-      if (demoCard) demoCard.classList.toggle("permission-hidden", !rules.canReset);
+      if (resetCard) resetCard.classList.toggle("permission-hidden", !rules.canReset);
       if (csvCard) csvCard.classList.toggle("permission-hidden", activeUser.role === "operation");
 
       if (activeUser.role === "operation" && $("#schoolTabs .tab.active")?.dataset.schoolTab === "payments") activateSchoolTab("operation");
@@ -24814,7 +24426,7 @@
     function describeAction(element) {
       const action = element?.dataset?.action || element?.dataset?.securityAction || element?.id || "işlem";
       const labels = {
-        resetBtn: "Tüm test verisini silme",
+        resetBtn: "Tüm verileri silme",
         importBtn: "Yedek içe aktarma",
         importBtn2: "Yedek içe aktarma",
         "delete-user": "Kullanıcı silme",

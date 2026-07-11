@@ -1,22 +1,24 @@
-SERVİS YÖNETİM SİSTEMİ v4.35.0 — YÖNETİM PLANLAMA GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.35.1 — ÜRETİM ARAYÜZÜ VE RİSK AÇIKLAMA GÜNCELLEMESİ
 
-Bu paket v4.34.0 ve önceki tüm güncellemeleri içerir.
+Bu paket v4.35.0 ve önceki bütün güncellemeleri içerir.
 
-YENİ ÖZELLİKLER
-- Genel Özet altında Bütçe ve Gerçekleşen yönetimi
-- Gelir ve gider kalemlerinde hedef, gerçekleşen, fark ve sapma oranı
-- Günlük Nakit Akış Takvimi: gerçekleşen ve açık/vadeli hareketler
-- Akıllı maliyet uyarıları: yakıt/KM, bakım artışı, düşük marj, bütçe aşımı ve vade riski
-- İki yılı karşılaştıran Yıllık Yönetim Karşılaştırması
-- Yıllık karşılaştırma PDF/CSV raporu
-- Genel Yönetim Raporuna bütçe, nakit akışı, akıllı uyarılar ve yıllık karşılaştırma bölümleri
-- Veri şeması 29: financeBudgets kayıtları JSON yedek ve geri yüklemeye dahildir
+YAPILAN DÜZENLEMELER
+- Finans Özet sekmelerindeki 1, 2, 3 şeklindeki sıra numaraları kaldırıldı.
+- Yakıt giderindeki “Toplam tutarı manuel gir” onay kutusu ve yazısı aynı hizada ortalandı.
+- Program Öğreticisi ve resimli öğretici ekranı kaldırıldı.
+- Personel Servisi içindeki geliştirme amaçlı Kontrol Listesi kaldırıldı.
+- Ayarlar / Yedek bölümündeki Demo Veri Yükle özelliği kaldırıldı.
+- “Test / Demo” bölümü üretim kullanımına uygun “Veri Sıfırlama” alanına çevrildi.
+- Riskli / Eksik Kayıt kartının altında riskin gerçek kaynağını gösteren ayrıntılı liste eklendi.
+- Risk listesi fiyat eksikliği, bağlantısız sefer, gecikmiş/eksik okul tahsilatı, araç gideri bağlantısı, şoför/rehber bağlantısı, pay ve vade sorunlarını ayrı ayrı açıklar.
+- Risk satırına tıklanınca ilgili kayıt ekranı açılır.
+- PWA önbellek adı v4.35.1 olarak yenilendi.
 
 GÜNCELLEME
 1. Programdan JSON yedek alın.
-2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_35_0.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
-3. Commit açıklaması: v4.35.0 yönetim planlama ve erken uyarı
-4. GitHub Pages yayını tamamlanınca programı tamamen kapatıp açın.
+2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_35_1.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
+3. Commit açıklaması: v4.35.1 üretim arayüzü ve risk açıklaması
+4. GitHub Pages yayını tamamlanınca programı tamamen kapatıp yeniden açın.
 5. Eski sürüm görünürse Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
 
-APK yeniden üretilmez. Mevcut veriler korunur.
+APK yeniden üretilmez. Veri şeması 29 olarak kalır ve mevcut kayıtlar korunur.

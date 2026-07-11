@@ -1,0 +1,34 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.35.1
+Tarih: 2026-07-11
+
+AKTİF SÜRÜMLER
+- Web/PWA: v4.35.1
+- Veri şeması: 29
+- Android APK: 1.0.1 / versionCode 2
+- Paket adı: com.tufan.servisyonetim
+- GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+
+v4.35.1 DEĞİŞİKLİKLERİ
+1. Finans sekme adlarındaki sıra numaraları kaldırıldı.
+2. Yakıt gideri manuel toplam onay kutusunun hizası düzeltildi.
+3. Öğretici ekranı, Program Öğreticisi bağlantısı ve geliştirme Kontrol Listesi kaldırıldı.
+4. Demo veri yükleme özelliği kaldırıldı; veri silme bölümü üretim diline çevrildi.
+5. Genel Özet içindeki Riskli / Eksik Kayıt kartı, ayrıntılı risk kaynağı listesiyle geliştirildi.
+6. Risk kaynağı listesi sözleşme fiyatı, bağlantısız sefer, okul tahsilatı, araç gideri, şoför/rehber, pay ve vade sorunlarını açıkça gösterir.
+7. Risk satırları ilgili kayıt ekranına yönlendirir.
+8. PWA önbelleği v4.35.1 olarak yenilendi.
+
+RİSKLİ / EKSİK KAYIT HESABI
+- Personel servisinde fiyatı sıfır/eksik sözleşmeler.
+- İş/sözleşme seçilmeden oluşmuş seferler.
+- Geçmiş aya ait ödenmemiş veya eksik okul tahsilatları.
+- Vadesi geçmiş şoför/rehber ödemeleri.
+- Şoför/rehber kaydında çalışan, iş, okul veya pay bağlantısı hataları.
+- Araç giderinde araç, tutar, iş, okul veya pay bağlantısı hataları.
+
+KORUNACAK YAPI
+- Lisans ve cihaz etkinleştirme yapısı değiştirilmedi.
+- Paket adı ve APK imzası değiştirilmedi.
+- Kullanıcı verileri cihazda localStorage/IndexedDB üzerinde kalır.
+- APK imza yedeği gizli tutulmalıdır.
