@@ -1,0 +1,56 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU
+Sürüm: v4.28.0
+Tarih: 2026-07-11
+
+PROJE:
+- GitHub deposu: 34tufan34/servis-yonetim
+- Yayın: GitHub Pages
+- Ana uygulama: index.html
+- PWA: sw.js, manifest.webmanifest
+- Yakıt verisi: fuel-prices.json
+
+LİSANS ALTYAPISI:
+- Cloudflare Worker: servis-lisans-api
+- API adresi: https://servis-lisans-api.ops-429.workers.dev
+- D1 veritabanı: servis-lisans-db
+- Worker binding adı: DB
+- Tablolar: licenses, devices, license_events
+- Cihaz bazlı etkinleştirme: POST /activate
+- Otomatik doğrulama: POST /validate
+- Çevrimdışı kullanım: son başarılı kontrolden sonra 7 gün
+- Operasyon verileri Cloudflare'a gönderilmez.
+
+SÜRÜM DURUMU:
+- Web uygulaması: 4.28.0
+- Android APK: 1.0.1 / versionCode 2 (değişmedi)
+- Veri şeması: 27 (değişmedi)
+- PWA önbelleği: servis-sys-v4-28-0
+- v4.27.0 lisans sistemi ve v4.26.0 özellikleri korunmuştur.
+
+V4.28.0 YENİLİKLERİ:
+- Sol ana menüye Öğretici modülü eklendi.
+- İlk kuruluma ait zorunlu veri giriş sırası belirgin biçimde gösterildi.
+- Personel ve okul servisi için ayrı başlangıç akışları eklendi.
+- Araç, firma/sözleşme, kişi, servis, finans ve yedek adımları görsel şemalarla anlatıldı.
+- Öğretici kartlarından ilgili programa doğrudan geçiş butonları eklendi.
+- Öğretici tüm kullanıcı rollerinin erişimine açıldı.
+- Sol panel altına “Tüm hakları Tufan Kırbıyık’a aittir” bildirimi eklendi.
+- Açılır Bana Ulaş alanına WhatsApp/telefon/e-posta bağlantıları eklendi.
+- İletişim: 0507 427 77 73 / ops@tufanprintops.com
+
+KRİTİK KURALLAR:
+- GitHub Pages adresi değişmemeli.
+- APK paket adı ve APK imzası değişmemeli.
+- localStorage.clear() veya IndexedDB silme işlemi güncellemede kullanılmamalı.
+- Lisans Worker kodu ve D1 veritabanı korunmalı.
+- Güncellemeden önce JSON yedek alınmalı.
+
+GITHUB'A BU GÜNCELLEMEDE YÜKLENECEK DOSYALAR:
+- index.html
+- sw.js
+- KURULUM.txt
+- PROJE_HAFIZA_NOTU_v4_28_0.txt
+
+NOT:
+- Bu değişiklik yalnızca web/PWA arayüz güncellemesidir. APK yeniden üretilmez.
+- APK GitHub Pages adresini açtığı için yayın güncellenince yeni Öğretici otomatik görünür.

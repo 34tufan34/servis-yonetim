@@ -1,4 +1,4 @@
-SERVİS YÖNETİM SİSTEMİ v4.27.0 - PWA / LİSANSLI SÜRÜM
+SERVİS YÖNETİM SİSTEMİ v4.28.0 - PWA / LİSANSLI SÜRÜM
 
 GITHUB PAGES KURULUMU
 1. Bu paketteki dosyaları GitHub deposunun ana dizinine yükleyin.
@@ -39,3 +39,11 @@ CANLI MOTORİN FİYATLARI
 - Bölge: İstanbul Avrupa
 - Komuta Paneli Shell ve Opet kartları içerir.
 - Dinamik fiyat dosyası: fuel-prices.json
+
+
+V4.28.0 ÖĞRETİCİ VE İLETİŞİM
+- Sol menüye Öğretici bölümü eklendi.
+- İlk veri giriş sırası ve zorunlu alanlar görsel anlatımla gösterilir.
+- Rehber kartlarındaki butonlar ilgili program bölümüne doğrudan geçer.
+- Panel altında telif bildirimi ve açılır iletişim alanı bulunur.
+- İletişim: 0507 427 77 73 / ops@tufanprintops.com

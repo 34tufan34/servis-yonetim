@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.27.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.28.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8114,7 +8114,201 @@
     }
 
 
-    /* v4.27.0 - Cihaz bazlı çevrim içi lisans doğrulama */
+    /* v4.28.0 - Öğretici, telif ve iletişim alanı */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar .brand,
+    .sidebar .nav { flex: 0 0 auto; }
+    .sidebar-footer {
+      position: static;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      margin-top: auto;
+      padding: 13px;
+      font-size: 11px;
+    }
+    .sidebar-legal { color: var(--text); font-weight: 850; }
+    .sidebar-rights { margin-top: 4px; color: var(--muted); line-height: 1.45; }
+    .sidebar-contact { margin-top: 10px; }
+    .sidebar-contact summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 11px;
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      background: rgba(var(--accent-rgb), .075);
+      color: var(--text);
+      font-weight: 850;
+    }
+    .sidebar-contact summary::-webkit-details-marker { display: none; }
+    .sidebar-contact summary::after { content: "+"; font-size: 16px; }
+    .sidebar-contact[open] summary::after { content: "−"; }
+    .sidebar-contact-panel { display: grid; gap: 6px; padding-top: 8px; }
+    .sidebar-contact-panel a {
+      display: block;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      color: var(--muted);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+      transition: .18s ease;
+    }
+    .sidebar-contact-panel a:hover { color: var(--text); border-color: rgba(var(--accent-rgb), .34); }
+
+    #screen-tutorial { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
+    #screen-tutorial::-webkit-scrollbar { width: 8px; }
+    #screen-tutorial::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 999px; }
+    .tutorial-shell { display: grid; gap: 16px; padding: 2px 4px 18px 0; }
+    .tutorial-hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      gap: 18px;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 92% 6%, rgba(var(--accent-rgb), .20), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+    }
+    .tutorial-hero::after {
+      content: "REHBER";
+      position: absolute;
+      right: -10px;
+      top: 12px;
+      font-size: clamp(62px, 11vw, 150px);
+      font-weight: 950;
+      letter-spacing: -.08em;
+      color: rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+    .tutorial-hero-copy { position: relative; z-index: 1; max-width: 860px; }
+    .tutorial-kicker { color: var(--red); font-size: 11px; font-weight: 950; letter-spacing: .14em; }
+    .tutorial-hero h2 { margin: 8px 0 10px; font-size: clamp(27px, 4vw, 48px); line-height: .98; letter-spacing: -.055em; }
+    .tutorial-hero p,
+    .tutorial-contact-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .tutorial-order {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+      gap: 8px;
+    }
+    .tutorial-order > div {
+      min-width: 0;
+      padding: 13px 12px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.16);
+    }
+    .tutorial-order span { display: block; color: var(--red); font-size: 10px; font-weight: 950; }
+    .tutorial-order strong { display: block; margin-top: 5px; font-size: 13px; }
+    .tutorial-order small { display: block; margin-top: 4px; color: var(--muted); line-height: 1.35; }
+    .tutorial-alert {
+      position: relative;
+      z-index: 1;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,182,72,.28);
+      background: rgba(255,182,72,.08);
+      color: color-mix(in srgb, var(--text) 88%, #ffb648);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .tutorial-alert.compact { margin-top: auto; }
+    .tutorial-path-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .tutorial-path { padding: 20px; }
+    .tutorial-path-head { display: flex; flex-direction: column; gap: 5px; }
+    .tutorial-path-head span { color: var(--red); font-size: 10px; font-weight: 950; letter-spacing: .12em; }
+    .tutorial-path-head strong { font-size: 19px; }
+    .tutorial-path ol { margin: 15px 0 0; padding-left: 21px; color: var(--muted); line-height: 1.58; }
+    .tutorial-path li + li { margin-top: 8px; }
+    .tutorial-path b { color: var(--text); }
+    .tutorial-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .tutorial-step-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px; min-width: 0; }
+    .tutorial-step-number {
+      position: absolute;
+      z-index: 2;
+      right: 28px;
+      top: 27px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 950;
+      box-shadow: 0 10px 26px rgba(var(--accent-rgb), .25);
+    }
+    .tutorial-visual {
+      min-height: 156px;
+      border-radius: 17px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 15% 12%, rgba(var(--accent-rgb), .11), transparent 42%),
+        rgba(0,0,0,.15);
+    }
+    .tutorial-visual svg { display: block; width: 100%; height: auto; color: var(--muted); }
+    .tv-frame { fill: rgba(255,255,255,.02); stroke: rgba(255,255,255,.12); stroke-width: 2; }
+    .tv-field { fill: rgba(255,255,255,.055); stroke: rgba(255,255,255,.08); stroke-width: 1.5; }
+    .tv-accent { fill: var(--red); }
+    .tv-accent-soft { fill: rgba(var(--accent-rgb), .16); stroke: rgba(var(--accent-rgb), .34); stroke-width: 1.5; }
+    .tv-avatar { fill: rgba(255,255,255,.07); stroke: rgba(255,255,255,.18); stroke-width: 2; }
+    .tv-success { fill: var(--success); }
+    .tv-success-soft { fill: rgba(43,207,121,.12); stroke: rgba(43,207,121,.26); }
+    .tv-danger-soft { fill: rgba(255,77,94,.11); stroke: rgba(255,77,94,.25); }
+    .tv-cloud { fill: rgba(var(--accent-rgb), .08); stroke: rgba(var(--accent-rgb), .45); stroke-width: 3; }
+    .tv-download { fill: none; stroke: var(--red); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .tv-route { fill: none; stroke: rgba(var(--accent-rgb), .65); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 16 12; }
+    .tv-chart { fill: none; stroke: var(--red); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .tv-title { fill: var(--text); font: 900 15px Inter, sans-serif; letter-spacing: 1px; }
+    .tv-label { fill: var(--muted); font: 800 10px Inter, sans-serif; letter-spacing: .7px; }
+    .tv-money { fill: var(--text); font: 950 24px Inter, sans-serif; }
+    .tv-car { fill: #fff; font: 950 12px Inter, sans-serif; text-anchor: middle; }
+    .tv-ok { fill: #062b17; font: 950 10px Inter, sans-serif; }
+    .tutorial-step-card h3 { margin: 0; font-size: 19px; letter-spacing: -.025em; }
+    .tutorial-step-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.58; }
+    .tutorial-required { padding: 10px 11px; border-radius: 12px; background: rgba(255,255,255,.035); color: var(--muted); font-size: 11px; }
+    .tutorial-required span { color: var(--red); font-weight: 950; margin-right: 5px; }
+    .tutorial-step-card > .btn,
+    .tutorial-button-row { margin-top: auto; }
+    .tutorial-button-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tutorial-button-row .btn { flex: 1 1 130px; }
+    .tutorial-contact-card { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 22px; }
+    .tutorial-contact-card h3 { margin: 7px 0 8px; font-size: 23px; }
+    .tutorial-contact-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .tutorial-contact-actions a { text-decoration: none; }
+    .tutorial-copyright { padding: 10px 2px 0; color: var(--muted); text-align: center; font-size: 11px; }
+
+    @media (max-width: 1240px) {
+      .tutorial-order { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .tutorial-card-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 820px) {
+      .tutorial-path-grid,
+      .tutorial-card-grid { grid-template-columns: 1fr; }
+      .tutorial-order { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .tutorial-contact-card { align-items: flex-start; flex-direction: column; }
+      .tutorial-contact-actions { justify-content: flex-start; width: 100%; }
+      .tutorial-contact-actions .btn { flex: 1 1 190px; }
+    }
+    @media (max-width: 520px) {
+      .tutorial-order { grid-template-columns: 1fr; }
+      .tutorial-hero { padding: 18px; }
+      .tutorial-step-card { padding: 14px; }
+      .tutorial-step-number { right: 22px; top: 23px; }
+    }
+
+    /* v4.28.0 - Cihaz bazlı çevrim içi lisans doğrulama */
     body.license-locked { overflow: hidden; }
     body.license-locked .app {
       filter: blur(9px) saturate(.62);
@@ -8315,7 +8509,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.27.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.28.0</div>
         </div>
       </div>
 
@@ -8336,6 +8530,10 @@
           <span class="nav-label"><span class="dot"></span>Finans Özet</span>
           <span class="tag">Aktif</span>
         </button>
+        <button class="nav-btn" data-module="tutorial">
+          <span class="nav-label"><span class="dot"></span>Öğretici</span>
+          <span class="tag">Rehber</span>
+        </button>
         <button class="nav-btn" data-module="settings">
           <span class="nav-label"><span class="dot"></span>Ayarlar / Yedek</span>
           <span class="tag">Aktif</span>
@@ -8343,7 +8541,16 @@
       </nav>
 
       <div class="sidebar-footer">
-        Personel ve okul servisleri aynı veri omurgasında çalışır. Kayıtlar cihazda tutulur ve JSON yedeğe birlikte girer.
+        <div class="sidebar-legal">© 2026 Servis Yönetim Sistemi</div>
+        <div class="sidebar-rights">Tüm hakları <strong>Tufan Kırbıyık</strong>’a aittir.</div>
+        <details class="sidebar-contact">
+          <summary>Bana Ulaş</summary>
+          <div class="sidebar-contact-panel">
+            <a href="https://wa.me/905074277773?text=Merhaba%20Servis%20Y%C3%B6netim%20Sistemi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp · 0507 427 77 73</a>
+            <a href="tel:+905074277773">Telefon · 0507 427 77 73</a>
+            <a href="mailto:ops@tufanprintops.com?subject=Servis%20Y%C3%B6netim%20Sistemi">ops@tufanprintops.com</a>
+          </div>
+        </details>
       </div>
     </aside>
 
@@ -10951,6 +11158,192 @@
         </div>
       </section>
 
+      <section class="module-screen" id="screen-tutorial">
+        <div class="tutorial-shell">
+          <section class="card tutorial-hero">
+            <div class="tutorial-hero-copy">
+              <div class="tutorial-kicker">İLK KURULUM REHBERİ</div>
+              <h2>Önce veri omurgasını kur. Sonra servisi başlat.</h2>
+              <p>Programın doğru çalışması için kayıtları rastgele değil, aşağıdaki sırayla gir. Eksik temel veri; yanlış rota, eksik tahsilat ve hatalı rapor üretir.</p>
+            </div>
+            <div class="tutorial-order" aria-label="Zorunlu veri giriş sırası">
+              <div><span>01</span><strong>Araç</strong><small>Plaka, şoför, telefon</small></div>
+              <div><span>02</span><strong>Firma / Okul</strong><small>Ad, adres, harita</small></div>
+              <div><span>03</span><strong>İş / Sözleşme</strong><small>Fiyat, dönem, araç</small></div>
+              <div><span>04</span><strong>Personel / Öğrenci</strong><small>Adres, sıra, bağlantı</small></div>
+              <div><span>05</span><strong>Servis</strong><small>Günlük operasyon</small></div>
+              <div><span>06</span><strong>Finans + Yedek</strong><small>Tahsilat, gider, güvenlik</small></div>
+            </div>
+            <div class="tutorial-alert"><strong>Kritik:</strong> Araç, firma/okul ve kişi kayıtları tamamlanmadan canlı servis başlatma. İlk gerçek kayıt öncesinde JSON yedek al.</div>
+          </section>
+
+          <section class="tutorial-path-grid">
+            <div class="card tutorial-path personnel-path">
+              <div class="tutorial-path-head"><span>PERSONEL SERVİSİ</span><strong>Doğru başlangıç sırası</strong></div>
+              <ol>
+                <li><b>Araç:</b> Plaka, şoför adı, telefon, kapasite ve yakıt bilgisi.</li>
+                <li><b>Firma:</b> Firma adı, açık adres ve harita arama metni.</li>
+                <li><b>İş / Sözleşme:</b> Firma, araç, çalışma düzeni, fiyat ve ödeme dönemi.</li>
+                <li><b>Personel:</b> Ad soyad, firma, vardiya, biniş noktası, sabah/akşam sıra ve adres.</li>
+              </ol>
+            </div>
+            <div class="card tutorial-path school-path">
+              <div class="tutorial-path-head"><span>OKUL SERVİSİ</span><strong>Doğru başlangıç sırası</strong></div>
+              <ol>
+                <li><b>Araç:</b> Plaka, şoför adı ve şoför telefonu.</li>
+                <li><b>Okul:</b> Adres, giriş/çıkış saati, araç ve veli WhatsApp grup adı.</li>
+                <li><b>Rehber:</b> Rehber adı, telefon, araç ve görev dönemi.</li>
+                <li><b>Öğrenci:</b> Öğrenci/veli, telefon, okul, adres, sıra ve aylık ücret.</li>
+              </ol>
+            </div>
+          </section>
+
+          <section class="tutorial-card-grid">
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">1</div>
+              <div class="tutorial-visual" aria-label="Araç kayıt ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Araç kayıt ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <rect x="42" y="44" width="160" height="28" rx="9" class="tv-accent"/>
+                  <rect x="42" y="92" width="198" height="48" rx="10" class="tv-field"/>
+                  <rect x="260" y="92" width="218" height="48" rx="10" class="tv-field"/>
+                  <rect x="42" y="156" width="198" height="48" rx="10" class="tv-field"/>
+                  <rect x="260" y="156" width="218" height="48" rx="10" class="tv-field"/>
+                  <text x="58" y="61" class="tv-title">ARAÇ KAYDI</text>
+                  <text x="58" y="113" class="tv-label">PLAKA *</text><text x="276" y="113" class="tv-label">ŞOFÖR ADI *</text>
+                  <text x="58" y="177" class="tv-label">TELEFON *</text><text x="276" y="177" class="tv-label">KAPASİTE / YAKIT</text>
+                </svg>
+              </div>
+              <h3>Araç kaydını önce oluştur</h3>
+              <p>Plaka, şoför ve telefon bilgisi; sözleşme, okul, servis ve KM analizinin ortak temelidir.</p>
+              <div class="tutorial-required"><span>Zorunlu</span> Plaka · Şoför · Telefon</div>
+              <button class="btn small primary" type="button" data-tutorial-target="vehicles">Araçlar bölümünü aç</button>
+            </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">2</div>
+              <div class="tutorial-visual" aria-label="Firma ve sözleşme ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Firma ve sözleşme ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <rect x="42" y="44" width="112" height="28" rx="9" class="tv-accent"/>
+                  <rect x="42" y="92" width="436" height="42" rx="10" class="tv-field"/>
+                  <rect x="42" y="150" width="278" height="54" rx="10" class="tv-field"/>
+                  <rect x="338" y="150" width="140" height="54" rx="10" class="tv-accent-soft"/>
+                  <text x="58" y="61" class="tv-title">FİRMA + İŞ</text>
+                  <text x="58" y="117" class="tv-label">FİRMA ADI VE AÇIK ADRES *</text>
+                  <text x="58" y="176" class="tv-label">İŞ / SÖZLEŞME · ARAÇ · DÖNEM</text>
+                  <text x="365" y="181" class="tv-money">₺ FİYAT</text>
+                </svg>
+              </div>
+              <h3>Firma ve işi birbirine bağla</h3>
+              <p>Firma adresi hedef noktayı; sözleşme ise araç, çalışma düzeni, fiyat ve finans hesaplarını belirler.</p>
+              <div class="tutorial-button-row">
+                <button class="btn small" type="button" data-tutorial-target="companies">Firmaları aç</button>
+                <button class="btn small primary" type="button" data-tutorial-target="jobs">İş / Sözleşmeyi aç</button>
+              </div>
+            </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">3</div>
+              <div class="tutorial-visual" aria-label="Personel ve öğrenci kayıt ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Kişi kayıt ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <circle cx="92" cy="104" r="38" class="tv-avatar"/>
+                  <rect x="150" y="70" width="328" height="32" rx="9" class="tv-field"/>
+                  <rect x="150" y="116" width="328" height="32" rx="9" class="tv-field"/>
+                  <rect x="42" y="174" width="204" height="42" rx="10" class="tv-field"/>
+                  <rect x="266" y="174" width="212" height="42" rx="10" class="tv-accent-soft"/>
+                  <text x="164" y="91" class="tv-label">AD SOYAD · FİRMA / OKUL *</text>
+                  <text x="164" y="137" class="tv-label">TELEFON · ADRES · DURAK *</text>
+                  <text x="58" y="199" class="tv-label">SABAH / AKŞAM SIRASI</text>
+                  <text x="286" y="199" class="tv-label">HARİTA ARAMA METNİ</text>
+                </svg>
+              </div>
+              <h3>Kişiyi adres ve sırayla kaydet</h3>
+              <p>Sadece isim girmek yetmez. Doğru servis sırası için sabah/akşam adresi, harita metni ve sıra bilgisi gerekir.</p>
+              <div class="tutorial-button-row">
+                <button class="btn small" type="button" data-tutorial-target="people">Personeli aç</button>
+                <button class="btn small primary" type="button" data-tutorial-target="students">Öğrencileri aç</button>
+              </div>
+            </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">4</div>
+              <div class="tutorial-visual" aria-label="Canlı servis ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Canlı servis ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <rect x="42" y="42" width="436" height="54" rx="14" class="tv-accent-soft"/>
+                  <circle cx="90" cy="164" r="38" class="tv-accent"/>
+                  <path d="M127 164 H360" class="tv-route"/>
+                  <circle cx="392" cy="164" r="30" class="tv-avatar"/>
+                  <rect x="354" y="210" width="124" height="22" rx="11" class="tv-success"/>
+                  <text x="58" y="75" class="tv-title">SERVİSİ BAŞLAT</text>
+                  <text x="69" y="170" class="tv-car">BUS</text>
+                  <text x="366" y="217" class="tv-ok">CANLI</text>
+                </svg>
+              </div>
+              <h3>Servisi kayıtlar tamamlanınca başlat</h3>
+              <p>Tarih ve iş/okul seçildiğinde program kayıt sırasını, aracı ve hedefleri otomatik hazırlar.</p>
+              <div class="tutorial-button-row">
+                <button class="btn small" type="button" data-tutorial-target="personnel-operation">Personel servisini aç</button>
+                <button class="btn small primary" type="button" data-tutorial-target="school-operation">Okul servisini aç</button>
+              </div>
+            </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">5</div>
+              <div class="tutorial-visual" aria-label="Finans ve KM ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Finans ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <rect x="42" y="42" width="132" height="72" rx="14" class="tv-success-soft"/>
+                  <rect x="194" y="42" width="132" height="72" rx="14" class="tv-danger-soft"/>
+                  <rect x="346" y="42" width="132" height="72" rx="14" class="tv-accent-soft"/>
+                  <path d="M56 210 L124 162 L190 184 L258 126 L326 150 L396 98 L468 118" class="tv-chart"/>
+                  <text x="58" y="68" class="tv-label">GELİR</text><text x="210" y="68" class="tv-label">GİDER</text><text x="362" y="68" class="tv-label">TL / KM</text>
+                  <text x="58" y="99" class="tv-money">₺</text><text x="210" y="99" class="tv-money">₺</text><text x="362" y="99" class="tv-money">KM</text>
+                </svg>
+              </div>
+              <h3>Finansı gerçek verilerle besle</h3>
+              <p>Tahsilat, fatura, araç gideri, yakıt litresi/birim fiyatı ve aylık başlangıç-bitiş KM kayıtları birlikte tutulmalı.</p>
+              <div class="tutorial-required"><span>Kontrol</span> Gelir · Gider · Yakıt · KM · Tahsilat</div>
+              <button class="btn small primary" type="button" data-tutorial-target="finance">Finans bölümünü aç</button>
+            </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">6</div>
+              <div class="tutorial-visual" aria-label="Yedekleme ekranı görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Yedekleme ekranı şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <path d="M260 56 C214 56 178 88 178 128 C145 133 122 156 122 184 C122 216 148 234 182 234 H362 C397 234 424 209 424 178 C424 147 400 124 370 120 C360 83 318 56 260 56Z" class="tv-cloud"/>
+                  <path d="M260 104 V190 M225 155 L260 190 L295 155" class="tv-download"/>
+                  <rect x="42" y="42" width="126" height="28" rx="9" class="tv-accent-soft"/>
+                  <text x="58" y="61" class="tv-title">JSON YEDEK</text>
+                </svg>
+              </div>
+              <h3>Her büyük işlemden sonra yedek al</h3>
+              <p>Telefon değişimi, uygulama verisinin silinmesi veya cihaz arızası yerel kayıtları kaybettirebilir. JSON yedeği ayrı yerde sakla.</p>
+              <div class="tutorial-alert compact"><strong>Not:</strong> Yüklenen resim ve PDF Blob dosyalarını ayrıca sakla; JSON yedeği dosya içeriklerini taşımaz.</div>
+              <button class="btn small primary" type="button" data-tutorial-target="backup">Ayarlar / Yedek bölümünü aç</button>
+            </article>
+          </section>
+
+          <section class="card tutorial-contact-card">
+            <div>
+              <div class="tutorial-kicker">DESTEK VE İLETİŞİM</div>
+              <h3>Kurulum veya kullanım sırasında takıldın mı?</h3>
+              <p>Servis Yönetim Sistemi ile ilgili destek için doğrudan iletişim kanallarını kullanabilirsin.</p>
+            </div>
+            <div class="tutorial-contact-actions">
+              <a class="btn primary" href="https://wa.me/905074277773?text=Merhaba%20Servis%20Y%C3%B6netim%20Sistemi%20hakk%C4%B1nda%20destek%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp · 0507 427 77 73</a>
+              <a class="btn" href="tel:+905074277773">Telefon Et</a>
+              <a class="btn" href="mailto:ops@tufanprintops.com?subject=Servis%20Y%C3%B6netim%20Sistemi%20Destek">ops@tufanprintops.com</a>
+            </div>
+          </section>
+
+          <div class="tutorial-copyright">© 2026 · Tüm hakları Tufan Kırbıyık’a aittir.</div>
+        </div>
+      </section>
+
       <section class="module-screen" id="screen-settings">
 
         <div class="settings-grid">
@@ -11305,8 +11698,8 @@
 
                 <div class="role-permission-note">
                   <div><strong>Yönetici:</strong> Tüm modüller, silme, yedek ve kullanıcı yönetimi.</div>
-                  <div><strong>Operasyon:</strong> Komuta, personel ve okul operasyonları. Finans kapalıdır.</div>
-                  <div><strong>Muhasebe:</strong> Finans, okul tahsilatı ve raporlar. Operasyon ekranları kapalıdır.</div>
+                  <div><strong>Operasyon:</strong> Komuta, personel, okul operasyonları ve Öğretici. Finans kapalıdır.</div>
+                  <div><strong>Muhasebe:</strong> Finans, okul tahsilatı, raporlar ve Öğretici. Operasyon ekranları kapalıdır.</div>
                 </div>
               </form>
 
@@ -11391,7 +11784,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.27.0</strong>
+                <strong>v4.28.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -11420,7 +11813,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.27.0";
+    const APP_VERSION = "4.28.0";
     const SCHEMA_VERSION = 27;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20559,6 +20952,7 @@
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
         finance: ["Finans Özet", "Genel özet ve grafiklerden; gelir-gider, personel hakedişi, fatura-tahsilat ve okul finansına sekmelerle geçilir."],
+        tutorial: ["Öğretici", "İlk veri giriş sırasını görsellerle izle; zorunlu alanları tamamla ve doğru bölüme tek tıkla geç."],
         settings: ["Ayarlar / Yedek", "Veri güvenliği, sürümleme ve APK hazırlığı için temel bölüm."]
       };
 
@@ -20568,6 +20962,31 @@
       $("#sidebar").classList.remove("open");
       const scroller = $("#contentScroll");
       if (scroller) scroller.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openTutorialTarget(target) {
+      const actions = {
+        vehicles: () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cards"); },
+        companies: () => { activateModule("personnel"); activateTab("companies"); },
+        jobs: () => { activateModule("personnel"); activateTab("jobs"); },
+        people: () => { activateModule("personnel"); activateTab("people"); },
+        students: () => { activateModule("school"); activateSchoolTab("students"); },
+        schools: () => { activateModule("school"); activateSchoolTab("schools"); },
+        guides: () => { activateModule("school"); activateSchoolTab("guides"); },
+        "personnel-operation": () => { activateModule("personnel"); activateTab("service"); },
+        "school-operation": () => { activateModule("school"); activateSchoolTab("operation"); },
+        finance: () => { activateModule("finance"); activateFinanceTab("overview"); },
+        backup: () => {
+          activateModule("settings");
+          window.setTimeout(() => {
+            const backupPanel = $("#backupBtn")?.closest(".settings-panel");
+            backupPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 120);
+        }
+      };
+      const action = actions[target];
+      if (!action) return;
+      action();
     }
 
     function activateTab(tabName) {
@@ -21137,6 +21556,10 @@
     function bindEvents() {
       $$(".nav-btn").forEach((button) => {
         button.addEventListener("click", () => activateModule(button.dataset.module));
+      });
+
+      $$("#screen-tutorial [data-tutorial-target]").forEach((button) => {
+        button.addEventListener("click", () => openTutorialTarget(button.dataset.tutorialTarget));
       });
 
       $$("#personnelTabs .tab").forEach((button) => {
@@ -21710,7 +22133,7 @@
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "personnel", "school", "finance", "settings"],
+        modules: ["command", "personnel", "school", "finance", "tutorial", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -21719,7 +22142,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "personnel", "school", "settings"],
+        modules: ["command", "personnel", "school", "tutorial", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
@@ -21728,7 +22151,7 @@
         canReset: false
       },
       accounting: {
-        modules: ["school", "finance", "settings"],
+        modules: ["school", "finance", "tutorial", "settings"],
         schoolTabs: ["students", "payments", "reports"],
         financeTabs: ["overview", "flow", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: false,
@@ -23057,7 +23480,7 @@
     }
 
 
-    // v4.27.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+    // v4.28.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
     let currentLicenseSession = null;
 
     function createLicenseDeviceId() {
