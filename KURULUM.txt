@@ -1,71 +1,45 @@
-SERVİS YÖNETİM SİSTEMİ v4.30.0 - PWA / LİSANSLI SÜRÜM
+SERVİS YÖNETİM SİSTEMİ v4.32.0 - PWA / LİSANSLI SÜRÜM
 
-GITHUB PAGES KURULUMU
-1. Bu paketteki dosyaları GitHub deposunun ana dizinine yükleyin.
-2. Ana uygulama dosyası index.html'dir.
-3. GitHub Pages yayınlandıktan sonra uygulamayı HTTPS adresinden açın.
-4. İlk açılışta lisans kodu istenir.
+GITHUB PAGES GÜNCELLEMESİ
+1. Programdan Ayarlar / Yedek bölümüne girip güncel JSON yedeği alın.
+2. GitHub'da 34tufan34/servis-yonetim deposunun ana dizinine girin.
+3. + > Upload files seçeneğini açın.
+4. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_32_0.txt dosyalarını yükleyin.
+5. Commit directly to the main branch seçili kalsın.
+6. Commit changes düğmesine basın ve GitHub Pages dağıtımının tamamlanmasını bekleyin.
+7. Tablette uygulamayı tamamen kapatıp yeniden açın.
+8. Eski sürüm kalırsa Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
 
-LİSANS SİSTEMİ
+ÖNERİLEN COMMIT MESAJI
+v4.32.0 finans düzeni ve öğretici menü taşıması
+
+LİSANS VE VERİ GÜVENLİĞİ
 - Lisans API: https://servis-lisans-api.ops-429.workers.dev
-- Lisans, cihaz bazında Cloudflare D1 veritabanından doğrulanır.
-- İlk etkinleştirmede cihaz lisansa kaydedilir.
-- Sonraki açılışlarda lisans otomatik kontrol edilir.
-- İnternet kesilirse son başarılı doğrulamadan itibaren 7 gün çevrimdışı kullanım sağlanır.
-- Araç, personel, tahsilat, finans ve evrak kayıtları lisans sunucusuna gönderilmez.
-- Operasyon verileri cihazın kendi localStorage / IndexedDB alanında kalır.
+- Lisans cihaz bazında Cloudflare D1 üzerinden doğrulanır.
+- Son başarılı doğrulamadan sonra 7 gün çevrimdışı kullanım süresi vardır.
+- İşletme kayıtları lisans sunucusuna gönderilmez.
+- Ana kayıtlar localStorage, evrak dosyaları IndexedDB içinde cihazda tutulur.
+- Güncellemeden önce JSON yedek alınmalıdır.
+- Evrak görsel/PDF dosyaları JSON yedeğe dahil değildir; ayrıca saklanmalıdır.
 
-GÜNCELLEME
-- index.html, sw.js ve diğer uygulama dosyaları GitHub'da güncellendiğinde bütün kullanıcılar yeni program sürümünü alır.
-- Her kullanıcının cihazındaki işletme verileri birbirinden bağımsız kalır.
-- GitHub Pages adresi, APK paket adı ve APK imzası değiştirilmemelidir.
+V4.32.0 BİRLEŞİK GÜNCELLEME
+- Özel Kullanım, Bakım & Mekanik, Maliyet Dağıtımı ve KM Analizi Finans Özet altında bulunur.
+- Personel Servisi > Araçlar altında yalnız Araç Kartları, Evrak Dosyaları ve Evrak/Uyarılar kalır.
+- KM Analizi L/100 km yanında L/km ve ml/km yakıt tüketimini gösterir.
+- Öğretici ana menüden kaldırılmıştır.
+- Öğretici, sol panelin altındaki Bana Ulaş alanında Program Öğreticisi düğmesiyle açılır.
+- WhatsApp, telefon ve e-posta bağlantıları aynı alanda korunur.
+- Açılış efekti yaklaşık 6 saniyedir ve Geç düğmesiyle atlanabilir.
+- Veri şeması 28 olarak kalır; mevcut kayıtlar korunur.
+- APK, paket adı, APK imzası ve lisans altyapısı değişmez.
 
-YEDEKLEME
-- Önemli değişikliklerden önce JSON yedek alın.
-- Araç evraklarının Blob dosyaları JSON yedeğe dahil değildir; ayrıca saklanmalıdır.
-- Uygulama kaldırılırsa veya cihaz verileri temizlenirse yerel kayıtlar kaybolabilir.
+KONTROL LİSTESİ
+- Ayarlar / Yedek bölümünde v4.32.0 görünmeli.
+- Ana menüde ayrı Öğretici düğmesi görünmemeli.
+- Bana Ulaş açıldığında Program Öğreticisi düğmesi görünmeli ve rehberi açmalı.
+- Finans Özet altında Özel Kullanım, Bakım & Mekanik, Maliyet Dağıtımı ve KM Analizi görünmeli.
+- KM Analizi L/100 km, L/km ve ml/km değerlerini göstermeli.
+- Açılış efekti yaklaşık 6 saniye sürmeli.
 
-PWA KURULUMU
-1. index.html dosyasını Chrome/Edge ile HTTPS üzerinden açın.
-2. Ayarlar / Yedek > Uygulamayı Kur bölümüne girin.
-3. "Uygulamayı Kur" butonuna basın.
-
-Hızlı yerel test:
-- Bu klasörde terminal açın.
-- Python varsa: python -m http.server 8080
-- Tarayıcıdan: http://localhost:8080
-
-CANLI MOTORİN FİYATLARI
-- Bölge: İstanbul Avrupa
-- Komuta Paneli Shell ve Opet kartları içerir.
-- Dinamik fiyat dosyası: fuel-prices.json
-
-
-V4.28.1 ÖĞRETİCİ VE İLETİŞİM
-- Sol menüye Öğretici bölümü eklendi.
-- İlk veri giriş sırası ve zorunlu alanlar görsel anlatımla gösterilir.
-- Rehber kartlarındaki butonlar ilgili program bölümüne doğrudan geçer.
-- Panel altında telif bildirimi ve açılır iletişim alanı bulunur.
-- İletişim: 0507 427 77 73 / ops@tufanprintops.com
-
-
-V4.28.1 GÖRSEL DÜZELTME
-- Öğretici içindeki küçük başlık rozetleri yeniden ölçülendirildi ve ortalandı.
-- “FİRMA + İŞ” yazısındaki taşma/kesilme giderildi.
-- ARAÇ KAYDI ve JSON YEDEK rozetleri aynı hizalama standardına getirildi.
-
-
-V4.29.0 SİNEMATİK AÇILIŞ EFEKTİ
-- Uygulama her tam açılışta yaklaşık 3,6 saniyelik kısa bir SYS açılış animasyonu gösterir.
-- Efekt, lisans ve kullanıcı giriş ekranlarının üzerinde çalışır; doğrulama işleyişini değiştirmez.
-- Ekrana dokunarak, Geç düğmesine basarak veya Escape/Enter/Boşluk tuşuyla atlanabilir.
-- Hareket azaltma tercihi açık cihazlarda efekt yaklaşık 0,9 saniyeye kısalır.
-- APK, veri şeması, paket adı, imza ve lisans altyapısı değişmemiştir.
-
-
-V4.30.0 GÜNCELLEMESİ
-- Araçlar > Özel Kullanım: başlangıç/bitiş KM ve tahmini yakıt gideri.
-- Araçlar > Bakım & Mekanik: gerçek ödeme ve seçilebilir 1/3/6/12/18/24/36 aylık yönetim maliyeti dağıtımı.
-- Araçlar > Maliyet Dağıtımı: aylık/yıllık rapor.
-- Açılış efekti 6 saniyeye çıkarıldı; Geç düğmesi korunur.
-- Eski kayıtlar korunur, veri şeması 28 olur.
+APK NOTU
+Bu bir web/PWA güncellemesidir. APK yeniden üretilmez.

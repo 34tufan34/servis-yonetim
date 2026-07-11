@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.30.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.32.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8114,7 +8114,7 @@
     }
 
 
-    /* v4.30.0 - Öğretici, telif ve iletişim alanı */
+    /* v4.31.0 - Öğretici, telif ve iletişim alanı */
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -8163,6 +8163,38 @@
       transition: .18s ease;
     }
     .sidebar-contact-panel a:hover { color: var(--text); border-color: rgba(var(--accent-rgb), .34); }
+
+    .sidebar-guide-link {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      padding: 10px 11px;
+      border-radius: 11px;
+      border: 1px solid rgba(var(--accent-rgb), .38);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .16), rgba(var(--accent-rgb), .055));
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .sidebar-guide-link:hover,
+    .sidebar-guide-link:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(var(--accent-rgb), .62);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .22), rgba(var(--accent-rgb), .08));
+      outline: none;
+    }
+    .sidebar-guide-link span { font-size: 11px; font-weight: 900; }
+    .sidebar-guide-link small { color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .sidebar-contact-label {
+      margin: 3px 2px -1px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
 
     #screen-tutorial { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
     #screen-tutorial::-webkit-scrollbar { width: 8px; }
@@ -8309,7 +8341,7 @@
       .tutorial-step-number { right: 22px; top: 23px; }
     }
 
-    /* v4.30.0 - Cihaz bazlı çevrim içi lisans doğrulama */
+    /* v4.31.0 - Cihaz bazlı çevrim içi lisans doğrulama */
     body.license-locked { overflow: hidden; }
     body.license-locked .app {
       filter: blur(9px) saturate(.62);
@@ -8429,7 +8461,7 @@
 
   
 
-    /* v4.30.0 - Sinematik kısa açılış efekti */
+    /* v4.31.0 - Sinematik kısa açılış efekti */
     .sys-splash {
       --splash-cyan: #19d3cf;
       --splash-cyan-deep: #0aa8a6;
@@ -8703,7 +8735,18 @@
     }
 
 
-    /* v4.30.0 - Özel kullanım ve mekanik maliyet dağıtımı */
+    /* v4.31.0 - Araç maliyet araçları Finans Özet altında */
+    .finance-vehicle-cost-screen {
+      padding-top: 4px;
+    }
+    .finance-vehicle-cost-screen > .private-use-layout,
+    .finance-vehicle-cost-screen > .vehicle-cost-report-layout,
+    .finance-vehicle-cost-screen > .vehicle-km-layout,
+    .finance-vehicle-cost-screen > .workarea {
+      width: 100%;
+    }
+
+    /* v4.31.0 - Özel kullanım ve mekanik maliyet dağıtımı */
     .private-use-layout,
     .vehicle-cost-report-layout {
       display: grid;
@@ -9025,7 +9068,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.30.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.32.0</div>
         </div>
       </div>
 
@@ -9046,10 +9089,6 @@
           <span class="nav-label"><span class="dot"></span>Finans Özet</span>
           <span class="tag">Aktif</span>
         </button>
-        <button class="nav-btn" data-module="tutorial">
-          <span class="nav-label"><span class="dot"></span>Öğretici</span>
-          <span class="tag">Rehber</span>
-        </button>
         <button class="nav-btn" data-module="settings">
           <span class="nav-label"><span class="dot"></span>Ayarlar / Yedek</span>
           <span class="tag">Aktif</span>
@@ -9059,9 +9098,14 @@
       <div class="sidebar-footer">
         <div class="sidebar-legal">© 2026 Servis Yönetim Sistemi</div>
         <div class="sidebar-rights">Tüm hakları <strong>Tufan Kırbıyık</strong>’a aittir.</div>
-        <details class="sidebar-contact">
+        <details class="sidebar-contact" id="sidebarContact">
           <summary>Bana Ulaş</summary>
           <div class="sidebar-contact-panel">
+            <button class="sidebar-guide-link" id="openTutorialBtn" type="button">
+              <span>Program Öğreticisi</span>
+              <small>Resimli kullanım rehberini aç</small>
+            </button>
+            <div class="sidebar-contact-label">İLETİŞİM</div>
             <a href="https://wa.me/905074277773?text=Merhaba%20Servis%20Y%C3%B6netim%20Sistemi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp · 0507 427 77 73</a>
             <a href="tel:+905074277773">Telefon · 0507 427 77 73</a>
             <a href="mailto:ops@tufanprintops.com?subject=Servis%20Y%C3%B6netim%20Sistemi">ops@tufanprintops.com</a>
@@ -9917,10 +9961,6 @@
         <div class="tab-screen hidden" id="tab-vehicles">
           <div class="vehicle-module-tabs" id="vehicleModuleTabs">
             <button class="vehicle-module-tab active" type="button" data-vehicle-subtab="cards">Araç Kartları</button>
-            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="private-use">Özel Kullanım</button>
-            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="maintenance">Bakım & Mekanik</button>
-            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="cost-report">Maliyet Dağıtımı</button>
-            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="km">KM Analizi</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="files">Evrak Dosyaları</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="alerts">Evrak / Uyarılar</button>
           </div>
@@ -10000,139 +10040,13 @@
 
 
 
-          <div class="vehicle-sub-screen" id="vehicle-sub-private-use">
-            <div class="private-use-layout">
-              <section class="private-use-form-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title" id="privateUseFormTitle">Özel Kullanımı Başlat</h2>
-                    <div class="panel-sub">İş dışı kullanımı kilometre ve tahmini yakıt maliyetiyle ayrı izle.</div>
-                  </div>
-                </div>
-                <form class="private-use-form" id="privateVehicleUseForm">
-                  <input type="hidden" id="privateUseId" />
-                  <div class="field"><label for="privateUseVehicle">Araç *</label><select id="privateUseVehicle" required></select></div>
-                  <div class="two">
-                    <div class="field"><label for="privateUseStartDate">Başlangıç Tarihi *</label><input id="privateUseStartDate" type="date" required /></div>
-                    <div class="field"><label for="privateUseStartTime">Başlangıç Saati</label><input id="privateUseStartTime" type="time" /></div>
-                  </div>
-                  <div class="field"><label for="privateUsePerson">Kullanan Kişi *</label><input id="privateUsePerson" placeholder="Ad soyad" required /></div>
-                  <div class="field"><label for="privateUsePurpose">Kullanım Amacı *</label><input id="privateUsePurpose" placeholder="Örn. aile işi, kişisel ulaşım, özel taşıma" required /></div>
-                  <div class="field"><label for="privateUseStartKm">Başlangıç KM *</label><input id="privateUseStartKm" type="number" min="0" step="1" placeholder="Örn. 185420" required /></div>
-                  <div class="form-section-title">Kullanım Bittiğinde</div>
-                  <div class="two">
-                    <div class="field"><label for="privateUseEndDate">Bitiş Tarihi</label><input id="privateUseEndDate" type="date" /></div>
-                    <div class="field"><label for="privateUseEndTime">Bitiş Saati</label><input id="privateUseEndTime" type="time" /></div>
-                  </div>
-                  <div class="field"><label for="privateUseEndKm">Bitiş KM</label><input id="privateUseEndKm" type="number" min="0" step="1" placeholder="Kullanım bitince gir" /></div>
-                  <div class="field"><label for="privateUseNote">Not</label><textarea id="privateUseNote" placeholder="Güzergâh, açıklama veya özel not..."></textarea></div>
-                  <div class="private-use-status-note" id="privateUseStatusNote">Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.</div>
-                  <div class="form-actions">
-                    <button class="btn primary" id="savePrivateUseBtn" type="submit">Özel Kullanımı Başlat</button>
-                    <button class="btn" id="clearPrivateUseBtn" type="button">Temizle</button>
-                  </div>
-                </form>
-              </section>
+          
 
-              <section class="private-use-list-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Özel Kullanım Takibi</h2>
-                    <div class="panel-sub">Servis operasyonuna ve ticari kâra karışmayan bilgi amaçlı kayıtlar.</div>
-                  </div>
-                </div>
-                <div class="toolbar simple-toolbar">
-                  <input id="privateUseMonth" type="month" />
-                  <select id="privateUseVehicleFilter"></select>
-                </div>
-                <div class="private-use-summary" id="privateUseSummary"></div>
-                <div class="private-use-table-host" id="privateUseTableHost"></div>
-              </section>
-            </div>
-          </div>
-
-          <div class="vehicle-sub-screen" id="vehicle-sub-maintenance">
-            <div class="workarea">
-              <section class="card panel form-panel">
-                <div class="panel-header person-form-header">
-                  <div><h2 class="panel-title">Bakım & Mekanik Gideri</h2><div class="panel-sub">Gerçek ödeme ile aylara dağıtılan yönetim maliyetini ayrı takip et.</div></div>
-                  <div class="header-actions">
-                    <button class="btn small primary" type="submit" form="vehicleMaintenanceForm">Kaydet</button>
-                    <button class="btn small ghost" type="button" id="clearVehicleMaintenanceBtn">Temizle</button>
-                  </div>
-                </div>
-                <form class="form-grid school-form-scroll" id="vehicleMaintenanceForm">
-                  <input type="hidden" id="vehicleMaintenanceId" />
-                  <div class="field"><label for="maintenanceVehicle">Araç *</label><select id="maintenanceVehicle" required></select></div>
-                  <div class="two">
-                    <div class="field"><label for="maintenanceDate">Tarih *</label><input id="maintenanceDate" type="date" required /></div>
-                    <div class="field"><label for="maintenanceKm">Kilometre</label><input id="maintenanceKm" type="number" min="0" step="1" /></div>
-                  </div>
-                  <div class="field"><label for="maintenanceType">Gider / İşlem Türü *</label><select id="maintenanceType"><option value="Periyodik Bakım">Periyodik Bakım</option><option value="Lastik">Lastik</option><option value="Tamirat">Tamirat</option><option value="Parça Değişimi">Parça Değişimi</option><option value="Motor / Mekanik">Motor / Mekanik</option><option value="Elektrik / Elektronik">Elektrik / Elektronik</option><option value="Kaporta / Boya">Kaporta / Boya</option><option value="Fren">Fren</option><option value="Yağ / Filtre">Yağ / Filtre</option><option value="Muayene Hazırlığı">Muayene Hazırlığı</option><option value="Öngörülemeyen Gider">Öngörülemeyen Gider</option><option value="Sigorta">Sigorta</option><option value="Diğer">Diğer</option></select></div>
-                  <div class="two">
-                    <div class="field"><label for="maintenanceProvider">Servis / Usta / Tedarikçi</label><input id="maintenanceProvider" placeholder="Firma veya usta adı" /></div>
-                    <div class="field"><label for="maintenanceAmount">Gerçek Ödeme (₺)</label><input id="maintenanceAmount" type="number" min="0" step="0.01" /></div>
-                  </div>
-                  <div class="field">
-                    <label for="maintenanceAllocationMonths">Yönetim Maliyeti Dağıtım Süresi</label>
-                    <select id="maintenanceAllocationMonths">
-                      <option value="1">Tek seferde (1 ay)</option><option value="3">3 ay</option><option value="6">6 ay</option><option value="12" selected>12 ay</option><option value="18">18 ay</option><option value="24">24 ay</option><option value="36">36 ay</option>
-                    </select>
-                  </div>
-                  <div class="maintenance-allocation-preview">
-                    <div><span>Aylık maliyet yükü</span><strong id="maintenanceMonthlyAllocation">₺0</strong></div>
-                    <div><span>Dağıtım dönemi</span><strong id="maintenanceAllocationPeriod">-</strong></div>
-                  </div>
-                  <div class="field"><label for="maintenanceInvoiceNo">Fiş / Fatura No</label><input id="maintenanceInvoiceNo" /></div>
-                  <div class="two">
-                    <div class="field"><label for="maintenanceNextDate">Sonraki Bakım Tarihi</label><input id="maintenanceNextDate" type="date" /></div>
-                    <div class="field"><label for="maintenanceNextKm">Sonraki Bakım KM</label><input id="maintenanceNextKm" type="number" min="0" step="1" /></div>
-                  </div>
-                  <div class="field"><label for="maintenanceDescription">Yapılan İşlemler</label><textarea id="maintenanceDescription" placeholder="Değişen parçalar, yapılan kontroller ve açıklama..."></textarea></div>
-                  <div class="maintenance-link-note">Gerçek ödeme, işlem tarihinde Finans → Araç Giderleri bölümüne tek seferde işlenir. Seçilen dağıtım süresi yalnız yönetim raporunda aylık maliyet yükünü gösterir; muhasebe kaydını veya nakit çıkışını değiştirmez.</div>
-                </form>
-              </section>
-              <section class="card panel list-panel">
-                <div class="panel-header"><div><h2 class="panel-title">Bakım & Mekanik Geçmişi</h2><div class="panel-sub">Gerçek ödeme, dağıtım süresi ve aylık maliyet yükü.</div></div></div>
-                <div class="toolbar simple-toolbar"><select id="maintenanceVehicleFilter"></select><input id="maintenanceSearch" placeholder="Bakım türü, servis, fatura veya açıklama ara..." /></div>
-                <div id="vehicleMaintenanceTableHost"></div>
-              </section>
-            </div>
-          </div>
+          
 
 
 
-          <div class="vehicle-sub-screen" id="vehicle-sub-cost-report">
-            <div class="vehicle-cost-report-layout">
-              <section class="vehicle-cost-report-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Aylık / Yıllık Mekanik Maliyet Dağıtımı</h2>
-                    <div class="panel-sub">Nakit çıkışı ile yönetim amaçlı aylara yayılan maliyeti birbirinden ayırır.</div>
-                  </div>
-                </div>
-                <div class="vehicle-cost-report-controls">
-                  <div class="field"><label for="vehicleCostReportVehicle">Araç</label><select id="vehicleCostReportVehicle"></select></div>
-                  <div class="field"><label for="vehicleCostReportMonth">Aylık Dönem</label><input id="vehicleCostReportMonth" type="month" /></div>
-                  <div class="field"><label for="vehicleCostReportYear">Yıl</label><input id="vehicleCostReportYear" type="number" min="2020" max="2100" step="1" /></div>
-                </div>
-                <div class="vehicle-cost-note">Bu bölümdeki “dağıtılmış maliyet”, vergi veya yasal muhasebe amortismanı değildir. Araç maliyetini dönemlere dengeli yaymak için kullanılan yönetim göstergesidir.</div>
-                <div class="vehicle-cost-summary" id="vehicleCostSummary"></div>
-                <div class="vehicle-cost-table-host" id="vehicleCostTableHost"></div>
-              </section>
-
-              <div class="vehicle-cost-lower-grid">
-                <section class="vehicle-cost-schedule-panel">
-                  <div class="panel-header"><div><h2 class="panel-title">Dağıtım Planı</h2><div class="panel-sub">Her giderin başlangıç, bitiş ve aylık yükü.</div></div></div>
-                  <div class="vehicle-cost-schedule-host" id="vehicleCostScheduleHost"></div>
-                </section>
-                <section class="vehicle-cost-schedule-panel">
-                  <div class="panel-header"><div><h2 class="panel-title">Kategori Özeti</h2><div class="panel-sub">Seçilen yılın gerçek ve dağıtılmış maliyeti.</div></div></div>
-                  <div class="vehicle-cost-category-list" id="vehicleCostCategoryHost"></div>
-                </section>
-              </div>
-            </div>
-          </div>
+          
 
           <div class="vehicle-sub-screen" id="vehicle-sub-alerts">
             <section class="card panel warning-panel">
@@ -10142,48 +10056,7 @@
             </section>
           </div>
 
-          <div class="vehicle-sub-screen" id="vehicle-sub-km">
-            <div class="vehicle-km-layout">
-              <section class="vehicle-km-form-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Aylık Kilometre Kaydı</h2>
-                    <div class="panel-sub">Dönem başlangıç ve bitiş kilometresi, gerçek KM başı yakıt ve kârlılık hesabının temelidir.</div>
-                  </div>
-                </div>
-                <form class="vehicle-km-form" id="vehicleKmRecordForm">
-                  <input type="hidden" id="vehicleKmRecordId" />
-                  <div class="field"><label for="vehicleKmVehicle">Araç *</label><select id="vehicleKmVehicle" required></select></div>
-                  <div class="field"><label for="vehicleKmRecordMonth">Dönem *</label><input id="vehicleKmRecordMonth" type="month" required /></div>
-                  <div class="two">
-                    <div class="field"><label for="vehicleKmStart">Başlangıç KM *</label><input id="vehicleKmStart" type="number" min="0" step="1" placeholder="Örn. 184000" required /></div>
-                    <div class="field"><label for="vehicleKmEnd">Bitiş KM *</label><input id="vehicleKmEnd" type="number" min="0" step="1" placeholder="Örn. 186450" required /></div>
-                  </div>
-                  <div class="field"><label for="vehicleKmNote">Not</label><textarea id="vehicleKmNote" placeholder="Sayaç fotoğrafı, dönem açıklaması veya özel not..."></textarea></div>
-                  <div class="document-file-note">Yakıt tüketiminin hesaplanması için Finans → Araç Giderleri → Yakıt kaydında litre bilgisini de girin.</div>
-                  <div class="form-actions">
-                    <button class="btn primary" type="submit">KM Kaydını Kaydet</button>
-                    <button class="btn" id="clearVehicleKmBtn" type="button">Temizle</button>
-                  </div>
-                </form>
-              </section>
-
-              <section class="vehicle-km-list-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">KM Başına Maliyet ve Kârlılık</h2>
-                    <div class="panel-sub">Yakıt tüketimi, yakıt maliyeti, toplam maliyet, gelir ve net kâr/zarar kilometre başına hesaplanır.</div>
-                  </div>
-                </div>
-                <div class="toolbar simple-toolbar">
-                  <input id="vehicleKmMonth" type="month" />
-                  <select id="vehicleKmVehicleFilter"></select>
-                </div>
-                <div class="vehicle-km-summary" id="vehicleKmSummary"></div>
-                <div class="vehicle-km-table-host" id="vehicleKmTableHost"></div>
-              </section>
-            </div>
-          </div>
+          
 
           <div class="vehicle-sub-screen" id="vehicle-sub-files">
             <div class="document-archive-layout">
@@ -10973,13 +10846,17 @@
             </div>
             <div class="finance-period-copy">
               <strong id="financePeriodTitle">Aylık finans görünümü</strong>
-              <span>Genel özet, gelir-gider, hakediş, fatura, tahsilat ve okul finansı aynı dönem üzerinden çalışır.</span>
+              <span>Genel özet, gelir-gider, araç maliyetleri, KM analizi, hakediş, fatura, tahsilat ve okul finansı aynı merkezde çalışır.</span>
             </div>
           </section>
 
           <div class="tabs finance-tabs" id="financeTabs">
             <button class="tab active" type="button" data-finance-tab="overview">Genel Özet</button>
             <button class="tab" type="button" data-finance-tab="flow">Gelir / Gider</button>
+            <button class="tab" type="button" data-finance-tab="private-use">Özel Kullanım</button>
+            <button class="tab" type="button" data-finance-tab="maintenance">Bakım & Mekanik</button>
+            <button class="tab" type="button" data-finance-tab="cost-report">Maliyet Dağıtımı</button>
+            <button class="tab" type="button" data-finance-tab="km">KM Analizi</button>
             <button class="tab" type="button" data-finance-tab="personnel">Personel Finans</button>
             <button class="tab" type="button" data-finance-tab="profitability">Kârlılık</button>
             <button class="tab" type="button" data-finance-tab="accruals">Personel Hakedişleri</button>
@@ -11220,6 +11097,181 @@
               </section>
             </div>
           </section>
+          </div>
+
+<div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-private-use">
+            <div class="private-use-layout">
+              <section class="private-use-form-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title" id="privateUseFormTitle">Özel Kullanımı Başlat</h2>
+                    <div class="panel-sub">İş dışı kullanımı kilometre ve tahmini yakıt maliyetiyle ayrı izle.</div>
+                  </div>
+                </div>
+                <form class="private-use-form" id="privateVehicleUseForm">
+                  <input type="hidden" id="privateUseId" />
+                  <div class="field"><label for="privateUseVehicle">Araç *</label><select id="privateUseVehicle" required></select></div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseStartDate">Başlangıç Tarihi *</label><input id="privateUseStartDate" type="date" required /></div>
+                    <div class="field"><label for="privateUseStartTime">Başlangıç Saati</label><input id="privateUseStartTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUsePerson">Kullanan Kişi *</label><input id="privateUsePerson" placeholder="Ad soyad" required /></div>
+                  <div class="field"><label for="privateUsePurpose">Kullanım Amacı *</label><input id="privateUsePurpose" placeholder="Örn. aile işi, kişisel ulaşım, özel taşıma" required /></div>
+                  <div class="field"><label for="privateUseStartKm">Başlangıç KM *</label><input id="privateUseStartKm" type="number" min="0" step="1" placeholder="Örn. 185420" required /></div>
+                  <div class="form-section-title">Kullanım Bittiğinde</div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseEndDate">Bitiş Tarihi</label><input id="privateUseEndDate" type="date" /></div>
+                    <div class="field"><label for="privateUseEndTime">Bitiş Saati</label><input id="privateUseEndTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUseEndKm">Bitiş KM</label><input id="privateUseEndKm" type="number" min="0" step="1" placeholder="Kullanım bitince gir" /></div>
+                  <div class="field"><label for="privateUseNote">Not</label><textarea id="privateUseNote" placeholder="Güzergâh, açıklama veya özel not..."></textarea></div>
+                  <div class="private-use-status-note" id="privateUseStatusNote">Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" id="savePrivateUseBtn" type="submit">Özel Kullanımı Başlat</button>
+                    <button class="btn" id="clearPrivateUseBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="private-use-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Özel Kullanım Takibi</h2>
+                    <div class="panel-sub">Servis operasyonuna ve ticari kâra karışmayan bilgi amaçlı kayıtlar.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <input id="privateUseMonth" type="month" />
+                  <select id="privateUseVehicleFilter"></select>
+                </div>
+                <div class="private-use-summary" id="privateUseSummary"></div>
+                <div class="private-use-table-host" id="privateUseTableHost"></div>
+              </section>
+            </div>
+          </div>
+
+<div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-maintenance">
+            <div class="workarea">
+              <section class="card panel form-panel">
+                <div class="panel-header person-form-header">
+                  <div><h2 class="panel-title">Bakım & Mekanik Gideri</h2><div class="panel-sub">Gerçek ödeme ile aylara dağıtılan yönetim maliyetini ayrı takip et.</div></div>
+                  <div class="header-actions">
+                    <button class="btn small primary" type="submit" form="vehicleMaintenanceForm">Kaydet</button>
+                    <button class="btn small ghost" type="button" id="clearVehicleMaintenanceBtn">Temizle</button>
+                  </div>
+                </div>
+                <form class="form-grid school-form-scroll" id="vehicleMaintenanceForm">
+                  <input type="hidden" id="vehicleMaintenanceId" />
+                  <div class="field"><label for="maintenanceVehicle">Araç *</label><select id="maintenanceVehicle" required></select></div>
+                  <div class="two">
+                    <div class="field"><label for="maintenanceDate">Tarih *</label><input id="maintenanceDate" type="date" required /></div>
+                    <div class="field"><label for="maintenanceKm">Kilometre</label><input id="maintenanceKm" type="number" min="0" step="1" /></div>
+                  </div>
+                  <div class="field"><label for="maintenanceType">Gider / İşlem Türü *</label><select id="maintenanceType"><option value="Periyodik Bakım">Periyodik Bakım</option><option value="Lastik">Lastik</option><option value="Tamirat">Tamirat</option><option value="Parça Değişimi">Parça Değişimi</option><option value="Motor / Mekanik">Motor / Mekanik</option><option value="Elektrik / Elektronik">Elektrik / Elektronik</option><option value="Kaporta / Boya">Kaporta / Boya</option><option value="Fren">Fren</option><option value="Yağ / Filtre">Yağ / Filtre</option><option value="Muayene Hazırlığı">Muayene Hazırlığı</option><option value="Öngörülemeyen Gider">Öngörülemeyen Gider</option><option value="Sigorta">Sigorta</option><option value="Diğer">Diğer</option></select></div>
+                  <div class="two">
+                    <div class="field"><label for="maintenanceProvider">Servis / Usta / Tedarikçi</label><input id="maintenanceProvider" placeholder="Firma veya usta adı" /></div>
+                    <div class="field"><label for="maintenanceAmount">Gerçek Ödeme (₺)</label><input id="maintenanceAmount" type="number" min="0" step="0.01" /></div>
+                  </div>
+                  <div class="field">
+                    <label for="maintenanceAllocationMonths">Yönetim Maliyeti Dağıtım Süresi</label>
+                    <select id="maintenanceAllocationMonths">
+                      <option value="1">Tek seferde (1 ay)</option><option value="3">3 ay</option><option value="6">6 ay</option><option value="12" selected>12 ay</option><option value="18">18 ay</option><option value="24">24 ay</option><option value="36">36 ay</option>
+                    </select>
+                  </div>
+                  <div class="maintenance-allocation-preview">
+                    <div><span>Aylık maliyet yükü</span><strong id="maintenanceMonthlyAllocation">₺0</strong></div>
+                    <div><span>Dağıtım dönemi</span><strong id="maintenanceAllocationPeriod">-</strong></div>
+                  </div>
+                  <div class="field"><label for="maintenanceInvoiceNo">Fiş / Fatura No</label><input id="maintenanceInvoiceNo" /></div>
+                  <div class="two">
+                    <div class="field"><label for="maintenanceNextDate">Sonraki Bakım Tarihi</label><input id="maintenanceNextDate" type="date" /></div>
+                    <div class="field"><label for="maintenanceNextKm">Sonraki Bakım KM</label><input id="maintenanceNextKm" type="number" min="0" step="1" /></div>
+                  </div>
+                  <div class="field"><label for="maintenanceDescription">Yapılan İşlemler</label><textarea id="maintenanceDescription" placeholder="Değişen parçalar, yapılan kontroller ve açıklama..."></textarea></div>
+                  <div class="maintenance-link-note">Gerçek ödeme, işlem tarihinde Finans → Araç Giderleri bölümüne tek seferde işlenir. Seçilen dağıtım süresi yalnız yönetim raporunda aylık maliyet yükünü gösterir; muhasebe kaydını veya nakit çıkışını değiştirmez.</div>
+                </form>
+              </section>
+              <section class="card panel list-panel">
+                <div class="panel-header"><div><h2 class="panel-title">Bakım & Mekanik Geçmişi</h2><div class="panel-sub">Gerçek ödeme, dağıtım süresi ve aylık maliyet yükü.</div></div></div>
+                <div class="toolbar simple-toolbar"><select id="maintenanceVehicleFilter"></select><input id="maintenanceSearch" placeholder="Bakım türü, servis, fatura veya açıklama ara..." /></div>
+                <div id="vehicleMaintenanceTableHost"></div>
+              </section>
+            </div>
+          </div>
+
+<div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-cost-report">
+            <div class="vehicle-cost-report-layout">
+              <section class="vehicle-cost-report-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Aylık / Yıllık Mekanik Maliyet Dağıtımı</h2>
+                    <div class="panel-sub">Nakit çıkışı ile yönetim amaçlı aylara yayılan maliyeti birbirinden ayırır.</div>
+                  </div>
+                </div>
+                <div class="vehicle-cost-report-controls">
+                  <div class="field"><label for="vehicleCostReportVehicle">Araç</label><select id="vehicleCostReportVehicle"></select></div>
+                  <div class="field"><label for="vehicleCostReportMonth">Aylık Dönem</label><input id="vehicleCostReportMonth" type="month" /></div>
+                  <div class="field"><label for="vehicleCostReportYear">Yıl</label><input id="vehicleCostReportYear" type="number" min="2020" max="2100" step="1" /></div>
+                </div>
+                <div class="vehicle-cost-note">Bu bölümdeki “dağıtılmış maliyet”, vergi veya yasal muhasebe amortismanı değildir. Araç maliyetini dönemlere dengeli yaymak için kullanılan yönetim göstergesidir.</div>
+                <div class="vehicle-cost-summary" id="vehicleCostSummary"></div>
+                <div class="vehicle-cost-table-host" id="vehicleCostTableHost"></div>
+              </section>
+
+              <div class="vehicle-cost-lower-grid">
+                <section class="vehicle-cost-schedule-panel">
+                  <div class="panel-header"><div><h2 class="panel-title">Dağıtım Planı</h2><div class="panel-sub">Her giderin başlangıç, bitiş ve aylık yükü.</div></div></div>
+                  <div class="vehicle-cost-schedule-host" id="vehicleCostScheduleHost"></div>
+                </section>
+                <section class="vehicle-cost-schedule-panel">
+                  <div class="panel-header"><div><h2 class="panel-title">Kategori Özeti</h2><div class="panel-sub">Seçilen yılın gerçek ve dağıtılmış maliyeti.</div></div></div>
+                  <div class="vehicle-cost-category-list" id="vehicleCostCategoryHost"></div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+<div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-km">
+            <div class="vehicle-km-layout">
+              <section class="vehicle-km-form-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Aylık Kilometre Kaydı</h2>
+                    <div class="panel-sub">Dönem başlangıç ve bitiş kilometresi, gerçek KM başı yakıt ve kârlılık hesabının temelidir.</div>
+                  </div>
+                </div>
+                <form class="vehicle-km-form" id="vehicleKmRecordForm">
+                  <input type="hidden" id="vehicleKmRecordId" />
+                  <div class="field"><label for="vehicleKmVehicle">Araç *</label><select id="vehicleKmVehicle" required></select></div>
+                  <div class="field"><label for="vehicleKmRecordMonth">Dönem *</label><input id="vehicleKmRecordMonth" type="month" required /></div>
+                  <div class="two">
+                    <div class="field"><label for="vehicleKmStart">Başlangıç KM *</label><input id="vehicleKmStart" type="number" min="0" step="1" placeholder="Örn. 184000" required /></div>
+                    <div class="field"><label for="vehicleKmEnd">Bitiş KM *</label><input id="vehicleKmEnd" type="number" min="0" step="1" placeholder="Örn. 186450" required /></div>
+                  </div>
+                  <div class="field"><label for="vehicleKmNote">Not</label><textarea id="vehicleKmNote" placeholder="Sayaç fotoğrafı, dönem açıklaması veya özel not..."></textarea></div>
+                  <div class="document-file-note">Yakıt tüketiminin hesaplanması için Finans → Araç Giderleri → Yakıt kaydında litre bilgisini de girin.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" type="submit">KM Kaydını Kaydet</button>
+                    <button class="btn" id="clearVehicleKmBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="vehicle-km-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">KM Başına Maliyet ve Kârlılık</h2>
+                    <div class="panel-sub">Yakıt tüketimi L/100 km ve litre/km olarak; maliyet, gelir ve net kâr/zarar ise kilometre başına hesaplanır.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <input id="vehicleKmMonth" type="month" />
+                  <select id="vehicleKmVehicleFilter"></select>
+                </div>
+                <div class="vehicle-km-summary" id="vehicleKmSummary"></div>
+                <div class="vehicle-km-table-host" id="vehicleKmTableHost"></div>
+              </section>
+            </div>
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-personnel">
@@ -12434,7 +12486,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.30.0</strong>
+                <strong>v4.32.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12463,7 +12515,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.30.0";
+    // v4.32.0 - Öğretici ana menüden kaldırıldı ve Bana Ulaş paneline taşındı.
+    const APP_VERSION = "4.32.0";
     const SCHEMA_VERSION = 28;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -15053,7 +15106,7 @@
     function editVehicleKmRecord(id) {
       const record = state.vehicleKmRecords.find((item) => item.id === id);
       if (!record) return;
-      activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km"); renderVehicleKmOptions();
+      activateModule("finance"); activateFinanceTab("km"); renderVehicleKmOptions();
       $("#vehicleKmRecordId").value = record.id;
       $("#vehicleKmVehicle").value = record.vehicleId || "";
       $("#vehicleKmRecordMonth").value = record.month || getFinanceMonth();
@@ -15083,7 +15136,8 @@
       const revenue = rows.reduce((s,r)=>s+Number(r.revenue||0),0);
       const cost = rows.reduce((s,r)=>s+Number(r.totalCost||0),0);
       const net = rows.reduce((s,r)=>s+Number(r.net||0),0);
-      const consumption = distance > 0 && liters > 0 ? liters / distance * 100 : null;
+      const fuelPerKm = distance > 0 && liters > 0 ? liters / distance : null;
+      const consumption = fuelPerKm === null ? null : fuelPerKm * 100;
       const fuelKm = distance > 0 ? fuelCost / distance : null;
       const costKm = distance > 0 ? cost / distance : null;
       const revenueKm = distance > 0 ? revenue / distance : null;
@@ -15091,17 +15145,19 @@
       summary.innerHTML = [
         {label:"Toplam Mesafe",value:distance>0?`${distance.toLocaleString("tr-TR")} km`:"-",risk:distance<=0,note:distance>0?"Sayaç / KM okumaları":"Başlangıç ve bitiş KM girin"},
         {label:"Yakıt Tüketimi",value:consumption===null?"-":`${consumption.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`,risk:false},
+        {label:"KM Başına Yakıt",value:fuelPerKm===null?"-":`${fuelPerKm.toLocaleString("tr-TR",{minimumFractionDigits:3,maximumFractionDigits:4})} L/km`,risk:false,note:fuelPerKm===null?"Litre ve KM verisi gerekli":`${(fuelPerKm*1000).toLocaleString("tr-TR",{maximumFractionDigits:1})} ml / km`},
         {label:"Yakıt Maliyeti / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false},
         {label:"Toplam Maliyet / KM",value:costKm===null?"-":`${formatTRY(costKm)} / km`,risk:false},
         {label:"Gelir / KM",value:revenueKm===null?"-":`${formatTRY(revenueKm)} / km`,risk:false},
         {label:netKm===null?"KM Sonucu":netKm>=0?"KM Başına Kâr":"KM Başına Zarar",value:netKm===null?"-":`${formatTRY(Math.abs(netKm))} / km`,risk:netKm!==null&&netKm<0,note:netKm===null?"KM verisi yetersiz":netKm>=0?"Gelir maliyetin üzerinde":"Maliyet gelirin üzerinde"}
       ].map(financeSummaryChipHtml).join("");
       if (!rows.length) { host.innerHTML='<div class="empty">Seçilen araç ve dönem için analiz kaydı yok.</div>'; return; }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt</th><th>Tüketim</th><th>Yakıt ₺/KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt</th><th>L/100 KM</th><th>Litre / KM</th><th>Yakıt ₺/KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
         const info=row.kmInfo||vehicleKmDistanceInfo(row.id,month);
         const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
         const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</strong><br><span class="muted">${escapeHtml(formatTRY(row.fuelCost||0))}</span></td><td>${row.fuelConsumptionPer100===null?"-":`<strong>${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2}))} L/100 km</strong>`}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
+        const litersPerKm = row.estimatedKm && Number(row.fuelLiters || 0) > 0 ? Number(row.fuelLiters || 0) / Number(row.estimatedKm) : null;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</strong><br><span class="muted">${escapeHtml(formatTRY(row.fuelCost||0))}</span></td><td>${row.fuelConsumptionPer100===null?"-":`<strong>${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2}))} L/100 km</strong>`}</td><td>${litersPerKm===null?"-":`<strong>${escapeHtml(litersPerKm.toLocaleString("tr-TR",{minimumFractionDigits:3,maximumFractionDigits:4}))} L/km</strong><br><span class="muted">${escapeHtml((litersPerKm*1000).toLocaleString("tr-TR",{maximumFractionDigits:1}))} ml/km</span>`}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -15322,14 +15378,14 @@
       vehicle.currentKm = Math.max(Number(vehicle.currentKm || 0), completed ? endKm : startKm);
       saveState();
       clearPrivateVehicleUseForm();
-      activateVehicleSubTab("private-use");
+      activateFinanceTab("private-use");
       showToast(completed ? `${distanceKm.toLocaleString("tr-TR")} km özel kullanım tamamlandı.` : "Özel kullanım başlatıldı.");
     }
 
     function editPrivateVehicleUse(id, finishMode = false) {
       const record = state.privateVehicleUses.find((item) => item.id === id);
       if (!record) return;
-      activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("private-use"); renderPrivateUseOptions();
+      activateModule("finance"); activateFinanceTab("private-use"); renderPrivateUseOptions();
       $("#privateUseId").value = record.id;
       $("#privateUseVehicle").value = record.vehicleId || "";
       $("#privateUseStartDate").value = record.startDate || todayISO();
@@ -15679,15 +15735,11 @@
     }
 
     function activateVehicleSubTab(name = "cards") {
-      const valid = ["cards", "private-use", "maintenance", "cost-report", "km", "files", "alerts"].includes(name) ? name : "cards";
+      const valid = ["cards", "files", "alerts"].includes(name) ? name : "cards";
       $$("#vehicleModuleTabs .vehicle-module-tab").forEach((button) => button.classList.toggle("active", button.dataset.vehicleSubtab === valid));
       $$("#tab-vehicles .vehicle-sub-screen").forEach((screen) => screen.classList.remove("active"));
       const screen = $(`#vehicle-sub-${valid}`);
       if (screen) screen.classList.add("active");
-      if (valid === "private-use") { renderPrivateUseOptions(); renderPrivateVehicleUses(); }
-      if (valid === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
-      if (valid === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
-      if (valid === "km") { renderVehicleKmOptions(); renderVehicleKmAnalysis(); }
       if (valid === "files") { renderDocumentArchiveOptions(); renderDocumentArchive(); }
       if (valid === "alerts") renderVehicleAlerts();
     }
@@ -15865,14 +15917,14 @@
       }
       saveState();
       clearVehicleMaintenanceForm(true);
-      activateVehicleSubTab("maintenance");
+      activateFinanceTab("maintenance");
       showToast(amount > 0 ? "Bakım ve bağlı araç gideri kaydedildi." : "Bakım kaydı kaydedildi.");
     }
 
     function editVehicleMaintenance(id) {
       const record = state.vehicleMaintenance.find((item) => item.id === id);
       if (!record) return;
-      activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("maintenance");
+      activateModule("finance"); activateFinanceTab("maintenance");
       renderVehicleMaintenanceOptions();
       $("#vehicleMaintenanceId").value = record.id;
       $("#maintenanceVehicle").value = record.vehicleId || "";
@@ -21264,7 +21316,7 @@
 
 
     function activateFinanceTab(tabName) {
-      const targetName = ["overview", "flow", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"].includes(tabName) ? tabName : "overview";
+      const targetName = ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"].includes(tabName) ? tabName : "overview";
       $$("#financeTabs .tab").forEach((button) => button.classList.toggle("active", button.dataset.financeTab === targetName));
       $$("#screen-finance .finance-tab-screen").forEach((screen) => screen.classList.add("hidden"));
       $("#finance-tab-" + targetName)?.classList.remove("hidden");
@@ -21272,6 +21324,10 @@
       if (activeScreen) activeScreen.scrollTo({ top: 0, behavior: "smooth" });
       if (targetName === "overview") renderFinanceCharts();
       if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); }
+      if (targetName === "private-use") { renderPrivateUseOptions(); renderPrivateVehicleUses(); }
+      if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
+      if (targetName === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
+      if (targetName === "km") { renderVehicleKmOptions(); renderVehicleKmAnalysis(); }
       if (targetName === "personnel") { renderFinanceSummary(); renderFinancePersonnelProfitTable(); }
       if (targetName === "profitability") renderProfitabilityAnalysis();
       if (targetName === "accruals") renderFinanceTable();
@@ -22024,7 +22080,7 @@
         command: ["Komuta Paneli", "Büyük resim burada kurulacak: operasyon riski, günün seferleri, finans sinyali ve uyarılar."],
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
-        finance: ["Finans Özet", "Genel özet ve grafiklerden; gelir-gider, personel hakedişi, fatura-tahsilat ve okul finansına sekmelerle geçilir."],
+        finance: ["Finans Özet", "Gelir-gider, özel kullanım, bakım-mekanik, maliyet dağıtımı, KM analizi, hakediş, fatura-tahsilat ve okul finansı tek merkezde yönetilir."],
         tutorial: ["Öğretici", "İlk veri giriş sırasını görsellerle izle; zorunlu alanları tamamla ve doğru bölüme tek tıkla geç."],
         settings: ["Ayarlar / Yedek", "Veri güvenliği, sürümleme ve APK hazırlığı için temel bölüm."]
       };
@@ -22040,7 +22096,7 @@
     function openTutorialTarget(target) {
       const actions = {
         vehicles: () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cards"); },
-        "vehicle-cost": () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cost-report"); },
+        "vehicle-cost": () => { activateModule("finance"); activateFinanceTab("cost-report"); },
         companies: () => { activateModule("personnel"); activateTab("companies"); },
         jobs: () => { activateModule("personnel"); activateTab("jobs"); },
         people: () => { activateModule("personnel"); activateTab("people"); },
@@ -22638,6 +22694,11 @@
         button.addEventListener("click", () => openTutorialTarget(button.dataset.tutorialTarget));
       });
 
+      $("#openTutorialBtn")?.addEventListener("click", () => {
+        activateModule("tutorial");
+        $("#sidebarContact")?.removeAttribute("open");
+      });
+
       $$("#personnelTabs .tab").forEach((button) => {
         button.addEventListener("click", () => activateTab(button.dataset.tab));
       });
@@ -23078,23 +23139,23 @@
         if (action === "edit-route") editRoute(id);
         if (action === "delete-route") deleteById("routes", id, "Güzergah silindi. Bağlı personel ve seferler güncellendi.");
         if (action === "edit-vehicle") editVehicle(id);
-        if (action === "maintenance-vehicle") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("maintenance"); clearVehicleMaintenanceForm(); $("#maintenanceVehicle").value = id || ""; scrollContentTop(); }
+        if (action === "maintenance-vehicle") { activateModule("finance"); activateFinanceTab("maintenance"); clearVehicleMaintenanceForm(); $("#maintenanceVehicle").value = id || ""; scrollContentTop(); }
         if (action === "edit-private-use") editPrivateVehicleUse(id);
         if (action === "finish-private-use") editPrivateVehicleUse(id, true);
         if (action === "delete-private-use") deletePrivateVehicleUse(id);
-        if (action === "open-private-use") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("private-use"); scrollContentTop(); }
-        if (action === "open-cost-report") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cost-report"); scrollContentTop(); }
+        if (action === "open-private-use") { activateModule("finance"); activateFinanceTab("private-use"); scrollContentTop(); }
+        if (action === "open-cost-report") { activateModule("finance"); activateFinanceTab("cost-report"); scrollContentTop(); }
         if (action === "edit-maintenance") editVehicleMaintenance(id);
         if (action === "delete-maintenance") deleteVehicleMaintenance(id);
         if (action === "open-vehicle-alerts") openVehicleAlerts();
         if (action === "open-vehicle-record") openVehicleRecord(id);
         if (action === "open-vehicle-km") {
-          activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km");
+          activateModule("finance"); activateFinanceTab("km");
           if ($("#vehicleKmVehicleFilter")) $("#vehicleKmVehicleFilter").value = id || "Tümü";
           renderVehicleKmAnalysis(); scrollContentTop();
         }
         if (action === "new-vehicle-km") {
-          activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("km"); clearVehicleKmForm();
+          activateModule("finance"); activateFinanceTab("km"); clearVehicleKmForm();
           if ($("#vehicleKmVehicle")) $("#vehicleKmVehicle").value = id || "";
           scrollContentTop();
         }
@@ -23224,7 +23285,7 @@
       admin: {
         modules: ["command", "personnel", "school", "finance", "tutorial", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
-        financeTabs: ["overview", "flow", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
+        financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: true,
         canManageUsers: true,
         canImport: true,
@@ -23242,7 +23303,7 @@
       accounting: {
         modules: ["school", "finance", "tutorial", "settings"],
         schoolTabs: ["students", "payments", "reports"],
-        financeTabs: ["overview", "flow", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
+        financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: false,
         canManageUsers: false,
         canImport: false,
@@ -24570,7 +24631,7 @@
     }
 
 
-    // v4.30.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+    // v4.31.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
     let currentLicenseSession = null;
 
     function createLicenseDeviceId() {
