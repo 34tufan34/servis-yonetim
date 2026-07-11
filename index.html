@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.36.2</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.37.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -9127,6 +9127,230 @@
       .finance-year-selectors select { flex: 1; }
     }
 
+  
+
+    /* v4.37.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
+    .table-action-row {
+      display: inline-flex !important;
+      flex-wrap: nowrap !important;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      min-width: max-content;
+      white-space: nowrap;
+    }
+    .table-action-row .btn { flex: 0 0 auto; }
+    .staff-payment-action-stack.table-action-row { min-width: max-content; }
+    .vehicle-expense-row-actions,
+    .maintenance-row-actions,
+    .vehicle-km-row-actions { vertical-align: middle; }
+
+    .command-next-passenger {
+      display: grid;
+      gap: 5px;
+      margin-top: 14px;
+      padding: 12px 12px 11px;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 14px;
+      background: rgba(var(--accent-rgb), .055);
+      min-width: 0;
+    }
+    .command-next-passenger.is-empty {
+      border-color: var(--line);
+      background: rgba(255,255,255,.025);
+    }
+    .command-next-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+    .command-next-label {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .command-next-current {
+      display: inline-flex;
+      align-items: center;
+      min-height: 21px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      font-size: 9px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .command-next-current.bindi { color: #bbf7d0; border-color: rgba(34,197,94,.34); background: rgba(34,197,94,.12); }
+    .command-next-current.indi { color: #bae6fd; border-color: rgba(14,165,233,.34); background: rgba(14,165,233,.12); }
+    .command-next-current.yok { color: #fecdd3; border-color: rgba(244,63,94,.34); background: rgba(244,63,94,.12); }
+    .command-next-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    .command-next-detail {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+    .command-status-rail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 3px;
+    }
+    .command-status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-width: 65px;
+      min-height: 27px;
+      padding: 5px 8px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+      font-size: 9px;
+      font-weight: 850;
+      transition: .18s ease;
+    }
+    .command-status-chip i {
+      width: 16px;
+      height: 16px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      font-style: normal;
+      font-size: 11px;
+      background: rgba(255,255,255,.06);
+    }
+    .command-status-chip.is-suggested {
+      color: var(--text);
+      border-color: rgba(var(--accent-rgb), .40);
+      box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .08);
+    }
+    .command-status-chip.bindi.is-active { color: #dcfce7; border-color: rgba(34,197,94,.55); background: rgba(34,197,94,.18); }
+    .command-status-chip.indi.is-active { color: #e0f2fe; border-color: rgba(14,165,233,.55); background: rgba(14,165,233,.18); }
+    .command-status-chip.yok.is-active { color: #ffe4e6; border-color: rgba(244,63,94,.55); background: rgba(244,63,94,.18); }
+    .command-service-card { min-height: 305px; }
+
+    /* Açık tema: butonlar ve durum elemanları için tek, dengeli kontrast sistemi */
+    body[data-theme="light"] .btn {
+      color: #1e293b !important;
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 1px 2px rgba(15,23,42,.06) !important;
+    }
+    body[data-theme="light"] .btn:hover {
+      color: #0f172a !important;
+      background: #f1f5f9 !important;
+      border-color: #94a3b8 !important;
+      box-shadow: 0 5px 14px rgba(15,23,42,.09) !important;
+    }
+    body[data-theme="light"] .btn.primary {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #d7192a, #b91c1c) !important;
+      border-color: #b91c1c !important;
+      box-shadow: 0 9px 20px rgba(185,28,28,.20) !important;
+    }
+    body[data-theme="light"] .btn.primary:hover { background: linear-gradient(135deg, #c51627, #991b1b) !important; }
+    body[data-theme="light"] .btn.danger {
+      color: #b91c1c !important;
+      background: #fff1f2 !important;
+      border-color: #fecdd3 !important;
+      box-shadow: none !important;
+    }
+    body[data-theme="light"] .btn.danger:hover { color: #991b1b !important; background: #ffe4e6 !important; border-color: #fda4af !important; }
+    body[data-theme="light"] .btn.success {
+      color: #166534 !important;
+      background: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+      box-shadow: none !important;
+    }
+    body[data-theme="light"] .btn.success:hover { background: #dcfce7 !important; border-color: #86efac !important; }
+    body[data-theme="light"] .btn.whatsapp {
+      color: #166534 !important;
+      background: #dcfce7 !important;
+      border-color: #86efac !important;
+      box-shadow: none !important;
+    }
+    body[data-theme="light"] .btn.ghost { color: #334155 !important; background: transparent !important; border-color: #cbd5e1 !important; }
+    body[data-theme="light"] .btn:disabled { color: #94a3b8 !important; background: #e2e8f0 !important; border-color: #cbd5e1 !important; opacity: .72; }
+    body[data-theme="light"] .tab,
+    body[data-theme="light"] .mini-tab {
+      color: #475569 !important;
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 1px 2px rgba(15,23,42,.05);
+    }
+    body[data-theme="light"] .tab:hover,
+    body[data-theme="light"] .mini-tab:hover { color: #0f172a !important; background: #f1f5f9 !important; }
+    body[data-theme="light"] .tab.active,
+    body[data-theme="light"] .mini-tab.active {
+      color: #991b1b !important;
+      background: #fff1f2 !important;
+      border-color: #fda4af !important;
+      box-shadow: 0 5px 14px rgba(190,18,60,.10) !important;
+    }
+    body[data-theme="light"] .nav button { color: #526176; }
+    body[data-theme="light"] .nav button:hover { color: #0f172a; background: #eef2f7; }
+    body[data-theme="light"] .nav button.active {
+      color: #0f172a !important;
+      background: linear-gradient(135deg, #fff1f2, #ffffff) !important;
+      border-color: #fecdd3 !important;
+      box-shadow: 0 6px 16px rgba(15,23,42,.07);
+    }
+    body[data-theme="light"] .tag,
+    body[data-theme="light"] .pill,
+    body[data-theme="light"] .command-card-state,
+    body[data-theme="light"] .command-next-current {
+      color: #475569;
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    body[data-theme="light"] .command-service-card {
+      color: #0f172a;
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border-color: #d8e0ea;
+      box-shadow: 0 16px 38px rgba(15,23,42,.09);
+    }
+    body[data-theme="light"] .command-service-card.is-live {
+      border-color: #86efac;
+      background: radial-gradient(circle at 12% 18%, rgba(34,197,94,.10), transparent 35%), linear-gradient(145deg, #ffffff, #f0fdf4);
+      box-shadow: 0 16px 38px rgba(15,23,42,.08), 0 0 0 1px rgba(34,197,94,.08);
+    }
+    body[data-theme="light"] .command-next-passenger { background: #f8fafc; border-color: #d8e0ea; }
+    body[data-theme="light"] .command-status-chip { color: #475569; background: #ffffff; border-color: #cbd5e1; }
+    body[data-theme="light"] .command-status-chip i { background: #eef2f7; }
+    body[data-theme="light"] .command-status-chip.is-suggested { color: #0f172a; background: #f8fafc; border-color: #94a3b8; }
+    body[data-theme="light"] .command-status-chip.bindi.is-active { color: #166534; background: #dcfce7; border-color: #86efac; }
+    body[data-theme="light"] .command-status-chip.indi.is-active { color: #075985; background: #e0f2fe; border-color: #7dd3fc; }
+    body[data-theme="light"] .command-status-chip.yok.is-active { color: #be123c; background: #ffe4e6; border-color: #fda4af; }
+    body[data-theme="light"] .live-beacon,
+    body[data-theme="light"] .command-live-total { background: #f8fafc; border-color: #d8e0ea; }
+    body[data-theme="light"] .vehicle-km-cost-track { background: #e2e8f0; }
+
+    @media (max-width: 620px) {
+      .command-service-card { min-height: 270px; }
+      .command-next-passenger { grid-column: 1 / -1; }
+      .command-status-chip { min-width: 60px; }
+    }
+
   </style>
 </head>
 
@@ -9263,7 +9487,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.36.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.37.0</div>
         </div>
       </div>
 
@@ -9347,6 +9571,12 @@
                 <span class="command-card-kicker">Personel Operasyonu</span>
                 <span class="command-card-title">Personel Servisi</span>
                 <span class="command-card-meta" id="commandPersonnelMeta">Başlatılmış servis bulunmuyor.</span>
+                <span class="command-next-passenger is-empty" id="commandPersonnelNext">
+                  <span class="command-next-top"><span class="command-next-label">Sıradaki Yolcu</span><span class="command-next-current">Beklemede</span></span>
+                  <strong class="command-next-name">Aktif operasyon yok</strong>
+                  <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
+                  <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+                </span>
               </span>
               <span class="command-card-state" id="commandPersonnelState">Beklemede</span>
             </button>
@@ -9357,6 +9587,12 @@
                 <span class="command-card-kicker">Okul Operasyonu</span>
                 <span class="command-card-title">Okul Servisi</span>
                 <span class="command-card-meta" id="commandSchoolMeta">Başlatılmış servis bulunmuyor.</span>
+                <span class="command-next-passenger is-empty" id="commandSchoolNext">
+                  <span class="command-next-top"><span class="command-next-label">Sıradaki Yolcu</span><span class="command-next-current">Beklemede</span></span>
+                  <strong class="command-next-name">Aktif operasyon yok</strong>
+                  <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
+                  <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+                </span>
               </span>
               <span class="command-card-state" id="commandSchoolState">Beklemede</span>
             </button>
@@ -12454,7 +12690,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.36.2</strong>
+                <strong>v4.37.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12483,8 +12719,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.36.2 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
-    const APP_VERSION = "4.36.2";
+    // v4.37.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
+    const APP_VERSION = "4.37.0";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -15310,7 +15546,7 @@
         const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
         const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
         const fuel100 = row.fuelCostPerKm === null ? null : row.fuelCostPerKm * 100;
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions table-action-row vehicle-km-row-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -16116,7 +16352,7 @@
         return !search || normalize([record.vehiclePlate, vehicle?.plate, record.type, record.provider, record.invoiceNo, record.description].join(" ")).includes(search);
       }).sort((a,b) => String(b.date).localeCompare(String(a.date)));
       if (!rows.length) { host.innerHTML = `<div class="empty">Bu filtrede bakım veya mekanik gider kaydı bulunmuyor.</div>`; return; }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>KM</th><th>İşlem</th><th>Servis / Usta</th><th>Gerçek Ödeme</th><th>Dağıtım</th><th>Sonraki</th><th>İşlem</th></tr></thead><tbody>${rows.map((r) => `<tr><td><strong>${escapeHtml(jobDateText(r.date))}</strong></td><td>${escapeHtml(r.vehiclePlate || vehicleLabel(r.vehicleId))}</td><td>${r.km ? escapeHtml(Number(r.km).toLocaleString("tr-TR")) : "-"}</td><td><strong>${escapeHtml(r.type)}</strong><br><span class="muted">${escapeHtml(r.description || "Açıklama yok")}</span></td><td>${escapeHtml(r.provider || "-")}<br><span class="muted">${escapeHtml(r.invoiceNo || "Fatura yok")}</span></td><td><strong>${escapeHtml(formatTRY(r.amount || 0))}</strong>${r.expenseId ? '<br><span class="pill active">Finansa işlendi</span>' : ''}</td><td><strong>${maintenanceAllocationMonths(r)} ay</strong><br><span class="muted">${escapeHtml(formatTRY(maintenanceMonthlyAllocation(r)))} / ay</span></td><td>${r.nextDate ? escapeHtml(jobDateText(r.nextDate)) : "-"}<br><span class="muted">${r.nextKm ? Number(r.nextKm).toLocaleString("tr-TR") + " km" : "KM yok"}</span></td><td><button class="btn small" data-action="edit-maintenance" data-id="${escapeHtml(r.id)}">Düzenle</button><button class="btn small danger" data-action="delete-maintenance" data-id="${escapeHtml(r.id)}">Sil</button></td></tr>`).join("")}</tbody></table></div>`;
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>KM</th><th>İşlem</th><th>Servis / Usta</th><th>Gerçek Ödeme</th><th>Dağıtım</th><th>Sonraki</th><th>İşlem</th></tr></thead><tbody>${rows.map((r) => `<tr><td><strong>${escapeHtml(jobDateText(r.date))}</strong></td><td>${escapeHtml(r.vehiclePlate || vehicleLabel(r.vehicleId))}</td><td>${r.km ? escapeHtml(Number(r.km).toLocaleString("tr-TR")) : "-"}</td><td><strong>${escapeHtml(r.type)}</strong><br><span class="muted">${escapeHtml(r.description || "Açıklama yok")}</span></td><td>${escapeHtml(r.provider || "-")}<br><span class="muted">${escapeHtml(r.invoiceNo || "Fatura yok")}</span></td><td><strong>${escapeHtml(formatTRY(r.amount || 0))}</strong>${r.expenseId ? '<br><span class="pill active">Finansa işlendi</span>' : ''}</td><td><strong>${maintenanceAllocationMonths(r)} ay</strong><br><span class="muted">${escapeHtml(formatTRY(maintenanceMonthlyAllocation(r)))} / ay</span></td><td>${r.nextDate ? escapeHtml(jobDateText(r.nextDate)) : "-"}<br><span class="muted">${r.nextKm ? Number(r.nextKm).toLocaleString("tr-TR") + " km" : "KM yok"}</span></td><td><div class="table-action-row maintenance-row-actions"><button class="btn small" data-action="edit-maintenance" data-id="${escapeHtml(r.id)}">Düzenle</button><button class="btn small danger" data-action="delete-maintenance" data-id="${escapeHtml(r.id)}">Sil</button></div></td></tr>`).join("")}</tbody></table></div>`;
     }
 
     function renderVehicleAlerts() {
@@ -17326,6 +17562,83 @@
       return date.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
     }
 
+
+    /* v4.37.0 - Komuta Paneli sıradaki yolcu durum görseli */
+    function commandPassengerVisualHtml(options = {}) {
+      const name = String(options.name || "").trim();
+      const detail = String(options.detail || "").trim();
+      const rawStatus = String(options.status || "Bekliyor");
+      const normalizedStatus = rawStatus === "Başka Adreste İndi" ? "İndi" : rawStatus;
+      const recommended = options.period === "evening" ? "İndi" : "Bindi";
+      const empty = !name;
+      const statusText = empty ? "Beklemede" : normalizedStatus;
+      const chips = [
+        { label: "Bindi", cls: "bindi", icon: "↗" },
+        { label: "İndi", cls: "indi", icon: "↘" },
+        { label: "Yok", cls: "yok", icon: "×" }
+      ].map((chip) => {
+        const active = !empty && normalizedStatus === chip.label;
+        const suggested = !empty && normalizedStatus === "Bekliyor" && recommended === chip.label;
+        return `<span class="command-status-chip ${chip.cls}${active ? " is-active" : ""}${suggested ? " is-suggested" : ""}"><i>${chip.icon}</i>${chip.label}</span>`;
+      }).join("");
+      return `
+        <span class="command-next-top">
+          <span class="command-next-label">Sıradaki Yolcu</span>
+          <span class="command-next-current ${statusClass(normalizedStatus)}">${escapeHtml(statusText)}</span>
+        </span>
+        <strong class="command-next-name">${escapeHtml(name || "Aktif operasyon yok")}</strong>
+        <span class="command-next-detail">${escapeHtml(detail || "Servis başladığında yolcu durumu burada görünür.")}</span>
+        <span class="command-status-rail" aria-hidden="true">${chips}</span>
+      `;
+    }
+
+    function personnelCommandPassenger(session) {
+      if (!session) return null;
+      const people = servicePeopleFor(session.date, session.routeId, session.period);
+      if (!people.length) return null;
+      const field = serviceStatusField(session.period);
+      let index = Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1));
+      let person = people[index];
+      let status = displayAttendanceStatus(person, getAttendance(session.date, session.routeId, person.id), field, session.date);
+      if (status !== "Bekliyor") {
+        const pendingIndex = people.findIndex((item) => displayAttendanceStatus(item, getAttendance(session.date, session.routeId, item.id), field, session.date) === "Bekliyor");
+        if (pendingIndex >= 0) {
+          index = pendingIndex;
+          person = people[index];
+          status = "Bekliyor";
+        }
+      }
+      return {
+        name: person.name,
+        status,
+        period: session.period,
+        detail: `Sıra ${index + 1} · ${personAddressForPeriod(person, session.period) || "Adres girilmemiş"}`
+      };
+    }
+
+    function schoolCommandPassenger(session) {
+      if (!session) return null;
+      const students = schoolServiceStudents(session.schoolId, session.period);
+      if (!students.length) return null;
+      let index = Math.max(0, Math.min(Number(session.currentIndex || 0), students.length - 1));
+      let student = students[index];
+      let status = getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period);
+      if (status !== "Bekliyor") {
+        const pendingIndex = students.findIndex((item) => getSchoolServiceStatus(session.date, session.schoolId, item.id, session.period) === "Bekliyor");
+        if (pendingIndex >= 0) {
+          index = pendingIndex;
+          student = students[index];
+          status = "Bekliyor";
+        }
+      }
+      return {
+        name: student.name,
+        status,
+        period: session.period,
+        detail: `Sıra ${index + 1} · ${student.className || "Sınıf yok"} · ${student.homeAddress || "Adres girilmemiş"}`
+      };
+    }
+
     function renderCommandPanel() {
       const personnelSessions = activePersonnelServiceSessions();
       const schoolSessions = activeSchoolServiceSessions();
@@ -17342,6 +17655,8 @@
       const schoolMeta = $("#commandSchoolMeta");
       const personnelState = $("#commandPersonnelState");
       const schoolState = $("#commandSchoolState");
+      const personnelNext = $("#commandPersonnelNext");
+      const schoolNext = $("#commandSchoolNext");
 
       if (!totalHost || !titleHost || !textHost || !personnelCard || !schoolCard) return;
 
@@ -17361,9 +17676,18 @@
         const time = liveStartedTime(personnelSession.startedAt);
         personnelMeta.textContent = `${job ? job.name + " · " : ""}${company?.name || route?.name || "Firma servisi"} · ${servicePeriodLabel(personnelSession.period)}${time ? " · " + time + " başladı" : ""}${personnelSessions.length > 1 ? " · +" + (personnelSessions.length - 1) + " canlı servis" : ""}`;
         personnelState.textContent = "Canlı";
+        const passenger = personnelCommandPassenger(personnelSession);
+        if (personnelNext) {
+          personnelNext.classList.toggle("is-empty", !passenger);
+          personnelNext.innerHTML = commandPassengerVisualHtml(passenger || {});
+        }
       } else {
         personnelMeta.textContent = "Başlatılmış servis bulunmuyor.";
         personnelState.textContent = "Beklemede";
+        if (personnelNext) {
+          personnelNext.classList.add("is-empty");
+          personnelNext.innerHTML = commandPassengerVisualHtml({});
+        }
       }
 
       if (schoolSession) {
@@ -17375,9 +17699,18 @@
         const guideName = schoolSession.guideName || assignment?.guide?.name || "Rehber yok";
         schoolMeta.textContent = `${school?.name || "Okul servisi"} · ${schoolServicePeriodLabel(schoolSession.period)} · Şoför: ${driverName} · Rehber: ${guideName}${time ? " · " + time + " başladı" : ""}${schoolSessions.length > 1 ? " · +" + (schoolSessions.length - 1) + " canlı servis" : ""}`;
         schoolState.textContent = "Canlı";
+        const passenger = schoolCommandPassenger(schoolSession);
+        if (schoolNext) {
+          schoolNext.classList.toggle("is-empty", !passenger);
+          schoolNext.innerHTML = commandPassengerVisualHtml(passenger || {});
+        }
       } else {
         schoolMeta.textContent = "Başlatılmış servis bulunmuyor.";
         schoolState.textContent = "Beklemede";
+        if (schoolNext) {
+          schoolNext.classList.add("is-empty");
+          schoolNext.innerHTML = commandPassengerVisualHtml({});
+        }
       }
 
       const vehicleAlerts = getVehicleAlerts();
@@ -20265,7 +20598,7 @@
               ? `${escapeHtml(school?.name || "Okul yok")}`
               : "Genel personel gideri";
         const quantity = record.paymentModel === "daily" ? `${values.activity.days} gün` : `${values.activity.trips} sefer`;
-        return `<tr><td><strong>${escapeHtml(record.workerName || "-")}</strong><br><span class="muted">${record.workerType === "guide" ? "Rehber" : "Şoför"} · ${escapeHtml(record.workerPhone || "Telefon yok")} · ${escapeHtml(vehicle?.plate || "Araç yok")}</span></td><td>${operation}</td><td>${escapeHtml(STAFF_PAYMENT_MODELS[record.paymentModel] || record.paymentModel || "-")}<br><span class="muted">Aylık ${escapeHtml(formatTRY(record.monthlyAmount || 0))} · Birim ${escapeHtml(formatTRY(record.unitAmount || 0))}</span></td><td><strong>${escapeHtml(quantity)}</strong></td><td><strong>${escapeHtml(formatTRY(values.grossAccrual))}</strong><br><span class="muted">Ek ${escapeHtml(formatTRY(values.additional))}</span></td><td>Kesinti ${escapeHtml(formatTRY(values.deduction))}<br><span class="muted">Avans ${escapeHtml(formatTRY(values.advance))}</span></td><td><strong>${escapeHtml(formatTRY(values.liability))}</strong></td><td><strong>${escapeHtml(formatTRY(values.settled))}</strong><br><span class="muted">${record.paymentDate ? escapeHtml(jobDateText(record.paymentDate)) : "Tarih yok"}${Array.isArray(record.paymentHistory) && record.paymentHistory.length ? ` · ${record.paymentHistory.length} hareket` : ""}</span></td><td><strong>${escapeHtml(formatTRY(values.remaining))}</strong><br><span class="muted">Vade ${record.dueDate ? escapeHtml(jobDateText(record.dueDate)) : "-"}</span></td><td><span class="pill ${escapeHtml(status.className)}">${escapeHtml(status.label)}</span></td><td><div class="staff-payment-action-stack">${values.remaining > 0.009 ? `<button class="btn small success" type="button" data-action="settle-staff-payment" data-id="${escapeHtml(record.id)}">Kalanı Öde</button>` : ""}<button class="btn small primary" type="button" data-action="edit-staff-payment" data-id="${escapeHtml(record.id)}">Düzenle</button><button class="btn small danger" type="button" data-action="delete-staff-payment" data-id="${escapeHtml(record.id)}">Sil</button></div></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(record.workerName || "-")}</strong><br><span class="muted">${record.workerType === "guide" ? "Rehber" : "Şoför"} · ${escapeHtml(record.workerPhone || "Telefon yok")} · ${escapeHtml(vehicle?.plate || "Araç yok")}</span></td><td>${operation}</td><td>${escapeHtml(STAFF_PAYMENT_MODELS[record.paymentModel] || record.paymentModel || "-")}<br><span class="muted">Aylık ${escapeHtml(formatTRY(record.monthlyAmount || 0))} · Birim ${escapeHtml(formatTRY(record.unitAmount || 0))}</span></td><td><strong>${escapeHtml(quantity)}</strong></td><td><strong>${escapeHtml(formatTRY(values.grossAccrual))}</strong><br><span class="muted">Ek ${escapeHtml(formatTRY(values.additional))}</span></td><td>Kesinti ${escapeHtml(formatTRY(values.deduction))}<br><span class="muted">Avans ${escapeHtml(formatTRY(values.advance))}</span></td><td><strong>${escapeHtml(formatTRY(values.liability))}</strong></td><td><strong>${escapeHtml(formatTRY(values.settled))}</strong><br><span class="muted">${record.paymentDate ? escapeHtml(jobDateText(record.paymentDate)) : "Tarih yok"}${Array.isArray(record.paymentHistory) && record.paymentHistory.length ? ` · ${record.paymentHistory.length} hareket` : ""}</span></td><td><strong>${escapeHtml(formatTRY(values.remaining))}</strong><br><span class="muted">Vade ${record.dueDate ? escapeHtml(jobDateText(record.dueDate)) : "-"}</span></td><td><span class="pill ${escapeHtml(status.className)}">${escapeHtml(status.label)}</span></td><td><div class="staff-payment-action-stack table-action-row">${values.remaining > 0.009 ? `<button class="btn small success" type="button" data-action="settle-staff-payment" data-id="${escapeHtml(record.id)}">Kalanı Öde</button>` : ""}<button class="btn small primary" type="button" data-action="edit-staff-payment" data-id="${escapeHtml(record.id)}">Düzenle</button><button class="btn small danger" type="button" data-action="delete-staff-payment" data-id="${escapeHtml(record.id)}">Sil</button></div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -20817,10 +21150,10 @@
                     <td><span class="pill ${vehicleExpenseAllocationMode(expense) === "shared" ? "allocation-pill" : ""}">${escapeHtml(vehicleExpenseLinkType(expense))}</span><br><strong>${escapeHtml(operation.title)}</strong><br><span class="muted">${escapeHtml(operation.sub)}</span></td>
                     <td>${escapeHtml(expense.receiptNo || "Belge yok")}<br><span class="muted">${escapeHtml(expense.paymentMethod || "-")} · ${escapeHtml(expense.supplier || "Tedarikçi yok")}</span></td>
                     <td>${escapeHtml(expense.note || "-")}</td>
-                    <td>
+                    <td><div class="table-action-row vehicle-expense-row-actions">
                       <button class="btn small primary" type="button" data-action="edit-vehicle-expense" data-id="${escapeHtml(expense.id)}">Düzenle</button>
                       <button class="btn small danger" type="button" data-action="delete-vehicle-expense" data-id="${escapeHtml(expense.id)}">Sil</button>
-                    </td>
+                    </div></td>
                   </tr>
                 `;
               }).join("")}
