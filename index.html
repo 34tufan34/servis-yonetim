@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.36.1</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.36.2</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -987,9 +987,9 @@
       flex-wrap: wrap;
       margin: 0 -6px 12px;
       padding: 8px 6px 10px;
-      background: linear-gradient(180deg, rgba(8,9,13,.96), rgba(8,9,13,.78));
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,.055);
+      background: transparent;
+      backdrop-filter: none;
+      border-bottom: 0;
     }
 
     .tab {
@@ -3712,8 +3712,8 @@
     }
 
     body[data-theme="light"] .tabs {
-      background: linear-gradient(180deg, rgba(248,250,252,.96), rgba(248,250,252,.78));
-      border-bottom-color: rgba(15,23,42,.08);
+      background: transparent;
+      border-bottom-color: transparent;
     }
 
     body[data-theme="light"] th {
@@ -9263,7 +9263,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.36.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.36.2</div>
         </div>
       </div>
 
@@ -12454,7 +12454,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.36.1</strong>
+                <strong>v4.36.2</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12483,8 +12483,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.36.1 - PDF yerleşimi, sefer-sözleşme bağlantısı ve KM grafik görünürlüğü düzeltildi.
-    const APP_VERSION = "4.36.1";
+    // v4.36.2 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
+    const APP_VERSION = "4.36.2";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
