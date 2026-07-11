@@ -1,0 +1,54 @@
+name: Yakıt Fiyatlarını Güncelle
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fuel-price-updater
+  cancel-in-progress: false
+
+jobs:
+  update-fuel-prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Playwright kur
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+
+      - name: Shell ve OPET fiyatlarını çek
+        run: node scripts/update-fuel-prices.mjs
+
+      - name: Değişiklik varsa kaydet
+        shell: bash
+        run: |
+          FUEL_FILE="$(cat .fuel-output-path)"
+          echo "Güncellenecek dosya: $FUEL_FILE"
+          git add -- "$FUEL_FILE"
+
+          if git diff --cached --quiet; then
+            echo "Fiyatlarda veya güncelleme bilgisinde değişiklik yok."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Yakıt fiyatlarını otomatik güncelle"
+          git push
