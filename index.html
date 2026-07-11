@@ -23146,6 +23146,39 @@
     }
 
     async function requestLicenseApi(path, payload) {
+      // Android APK içinde lisans isteğini yerel ağ katmanından gönder.
+      // Bu yol, bazı Android WebView sürümlerindeki CORS/fetch sorunlarını aşar.
+      if (window.AndroidBridge && typeof window.AndroidBridge.requestLicense === "function") {
+        let envelope;
+        try {
+          envelope = JSON.parse(window.AndroidBridge.requestLicense(path, JSON.stringify(payload)));
+        } catch (error) {
+          const networkError = new Error("Lisans sunucusuna ulaşılamadı.");
+          networkError.kind = "network";
+          networkError.cause = error;
+          throw networkError;
+        }
+
+        if (!envelope?.transportOk) {
+          const networkError = new Error(envelope?.message || "Lisans sunucusuna ulaşılamadı.");
+          networkError.kind = "network";
+          throw networkError;
+        }
+
+        let nativeData = null;
+        try { nativeData = JSON.parse(envelope.body || "null"); } catch { nativeData = null; }
+        const nativeStatus = Number(envelope.status || 0);
+
+        if (nativeStatus < 200 || nativeStatus >= 300 || !nativeData?.ok) {
+          const error = new Error(nativeData?.message || `Lisans kontrolü başarısız oldu. HTTP ${nativeStatus}`);
+          error.kind = isLicenseServerDenial(nativeStatus) ? "denied" : "server";
+          error.status = nativeStatus;
+          error.code = nativeData?.code || "LICENSE_REQUEST_FAILED";
+          throw error;
+        }
+        return nativeData;
+      }
+
       let response;
       try {
         response = await fetch(`${LICENSE_API_URL}${path}`, {
