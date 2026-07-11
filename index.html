@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.33.1</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.34.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8038,6 +8038,62 @@
       box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .04);
     }
 
+    .fuel-manual-total-check {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 750;
+      cursor: pointer;
+      user-select: none;
+    }
+    .fuel-manual-total-check.hidden { display: none; }
+    .fuel-manual-total-check input { width: 16px; height: 16px; accent-color: var(--accent); }
+    #vehicleExpenseAmount.fuel-manual { border-color: rgba(245, 158, 11, .55); background: rgba(245, 158, 11, .055); }
+
+    .vehicle-km-chart-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 10px;
+      margin: 0 0 12px;
+    }
+    .vehicle-km-chart-card {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255,255,255,.025);
+    }
+    .vehicle-km-chart-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; margin-bottom: 9px; }
+    .vehicle-km-chart-head strong { display: block; font-size: 12px; }
+    .vehicle-km-chart-head span { display: block; margin-top: 3px; color: var(--muted); font-size: 9.5px; line-height: 1.35; }
+    .vehicle-km-cost-bars { display: grid; gap: 10px; }
+    .vehicle-km-cost-row { display: grid; grid-template-columns: minmax(72px, 115px) minmax(0, 1fr); gap: 8px; align-items: center; }
+    .vehicle-km-cost-row > strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+    .vehicle-km-cost-series { display: grid; gap: 4px; }
+    .vehicle-km-cost-line { display: grid; grid-template-columns: 72px minmax(0, 1fr) 78px; gap: 6px; align-items: center; font-size: 9px; color: var(--muted); }
+    .vehicle-km-cost-track { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
+    .vehicle-km-cost-track i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+    .vehicle-km-cost-line.total i { background: var(--warning); }
+    .vehicle-km-cost-line.revenue i { background: var(--success); }
+    .vehicle-km-cost-line b { color: var(--text); text-align: right; font-size: 9px; }
+    .vehicle-km-trend-svg { display: block; width: 100%; height: 235px; }
+    .vehicle-km-chart-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 4px; color: var(--muted); font-size: 9px; }
+    .vehicle-km-chart-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 99px; margin-right: 4px; }
+
+    .report-section-splittable { break-inside: auto; page-break-inside: auto; }
+    .report-subsection-note { margin: -4px 0 9px; color: #6b7280; font-size: 9.5px; line-height: 1.45; }
+    .report-chart-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .report-chart-grid.three .report-chart-card { min-height: 230px; }
+
+    @media (max-width: 980px) {
+      .vehicle-km-chart-grid { grid-template-columns: 1fr; }
+      .report-chart-grid.three { grid-template-columns: 1fr; }
+    }
+
     .vehicle-km-layout,
     .document-archive-layout {
       display: grid;
@@ -9085,7 +9141,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.33.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.34.0</div>
         </div>
       </div>
 
@@ -10869,19 +10925,19 @@
           </section>
 
           <div class="tabs finance-tabs" id="financeTabs">
-            <button class="tab active" type="button" data-finance-tab="overview">Genel Özet</button>
-            <button class="tab" type="button" data-finance-tab="flow">Gelir / Gider</button>
-            <button class="tab" type="button" data-finance-tab="private-use">Özel Kullanım</button>
-            <button class="tab" type="button" data-finance-tab="maintenance">Bakım & Mekanik</button>
-            <button class="tab" type="button" data-finance-tab="cost-report">Maliyet Dağıtımı</button>
-            <button class="tab" type="button" data-finance-tab="km">KM Analizi</button>
-            <button class="tab" type="button" data-finance-tab="personnel">Personel Finans</button>
-            <button class="tab" type="button" data-finance-tab="profitability">Kârlılık</button>
-            <button class="tab" type="button" data-finance-tab="accruals">Personel Hakedişleri</button>
-            <button class="tab" type="button" data-finance-tab="invoices">Fatura / Tahsilat</button>
-            <button class="tab" type="button" data-finance-tab="staff">Şoför / Rehber</button>
-            <button class="tab" type="button" data-finance-tab="school">Okul Finans</button>
-            <button class="tab" type="button" data-finance-tab="reports">Raporlar</button>
+            <button class="tab active" type="button" data-finance-tab="overview">1. Genel Özet</button>
+            <button class="tab" type="button" data-finance-tab="flow">2. Gelir / Gider</button>
+            <button class="tab" type="button" data-finance-tab="personnel">3. Personel Finans</button>
+            <button class="tab" type="button" data-finance-tab="accruals">4. Personel Hakedişleri</button>
+            <button class="tab" type="button" data-finance-tab="school">5. Okul Finans</button>
+            <button class="tab" type="button" data-finance-tab="invoices">6. Fatura Tahsilat</button>
+            <button class="tab" type="button" data-finance-tab="maintenance">7. Bakım & Mekanik</button>
+            <button class="tab" type="button" data-finance-tab="cost-report">8. Maliyet Dağılımı</button>
+            <button class="tab" type="button" data-finance-tab="profitability">9. Kârlılık</button>
+            <button class="tab" type="button" data-finance-tab="private-use">10. Özel Kullanım</button>
+            <button class="tab" type="button" data-finance-tab="staff">11. Şoför / Rehber</button>
+            <button class="tab" type="button" data-finance-tab="km">12. KM Analizi</button>
+            <button class="tab" type="button" data-finance-tab="reports">13. Raporlar</button>
           </div>
 
           <div class="finance-tab-screen" id="finance-tab-overview">
@@ -11001,8 +11057,12 @@
                     </div>
                     <div class="field">
                       <label id="vehicleExpenseAmountLabel" for="vehicleExpenseAmount">Tutar (₺) *</label>
-                      <input id="vehicleExpenseAmount" type="number" min="0.01" step="0.01" placeholder="0" required />
+                      <input id="vehicleExpenseAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" required />
                       <small class="field-help" id="vehicleExpenseAmountHelp" hidden></small>
+                      <label class="fuel-manual-total-check hidden" id="vehicleExpenseManualTotalWrap">
+                        <input id="vehicleExpenseManualTotal" type="checkbox" />
+                        <span>Toplam tutarı manuel gir</span>
+                      </label>
                     </div>
                   </div>
 
@@ -11010,11 +11070,11 @@
                   <div class="vehicle-expense-fuel-fields" id="vehicleExpenseFuelFields">
                     <div class="field">
                       <label for="vehicleExpenseFuelLiters">Alınan Yakıt (Litre) *</label>
-                      <input id="vehicleExpenseFuelLiters" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Örn. 62.40" />
+                      <input id="vehicleExpenseFuelLiters" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 62,40" />
                     </div>
                     <div class="field">
                       <label for="vehicleExpenseFuelUnitPrice">Gerçek Litre Fiyatı (₺) *</label>
-                      <input id="vehicleExpenseFuelUnitPrice" type="number" min="0.01" step="0.001" inputmode="decimal" placeholder="Örn. 68.750" />
+                      <input id="vehicleExpenseFuelUnitPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 68,750" />
                       <small class="field-help">Şirket indirimi uygulanmış gerçek alış fiyatını yaz. Litre ile çarpılarak toplam tutar otomatik hesaplanır.</small>
                     </div>
                   </div>
@@ -11287,7 +11347,7 @@
                 <div class="panel-header">
                   <div>
                     <h2 class="panel-title">KM Başına Maliyet ve Kârlılık</h2>
-                    <div class="panel-sub">Yakıt tüketimi L/100 km ve litre/km olarak; maliyet, gelir ve net kâr/zarar ise kilometre başına hesaplanır.</div>
+                    <div class="panel-sub">Yakıt tüketimi litre yerine gerçek yakıt gideriyle; yakıt, toplam maliyet, gelir ve net sonuç TL/km olarak hesaplanır.</div>
                   </div>
                 </div>
                 <div class="toolbar simple-toolbar">
@@ -11295,6 +11355,16 @@
                   <select id="vehicleKmVehicleFilter"></select>
                 </div>
                 <div class="vehicle-km-summary" id="vehicleKmSummary"></div>
+                <div class="vehicle-km-chart-grid">
+                  <section class="vehicle-km-chart-card">
+                    <div class="vehicle-km-chart-head"><div><strong>Araç Bazlı TL/KM Karşılaştırması</strong><span>Yakıt gideri, toplam maliyet ve gelirin kilometre başı karşılaştırması.</span></div></div>
+                    <div id="vehicleKmCostChart"></div>
+                  </section>
+                  <section class="vehicle-km-chart-card">
+                    <div class="vehicle-km-chart-head"><div><strong>6 Aylık TL/KM Eğilimi</strong><span>Seçilen araç veya tüm filonun yakıt ve toplam maliyet hareketi.</span></div></div>
+                    <div id="vehicleKmTrendChart"></div>
+                  </section>
+                </div>
                 <div class="vehicle-km-table-host" id="vehicleKmTableHost"></div>
               </section>
             </div>
@@ -11813,7 +11883,7 @@
               <div class="panel-header">
                 <div>
                   <h2 class="panel-title">Yönetici Raporları ve PDF Çıktı Merkezi</h2>
-                  <div class="panel-sub">Aylık finans verisini yönetim, personel, okul veya araç raporuna dönüştür.</div>
+                  <div class="panel-sub">Seçilen dönemin özetini değil; tüm gelir, gider, tahsilat, bakım, hakediş, özel kullanım, KM ve kârlılık kayıtlarını ayrıntılı raporla.</div>
                 </div>
               </div>
 
@@ -11821,10 +11891,15 @@
                 <div class="field">
                   <label for="financeReportType">Rapor Türü</label>
                   <select id="financeReportType">
-                    <option value="management">Genel Yönetim Raporu</option>
-                    <option value="personnel">Personel Servisi Raporu</option>
-                    <option value="school">Okul Servisi Raporu</option>
-                    <option value="vehicle">Araç Raporu</option>
+                    <option value="management">Genel Yönetim Raporu — Tam Kapsam</option>
+                    <option value="personnel">Personel Servisi Detay Raporu</option>
+                    <option value="school">Okul Servisi Detay Raporu</option>
+                    <option value="vehicle">Araç ve KM Detay Raporu</option>
+                    <option value="invoices">Fatura ve Tahsilat Detay Raporu</option>
+                    <option value="maintenance">Bakım & Mekanik Detay Raporu</option>
+                    <option value="private-use">Özel Kullanım Detay Raporu</option>
+                    <option value="staff">Şoför / Rehber Detay Raporu</option>
+                    <option value="profitability">Kârlılık Detay Raporu</option>
                   </select>
                 </div>
                 <div class="field">
@@ -12512,7 +12587,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.33.1</strong>
+                <strong>v4.34.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12541,8 +12616,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.33.1 - Sol panel eski kompakt yapısına döndürüldü; yakıt toplamı yalnız litre x gerçek fiyat ile hesaplanır.
-    const APP_VERSION = "4.33.1";
+    // v4.34.0 - Finans sekmeleri düzenlendi; manuel yakıt toplamı, TL/KM grafikleri ve tam kapsamlı yönetim raporları eklendi.
+    const APP_VERSION = "4.34.0";
     const SCHEMA_VERSION = 28;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -15093,6 +15168,21 @@
       }).format(Number(value || 0));
     }
 
+    function parseFinanceDecimal(value) {
+      let text = String(value ?? "").trim().replace(/\s+/g, "");
+      if (!text) return 0;
+      const comma = text.lastIndexOf(",");
+      const dot = text.lastIndexOf(".");
+      if (comma >= 0 && dot >= 0) {
+        if (comma > dot) text = text.replace(/\./g, "").replace(",", ".");
+        else text = text.replace(/,/g, "");
+      } else if (comma >= 0) {
+        text = text.replace(/\./g, "").replace(",", ".");
+      }
+      const result = Number(text);
+      return Number.isFinite(result) ? result : 0;
+    }
+
     function updateVehicleExpenseFuelPreview(source = "auto") {
       const isFuel = $("#vehicleExpenseType")?.value === "Yakıt";
       const fields = $("#vehicleExpenseFuelFields");
@@ -15101,31 +15191,38 @@
       const amountHelp = $("#vehicleExpenseAmountHelp");
       const litersInput = $("#vehicleExpenseFuelLiters");
       const unitInput = $("#vehicleExpenseFuelUnitPrice");
+      const manualWrap = $("#vehicleExpenseManualTotalWrap");
+      const manualToggle = $("#vehicleExpenseManualTotal");
+      const manualTotal = Boolean(isFuel && manualToggle?.checked);
       fields?.classList.toggle("active", isFuel);
+      manualWrap?.classList.toggle("hidden", !isFuel);
 
       if (amountInput) {
-        amountInput.readOnly = isFuel;
-        amountInput.classList.toggle("fuel-calculated", isFuel);
-        amountInput.setAttribute("aria-readonly", isFuel ? "true" : "false");
+        amountInput.readOnly = isFuel && !manualTotal;
+        amountInput.classList.toggle("fuel-calculated", isFuel && !manualTotal);
+        amountInput.classList.toggle("fuel-manual", manualTotal);
+        amountInput.setAttribute("aria-readonly", isFuel && !manualTotal ? "true" : "false");
       }
-      if (amountLabel) amountLabel.textContent = isFuel ? "Toplam Tutar (₺) — Otomatik" : "Tutar (₺) *";
+      if (amountLabel) amountLabel.textContent = isFuel
+        ? (manualTotal ? "Toplam Tutar (₺) — Manuel" : "Toplam Tutar (₺) — Otomatik")
+        : "Tutar (₺) *";
       if (amountHelp) {
         amountHelp.hidden = !isFuel;
-        amountHelp.textContent = isFuel ? "Alınan litre × gerçek litre fiyatı olarak hesaplanır." : "";
+        amountHelp.textContent = !isFuel ? "" : manualTotal
+          ? "Manuel mod açık. Yazdığın toplam aynen kaydedilir; litre ve gerçek litre fiyatı ayrıca korunur."
+          : "Alınan litre × gerçek litre fiyatı olarak otomatik hesaplanır.";
       }
 
       if (!isFuel) {
+        if (manualToggle) manualToggle.checked = false;
         if (litersInput) litersInput.value = "";
         if (unitInput) unitInput.value = "";
         return;
       }
 
-      const liters = Math.max(0, Number(litersInput?.value || 0));
-      const unitPrice = Math.max(0, Number(unitInput?.value || 0));
-
-      // Yakıt kaydında fiyat hiçbir zaman toplam tutardan geriye doğru türetilmez.
-      // Kullanıcı litreyi ve şirketine uygulanan gerçek birim fiyatı girer; toplam yalnızca bu ikisinden hesaplanır.
-      if (amountInput) {
+      const liters = Math.max(0, parseFinanceDecimal(litersInput?.value));
+      const unitPrice = Math.max(0, parseFinanceDecimal(unitInput?.value));
+      if (!manualTotal && amountInput) {
         amountInput.value = liters > 0 && unitPrice > 0
           ? roundFinanceMoney(liters * unitPrice).toFixed(2)
           : "";
@@ -15199,6 +15296,41 @@
       saveState(); clearVehicleKmForm(); showToast("Kilometre kaydı silindi.");
     }
 
+    function renderVehicleKmCostChart(rows) {
+      const host = $("#vehicleKmCostChart");
+      if (!host) return;
+      const valid = rows.filter((row) => row.estimatedKm && row.fuelCostPerKm !== null).slice(0, 10);
+      if (!valid.length) { host.innerHTML = '<div class="empty">Grafik için KM ve yakıt gideri gerekli.</div>'; return; }
+      const max = Math.max(1, ...valid.flatMap((row) => [row.fuelCostPerKm || 0, row.kmCost || 0, row.revenuePerKm || 0]));
+      const bar = (label, value, cls = "") => `<div class="vehicle-km-cost-line ${cls}"><span>${escapeHtml(label)}</span><div class="vehicle-km-cost-track"><i style="width:${Math.max(2, Math.min(100, Number(value || 0) / max * 100))}%"></i></div><b>${escapeHtml(formatTRY(value || 0))}</b></div>`;
+      host.innerHTML = `<div class="vehicle-km-cost-bars">${valid.map((row) => `<div class="vehicle-km-cost-row"><strong title="${escapeHtml(row.name)}">${escapeHtml(row.name)}</strong><div class="vehicle-km-cost-series">${bar("Yakıt / KM", row.fuelCostPerKm)}${bar("Toplam / KM", row.kmCost, "total")}${bar("Gelir / KM", row.revenuePerKm, "revenue")}</div></div>`).join("")}</div>`;
+    }
+
+    function renderVehicleKmTrendChart(vehicleFilter, endMonth) {
+      const host = $("#vehicleKmTrendChart");
+      if (!host) return;
+      const months = financePreviousMonths(endMonth, 6);
+      const points = months.map((month) => {
+        const rows = profitabilityVehicleRows(month).filter((row) => vehicleFilter === "Tümü" || row.id === vehicleFilter);
+        const km = rows.reduce((sum, row) => sum + Number(row.estimatedKm || 0), 0);
+        const fuel = rows.reduce((sum, row) => sum + Number(row.fuelCost || 0), 0);
+        const total = rows.reduce((sum, row) => sum + Number(row.totalCost || 0), 0);
+        const revenue = rows.reduce((sum, row) => sum + Number(row.revenue || 0), 0);
+        const date = new Date(Number(month.slice(0,4)), Number(month.slice(5,7))-1, 1);
+        return { label: date.toLocaleDateString("tr-TR", { month: "short" }).replace(".", ""), fuel: km > 0 ? fuel / km : 0, total: km > 0 ? total / km : 0, revenue: km > 0 ? revenue / km : 0 };
+      });
+      if (!points.some((point) => point.fuel || point.total || point.revenue)) { host.innerHTML = '<div class="empty">Son altı ay için grafik verisi yok.</div>'; return; }
+      const width = 640, height = 250, left = 48, right = 16, top = 14, bottom = 34;
+      const pw = width-left-right, ph = height-top-bottom;
+      const max = Math.max(1, ...points.flatMap((point) => [point.fuel, point.total, point.revenue]));
+      const x = (index) => left + (points.length <= 1 ? pw/2 : index*pw/(points.length-1));
+      const y = (value) => top + ph - Number(value || 0)/max*ph;
+      const poly = (key) => points.map((point,index)=>`${x(index).toFixed(1)},${y(point[key]).toFixed(1)}`).join(" ");
+      const grid = [0,.25,.5,.75,1].map((ratio)=>{const gy=top+ph-ratio*ph;return `<line x1="${left}" y1="${gy}" x2="${width-right}" y2="${gy}" stroke="rgba(148,163,184,.22)"/><text x="2" y="${gy+3}" fill="currentColor" opacity=".65" font-size="9">${escapeHtml(formatTRY(max*ratio))}</text>`}).join("");
+      const labels = points.map((point,index)=>`<text x="${x(index)}" y="${height-8}" fill="currentColor" opacity=".65" font-size="9" text-anchor="middle">${escapeHtml(point.label)}</text>`).join("");
+      host.innerHTML = `<svg class="vehicle-km-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Altı aylık kilometre başı maliyet eğilimi">${grid}<polyline points="${poly("fuel")}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly("total")}" fill="none" stroke="var(--warning)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly("revenue")}" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${labels}</svg><div class="vehicle-km-chart-legend"><span><i style="background:var(--accent)"></i>Yakıt ₺/KM</span><span><i style="background:var(--warning)"></i>Toplam ₺/KM</span><span><i style="background:var(--success)"></i>Gelir ₺/KM</span></div>`;
+    }
+
     function renderVehicleKmAnalysis() {
       const summary = $("#vehicleKmSummary"), host = $("#vehicleKmTableHost");
       if (!summary || !host) return;
@@ -15206,34 +15338,34 @@
       const month = $("#vehicleKmMonth")?.value || getFinanceMonth();
       const filter = $("#vehicleKmVehicleFilter")?.value || "Tümü";
       const rows = profitabilityVehicleRows(month).filter((row) => filter === "Tümü" || row.id === filter);
-      const distance = rows.reduce((s,r)=>s+Number(r.estimatedKm||0),0);
-      const liters = rows.reduce((s,r)=>s+Number(r.fuelLiters||0),0);
-      const fuelCost = rows.reduce((s,r)=>s+Number(r.fuelCost||0),0);
-      const revenue = rows.reduce((s,r)=>s+Number(r.revenue||0),0);
-      const cost = rows.reduce((s,r)=>s+Number(r.totalCost||0),0);
-      const net = rows.reduce((s,r)=>s+Number(r.net||0),0);
-      const fuelPerKm = distance > 0 && liters > 0 ? liters / distance : null;
-      const consumption = fuelPerKm === null ? null : fuelPerKm * 100;
+      const distance = rows.reduce((sum,row)=>sum+Number(row.estimatedKm||0),0);
+      const fuelCost = rows.reduce((sum,row)=>sum+Number(row.fuelCost||0),0);
+      const revenue = rows.reduce((sum,row)=>sum+Number(row.revenue||0),0);
+      const cost = rows.reduce((sum,row)=>sum+Number(row.totalCost||0),0);
+      const net = rows.reduce((sum,row)=>sum+Number(row.net||0),0);
       const fuelKm = distance > 0 ? fuelCost / distance : null;
+      const fuel100Km = fuelKm === null ? null : fuelKm * 100;
       const costKm = distance > 0 ? cost / distance : null;
       const revenueKm = distance > 0 ? revenue / distance : null;
       const netKm = distance > 0 ? net / distance : null;
       summary.innerHTML = [
         {label:"Toplam Mesafe",value:distance>0?`${distance.toLocaleString("tr-TR")} km`:"-",risk:distance<=0,note:distance>0?"Sayaç / KM okumaları":"Başlangıç ve bitiş KM girin"},
-        {label:"Yakıt Tüketimi",value:consumption===null?"-":`${consumption.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`,risk:false},
-        {label:"KM Başına Yakıt",value:fuelPerKm===null?"-":`${fuelPerKm.toLocaleString("tr-TR",{minimumFractionDigits:3,maximumFractionDigits:4})} L/km`,risk:false,note:fuelPerKm===null?"Litre ve KM verisi gerekli":`${(fuelPerKm*1000).toLocaleString("tr-TR",{maximumFractionDigits:1})} ml / km`},
-        {label:"Yakıt Maliyeti / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false},
+        {label:"Toplam Yakıt Gideri",value:formatTRY(fuelCost),risk:false},
+        {label:"Yakıt Gideri / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false,note:"Gerçek yakıt gideri ÷ mesafe"},
+        {label:"100 KM Yakıt Gideri",value:fuel100Km===null?"-":`${formatTRY(fuel100Km)} / 100 km`,risk:false},
         {label:"Toplam Maliyet / KM",value:costKm===null?"-":`${formatTRY(costKm)} / km`,risk:false},
         {label:"Gelir / KM",value:revenueKm===null?"-":`${formatTRY(revenueKm)} / km`,risk:false},
         {label:netKm===null?"KM Sonucu":netKm>=0?"KM Başına Kâr":"KM Başına Zarar",value:netKm===null?"-":`${formatTRY(Math.abs(netKm))} / km`,risk:netKm!==null&&netKm<0,note:netKm===null?"KM verisi yetersiz":netKm>=0?"Gelir maliyetin üzerinde":"Maliyet gelirin üzerinde"}
       ].map(financeSummaryChipHtml).join("");
+      renderVehicleKmCostChart(rows);
+      renderVehicleKmTrendChart(filter, month);
       if (!rows.length) { host.innerHTML='<div class="empty">Seçilen araç ve dönem için analiz kaydı yok.</div>'; return; }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt</th><th>L/100 KM</th><th>Litre / KM</th><th>Yakıt ₺/KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt Gideri</th><th>Yakıt ₺/KM</th><th>Yakıt ₺/100 KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
         const info=row.kmInfo||vehicleKmDistanceInfo(row.id,month);
         const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
         const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
-        const litersPerKm = row.estimatedKm && Number(row.fuelLiters || 0) > 0 ? Number(row.fuelLiters || 0) / Number(row.estimatedKm) : null;
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</strong><br><span class="muted">${escapeHtml(formatTRY(row.fuelCost||0))}</span></td><td>${row.fuelConsumptionPer100===null?"-":`<strong>${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2}))} L/100 km</strong>`}</td><td>${litersPerKm===null?"-":`<strong>${escapeHtml(litersPerKm.toLocaleString("tr-TR",{minimumFractionDigits:3,maximumFractionDigits:4}))} L/km</strong><br><span class="muted">${escapeHtml((litersPerKm*1000).toLocaleString("tr-TR",{maximumFractionDigits:1}))} ml/km</span>`}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
+        const fuel100 = row.fuelCostPerKm === null ? null : row.fuelCostPerKm * 100;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -20387,6 +20519,7 @@
       renderVehicleExpenseOptions();
       $("#vehicleExpenseDate").value = todayISO();
       $("#vehicleExpenseType").value = "Yakıt";
+      if ($("#vehicleExpenseManualTotal")) $("#vehicleExpenseManualTotal").checked = false;
       $("#vehicleExpensePaymentMethod").value = "Nakit";
       if ($("#vehicleExpenseAllocationMode")) $("#vehicleExpenseAllocationMode").value = "general";
       if ($("#vehicleExpensePersonnelShare")) $("#vehicleExpensePersonnelShare").value = "50";
@@ -20404,10 +20537,11 @@
       const date = $("#vehicleExpenseDate").value;
       const vehicleId = $("#vehicleExpenseVehicle").value;
       const type = $("#vehicleExpenseType").value;
-      let amount = Number($("#vehicleExpenseAmount").value || 0);
-      const fuelLiters = type === "Yakıt" ? Number($("#vehicleExpenseFuelLiters")?.value || 0) : 0;
-      const fuelUnitPrice = type === "Yakıt" ? Number($("#vehicleExpenseFuelUnitPrice")?.value || 0) : 0;
-      if (type === "Yakıt" && fuelLiters > 0 && fuelUnitPrice > 0) {
+      const manualFuelTotal = type === "Yakıt" && Boolean($("#vehicleExpenseManualTotal")?.checked);
+      let amount = parseFinanceDecimal($("#vehicleExpenseAmount")?.value);
+      const fuelLiters = type === "Yakıt" ? parseFinanceDecimal($("#vehicleExpenseFuelLiters")?.value) : 0;
+      const fuelUnitPrice = type === "Yakıt" ? parseFinanceDecimal($("#vehicleExpenseFuelUnitPrice")?.value) : 0;
+      if (type === "Yakıt" && !manualFuelTotal && fuelLiters > 0 && fuelUnitPrice > 0) {
         amount = roundFinanceMoney(fuelLiters * fuelUnitPrice);
         if ($("#vehicleExpenseAmount")) $("#vehicleExpenseAmount").value = amount.toFixed(2);
       }
@@ -20464,6 +20598,7 @@
         amount,
         fuelLiters: type === "Yakıt" ? roundFinanceMoney(fuelLiters) : 0,
         fuelUnitPrice: type === "Yakıt" ? roundFuelUnitPrice(fuelUnitPrice) : 0,
+        fuelTotalManual: type === "Yakıt" ? manualFuelTotal : false,
         km: Number($("#vehicleExpenseKm").value || 0),
         paymentMethod: $("#vehicleExpensePaymentMethod").value || "Nakit",
         allocationMode,
@@ -20500,6 +20635,7 @@
       $("#vehicleExpenseAmount").value = expense.amount || "";
       $("#vehicleExpenseFuelLiters").value = vehicleExpenseFuelLiters(expense) || "";
       $("#vehicleExpenseFuelUnitPrice").value = vehicleExpenseFuelUnitPrice(expense) > 0 ? vehicleExpenseFuelUnitPrice(expense).toFixed(3) : "";
+      if ($("#vehicleExpenseManualTotal")) $("#vehicleExpenseManualTotal").checked = Boolean(expense.fuelTotalManual);
       $("#vehicleExpenseKm").value = expense.km || "";
       $("#vehicleExpensePaymentMethod").value = expense.paymentMethod || "Nakit";
       const allocationMode = vehicleExpenseAllocationMode(expense);
@@ -21010,10 +21146,18 @@
     }
 
     function financeReportTypeLabel(type = $("#financeReportType")?.value || "management") {
-      if (type === "personnel") return "Personel Servisi Raporu";
-      if (type === "school") return "Okul Servisi Raporu";
-      if (type === "vehicle") return "Araç Raporu";
-      return "Genel Yönetim Raporu";
+      const labels = {
+        management: "Genel Yönetim Raporu",
+        personnel: "Personel Servisi Detay Raporu",
+        school: "Okul Servisi Detay Raporu",
+        vehicle: "Araç ve KM Detay Raporu",
+        invoices: "Fatura ve Tahsilat Detay Raporu",
+        maintenance: "Bakım ve Mekanik Detay Raporu",
+        "private-use": "Özel Kullanım Detay Raporu",
+        staff: "Şoför / Rehber Detay Raporu",
+        profitability: "Kârlılık Detay Raporu"
+      };
+      return labels[type] || labels.management;
     }
 
     function ensureFinanceReportDefaults(syncMonth = false) {
@@ -21062,7 +21206,7 @@
 
       $("#financeReportJobField")?.classList.toggle("hidden", type !== "personnel");
       $("#financeReportSchoolField")?.classList.toggle("hidden", type !== "school");
-      $("#financeReportVehicleField")?.classList.toggle("hidden", type !== "vehicle");
+      $("#financeReportVehicleField")?.classList.toggle("hidden", !["vehicle", "maintenance", "private-use"].includes(type));
     }
 
     function financeReportHeaderHtml(title, subtitle, month) {
@@ -21109,7 +21253,7 @@
     }
 
     function financeReportTrendHtml(month) {
-      const months = financePreviousMonths(month, 6);
+      const months = financePreviousMonths(month, 12);
       const rows = months.map((item) => {
         const totals = financeOverviewTotals(item);
         const date = new Date(Number(item.slice(0, 4)), Number(item.slice(5, 7)) - 1, 1);
@@ -21126,7 +21270,7 @@
         return `<line x1="${left}" y1="${gy}" x2="${width - right}" y2="${gy}" stroke="#e5e7eb" stroke-width="1"></line><text x="2" y="${gy + 3}" fill="#6b7280" font-size="9">${escapeHtml(financeCompactMoney(maxValue * ratio))}</text>`;
       }).join("");
       const labels = rows.map((row, index) => `<text text-anchor="middle" x="${x(index)}" y="${height - 8}" fill="#6b7280" font-size="9">${escapeHtml(row.label)}</text>`).join("");
-      return `<svg class="report-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Altı aylık finans eğilimi">${grid}<polyline points="${points("income")}" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${points("collected")}" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${points("expense")}" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>${labels}</svg><div class="report-legend"><span><i style="background:#dc2626"></i>Gelir</span><span><i style="background:#16a34a"></i>Tahsilat</span><span><i style="background:#d97706"></i>Gider</span></div>`;
+      return `<svg class="report-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="On iki aylık finans eğilimi">${grid}<polyline points="${points("income")}" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${points("collected")}" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${points("expense")}" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>${labels}</svg><div class="report-legend"><span><i style="background:#dc2626"></i>Gelir</span><span><i style="background:#16a34a"></i>Tahsilat</span><span><i style="background:#d97706"></i>Gider</span></div>`;
     }
 
     function financeReportRiskHtml(items) {
@@ -21141,50 +21285,67 @@
 
     function renderManagementFinanceReport(month) {
       const totals = financeOverviewTotals(month);
-      const personnel = totals.personnel;
-      const school = totals.school;
-      const vehicle = totals.vehicle;
-      const staff = totals.staff;
+      const personnel = totals.personnel, school = totals.school, vehicle = totals.vehicle, staff = totals.staff;
+      const personnelRows = financeJobsForMonth(month).map((job) => ({ job, values: financeRecordValues(job, month), company: getCompany(job.companyId) }));
+      const schoolStudentRows = schoolFinanceRows(month, false);
+      const schoolRows = profitabilitySchoolRows(month);
+      const vehicleRows = profitabilityVehicleRows(month);
+      const profitRows = [...profitabilityJobRows(month), ...schoolRows].sort((a,b)=>Number(b.net||0)-Number(a.net||0));
+      const expenseRows = state.vehicleExpenses.filter((expense)=>String(expense.date||"").startsWith(month)).sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
+      const maintenanceRows = state.vehicleMaintenance.filter((record)=>String(record.date||"").startsWith(month) || maintenanceAllocatedInMonth(record, month)>0).sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
+      const privateRows = state.privateVehicleUses.filter((record)=>record.status==="active" || privateUseReportDate(record).startsWith(month)).sort((a,b)=>String(a.startDate||"").localeCompare(String(b.startDate||"")));
+      const staffRows = staffPaymentRows(month, false);
       const vehicleAlerts = getVehicleAlerts();
-      const profitRows = [...profitabilityJobRows(month), ...profitabilitySchoolRows(month)].sort((a, b) => Number(b.net || 0) - Number(a.net || 0));
-      const best = profitRows.find((row) => row.revenue > 0 || row.totalCost > 0);
-      const worst = [...profitRows].reverse().find((row) => row.revenue > 0 || row.totalCost > 0);
       const riskItems = [];
-      if (personnel.missingPrice > 0) riskItems.push({ risk: true, text: `${personnel.missingPrice} iş veya sözleşmede fiyat bilgisi eksik.` });
-      if (personnel.unlinkedTrips > 0) riskItems.push({ risk: true, text: `${personnel.unlinkedTrips} tamamlanmış sefer bir sözleşmeye bağlı değil.` });
-      if (personnel.overdueCount > 0) riskItems.push({ risk: true, text: `${personnel.overdueCount} firma faturası vadesini geçmiş.` });
-      if (school.overdueUnpaidCount + school.overduePartialCount > 0) riskItems.push({ risk: true, text: `${school.overdueUnpaidCount + school.overduePartialCount} öğrenci ödemesi geçmiş dönemden açık.` });
-      if (staff.overdueCount > 0) riskItems.push({ risk: true, text: `${staff.overdueCount} şoför veya rehber ödemesi vadesini geçmiş.` });
-      if (vehicle.riskCount > 0) riskItems.push({ risk: true, text: `${vehicle.riskCount} araç giderinde bağlantı veya paylaşım hatası var.` });
-      if (vehicleAlerts.length > 0) riskItems.push({ risk: true, text: `${vehicleAlerts.length} bakım, muayene veya evrak uyarısı bulunuyor.` });
-      const topRows = profitRows.slice(0, 8).map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary || "-")}</span></td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net < 0 ? "negative" : "positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin === null ? "-" : `%${escapeHtml(Number(row.margin).toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}`}</td><td><span class="report-status ${row.status.risk ? "risk" : "ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
-      return `
-        ${financeReportHeaderHtml("Aylık Genel Yönetim Raporu", "Gelir, tahsilat, maliyet, alacak, kârlılık ve kritik risklerin yönetim özeti.", month)}
-        ${financeReportKpisHtml([
-          { label: "Toplam Gelir", value: formatTRY(totals.revenue) },
-          { label: "Toplam Tahsilat", value: formatTRY(totals.collected) },
-          { label: "Hesaplanan KDV", value: formatTRY(totals.vat) },
-          { label: "Toplam Gider", value: formatTRY(totals.totalExpense) },
-          { label: "Net Operasyon Sonucu", value: formatTRY(totals.net), risk: totals.net < 0 },
-          { label: "Toplam Alacak", value: formatTRY(totals.receivable), risk: personnel.overdueReceivable + school.overdueRemaining > 0 },
-          { label: "Personel Hakedişi", value: formatTRY(personnel.accrual) },
-          { label: "Okul Tahakkuku", value: formatTRY(school.expected) },
-          { label: "Riskli Kayıt", value: `${riskItems.length} başlık`, risk: riskItems.length > 0 }
-        ])}
-        <div class="report-chart-grid">
-          <div class="report-chart-card"><strong>6 Aylık Finans Eğilimi</strong><span>Gelir, tahsilat ve giderin son altı aydaki hareketi.</span>${financeReportTrendHtml(month)}</div>
-          <div class="report-chart-card"><strong>Dönem Finans Akışı</strong><span>Gelirden net sonuca kadar ana parasal göstergeler.</span>${financeReportBarsHtml([
-            { label: "Gelir", value: totals.revenue, className: "red" },
-            { label: "Tahsilat", value: totals.collected, className: "green" },
-            { label: "Araç gideri", value: vehicle.total, className: "amber" },
-            { label: "Personel gideri", value: staff.total, className: "amber" },
-            { label: "Net sonuç", value: totals.net, className: totals.net < 0 ? "red" : "blue" }
-          ])}</div>
-        </div>
-        <div class="report-section"><div class="report-section-title"><strong>Kritik Kontroller</strong><span>Yalnız aksiyon gerektiren başlıklar</span></div>${financeReportRiskHtml(riskItems)}</div>
-        <div class="report-section"><div class="report-section-title"><strong>Kârlılık Sıralaması</strong><span>En yüksek net katkıdan en düşüğe</span></div>${financeReportTableHtml(["Operasyon", "Gelir", "Maliyet", "Net Katkı", "Marj", "Durum"], topRows)}</div>
-        <div class="report-section"><div class="report-section-title"><strong>Yönetim Notu</strong><span>Otomatik değerlendirme</span></div><div class="report-risk-grid"><div class="report-risk-item ${totals.net < 0 ? "risk" : "ok"}">${totals.net < 0 ? "Dönem net sonucu negatiftir. Gider ve fiyat yapısı acil incelenmelidir." : "Dönem operasyon sonucu pozitiftir."}</div><div class="report-risk-item ${worst?.net < 0 ? "risk" : "ok"}">En yüksek katkı: ${escapeHtml(best?.name || "Veri yok")} (${escapeHtml(formatTRY(best?.net || 0))}). En düşük katkı: ${escapeHtml(worst?.name || "Veri yok")} (${escapeHtml(formatTRY(worst?.net || 0))}).</div></div></div>
-        ${financeReportFooterHtml()}`;
+      if (personnel.missingPrice > 0) riskItems.push({risk:true,text:`${personnel.missingPrice} iş veya sözleşmede fiyat bilgisi eksik.`});
+      if (personnel.unlinkedTrips > 0) riskItems.push({risk:true,text:`${personnel.unlinkedTrips} tamamlanmış sefer bir sözleşmeye bağlı değil.`});
+      if (personnel.overdueCount > 0) riskItems.push({risk:true,text:`${personnel.overdueCount} firma faturası vadesini geçmiş.`});
+      if (school.overdueUnpaidCount + school.overduePartialCount > 0) riskItems.push({risk:true,text:`${school.overdueUnpaidCount + school.overduePartialCount} öğrenci ödemesi geçmiş dönemden açık.`});
+      if (staff.overdueCount > 0) riskItems.push({risk:true,text:`${staff.overdueCount} şoför veya rehber ödemesi vadesini geçmiş.`});
+      if (vehicle.riskCount > 0) riskItems.push({risk:true,text:`${vehicle.riskCount} araç giderinde bağlantı veya paylaşım hatası var.`});
+      if (vehicleAlerts.length > 0) riskItems.push({risk:true,text:`${vehicleAlerts.length} bakım, muayene veya evrak uyarısı bulunuyor.`});
+
+      const expenseCategory = new Map();
+      expenseRows.forEach((row)=>expenseCategory.set(row.type||"Diğer",(expenseCategory.get(row.type||"Diğer")||0)+Number(row.amount||0)));
+      const maintenanceCategory = new Map();
+      maintenanceRows.forEach((row)=>maintenanceCategory.set(row.type||"Diğer",(maintenanceCategory.get(row.type||"Diğer")||0)+maintenanceAllocatedInMonth(row,month)));
+      const categoryItems = [...expenseCategory.entries(), ...maintenanceCategory.entries().map(([name,value])=>[`Bakım: ${name}`,value])].sort((a,b)=>b[1]-a[1]).slice(0,9).map(([label,value],index)=>({label,value,className:index%3===0?"red":index%3===1?"amber":"blue"}));
+      const collectionItems = [
+        {label:"Personel Kasa Hedefi",value:personnel.cashTarget,className:"red"},
+        {label:"Personel Tahsilat",value:personnel.collected,className:"green"},
+        {label:"Okul Kasa Hedefi",value:school.cashExpected,className:"red"},
+        {label:"Okul Tahsilat",value:school.paid,className:"green"},
+        {label:"Toplam Alacak",value:totals.receivable,className:"amber"}
+      ];
+      const vehicleKmItems = vehicleRows.filter((row)=>row.kmCost!==null).sort((a,b)=>Number(b.kmCost||0)-Number(a.kmCost||0)).slice(0,8).map((row)=>({label:row.name,value:row.kmCost,className:row.netPerKm!==null&&row.netPerKm<0?"red":"blue"}));
+
+      const personnelTable = personnelRows.map(({job,values,company})=>{const status=financeStatus(values);return `<tr><td><strong>${escapeHtml(job.name||"-")}</strong><br><span>${escapeHtml(company?.name||"Firma yok")} · ${escapeHtml(job.contractNo||"No yok")}</span></td><td>${escapeHtml(String(values.plannedTrips))} / ${escapeHtml(String(values.realizedTrips))}</td><td class="money">${escapeHtml(formatTRY(values.accrual))}</td><td class="money">${escapeHtml(formatTRY(values.vatAmount))}</td><td class="money">${escapeHtml(formatTRY(values.invoiceAmount))}</td><td class="money">${escapeHtml(formatTRY(values.vehicleExpense))}</td><td class="money">${escapeHtml(formatTRY(values.staffExpense))}</td><td class="money ${values.netContribution<0?"negative":"positive"}">${escapeHtml(formatTRY(values.netContribution))}</td><td class="money">${escapeHtml(formatTRY(values.collected))}</td><td class="money">${escapeHtml(formatTRY(values.receivable))}</td><td><span class="report-status ${status.label==="Vadesi Geçti"?"risk":"ok"}">${escapeHtml(status.label)}</span></td></tr>`});
+      const schoolTable = schoolStudentRows.map((row)=>`<tr><td><strong>${escapeHtml(row.student.name||"-")}</strong><br><span>${escapeHtml(row.student.guardianName||"-")} · ${escapeHtml(row.student.guardianPhone||"-")}</span></td><td>${escapeHtml(row.school?.name||"Okul yok")}<br><span>${escapeHtml(row.student.className||"Sınıf yok")}</span></td><td>${escapeHtml(row.billingLabel)}</td><td class="money">${escapeHtml(formatTRY(row.netExpected))}</td><td class="money">${escapeHtml(formatTRY(row.vatAmount))}</td><td class="money">${escapeHtml(formatTRY(row.cashExpected))}</td><td class="money">${escapeHtml(formatTRY(row.paid))}</td><td class="money">${escapeHtml(formatTRY(row.remaining))}</td><td>${escapeHtml(row.invoiceNo||"-")}</td><td><span class="report-status ${["Ödenmedi","Eksik"].includes(row.status.label)&&month<currentMonthISO()?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
+      const expenseTable = expenseRows.map((row)=>`<tr><td>${escapeHtml(jobDateText(row.date))}</td><td><strong>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</strong></td><td>${escapeHtml(row.type||"Diğer")}</td><td class="money">${escapeHtml(formatTRY(row.amount||0))}</td><td>${row.type==="Yakıt"?`${escapeHtml(formatFuelUnitPrice(vehicleExpenseFuelUnitPrice(row)))} / L`:"-"}</td><td>${escapeHtml(row.paymentMethod||"-")}</td><td>${escapeHtml(row.supplier||"-")}</td><td>${escapeHtml(row.receiptNo||"-")}</td><td>${escapeHtml(row.companyName||row.schoolName||"Genel araç gideri")}</td><td>${escapeHtml(row.note||"-")}</td></tr>`);
+      const maintenanceTable = maintenanceRows.map((row)=>`<tr><td>${escapeHtml(jobDateText(row.date))}</td><td><strong>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</strong></td><td>${escapeHtml(row.type||"Diğer")}</td><td>${escapeHtml(row.description||row.note||"-")}</td><td>${Number(row.km||0)>0?`${Number(row.km).toLocaleString("tr-TR")} km`:"-"}</td><td class="money">${escapeHtml(formatTRY(row.amount||0))}</td><td>${maintenanceAllocationMonths(row)} ay</td><td class="money">${escapeHtml(formatTRY(maintenanceAllocatedInMonth(row,month)))}</td><td>${escapeHtml(row.supplier||"-")}</td></tr>`);
+      const staffTable = staffRows.map(({record,values,status,vehicle:rowVehicle,job,school:rowSchool})=>`<tr><td><strong>${escapeHtml(record.workerName||"-")}</strong><br><span>${escapeHtml(record.workerType==="guide"?"Rehber":"Şoför")} · ${escapeHtml(record.workerPhone||"-")}</span></td><td>${escapeHtml(rowVehicle?.plate||"-")}</td><td>${escapeHtml(job?.name||rowSchool?.name||"Genel")}</td><td>${escapeHtml(STAFF_PAYMENT_MODELS[record.paymentModel]||record.paymentModel||"-")}</td><td>${values.activity.trips} sefer / ${values.activity.days} gün</td><td class="money">${escapeHtml(formatTRY(values.liability))}</td><td class="money">${escapeHtml(formatTRY(values.settled))}</td><td class="money">${escapeHtml(formatTRY(values.remaining))}</td><td>${escapeHtml(record.dueDate||"-")}</td><td><span class="report-status ${status.label==="Vadesi Geçti"?"risk":"ok"}">${escapeHtml(status.label)}</span></td></tr>`);
+      const privateTable = privateRows.map((row)=>`<tr><td><span class="report-status ${row.status==="active"?"risk":"ok"}">${row.status==="active"?"Devam ediyor":"Tamamlandı"}</span></td><td><strong>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</strong></td><td>${escapeHtml(row.person||"-")}</td><td>${escapeHtml(row.purpose||"-")}</td><td>${escapeHtml(jobDateText(row.startDate))} · ${Number(row.startKm||0).toLocaleString("tr-TR")} km</td><td>${row.status==="active"?"-":`${escapeHtml(jobDateText(row.endDate))} · ${Number(row.endKm||0).toLocaleString("tr-TR")} km`}</td><td>${row.status==="active"?"-":`${Number(row.distanceKm||0).toLocaleString("tr-TR")} km`}</td><td class="money">${row.status==="active"?"-":escapeHtml(formatTRY(row.estimatedFuelCost||0))}</td><td>${escapeHtml(row.note||"-")}</td></tr>`);
+      const profitabilityTable = profitRows.map((row)=>`<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary||"-")}</span></td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin===null?"-":`%${escapeHtml(Number(row.margin).toLocaleString("tr-TR",{maximumFractionDigits:1}))}`}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
+      const vehicleTable = vehicleRows.map((row)=>`<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary||"-")}</span></td><td>${row.estimatedKm?`${Number(row.estimatedKm).toLocaleString("tr-TR")} km`:"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
+      const alertTable = vehicleAlerts.map((alert)=>`<tr><td><strong>${escapeHtml(alert.plate||"Araç")}</strong></td><td>${escapeHtml(alert.title||alert.message||"Uyarı")}</td><td>${escapeHtml(alert.message||"-")}</td><td><span class="report-status ${alert.severity==="danger"?"risk":"ok"}">${escapeHtml(alert.severity==="danger"?"Kritik":"Uyarı")}</span></td></tr>`);
+
+      return `${financeReportHeaderHtml("Genel Yönetim Raporu — Tam Kapsam", "Seçilen dönemdeki tüm finans, tahsilat, gider, hakediş, bakım, özel kullanım, KM ve kârlılık kayıtları. Özet değil, ayrıntılı yönetim dökümüdür.", month)}
+      ${financeReportKpisHtml([
+        {label:"Toplam Gelir",value:formatTRY(totals.revenue)},{label:"Toplam Tahsilat",value:formatTRY(totals.collected)},{label:"Toplam Alacak",value:formatTRY(totals.receivable),risk:totals.receivable>0&&month<currentMonthISO()},{label:"Hesaplanan KDV",value:formatTRY(totals.vat)},{label:"Araç Giderleri",value:formatTRY(vehicle.total)},{label:"Şoför / Rehber",value:formatTRY(staff.total)},{label:"Dağıtılmış Mekanik",value:formatTRY(maintenanceAllocatedForMonth("",month))},{label:"Net Operasyon Sonucu",value:formatTRY(totals.net),risk:totals.net<0},{label:"Açık Risk",value:`${riskItems.length} başlık`,risk:riskItems.length>0}
+      ])}
+      <div class="report-chart-grid"><div class="report-chart-card"><strong>12 Aylık Finans Eğilimi</strong><span>Gelir, tahsilat ve gider hareketi.</span>${financeReportTrendHtml(month)}</div><div class="report-chart-card"><strong>Tahsilat Performansı</strong><span>Personel ve okul kasa hedefleri ile gerçekleşen tahsilatlar.</span>${financeReportBarsHtml(collectionItems)}</div></div>
+      <div class="report-chart-grid three"><div class="report-chart-card"><strong>Gider Kategorileri</strong><span>Araç ve dağıtılmış mekanik giderlerin ağırlığı.</span>${financeReportBarsHtml(categoryItems.length?categoryItems:[{label:"Veri yok",value:0}])}</div><div class="report-chart-card"><strong>Operasyon Kârlılığı</strong><span>En yüksek net katkıya sahip kayıtlar.</span>${financeReportBarsHtml(profitRows.slice(0,8).map((row)=>({label:row.name,value:row.net,className:row.net<0?"red":"green"})))}</div><div class="report-chart-card"><strong>Araç Toplam Maliyeti / KM</strong><span>Filoda kilometre başına toplam maliyet.</span>${financeReportBarsHtml(vehicleKmItems.length?vehicleKmItems:[{label:"KM verisi yok",value:0}])}</div></div>
+      <div class="report-section"><div class="report-section-title"><strong>Kritik Kontroller ve Aksiyonlar</strong><span>${riskItems.length} başlık</span></div>${financeReportRiskHtml(riskItems)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>1. Personel Servisi Finans Detayı</strong><span>${personnelRows.length} iş / sözleşme</span></div>${financeReportTableHtml(["İş / Firma","Plan / Gerçek","Hakediş","KDV","Fatura","Araç Gideri","Personel Gideri","Net","Tahsilat","Alacak","Durum"],personnelTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>2. Okul Öğrenci Finans ve Tahsilat Detayı</strong><span>${schoolStudentRows.length} öğrenci</span></div>${financeReportTableHtml(["Öğrenci / Veli","Okul / Sınıf","Tür","KDV Hariç","KDV","Kasa Hedefi","Tahsilat","Kalan","Fatura No","Durum"],schoolTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>3. Araç Gelir / Gider Kayıtları</strong><span>${expenseRows.length} kayıt</span></div>${financeReportTableHtml(["Tarih","Araç","Gider Türü","Tutar","Litre Fiyatı","Ödeme","Tedarikçi","Belge No","Bağlantı","Not"],expenseTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>4. Bakım & Mekanik ve Maliyet Dağılımı</strong><span>${maintenanceRows.length} kayıt</span></div><div class="report-subsection-note">Seçilen ayda ödenen veya seçilen aya maliyet payı düşen bütün mekanik kayıtlar.</div>${financeReportTableHtml(["Tarih","Araç","Kategori","İşlem","KM","Gerçek Ödeme","Dağıtım","Bu Aya Düşen","Tedarikçi"],maintenanceTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>5. Şoför / Rehber Hakediş ve Ödeme Detayı</strong><span>${staffRows.length} kayıt</span></div>${financeReportTableHtml(["Çalışan","Araç","Operasyon","Model","Faaliyet","Hakediş","Ödenen","Kalan","Vade","Durum"],staffTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>6. Özel Araç Kullanımı</strong><span>${privateRows.length} kayıt</span></div>${financeReportTableHtml(["Durum","Araç","Kullanan","Amaç","Başlangıç","Bitiş","Mesafe","Tahmini Yakıt Gideri","Not"],privateTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>7. Kârlılık Detayı</strong><span>${profitRows.length} operasyon</span></div>${financeReportTableHtml(["Operasyon","Gelir","Araç","Personel","Toplam Maliyet","Net","Marj","Durum"],profitabilityTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>8. Araç KM ve TL/KM Detayı</strong><span>${vehicleRows.length} araç</span></div>${financeReportTableHtml(["Araç","Mesafe","Yakıt Gideri","Yakıt ₺/KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Durum"],vehicleTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>9. Araç Bakım, Muayene ve Evrak Uyarıları</strong><span>${vehicleAlerts.length} uyarı</span></div>${financeReportTableHtml(["Araç","Başlık","Açıklama","Seviye"],alertTable)}</div>
+      ${financeReportFooterHtml()}`;
     }
 
     function renderPersonnelFinanceReport(month) {
@@ -21251,29 +21412,65 @@
         return acc;
       },{revenue:0,collected:0,vehicle:0,fuelCost:0,fuelLiters:0,staff:0,cost:0,net:0,trips:0,km:0});
       const alerts = getVehicleAlerts().filter((alert) => selected === "Tümü" || alert.vehicleId === selected);
-      const consumption = totals.km > 0 && totals.fuelLiters > 0 ? totals.fuelLiters / totals.km * 100 : null;
+      const fuelPerKm = totals.km > 0 ? totals.fuelCost / totals.km : null;
       const kmCost = totals.km > 0 ? totals.cost / totals.km : null;
       const kmRevenue = totals.km > 0 ? totals.revenue / totals.km : null;
       const kmNet = totals.km > 0 ? totals.net / totals.km : null;
       const tableRows = rows.map((row)=>{
         const vehicle=state.vehicles.find((item)=>item.id===row.id);
         const alertCount=getVehicleAlerts(row.id).length;
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.estimatedKm?escapeHtml(`${row.estimatedKm.toLocaleString("tr-TR")} km`):"-"}</td><td>${escapeHtml(Number(row.fuelLiters||0).toLocaleString("tr-TR",{maximumFractionDigits:2}))} L</td><td>${row.fuelConsumptionPer100===null?"-":escapeHtml(`${row.fuelConsumptionPer100.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`)}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.estimatedKm?escapeHtml(`${row.estimatedKm.toLocaleString("tr-TR")} km`):"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm*100)} / 100 km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`;
       });
       const alertItems=alerts.slice(0,12).map((alert)=>({risk:alert.severity==="danger",text:`${alert.plate||"Araç"}: ${alert.message||alert.title||"Uyarı"}`}));
-      return `${financeReportHeaderHtml("Araç KM, Maliyet ve Kârlılık Raporu", "Araç bazında yakıt tüketimi, kilometre maliyeti, kilometre başına gelir ve kâr/zarar analizi.", month)}${financeReportKpisHtml([
+      return `${financeReportHeaderHtml("Araç KM, Maliyet ve Kârlılık Raporu", "Araç bazında gerçek yakıt gideri, kilometre maliyeti, kilometre başına gelir ve kâr/zarar analizi.", month)}${financeReportKpisHtml([
         {label:"Araç Geliri",value:formatTRY(totals.revenue)},
         {label:"Toplam Maliyet",value:formatTRY(totals.cost)},
         {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0},
         {label:"Toplam Mesafe",value:totals.km>0?`${totals.km.toLocaleString("tr-TR")} km`:"-"},
-        {label:"Yakıt",value:`${totals.fuelLiters.toLocaleString("tr-TR",{maximumFractionDigits:2})} L · ${formatTRY(totals.fuelCost)}`},
-        {label:"Tüketim",value:consumption===null?"-":`${consumption.toLocaleString("tr-TR",{maximumFractionDigits:2})} L/100 km`},
+        {label:"Toplam Yakıt Gideri",value:formatTRY(totals.fuelCost)},
+        {label:"Yakıt Gideri / KM",value:fuelPerKm===null?"-":`${formatTRY(fuelPerKm)} / km`},
         {label:"Toplam Maliyet / KM",value:kmCost===null?"-":`${formatTRY(kmCost)} / km`},
         {label:"Gelir / KM",value:kmRevenue===null?"-":`${formatTRY(kmRevenue)} / km`},
         {label:kmNet!==null&&kmNet<0?"Zarar / KM":"Kâr / KM",value:kmNet===null?"-":`${formatTRY(Math.abs(kmNet))} / km`,risk:kmNet!==null&&kmNet<0},
         {label:"Gerçekleşen Sefer",value:`${totals.trips} sefer`},
         {label:"Bakım / Evrak Uyarısı",value:`${alerts.length} kayıt`,risk:alerts.length>0}
-      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı KM Performansı</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç","Sefer","Gelir","Toplam Maliyet","Net","Mesafe","Yakıt Litre","L/100 KM","Yakıt ₺/KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Uyarı","Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
+      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı KM Performansı</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç","Sefer","Gelir","Toplam Maliyet","Net","Mesafe","Yakıt Gideri","Yakıt ₺/KM","Yakıt ₺/100 KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Uyarı","Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
+    }
+
+    function renderInvoiceCollectionFinanceReport(month) {
+      const personnelRows = financeJobsForMonth(month).map((job)=>({job,company:getCompany(job.companyId),values:financeRecordValues(job,month)}));
+      const schoolRows = schoolFinanceRows(month,false);
+      const pRows = personnelRows.map(({job,company,values})=>`<tr><td>Personel Servisi</td><td><strong>${escapeHtml(job.name||"-")}</strong><br><span>${escapeHtml(company?.name||"-")}</span></td><td>${escapeHtml(values.invoiceDate||"-")}</td><td>${escapeHtml(values.invoiceNo||"-")}</td><td class="money">${escapeHtml(formatTRY(values.invoiceAmount))}</td><td class="money">${escapeHtml(formatTRY(values.collected))}</td><td class="money">${escapeHtml(formatTRY(values.receivable))}</td><td>${escapeHtml(values.dueDate||"-")}</td><td>${escapeHtml(financeStatus(values).label)}</td></tr>`);
+      const sRows = schoolRows.map((row)=>`<tr><td>Okul Servisi</td><td><strong>${escapeHtml(row.student.name||"-")}</strong><br><span>${escapeHtml(row.school?.name||"-")}</span></td><td>${escapeHtml(row.invoiceDate||"-")}</td><td>${escapeHtml(row.invoiceNo||"-")}</td><td class="money">${escapeHtml(formatTRY(row.cashExpected))}</td><td class="money">${escapeHtml(formatTRY(row.paid))}</td><td class="money">${escapeHtml(formatTRY(row.remaining))}</td><td>-</td><td>${escapeHtml(row.status.label)}</td></tr>`);
+      return `${financeReportHeaderHtml("Fatura ve Tahsilat Detay Raporu","Personel ve okul servisindeki tüm fatura, tahsilat ve açık bakiye kayıtları.",month)}${financeReportKpisHtml([{label:"Fatura / Kasa Hedefi",value:formatTRY(personnelRows.reduce((s,r)=>s+r.values.invoiceAmount,0)+schoolRows.reduce((s,r)=>s+r.cashExpected,0))},{label:"Toplam Tahsilat",value:formatTRY(personnelRows.reduce((s,r)=>s+r.values.collected,0)+schoolRows.reduce((s,r)=>s+r.paid,0))},{label:"Toplam Açık Bakiye",value:formatTRY(personnelRows.reduce((s,r)=>s+r.values.receivable,0)+schoolRows.reduce((s,r)=>s+r.remaining,0)),risk:true}])}<div class="report-section report-section-splittable"><div class="report-section-title"><strong>Tüm Fatura ve Tahsilatlar</strong><span>${pRows.length+sRows.length} kayıt</span></div>${financeReportTableHtml(["Kaynak","Kayıt","Fatura Tarihi","Fatura No","Hedef / Fatura","Tahsilat","Kalan","Vade","Durum"],[...pRows,...sRows])}</div>${financeReportFooterHtml()}`;
+    }
+
+    function renderMaintenanceDetailFinanceReport(month) {
+      const selected=$("#financeReportVehicle")?.value||"Tümü";
+      const rows=state.vehicleMaintenance.filter((row)=>(selected==="Tümü"||row.vehicleId===selected)&&(String(row.date||"").startsWith(month)||maintenanceAllocatedInMonth(row,month)>0)).sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
+      const cash=rows.filter((row)=>String(row.date||"").startsWith(month)).reduce((s,row)=>s+Number(row.amount||0),0), allocated=rows.reduce((s,row)=>s+maintenanceAllocatedInMonth(row,month),0);
+      const table=rows.map((row)=>`<tr><td>${escapeHtml(jobDateText(row.date))}</td><td>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</td><td>${escapeHtml(row.type||"Diğer")}</td><td>${escapeHtml(row.description||row.note||"-")}</td><td>${Number(row.km||0)>0?Number(row.km).toLocaleString("tr-TR"):"-"}</td><td class="money">${escapeHtml(formatTRY(row.amount||0))}</td><td>${maintenanceAllocationMonths(row)} ay</td><td class="money">${escapeHtml(formatTRY(maintenanceAllocatedInMonth(row,month)))}</td><td>${escapeHtml(vehicleCostMonthLabel(String(row.date||"").slice(0,7)))} → ${escapeHtml(vehicleCostMonthLabel(maintenanceAllocationEndMonth(row)))}</td><td>${escapeHtml(row.supplier||"-")}</td></tr>`);
+      return `${financeReportHeaderHtml("Bakım & Mekanik Detay Raporu","Gerçek ödeme, dağıtım süresi ve seçilen aya düşen yönetim maliyeti.",month)}${financeReportKpisHtml([{label:"Gerçek Ödeme",value:formatTRY(cash)},{label:"Bu Aya Dağıtılan",value:formatTRY(allocated)},{label:"Kayıt",value:`${rows.length} işlem`}])}<div class="report-section report-section-splittable">${financeReportTableHtml(["Tarih","Araç","Kategori","İşlem","KM","Gerçek Ödeme","Süre","Aya Düşen","Dağıtım Dönemi","Tedarikçi"],table)}</div>${financeReportFooterHtml()}`;
+    }
+
+    function renderPrivateUseDetailFinanceReport(month) {
+      const selected=$("#financeReportVehicle")?.value||"Tümü";
+      const rows=state.privateVehicleUses.filter((row)=>(selected==="Tümü"||row.vehicleId===selected)&&(row.status==="active"||privateUseReportDate(row).startsWith(month)));
+      const km=rows.reduce((s,row)=>s+Number(row.distanceKm||0),0), cost=rows.reduce((s,row)=>s+Number(row.estimatedFuelCost||0),0);
+      const table=rows.map((row)=>`<tr><td>${row.status==="active"?"Devam ediyor":"Tamamlandı"}</td><td>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</td><td>${escapeHtml(row.person||"-")}</td><td>${escapeHtml(row.purpose||"-")}</td><td>${escapeHtml(row.startDate||"-")} · ${Number(row.startKm||0).toLocaleString("tr-TR")}</td><td>${escapeHtml(row.endDate||"-")} · ${Number(row.endKm||0).toLocaleString("tr-TR")}</td><td>${Number(row.distanceKm||0).toLocaleString("tr-TR")} km</td><td class="money">${escapeHtml(formatTRY(row.fuelCostPerKm||0))}</td><td class="money">${escapeHtml(formatTRY(row.estimatedFuelCost||0))}</td><td>${escapeHtml(row.note||"-")}</td></tr>`);
+      return `${financeReportHeaderHtml("Özel Kullanım Detay Raporu","İş dışı kullanımın başlangıç/bitiş kilometresi ve tahmini yakıt gideri.",month)}${financeReportKpisHtml([{label:"Toplam Özel KM",value:`${km.toLocaleString("tr-TR")} km`},{label:"Tahmini Yakıt Gideri",value:formatTRY(cost)},{label:"Kayıt",value:`${rows.length} kullanım`}])}<div class="report-section report-section-splittable">${financeReportTableHtml(["Durum","Araç","Kullanan","Amaç","Başlangıç","Bitiş","Mesafe","Yakıt ₺/KM","Tahmini Yakıt","Not"],table)}</div>${financeReportFooterHtml()}`;
+    }
+
+    function renderStaffDetailFinanceReport(month) {
+      const rows=staffPaymentRows(month,false), totals=staffPaymentTotals(month,false);
+      const table=rows.map(({record,values,status,vehicle,job,school})=>`<tr><td>${escapeHtml(record.workerName||"-")}<br><span>${escapeHtml(record.workerType==="guide"?"Rehber":"Şoför")}</span></td><td>${escapeHtml(vehicle?.plate||"-")}</td><td>${escapeHtml(job?.name||school?.name||"Genel")}</td><td>${escapeHtml(STAFF_PAYMENT_MODELS[record.paymentModel]||"-")}</td><td>${values.activity.trips} sefer / ${values.activity.days} gün</td><td class="money">${escapeHtml(formatTRY(values.grossAccrual))}</td><td class="money">${escapeHtml(formatTRY(values.deduction))}</td><td class="money">${escapeHtml(formatTRY(values.advance))}</td><td class="money">${escapeHtml(formatTRY(values.paid))}</td><td class="money">${escapeHtml(formatTRY(values.remaining))}</td><td>${escapeHtml(record.dueDate||"-")}</td><td>${escapeHtml(status.label)}</td></tr>`);
+      return `${financeReportHeaderHtml("Şoför / Rehber Detay Raporu","Faaliyet, hakediş, kesinti, avans, ödeme ve açık bakiye.",month)}${financeReportKpisHtml([{label:"Toplam Hakediş",value:formatTRY(totals.total)},{label:"Ödenen + Avans",value:formatTRY(totals.paid)},{label:"Kalan",value:formatTRY(totals.remaining),risk:totals.remaining>0},{label:"Vadesi Geçen",value:`${totals.overdueCount} kayıt`,risk:totals.overdueCount>0}])}<div class="report-section report-section-splittable">${financeReportTableHtml(["Çalışan","Araç","Operasyon","Model","Faaliyet","Brüt","Kesinti","Avans","Ödeme","Kalan","Vade","Durum"],table)}</div>${financeReportFooterHtml()}`;
+    }
+
+    function renderProfitabilityDetailFinanceReport(month) {
+      const groups=[{title:"İş / Sözleşme",rows:profitabilityJobRows(month)},{title:"Okul",rows:profitabilitySchoolRows(month)},{title:"Araç",rows:profitabilityVehicleRows(month)}];
+      const sections=groups.map((group)=>{const table=group.rows.map((row)=>`<tr><td>${escapeHtml(row.name)}<br><span>${escapeHtml(row.secondary||"-")}</span></td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin===null?"-":`%${Number(row.margin).toLocaleString("tr-TR",{maximumFractionDigits:1})}`}</td><td>${escapeHtml(row.status.label)}</td></tr>`);return `<div class="report-section report-section-splittable"><div class="report-section-title"><strong>${escapeHtml(group.title)} Kârlılığı</strong><span>${group.rows.length} kayıt</span></div>${financeReportTableHtml(["Kayıt","Gelir","Araç","Personel","Toplam Maliyet","Net","Marj","Durum"],table)}</div>`}).join("");
+      return `${financeReportHeaderHtml("Kârlılık Detay Raporu","İş, okul ve araç bazında gelir, maliyet, net katkı ve marj.",month)}${sections}${financeReportFooterHtml()}`;
     }
 
     function renderFinanceReport() {
@@ -21286,6 +21483,11 @@
       if (type === "personnel") content = renderPersonnelFinanceReport(month);
       else if (type === "school") content = renderSchoolFinanceReport(month);
       else if (type === "vehicle") content = renderVehicleFinanceReport(month);
+      else if (type === "invoices") content = renderInvoiceCollectionFinanceReport(month);
+      else if (type === "maintenance") content = renderMaintenanceDetailFinanceReport(month);
+      else if (type === "private-use") content = renderPrivateUseDetailFinanceReport(month);
+      else if (type === "staff") content = renderStaffDetailFinanceReport(month);
+      else if (type === "profitability") content = renderProfitabilityDetailFinanceReport(month);
       else content = renderManagementFinanceReport(month);
       host.innerHTML = `<article class="finance-report-sheet" data-report-type="${escapeHtml(type)}">${content}</article>`;
     }
@@ -21313,7 +21515,7 @@
         body { font-family: Inter, Arial, sans-serif !important; }
         .finance-report-sheet { width: 100% !important; max-width: none !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; }
         .report-table thead { display: table-header-group !important; }
-        .report-table tr, .report-section, .report-chart-card, .report-kpi { break-inside: avoid !important; page-break-inside: avoid !important; }
+        .report-table tr, .report-section:not(.report-section-splittable), .report-chart-card, .report-kpi { break-inside: avoid !important; page-break-inside: avoid !important; }
         .report-footer { position: static !important; left: auto !important; right: auto !important; bottom: auto !important; margin-top: 12px !important; }
         .report-page-number::after { content: counter(page); }
         .toast, .app, .auth-gate, .finance-report-print-portal { display: none !important; }
@@ -21384,21 +21586,44 @@
       const month = getFinanceReportMonth();
       if (type === "personnel") {
         const selected = $("#financeReportJob")?.value || "Tümü";
-        const rows = financeJobsForMonth(month).filter((job)=>selected==="Tümü"||job.id===selected).map((job)=>{const company=getCompany(job.companyId);const v=financeRecordValues(job,month);const s=financeStatus(v);return [month,job.contractNo||"",job.name,company?.name||"",v.plannedTrips,v.realizedTrips,v.accrual,v.vehicleExpense,v.staffExpense,v.netContribution,v.collected,v.receivable,s.label];});
-        downloadFinanceReportCsv(`personel-servisi-raporu-${month}.csv`,["Ay","Sözleşme No","İş","Firma","Planlanan Sefer","Gerçekleşen Sefer","Hakediş","Araç Gideri","Şoför/Rehber","Net Katkı","Tahsilat","Alacak","Durum"],rows);
+        const rows = financeJobsForMonth(month).filter((job)=>selected==="Tümü"||job.id===selected).map((job)=>{const company=getCompany(job.companyId);const v=financeRecordValues(job,month);const s=financeStatus(v);return [month,job.contractNo||"",job.name,company?.name||"",v.plannedTrips,v.realizedTrips,v.accrual,v.vatAmount,v.invoiceAmount,v.vehicleExpense,v.staffExpense,v.netContribution,v.collected,v.receivable,s.label];});
+        downloadFinanceReportCsv(`personel-servisi-detay-${month}.csv`,["Ay","Sözleşme No","İş","Firma","Planlanan Sefer","Gerçekleşen Sefer","Hakediş","KDV","Fatura","Araç Gideri","Şoför/Rehber","Net Katkı","Tahsilat","Alacak","Durum"],rows);
       } else if (type === "school") {
-        const selected=$("#financeReportSchool")?.value||"Tümü"; const rows=profitabilitySchoolRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.studentCount||0,row.invoicedCount||0,row.unbilledCount||0,row.revenue,row.vat,row.cashExpected,row.collected,row.receivable,row.vehicleCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.status.label]);
-        downloadFinanceReportCsv(`okul-servisi-raporu-${month}.csv`,["Ay","Okul","Öğrenci","Faturalı Öğrenci","Faturasız Öğrenci","KDV Hariç Tahakkuk","KDV","KDV Dahil Kasa Hedefi","Tahsilat","Alacak","Araç Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Durum"],rows);
+        const selected=$("#financeReportSchool")?.value||"Tümü"; const rows=schoolFinanceRows(month,false).filter((row)=>selected==="Tümü"||row.student.schoolId===selected).map((row)=>[month,row.school?.name||"",row.student.name||"",row.student.guardianName||"",row.billingLabel,row.netExpected,row.vatAmount,row.cashExpected,row.paid,row.remaining,row.invoiceNo||"",row.invoiceDate||"",row.status.label]);
+        downloadFinanceReportCsv(`okul-servisi-detay-${month}.csv`,["Ay","Okul","Öğrenci","Veli","Fatura Türü","KDV Hariç","KDV","Kasa Hedefi","Tahsilat","Kalan","Fatura No","Fatura Tarihi","Durum"],rows);
       } else if (type === "vehicle") {
-        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.vehicleCost,row.fuelCost,row.fuelLiters,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.fuelConsumptionPer100??"",row.fuelCostPerKm??"",row.vehicleCostPerKm??"",row.kmCost??"",row.revenuePerKm??"",row.netPerKm??"",getVehicleAlerts(row.id).length,row.status.label]);
-        downloadFinanceReportCsv(`arac-km-raporu-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Araç Gideri","Yakıt Gideri","Yakıt Litre","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Mesafe KM","Litre/100 KM","Yakıt TL/KM","Araç Gideri TL/KM","Toplam Maliyet TL/KM","Gelir TL/KM","Net TL/KM","Uyarı","Durum"],rows);
+        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.vehicleCost,row.fuelCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.fuelCostPerKm??"",row.vehicleCostPerKm??"",row.kmCost??"",row.revenuePerKm??"",row.netPerKm??"",getVehicleAlerts(row.id).length,row.status.label]);
+        downloadFinanceReportCsv(`arac-km-detay-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Araç Gideri","Yakıt Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Mesafe KM","Yakıt TL/KM","Araç Gideri TL/KM","Toplam Maliyet TL/KM","Gelir TL/KM","Net TL/KM","Uyarı","Durum"],rows);
+      } else if (type === "maintenance") {
+        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=state.vehicleMaintenance.filter((row)=>(selected==="Tümü"||row.vehicleId===selected)&&(String(row.date||"").startsWith(month)||maintenanceAllocatedInMonth(row,month)>0)).map((row)=>[month,row.date,row.vehiclePlate||vehicleLabel(row.vehicleId),row.type||"Diğer",row.description||row.note||"",row.km||0,row.amount||0,maintenanceAllocationMonths(row),maintenanceAllocatedInMonth(row,month),maintenanceAllocationEndMonth(row),row.supplier||""]);
+        downloadFinanceReportCsv(`bakim-mekanik-detay-${month}.csv`,["Ay","Tarih","Araç","Kategori","İşlem","KM","Gerçek Ödeme","Dağıtım Ayı","Bu Aya Düşen","Bitiş Ayı","Tedarikçi"],rows);
+      } else if (type === "private-use") {
+        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=state.privateVehicleUses.filter((row)=>(selected==="Tümü"||row.vehicleId===selected)&&(row.status==="active"||privateUseReportDate(row).startsWith(month))).map((row)=>[month,row.status,row.vehiclePlate||vehicleLabel(row.vehicleId),row.person||"",row.purpose||"",row.startDate,row.startKm,row.endDate||"",row.endKm||"",row.distanceKm||0,row.fuelCostPerKm||0,row.estimatedFuelCost||0,row.note||""]);
+        downloadFinanceReportCsv(`ozel-kullanim-detay-${month}.csv`,["Ay","Durum","Araç","Kullanan","Amaç","Başlangıç Tarihi","Başlangıç KM","Bitiş Tarihi","Bitiş KM","Mesafe","Yakıt TL/KM","Tahmini Yakıt","Not"],rows);
+      } else if (type === "staff") {
+        const rows=staffPaymentRows(month,false).map(({record,values,status,vehicle,job,school})=>[month,record.workerName||"",record.workerType||"",vehicle?.plate||"",job?.name||school?.name||"Genel",STAFF_PAYMENT_MODELS[record.paymentModel]||record.paymentModel,values.activity.trips,values.activity.days,values.grossAccrual,values.deduction,values.advance,values.paid,values.remaining,record.dueDate||"",status.label]);
+        downloadFinanceReportCsv(`sofor-rehber-detay-${month}.csv`,["Ay","Çalışan","Tür","Araç","Operasyon","Model","Sefer","Gün","Brüt","Kesinti","Avans","Ödeme","Kalan","Vade","Durum"],rows);
+      } else if (type === "invoices") {
+        const p=financeJobsForMonth(month).map((job)=>{const v=financeRecordValues(job,month);return [month,"Personel",job.name,getCompany(job.companyId)?.name||"",v.invoiceDate||"",v.invoiceNo||"",v.invoiceAmount,v.collected,v.receivable,v.dueDate||"",financeStatus(v).label]});
+        const s=schoolFinanceRows(month,false).map((row)=>[month,"Okul",row.student.name,row.school?.name||"",row.invoiceDate||"",row.invoiceNo||"",row.cashExpected,row.paid,row.remaining,"",row.status.label]);
+        downloadFinanceReportCsv(`fatura-tahsilat-detay-${month}.csv`,["Ay","Kaynak","Kayıt","Firma/Okul","Fatura Tarihi","Fatura No","Hedef/Fatura","Tahsilat","Kalan","Vade","Durum"],[...p,...s]);
+      } else if (type === "profitability") {
+        const rows=[["İş",...profitabilityJobRows(month)],["Okul",...profitabilitySchoolRows(month)],["Araç",...profitabilityVehicleRows(month)]].flatMap((group)=>group.slice(1).map((row)=>[month,group[0],row.name,row.secondary||"",row.revenue,row.vehicleCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.status.label]));
+        downloadFinanceReportCsv(`karlilik-detay-${month}.csv`,["Ay","Grup","Kayıt","Açıklama","Gelir","Araç","Personel","Toplam Maliyet","Net","Marj %","Durum"],rows);
       } else {
-        const totals=financeOverviewTotals(month); const p=totals.personnel,s=totals.school,v=totals.vehicle,st=totals.staff;
-        const rows=[["Toplam Gelir",totals.revenue],["Hesaplanan KDV",totals.vat],["Toplam Tahsilat",totals.collected],["Toplam Gider",totals.totalExpense],["Net Operasyon Sonucu",totals.net],["Toplam Alacak",totals.receivable],["Personel Hakedişi",p.accrual],["Okul Tahakkuku (KDV Hariç)",s.expected],["Okul KDV",s.vat],["Okul Kasa Hedefi",s.cashExpected],["Araç Giderleri",v.total],["Şoför/Rehber Giderleri",st.total],["Vadesi Geçen Firma Faturası",p.overdueCount],["Geçmiş Dönem Okul Borcu",s.overdueUnpaidCount+s.overduePartialCount],["Araç Bakım/Evrak Uyarısı",getVehicleAlerts().length]].map((row)=>[month,...row]);
-        downloadFinanceReportCsv(`genel-yonetim-raporu-${month}.csv`,["Ay","Gösterge","Değer"],rows);
+        const rows=[];
+        financeJobsForMonth(month).forEach((job)=>{const v=financeRecordValues(job,month);rows.push(["Personel Finans",month,job.name,getCompany(job.companyId)?.name||"",v.accrual,v.vehicleExpense+v.staffExpense,v.collected,v.receivable,"",financeStatus(v).label]);});
+        schoolFinanceRows(month,false).forEach((row)=>rows.push(["Okul Finans",month,row.student.name,row.school?.name||"",row.netExpected,0,row.paid,row.remaining,"",row.status.label]));
+        state.vehicleExpenses.filter((row)=>String(row.date||"").startsWith(month)).forEach((row)=>rows.push(["Araç Gideri",row.date,row.vehiclePlate||vehicleLabel(row.vehicleId),row.type||"",0,row.amount||0,0,0,row.km||"",row.note||""]));
+        state.vehicleMaintenance.filter((row)=>String(row.date||"").startsWith(month)||maintenanceAllocatedInMonth(row,month)>0).forEach((row)=>rows.push(["Bakım & Mekanik",row.date,row.vehiclePlate||vehicleLabel(row.vehicleId),row.type||"",0,maintenanceAllocatedInMonth(row,month),0,0,row.km||"",`${row.amount||0} gerçek ödeme / ${maintenanceAllocationMonths(row)} ay`]));
+        staffPaymentRows(month,false).forEach(({record,values,status})=>rows.push(["Şoför/Rehber",month,record.workerName||"",record.workerType||"",0,values.liability,values.settled,values.remaining,"",status.label]));
+        state.privateVehicleUses.filter((row)=>row.status==="active"||privateUseReportDate(row).startsWith(month)).forEach((row)=>rows.push(["Özel Kullanım",row.startDate,row.vehiclePlate||vehicleLabel(row.vehicleId),row.person||"",0,row.estimatedFuelCost||0,0,0,row.distanceKm||"",row.purpose||""]));
+        profitabilityVehicleRows(month).forEach((row)=>rows.push(["Araç KM",month,row.name,row.secondary||"",row.revenue,row.totalCost,row.collected,0,row.estimatedKm||"",row.netPerKm===null?"":`${row.netPerKm} TL/KM`]));
+        downloadFinanceReportCsv(`genel-yonetim-tam-detay-${month}.csv`,["Bölüm","Tarih/Ay","Ana Kayıt","Açıklama","Gelir/Hakediş","Gider/Maliyet","Tahsilat/Ödeme","Açık Bakiye","KM","Durum/Not"],rows);
       }
-      showToast("Rapor CSV indirildi.");
+      showToast("Detaylı rapor CSV indirildi.");
     }
+
 
 
     function activateFinanceTab(tabName) {
@@ -22936,6 +23161,11 @@
       $("#vehicleExpenseFuelUnitPrice")?.addEventListener("input", () => {
         updateVehicleExpenseFuelPreview("unit");
         updateVehicleExpenseLink("amount");
+      });
+      $("#vehicleExpenseManualTotal")?.addEventListener("change", () => {
+        updateVehicleExpenseFuelPreview("manual");
+        updateVehicleExpenseLink("amount");
+        if ($("#vehicleExpenseManualTotal")?.checked) $("#vehicleExpenseAmount")?.focus();
       });
       $("#vehicleExpenseForm")?.addEventListener("submit", saveVehicleExpense);
       $("#newVehicleExpenseBtn")?.addEventListener("click", () => {

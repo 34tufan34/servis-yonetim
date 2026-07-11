@@ -1,36 +1,26 @@
-SERVİS YÖNETİM SİSTEMİ v4.33.1 - PWA / LİSANSLI SÜRÜM
+SERVİS YÖNETİM SİSTEMİ v4.34.0 - FİNANS / RAPOR / KM GÜNCELLEMESİ
 
 GITHUB PAGES GÜNCELLEMESİ
-1. Programdan Ayarlar / Yedek bölümüne girip güncel JSON yedeği alın.
-2. Güncelleme ZIP dosyasını bilgisayarınızda çıkarın.
+1. Programdan Ayarlar / Yedek bölümüne girip JSON yedeği alın.
+2. Güncelleme ZIP dosyasını çıkarın.
 3. GitHub'da 34tufan34/servis-yonetim deposunun ana dizinine girin.
 4. + > Upload files seçeneğini açın.
-5. ZIP içindeki index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_33_1.txt dosyalarını birlikte yükleyin.
+5. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_34_0.txt dosyalarını yükleyin.
 6. Commit directly to the main branch seçili kalsın.
-7. Commit changes düğmesine basın ve GitHub Pages dağıtımının tamamlanmasını bekleyin.
-8. Tablette uygulamayı tamamen kapatıp yeniden açın.
-9. Eski sürüm kalırsa Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
+7. Commit mesajı: v4.34.0 finans rapor ve km analizi
+8. Commit changes düğmesine basın ve GitHub Pages dağıtımını bekleyin.
+9. Uygulamayı tamamen kapatıp yeniden açın.
+10. Eski sürüm kalırsa Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
 
-ÖNERİLEN COMMIT MESAJI
-v4.33.1 logo kaldırma ve yakıt hesap düzeltmesi
-
-V4.33.1 DÜZELTMELERİ
-- Sol panelde sonradan eklenen büyük karanlık logo kaldırıldı.
-- Panel, önceki kompakt SYS işareti ve Servis Yönetim Sistemi başlığı düzenine geri döndürüldü.
-- Yakıt kaydında litre fiyatının toplam tutardan otomatik ve hatalı biçimde türetilmesi kaldırıldı.
-- Kullanıcı Alınan Yakıt (Litre) ve Gerçek Litre Fiyatı alanlarını manuel girer.
-- Toplam Tutar yalnızca Litre x Gerçek Litre Fiyatı şeklinde otomatik hesaplanır ve yakıt kaydında salt okunur görünür.
-- Şirket indirimi uygulanmış gerçek birim fiyat aynen kaydedilir.
-- Açılış efekti yaklaşık 6 saniye olarak kalır.
-- Veri şeması 28 olarak kalır; mevcut kayıtlar korunur.
-- APK, paket adı, APK imzası ve lisans altyapısı değişmez.
-
-KONTROL LİSTESİ
-- Ayarlar / Yedek bölümünde v4.33.1 görünmeli.
-- Sol panelde büyük görsel logo bulunmamalı.
-- Yakıt seçildiğinde Toplam Tutar alanı otomatik ve düzenlenemez olmalı.
-- 50 litre ve 67,500 TL/L girildiğinde toplam 3.375,00 TL hesaplanmalı.
-- Tutar alanına önce 4.250 TL yazıp sonra 1 litre girildiğinde litre fiyatı 4.250 TL'ye dönüşmemeli.
-
-APK NOTU
-Bu bir web/PWA güncellemesidir. APK yeniden üretilmez.
+V4.34.0
+- Finans Özet sekmeleri kullanıcının istediği 13 maddelik sıraya getirildi.
+- Yakıt toplamı varsayılan olarak litre x gerçek litre fiyatı ile otomatik hesaplanır.
+- Toplam tutarı manuel gir onay kutusu eklendi. İşaretlenince toplam alanı düzenlenebilir.
+- Türkçe virgüllü ondalık girişleri desteklenir.
+- KM Analizi litre göstergeleri yerine gerçek Yakıt TL/KM ve Yakıt TL/100 KM gösterir.
+- KM Analizine araç karşılaştırma ve 6 aylık TL/KM grafiklerinin ikisi eklendi.
+- Genel Yönetim Raporu özet olmaktan çıkarıldı; bütün finans bölümlerini ayrıntılı tablolarla kapsar.
+- Yönetim raporuna 12 aylık eğilim, tahsilat, gider kategorisi, kârlılık ve araç TL/KM grafikleri eklendi.
+- Fatura/tahsilat, bakım/mekanik, özel kullanım, şoför/rehber ve kârlılık için yeni detay rapor türleri eklendi.
+- Rapor CSV çıktıları ayrıntılı hale getirildi.
+- Veri şeması 28 olarak kalır. APK yeniden üretilmez.
