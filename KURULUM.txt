@@ -1,4 +1,4 @@
-SERVİS YÖNETİM SİSTEMİ v4.29.0 - PWA / LİSANSLI SÜRÜM
+SERVİS YÖNETİM SİSTEMİ v4.30.0 - PWA / LİSANSLI SÜRÜM
 
 GITHUB PAGES KURULUMU
 1. Bu paketteki dosyaları GitHub deposunun ana dizinine yükleyin.
@@ -61,3 +61,11 @@ V4.29.0 SİNEMATİK AÇILIŞ EFEKTİ
 - Ekrana dokunarak, Geç düğmesine basarak veya Escape/Enter/Boşluk tuşuyla atlanabilir.
 - Hareket azaltma tercihi açık cihazlarda efekt yaklaşık 0,9 saniyeye kısalır.
 - APK, veri şeması, paket adı, imza ve lisans altyapısı değişmemiştir.
+
+
+V4.30.0 GÜNCELLEMESİ
+- Araçlar > Özel Kullanım: başlangıç/bitiş KM ve tahmini yakıt gideri.
+- Araçlar > Bakım & Mekanik: gerçek ödeme ve seçilebilir 1/3/6/12/18/24/36 aylık yönetim maliyeti dağıtımı.
+- Araçlar > Maliyet Dağıtımı: aylık/yıllık rapor.
+- Açılış efekti 6 saniyeye çıkarıldı; Geç düğmesi korunur.
+- Eski kayıtlar korunur, veri şeması 28 olur.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.29.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.30.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8114,7 +8114,7 @@
     }
 
 
-    /* v4.29.0 - Öğretici, telif ve iletişim alanı */
+    /* v4.30.0 - Öğretici, telif ve iletişim alanı */
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -8309,7 +8309,7 @@
       .tutorial-step-number { right: 22px; top: 23px; }
     }
 
-    /* v4.29.0 - Cihaz bazlı çevrim içi lisans doğrulama */
+    /* v4.30.0 - Cihaz bazlı çevrim içi lisans doğrulama */
     body.license-locked { overflow: hidden; }
     body.license-locked .app {
       filter: blur(9px) saturate(.62);
@@ -8429,7 +8429,7 @@
 
   
 
-    /* v4.29.0 - Sinematik kısa açılış efekti */
+    /* v4.30.0 - Sinematik kısa açılış efekti */
     .sys-splash {
       --splash-cyan: #19d3cf;
       --splash-cyan-deep: #0aa8a6;
@@ -8523,14 +8523,14 @@
       border-radius: 34px;
       opacity: 0;
       transform: scale(.55) rotate(-10deg);
-      animation: sysSplashRingIn .75s cubic-bezier(.2, .9, .2, 1) .3s forwards;
+      animation: sysSplashRingIn .9s cubic-bezier(.2, .9, .2, 1) .45s forwards;
     }
 
     .sys-splash-ring-2 {
       inset: 10px;
       border-color: rgba(25, 211, 207, .13);
-      animation-duration: .85s;
-      animation-delay: .48s;
+      animation-duration: 1s;
+      animation-delay: .72s;
     }
 
     .sys-splash-logo {
@@ -8547,7 +8547,7 @@
       font-size: 23px;
       font-weight: 900;
       letter-spacing: -1px;
-      animation: sysSplashLogoIn .65s cubic-bezier(.18, .9, .25, 1.15) .65s forwards;
+      animation: sysSplashLogoIn .8s cubic-bezier(.18, .9, .25, 1.15) 1.05s forwards;
     }
 
     .sys-splash-title {
@@ -8558,7 +8558,7 @@
       font-weight: 850;
       line-height: 1;
       letter-spacing: clamp(-2.4px, -.045em, -1px);
-      animation: sysSplashTextIn .65s ease .95s forwards;
+      animation: sysSplashTextIn .75s ease 1.55s forwards;
     }
 
     .sys-splash-subtitle {
@@ -8570,7 +8570,7 @@
       font-weight: 700;
       letter-spacing: .22em;
       text-transform: uppercase;
-      animation: sysSplashTextIn .55s ease 1.18s forwards;
+      animation: sysSplashTextIn .65s ease 2.05s forwards;
     }
 
     .sys-splash-status {
@@ -8581,7 +8581,7 @@
       opacity: 0;
       color: #b9d9dc;
       font-size: 13px;
-      animation: sysSplashFade .4s ease 1.45s forwards;
+      animation: sysSplashFade .5s ease 2.55s forwards;
     }
 
     .sys-splash-pulse {
@@ -8590,7 +8590,7 @@
       border-radius: 50%;
       background: #47d98a;
       box-shadow: 0 0 0 0 rgba(71, 217, 138, .45);
-      animation: sysSplashPulse 1.3s ease-out 1.55s infinite;
+      animation: sysSplashPulse 1.35s ease-out 2.7s infinite;
     }
 
     .sys-splash-progress {
@@ -8601,7 +8601,7 @@
       border-radius: 999px;
       opacity: 0;
       background: rgba(255, 255, 255, .08);
-      animation: sysSplashFade .3s ease 1.5s forwards;
+      animation: sysSplashFade .4s ease 2.75s forwards;
     }
 
     .sys-splash-progress > span {
@@ -8610,7 +8610,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--splash-cyan-deep), var(--splash-cyan), #8dffff);
       box-shadow: 0 0 18px rgba(25, 211, 207, .72);
-      animation: sysSplashLoad 1.35s cubic-bezier(.25, .8, .2, 1) 1.55s forwards;
+      animation: sysSplashLoad 2.35s cubic-bezier(.25, .8, .2, 1) 2.85s forwards;
     }
 
     .sys-splash-skip {
@@ -8630,7 +8630,7 @@
       font-weight: 800;
       letter-spacing: .02em;
       backdrop-filter: blur(12px);
-      animation: sysSplashFade .4s ease 1.35s forwards;
+      animation: sysSplashFade .45s ease 1.8s forwards;
     }
 
     .sys-splash-skip:hover,
@@ -8702,6 +8702,193 @@
       .sys-splash { display: none !important; }
     }
 
+
+    /* v4.30.0 - Özel kullanım ve mekanik maliyet dağıtımı */
+    .private-use-layout,
+    .vehicle-cost-report-layout {
+      display: grid;
+      grid-template-columns: minmax(310px, 380px) minmax(0, 1fr);
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .private-use-form-panel,
+    .private-use-list-panel,
+    .vehicle-cost-report-panel,
+    .vehicle-cost-schedule-panel {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .private-use-form {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .private-use-summary,
+    .vehicle-cost-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .private-use-status-note,
+    .maintenance-allocation-note,
+    .vehicle-cost-note {
+      padding: 11px 12px;
+      border: 1px dashed var(--line);
+      border-radius: 13px;
+      color: var(--muted);
+      background: rgba(255,255,255,.025);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .private-use-status-note.is-active {
+      color: #fff0b8;
+      border-color: rgba(245,158,11,.38);
+      background: rgba(245,158,11,.08);
+    }
+
+    .private-use-table-host .table-wrap,
+    .vehicle-cost-table-host .table-wrap,
+    .vehicle-cost-schedule-host .table-wrap {
+      max-height: 56vh;
+      overflow: auto;
+    }
+
+    .private-use-table-host table { min-width: 1280px; }
+    .vehicle-cost-table-host table { min-width: 1180px; }
+    .vehicle-cost-schedule-host table { min-width: 1050px; }
+
+    .private-use-cost {
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .private-use-active-row td {
+      background: rgba(245,158,11,.045);
+    }
+
+    .maintenance-allocation-preview {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .maintenance-allocation-preview > div {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .maintenance-allocation-preview span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .maintenance-allocation-preview strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 15px;
+    }
+
+    .vehicle-cost-report-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .vehicle-cost-report-controls {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(150px, .7fr) minmax(120px, .5fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    .vehicle-cost-lower-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr);
+      gap: 16px;
+    }
+
+    .vehicle-cost-category-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .vehicle-cost-category-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 1fr) minmax(80px, auto) minmax(80px, auto);
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.022);
+    }
+
+    .vehicle-cost-category-row span { color: var(--muted); font-size: 11px; }
+    .vehicle-cost-category-row strong { text-align: right; }
+
+    .command-cost-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .command-cost-card {
+      appearance: none;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 13px;
+      align-items: center;
+      width: 100%;
+      padding: 15px 16px;
+      color: var(--text);
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)), var(--panel);
+      cursor: pointer;
+    }
+
+    .command-cost-card:hover { border-color: rgba(var(--accent-rgb), .35); }
+    .command-cost-icon {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 13px; color: var(--accent); font-weight: 900;
+      border: 1px solid rgba(var(--accent-rgb), .25); background: rgba(var(--accent-rgb), .09);
+    }
+    .command-cost-card strong { display:block; font-size: 14px; }
+    .command-cost-card small { display:block; color:var(--muted); margin-top:4px; line-height:1.4; }
+    .command-cost-value { text-align:right; font-size: 13px; font-weight: 900; white-space: nowrap; }
+
+    @media (max-width: 1050px) {
+      .private-use-layout,
+      .vehicle-cost-lower-grid { grid-template-columns: 1fr; }
+      .private-use-summary,
+      .vehicle-cost-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .private-use-summary,
+      .vehicle-cost-summary,
+      .maintenance-allocation-preview,
+      .command-cost-grid,
+      .vehicle-cost-report-controls { grid-template-columns: 1fr; }
+      .command-cost-card { grid-template-columns: auto minmax(0, 1fr); }
+      .command-cost-value { grid-column: 2; text-align:left; }
+    }
+
   </style>
 </head>
 
@@ -8738,7 +8925,7 @@
         window.setTimeout(() => splash.remove(), reducedMotion ? 80 : 680);
       };
 
-      const timer = window.setTimeout(closeSplash, reducedMotion ? 900 : 3600);
+      const timer = window.setTimeout(closeSplash, reducedMotion ? 900 : 6000);
       const skip = document.getElementById("sysSplashSkip");
       skip?.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -8838,7 +9025,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.29.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.30.0</div>
         </div>
       </div>
 
@@ -8989,6 +9176,21 @@
               </div>
             </div>
           </section>
+
+
+
+          <div class="command-cost-grid">
+            <button class="command-cost-card" type="button" data-action="open-private-use">
+              <span class="command-cost-icon">Ö</span>
+              <span><strong>Özel Kullanım</strong><small id="commandPrivateUseText">Bu ay özel kullanım kaydı yok.</small></span>
+              <span class="command-cost-value" id="commandPrivateUseValue">0 km</span>
+            </button>
+            <button class="command-cost-card" type="button" data-action="open-cost-report">
+              <span class="command-cost-icon">M</span>
+              <span><strong>Dağıtılmış Mekanik Maliyet</strong><small id="commandMechanicalCostText">Bu aya düşen bakım payı.</small></span>
+              <span class="command-cost-value" id="commandMechanicalCostValue">₺0</span>
+            </button>
+          </div>
 
           <button class="command-maintenance-alert" id="commandMaintenanceAlert" type="button" data-action="open-vehicle-alerts">
             <span class="command-maintenance-icon">A</span>
@@ -9715,7 +9917,9 @@
         <div class="tab-screen hidden" id="tab-vehicles">
           <div class="vehicle-module-tabs" id="vehicleModuleTabs">
             <button class="vehicle-module-tab active" type="button" data-vehicle-subtab="cards">Araç Kartları</button>
-            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="maintenance">Bakım Geçmişi</button>
+            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="private-use">Özel Kullanım</button>
+            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="maintenance">Bakım & Mekanik</button>
+            <button class="vehicle-module-tab" type="button" data-vehicle-subtab="cost-report">Maliyet Dağıtımı</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="km">KM Analizi</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="files">Evrak Dosyaları</button>
             <button class="vehicle-module-tab" type="button" data-vehicle-subtab="alerts">Evrak / Uyarılar</button>
@@ -9794,11 +9998,64 @@
             </div>
           </div>
 
+
+
+          <div class="vehicle-sub-screen" id="vehicle-sub-private-use">
+            <div class="private-use-layout">
+              <section class="private-use-form-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title" id="privateUseFormTitle">Özel Kullanımı Başlat</h2>
+                    <div class="panel-sub">İş dışı kullanımı kilometre ve tahmini yakıt maliyetiyle ayrı izle.</div>
+                  </div>
+                </div>
+                <form class="private-use-form" id="privateVehicleUseForm">
+                  <input type="hidden" id="privateUseId" />
+                  <div class="field"><label for="privateUseVehicle">Araç *</label><select id="privateUseVehicle" required></select></div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseStartDate">Başlangıç Tarihi *</label><input id="privateUseStartDate" type="date" required /></div>
+                    <div class="field"><label for="privateUseStartTime">Başlangıç Saati</label><input id="privateUseStartTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUsePerson">Kullanan Kişi *</label><input id="privateUsePerson" placeholder="Ad soyad" required /></div>
+                  <div class="field"><label for="privateUsePurpose">Kullanım Amacı *</label><input id="privateUsePurpose" placeholder="Örn. aile işi, kişisel ulaşım, özel taşıma" required /></div>
+                  <div class="field"><label for="privateUseStartKm">Başlangıç KM *</label><input id="privateUseStartKm" type="number" min="0" step="1" placeholder="Örn. 185420" required /></div>
+                  <div class="form-section-title">Kullanım Bittiğinde</div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseEndDate">Bitiş Tarihi</label><input id="privateUseEndDate" type="date" /></div>
+                    <div class="field"><label for="privateUseEndTime">Bitiş Saati</label><input id="privateUseEndTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUseEndKm">Bitiş KM</label><input id="privateUseEndKm" type="number" min="0" step="1" placeholder="Kullanım bitince gir" /></div>
+                  <div class="field"><label for="privateUseNote">Not</label><textarea id="privateUseNote" placeholder="Güzergâh, açıklama veya özel not..."></textarea></div>
+                  <div class="private-use-status-note" id="privateUseStatusNote">Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" id="savePrivateUseBtn" type="submit">Özel Kullanımı Başlat</button>
+                    <button class="btn" id="clearPrivateUseBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="private-use-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Özel Kullanım Takibi</h2>
+                    <div class="panel-sub">Servis operasyonuna ve ticari kâra karışmayan bilgi amaçlı kayıtlar.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <input id="privateUseMonth" type="month" />
+                  <select id="privateUseVehicleFilter"></select>
+                </div>
+                <div class="private-use-summary" id="privateUseSummary"></div>
+                <div class="private-use-table-host" id="privateUseTableHost"></div>
+              </section>
+            </div>
+          </div>
+
           <div class="vehicle-sub-screen" id="vehicle-sub-maintenance">
             <div class="workarea">
               <section class="card panel form-panel">
                 <div class="panel-header person-form-header">
-                  <div><h2 class="panel-title">Bakım Kaydı</h2><div class="panel-sub">Yapılan işlemi ve sonraki bakım planını kaydet.</div></div>
+                  <div><h2 class="panel-title">Bakım & Mekanik Gideri</h2><div class="panel-sub">Gerçek ödeme ile aylara dağıtılan yönetim maliyetini ayrı takip et.</div></div>
                   <div class="header-actions">
                     <button class="btn small primary" type="submit" form="vehicleMaintenanceForm">Kaydet</button>
                     <button class="btn small ghost" type="button" id="clearVehicleMaintenanceBtn">Temizle</button>
@@ -9811,10 +10068,20 @@
                     <div class="field"><label for="maintenanceDate">Tarih *</label><input id="maintenanceDate" type="date" required /></div>
                     <div class="field"><label for="maintenanceKm">Kilometre</label><input id="maintenanceKm" type="number" min="0" step="1" /></div>
                   </div>
-                  <div class="field"><label for="maintenanceType">Bakım Türü *</label><select id="maintenanceType"><option value="Periyodik Bakım">Periyodik Bakım</option><option value="Arıza">Arıza</option><option value="Lastik">Lastik</option><option value="Fren">Fren</option><option value="Yağ / Filtre">Yağ / Filtre</option><option value="Muayene">Muayene</option><option value="Sigorta">Sigorta</option><option value="Diğer">Diğer</option></select></div>
+                  <div class="field"><label for="maintenanceType">Gider / İşlem Türü *</label><select id="maintenanceType"><option value="Periyodik Bakım">Periyodik Bakım</option><option value="Lastik">Lastik</option><option value="Tamirat">Tamirat</option><option value="Parça Değişimi">Parça Değişimi</option><option value="Motor / Mekanik">Motor / Mekanik</option><option value="Elektrik / Elektronik">Elektrik / Elektronik</option><option value="Kaporta / Boya">Kaporta / Boya</option><option value="Fren">Fren</option><option value="Yağ / Filtre">Yağ / Filtre</option><option value="Muayene Hazırlığı">Muayene Hazırlığı</option><option value="Öngörülemeyen Gider">Öngörülemeyen Gider</option><option value="Sigorta">Sigorta</option><option value="Diğer">Diğer</option></select></div>
                   <div class="two">
-                    <div class="field"><label for="maintenanceProvider">Servis / Usta</label><input id="maintenanceProvider" placeholder="Firma veya usta adı" /></div>
-                    <div class="field"><label for="maintenanceAmount">Tutar (₺)</label><input id="maintenanceAmount" type="number" min="0" step="0.01" /></div>
+                    <div class="field"><label for="maintenanceProvider">Servis / Usta / Tedarikçi</label><input id="maintenanceProvider" placeholder="Firma veya usta adı" /></div>
+                    <div class="field"><label for="maintenanceAmount">Gerçek Ödeme (₺)</label><input id="maintenanceAmount" type="number" min="0" step="0.01" /></div>
+                  </div>
+                  <div class="field">
+                    <label for="maintenanceAllocationMonths">Yönetim Maliyeti Dağıtım Süresi</label>
+                    <select id="maintenanceAllocationMonths">
+                      <option value="1">Tek seferde (1 ay)</option><option value="3">3 ay</option><option value="6">6 ay</option><option value="12" selected>12 ay</option><option value="18">18 ay</option><option value="24">24 ay</option><option value="36">36 ay</option>
+                    </select>
+                  </div>
+                  <div class="maintenance-allocation-preview">
+                    <div><span>Aylık maliyet yükü</span><strong id="maintenanceMonthlyAllocation">₺0</strong></div>
+                    <div><span>Dağıtım dönemi</span><strong id="maintenanceAllocationPeriod">-</strong></div>
                   </div>
                   <div class="field"><label for="maintenanceInvoiceNo">Fiş / Fatura No</label><input id="maintenanceInvoiceNo" /></div>
                   <div class="two">
@@ -9822,14 +10089,48 @@
                     <div class="field"><label for="maintenanceNextKm">Sonraki Bakım KM</label><input id="maintenanceNextKm" type="number" min="0" step="1" /></div>
                   </div>
                   <div class="field"><label for="maintenanceDescription">Yapılan İşlemler</label><textarea id="maintenanceDescription" placeholder="Değişen parçalar, yapılan kontroller ve açıklama..."></textarea></div>
-                  <div class="maintenance-link-note">Tutar girilirse Finans → Araç Giderleri bölümüne otomatik ve tek bir gider kaydı oluşturulur. Giderin personel/okul dağılımı daha sonra Finans ekranından düzenlenebilir.</div>
+                  <div class="maintenance-link-note">Gerçek ödeme, işlem tarihinde Finans → Araç Giderleri bölümüne tek seferde işlenir. Seçilen dağıtım süresi yalnız yönetim raporunda aylık maliyet yükünü gösterir; muhasebe kaydını veya nakit çıkışını değiştirmez.</div>
                 </form>
               </section>
               <section class="card panel list-panel">
-                <div class="panel-header"><div><h2 class="panel-title">Bakım Geçmişi</h2><div class="panel-sub">Araç bazlı yapılan işlemler ve maliyet geçmişi.</div></div></div>
+                <div class="panel-header"><div><h2 class="panel-title">Bakım & Mekanik Geçmişi</h2><div class="panel-sub">Gerçek ödeme, dağıtım süresi ve aylık maliyet yükü.</div></div></div>
                 <div class="toolbar simple-toolbar"><select id="maintenanceVehicleFilter"></select><input id="maintenanceSearch" placeholder="Bakım türü, servis, fatura veya açıklama ara..." /></div>
                 <div id="vehicleMaintenanceTableHost"></div>
               </section>
+            </div>
+          </div>
+
+
+
+          <div class="vehicle-sub-screen" id="vehicle-sub-cost-report">
+            <div class="vehicle-cost-report-layout">
+              <section class="vehicle-cost-report-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Aylık / Yıllık Mekanik Maliyet Dağıtımı</h2>
+                    <div class="panel-sub">Nakit çıkışı ile yönetim amaçlı aylara yayılan maliyeti birbirinden ayırır.</div>
+                  </div>
+                </div>
+                <div class="vehicle-cost-report-controls">
+                  <div class="field"><label for="vehicleCostReportVehicle">Araç</label><select id="vehicleCostReportVehicle"></select></div>
+                  <div class="field"><label for="vehicleCostReportMonth">Aylık Dönem</label><input id="vehicleCostReportMonth" type="month" /></div>
+                  <div class="field"><label for="vehicleCostReportYear">Yıl</label><input id="vehicleCostReportYear" type="number" min="2020" max="2100" step="1" /></div>
+                </div>
+                <div class="vehicle-cost-note">Bu bölümdeki “dağıtılmış maliyet”, vergi veya yasal muhasebe amortismanı değildir. Araç maliyetini dönemlere dengeli yaymak için kullanılan yönetim göstergesidir.</div>
+                <div class="vehicle-cost-summary" id="vehicleCostSummary"></div>
+                <div class="vehicle-cost-table-host" id="vehicleCostTableHost"></div>
+              </section>
+
+              <div class="vehicle-cost-lower-grid">
+                <section class="vehicle-cost-schedule-panel">
+                  <div class="panel-header"><div><h2 class="panel-title">Dağıtım Planı</h2><div class="panel-sub">Her giderin başlangıç, bitiş ve aylık yükü.</div></div></div>
+                  <div class="vehicle-cost-schedule-host" id="vehicleCostScheduleHost"></div>
+                </section>
+                <section class="vehicle-cost-schedule-panel">
+                  <div class="panel-header"><div><h2 class="panel-title">Kategori Özeti</h2><div class="panel-sub">Seçilen yılın gerçek ve dağıtılmış maliyeti.</div></div></div>
+                  <div class="vehicle-cost-category-list" id="vehicleCostCategoryHost"></div>
+                </section>
+              </div>
             </div>
           </div>
 
@@ -11654,6 +11955,26 @@
               <div class="tutorial-alert compact"><strong>Not:</strong> Yüklenen resim ve PDF Blob dosyalarını ayrıca sakla; JSON yedeği dosya içeriklerini taşımaz.</div>
               <button class="btn small primary" type="button" data-tutorial-target="backup">Ayarlar / Yedek bölümünü aç</button>
             </article>
+
+            <article class="card tutorial-step-card">
+              <div class="tutorial-step-number">7</div>
+              <div class="tutorial-visual" aria-label="Araç özel kullanım ve bakım maliyeti görseli">
+                <svg viewBox="0 0 520 260" role="img" aria-label="Araç maliyet yönetimi şeması">
+                  <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
+                  <rect x="42" y="42" width="182" height="34" rx="10" class="tv-accent"/>
+                  <rect x="42" y="98" width="205" height="104" rx="14" class="tv-field"/>
+                  <rect x="269" y="98" width="209" height="104" rx="14" class="tv-accent-soft"/>
+                  <text x="133" y="64" class="tv-title tv-pill-title">ARAÇ MALİYETİ</text>
+                  <text x="60" y="125" class="tv-label">ÖZEL KULLANIM</text><text x="60" y="154" class="tv-money">KM + YAKIT</text>
+                  <text x="287" y="125" class="tv-label">BAKIM / TAMİRAT</text><text x="287" y="154" class="tv-money">AYLIK PAY</text>
+                </svg>
+              </div>
+              <h3>Özel kullanım ve mekanik maliyeti ayır</h3>
+              <p>İş dışı kilometreyi bilgi amaçlı izle. Bakım, lastik, tamirat ve parça giderlerini gerçek ödeme ve aylık dağıtım olarak ayrı gör.</p>
+              <div class="tutorial-required"><span>Yeni</span> Özel KM · Yakıt tahmini · Bakım dağıtımı</div>
+              <button class="btn small primary" type="button" data-tutorial-target="vehicle-cost">Araç maliyet yönetimini aç</button>
+            </article>
+
           </section>
 
           <section class="card tutorial-contact-card">
@@ -12113,11 +12434,11 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.29.0</strong>
+                <strong>v4.30.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
-                <strong id="schemaVersion">7</strong>
+                <strong id="schemaVersion">28</strong>
               </div>
               <div>
                 <span>Kayıt Anahtarı</span>
@@ -12142,8 +12463,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.29.0";
-    const SCHEMA_VERSION = 27;
+    const APP_VERSION = "4.30.0";
+    const SCHEMA_VERSION = 28;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -12170,6 +12491,7 @@
       financeRecords: [],
       vehicleExpenses: [],
       vehicleMaintenance: [],
+      privateVehicleUses: [],
       vehicleKmRecords: [],
       documents: [],
       staffPayments: [],
@@ -12223,6 +12545,18 @@
     });
 
     let state = loadState();
+
+    function migrateVehicleCostDataV430() {
+      if (!Array.isArray(state.privateVehicleUses)) state.privateVehicleUses = [];
+      state.vehicleMaintenance = state.vehicleMaintenance.map((record) => ({
+        ...record,
+        allocationMonths: maintenanceAllocationMonths(record)
+      }));
+      state.appVersion = APP_VERSION;
+      state.schemaVersion = SCHEMA_VERSION;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
 
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -12312,6 +12646,7 @@
           financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
           vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
           vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+          privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
           vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
           documents: Array.isArray(parsed.documents) ? parsed.documents : [],
           staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
@@ -14770,6 +15105,389 @@
       }).join("")}</tbody></table></div>`;
     }
 
+
+
+    function vehicleCostMonthIndex(month) {
+      const match = String(month || "").match(/^(\d{4})-(\d{2})$/);
+      if (!match) return null;
+      return Number(match[1]) * 12 + Number(match[2]) - 1;
+    }
+
+    function vehicleCostMonthFromIndex(index) {
+      if (!Number.isFinite(index)) return "";
+      const year = Math.floor(index / 12);
+      const month = index % 12 + 1;
+      return `${year}-${String(month).padStart(2, "0")}`;
+    }
+
+    function vehicleCostMonthLabel(month) {
+      const idx = vehicleCostMonthIndex(month);
+      if (idx === null) return "-";
+      const date = new Date(Math.floor(idx / 12), idx % 12, 1);
+      return date.toLocaleDateString("tr-TR", { month: "long", year: "numeric" });
+    }
+
+    function maintenanceAllocationMonths(record) {
+      const months = Number(record?.allocationMonths || 1);
+      return [1, 3, 6, 12, 18, 24, 36].includes(months) ? months : 1;
+    }
+
+    function maintenanceMonthlyAllocation(record) {
+      const amount = Math.max(0, Number(record?.amount || 0));
+      return amount / maintenanceAllocationMonths(record);
+    }
+
+    function maintenanceAllocatedInMonth(record, month) {
+      const startMonth = String(record?.date || "").slice(0, 7);
+      const startIndex = vehicleCostMonthIndex(startMonth);
+      const targetIndex = vehicleCostMonthIndex(month);
+      if (startIndex === null || targetIndex === null) return 0;
+      const months = maintenanceAllocationMonths(record);
+      return targetIndex >= startIndex && targetIndex < startIndex + months ? maintenanceMonthlyAllocation(record) : 0;
+    }
+
+    function maintenanceAllocationEndMonth(record) {
+      const startIndex = vehicleCostMonthIndex(String(record?.date || "").slice(0, 7));
+      return startIndex === null ? "" : vehicleCostMonthFromIndex(startIndex + maintenanceAllocationMonths(record) - 1);
+    }
+
+    function maintenanceCashForMonth(vehicleId, month) {
+      return state.vehicleMaintenance
+        .filter((record) => (!vehicleId || record.vehicleId === vehicleId) && String(record.date || "").startsWith(month))
+        .reduce((sum, record) => sum + Math.max(0, Number(record.amount || 0)), 0);
+    }
+
+    function maintenanceAllocatedForMonth(vehicleId, month) {
+      return state.vehicleMaintenance
+        .filter((record) => !vehicleId || record.vehicleId === vehicleId)
+        .reduce((sum, record) => sum + maintenanceAllocatedInMonth(record, month), 0);
+    }
+
+    function maintenanceCashForYear(vehicleId, year) {
+      return state.vehicleMaintenance
+        .filter((record) => (!vehicleId || record.vehicleId === vehicleId) && String(record.date || "").startsWith(String(year)))
+        .reduce((sum, record) => sum + Math.max(0, Number(record.amount || 0)), 0);
+    }
+
+    function maintenanceAllocatedForYear(vehicleId, year) {
+      let total = 0;
+      for (let month = 1; month <= 12; month += 1) {
+        total += maintenanceAllocatedForMonth(vehicleId, `${year}-${String(month).padStart(2, "0")}`);
+      }
+      return total;
+    }
+
+    function vehicleFuelMonthData(vehicleId, month) {
+      const expenses = state.vehicleExpenses.filter((expense) => expense.vehicleId === vehicleId && expense.type === "Yakıt" && String(expense.date || "").startsWith(month));
+      const cost = expenses.reduce((sum, expense) => sum + Math.max(0, Number(expense.amount || 0)), 0);
+      const liters = expenses.reduce((sum, expense) => sum + Math.max(0, vehicleExpenseFuelLiters(expense)), 0);
+      const info = vehicleKmDistanceInfo(vehicleId, month);
+      return {
+        month,
+        cost,
+        liters,
+        distance: Math.max(0, Number(info.distance || 0)),
+        source: info.source || "KM kaydı yetersiz"
+      };
+    }
+
+    function privateUseFuelSnapshot(vehicleId, dateValue) {
+      const targetMonth = String(dateValue || todayISO()).slice(0, 7) || getFinanceMonth();
+      const direct = vehicleFuelMonthData(vehicleId, targetMonth);
+      if (direct.distance > 0 && direct.cost > 0) {
+        return {
+          fuelCostPerKm: direct.cost / direct.distance,
+          fuelLitersPerKm: direct.liters > 0 ? direct.liters / direct.distance : 0,
+          source: `${vehicleCostMonthLabel(targetMonth)} yakıt ve KM kaydı`
+        };
+      }
+
+      const months = [...new Set(state.vehicleKmRecords
+        .filter((record) => record.vehicleId === vehicleId && record.month)
+        .map((record) => record.month))]
+        .sort((a, b) => String(b).localeCompare(String(a)))
+        .slice(0, 12);
+
+      let totalCost = 0, totalLiters = 0, totalDistance = 0, usedMonths = 0;
+      months.forEach((month) => {
+        const data = vehicleFuelMonthData(vehicleId, month);
+        if (data.distance > 0 && data.cost > 0) {
+          totalCost += data.cost;
+          totalLiters += data.liters;
+          totalDistance += data.distance;
+          usedMonths += 1;
+        }
+      });
+
+      if (totalDistance > 0 && totalCost > 0) {
+        return {
+          fuelCostPerKm: totalCost / totalDistance,
+          fuelLitersPerKm: totalLiters > 0 ? totalLiters / totalDistance : 0,
+          source: `Son ${usedMonths} kayıtlı dönemin ortalaması`
+        };
+      }
+
+      return { fuelCostPerKm: 0, fuelLitersPerKm: 0, source: "Yakıt ve aylık KM verisi yetersiz" };
+    }
+
+    function currentTimeHHMM() {
+      return new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", hour12: false });
+    }
+
+    function renderPrivateUseOptions() {
+      const vehicles = [...state.vehicles].sort((a, b) => String(a.plate || "").localeCompare(String(b.plate || ""), "tr-TR"));
+      const form = $("#privateUseVehicle");
+      const filter = $("#privateUseVehicleFilter");
+      if (form) {
+        const selected = form.value || "";
+        form.innerHTML = '<option value="">Araç seçin</option>' + vehicles.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.plate || "Plakasız")} · ${escapeHtml(vehicle.driverName || "Şoför yok")}</option>`).join("");
+        form.value = [...form.options].some((option) => option.value === selected) ? selected : "";
+      }
+      if (filter) {
+        const selected = filter.value || "Tümü";
+        filter.innerHTML = '<option value="Tümü">Araç: Tümü</option>' + vehicles.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.plate || "Plakasız")}</option>`).join("");
+        filter.value = [...filter.options].some((option) => option.value === selected) ? selected : "Tümü";
+      }
+      if ($("#privateUseMonth") && !$("#privateUseMonth").value) $("#privateUseMonth").value = getFinanceMonth();
+    }
+
+    function clearPrivateVehicleUseForm() {
+      $("#privateVehicleUseForm")?.reset();
+      if ($("#privateUseId")) $("#privateUseId").value = "";
+      renderPrivateUseOptions();
+      if ($("#privateUseStartDate")) $("#privateUseStartDate").value = todayISO();
+      if ($("#privateUseStartTime")) $("#privateUseStartTime").value = currentTimeHHMM();
+      if ($("#privateUseFormTitle")) $("#privateUseFormTitle").textContent = "Özel Kullanımı Başlat";
+      if ($("#savePrivateUseBtn")) $("#savePrivateUseBtn").textContent = "Özel Kullanımı Başlat";
+      const note = $("#privateUseStatusNote");
+      if (note) {
+        note.classList.remove("is-active");
+        note.textContent = "Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.";
+      }
+    }
+
+    function savePrivateVehicleUse(event) {
+      event.preventDefault();
+      const id = $("#privateUseId")?.value || uid("privateUse");
+      const existing = state.privateVehicleUses.find((item) => item.id === id);
+      const vehicleId = $("#privateUseVehicle")?.value || "";
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId);
+      const startDate = $("#privateUseStartDate")?.value || "";
+      const startKm = Number($("#privateUseStartKm")?.value || 0);
+      const endKmRaw = $("#privateUseEndKm")?.value;
+      const endKm = endKmRaw === "" ? 0 : Number(endKmRaw || 0);
+      const person = $("#privateUsePerson")?.value.trim() || "";
+      const purpose = $("#privateUsePurpose")?.value.trim() || "";
+      if (!vehicle || !startDate || !person || !purpose || startKm < 0) {
+        showToast("Araç, tarih, kullanan kişi, amaç ve başlangıç KM zorunlu.");
+        return;
+      }
+      if (!existing && state.privateVehicleUses.some((item) => item.vehicleId === vehicleId && item.status === "active")) {
+        showToast("Bu araç için devam eden özel kullanım var. Önce o kaydı bitir.");
+        return;
+      }
+      if (endKm > 0 && endKm <= startKm) {
+        showToast("Bitiş kilometresi başlangıçtan büyük olmalı.");
+        return;
+      }
+
+      const completed = endKm > startKm;
+      const distanceKm = completed ? endKm - startKm : 0;
+      const snapshot = completed ? privateUseFuelSnapshot(vehicleId, $("#privateUseEndDate")?.value || startDate) : { fuelCostPerKm: 0, fuelLitersPerKm: 0, source: "Kullanım devam ediyor" };
+      const record = {
+        id,
+        vehicleId,
+        vehiclePlate: vehicle.plate || existing?.vehiclePlate || "",
+        person,
+        purpose,
+        startDate,
+        startTime: $("#privateUseStartTime")?.value || "",
+        startKm,
+        endDate: completed ? ($("#privateUseEndDate")?.value || todayISO()) : "",
+        endTime: completed ? ($("#privateUseEndTime")?.value || currentTimeHHMM()) : "",
+        endKm: completed ? endKm : 0,
+        distanceKm,
+        fuelCostPerKm: completed ? snapshot.fuelCostPerKm : 0,
+        fuelLitersPerKm: completed ? snapshot.fuelLitersPerKm : 0,
+        estimatedFuelCost: completed ? distanceKm * snapshot.fuelCostPerKm : 0,
+        estimatedFuelLiters: completed ? distanceKm * snapshot.fuelLitersPerKm : 0,
+        fuelCostSource: snapshot.source,
+        status: completed ? "completed" : "active",
+        note: $("#privateUseNote")?.value.trim() || "",
+        createdAt: existing?.createdAt || new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      const index = state.privateVehicleUses.findIndex((item) => item.id === id);
+      if (index >= 0) state.privateVehicleUses[index] = record; else state.privateVehicleUses.push(record);
+      vehicle.currentKm = Math.max(Number(vehicle.currentKm || 0), completed ? endKm : startKm);
+      saveState();
+      clearPrivateVehicleUseForm();
+      activateVehicleSubTab("private-use");
+      showToast(completed ? `${distanceKm.toLocaleString("tr-TR")} km özel kullanım tamamlandı.` : "Özel kullanım başlatıldı.");
+    }
+
+    function editPrivateVehicleUse(id, finishMode = false) {
+      const record = state.privateVehicleUses.find((item) => item.id === id);
+      if (!record) return;
+      activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("private-use"); renderPrivateUseOptions();
+      $("#privateUseId").value = record.id;
+      $("#privateUseVehicle").value = record.vehicleId || "";
+      $("#privateUseStartDate").value = record.startDate || todayISO();
+      $("#privateUseStartTime").value = record.startTime || "";
+      $("#privateUsePerson").value = record.person || "";
+      $("#privateUsePurpose").value = record.purpose || "";
+      $("#privateUseStartKm").value = record.startKm || "";
+      $("#privateUseEndDate").value = record.endDate || (finishMode ? todayISO() : "");
+      $("#privateUseEndTime").value = record.endTime || (finishMode ? currentTimeHHMM() : "");
+      $("#privateUseEndKm").value = record.endKm || "";
+      $("#privateUseNote").value = record.note || "";
+      $("#privateUseFormTitle").textContent = record.status === "active" ? "Özel Kullanımı Bitir" : "Özel Kullanımı Düzenle";
+      $("#savePrivateUseBtn").textContent = record.status === "active" ? "Özel Kullanımı Bitir" : "Kaydı Güncelle";
+      const note = $("#privateUseStatusNote");
+      if (note) {
+        note.classList.toggle("is-active", record.status === "active");
+        note.textContent = record.status === "active" ? `Devam eden kayıt: ${record.vehiclePlate || vehicleLabel(record.vehicleId)} · ${Number(record.startKm || 0).toLocaleString("tr-TR")} km. Bitiş kilometresini girerek tamamla.` : `Bu kayıt tamamlandı. Maliyet kaynağı: ${record.fuelCostSource || "-"}`;
+      }
+      scrollContentTop();
+      if (finishMode) window.setTimeout(() => $("#privateUseEndKm")?.focus(), 100);
+    }
+
+    function deletePrivateVehicleUse(id) {
+      const record = state.privateVehicleUses.find((item) => item.id === id);
+      if (!record || !confirm("Bu özel kullanım kaydı silinsin mi?")) return;
+      state.privateVehicleUses = state.privateVehicleUses.filter((item) => item.id !== id);
+      saveState(); clearPrivateVehicleUseForm(); showToast("Özel kullanım kaydı silindi.");
+    }
+
+    function privateUseReportDate(record) {
+      return record.endDate || record.startDate || "";
+    }
+
+    function privateUseTotals(vehicleId, prefix) {
+      const rows = state.privateVehicleUses.filter((record) => record.status === "completed" && (!vehicleId || record.vehicleId === vehicleId) && privateUseReportDate(record).startsWith(prefix));
+      return {
+        count: rows.length,
+        km: rows.reduce((sum, record) => sum + Number(record.distanceKm || 0), 0),
+        cost: rows.reduce((sum, record) => sum + Number(record.estimatedFuelCost || 0), 0),
+        liters: rows.reduce((sum, record) => sum + Number(record.estimatedFuelLiters || 0), 0)
+      };
+    }
+
+    function renderPrivateVehicleUses() {
+      const summary = $("#privateUseSummary"), host = $("#privateUseTableHost");
+      if (!summary || !host) return;
+      renderPrivateUseOptions();
+      const month = $("#privateUseMonth")?.value || getFinanceMonth();
+      const vehicleFilter = $("#privateUseVehicleFilter")?.value || "Tümü";
+      const vehicleId = vehicleFilter === "Tümü" ? "" : vehicleFilter;
+      const year = month.slice(0, 4);
+      const monthTotals = privateUseTotals(vehicleId, month);
+      const yearTotals = privateUseTotals(vehicleId, year);
+      const active = state.privateVehicleUses.filter((record) => record.status === "active" && (!vehicleId || record.vehicleId === vehicleId));
+      const avgCostKm = monthTotals.km > 0 ? monthTotals.cost / monthTotals.km : 0;
+      summary.innerHTML = [
+        { label: "Devam Eden", value: `${active.length} kullanım`, risk: active.length > 0 },
+        { label: "Bu Ay Özel KM", value: `${monthTotals.km.toLocaleString("tr-TR")} km`, risk: false },
+        { label: "Bu Ay Yakıt Tahmini", value: formatTRY(monthTotals.cost), risk: false },
+        { label: "Bu Yıl Özel KM", value: `${yearTotals.km.toLocaleString("tr-TR")} km`, risk: false },
+        { label: "Bu Yıl Yakıt Tahmini", value: formatTRY(yearTotals.cost), risk: false },
+        { label: "Ortalama Yakıt / KM", value: monthTotals.km > 0 ? `${formatTRY(avgCostKm)} / km` : "-", risk: false }
+      ].map(financeSummaryChipHtml).join("");
+
+      const rows = state.privateVehicleUses
+        .filter((record) => (!vehicleId || record.vehicleId === vehicleId) && (record.status === "active" || privateUseReportDate(record).startsWith(month)))
+        .sort((a, b) => String(b.updatedAt || b.createdAt || "").localeCompare(String(a.updatedAt || a.createdAt || "")));
+      if (!rows.length) { host.innerHTML = '<div class="empty">Seçilen dönem ve araç için özel kullanım kaydı yok.</div>'; return; }
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Durum</th><th>Araç</th><th>Kullanan / Amaç</th><th>Başlangıç</th><th>Bitiş</th><th>Özel KM</th><th>Yakıt / KM</th><th>Tahmini Yakıt</th><th>Kaynak</th><th>İşlem</th></tr></thead><tbody>${rows.map((record) => {
+        const activeRow = record.status === "active";
+        return `<tr class="${activeRow ? "private-use-active-row" : ""}"><td><span class="pill ${activeRow ? "passive" : "active"}">${activeRow ? "Devam ediyor" : "Tamamlandı"}</span></td><td><strong>${escapeHtml(record.vehiclePlate || vehicleLabel(record.vehicleId))}</strong></td><td><strong>${escapeHtml(record.person || "-")}</strong><br><span class="muted">${escapeHtml(record.purpose || "-")}</span></td><td>${escapeHtml(jobDateText(record.startDate))}<br><span class="muted">${escapeHtml(record.startTime || "-")} · ${Number(record.startKm || 0).toLocaleString("tr-TR")} km</span></td><td>${activeRow ? "-" : `${escapeHtml(jobDateText(record.endDate))}<br><span class="muted">${escapeHtml(record.endTime || "-")} · ${Number(record.endKm || 0).toLocaleString("tr-TR")} km</span>`}</td><td><strong>${activeRow ? "-" : Number(record.distanceKm || 0).toLocaleString("tr-TR") + " km"}</strong></td><td>${activeRow ? "-" : `${escapeHtml(formatTRY(record.fuelCostPerKm || 0))}<br><span class="muted">${Number((record.fuelLitersPerKm || 0) * 100).toLocaleString("tr-TR", { maximumFractionDigits: 2 })} L/100 km</span>`}</td><td><strong class="private-use-cost">${activeRow ? "-" : escapeHtml(formatTRY(record.estimatedFuelCost || 0))}</strong><br><span class="muted">${activeRow ? "" : Number(record.estimatedFuelLiters || 0).toLocaleString("tr-TR", { maximumFractionDigits: 2 }) + " L"}</span></td><td><span class="vehicle-km-source">${escapeHtml(record.fuelCostSource || "-")}</span></td><td><div class="document-actions">${activeRow ? `<button class="btn small primary" type="button" data-action="finish-private-use" data-id="${escapeHtml(record.id)}">Bitir</button>` : `<button class="btn small" type="button" data-action="edit-private-use" data-id="${escapeHtml(record.id)}">Düzenle</button>`}<button class="btn small danger" type="button" data-action="delete-private-use" data-id="${escapeHtml(record.id)}">Sil</button></div></td></tr>`;
+      }).join("")}</tbody></table></div>`;
+    }
+
+    function updateMaintenanceAllocationPreview() {
+      const amount = Math.max(0, Number($("#maintenanceAmount")?.value || 0));
+      const months = Math.max(1, Number($("#maintenanceAllocationMonths")?.value || 1));
+      const date = $("#maintenanceDate")?.value || todayISO();
+      const previewRecord = { amount, allocationMonths: months, date };
+      if ($("#maintenanceMonthlyAllocation")) $("#maintenanceMonthlyAllocation").textContent = formatTRY(amount / months);
+      if ($("#maintenanceAllocationPeriod")) $("#maintenanceAllocationPeriod").textContent = amount > 0 ? `${vehicleCostMonthLabel(date.slice(0, 7))} → ${vehicleCostMonthLabel(maintenanceAllocationEndMonth(previewRecord))}` : "-";
+    }
+
+    function renderVehicleCostReportOptions() {
+      const select = $("#vehicleCostReportVehicle");
+      if (select) {
+        const selected = select.value || "Tümü";
+        select.innerHTML = '<option value="Tümü">Araç: Tümü</option>' + [...state.vehicles].sort((a,b) => String(a.plate || "").localeCompare(String(b.plate || ""), "tr-TR")).map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.plate || "Plakasız")}</option>`).join("");
+        select.value = [...select.options].some((option) => option.value === selected) ? selected : "Tümü";
+      }
+      if ($("#vehicleCostReportMonth") && !$("#vehicleCostReportMonth").value) $("#vehicleCostReportMonth").value = getFinanceMonth();
+      if ($("#vehicleCostReportYear") && !$("#vehicleCostReportYear").value) $("#vehicleCostReportYear").value = Number(getFinanceMonth().slice(0,4));
+    }
+
+    function renderVehicleCostReport() {
+      const summary = $("#vehicleCostSummary"), table = $("#vehicleCostTableHost"), schedule = $("#vehicleCostScheduleHost"), categoryHost = $("#vehicleCostCategoryHost");
+      if (!summary || !table || !schedule || !categoryHost) return;
+      renderVehicleCostReportOptions();
+      const selected = $("#vehicleCostReportVehicle")?.value || "Tümü";
+      const selectedVehicleId = selected === "Tümü" ? "" : selected;
+      const month = $("#vehicleCostReportMonth")?.value || getFinanceMonth();
+      const year = String(Math.max(2020, Number($("#vehicleCostReportYear")?.value || month.slice(0,4))));
+      const monthCash = maintenanceCashForMonth(selectedVehicleId, month);
+      const monthAllocated = maintenanceAllocatedForMonth(selectedVehicleId, month);
+      const yearCash = maintenanceCashForYear(selectedVehicleId, year);
+      const yearAllocated = maintenanceAllocatedForYear(selectedVehicleId, year);
+      const privateMonth = privateUseTotals(selectedVehicleId, month);
+      const privateYear = privateUseTotals(selectedVehicleId, year);
+      summary.innerHTML = [
+        { label: "Bu Ay Gerçek Ödeme", value: formatTRY(monthCash), risk: false },
+        { label: "Bu Ay Dağıtılmış Maliyet", value: formatTRY(monthAllocated), risk: false },
+        { label: `${year} Gerçek Ödeme`, value: formatTRY(yearCash), risk: false },
+        { label: `${year} Dağıtılmış Maliyet`, value: formatTRY(yearAllocated), risk: false },
+        { label: "Bu Ay Özel Kullanım", value: `${privateMonth.km.toLocaleString("tr-TR")} km · ${formatTRY(privateMonth.cost)}`, risk: false },
+        { label: `${year} Özel Kullanım`, value: `${privateYear.km.toLocaleString("tr-TR")} km · ${formatTRY(privateYear.cost)}`, risk: false }
+      ].map(financeSummaryChipHtml).join("");
+
+      const vehicles = state.vehicles.filter((vehicle) => !selectedVehicleId || vehicle.id === selectedVehicleId).sort((a,b) => String(a.plate || "").localeCompare(String(b.plate || ""), "tr-TR"));
+      if (!vehicles.length) {
+        table.innerHTML = '<div class="empty">Raporlanacak araç yok.</div>';
+      } else {
+        table.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Ay Gerçek</th><th>Ay Dağıtılmış</th><th>Yıl Gerçek</th><th>Yıl Dağıtılmış</th><th>Ay Mesafe</th><th>Dağıtılmış Bakım / KM</th><th>Yakıt / KM</th><th>Yakıt + Bakım / KM</th><th>Özel Kullanım</th></tr></thead><tbody>${vehicles.map((vehicle) => {
+          const cashMonth = maintenanceCashForMonth(vehicle.id, month);
+          const allocatedMonth = maintenanceAllocatedForMonth(vehicle.id, month);
+          const cashYear = maintenanceCashForYear(vehicle.id, year);
+          const allocatedYear = maintenanceAllocatedForYear(vehicle.id, year);
+          const kmInfo = vehicleKmDistanceInfo(vehicle.id, month);
+          const distance = Number(kmInfo.distance || 0);
+          const fuel = vehicleFuelMonthData(vehicle.id, month);
+          const fuelPerKm = distance > 0 ? fuel.cost / distance : null;
+          const mechanicalPerKm = distance > 0 ? allocatedMonth / distance : null;
+          const combined = distance > 0 ? (fuel.cost + allocatedMonth) / distance : null;
+          const privateData = privateUseTotals(vehicle.id, month);
+          return `<tr><td><strong>${escapeHtml(vehicle.plate || "Plakasız")}</strong><br><span class="muted">${escapeHtml(vehicle.driverName || "Şoför yok")}</span></td><td>${escapeHtml(formatTRY(cashMonth))}</td><td><strong>${escapeHtml(formatTRY(allocatedMonth))}</strong></td><td>${escapeHtml(formatTRY(cashYear))}</td><td><strong>${escapeHtml(formatTRY(allocatedYear))}</strong></td><td>${distance > 0 ? `${distance.toLocaleString("tr-TR")} km<br><span class="vehicle-km-source">${escapeHtml(kmInfo.source)}</span>` : "-"}</td><td>${mechanicalPerKm === null ? "-" : escapeHtml(formatTRY(mechanicalPerKm))}</td><td>${fuelPerKm === null ? "-" : escapeHtml(formatTRY(fuelPerKm))}</td><td><strong>${combined === null ? "-" : escapeHtml(formatTRY(combined))}</strong></td><td>${privateData.km.toLocaleString("tr-TR")} km<br><span class="muted">${escapeHtml(formatTRY(privateData.cost))}</span></td></tr>`;
+        }).join("")}</tbody></table></div>`;
+      }
+
+      const records = state.vehicleMaintenance.filter((record) => !selectedVehicleId || record.vehicleId === selectedVehicleId).sort((a,b) => String(b.date || "").localeCompare(String(a.date || "")));
+      if (!records.length) {
+        schedule.innerHTML = '<div class="empty">Bakım veya mekanik gider kaydı yok.</div>';
+      } else {
+        schedule.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>Kategori</th><th>Gerçek Ödeme</th><th>Süre</th><th>Aylık Yük</th><th>Dağıtım Dönemi</th></tr></thead><tbody>${records.map((record) => `<tr><td>${escapeHtml(jobDateText(record.date))}</td><td><strong>${escapeHtml(record.vehiclePlate || vehicleLabel(record.vehicleId))}</strong></td><td>${escapeHtml(record.type || "Diğer")}</td><td>${escapeHtml(formatTRY(record.amount || 0))}</td><td>${maintenanceAllocationMonths(record)} ay</td><td><strong>${escapeHtml(formatTRY(maintenanceMonthlyAllocation(record)))}</strong></td><td>${escapeHtml(vehicleCostMonthLabel(String(record.date || "").slice(0,7)))} → ${escapeHtml(vehicleCostMonthLabel(maintenanceAllocationEndMonth(record)))}</td></tr>`).join("")}</tbody></table></div>`;
+      }
+
+      const categoryMap = new Map();
+      state.vehicleMaintenance.filter((record) => (!selectedVehicleId || record.vehicleId === selectedVehicleId)).forEach((record) => {
+        const key = record.type || "Diğer";
+        if (!categoryMap.has(key)) categoryMap.set(key, { cash: 0, allocated: 0 });
+        if (String(record.date || "").startsWith(year)) categoryMap.get(key).cash += Math.max(0, Number(record.amount || 0));
+        let allocated = 0;
+        for (let m = 1; m <= 12; m += 1) allocated += maintenanceAllocatedInMonth(record, `${year}-${String(m).padStart(2,"0")}`);
+        categoryMap.get(key).allocated += allocated;
+      });
+      const categories = [...categoryMap.entries()].filter(([, value]) => value.cash > 0 || value.allocated > 0).sort((a,b) => b[1].allocated - a[1].allocated);
+      categoryHost.innerHTML = categories.length ? categories.map(([name, value]) => `<div class="vehicle-cost-category-row"><strong>${escapeHtml(name)}</strong><span>Gerçek: ${escapeHtml(formatTRY(value.cash))}</span><span>Dağıtılmış: ${escapeHtml(formatTRY(value.allocated))}</span></div>`).join("") : '<div class="empty">Seçilen yılda kategori maliyeti yok.</div>';
+    }
+
+
     function openDocumentDb() {
       return new Promise((resolve, reject) => {
         if (!("indexedDB" in window)) return reject(new Error("Tarayıcı dosya depolamayı desteklemiyor."));
@@ -14961,12 +15679,14 @@
     }
 
     function activateVehicleSubTab(name = "cards") {
-      const valid = ["cards", "maintenance", "km", "files", "alerts"].includes(name) ? name : "cards";
+      const valid = ["cards", "private-use", "maintenance", "cost-report", "km", "files", "alerts"].includes(name) ? name : "cards";
       $$("#vehicleModuleTabs .vehicle-module-tab").forEach((button) => button.classList.toggle("active", button.dataset.vehicleSubtab === valid));
       $$("#tab-vehicles .vehicle-sub-screen").forEach((screen) => screen.classList.remove("active"));
       const screen = $(`#vehicle-sub-${valid}`);
       if (screen) screen.classList.add("active");
-      if (valid === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); }
+      if (valid === "private-use") { renderPrivateUseOptions(); renderPrivateVehicleUses(); }
+      if (valid === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
+      if (valid === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
       if (valid === "km") { renderVehicleKmOptions(); renderVehicleKmAnalysis(); }
       if (valid === "files") { renderDocumentArchiveOptions(); renderDocumentArchive(); }
       if (valid === "alerts") renderVehicleAlerts();
@@ -15088,6 +15808,8 @@
       if ($("#maintenanceDate")) $("#maintenanceDate").value = todayISO();
       renderVehicleMaintenanceOptions();
       if (vehicleId && $("#maintenanceVehicle")) $("#maintenanceVehicle").value = vehicleId;
+      if ($("#maintenanceAllocationMonths")) $("#maintenanceAllocationMonths").value = "12";
+      updateMaintenanceAllocationPreview();
     }
 
     function saveVehicleMaintenance(event) {
@@ -15113,6 +15835,7 @@
           companyId: oldExpense?.companyId || "", companyName: oldExpense?.companyName || "", schoolId: oldExpense?.schoolId || "", schoolName: oldExpense?.schoolName || "",
           receiptNo: $("#maintenanceInvoiceNo").value.trim(), supplier: $("#maintenanceProvider").value.trim(),
           note: `Bakım kaydı: ${type}${$("#maintenanceDescription").value.trim() ? " · " + $("#maintenanceDescription").value.trim() : ""}`,
+          allocationMonths: Math.max(1, Number($("#maintenanceAllocationMonths")?.value || 1)),
           source: "vehicleMaintenance", maintenanceId: id, createdAt: oldExpense?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString()
         };
         const expenseIndex = state.vehicleExpenses.findIndex((item) => item.id === expenseId);
@@ -15127,6 +15850,7 @@
         km: Number($("#maintenanceKm").value || 0), type, provider: $("#maintenanceProvider").value.trim(), amount,
         invoiceNo: $("#maintenanceInvoiceNo").value.trim(), nextDate: $("#maintenanceNextDate").value,
         nextKm: Number($("#maintenanceNextKm").value || 0), description: $("#maintenanceDescription").value.trim(), expenseId,
+        allocationMonths: Math.max(1, Number($("#maintenanceAllocationMonths")?.value || 1)),
         createdAt: existing?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString()
       };
       const index = state.vehicleMaintenance.findIndex((item) => item.id === id);
@@ -15157,10 +15881,12 @@
       $("#maintenanceType").value = record.type || "Periyodik Bakım";
       $("#maintenanceProvider").value = record.provider || "";
       $("#maintenanceAmount").value = record.amount || "";
+      $("#maintenanceAllocationMonths").value = String(maintenanceAllocationMonths(record));
       $("#maintenanceInvoiceNo").value = record.invoiceNo || "";
       $("#maintenanceNextDate").value = record.nextDate || "";
       $("#maintenanceNextKm").value = record.nextKm || "";
       $("#maintenanceDescription").value = record.description || "";
+      updateMaintenanceAllocationPreview();
       scrollContentTop();
     }
 
@@ -15184,8 +15910,8 @@
         const vehicle = state.vehicles.find((item) => item.id === record.vehicleId);
         return !search || normalize([record.vehiclePlate, vehicle?.plate, record.type, record.provider, record.invoiceNo, record.description].join(" ")).includes(search);
       }).sort((a,b) => String(b.date).localeCompare(String(a.date)));
-      if (!rows.length) { host.innerHTML = `<div class="empty">Bu filtrede bakım kaydı bulunmuyor.</div>`; return; }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>KM</th><th>Bakım</th><th>Servis / Usta</th><th>Tutar</th><th>Sonraki</th><th>İşlem</th></tr></thead><tbody>${rows.map((r) => `<tr><td><strong>${escapeHtml(jobDateText(r.date))}</strong></td><td>${escapeHtml(r.vehiclePlate || vehicleLabel(r.vehicleId))}</td><td>${r.km ? escapeHtml(Number(r.km).toLocaleString("tr-TR")) : "-"}</td><td><strong>${escapeHtml(r.type)}</strong><br><span class="muted">${escapeHtml(r.description || "Açıklama yok")}</span></td><td>${escapeHtml(r.provider || "-")}<br><span class="muted">${escapeHtml(r.invoiceNo || "Fatura yok")}</span></td><td><strong>${escapeHtml(formatTRY(r.amount || 0))}</strong>${r.expenseId ? '<br><span class="pill active">Finansa işlendi</span>' : ''}</td><td>${r.nextDate ? escapeHtml(jobDateText(r.nextDate)) : "-"}<br><span class="muted">${r.nextKm ? Number(r.nextKm).toLocaleString("tr-TR") + " km" : "KM yok"}</span></td><td><button class="btn small" data-action="edit-maintenance" data-id="${escapeHtml(r.id)}">Düzenle</button><button class="btn small danger" data-action="delete-maintenance" data-id="${escapeHtml(r.id)}">Sil</button></td></tr>`).join("")}</tbody></table></div>`;
+      if (!rows.length) { host.innerHTML = `<div class="empty">Bu filtrede bakım veya mekanik gider kaydı bulunmuyor.</div>`; return; }
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>KM</th><th>İşlem</th><th>Servis / Usta</th><th>Gerçek Ödeme</th><th>Dağıtım</th><th>Sonraki</th><th>İşlem</th></tr></thead><tbody>${rows.map((r) => `<tr><td><strong>${escapeHtml(jobDateText(r.date))}</strong></td><td>${escapeHtml(r.vehiclePlate || vehicleLabel(r.vehicleId))}</td><td>${r.km ? escapeHtml(Number(r.km).toLocaleString("tr-TR")) : "-"}</td><td><strong>${escapeHtml(r.type)}</strong><br><span class="muted">${escapeHtml(r.description || "Açıklama yok")}</span></td><td>${escapeHtml(r.provider || "-")}<br><span class="muted">${escapeHtml(r.invoiceNo || "Fatura yok")}</span></td><td><strong>${escapeHtml(formatTRY(r.amount || 0))}</strong>${r.expenseId ? '<br><span class="pill active">Finansa işlendi</span>' : ''}</td><td><strong>${maintenanceAllocationMonths(r)} ay</strong><br><span class="muted">${escapeHtml(formatTRY(maintenanceMonthlyAllocation(r)))} / ay</span></td><td>${r.nextDate ? escapeHtml(jobDateText(r.nextDate)) : "-"}<br><span class="muted">${r.nextKm ? Number(r.nextKm).toLocaleString("tr-TR") + " km" : "KM yok"}</span></td><td><button class="btn small" data-action="edit-maintenance" data-id="${escapeHtml(r.id)}">Düzenle</button><button class="btn small danger" data-action="delete-maintenance" data-id="${escapeHtml(r.id)}">Sil</button></td></tr>`).join("")}</tbody></table></div>`;
     }
 
     function renderVehicleAlerts() {
@@ -16461,6 +17187,18 @@
         maintenanceText.textContent = vehicleAlerts.length ? `${critical} kritik kayıt var. Detay için karta dokun.` : "Yaklaşan bakım, muayene veya sigorta uyarısı bulunmuyor.";
         maintenanceState.textContent = critical ? `${critical} Kritik` : vehicleAlerts.length ? "Yaklaşıyor" : "Güncel";
       }
+
+      const commandMonth = getFinanceMonth();
+      const privateMonth = privateUseTotals("", commandMonth);
+      const commandPrivateText = $("#commandPrivateUseText");
+      const commandPrivateValue = $("#commandPrivateUseValue");
+      const commandMechanicalText = $("#commandMechanicalCostText");
+      const commandMechanicalValue = $("#commandMechanicalCostValue");
+      if (commandPrivateText) commandPrivateText.textContent = privateMonth.km > 0 ? `${privateMonth.count} kayıt · Tahmini yakıt ${formatTRY(privateMonth.cost)}` : "Bu ay özel kullanım kaydı yok.";
+      if (commandPrivateValue) commandPrivateValue.textContent = `${privateMonth.km.toLocaleString("tr-TR")} km`;
+      const allocatedMechanical = maintenanceAllocatedForMonth("", commandMonth);
+      if (commandMechanicalText) commandMechanicalText.textContent = allocatedMechanical > 0 ? `${vehicleCostMonthLabel(commandMonth)} yönetim maliyet yükü` : "Bu aya düşen bakım payı yok.";
+      if (commandMechanicalValue) commandMechanicalValue.textContent = formatTRY(allocatedMechanical);
 
       const personnelNav = $('.nav-btn[data-module="personnel"]');
       const schoolNav = $('.nav-btn[data-module="school"]');
@@ -20916,8 +21654,13 @@
       renderPeopleTable();
       renderRoutesTable();
       renderVehiclesTable();
+      renderPrivateUseOptions();
+      renderPrivateVehicleUses();
       renderVehicleMaintenanceOptions();
       renderVehicleMaintenanceTable();
+      updateMaintenanceAllocationPreview();
+      renderVehicleCostReportOptions();
+      renderVehicleCostReport();
       renderVehicleKmOptions();
       renderVehicleKmAnalysis();
       renderDocumentArchiveOptions();
@@ -21263,6 +22006,7 @@
         state.jobs = state.jobs.map((job) => job.vehicleId === id ? { ...job, vehicleId: "" } : job);
         state.vehicleExpenses = state.vehicleExpenses.map((expense) => expense.vehicleId === id ? { ...expense, vehicleId: "" } : expense);
         state.vehicleMaintenance = state.vehicleMaintenance.map((record) => record.vehicleId === id ? { ...record, vehicleId: "" } : record);
+        state.privateVehicleUses = state.privateVehicleUses.map((record) => record.vehicleId === id ? { ...record, vehicleId: "" } : record);
         state.vehicleKmRecords = state.vehicleKmRecords.filter((record) => record.vehicleId !== id);
         state.documents = state.documents.map((meta) => meta.vehicleId === id ? { ...meta, vehicleId: "" } : meta);
       }
@@ -21296,6 +22040,7 @@
     function openTutorialTarget(target) {
       const actions = {
         vehicles: () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cards"); },
+        "vehicle-cost": () => { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cost-report"); },
         companies: () => { activateModule("personnel"); activateTab("companies"); },
         jobs: () => { activateModule("personnel"); activateTab("jobs"); },
         people: () => { activateModule("personnel"); activateTab("people"); },
@@ -21442,7 +22187,7 @@
     }
 
     function localBackupRecordCount(snapshot) {
-      const keys = ["people", "companies", "jobs", "financeRecords", "vehicleExpenses", "vehicleMaintenance", "vehicleKmRecords", "documents", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
+      const keys = ["people", "companies", "jobs", "financeRecords", "vehicleExpenses", "vehicleMaintenance", "privateVehicleUses", "vehicleKmRecords", "documents", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
       return keys.reduce((total, key) => total + (Array.isArray(snapshot?.[key]) ? snapshot[key].length : 0), 0);
     }
 
@@ -21459,6 +22204,7 @@
         financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
         vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
         vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+        privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
         vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
         documents: Array.isArray(parsed.documents) ? parsed.documents : [],
         staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
@@ -21741,6 +22487,7 @@
             financeRecords: Array.isArray(parsed.financeRecords) ? parsed.financeRecords : [],
             vehicleExpenses: Array.isArray(parsed.vehicleExpenses) ? parsed.vehicleExpenses : [],
             vehicleMaintenance: Array.isArray(parsed.vehicleMaintenance) ? parsed.vehicleMaintenance : [],
+            privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
             vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
             documents: Array.isArray(parsed.documents) ? parsed.documents : [],
             staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
@@ -22056,8 +22803,16 @@
       $("#financeRecordForm")?.addEventListener("submit", saveFinanceRecord);
       $("#routeForm").addEventListener("submit", saveRoute);
       $("#vehicleForm").addEventListener("submit", saveVehicle);
+      $("#privateVehicleUseForm")?.addEventListener("submit", savePrivateVehicleUse);
+      $("#clearPrivateUseBtn")?.addEventListener("click", clearPrivateVehicleUseForm);
+      $("#privateUseMonth")?.addEventListener("change", renderPrivateVehicleUses);
+      $("#privateUseVehicleFilter")?.addEventListener("change", renderPrivateVehicleUses);
       $("#vehicleMaintenanceForm")?.addEventListener("submit", saveVehicleMaintenance);
       $("#clearVehicleMaintenanceBtn")?.addEventListener("click", () => clearVehicleMaintenanceForm());
+      $("#maintenanceAmount")?.addEventListener("input", updateMaintenanceAllocationPreview);
+      $("#maintenanceAllocationMonths")?.addEventListener("change", updateMaintenanceAllocationPreview);
+      $("#maintenanceDate")?.addEventListener("change", updateMaintenanceAllocationPreview);
+      ["vehicleCostReportVehicle", "vehicleCostReportMonth", "vehicleCostReportYear"].forEach((id) => $("#" + id)?.addEventListener("change", renderVehicleCostReport));
       $("#vehicleKmRecordForm")?.addEventListener("submit", saveVehicleKmRecord);
       $("#clearVehicleKmBtn")?.addEventListener("click", clearVehicleKmForm);
       $("#vehicleKmMonth")?.addEventListener("change", () => {
@@ -22324,6 +23079,11 @@
         if (action === "delete-route") deleteById("routes", id, "Güzergah silindi. Bağlı personel ve seferler güncellendi.");
         if (action === "edit-vehicle") editVehicle(id);
         if (action === "maintenance-vehicle") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("maintenance"); clearVehicleMaintenanceForm(); $("#maintenanceVehicle").value = id || ""; scrollContentTop(); }
+        if (action === "edit-private-use") editPrivateVehicleUse(id);
+        if (action === "finish-private-use") editPrivateVehicleUse(id, true);
+        if (action === "delete-private-use") deletePrivateVehicleUse(id);
+        if (action === "open-private-use") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("private-use"); scrollContentTop(); }
+        if (action === "open-cost-report") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("cost-report"); scrollContentTop(); }
         if (action === "edit-maintenance") editVehicleMaintenance(id);
         if (action === "delete-maintenance") deleteVehicleMaintenance(id);
         if (action === "open-vehicle-alerts") openVehicleAlerts();
@@ -22977,7 +23737,8 @@
         staffPaymentForm: "Şoför / rehber ödeme kaydı",
         routeForm: "Güzergah kaydı",
         vehicleForm: "Araç kaydı",
-        vehicleMaintenanceForm: "Bakım kaydı",
+        privateVehicleUseForm: "Özel kullanım kaydı",
+        vehicleMaintenanceForm: "Bakım / mekanik kaydı",
         tripForm: "Sefer planı",
         studentForm: "Öğrenci kaydı",
         schoolForm: "Okul kaydı",
@@ -23809,7 +24570,7 @@
     }
 
 
-    // v4.29.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+    // v4.30.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
     let currentLicenseSession = null;
 
     function createLicenseDeviceId() {
@@ -24117,7 +24878,9 @@
     clearStaffPaymentForm();
     clearRouteForm();
     clearVehicleForm();
+    migrateVehicleCostDataV430();
     clearVehicleMaintenanceForm();
+    clearPrivateVehicleUseForm();
     clearTripForm();
     clearStudentForm();
     clearSchoolForm();
