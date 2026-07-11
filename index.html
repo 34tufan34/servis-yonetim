@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.37.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.38.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -9129,7 +9129,7 @@
 
   
 
-    /* v4.37.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
+    /* v4.38.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
     .table-action-row {
       display: inline-flex !important;
       flex-wrap: nowrap !important;
@@ -9351,6 +9351,118 @@
       .command-status-chip { min-width: 60px; }
     }
 
+  
+
+    /* v4.38.0 - Gelir / Gider alt sekmeleri ve Okul Finans işlem hizası */
+    .finance-flow-subtabs {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 8px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .finance-flow-subtabs .mini-tab {
+      min-height: 42px;
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+    }
+    .finance-flow-subscreen {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .vehicle-expense-entry-card {
+      flex: 0 0 auto;
+      min-height: 690px;
+      padding: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .finance-flow-entry-head { flex: 0 0 auto; margin-bottom: 10px; }
+    .vehicle-expense-entry-card .vehicle-expense-form-panel {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: min(760px, 100%);
+      margin: 0 auto;
+      background: rgba(255,255,255,.022);
+    }
+    .vehicle-expense-summary-panel {
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .vehicle-expense-summary-head {
+      align-items: flex-end;
+      margin-bottom: 0 !important;
+    }
+    .vehicle-expense-summary-head .vehicle-expense-actions {
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+    }
+    .vehicle-expense-summary-panel .vehicle-expense-summary { margin-bottom: 0; }
+    .vehicle-expense-list-standalone {
+      min-height: 650px;
+      padding: 16px;
+      background: rgba(255,255,255,.025);
+    }
+    .vehicle-expense-list-standalone .vehicle-expense-controls {
+      grid-template-columns: minmax(160px,.8fr) minmax(160px,.8fr) minmax(180px,.85fr) minmax(260px,1.4fr);
+      margin-bottom: 12px;
+    }
+    .vehicle-expense-list-standalone .vehicle-expense-table-host {
+      min-height: 500px;
+    }
+
+    .finance-school-controls {
+      grid-template-columns: minmax(160px,.72fr) minmax(150px,.68fr) minmax(165px,.72fr) minmax(230px,1.1fr) auto;
+    }
+    .finance-school-actions {
+      display: grid;
+      grid-template-columns: repeat(2, max-content);
+      gap: 8px;
+      align-items: center;
+      justify-content: end;
+      flex-wrap: nowrap;
+      min-width: max-content;
+    }
+    .finance-school-actions .btn {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    body[data-theme="light"] .finance-flow-subtabs .mini-tab {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    @media (max-width: 1180px) {
+      .finance-flow-subtabs { grid-template-columns: repeat(4, minmax(165px, 1fr)); }
+      .vehicle-expense-list-standalone .vehicle-expense-controls { grid-template-columns: 1fr 1fr; }
+      .finance-school-controls { grid-template-columns: 1fr 1fr; }
+      .finance-school-actions { justify-content: start; }
+    }
+    @media (max-width: 760px) {
+      .vehicle-expense-entry-card { min-height: 720px; padding: 12px; }
+      .vehicle-expense-entry-card .vehicle-expense-form-panel { width: 100%; }
+      .vehicle-expense-summary-head { align-items: flex-start; flex-direction: column; }
+      .vehicle-expense-summary-head .vehicle-expense-actions { justify-content: flex-start; }
+      .vehicle-expense-list-standalone .vehicle-expense-controls { grid-template-columns: 1fr; }
+      .finance-school-actions {
+        width: 100%;
+        min-width: 0;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .finance-school-actions .btn { padding-inline: 9px; font-size: 11px; }
+    }
+
   </style>
 </head>
 
@@ -9487,7 +9599,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.37.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.38.0</div>
         </div>
       </div>
 
@@ -11257,215 +11369,217 @@
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-flow">
-            <div class="finance-flow-summary" id="financeFlowSummary"></div>
-            <section class="card finance-flow-table-panel">
-              <div class="panel-header">
-                <div>
-                  <h2 class="panel-title">Gelir / Gider Dağılımı</h2>
-                  <div class="panel-sub">Personel, okul ve genel araç giderlerinin finans etkisi.</div>
-                </div>
-              </div>
-              <div class="finance-flow-table-host" id="financeFlowTableHost"></div>
-            </section>
-            <div class="finance-section-heading" id="vehicleExpenseHeading">
-              <strong>Araç Giderleri ve Maliyet</strong>
-              <span>Yakıt, bakım ve ortak araç masraflarını personel ile okul operasyonlarına doğru paylaştır.</span>
-            </div>
-            <section class="card vehicle-expense-panel" id="vehicleExpenseSection">
-            <div class="panel-header">
-              <div>
-                <h2 class="panel-title">Araç Giderleri</h2>
-                <div class="panel-sub">Araç maliyetini personel, okul veya yüzdeyle ortak operasyona bağla. Toplam gider hiçbir zaman iki kez sayılmaz.</div>
-              </div>
+            <div class="finance-flow-subtabs" id="financeFlowSubtabs" role="tablist" aria-label="Gelir gider alt bölümleri">
+              <button class="mini-tab active" type="button" data-finance-flow-tab="entry">Kayıt Yap</button>
+              <button class="mini-tab" type="button" data-finance-flow-tab="distribution">Gelir / Gider Dağılımı</button>
+              <button class="mini-tab" type="button" data-finance-flow-tab="expenses">Araç Giderleri</button>
+              <button class="mini-tab" type="button" data-finance-flow-tab="monthly">Aylık Araç Giderleri</button>
             </div>
 
-            <div class="vehicle-expense-controls">
-              <div class="field">
-                <label for="vehicleExpenseVehicleFilter">Araç</label>
-                <select id="vehicleExpenseVehicleFilter"></select>
-              </div>
-              <div class="field">
-                <label for="vehicleExpenseTypeFilter">Gider Türü</label>
-                <select id="vehicleExpenseTypeFilter"></select>
-              </div>
-              <div class="field">
-                <label for="vehicleExpenseLinkFilter">Bağlantı</label>
-                <select id="vehicleExpenseLinkFilter">
-                  <option value="Tümü">Bağlantı: Tümü</option>
-                  <option value="Personel">Personel İşi</option>
-                  <option value="Okul">Okul Servisi</option>
-                  <option value="Ortak">Ortak / Paylaştırılmış</option>
-                  <option value="Genel">Genel Araç Gideri</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="vehicleExpenseSearch">Arama</label>
-                <input id="vehicleExpenseSearch" placeholder="Plaka, şoför, iş, okul, fiş veya not ara..." />
-              </div>
-              <div class="vehicle-expense-actions">
-                <button class="btn" id="exportVehicleExpensesCsvBtn" type="button">Gider CSV</button>
-                <button class="btn primary" id="newVehicleExpenseBtn" type="button">Yeni Gider</button>
-              </div>
-            </div>
-
-            <div class="vehicle-expense-summary" id="vehicleExpenseSummary"></div>
-
-            <div class="vehicle-expense-workarea">
-              <section class="vehicle-expense-form-panel">
-                <div class="panel-header">
+            <div class="finance-flow-subscreen" data-finance-flow-screen="entry">
+              <section class="card vehicle-expense-entry-card" id="vehicleExpenseSection">
+                <div class="panel-header finance-flow-entry-head">
                   <div>
-                    <h3 class="panel-title">Gider Kaydı</h3>
-                    <div class="panel-sub">Masrafı doğru araç ve operasyona bağla.</div>
+                    <h2 class="panel-title">Gelir / Gider Kaydı</h2>
+                    <div class="panel-sub">İlk açılışta doğrudan kayıt ekranı gelir. Yakıt ve diğer araç giderlerini doğru araç ve operasyona bağla.</div>
                   </div>
                 </div>
-
-                <form class="vehicle-expense-form" id="vehicleExpenseForm" novalidate>
-                  <input type="hidden" id="vehicleExpenseId" />
-
-                  <div class="two">
-                    <div class="field">
-                      <label for="vehicleExpenseDate">Tarih *</label>
-                      <input id="vehicleExpenseDate" type="date" required />
-                    </div>
-                    <div class="field">
-                      <label for="vehicleExpenseVehicle">Araç / Plaka *</label>
-                      <select id="vehicleExpenseVehicle" required></select>
-                    </div>
-                  </div>
-
-                  <div class="two">
-                    <div class="field">
-                      <label for="vehicleExpenseType">Gider Türü *</label>
-                      <select id="vehicleExpenseType" required></select>
-                    </div>
-                    <div class="field">
-                      <label id="vehicleExpenseAmountLabel" for="vehicleExpenseAmount">Tutar (₺) *</label>
-                      <input id="vehicleExpenseAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" required />
-                      <small class="field-help" id="vehicleExpenseAmountHelp" hidden></small>
-                      <label class="fuel-manual-total-check hidden" id="vehicleExpenseManualTotalWrap">
-                        <input id="vehicleExpenseManualTotal" type="checkbox" />
-                        <span>Toplam tutarı manuel gir</span>
-                      </label>
-                    </div>
-                  </div>
-
-
-                  <div class="vehicle-expense-fuel-fields" id="vehicleExpenseFuelFields">
-                    <div class="field">
-                      <label for="vehicleExpenseFuelLiters">Alınan Yakıt (Litre) *</label>
-                      <input id="vehicleExpenseFuelLiters" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 62,40" />
-                    </div>
-                    <div class="field">
-                      <label for="vehicleExpenseFuelUnitPrice">Gerçek Litre Fiyatı (₺) *</label>
-                      <input id="vehicleExpenseFuelUnitPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 68,750" />
-                      <small class="field-help">Şirket indirimi uygulanmış gerçek alış fiyatını yaz. Litre ile çarpılarak toplam tutar otomatik hesaplanır.</small>
-                    </div>
-                  </div>
-
-                  <div class="two">
-                    <div class="field">
-                      <label for="vehicleExpenseKm">Kilometre</label>
-                      <input id="vehicleExpenseKm" type="number" min="0" step="1" placeholder="Örn. 184250" />
-                    </div>
-                    <div class="field">
-                      <label for="vehicleExpensePaymentMethod">Ödeme Yöntemi</label>
-                      <select id="vehicleExpensePaymentMethod">
-                        <option value="Nakit">Nakit</option>
-                        <option value="Havale / EFT">Havale / EFT</option>
-                        <option value="Kredi Kartı">Kredi Kartı</option>
-                        <option value="Cari Hesap">Cari Hesap</option>
-                        <option value="Diğer">Diğer</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-section-title">Operasyon Bağlantısı ve Paylaştırma</div>
-
-                  <div class="vehicle-expense-allocation">
-                    <div class="field">
-                      <label for="vehicleExpenseAllocationMode">Gider Dağıtımı</label>
-                      <select id="vehicleExpenseAllocationMode">
-                        <option value="general">Genel araç gideri</option>
-                        <option value="personnel">Yalnız personel işine</option>
-                        <option value="school">Yalnız okul servisine</option>
-                        <option value="shared">Personel + okul ortak gideri</option>
-                      </select>
-                    </div>
-
-                    <div class="two">
-                      <div class="field" id="vehicleExpenseJobField">
-                        <label for="vehicleExpenseJob">Personel İşi / Sözleşme</label>
-                        <select id="vehicleExpenseJob"></select>
-                      </div>
-
-                      <div class="field" id="vehicleExpenseSchoolField">
-                        <label for="vehicleExpenseSchool">Okul Servisi</label>
-                        <select id="vehicleExpenseSchool"></select>
-                      </div>
-                    </div>
-
-                    <div class="vehicle-expense-share-fields" id="vehicleExpenseShareFields">
-                      <div class="field">
-                        <label for="vehicleExpensePersonnelShare">Personel Payı (%)</label>
-                        <input id="vehicleExpensePersonnelShare" type="number" min="0" max="100" step="1" value="50" />
-                      </div>
-                      <div class="field">
-                        <label for="vehicleExpenseSchoolShare">Okul Payı (%)</label>
-                        <input id="vehicleExpenseSchoolShare" type="number" min="0" max="100" step="1" value="50" />
-                      </div>
-                    </div>
-
-                    <div class="vehicle-expense-share-preview" id="vehicleExpenseSharePreview">
-                      <div class="vehicle-expense-share-card personnel">
-                        <span>Personel operasyonuna düşen</span>
-                        <strong id="vehicleExpensePersonnelAmount">₺0</strong>
-                      </div>
-                      <div class="vehicle-expense-share-card school">
-                        <span>Okul operasyonuna düşen</span>
-                        <strong id="vehicleExpenseSchoolAmount">₺0</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="vehicle-expense-link-note" id="vehicleExpenseLinkNote">
+                <section class="vehicle-expense-form-panel">
+<div class="panel-header">
+<div>
+<h3 class="panel-title">Gider Kaydı</h3>
+<div class="panel-sub">Masrafı doğru araç ve operasyona bağla.</div>
+</div>
+</div>
+<form class="vehicle-expense-form" id="vehicleExpenseForm" novalidate="">
+<input id="vehicleExpenseId" type="hidden"/>
+<div class="two">
+<div class="field">
+<label for="vehicleExpenseDate">Tarih *</label>
+<input id="vehicleExpenseDate" required="" type="date"/>
+</div>
+<div class="field">
+<label for="vehicleExpenseVehicle">Araç / Plaka *</label>
+<select id="vehicleExpenseVehicle" required=""></select>
+</div>
+</div>
+<div class="two">
+<div class="field">
+<label for="vehicleExpenseType">Gider Türü *</label>
+<select id="vehicleExpenseType" required=""></select>
+</div>
+<div class="field">
+<label for="vehicleExpenseAmount" id="vehicleExpenseAmountLabel">Tutar (₺) *</label>
+<input autocomplete="off" id="vehicleExpenseAmount" inputmode="decimal" placeholder="0,00" required="" type="text"/>
+<small class="field-help" hidden="" id="vehicleExpenseAmountHelp"></small>
+<label class="fuel-manual-total-check hidden" id="vehicleExpenseManualTotalWrap">
+<input id="vehicleExpenseManualTotal" type="checkbox"/>
+<span>Toplam tutarı manuel gir</span>
+</label>
+</div>
+</div>
+<div class="vehicle-expense-fuel-fields" id="vehicleExpenseFuelFields">
+<div class="field">
+<label for="vehicleExpenseFuelLiters">Alınan Yakıt (Litre) *</label>
+<input autocomplete="off" id="vehicleExpenseFuelLiters" inputmode="decimal" placeholder="Örn. 62,40" type="text"/>
+</div>
+<div class="field">
+<label for="vehicleExpenseFuelUnitPrice">Gerçek Litre Fiyatı (₺) *</label>
+<input autocomplete="off" id="vehicleExpenseFuelUnitPrice" inputmode="decimal" placeholder="Örn. 68,750" type="text"/>
+<small class="field-help">Şirket indirimi uygulanmış gerçek alış fiyatını yaz. Litre ile çarpılarak toplam tutar otomatik hesaplanır.</small>
+</div>
+</div>
+<div class="two">
+<div class="field">
+<label for="vehicleExpenseKm">Kilometre</label>
+<input id="vehicleExpenseKm" min="0" placeholder="Örn. 184250" step="1" type="number"/>
+</div>
+<div class="field">
+<label for="vehicleExpensePaymentMethod">Ödeme Yöntemi</label>
+<select id="vehicleExpensePaymentMethod">
+<option value="Nakit">Nakit</option>
+<option value="Havale / EFT">Havale / EFT</option>
+<option value="Kredi Kartı">Kredi Kartı</option>
+<option value="Cari Hesap">Cari Hesap</option>
+<option value="Diğer">Diğer</option>
+</select>
+</div>
+</div>
+<div class="form-section-title">Operasyon Bağlantısı ve Paylaştırma</div>
+<div class="vehicle-expense-allocation">
+<div class="field">
+<label for="vehicleExpenseAllocationMode">Gider Dağıtımı</label>
+<select id="vehicleExpenseAllocationMode">
+<option value="general">Genel araç gideri</option>
+<option value="personnel">Yalnız personel işine</option>
+<option value="school">Yalnız okul servisine</option>
+<option value="shared">Personel + okul ortak gideri</option>
+</select>
+</div>
+<div class="two">
+<div class="field" id="vehicleExpenseJobField">
+<label for="vehicleExpenseJob">Personel İşi / Sözleşme</label>
+<select id="vehicleExpenseJob"></select>
+</div>
+<div class="field" id="vehicleExpenseSchoolField">
+<label for="vehicleExpenseSchool">Okul Servisi</label>
+<select id="vehicleExpenseSchool"></select>
+</div>
+</div>
+<div class="vehicle-expense-share-fields" id="vehicleExpenseShareFields">
+<div class="field">
+<label for="vehicleExpensePersonnelShare">Personel Payı (%)</label>
+<input id="vehicleExpensePersonnelShare" max="100" min="0" step="1" type="number" value="50"/>
+</div>
+<div class="field">
+<label for="vehicleExpenseSchoolShare">Okul Payı (%)</label>
+<input id="vehicleExpenseSchoolShare" max="100" min="0" step="1" type="number" value="50"/>
+</div>
+</div>
+<div class="vehicle-expense-share-preview" id="vehicleExpenseSharePreview">
+<div class="vehicle-expense-share-card personnel">
+<span>Personel operasyonuna düşen</span>
+<strong id="vehicleExpensePersonnelAmount">₺0</strong>
+</div>
+<div class="vehicle-expense-share-card school">
+<span>Okul operasyonuna düşen</span>
+<strong id="vehicleExpenseSchoolAmount">₺0</strong>
+</div>
+</div>
+</div>
+<div class="vehicle-expense-link-note" id="vehicleExpenseLinkNote">
                     Genel gider toplam maliyette bir kez sayılır. Ortak giderde personel ve okul paylarının toplamı %100 olmalıdır.
                   </div>
-
-                  <div class="two">
-                    <div class="field">
-                      <label for="vehicleExpenseReceiptNo">Fiş / Fatura No</label>
-                      <input id="vehicleExpenseReceiptNo" placeholder="Örn. YKT-2026-104" />
-                    </div>
-                    <div class="field">
-                      <label for="vehicleExpenseSupplier">Tedarikçi</label>
-                      <input id="vehicleExpenseSupplier" placeholder="Akaryakıt istasyonu, servis..." />
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="vehicleExpenseNote">Açıklama / Not</label>
-                    <textarea id="vehicleExpenseNote" placeholder="Yakıt litresi, bakım detayı, arıza açıklaması veya ödeme notu..."></textarea>
-                  </div>
-
-                  <div class="vehicle-expense-form-actions">
-                    <button class="btn primary" type="submit">Gideri Kaydet</button>
-                    <button class="btn" id="clearVehicleExpenseBtn" type="button">Temizle</button>
-                    <button class="btn danger" id="deleteVehicleExpenseBtn" type="button">Kaydı Sil</button>
-                  </div>
-                </form>
+<div class="two">
+<div class="field">
+<label for="vehicleExpenseReceiptNo">Fiş / Fatura No</label>
+<input id="vehicleExpenseReceiptNo" placeholder="Örn. YKT-2026-104"/>
+</div>
+<div class="field">
+<label for="vehicleExpenseSupplier">Tedarikçi</label>
+<input id="vehicleExpenseSupplier" placeholder="Akaryakıt istasyonu, servis..."/>
+</div>
+</div>
+<div class="field">
+<label for="vehicleExpenseNote">Açıklama / Not</label>
+<textarea id="vehicleExpenseNote" placeholder="Yakıt litresi, bakım detayı, arıza açıklaması veya ödeme notu..."></textarea>
+</div>
+<div class="vehicle-expense-form-actions">
+<button class="btn primary" type="submit">Gideri Kaydet</button>
+<button class="btn" id="clearVehicleExpenseBtn" type="button">Temizle</button>
+<button class="btn danger" id="deleteVehicleExpenseBtn" type="button">Kaydı Sil</button>
+</div>
+</form>
+</section>
               </section>
+            </div>
 
-              <section class="vehicle-expense-list-panel">
-                <div class="panel-header">
+            <div class="finance-flow-subscreen hidden" data-finance-flow-screen="distribution">
+              <div class="finance-flow-summary" id="financeFlowSummary"></div>
+              <section class="card finance-flow-table-panel">
+<div class="panel-header">
+<div>
+<h2 class="panel-title">Gelir / Gider Dağılımı</h2>
+<div class="panel-sub">Personel, okul ve genel araç giderlerinin finans etkisi.</div>
+</div>
+</div>
+<div class="finance-flow-table-host" id="financeFlowTableHost"></div>
+</section>
+            </div>
+
+            <div class="finance-flow-subscreen hidden" data-finance-flow-screen="expenses">
+              <section class="card vehicle-expense-panel vehicle-expense-summary-panel">
+                <div class="panel-header vehicle-expense-summary-head">
                   <div>
-                    <h3 class="panel-title">Aylık Araç Giderleri</h3>
-                    <div class="panel-sub">Araç, gider türü ve operasyon bağlantısı aynı satırda.</div>
+                    <h2 class="panel-title">Araç Giderleri</h2>
+                    <div class="panel-sub">Seçili ayın yakıt, bakım ve operasyon paylarını toplu olarak incele.</div>
                   </div>
+                  <div class="vehicle-expense-actions">
+<button class="btn" id="exportVehicleExpensesCsvBtn" type="button">Gider CSV</button>
+<button class="btn primary" id="newVehicleExpenseBtn" type="button">Yeni Gider</button>
+</div>
                 </div>
+                <div class="vehicle-expense-summary" id="vehicleExpenseSummary"></div>
+                <div class="vehicle-expense-link-note">Yeni kayıt için “Yeni Gider” düğmesini kullan. Ayrıntılı kayıtları ve filtreleri “Aylık Araç Giderleri” alt sekmesinde görebilirsin.</div>
+              </section>
+            </div>
+
+            <div class="finance-flow-subscreen hidden" data-finance-flow-screen="monthly">
+              <section class="card vehicle-expense-list-panel vehicle-expense-list-standalone">
+                <div class="panel-header">
+<div>
+<h3 class="panel-title">Aylık Araç Giderleri</h3>
+<div class="panel-sub">Araç, gider türü ve operasyon bağlantısı aynı satırda.</div>
+</div>
+</div>
+                <div class="vehicle-expense-controls">
+<div class="field">
+<label for="vehicleExpenseVehicleFilter">Araç</label>
+<select id="vehicleExpenseVehicleFilter"></select>
+</div>
+<div class="field">
+<label for="vehicleExpenseTypeFilter">Gider Türü</label>
+<select id="vehicleExpenseTypeFilter"></select>
+</div>
+<div class="field">
+<label for="vehicleExpenseLinkFilter">Bağlantı</label>
+<select id="vehicleExpenseLinkFilter">
+<option value="Tümü">Bağlantı: Tümü</option>
+<option value="Personel">Personel İşi</option>
+<option value="Okul">Okul Servisi</option>
+<option value="Ortak">Ortak / Paylaştırılmış</option>
+<option value="Genel">Genel Araç Gideri</option>
+</select>
+</div>
+<div class="field">
+<label for="vehicleExpenseSearch">Arama</label>
+<input id="vehicleExpenseSearch" placeholder="Plaka, şoför, iş, okul, fiş veya not ara..."/>
+</div>
+
+</div>
                 <div class="vehicle-expense-table-host" id="vehicleExpenseTableHost"></div>
               </section>
             </div>
-          </section>
           </div>
 
 <div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-private-use">
@@ -12690,7 +12804,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.37.0</strong>
+                <strong>v4.38.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12719,8 +12833,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.37.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
-    const APP_VERSION = "4.37.0";
+    // v4.38.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
+    const APP_VERSION = "4.38.0";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -17563,7 +17677,7 @@
     }
 
 
-    /* v4.37.0 - Komuta Paneli sıradaki yolcu durum görseli */
+    /* v4.38.0 - Komuta Paneli sıradaki yolcu durum görseli */
     function commandPassengerVisualHtml(options = {}) {
       const name = String(options.name || "").trim();
       const detail = String(options.detail || "").trim();
@@ -21057,6 +21171,7 @@
       $("#deleteVehicleExpenseBtn").disabled = false;
       updateVehicleExpenseFuelPreview();
       updateVehicleExpenseLink();
+      activateFinanceFlowTab("entry", { scroll: false, instant: true });
       scrollToFinanceArea("#vehicleExpenseSection");
     }
 
@@ -21177,8 +21292,9 @@
       activateModule("finance");
       activateFinanceTab("flow");
       renderFinanceDashboard();
-      scrollToFinanceArea("#vehicleExpenseSection");
-      showToast("Araç giderleri bölümü açıldı.");
+      activateFinanceFlowTab("expenses", { scroll: false, instant: true });
+      scrollToFinanceArea('[data-finance-flow-screen="expenses"]');
+      showToast("Araç giderleri özeti açıldı.");
     }
 
     function exportVehicleExpensesCsv() {
@@ -22041,6 +22157,41 @@
 
 
 
+
+    /* v4.38.0 - Gelir / Gider alt sekmeleri */
+    let activeFinanceFlowTab = "entry";
+
+    function activateFinanceFlowTab(tabName = "entry", options = {}) {
+      const validTabs = ["entry", "distribution", "expenses", "monthly"];
+      const target = validTabs.includes(tabName) ? tabName : "entry";
+      activeFinanceFlowTab = target;
+      $$("#financeFlowSubtabs [data-finance-flow-tab]").forEach((button) => {
+        const active = button.dataset.financeFlowTab === target;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      $$("#finance-tab-flow [data-finance-flow-screen]").forEach((screen) => {
+        screen.classList.toggle("hidden", screen.dataset.financeFlowScreen !== target);
+      });
+
+      if (target === "entry") {
+        renderVehicleExpenseOptions();
+        updateVehicleExpenseFuelPreview();
+        updateVehicleExpenseLink();
+      }
+      if (target === "distribution") {
+        renderFinanceFlowSummary();
+        renderFinanceFlowTable();
+      }
+      if (target === "expenses") renderVehicleExpenseSummary();
+      if (target === "monthly") renderVehicleExpenseTable();
+
+      if (options.scroll !== false) {
+        const flowScreen = $("#finance-tab-flow");
+        if (flowScreen) flowScreen.scrollTo({ top: 0, behavior: options.instant ? "auto" : "smooth" });
+      }
+    }
+
     function activateFinanceTab(tabName) {
       const targetName = ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"].includes(tabName) ? tabName : "overview";
       $$("#financeTabs .tab").forEach((button) => button.classList.toggle("active", button.dataset.financeTab === targetName));
@@ -22049,7 +22200,7 @@
       const activeScreen = $("#finance-tab-" + targetName);
       if (activeScreen) activeScreen.scrollTo({ top: 0, behavior: "smooth" });
       if (targetName === "overview") renderFinanceCharts();
-      if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); }
+      if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); activateFinanceFlowTab("entry", { scroll: false, instant: true }); }
       if (targetName === "private-use") { renderPrivateUseOptions(); renderPrivateVehicleUses(); }
       if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
       if (targetName === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
@@ -23613,6 +23764,10 @@
         button.addEventListener("click", () => activateFinanceTab(button.dataset.financeTab));
       });
 
+      $$("#financeFlowSubtabs [data-finance-flow-tab]").forEach((button) => {
+        button.addEventListener("click", () => activateFinanceFlowTab(button.dataset.financeFlowTab));
+      });
+
       $$("#personFormTabs .mini-tab").forEach((button) => {
         button.addEventListener("click", () => activatePersonFormPage(button.dataset.personFormPage));
       });
@@ -23682,6 +23837,7 @@
       $("#openFuelExpenseFromKmBtn")?.addEventListener("click", () => {
         activateModule("finance");
         activateFinanceTab("flow");
+        activateFinanceFlowTab("entry", { scroll: false, instant: true });
         clearVehicleExpenseForm(true);
         if ($("#vehicleExpenseType")) $("#vehicleExpenseType").value = "Yakıt";
         updateVehicleExpenseFuelPreview("type");
@@ -23772,6 +23928,7 @@
       });
       $("#vehicleExpenseForm")?.addEventListener("submit", saveVehicleExpense);
       $("#newVehicleExpenseBtn")?.addEventListener("click", () => {
+        activateFinanceFlowTab("entry", { scroll: false, instant: true });
         clearVehicleExpenseForm(true);
         scrollToFinanceArea("#vehicleExpenseSection");
       });
@@ -24059,7 +24216,8 @@
           activateFinanceTab("flow");
           if ($("#vehicleExpenseVehicleFilter")) $("#vehicleExpenseVehicleFilter").value = id;
           renderVehicleExpenses();
-          scrollToFinanceArea("#vehicleExpenseSection");
+          activateFinanceFlowTab("monthly", { scroll: false, instant: true });
+          scrollToFinanceArea('[data-finance-flow-screen="monthly"]');
         }
         if (action === "edit-staff-payment") fillStaffPaymentForm(id);
         if (action === "settle-staff-payment") settleStaffPayment(id);

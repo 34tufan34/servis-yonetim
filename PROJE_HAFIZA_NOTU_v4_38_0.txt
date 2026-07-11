@@ -1,0 +1,26 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.38.0
+Tarih: 2026-07-11
+
+MEVCUT SÜRÜM
+- Web/PWA: v4.38.0
+- Android APK: 1.0.1 / versionCode 2
+- Veri şeması: 29
+- PWA cache: servis-sys-v4-38-0
+
+BU SÜRÜMDE
+- Finans Özet > Gelir / Gider ana ekranı dört alt sekmeye ayrıldı.
+- İlk açılış alt sekmesi “Kayıt Yap” olarak ayarlandı.
+- Alt sekmeler: Kayıt Yap, Gelir / Gider Dağılımı, Araç Giderleri, Aylık Araç Giderleri.
+- Form, finans dağılımı, gider özeti ve aylık kayıt listesi birbirinden ayrılarak ekran sadeleştirildi.
+- Yeni Gider ve KM Analizi yakıt kısayolu Kayıt Yap ekranına yönlenir.
+- Aylık araç gideri satırındaki Düzenle düğmesi Kayıt Yap ekranını açar.
+- Okul Finans CSV ve Tahsilat Ekranına Git düğmeleri masaüstü ve mobilde yan yana gösterilir.
+- v4.37.0 açık tema, işlem düğmeleri ve komuta yolcu durumu özellikleri korunmuştur.
+
+GÜNCELLEMEDE YÜKLENECEK DOSYALAR
+- index.html
+- sw.js
+- KURULUM.txt
+- PROJE_HAFIZA_NOTU_v4_38_0.txt
+
+APK yeniden oluşturulmaz.
