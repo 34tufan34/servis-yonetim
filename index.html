@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.36.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.36.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -7017,9 +7017,14 @@
       width: 100%;
       min-width: 0;
       border-collapse: collapse;
+      table-layout: fixed;
       font-size: 9px;
+      line-height: 1.35;
       color: #111827;
     }
+
+    .report-table.report-table-wide { font-size: 7.8px; }
+    .report-table.report-table-ultra { font-size: 6.9px; }
 
     .report-table th,
     .report-table td {
@@ -7027,7 +7032,17 @@
       border-bottom: 1px solid #e5e7eb;
       vertical-align: top;
       text-align: left;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
     }
+
+    .report-table.report-table-wide th,
+    .report-table.report-table-wide td { padding: 5px 5px; }
+
+    .report-table.report-table-ultra th,
+    .report-table.report-table-ultra td { padding: 4px 4px; line-height: 1.24; }
 
     .report-table th {
       background: #f3f4f6;
@@ -7040,7 +7055,7 @@
     }
 
     .report-table tr:last-child td { border-bottom: 0; }
-    .report-table .money { white-space: nowrap; font-weight: 750; }
+    .report-table .money { white-space: normal; overflow-wrap: anywhere; font-weight: 750; }
     .report-table .positive { color: #15803d; font-weight: 800; }
     .report-table .negative { color: #b91c1c; font-weight: 800; }
 
@@ -7121,10 +7136,15 @@
         box-shadow: none !important;
       }
       body.finance-report-printing .report-table thead { display: table-header-group; }
+      body.finance-report-printing .report-table { table-layout: fixed; }
+      body.finance-report-printing .report-table th,
+      body.finance-report-printing .report-table td { white-space: normal !important; overflow-wrap: anywhere !important; line-height: 1.25 !important; }
       body.finance-report-printing .report-table tr { break-inside: avoid; page-break-inside: avoid; }
-      body.finance-report-printing .report-section,
+      body.finance-report-printing .report-section:not(.report-section-splittable),
       body.finance-report-printing .report-chart-card,
       body.finance-report-printing .report-kpi { break-inside: avoid; page-break-inside: avoid; }
+      body.finance-report-printing .report-section-splittable,
+      body.finance-report-printing .report-table-wrap { break-inside: auto !important; page-break-inside: auto !important; overflow: visible !important; }
       body.finance-report-printing .report-footer {
         position: fixed;
         left: 0;
@@ -8153,13 +8173,19 @@
     .vehicle-km-cost-series { display: grid; gap: 4px; }
     .vehicle-km-cost-line { display: grid; grid-template-columns: 72px minmax(0, 1fr) 78px; gap: 6px; align-items: center; font-size: 9px; color: var(--muted); }
     .vehicle-km-cost-track { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
-    .vehicle-km-cost-track i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
-    .vehicle-km-cost-line.total i { background: var(--warning); }
-    .vehicle-km-cost-line.revenue i { background: var(--success); }
+    .vehicle-km-cost-track i { display: block; height: 100%; border-radius: inherit; background: #22d3ee; box-shadow: 0 0 10px rgba(34,211,238,.35); }
+    .vehicle-km-cost-line.total i { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,.30); }
+    .vehicle-km-cost-line.revenue i { background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,.30); }
     .vehicle-km-cost-line b { color: var(--text); text-align: right; font-size: 9px; }
     .vehicle-km-trend-svg { display: block; width: 100%; height: 235px; }
     .vehicle-km-chart-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 4px; color: var(--muted); font-size: 9px; }
     .vehicle-km-chart-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 99px; margin-right: 4px; }
+    .vehicle-km-trend-stack { display: grid; gap: 8px; }
+    .vehicle-km-trend-panel { border: 1px solid rgba(148,163,184,.16); border-radius: 11px; padding: 7px 8px 5px; background: rgba(255,255,255,.018); }
+    .vehicle-km-trend-panel-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 2px; font-size: 9px; color: var(--muted); }
+    .vehicle-km-trend-panel-head strong { color: var(--text); font-size: 9.5px; }
+    .vehicle-km-trend-mini { display: block; width: 100%; height: 64px; overflow: visible; }
+    .vehicle-km-trend-months { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 2px; color: var(--muted); font-size: 8px; text-align: center; margin-top: 1px; }
 
     .report-section-splittable { break-inside: auto; page-break-inside: auto; }
     .report-subsection-note { margin: -4px 0 9px; color: #6b7280; font-size: 9.5px; line-height: 1.45; }
@@ -9237,7 +9263,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.36.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.36.1</div>
         </div>
       </div>
 
@@ -12428,7 +12454,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.36.0</strong>
+                <strong>v4.36.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -12457,8 +12483,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.36.0 - Tüm sistem demo verisi, demo temizleme ve sadeleştirilmiş finans özeti eklendi.
-    const APP_VERSION = "4.36.0";
+    // v4.36.1 - PDF yerleşimi, sefer-sözleşme bağlantısı ve KM grafik görünürlüğü düzeltildi.
+    const APP_VERSION = "4.36.1";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -12551,6 +12577,7 @@
       }));
       state.appVersion = APP_VERSION;
       state.schemaVersion = SCHEMA_VERSION;
+      repairDispatchJobLinksForMonth("");
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
 
@@ -13249,19 +13276,77 @@
       return rows.find((item) => String(item.jobId || "") === String(jobId || "")) || null;
     }
 
+    function mergeDispatchInto(target, source) {
+      if (!target || !source || target === source) return target;
+      target.morningCompleted = Boolean(target.morningCompleted || source.morningCompleted);
+      target.eveningCompleted = Boolean(target.eveningCompleted || source.eveningCompleted);
+      if (!Number(target.unitPrice || 0) && Number(source.unitPrice || 0)) target.unitPrice = Number(source.unitPrice || 0);
+      if (!target.jobName && source.jobName) target.jobName = source.jobName;
+      return target;
+    }
+
+    function dispatchJobCandidates(dispatch) {
+      if (!dispatch?.date || !dispatch?.routeId) return [];
+      return state.jobs.filter((job) => {
+        const routeId = String(job.routeId || getCompany(job.companyId)?.routeId || "");
+        return routeId === String(dispatch.routeId || "") && ledgerJobValidForDate(job, dispatch.date);
+      });
+    }
+
+    function repairDispatchJobLinksForMonth(month = "") {
+      let changed = false;
+      state.dispatches.forEach((dispatch) => {
+        if (month && !String(dispatch.date || "").startsWith(month)) return;
+        if (dispatchTripCount(dispatch) <= 0) return;
+        const linkedJob = getJob(dispatch.jobId);
+        if (linkedJob) return;
+        const candidates = dispatchJobCandidates(dispatch);
+        if (candidates.length !== 1) return;
+        const job = candidates[0];
+        dispatch.jobId = job.id;
+        dispatch.jobName = job.name || "";
+        dispatch.billingModel = job.billingModel || "trip";
+        if (job.billingModel === "monthly") dispatch.unitPrice = 0;
+        else if (!Number(dispatch.unitPrice || 0)) dispatch.unitPrice = Number(job.tripPrice || getCompany(job.companyId)?.tripPrice || state.settings?.personnelTripPrice || 2250);
+        changed = true;
+      });
+
+      const grouped = new Map();
+      state.dispatches.forEach((dispatch) => {
+        if (month && !String(dispatch.date || "").startsWith(month)) return;
+        if (!dispatch.jobId) return;
+        const key = `${dispatch.date || ""}|${dispatch.routeId || ""}|${dispatch.jobId || ""}`;
+        if (!grouped.has(key)) grouped.set(key, []);
+        grouped.get(key).push(dispatch);
+      });
+      const removeIds = new Set();
+      grouped.forEach((rows) => {
+        if (rows.length < 2) return;
+        const target = rows[0];
+        rows.slice(1).forEach((row) => { mergeDispatchInto(target, row); removeIds.add(row.id); changed = true; });
+      });
+      if (removeIds.size) state.dispatches = state.dispatches.filter((row) => !removeIds.has(row.id));
+      return changed;
+    }
+
     function getOrCreateDispatch(date, routeId, jobId = "") {
       let dispatch = getDispatch(date, routeId, jobId);
-      if (dispatch) return dispatch;
-
       if (jobId) {
-        const legacy = state.dispatches.find((item) =>
-          item.date === date && item.routeId === routeId && !item.jobId
-        );
-        if (legacy) {
-          legacy.jobId = jobId;
-          return legacy;
+        const job = getJob(jobId);
+        const legacyRows = state.dispatches.filter((item) => item.date === date && item.routeId === routeId && (!item.jobId || !getJob(item.jobId)));
+        if (!dispatch && legacyRows.length) dispatch = legacyRows.shift();
+        if (dispatch) {
+          dispatch.jobId = jobId;
+          dispatch.jobName = job?.name || dispatch.jobName || "";
+          dispatch.billingModel = job?.billingModel || dispatch.billingModel || "trip";
+          legacyRows.forEach((row) => mergeDispatchInto(dispatch, row));
+          if (legacyRows.length) {
+            const removeIds = new Set(legacyRows.map((row) => row.id));
+            state.dispatches = state.dispatches.filter((row) => !removeIds.has(row.id));
+          }
+          return dispatch;
         }
-      }
+      } else if (dispatch) return dispatch;
 
       const job = getJob(jobId);
       dispatch = {
@@ -15143,11 +15228,19 @@
     function renderVehicleKmCostChart(rows) {
       const host = $("#vehicleKmCostChart");
       if (!host) return;
-      const valid = rows.filter((row) => row.estimatedKm && row.fuelCostPerKm !== null).slice(0, 10);
-      if (!valid.length) { host.innerHTML = '<div class="empty">Grafik için KM ve yakıt gideri gerekli.</div>'; return; }
-      const max = Math.max(1, ...valid.flatMap((row) => [row.fuelCostPerKm || 0, row.kmCost || 0, row.revenuePerKm || 0]));
-      const bar = (label, value, cls = "") => `<div class="vehicle-km-cost-line ${cls}"><span>${escapeHtml(label)}</span><div class="vehicle-km-cost-track"><i style="width:${Math.max(2, Math.min(100, Number(value || 0) / max * 100))}%"></i></div><b>${escapeHtml(formatTRY(value || 0))}</b></div>`;
-      host.innerHTML = `<div class="vehicle-km-cost-bars">${valid.map((row) => `<div class="vehicle-km-cost-row"><strong title="${escapeHtml(row.name)}">${escapeHtml(row.name)}</strong><div class="vehicle-km-cost-series">${bar("Yakıt / KM", row.fuelCostPerKm)}${bar("Toplam / KM", row.kmCost, "total")}${bar("Gelir / KM", row.revenuePerKm, "revenue")}</div></div>`).join("")}</div>`;
+      const valid = rows.filter((row) => Number(row.estimatedKm || 0) > 0).slice(0, 10);
+      if (!valid.length) { host.innerHTML = '<div class="empty">Grafik için başlangıç ve bitiş KM kaydı gerekli.</div>'; return; }
+      const maximums = {
+        fuel: Math.max(0, ...valid.map((row) => Number(row.fuelCostPerKm || 0))),
+        total: Math.max(0, ...valid.map((row) => Number(row.kmCost || 0))),
+        revenue: Math.max(0, ...valid.map((row) => Number(row.revenuePerKm || 0)))
+      };
+      const bar = (label, value, cls, maximum) => {
+        const numeric = Number(value || 0);
+        const width = numeric > 0 && maximum > 0 ? Math.max(10, Math.min(100, numeric / maximum * 100)) : 0;
+        return `<div class="vehicle-km-cost-line ${cls}"><span>${escapeHtml(label)}</span><div class="vehicle-km-cost-track" title="${escapeHtml(label)}: ${escapeHtml(formatTRY(numeric))}"><i style="width:${width}%"></i></div><b>${numeric > 0 ? escapeHtml(formatTRY(numeric)) : "-"}</b></div>`;
+      };
+      host.innerHTML = `<div class="vehicle-km-cost-bars">${valid.map((row) => `<div class="vehicle-km-cost-row"><strong title="${escapeHtml(row.name)}">${escapeHtml(row.name)}</strong><div class="vehicle-km-cost-series">${bar("Yakıt / KM", row.fuelCostPerKm, "fuel", maximums.fuel)}${bar("Toplam / KM", row.kmCost, "total", maximums.total)}${bar("Gelir / KM", row.revenuePerKm, "revenue", maximums.revenue)}</div></div>`).join("")}</div>`;
     }
 
     function renderVehicleKmTrendChart(vehicleFilter, endMonth) {
@@ -15163,16 +15256,24 @@
         const date = new Date(Number(month.slice(0,4)), Number(month.slice(5,7))-1, 1);
         return { label: date.toLocaleDateString("tr-TR", { month: "short" }).replace(".", ""), fuel: km > 0 ? fuel / km : 0, total: km > 0 ? total / km : 0, revenue: km > 0 ? revenue / km : 0 };
       });
-      if (!points.some((point) => point.fuel || point.total || point.revenue)) { host.innerHTML = '<div class="empty">Son altı ay için grafik verisi yok.</div>'; return; }
-      const width = 640, height = 250, left = 48, right = 16, top = 14, bottom = 34;
-      const pw = width-left-right, ph = height-top-bottom;
-      const max = Math.max(1, ...points.flatMap((point) => [point.fuel, point.total, point.revenue]));
-      const x = (index) => left + (points.length <= 1 ? pw/2 : index*pw/(points.length-1));
-      const y = (value) => top + ph - Number(value || 0)/max*ph;
-      const poly = (key) => points.map((point,index)=>`${x(index).toFixed(1)},${y(point[key]).toFixed(1)}`).join(" ");
-      const grid = [0,.25,.5,.75,1].map((ratio)=>{const gy=top+ph-ratio*ph;return `<line x1="${left}" y1="${gy}" x2="${width-right}" y2="${gy}" stroke="rgba(148,163,184,.22)"/><text x="2" y="${gy+3}" fill="currentColor" opacity=".65" font-size="9">${escapeHtml(formatTRY(max*ratio))}</text>`}).join("");
-      const labels = points.map((point,index)=>`<text x="${x(index)}" y="${height-8}" fill="currentColor" opacity=".65" font-size="9" text-anchor="middle">${escapeHtml(point.label)}</text>`).join("");
-      host.innerHTML = `<svg class="vehicle-km-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Altı aylık kilometre başı maliyet eğilimi">${grid}<polyline points="${poly("fuel")}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly("total")}" fill="none" stroke="var(--warning)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly("revenue")}" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${labels}</svg><div class="vehicle-km-chart-legend"><span><i style="background:var(--accent)"></i>Yakıt ₺/KM</span><span><i style="background:var(--warning)"></i>Toplam ₺/KM</span><span><i style="background:var(--success)"></i>Gelir ₺/KM</span></div>`;
+      if (!points.some((point) => point.fuel || point.total || point.revenue)) { host.innerHTML = '<div class="empty">Son altı ay için KM ve gider verisi bulunamadı.</div>'; return; }
+      const configs = [
+        { key: "fuel", label: "Yakıt gideri / KM", color: "#22d3ee" },
+        { key: "total", label: "Toplam maliyet / KM", color: "#f59e0b" },
+        { key: "revenue", label: "Gelir / KM", color: "#22c55e" }
+      ];
+      const width = 620, height = 64, left = 8, right = 8, top = 8, bottom = 8;
+      const panel = (config) => {
+        const values = points.map((point) => Number(point[config.key] || 0));
+        const max = Math.max(1, ...values);
+        const x = (index) => left + (points.length <= 1 ? (width-left-right)/2 : index*(width-left-right)/(points.length-1));
+        const y = (value) => top + (height-top-bottom) - Number(value || 0)/max*(height-top-bottom);
+        const poly = values.map((value,index)=>`${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(" ");
+        const dots = values.map((value,index)=>`<circle cx="${x(index).toFixed(1)}" cy="${y(value).toFixed(1)}" r="3" fill="${config.color}"><title>${escapeHtml(points[index].label)}: ${escapeHtml(formatTRY(value))} / km</title></circle>`).join("");
+        const latest = values[values.length-1] || 0;
+        return `<div class="vehicle-km-trend-panel"><div class="vehicle-km-trend-panel-head"><strong>${escapeHtml(config.label)}</strong><span>Son ay: ${escapeHtml(formatTRY(latest))} / km</span></div><svg class="vehicle-km-trend-mini" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(config.label)} altı aylık eğilim"><line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" stroke="rgba(148,163,184,.20)"/><polyline points="${poly}" fill="none" stroke="${config.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${dots}</svg></div>`;
+      };
+      host.innerHTML = `<div class="vehicle-km-trend-stack">${configs.map(panel).join("")}</div><div class="vehicle-km-trend-months">${points.map((point)=>`<span>${escapeHtml(point.label)}</span>`).join("")}</div>`;
     }
 
     function renderVehicleKmAnalysis() {
@@ -19102,8 +19203,9 @@
       const vehicleExpense = rows.reduce((sum, row) => sum + Number(row.vehicleExpense || 0), 0);
       const staffExpense = rows.reduce((sum, row) => sum + Number(row.staffExpense || 0), 0);
       const netContribution = accrual - vehicleExpense - staffExpense;
+      repairDispatchJobLinksForMonth(month);
       const unlinkedTrips = state.dispatches
-        .filter((dispatch) => String(dispatch.date || "").startsWith(month) && dispatchTripCount(dispatch) > 0 && !dispatch.jobId)
+        .filter((dispatch) => String(dispatch.date || "").startsWith(month) && dispatchTripCount(dispatch) > 0 && (!dispatch.jobId || !getJob(dispatch.jobId)))
         .reduce((sum, dispatch) => sum + dispatchTripCount(dispatch), 0);
       const missingPriceJobs = financeJobsForMonth(month).filter((job) =>
         (job.billingModel === "trip" && Number(job.tripPrice || 0) <= 0) ||
@@ -19292,7 +19394,7 @@
       }
       if (personnel.unlinkedTrips > 0) {
         const samples = state.dispatches
-          .filter((dispatch) => String(dispatch.date || "").startsWith(month) && dispatchTripCount(dispatch) > 0 && !dispatch.jobId)
+          .filter((dispatch) => String(dispatch.date || "").startsWith(month) && dispatchTripCount(dispatch) > 0 && (!dispatch.jobId || !getJob(dispatch.jobId)))
           .slice(0, 4)
           .map((dispatch) => `${dispatch.date || "Tarih yok"} · ${dispatchTripCount(dispatch)} sefer`);
         items.push({ title: "Sözleşmeye bağlanmamış sefer", count: personnel.unlinkedTrips, unit: "sefer", detail: samples.join(" · ") || "Çetele kayıtlarında iş / sözleşme seçilmemiş.", action: "finance-jump-personnel-warning" });
@@ -21252,7 +21354,8 @@
 
     function financeReportTableHtml(headers, rows) {
       if (!rows.length) return '<div class="report-empty">Seçilen dönem ve filtre için rapor kaydı bulunmuyor.</div>';
-      return `<div class="report-table-wrap"><table class="report-table"><thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
+      const densityClass = headers.length >= 13 ? "report-table-ultra" : headers.length >= 10 ? "report-table-wide" : "";
+      return `<div class="report-table-wrap"><table class="report-table ${densityClass}"><thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
     }
 
     function renderManagementFinanceReport(month) {
@@ -21486,8 +21589,13 @@
         html, body { margin: 0 !important; padding: 0 !important; width: auto !important; min-height: 0 !important; height: auto !important; overflow: visible !important; background: #fff !important; color: #111827 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         body { font-family: Inter, Arial, sans-serif !important; }
         .finance-report-sheet { width: 100% !important; max-width: none !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; }
+        .report-table { table-layout: fixed !important; width: 100% !important; }
         .report-table thead { display: table-header-group !important; }
+        .report-table th, .report-table td { white-space: normal !important; overflow-wrap: anywhere !important; word-break: normal !important; line-height: 1.25 !important; }
+        .report-table .money { white-space: normal !important; }
         .report-table tr, .report-section:not(.report-section-splittable), .report-chart-card, .report-kpi { break-inside: avoid !important; page-break-inside: avoid !important; }
+        .report-section-splittable, .report-table-wrap { break-inside: auto !important; page-break-inside: auto !important; overflow: visible !important; }
+        .report-chart-card { min-height: 0 !important; }
         .report-footer { position: static !important; left: auto !important; right: auto !important; bottom: auto !important; margin-top: 12px !important; }
         .report-page-number::after { content: counter(page); }
         .toast, .app, .auth-gate, .finance-report-print-portal { display: none !important; }

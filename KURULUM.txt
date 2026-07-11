@@ -1,23 +1,18 @@
-SERVİS YÖNETİM SİSTEMİ v4.36.0 — TAM DEMO VE FİNANS SADELEŞTİRME GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.36.1 — RAPOR, SEFER BAĞLANTISI VE KM GRAFİK DÜZELTMESİ
 
-Bu paket v4.35.1 ve önceki bütün gerekli güncellemeleri içerir.
+YAPILANLAR
+- PDF rapor tablolarında hücre taşması ve üst üste binme önlendi.
+- Çok sütunlu raporlarda otomatik sıkı tablo düzeni eklendi.
+- Sözleşmeye bağlanan eski/tekrarlı sefer kayıtları otomatik birleştirilir.
+- Tek uygun sözleşmesi bulunan bağlantısız seferler güvenli şekilde otomatik eşleştirilir.
+- Araç bazlı TL/KM çubukları her ölçü kendi ölçeğinde görünür hale getirildi.
+- 6 aylık TL/KM eğilimi üç ayrı görünür mini grafik olarak yenilendi.
 
-YAPILAN DÜZENLEMELER
-- Ayarlar / Yedek bölümüne Tüm Sistem Demo Verileri kartı eklendi.
-- Demo yükleme; personel, firma, iş, rota, sefer, çetele, canlı servis, okul, öğrenci, rehber, yoklama, tahsilat, finans, araç gideri, yakıt, bakım, özel kullanım, KM, hakediş, rapor ve evrak bölümlerini örnek kayıtlarla doldurur.
-- Demo kayıtlar özel işaretle eklenir ve gerçek kayıtlara dokunmadan ayrı bir düğmeyle temizlenebilir.
-- v4.35.0 ile eklenen bütçe/gerçekleşen, nakit akış takvimi, akıllı maliyet uyarıları ve yıllık yönetim karşılaştırması kaldırıldı.
-- Genel Yönetim Raporundan v4.35.0 planlama ekleri çıkarıldı.
-- KM Analizi ekranındaki yanıltıcı litre açıklaması düzeltildi.
-- Yakıt ₺/KM hesabı için yakıt toplam tutarı ve aylık KM kaydının yeterli olduğu açıklandı.
-- KM Analizinden doğrudan Gelir / Gider > Yakıt Kaydı formuna götüren düğme eklendi.
-- Finans Özet sekme sırası ve v4.35.1 risk kaynağı açıklama sistemi korundu.
+GITHUB YÜKLEME
+1. Programdan JSON yedeği alın.
+2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_36_1.txt dosyalarını depo ana dizinine yükleyin.
+3. Commit açıklaması: v4.36.1 rapor sefer ve km grafik düzeltmesi
+4. GitHub Pages tamamlanınca uygulamayı kapatıp yeniden açın.
+5. Eski sürüm kalırsa Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
 
-GÜNCELLEME
-1. Programdan JSON yedek alın.
-2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_36_0.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
-3. Commit açıklaması: v4.36.0 tam demo ve finans sadeleştirme
-4. GitHub Pages yayını tamamlanınca programı tamamen kapatıp yeniden açın.
-5. Eski sürüm görünürse Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
-
-APK yeniden üretilmez. Veri şeması 29 olarak kalır. Mevcut gerçek kayıtlar korunur.
+APK yeniden üretilmez. Veri şeması 29 olarak kalır.
