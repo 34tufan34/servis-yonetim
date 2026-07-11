@@ -1,24 +1,23 @@
-SERVİS YÖNETİM SİSTEMİ v4.35.1 — ÜRETİM ARAYÜZÜ VE RİSK AÇIKLAMA GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.36.0 — TAM DEMO VE FİNANS SADELEŞTİRME GÜNCELLEMESİ
 
-Bu paket v4.35.0 ve önceki bütün güncellemeleri içerir.
+Bu paket v4.35.1 ve önceki bütün gerekli güncellemeleri içerir.
 
 YAPILAN DÜZENLEMELER
-- Finans Özet sekmelerindeki 1, 2, 3 şeklindeki sıra numaraları kaldırıldı.
-- Yakıt giderindeki “Toplam tutarı manuel gir” onay kutusu ve yazısı aynı hizada ortalandı.
-- Program Öğreticisi ve resimli öğretici ekranı kaldırıldı.
-- Personel Servisi içindeki geliştirme amaçlı Kontrol Listesi kaldırıldı.
-- Ayarlar / Yedek bölümündeki Demo Veri Yükle özelliği kaldırıldı.
-- “Test / Demo” bölümü üretim kullanımına uygun “Veri Sıfırlama” alanına çevrildi.
-- Riskli / Eksik Kayıt kartının altında riskin gerçek kaynağını gösteren ayrıntılı liste eklendi.
-- Risk listesi fiyat eksikliği, bağlantısız sefer, gecikmiş/eksik okul tahsilatı, araç gideri bağlantısı, şoför/rehber bağlantısı, pay ve vade sorunlarını ayrı ayrı açıklar.
-- Risk satırına tıklanınca ilgili kayıt ekranı açılır.
-- PWA önbellek adı v4.35.1 olarak yenilendi.
+- Ayarlar / Yedek bölümüne Tüm Sistem Demo Verileri kartı eklendi.
+- Demo yükleme; personel, firma, iş, rota, sefer, çetele, canlı servis, okul, öğrenci, rehber, yoklama, tahsilat, finans, araç gideri, yakıt, bakım, özel kullanım, KM, hakediş, rapor ve evrak bölümlerini örnek kayıtlarla doldurur.
+- Demo kayıtlar özel işaretle eklenir ve gerçek kayıtlara dokunmadan ayrı bir düğmeyle temizlenebilir.
+- v4.35.0 ile eklenen bütçe/gerçekleşen, nakit akış takvimi, akıllı maliyet uyarıları ve yıllık yönetim karşılaştırması kaldırıldı.
+- Genel Yönetim Raporundan v4.35.0 planlama ekleri çıkarıldı.
+- KM Analizi ekranındaki yanıltıcı litre açıklaması düzeltildi.
+- Yakıt ₺/KM hesabı için yakıt toplam tutarı ve aylık KM kaydının yeterli olduğu açıklandı.
+- KM Analizinden doğrudan Gelir / Gider > Yakıt Kaydı formuna götüren düğme eklendi.
+- Finans Özet sekme sırası ve v4.35.1 risk kaynağı açıklama sistemi korundu.
 
 GÜNCELLEME
 1. Programdan JSON yedek alın.
-2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_35_1.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
-3. Commit açıklaması: v4.35.1 üretim arayüzü ve risk açıklaması
+2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_36_0.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
+3. Commit açıklaması: v4.36.0 tam demo ve finans sadeleştirme
 4. GitHub Pages yayını tamamlanınca programı tamamen kapatıp yeniden açın.
 5. Eski sürüm görünürse Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
 
-APK yeniden üretilmez. Veri şeması 29 olarak kalır ve mevcut kayıtlar korunur.
+APK yeniden üretilmez. Veri şeması 29 olarak kalır. Mevcut gerçek kayıtlar korunur.

@@ -1,0 +1,25 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.36.0
+Tarih: 2026-07-11
+
+AKTİF SÜRÜMLER
+- Web/PWA: v4.36.0
+- Veri şeması: 29
+- Android APK: 1.0.1 / versionCode 2
+- Paket adı: com.tufan.servisyonetim
+- GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+
+v4.36.0 DEĞİŞİKLİKLERİ
+1. Ayarlar / Yedek alanına kapsamlı Tüm Sistem Demo Verileri modu eklendi.
+2. Demo verileri bütün temel modülleri ve alt bölümleri doldurur; gerçek veriler korunur.
+3. “Yalnız Demo Verilerini Temizle” işlemi, özel demo işareti taşıyan kayıtları ve demo evrak dosyalarını kaldırır.
+4. v4.35.0 yönetim planlama araçları geri alındı: bütçe/gerçekleşen, nakit akışı, akıllı maliyet uyarıları ve yıllık karşılaştırma artık arayüzde ve raporlarda yoktur.
+5. v4.35.1 riskli/eksik kayıt kaynağını gösteren detay sistemi korunmuştur.
+6. KM Analizi açıklaması düzeltildi: Yakıt ₺/KM için litre zorunlu değildir; yakıt toplam tutarı ve aylık KM kaydı kullanılır.
+7. KM Analizinden yakıt gider formuna doğrudan geçiş eklendi.
+
+KORUNACAK YAPI
+- Lisans ve cihaz etkinleştirme yapısı değiştirilmedi.
+- Paket adı ve APK imzası değiştirilmedi.
+- Kullanıcı verileri cihazda localStorage/IndexedDB üzerinde kalır.
+- APK imza yedeği gizli tutulmalıdır.
