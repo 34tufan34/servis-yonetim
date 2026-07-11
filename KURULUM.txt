@@ -1,26 +1,22 @@
-SERVİS YÖNETİM SİSTEMİ v4.34.0 - FİNANS / RAPOR / KM GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.35.0 — YÖNETİM PLANLAMA GÜNCELLEMESİ
 
-GITHUB PAGES GÜNCELLEMESİ
-1. Programdan Ayarlar / Yedek bölümüne girip JSON yedeği alın.
-2. Güncelleme ZIP dosyasını çıkarın.
-3. GitHub'da 34tufan34/servis-yonetim deposunun ana dizinine girin.
-4. + > Upload files seçeneğini açın.
-5. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_34_0.txt dosyalarını yükleyin.
-6. Commit directly to the main branch seçili kalsın.
-7. Commit mesajı: v4.34.0 finans rapor ve km analizi
-8. Commit changes düğmesine basın ve GitHub Pages dağıtımını bekleyin.
-9. Uygulamayı tamamen kapatıp yeniden açın.
-10. Eski sürüm kalırsa Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
+Bu paket v4.34.0 ve önceki tüm güncellemeleri içerir.
 
-V4.34.0
-- Finans Özet sekmeleri kullanıcının istediği 13 maddelik sıraya getirildi.
-- Yakıt toplamı varsayılan olarak litre x gerçek litre fiyatı ile otomatik hesaplanır.
-- Toplam tutarı manuel gir onay kutusu eklendi. İşaretlenince toplam alanı düzenlenebilir.
-- Türkçe virgüllü ondalık girişleri desteklenir.
-- KM Analizi litre göstergeleri yerine gerçek Yakıt TL/KM ve Yakıt TL/100 KM gösterir.
-- KM Analizine araç karşılaştırma ve 6 aylık TL/KM grafiklerinin ikisi eklendi.
-- Genel Yönetim Raporu özet olmaktan çıkarıldı; bütün finans bölümlerini ayrıntılı tablolarla kapsar.
-- Yönetim raporuna 12 aylık eğilim, tahsilat, gider kategorisi, kârlılık ve araç TL/KM grafikleri eklendi.
-- Fatura/tahsilat, bakım/mekanik, özel kullanım, şoför/rehber ve kârlılık için yeni detay rapor türleri eklendi.
-- Rapor CSV çıktıları ayrıntılı hale getirildi.
-- Veri şeması 28 olarak kalır. APK yeniden üretilmez.
+YENİ ÖZELLİKLER
+- Genel Özet altında Bütçe ve Gerçekleşen yönetimi
+- Gelir ve gider kalemlerinde hedef, gerçekleşen, fark ve sapma oranı
+- Günlük Nakit Akış Takvimi: gerçekleşen ve açık/vadeli hareketler
+- Akıllı maliyet uyarıları: yakıt/KM, bakım artışı, düşük marj, bütçe aşımı ve vade riski
+- İki yılı karşılaştıran Yıllık Yönetim Karşılaştırması
+- Yıllık karşılaştırma PDF/CSV raporu
+- Genel Yönetim Raporuna bütçe, nakit akışı, akıllı uyarılar ve yıllık karşılaştırma bölümleri
+- Veri şeması 29: financeBudgets kayıtları JSON yedek ve geri yüklemeye dahildir
+
+GÜNCELLEME
+1. Programdan JSON yedek alın.
+2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_35_0.txt dosyalarını GitHub deposunun ana dizinine yükleyin.
+3. Commit açıklaması: v4.35.0 yönetim planlama ve erken uyarı
+4. GitHub Pages yayını tamamlanınca programı tamamen kapatıp açın.
+5. Eski sürüm görünürse Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
+
+APK yeniden üretilmez. Mevcut veriler korunur.
