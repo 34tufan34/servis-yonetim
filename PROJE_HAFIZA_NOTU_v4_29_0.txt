@@ -1,0 +1,60 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU
+Sürüm: v4.29.0
+Tarih: 2026-07-11
+
+PROJE:
+- GitHub deposu: 34tufan34/servis-yonetim
+- Yayın: GitHub Pages
+- Ana uygulama: index.html
+- PWA: sw.js, manifest.webmanifest
+- Yakıt verisi: fuel-prices.json
+
+LİSANS ALTYAPISI:
+- Cloudflare Worker: servis-lisans-api
+- API adresi: https://servis-lisans-api.ops-429.workers.dev
+- D1 veritabanı: servis-lisans-db
+- Worker binding adı: DB
+- Tablolar: licenses, devices, license_events
+- Cihaz bazlı etkinleştirme: POST /activate
+- Otomatik doğrulama: POST /validate
+- Çevrimdışı kullanım: son başarılı kontrolden sonra 7 gün
+- Operasyon verileri Cloudflare'a gönderilmez.
+
+SÜRÜM DURUMU:
+- Web uygulaması: 4.29.0
+- Android APK: 1.0.1 / versionCode 2 (değişmedi)
+- Veri şeması: 27 (değişmedi)
+- PWA önbelleği: servis-sys-v4-29-0
+- v4.28.1 Öğretici, iletişim ve rozet düzeltmeleri korunmuştur.
+
+V4.29.0 YENİLİĞİ:
+- Her tam uygulama açılışında yaklaşık 3,6 saniyelik sinematik SYS açılış efekti eklendi.
+- SYS logosu, Servis Yönetim Sistemi başlığı, operasyon başlatma metni, kontrol göstergesi ve ilerleme çizgisi gösterilir.
+- Efekt dokunma, Geç düğmesi veya Escape/Enter/Boşluk ile atlanabilir.
+- Hareket azaltma tercihi bulunan cihazlarda efekt otomatik olarak kısalır.
+- Açılış efekti lisans ekranını, kullanıcı girişini, localStorage ve IndexedDB verilerini değiştirmez.
+
+KORUNAN V4.28.1 İŞLEVLERİ:
+- Sol ana menüde Öğretici modülü.
+- Zorunlu veri giriş sırası ve görsel başlangıç akışları.
+- Öğretici kartlarından ilgili modüle geçiş.
+- “Tüm hakları Tufan Kırbıyık’a aittir” bildirimi.
+- Bana Ulaş alanı: 0507 427 77 73 / ops@tufanprintops.com.
+- FİRMA + İŞ, ARAÇ KAYDI ve JSON YEDEK rozet hizalamaları.
+
+KRİTİK KURALLAR:
+- GitHub Pages adresi değişmemeli.
+- APK paket adı ve APK imzası değişmemeli.
+- localStorage.clear() veya IndexedDB silme işlemi güncellemede kullanılmamalı.
+- Lisans Worker kodu ve D1 veritabanı korunmalı.
+- Güncellemeden önce JSON yedek alınmalı.
+
+GITHUB'A BU GÜNCELLEMEDE YÜKLENECEK DOSYALAR:
+- index.html
+- sw.js
+- KURULUM.txt
+- PROJE_HAFIZA_NOTU_v4_29_0.txt
+
+NOT:
+- Bu değişiklik web/PWA arayüz güncellemesidir. APK yeniden üretilmez.
+- GitHub Pages yayınlandıktan sonra APK aynı adresten yeni sürümü açar.

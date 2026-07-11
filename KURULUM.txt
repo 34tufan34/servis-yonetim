@@ -1,4 +1,4 @@
-SERVİS YÖNETİM SİSTEMİ v4.28.0 - PWA / LİSANSLI SÜRÜM
+SERVİS YÖNETİM SİSTEMİ v4.29.0 - PWA / LİSANSLI SÜRÜM
 
 GITHUB PAGES KURULUMU
 1. Bu paketteki dosyaları GitHub deposunun ana dizinine yükleyin.
@@ -41,9 +41,23 @@ CANLI MOTORİN FİYATLARI
 - Dinamik fiyat dosyası: fuel-prices.json
 
 
-V4.28.0 ÖĞRETİCİ VE İLETİŞİM
+V4.28.1 ÖĞRETİCİ VE İLETİŞİM
 - Sol menüye Öğretici bölümü eklendi.
 - İlk veri giriş sırası ve zorunlu alanlar görsel anlatımla gösterilir.
 - Rehber kartlarındaki butonlar ilgili program bölümüne doğrudan geçer.
 - Panel altında telif bildirimi ve açılır iletişim alanı bulunur.
 - İletişim: 0507 427 77 73 / ops@tufanprintops.com
+
+
+V4.28.1 GÖRSEL DÜZELTME
+- Öğretici içindeki küçük başlık rozetleri yeniden ölçülendirildi ve ortalandı.
+- “FİRMA + İŞ” yazısındaki taşma/kesilme giderildi.
+- ARAÇ KAYDI ve JSON YEDEK rozetleri aynı hizalama standardına getirildi.
+
+
+V4.29.0 SİNEMATİK AÇILIŞ EFEKTİ
+- Uygulama her tam açılışta yaklaşık 3,6 saniyelik kısa bir SYS açılış animasyonu gösterir.
+- Efekt, lisans ve kullanıcı giriş ekranlarının üzerinde çalışır; doğrulama işleyişini değiştirmez.
+- Ekrana dokunarak, Geç düğmesine basarak veya Escape/Enter/Boşluk tuşuyla atlanabilir.
+- Hareket azaltma tercihi açık cihazlarda efekt yaklaşık 0,9 saniyeye kısalır.
+- APK, veri şeması, paket adı, imza ve lisans altyapısı değişmemiştir.

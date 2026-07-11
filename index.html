@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.28.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.29.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8114,7 +8114,7 @@
     }
 
 
-    /* v4.28.0 - Öğretici, telif ve iletişim alanı */
+    /* v4.29.0 - Öğretici, telif ve iletişim alanı */
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -8271,6 +8271,7 @@
     .tv-route { fill: none; stroke: rgba(var(--accent-rgb), .65); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 16 12; }
     .tv-chart { fill: none; stroke: var(--red); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
     .tv-title { fill: var(--text); font: 900 15px Inter, sans-serif; letter-spacing: 1px; }
+    .tv-pill-title { text-anchor: middle; dominant-baseline: middle; }
     .tv-label { fill: var(--muted); font: 800 10px Inter, sans-serif; letter-spacing: .7px; }
     .tv-money { fill: var(--text); font: 950 24px Inter, sans-serif; }
     .tv-car { fill: #fff; font: 950 12px Inter, sans-serif; text-anchor: middle; }
@@ -8308,7 +8309,7 @@
       .tutorial-step-number { right: 22px; top: 23px; }
     }
 
-    /* v4.28.0 - Cihaz bazlı çevrim içi lisans doğrulama */
+    /* v4.29.0 - Cihaz bazlı çevrim içi lisans doğrulama */
     body.license-locked { overflow: hidden; }
     body.license-locked .app {
       filter: blur(9px) saturate(.62);
@@ -8426,10 +8427,338 @@
       #screen-settings .settings-license-card { grid-column: 1 / -1; }
     }
 
+  
+
+    /* v4.29.0 - Sinematik kısa açılış efekti */
+    .sys-splash {
+      --splash-cyan: #19d3cf;
+      --splash-cyan-deep: #0aa8a6;
+      --splash-text: #f4fbfb;
+      --splash-muted: #93b7bb;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+      overflow: hidden;
+      color: var(--splash-text);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(25, 211, 207, .12), transparent 31%),
+        linear-gradient(180deg, #02070a 0%, #031116 65%, #02080c 100%);
+      cursor: pointer;
+      isolation: isolate;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sys-splash::before,
+    .sys-splash::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .sys-splash::before {
+      opacity: 0;
+      background:
+        linear-gradient(rgba(25, 211, 207, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(25, 211, 207, .035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      animation: sysSplashGridIn .5s ease 1.05s forwards;
+    }
+
+    .sys-splash::after {
+      box-shadow: inset 0 0 165px rgba(0, 0, 0, .9);
+    }
+
+    .sys-splash-noise,
+    .sys-splash-scan {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .sys-splash-noise {
+      z-index: 1;
+      opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+      mix-blend-mode: screen;
+    }
+
+    .sys-splash-scan {
+      z-index: 2;
+      top: -36%;
+      height: 30%;
+      background: linear-gradient(180deg, transparent, rgba(25, 211, 207, .11), transparent);
+      animation: sysSplashScan 2.6s cubic-bezier(.3, .7, .2, 1) .35s forwards;
+    }
+
+    .sys-splash-inner {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(680px, 92vw);
+      transform: translateY(8px);
+      text-align: center;
+    }
+
+    .sys-splash-logo-shell {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 24px;
+    }
+
+    .sys-splash-ring,
+    .sys-splash-ring-2 {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(25, 211, 207, .24);
+      border-radius: 34px;
+      opacity: 0;
+      transform: scale(.55) rotate(-10deg);
+      animation: sysSplashRingIn .75s cubic-bezier(.2, .9, .2, 1) .3s forwards;
+    }
+
+    .sys-splash-ring-2 {
+      inset: 10px;
+      border-color: rgba(25, 211, 207, .13);
+      animation-duration: .85s;
+      animation-delay: .48s;
+    }
+
+    .sys-splash-logo {
+      width: 74px;
+      height: 74px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      opacity: 0;
+      transform: scale(.72);
+      color: #fff;
+      background: linear-gradient(135deg, #1ed8d4, #0d918f);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 18px 60px rgba(25, 211, 207, .24);
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      animation: sysSplashLogoIn .65s cubic-bezier(.18, .9, .25, 1.15) .65s forwards;
+    }
+
+    .sys-splash-title {
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(16px);
+      font-size: clamp(30px, 5vw, 58px);
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: clamp(-2.4px, -.045em, -1px);
+      animation: sysSplashTextIn .65s ease .95s forwards;
+    }
+
+    .sys-splash-subtitle {
+      margin-top: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      color: var(--splash-muted);
+      font-size: clamp(11px, 1.5vw, 15px);
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      animation: sysSplashTextIn .55s ease 1.18s forwards;
+    }
+
+    .sys-splash-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 34px;
+      opacity: 0;
+      color: #b9d9dc;
+      font-size: 13px;
+      animation: sysSplashFade .4s ease 1.45s forwards;
+    }
+
+    .sys-splash-pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #47d98a;
+      box-shadow: 0 0 0 0 rgba(71, 217, 138, .45);
+      animation: sysSplashPulse 1.3s ease-out 1.55s infinite;
+    }
+
+    .sys-splash-progress {
+      width: min(360px, 68vw);
+      height: 2px;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 999px;
+      opacity: 0;
+      background: rgba(255, 255, 255, .08);
+      animation: sysSplashFade .3s ease 1.5s forwards;
+    }
+
+    .sys-splash-progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--splash-cyan-deep), var(--splash-cyan), #8dffff);
+      box-shadow: 0 0 18px rgba(25, 211, 207, .72);
+      animation: sysSplashLoad 1.35s cubic-bezier(.25, .8, .2, 1) 1.55s forwards;
+    }
+
+    .sys-splash-skip {
+      position: absolute;
+      z-index: 5;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      min-width: 74px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 12px;
+      opacity: 0;
+      color: #dffafa;
+      background: rgba(5, 20, 24, .78);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      backdrop-filter: blur(12px);
+      animation: sysSplashFade .4s ease 1.35s forwards;
+    }
+
+    .sys-splash-skip:hover,
+    .sys-splash-skip:focus-visible {
+      border-color: rgba(25, 211, 207, .48);
+      outline: none;
+    }
+
+    .sys-splash.is-leaving {
+      pointer-events: none;
+      animation: sysSplashOut .65s ease forwards;
+    }
+
+    @keyframes sysSplashRingIn {
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes sysSplashLogoIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes sysSplashTextIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sysSplashFade {
+      to { opacity: 1; }
+    }
+
+    @keyframes sysSplashLoad {
+      to { width: 100%; }
+    }
+
+    @keyframes sysSplashPulse {
+      70% { box-shadow: 0 0 0 12px rgba(71, 217, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(71, 217, 138, 0); }
+    }
+
+    @keyframes sysSplashGridIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes sysSplashScan {
+      to { transform: translateY(470%); }
+    }
+
+    @keyframes sysSplashOut {
+      to { opacity: 0; visibility: hidden; transform: scale(.985); }
+    }
+
+    @media (max-width: 600px) {
+      .sys-splash-logo-shell { width: 98px; height: 98px; margin-bottom: 20px; }
+      .sys-splash-logo { width: 66px; height: 66px; border-radius: 20px; font-size: 21px; }
+      .sys-splash-ring, .sys-splash-ring-2 { border-radius: 30px; }
+      .sys-splash-status { margin-top: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sys-splash *,
+      .sys-splash::before,
+      .sys-splash::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    @media print {
+      .sys-splash { display: none !important; }
+    }
+
   </style>
 </head>
 
 <body class="auth-locked license-locked">
+
+
+  <div class="sys-splash" id="sysSplash" role="status" aria-label="Servis Yönetim Sistemi açılıyor" tabindex="0">
+    <div class="sys-splash-scan"></div>
+    <div class="sys-splash-noise"></div>
+    <div class="sys-splash-inner">
+      <div class="sys-splash-logo-shell" aria-hidden="true">
+        <div class="sys-splash-ring"></div>
+        <div class="sys-splash-ring-2"></div>
+        <div class="sys-splash-logo">SYS</div>
+      </div>
+      <div class="sys-splash-title">Servis Yönetim Sistemi</div>
+      <div class="sys-splash-subtitle">Operasyon başlatılıyor</div>
+      <div class="sys-splash-status"><span class="sys-splash-pulse"></span><span>Sistem kontrolü tamamlandı</span></div>
+      <div class="sys-splash-progress" aria-hidden="true"><span></span></div>
+    </div>
+    <button class="sys-splash-skip" id="sysSplashSkip" type="button">Geç</button>
+  </div>
+  <script>
+    (() => {
+      const splash = document.getElementById("sysSplash");
+      if (!splash) return;
+
+      let closed = false;
+      const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      const closeSplash = () => {
+        if (closed) return;
+        closed = true;
+        splash.classList.add("is-leaving");
+        window.setTimeout(() => splash.remove(), reducedMotion ? 80 : 680);
+      };
+
+      const timer = window.setTimeout(closeSplash, reducedMotion ? 900 : 3600);
+      const skip = document.getElementById("sysSplashSkip");
+      skip?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        window.clearTimeout(timer);
+        closeSplash();
+      });
+      splash.addEventListener("click", () => {
+        window.clearTimeout(timer);
+        closeSplash();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (closed) return;
+        if (["Escape", "Enter", " "].includes(event.key)) {
+          window.clearTimeout(timer);
+          closeSplash();
+        }
+      });
+    })();
+  </script>
+
 
 
   <div class="license-gate" id="licenseGate" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
@@ -8509,7 +8838,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.28.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.29.0</div>
         </div>
       </div>
 
@@ -11209,7 +11538,7 @@
                   <rect x="260" y="92" width="218" height="48" rx="10" class="tv-field"/>
                   <rect x="42" y="156" width="198" height="48" rx="10" class="tv-field"/>
                   <rect x="260" y="156" width="218" height="48" rx="10" class="tv-field"/>
-                  <text x="58" y="61" class="tv-title">ARAÇ KAYDI</text>
+                  <text x="122" y="58" class="tv-title tv-pill-title">ARAÇ KAYDI</text>
                   <text x="58" y="113" class="tv-label">PLAKA *</text><text x="276" y="113" class="tv-label">ŞOFÖR ADI *</text>
                   <text x="58" y="177" class="tv-label">TELEFON *</text><text x="276" y="177" class="tv-label">KAPASİTE / YAKIT</text>
                 </svg>
@@ -11225,11 +11554,11 @@
               <div class="tutorial-visual" aria-label="Firma ve sözleşme ekranı görseli">
                 <svg viewBox="0 0 520 260" role="img" aria-label="Firma ve sözleşme ekranı şeması">
                   <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
-                  <rect x="42" y="44" width="112" height="28" rx="9" class="tv-accent"/>
+                  <rect x="42" y="44" width="150" height="28" rx="9" class="tv-accent"/>
                   <rect x="42" y="92" width="436" height="42" rx="10" class="tv-field"/>
                   <rect x="42" y="150" width="278" height="54" rx="10" class="tv-field"/>
                   <rect x="338" y="150" width="140" height="54" rx="10" class="tv-accent-soft"/>
-                  <text x="58" y="61" class="tv-title">FİRMA + İŞ</text>
+                  <text x="117" y="58" class="tv-title tv-pill-title">FİRMA + İŞ</text>
                   <text x="58" y="117" class="tv-label">FİRMA ADI VE AÇIK ADRES *</text>
                   <text x="58" y="176" class="tv-label">İŞ / SÖZLEŞME · ARAÇ · DÖNEM</text>
                   <text x="365" y="181" class="tv-money">₺ FİYAT</text>
@@ -11316,8 +11645,8 @@
                   <rect x="18" y="18" width="484" height="224" rx="22" class="tv-frame"/>
                   <path d="M260 56 C214 56 178 88 178 128 C145 133 122 156 122 184 C122 216 148 234 182 234 H362 C397 234 424 209 424 178 C424 147 400 124 370 120 C360 83 318 56 260 56Z" class="tv-cloud"/>
                   <path d="M260 104 V190 M225 155 L260 190 L295 155" class="tv-download"/>
-                  <rect x="42" y="42" width="126" height="28" rx="9" class="tv-accent-soft"/>
-                  <text x="58" y="61" class="tv-title">JSON YEDEK</text>
+                  <rect x="42" y="42" width="150" height="28" rx="9" class="tv-accent-soft"/>
+                  <text x="117" y="56" class="tv-title tv-pill-title">JSON YEDEK</text>
                 </svg>
               </div>
               <h3>Her büyük işlemden sonra yedek al</h3>
@@ -11784,7 +12113,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.28.0</strong>
+                <strong>v4.29.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -11813,7 +12142,7 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    const APP_VERSION = "4.28.0";
+    const APP_VERSION = "4.29.0";
     const SCHEMA_VERSION = 27;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -23480,7 +23809,7 @@
     }
 
 
-    // v4.28.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
+    // v4.29.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
     let currentLicenseSession = null;
 
     function createLicenseDeviceId() {
