@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.41.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.41.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -9996,7 +9996,7 @@
 
   
 
-    /* v4.41.0 - Temel Kayıtlar tek merkez, sabit ilerleme ve panel içi kaydırma */
+    /* v4.41.1 - Temel Kayıtlar tek merkez, sabit ilerleme ve panel içi kaydırma */
     #screen-registry.active {
       display: flex;
       flex-direction: column;
@@ -10312,7 +10312,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.41.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.41.1</div>
         </div>
       </div>
 
@@ -11373,8 +11373,8 @@
                   <div class="two">
                     <div class="field">
                       <label for="documentCategory">Evrak Türü</label>
-                      <select id="documentCategory">
-                        <option value="Ruhsat">Ruhsat</option><option value="Muayene">Muayene</option><option value="Trafik Sigortası">Trafik Sigortası</option><option value="Kasko">Kasko</option><option value="Yetki Belgesi">Yetki Belgesi</option><option value="Sözleşme">Sözleşme</option><option value="Fatura">Fatura</option><option value="Okul Evrakı">Okul Evrakı</option><option value="Personel Evrakı">Personel Evrakı</option><option value="Diğer">Diğer</option>
+                      <select id="documentCategory" required>
+                        <option value="">Evrak türü seçin</option>
                       </select>
                     </div>
                     <div class="field"><label for="documentVehicle">Bağlı Araç</label><select id="documentVehicle"></select></div>
@@ -11401,7 +11401,7 @@
                 </div>
                 <div class="toolbar simple-toolbar">
                   <select id="documentCategoryFilter">
-                    <option value="Tümü">Tür: Tümü</option><option value="Ruhsat">Ruhsat</option><option value="Muayene">Muayene</option><option value="Trafik Sigortası">Trafik Sigortası</option><option value="Kasko">Kasko</option><option value="Yetki Belgesi">Yetki Belgesi</option><option value="Sözleşme">Sözleşme</option><option value="Fatura">Fatura</option><option value="Okul Evrakı">Okul Evrakı</option><option value="Personel Evrakı">Personel Evrakı</option><option value="Diğer">Diğer</option>
+                    <option value="Tümü">Tür: Tümü</option>
                   </select>
                   <select id="documentVehicleFilter"></select>
                   <input id="documentSearch" placeholder="Başlık, dosya adı, araç, tür veya not ara..." />
@@ -13574,7 +13574,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.41.0</strong>
+                <strong>v4.41.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -13603,8 +13603,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.41.0 - Başlangıç yakıt dolumu KM tüketim hesabından ayrıldı.
-    const APP_VERSION = "4.40.1";
+    // v4.41.1 - Başlangıç yakıt dolumu KM tüketim hesabından ayrıldı.
+    const APP_VERSION = "4.41.1";
     const SCHEMA_VERSION = 30;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -13617,6 +13617,23 @@
     const DOCUMENT_DB_VERSION = 1;
     const DOCUMENT_STORE_NAME = "files";
     const DOCUMENT_MAX_FILE_SIZE = 15 * 1024 * 1024;
+    const DOCUMENT_CATEGORY_OPTIONS = [
+      "Ehliyet",
+      "Araç Ruhsatı",
+      "SRC-2",
+      "Psikoteknik Raporu",
+      "Sağlık Raporu EK-7",
+      "Adli Sicil Kaydı",
+      "Araç Muayenesi",
+      "Egzost Muayenesi",
+      "Trafik Sigortası",
+      "Koltuk Sigortası",
+      "Sürücü Ceza Puanı",
+      "Yol Belgesi",
+      "Tahditli Servis Plaka Belgesi",
+      "Mesleki Faaliyet Belgesi",
+      "Diğer"
+    ];
     const LICENSE_API_URL = "https://servis-lisans-api.ops-429.workers.dev";
     const LICENSE_STORAGE_KEY = "SYS_LICENSE_V1";
     const LICENSE_DEVICE_KEY = "SYS_LICENSE_DEVICE_V1";
@@ -16986,6 +17003,21 @@
     function renderDocumentArchiveOptions() {
       const vehicles=[...state.vehicles].sort((a,b)=>String(a.plate||"").localeCompare(String(b.plate||""),"tr-TR"));
       const form=$("#documentVehicle"), filter=$("#documentVehicleFilter");
+      const categoryForm=$("#documentCategory"), categoryFilter=$("#documentCategoryFilter");
+      if (categoryForm) {
+        const selected=categoryForm.value||"";
+        categoryForm.innerHTML=['<option value="">Evrak türü seçin</option>'].concat(DOCUMENT_CATEGORY_OPTIONS.map((category)=>`<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)).join("");
+        categoryForm.value=DOCUMENT_CATEGORY_OPTIONS.includes(selected)?selected:"";
+      }
+      if (categoryFilter) {
+        const selected=categoryFilter.value||"Tümü";
+        const legacyCategories=[...new Set(state.documents.map((item)=>String(item.category||"").trim()).filter((category)=>category&&!DOCUMENT_CATEGORY_OPTIONS.includes(category)))].sort((a,b)=>a.localeCompare(b,"tr-TR"));
+        categoryFilter.innerHTML=['<option value="Tümü">Tür: Tümü</option>']
+          .concat(DOCUMENT_CATEGORY_OPTIONS.map((category)=>`<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`))
+          .concat(legacyCategories.map((category)=>`<option value="${escapeHtml(category)}">${escapeHtml(category)} (Eski kayıt)</option>`))
+          .join("");
+        categoryFilter.value=[...categoryFilter.options].some((option)=>option.value===selected)?selected:"Tümü";
+      }
       if (form) {
         const selected=form.value||"";
         form.innerHTML=['<option value="">Genel evrak / araç bağlantısı yok</option>'].concat(vehicles.map((v)=>`<option value="${escapeHtml(v.id)}">${escapeHtml(v.plate||"Plakasız")} · ${escapeHtml(v.driverName||"Şoför yok")}</option>`)).join("");
@@ -17004,8 +17036,8 @@
 
     async function saveDocumentArchiveFile(event) {
       event.preventDefault();
-      const file=$("#documentFile")?.files?.[0], title=$("#documentTitle")?.value.trim()||"";
-      if (!title||!file) return showToast("Evrak başlığı ve dosya zorunlu.");
+      const file=$("#documentFile")?.files?.[0], title=$("#documentTitle")?.value.trim()||"", category=$("#documentCategory")?.value||"";
+      if (!title||!category||!file) return showToast("Evrak başlığı, evrak türü ve dosya zorunlu.");
       const isPdf=file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf");
       const isImage=String(file.type||"").startsWith("image/");
       if (!isPdf&&!isImage) return showToast("Yalnızca resim veya PDF dosyası kaydedilebilir.");
@@ -17014,7 +17046,7 @@
       try {
         navigator.storage?.persist?.().catch(()=>{});
         await putDocumentBlob(id,file);
-        state.documents.push({id,title,category:$("#documentCategory")?.value||"Diğer",vehicleId:$("#documentVehicle")?.value||"",expiryDate:$("#documentExpiryDate")?.value||"",note:$("#documentNote")?.value.trim()||"",fileName:file.name,mimeType:file.type||(isPdf?"application/pdf":"image/*"),size:file.size,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+        state.documents.push({id,title,category,vehicleId:$("#documentVehicle")?.value||"",expiryDate:$("#documentExpiryDate")?.value||"",note:$("#documentNote")?.value.trim()||"",fileName:file.name,mimeType:file.type||(isPdf?"application/pdf":"image/*"),size:file.size,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
         saveState(); clearDocumentArchiveForm(); showToast("Evrak dosyası cihazda kaydedildi.");
       } catch(error) {
         console.error("Evrak kaydedilemedi:",error); showToast("Evrak kaydedilemedi. Depolama iznini ve boş alanı kontrol et.");
@@ -23921,7 +23953,7 @@
 
 
 
-    // v4.41.0 - Temel Kayıtlar tek merkez ve panel içi kaydırma
+    // v4.41.1 - Temel Kayıtlar tek merkez ve panel içi kaydırma
     const REGISTRY_DEFINITIONS = {
       vehicles: {
         order: 1,

@@ -1,22 +1,21 @@
-SERVİS YÖNETİM SİSTEMİ v4.41.0 — TEMEL KAYITLAR TEK MERKEZ
+SERVİS YÖNETİM SİSTEMİ v4.41.1 — EVRAK TÜRLERİ GÜNCELLEMESİ
 
 BU PAKETTE:
-- Temel Kayıtlar'a taşınan kayıt sekmeleri Personel ve Okul Servisi bölümlerinden kaldırıldı.
-- Araç kartı kaydı Temel Kayıtlar'da kaldı; Personel Servisi altında yalnız Araç Evrakları ve Uyarılar korunur.
-- Temel Kayıtlar ilerleme kartları ve sekmeleri ekranın üstünde sabit görünür.
-- Form ve kayıt listesi aynı sekmede yan yana çalışır.
-- Form alanı ve kayıt listesi kendi içinde bağımsız kayar.
-- Düzenle işlemleri doğrudan ilgili Temel Kayıtlar sekmesini açar.
-- Önceki v4.40.1 başlangıç yakıtı / KM hesabı düzeltmesi korunur.
+- Evrak Dosyası Kaydet formundaki Evrak Türü listesi standartlaştırıldı.
+- Ehliyet, Araç Ruhsatı, SRC-2, Psikoteknik Raporu, Sağlık Raporu EK-7, Adli Sicil Kaydı, Araç Muayenesi, Egzost Muayenesi, Trafik Sigortası, Koltuk Sigortası, Sürücü Ceza Puanı, Yol Belgesi, Tahditli Servis Plaka Belgesi, Mesleki Faaliyet Belgesi ve Diğer seçenekleri eklendi.
+- Evrak türü seçimi zorunlu hale getirildi.
+- Evrak arşivi filtresi aynı tür listesiyle güncellendi.
+- Eski evrak kayıtlarındaki farklı tür adları silinmez; filtrede “Eski kayıt” olarak görünmeye devam eder.
+- Önceki v4.41.0 Temel Kayıtlar düzeni ve v4.40.1 yakıt/KM düzeltmesi korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEKLER:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_41_0.txt
+PROJE_HAFIZA_NOTU_v4_41_1.txt
 
 COMMIT MESAJI:
-v4.41.0 temel kayıtlar tek merkez ve sabit panel düzeni
+v4.41.1 evrak türleri güncellemesi
 
 APK yeniden oluşturulmaz. Veri şeması 30 olarak kalır.
