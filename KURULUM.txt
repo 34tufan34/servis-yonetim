@@ -1,20 +1,30 @@
-SERVİS YÖNETİM SİSTEMİ v4.38.1 — TEMALI UYARI PENCERESİ VE AYARLAR MENÜSÜ
+SERVİS YÖNETİM SİSTEMİ v4.39.0 — TAM EKRAN, KM ALTINDA ÖZEL KULLANIM VE HIZLI FİNANS GİRİŞİ
 
-YAPILANLAR
-- Yönetici şifresi isteyen tarayıcı penceresi kaldırıldı.
-- Yönetici doğrulaması, veri silme, demo yükleme/temizleme ve yerel yedek işlemleri uygulama içindeki temalı pencerelerle çalışır.
-- Uyarı pencereleri seçili koyu, açık, turkuaz ve diğer temaların renklerini otomatik kullanır.
-- Şifre alanına Göster/Gizle düğmesi eklendi.
-- Hatalı yönetici şifresi aynı pencerede açıklanır ve yeniden denenebilir.
-- Ana menüdeki bağımsız Ayarlar / Yedek düğmesi kaldırıldı.
-- Ayarlar / Yedek, sol panelin altındaki Bana Ulaş alanına taşındı.
-- Önceki v4.38.0 Gelir/Gider alt sekme düzeni ve bütün mevcut özellikler korunmuştur.
+BU SÜRÜMDE
+- Üst sağ alana Tam Ekran / Tam Ekrandan Çık düğmesi eklendi.
+- PWA manifesti fullscreen görünümüne güncellendi.
+- Finans Özet içindeki bağımsız Özel Kullanım sekmesi kaldırıldı.
+- Özel Kullanım, Finans Özet → KM Analizi altında alt sekme oldu.
+- Sol menüye Gelir / Gider Kaydı hızlı erişimi eklendi.
+- Hızlı erişim, temaya uyumlu pencere içinde mevcut gider formunu açar.
+- Bu pencereden kaydedilen kayıtlar Finans Özet → Gelir / Gider bölümüne yazılır.
+- Veri şeması 29 olarak kaldı; mevcut kayıtlar korunur.
 
-GITHUB YÜKLEME
-1. Programdan JSON yedeği alın.
-2. index.html, sw.js, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_38_1.txt dosyalarını depo ana dizinine yükleyin.
-3. Commit açıklaması: v4.38.1 temalı uyarı ve ayarlar menüsü
-4. GitHub Pages tamamlanınca uygulamayı kapatıp yeniden açın.
-5. Eski sürüm kalırsa Bana Ulaş > Ayarlar / Yedek > Çevrimdışı Dosyaları Güncelle işlemini kullanın.
+GITHUB'A YÜKLENECEK DOSYALAR
+1. index.html
+2. sw.js
+3. manifest.webmanifest
+4. KURULUM.txt
+5. PROJE_HAFIZA_NOTU_v4_39_0.txt
 
-APK yeniden üretilmez. Veri şeması 29 olarak kalır.
+COMMIT AÇIKLAMASI
+v4.39.0 tam ekran km özel kullanım ve hızlı finans
+
+GÜNCELLEME SONRASI
+- GitHub Pages dağıtımının tamamlanmasını bekleyin.
+- Uygulamayı tamamen kapatıp yeniden açın.
+- Eski sürüm kalırsa Bana Ulaş → Ayarlar / Yedek → Çevrimdışı Dosyaları Güncelle işlemini çalıştırın.
+- Tam ekran PWA görünümünün kalıcı uygulanması için bazı cihazlarda ana ekran kısayolunu kaldırıp yeniden eklemek gerekebilir.
+
+APK
+Bu web güncellemesi için APK yeniden oluşturulmaz.
