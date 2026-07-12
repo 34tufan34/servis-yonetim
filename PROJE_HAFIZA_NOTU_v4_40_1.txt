@@ -1,0 +1,26 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.40.1
+
+GÜNCEL DURUM
+- Web/PWA sürümü: v4.40.1
+- APK: 1.0.1 / versionCode 2
+- Veri şeması: 30
+- Paket adı: com.tufan.servisyonetim
+- GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+
+V4.40.1 DÜZELTMESİ
+- İlk yakıt alımının KM başına tüketimi yapay biçimde yükseltmesi düzeltildi.
+- Yakıt kayıtlarına fuelOpeningFill alanı eklendi.
+- Başlangıç dolumu gerçek finans giderinde kalır fakat tüketim yakıtı hesabından çıkarılır.
+- KM Analizi “Toplam Yakıt Ödemesi” ve “KM Hesabına Giren Yakıt” değerlerini ayrı gösterir.
+- İlk yakıt kaydı yeni araçta otomatik başlangıç dolumu olarak önerilir.
+- Eski veriler için “İlk Yakıtı Başlangıç Yap” hızlı düzeltme düğmesi bulunur.
+- Yakıt grafikleri ve özel kullanım tahmini, başlangıç dolumu hariç tüketim maliyetini kullanır.
+
+DOĞRU KULLANIM
+- Aracı sisteme ilk eklediğinde yapılan ilk depo dolumunu “Başlangıç dolumu” olarak işaretle.
+- Sonraki yakıt alımlarını normal kayıt olarak gir.
+- İlk kaydın fiyatını sıfırlama; bu finans giderini bozar.
+
+KORUNANLAR
+- Tüm önceki özellikler, lisans sistemi, yerel veriler, PWA, Android köprüsü ve APK imzası korunur.

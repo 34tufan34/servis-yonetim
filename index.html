@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.40.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.40.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -8152,6 +8152,34 @@
     .fuel-manual-total-check span { display: inline-flex; align-items: center; min-height: 16px; line-height: 1.2; }
     #vehicleExpenseAmount.fuel-manual { border-color: rgba(245, 158, 11, .55); background: rgba(245, 158, 11, .055); }
 
+    .fuel-opening-fill-check {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(var(--accent-rgb), .24);
+      background: rgba(var(--accent-rgb), .055);
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+    .fuel-opening-fill-check.hidden { display: none; }
+    .fuel-opening-fill-check input {
+      flex: 0 0 17px;
+      width: 17px;
+      height: 17px;
+      margin: 2px 0 0;
+      accent-color: var(--accent);
+    }
+    .fuel-opening-fill-check > span { display: grid; gap: 3px; min-width: 0; }
+    .fuel-opening-fill-check strong { font-size: 11px; line-height: 1.25; }
+    .fuel-opening-fill-check small { color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .fuel-opening-fill-check.is-suggested { border-color: rgba(245, 158, 11, .48); background: rgba(245, 158, 11, .075); }
+    .fuel-opening-badge { display: inline-flex; margin-top: 5px; padding: 3px 7px; border-radius: 999px; font-size: 9px; font-weight: 850; color: #fef3c7; background: rgba(245, 158, 11, .22); border: 1px solid rgba(245, 158, 11, .38); }
+
     .vehicle-km-chart-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -10142,7 +10170,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.40.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.40.1</div>
         </div>
       </div>
 
@@ -12022,6 +12050,10 @@
 <input autocomplete="off" id="vehicleExpenseFuelUnitPrice" inputmode="decimal" placeholder="Örn. 68,750" type="text"/>
 <small class="field-help">Şirket indirimi uygulanmış gerçek alış fiyatını yaz. Litre ile çarpılarak toplam tutar otomatik hesaplanır.</small>
 </div>
+<label class="fuel-opening-fill-check hidden" id="vehicleExpenseOpeningFillWrap">
+<input id="vehicleExpenseOpeningFill" type="checkbox"/>
+<span><strong>Başlangıç dolumu / depo referansı</strong><small id="vehicleExpenseOpeningFillHelp">Bu kayıt finans giderinde kalır; yalnız KM başına yakıt tüketimi hesabına katılmaz.</small></span>
+</label>
 </div>
 <div class="two">
 <div class="field">
@@ -13405,11 +13437,11 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.40.0</strong>
+                <strong>v4.40.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
-                <strong id="schemaVersion">29</strong>
+                <strong id="schemaVersion">30</strong>
               </div>
               <div>
                 <span>Kayıt Anahtarı</span>
@@ -13434,9 +13466,9 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.40.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
-    const APP_VERSION = "4.40.0";
-    const SCHEMA_VERSION = 29;
+    // v4.40.1 - Başlangıç yakıt dolumu KM tüketim hesabından ayrıldı.
+    const APP_VERSION = "4.40.1";
+    const SCHEMA_VERSION = 30;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -13525,6 +13557,10 @@
       state.vehicleMaintenance = state.vehicleMaintenance.map((record) => ({
         ...record,
         allocationMonths: maintenanceAllocationMonths(record)
+      }));
+      state.vehicleExpenses = state.vehicleExpenses.map((record) => ({
+        ...record,
+        fuelOpeningFill: Boolean(record?.fuelOpeningFill)
       }));
       state.appVersion = APP_VERSION;
       state.schemaVersion = SCHEMA_VERSION;
@@ -16035,6 +16071,55 @@
       return liters > 0 ? Number(expense?.amount || 0) / liters : 0;
     }
 
+    function vehicleExpenseIsOpeningFuel(expense) {
+      return expense?.type === "Yakıt" && Boolean(expense?.fuelOpeningFill);
+    }
+
+    function vehicleFuelConsumptionSummary(expenses = []) {
+      const fuelRows = expenses.filter((expense) => expense?.type === "Yakıt");
+      const openingRows = fuelRows.filter(vehicleExpenseIsOpeningFuel);
+      const consumptionRows = fuelRows.filter((expense) => !vehicleExpenseIsOpeningFuel(expense));
+      const sumCost = (rows) => rows.reduce((sum, expense) => sum + Math.max(0, Number(expense?.amount || 0)), 0);
+      const sumLiters = (rows) => rows.reduce((sum, expense) => sum + Math.max(0, vehicleExpenseFuelLiters(expense)), 0);
+      return {
+        purchaseRows: fuelRows,
+        openingRows,
+        consumptionRows,
+        purchaseCost: sumCost(fuelRows),
+        purchaseLiters: sumLiters(fuelRows),
+        openingCost: sumCost(openingRows),
+        openingLiters: sumLiters(openingRows),
+        consumptionCost: sumCost(consumptionRows),
+        consumptionLiters: sumLiters(consumptionRows)
+      };
+    }
+
+    function updateVehicleExpenseOpeningFillSuggestion(force = false) {
+      const wrap = $("#vehicleExpenseOpeningFillWrap");
+      const input = $("#vehicleExpenseOpeningFill");
+      const help = $("#vehicleExpenseOpeningFillHelp");
+      if (!wrap || !input || !help) return;
+      const isFuel = $("#vehicleExpenseType")?.value === "Yakıt";
+      wrap.classList.toggle("hidden", !isFuel);
+      if (!isFuel) { input.checked = false; wrap.classList.remove("is-suggested"); return; }
+
+      const vehicleId = $("#vehicleExpenseVehicle")?.value || "";
+      const editId = $("#vehicleExpenseId")?.value || "";
+      const previousFuel = vehicleId ? state.vehicleExpenses.some((expense) => expense.id !== editId && expense.vehicleId === vehicleId && expense.type === "Yakıt") : false;
+      const suggestionKey = `${vehicleId}:${editId || "new"}`;
+      if (!editId && vehicleId && (force || input.dataset.suggestionKey !== suggestionKey)) {
+        input.checked = !previousFuel;
+        input.dataset.suggestionKey = suggestionKey;
+      }
+      const suggested = !editId && Boolean(vehicleId) && !previousFuel;
+      wrap.classList.toggle("is-suggested", suggested && input.checked);
+      help.textContent = suggested
+        ? "Bu aracın ilk yakıt kaydı olduğu için başlangıç dolumu otomatik önerildi. Tutar finans giderinde kalır; KM tüketim hesabından çıkarılır."
+        : input.checked
+          ? "Bu tutar finans kayıtlarında kalır; Yakıt ₺/KM, 100 KM yakıt gideri ve L/100 KM hesabına katılmaz."
+          : "Normal yakıt alımıdır ve KM başına yakıt tüketimi hesabına katılır.";
+    }
+
     function roundFuelUnitPrice(value) {
       return Math.round((Number(value || 0) + Number.EPSILON) * 1000) / 1000;
     }
@@ -16097,6 +16182,7 @@
         if (manualToggle) manualToggle.checked = false;
         if (litersInput) litersInput.value = "";
         if (unitInput) unitInput.value = "";
+        updateVehicleExpenseOpeningFillSuggestion();
         return;
       }
 
@@ -16107,6 +16193,7 @@
           ? roundFinanceMoney(liters * unitPrice).toFixed(2)
           : "";
       }
+      updateVehicleExpenseOpeningFillSuggestion();
     }
 
     function renderVehicleKmOptions() {
@@ -16201,7 +16288,7 @@
       const points = months.map((month) => {
         const rows = profitabilityVehicleRows(month).filter((row) => vehicleFilter === "Tümü" || row.id === vehicleFilter);
         const km = rows.reduce((sum, row) => sum + Number(row.estimatedKm || 0), 0);
-        const fuel = rows.reduce((sum, row) => sum + Number(row.fuelCost || 0), 0);
+        const fuel = rows.reduce((sum, row) => sum + Number(row.fuelConsumptionCost || 0), 0);
         const total = rows.reduce((sum, row) => sum + Number(row.totalCost || 0), 0);
         const revenue = rows.reduce((sum, row) => sum + Number(row.revenue || 0), 0);
         const date = new Date(Number(month.slice(0,4)), Number(month.slice(5,7))-1, 1);
@@ -16236,18 +16323,21 @@
       const rows = profitabilityVehicleRows(month).filter((row) => filter === "Tümü" || row.id === filter);
       const distance = rows.reduce((sum,row)=>sum+Number(row.estimatedKm||0),0);
       const fuelCost = rows.reduce((sum,row)=>sum+Number(row.fuelCost||0),0);
+      const fuelConsumptionCost = rows.reduce((sum,row)=>sum+Number(row.fuelConsumptionCost||0),0);
+      const openingFuelCost = rows.reduce((sum,row)=>sum+Number(row.openingFuelCost||0),0);
       const revenue = rows.reduce((sum,row)=>sum+Number(row.revenue||0),0);
       const cost = rows.reduce((sum,row)=>sum+Number(row.totalCost||0),0);
       const net = rows.reduce((sum,row)=>sum+Number(row.net||0),0);
-      const fuelKm = distance > 0 ? fuelCost / distance : null;
+      const fuelKm = distance > 0 ? fuelConsumptionCost / distance : null;
       const fuel100Km = fuelKm === null ? null : fuelKm * 100;
       const costKm = distance > 0 ? cost / distance : null;
       const revenueKm = distance > 0 ? revenue / distance : null;
       const netKm = distance > 0 ? net / distance : null;
       summary.innerHTML = [
         {label:"Toplam Mesafe",value:distance>0?`${distance.toLocaleString("tr-TR")} km`:"-",risk:distance<=0,note:distance>0?"Sayaç / KM okumaları":"Başlangıç ve bitiş KM girin"},
-        {label:"Toplam Yakıt Gideri",value:formatTRY(fuelCost),risk:false},
-        {label:"Yakıt Gideri / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false,note:"Gerçek yakıt gideri ÷ mesafe"},
+        {label:"Toplam Yakıt Ödemesi",value:formatTRY(fuelCost),risk:false,note:openingFuelCost>0?`${formatTRY(openingFuelCost)} başlangıç dolumu finans giderinde korunuyor`:"Tüm yakıt alımları"},
+        {label:"KM Hesabına Giren Yakıt",value:formatTRY(fuelConsumptionCost),risk:false,note:openingFuelCost>0?"Başlangıç dolumu hariç":"Başlangıç dolumu işaretlenmemiş"},
+        {label:"Yakıt Gideri / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false,note:"Tüketim yakıtı ÷ mesafe"},
         {label:"100 KM Yakıt Gideri",value:fuel100Km===null?"-":`${formatTRY(fuel100Km)} / 100 km`,risk:false},
         {label:"Toplam Maliyet / KM",value:costKm===null?"-":`${formatTRY(costKm)} / km`,risk:false},
         {label:"Gelir / KM",value:revenueKm===null?"-":`${formatTRY(revenueKm)} / km`,risk:false},
@@ -16261,10 +16351,31 @@
         const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
         const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
         const fuel100 = row.fuelCostPerKm === null ? null : row.fuelCostPerKm * 100;
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions table-action-row vehicle-km-row-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button></div></td></tr>`;
+        const fuelHistory = state.vehicleExpenses.filter((expense) => expense.vehicleId === row.id && expense.type === "Yakıt");
+        const needsOpeningBaseline = fuelHistory.length >= 2 && !fuelHistory.some(vehicleExpenseIsOpeningFuel);
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong><br><span class="muted">KM hesabı: ${escapeHtml(formatTRY(row.fuelConsumptionCost||0))}${row.openingFuelCost>0?` · ${escapeHtml(formatTRY(row.openingFuelCost))} başlangıç hariç`:""}</span></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions table-action-row vehicle-km-row-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button>${needsOpeningBaseline?`<button class="btn small" type="button" data-action="mark-opening-fuel" data-id="${escapeHtml(row.id)}">İlk Yakıtı Başlangıç Yap</button>`:""}</div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
+
+    async function markFirstFuelAsOpening(vehicleId) {
+      const rows = state.vehicleExpenses
+        .filter((expense) => expense.vehicleId === vehicleId && expense.type === "Yakıt")
+        .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")) || Number(a.km || 0) - Number(b.km || 0) || String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
+      if (rows.length < 2) { showToast("Başlangıç hesabı için en az iki yakıt kaydı gerekli."); return; }
+      if (rows.some(vehicleExpenseIsOpeningFuel)) { showToast("Bu araçta başlangıç dolumu zaten işaretli."); return; }
+      const first = rows[0];
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId);
+      const approved = await appConfirm(
+        `${vehicle?.plate || "Araç"} için ${jobDateText(first.date || "")} tarihli ilk yakıt kaydı başlangıç dolumu yapılsın mı? Tutar finans giderinde kalacak; yalnız KM tüketim hesabından çıkarılacak.`,
+        { title: "İlk Yakıtı Başlangıç Dolumu Yap", confirmText: "Başlangıç Yap", icon: "⛽" }
+      );
+      if (!approved) return;
+      first.fuelOpeningFill = true;
+      first.updatedAt = new Date().toISOString();
+      saveState();
+      showToast("İlk yakıt kaydı başlangıç dolumu olarak işaretlendi. KM tüketimi yeniden hesaplandı.");
+    }
 
 
     function vehicleCostMonthIndex(month) {
@@ -16339,15 +16450,19 @@
 
     function vehicleFuelMonthData(vehicleId, month) {
       const expenses = state.vehicleExpenses.filter((expense) => expense.vehicleId === vehicleId && expense.type === "Yakıt" && String(expense.date || "").startsWith(month));
-      const cost = expenses.reduce((sum, expense) => sum + Math.max(0, Number(expense.amount || 0)), 0);
-      const liters = expenses.reduce((sum, expense) => sum + Math.max(0, vehicleExpenseFuelLiters(expense)), 0);
+      const fuel = vehicleFuelConsumptionSummary(expenses);
       const info = vehicleKmDistanceInfo(vehicleId, month);
       return {
         month,
-        cost,
-        liters,
+        cost: fuel.consumptionCost,
+        liters: fuel.consumptionLiters,
+        purchaseCost: fuel.purchaseCost,
+        purchaseLiters: fuel.purchaseLiters,
+        openingCost: fuel.openingCost,
+        openingLiters: fuel.openingLiters,
+        openingCount: fuel.openingRows.length,
         distance: Math.max(0, Number(info.distance || 0)),
-        source: info.source || "KM kaydı yetersiz"
+        source: `${info.source || "KM kaydı yetersiz"}${fuel.openingRows.length ? ` · ${fuel.openingRows.length} başlangıç dolumu hariç` : ""}`
       };
     }
 
@@ -21643,6 +21758,10 @@
       $("#vehicleExpenseDate").value = todayISO();
       $("#vehicleExpenseType").value = "Yakıt";
       if ($("#vehicleExpenseManualTotal")) $("#vehicleExpenseManualTotal").checked = false;
+      if ($("#vehicleExpenseOpeningFill")) {
+        $("#vehicleExpenseOpeningFill").checked = false;
+        $("#vehicleExpenseOpeningFill").dataset.suggestionKey = "";
+      }
       $("#vehicleExpensePaymentMethod").value = "Nakit";
       if ($("#vehicleExpenseAllocationMode")) $("#vehicleExpenseAllocationMode").value = "general";
       if ($("#vehicleExpensePersonnelShare")) $("#vehicleExpensePersonnelShare").value = "50";
@@ -21664,6 +21783,7 @@
       let amount = parseFinanceDecimal($("#vehicleExpenseAmount")?.value);
       const fuelLiters = type === "Yakıt" ? parseFinanceDecimal($("#vehicleExpenseFuelLiters")?.value) : 0;
       const fuelUnitPrice = type === "Yakıt" ? parseFinanceDecimal($("#vehicleExpenseFuelUnitPrice")?.value) : 0;
+      const fuelOpeningFill = type === "Yakıt" && Boolean($("#vehicleExpenseOpeningFill")?.checked);
       if (type === "Yakıt" && !manualFuelTotal && fuelLiters > 0 && fuelUnitPrice > 0) {
         amount = roundFinanceMoney(fuelLiters * fuelUnitPrice);
         if ($("#vehicleExpenseAmount")) $("#vehicleExpenseAmount").value = amount.toFixed(2);
@@ -21722,6 +21842,7 @@
         fuelLiters: type === "Yakıt" ? roundFinanceMoney(fuelLiters) : 0,
         fuelUnitPrice: type === "Yakıt" ? roundFuelUnitPrice(fuelUnitPrice) : 0,
         fuelTotalManual: type === "Yakıt" ? manualFuelTotal : false,
+        fuelOpeningFill,
         km: Number($("#vehicleExpenseKm").value || 0),
         paymentMethod: $("#vehicleExpensePaymentMethod").value || "Nakit",
         allocationMode,
@@ -21765,6 +21886,10 @@
       $("#vehicleExpenseFuelLiters").value = vehicleExpenseFuelLiters(expense) || "";
       $("#vehicleExpenseFuelUnitPrice").value = vehicleExpenseFuelUnitPrice(expense) > 0 ? vehicleExpenseFuelUnitPrice(expense).toFixed(3) : "";
       if ($("#vehicleExpenseManualTotal")) $("#vehicleExpenseManualTotal").checked = Boolean(expense.fuelTotalManual);
+      if ($("#vehicleExpenseOpeningFill")) {
+        $("#vehicleExpenseOpeningFill").checked = vehicleExpenseIsOpeningFuel(expense);
+        $("#vehicleExpenseOpeningFill").dataset.suggestionKey = `${expense.vehicleId || ""}:${expense.id}`;
+      }
       $("#vehicleExpenseKm").value = expense.km || "";
       $("#vehicleExpensePaymentMethod").value = expense.paymentMethod || "Nakit";
       const allocationMode = vehicleExpenseAllocationMode(expense);
@@ -21868,7 +21993,7 @@
                     <td><strong>${escapeHtml(vehicle?.plate || expense.vehiclePlate || "Araç silinmiş")}</strong><br><span class="muted">${escapeHtml(vehicle?.driverName || expense.driverName || "Şoför yok")}</span></td>
                     <td><span class="pill">${escapeHtml(expense.type || "Diğer")}</span></td>
                     <td><strong>${escapeHtml(formatTRY(expense.amount || 0))}</strong></td>
-                    <td>${expense.type === "Yakıt" ? `<strong>${escapeHtml(vehicleExpenseFuelLiters(expense).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L</strong><br><span class="muted">${vehicleExpenseFuelUnitPrice(expense) > 0 ? `${escapeHtml(formatFuelUnitPrice(vehicleExpenseFuelUnitPrice(expense)))} / L` : "Fiyat eksik"}</span>` : "-"}</td>
+                    <td>${expense.type === "Yakıt" ? `<strong>${escapeHtml(vehicleExpenseFuelLiters(expense).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L</strong><br><span class="muted">${vehicleExpenseFuelUnitPrice(expense) > 0 ? `${escapeHtml(formatFuelUnitPrice(vehicleExpenseFuelUnitPrice(expense)))} / L` : "Fiyat eksik"}</span>${vehicleExpenseIsOpeningFuel(expense) ? '<br><span class="fuel-opening-badge">Başlangıç dolumu · KM hesabı dışında</span>' : ""}` : "-"}</td>
                     <td>${expense.km ? escapeHtml(Number(expense.km).toLocaleString("tr-TR")) : "-"}</td>
                     <td><span class="pill ${vehicleExpenseAllocationMode(expense) === "shared" ? "allocation-pill" : ""}">${escapeHtml(vehicleExpenseLinkType(expense))}</span><br><strong>${escapeHtml(operation.title)}</strong><br><span class="muted">${escapeHtml(operation.sub)}</span></td>
                     <td>${escapeHtml(expense.receiptNo || "Belge yok")}<br><span class="muted">${escapeHtml(expense.paymentMethod || "-")} · ${escapeHtml(expense.supplier || "Tedarikçi yok")}</span></td>
@@ -21911,14 +22036,14 @@
         showToast("Dışa aktarılacak araç gideri yok.");
         return;
       }
-      const header = ["Tarih", "Plaka", "Şoför", "Gider Türü", "Toplam Tutar", "Yakıt Litre", "Litre Fiyatı", "KM", "Bağlantı Türü", "Personel Payı %", "Personel Payı Tutar", "Okul Payı %", "Okul Payı Tutar", "İş / Okul", "Firma", "Fiş / Fatura No", "Tedarikçi", "Ödeme Yöntemi", "Not"];
+      const header = ["Tarih", "Plaka", "Şoför", "Gider Türü", "Toplam Tutar", "Yakıt Litre", "Litre Fiyatı", "Yakıt Hesap Rolü", "KM", "Bağlantı Türü", "Personel Payı %", "Personel Payı Tutar", "Okul Payı %", "Okul Payı Tutar", "İş / Okul", "Firma", "Fiş / Fatura No", "Tedarikçi", "Ödeme Yöntemi", "Not"];
       const lines = [header.map(csvCell).join(";")];
       rows.forEach((expense) => {
         const operation = vehicleExpenseOperationLabel(expense);
         lines.push([
           expense.date || "", expense.vehiclePlate || state.vehicles.find((vehicle) => vehicle.id === expense.vehicleId)?.plate || "",
           expense.driverName || state.vehicles.find((vehicle) => vehicle.id === expense.vehicleId)?.driverName || "",
-          expense.type || "", Number(expense.amount || 0), vehicleExpenseFuelLiters(expense), vehicleExpenseFuelUnitPrice(expense), Number(expense.km || 0), vehicleExpenseLinkType(expense),
+          expense.type || "", Number(expense.amount || 0), vehicleExpenseFuelLiters(expense), vehicleExpenseFuelUnitPrice(expense), vehicleExpenseIsOpeningFuel(expense) ? "Başlangıç dolumu" : "Normal tüketim", Number(expense.km || 0), vehicleExpenseLinkType(expense),
           vehicleExpensePersonnelShare(expense), vehicleExpensePersonnelAmount(expense), vehicleExpenseSchoolShare(expense), vehicleExpenseSchoolAmount(expense),
           operation.title, expense.companyName || "", expense.receiptNo || "", expense.supplier || "", expense.paymentMethod || "", expense.note || ""
         ].map(csvCell).join(";"));
@@ -22078,9 +22203,13 @@
         const collected = personnelCollected + schoolCollected;
         const vehicleExpenseRowsForMonth = state.vehicleExpenses.filter((expense) => expense.vehicleId === vehicle.id && String(expense.date || "").startsWith(month));
         const vehicleCost = vehicleExpenseRowsForMonth.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
-        const fuelRows = vehicleExpenseRowsForMonth.filter((expense) => expense.type === "Yakıt");
-        const fuelCost = fuelRows.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
-        const fuelLiters = fuelRows.reduce((sum, expense) => sum + vehicleExpenseFuelLiters(expense), 0);
+        const fuelStats = vehicleFuelConsumptionSummary(vehicleExpenseRowsForMonth);
+        const fuelCost = fuelStats.purchaseCost;
+        const fuelLiters = fuelStats.purchaseLiters;
+        const fuelConsumptionCost = fuelStats.consumptionCost;
+        const fuelConsumptionLiters = fuelStats.consumptionLiters;
+        const openingFuelCost = fuelStats.openingCost;
+        const openingFuelLiters = fuelStats.openingLiters;
         const staffCost = staffPaymentCostForVehicle(vehicle.id, month);
         const totalCost = vehicleCost + staffCost;
         const net = revenue - totalCost;
@@ -22090,8 +22219,8 @@
         const activity = personnelTrips + schoolTrips;
         const kmInfo = vehicleKmDistanceInfo(vehicle.id, month);
         const estimatedKm = kmInfo.distance > 0 ? kmInfo.distance : null;
-        const fuelConsumptionPer100 = estimatedKm && fuelLiters > 0 ? fuelLiters / estimatedKm * 100 : null;
-        const fuelCostPerKm = estimatedKm ? fuelCost / estimatedKm : null;
+        const fuelConsumptionPer100 = estimatedKm && fuelConsumptionLiters > 0 ? fuelConsumptionLiters / estimatedKm * 100 : null;
+        const fuelCostPerKm = estimatedKm ? fuelConsumptionCost / estimatedKm : null;
         const vehicleCostPerKm = estimatedKm ? vehicleCost / estimatedKm : null;
         const kmCost = estimatedKm ? totalCost / estimatedKm : null;
         const revenuePerKm = estimatedKm ? revenue / estimatedKm : null;
@@ -22100,7 +22229,7 @@
         return {
           kind: "vehicles", id: vehicle.id, name: vehicle.plate || "Plakasız araç",
           secondary: `${vehicle.driverName || "Şoför yok"} · ${jobs.length} iş · ${schools.length} okul`,
-          revenue, collected, vehicleCost, fuelCost, fuelLiters, staffCost, totalCost, net, margin, activity,
+          revenue, collected, vehicleCost, fuelCost, fuelLiters, fuelConsumptionCost, fuelConsumptionLiters, openingFuelCost, openingFuelLiters, staffCost, totalCost, net, margin, activity,
           activityLabel: "sefer", unitRevenue: activity > 0 ? revenue / activity : null,
           unitCost: activity > 0 ? totalCost / activity : null, estimatedKm, kmInfo,
           fuelConsumptionPer100, fuelCostPerKm, vehicleCostPerKm, kmCost, revenuePerKm, netPerKm,
@@ -22213,7 +22342,7 @@
         ? "Araçla ilişkilendirilen personel ve okul geliri, araç gideri ve personel maliyeti karşılaştırılır."
         : (view === "schools" ? "Öğrenci tahakkukundan okulun doğrudan araç ve personel maliyetleri düşülür." : "Hakedişten işe doğrudan bağlanan araç ve personel maliyetleri düşülür.");
       if (note) note.textContent = view === "vehicles"
-        ? "Araç geliri; araca bağlı personel işleri ve okullar üzerinden atanır. KM analizi önce aylık başlangıç/bitiş sayaç kaydını, yoksa gider ve bakım KM okumalarını kullanır. Yakıt tüketimi için yakıt giderine litre girilmelidir. Genel giderler araçlara otomatik dağıtılmaz."
+        ? "Araç geliri; araca bağlı personel işleri ve okullar üzerinden atanır. KM analizi önce aylık başlangıç/bitiş sayaç kaydını, yoksa gider ve bakım KM okumalarını kullanır. Yakıt tüketimi için litre ve KM girilmelidir; başlangıç dolumu KM tüketim hesabına katılmaz. Genel giderler araçlara otomatik dağıtılmaz."
         : "Bu ekran operasyonel net katkıyı gösterir. Yalnız doğrudan bağlanmış araç ve şoför/rehber maliyetleri kullanılır; genel merkez giderleri dağıtılmadığı için sonuç muhasebe net kârı değildir.";
 
       if (!rows.length) {
@@ -22227,7 +22356,7 @@
       }
 
       if (view === "vehicles") {
-        host.innerHTML = `<div class="table-wrap"><table style="min-width:1850px"><thead><tr><th>Araç</th><th>Operasyon</th><th>Gelir</th><th>Toplam Maliyet</th><th>Net Katkı</th><th>Marj</th><th>Mesafe</th><th>Yakıt Litre</th><th>L/100 KM</th><th>Yakıt ₺/KM</th><th>Toplam ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${escapeHtml(String(row.activity || 0))} sefer</strong><br><span class="muted">Tahsilat ${escapeHtml(formatTRY(row.collected))}</span></td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.totalCost))}</strong><br><span class="muted">Araç ${escapeHtml(formatTRY(row.vehicleCost))} · Personel ${escapeHtml(formatTRY(row.staffCost))}</span></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td>${row.margin === null ? "-" : `%${escapeHtml(row.margin.toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}`}</td><td>${row.estimatedKm ? `<strong>${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km</strong><br><span class="muted">${escapeHtml(row.kmInfo?.source || "")}</span>` : "Yetersiz KM"}</td><td>${escapeHtml(Number(row.fuelLiters || 0).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L</td><td>${row.fuelConsumptionPer100 === null ? "-" : `${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L`}</td><td>${row.fuelCostPerKm === null ? "-" : escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td><strong>${row.kmCost === null ? "-" : escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm === null ? "-" : escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${row.netPerKm !== null && row.netPerKm < 0 ? "profit-negative" : "profit-positive"}">${row.netPerKm === null ? "-" : escapeHtml(formatTRY(row.netPerKm))}</strong></td><td>${profitabilityStatusHtml(row)}<br><span class="muted">${row.netPerKm === null ? "KM sonucu yok" : row.netPerKm < 0 ? "KM başına zarar" : "KM başına kâr"}</span></td><td><button class="btn small primary" type="button" data-action="open-vehicle-km" data-id="${escapeHtml(row.id)}">KM Analizi</button><button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderlere Git</button></td></tr>`).join("")}</tbody></table></div>`;
+        host.innerHTML = `<div class="table-wrap"><table style="min-width:1850px"><thead><tr><th>Araç</th><th>Operasyon</th><th>Gelir</th><th>Toplam Maliyet</th><th>Net Katkı</th><th>Marj</th><th>Mesafe</th><th>KM Hesabı Yakıtı</th><th>L/100 KM</th><th>Yakıt ₺/KM</th><th>Toplam ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${rows.map((row) => `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${escapeHtml(String(row.activity || 0))} sefer</strong><br><span class="muted">Tahsilat ${escapeHtml(formatTRY(row.collected))}</span></td><td><strong>${escapeHtml(formatTRY(row.revenue))}</strong></td><td><strong>${escapeHtml(formatTRY(row.totalCost))}</strong><br><span class="muted">Araç ${escapeHtml(formatTRY(row.vehicleCost))} · Personel ${escapeHtml(formatTRY(row.staffCost))}</span></td><td><strong class="${row.net < 0 ? "profit-negative" : "profit-positive"}">${escapeHtml(formatTRY(row.net))}</strong></td><td>${row.margin === null ? "-" : `%${escapeHtml(row.margin.toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}`}</td><td>${row.estimatedKm ? `<strong>${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km</strong><br><span class="muted">${escapeHtml(row.kmInfo?.source || "")}</span>` : "Yetersiz KM"}</td><td>${escapeHtml(Number(row.fuelConsumptionLiters || 0).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L${row.openingFuelLiters>0?`<br><span class="muted">${escapeHtml(Number(row.openingFuelLiters).toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L başlangıç hariç</span>`:""}</td><td>${row.fuelConsumptionPer100 === null ? "-" : `${escapeHtml(row.fuelConsumptionPer100.toLocaleString("tr-TR", { maximumFractionDigits: 2 }))} L`}</td><td>${row.fuelCostPerKm === null ? "-" : escapeHtml(formatTRY(row.fuelCostPerKm))}</td><td><strong>${row.kmCost === null ? "-" : escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm === null ? "-" : escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${row.netPerKm !== null && row.netPerKm < 0 ? "profit-negative" : "profit-positive"}">${row.netPerKm === null ? "-" : escapeHtml(formatTRY(row.netPerKm))}</strong></td><td>${profitabilityStatusHtml(row)}<br><span class="muted">${row.netPerKm === null ? "KM sonucu yok" : row.netPerKm < 0 ? "KM başına zarar" : "KM başına kâr"}</span></td><td><button class="btn small primary" type="button" data-action="open-vehicle-km" data-id="${escapeHtml(row.id)}">KM Analizi</button><button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderlere Git</button></td></tr>`).join("")}</tbody></table></div>`;
         return;
       }
 
@@ -24409,10 +24538,10 @@
       return FULL_DEMO_COLLECTIONS.reduce((sum, key) => sum + ((state[key] || []).filter((item) => !isFullDemoRecord(item)).length), 0);
     }
 
-    function fullDemoVehicleExpense({ key, date, vehicle, type, amount, km, allocationMode = "general", job = null, school = null, personnelSharePercent = 0, schoolSharePercent = 0, fuelLiters = 0, fuelUnitPrice = 0, supplier = "", note = "", receiptNo = "" }) {
+    function fullDemoVehicleExpense({ key, date, vehicle, type, amount, km, allocationMode = "general", job = null, school = null, personnelSharePercent = 0, schoolSharePercent = 0, fuelLiters = 0, fuelUnitPrice = 0, fuelOpeningFill = false, supplier = "", note = "", receiptNo = "" }) {
       return fullDemoRecord("vehicleExpense", key, {
         date, vehicleId: vehicle.id, vehiclePlate: vehicle.plate, driverName: vehicle.driverName,
-        type, amount: roundFinanceMoney(amount), fuelLiters, fuelUnitPrice, km,
+        type, amount: roundFinanceMoney(amount), fuelLiters, fuelUnitPrice, fuelOpeningFill, km,
         paymentMethod: "Kredi Kartı", allocationMode,
         personnelSharePercent, schoolSharePercent,
         jobId: job?.id || "", jobName: job?.name || "", companyId: job?.companyId || "", companyName: job?.companyName || "",
@@ -24554,7 +24683,7 @@
         ];
         vehicleConfigs.forEach((cfg,vehicleIndex)=>{
           const [vehicle,job,school,mode,pShare,sShare,liters,unitPrice,km]=cfg;
-          state.vehicleExpenses.push(fullDemoVehicleExpense({key:`fuel_${vehicleIndex}_${month}`,date:fullDemoDate(month,6+vehicleIndex),vehicle,type:"Yakıt",amount:liters*unitPrice,km,allocationMode:mode,job,school,personnelSharePercent:pShare,schoolSharePercent:sShare,fuelLiters:roundFinanceMoney(liters),fuelUnitPrice:roundFinanceMoney(unitPrice),supplier:"Kurumsal İndirimli Akaryakıt",receiptNo:`YKT-${month.replace('-','')}-${vehicleIndex+1}`,note:"Şirket indirimi uygulanmış gerçek litre fiyatıyla demo yakıt alımı"}));
+          state.vehicleExpenses.push(fullDemoVehicleExpense({key:`fuel_${vehicleIndex}_${month}`,date:fullDemoDate(month,6+vehicleIndex),vehicle,type:"Yakıt",amount:liters*unitPrice,km,allocationMode:mode,job,school,personnelSharePercent:pShare,schoolSharePercent:sShare,fuelLiters:roundFinanceMoney(liters),fuelUnitPrice:roundFinanceMoney(unitPrice),fuelOpeningFill:monthIndex===0,supplier:"Kurumsal İndirimli Akaryakıt",receiptNo:`YKT-${month.replace('-','')}-${vehicleIndex+1}`,note:"Şirket indirimi uygulanmış gerçek litre fiyatıyla demo yakıt alımı"}));
           const distances=[2450,2780,2120];
           const start=[124000,92000,71000][vehicleIndex]+monthIndex*distances[vehicleIndex];
           const end=start+distances[vehicleIndex]+monthIndex*25;
@@ -24814,6 +24943,8 @@
         updateVehicleExpenseLink("amount");
       });
       $("#vehicleExpenseType")?.addEventListener("change", () => updateVehicleExpenseFuelPreview("type"));
+      $("#vehicleExpenseVehicle")?.addEventListener("change", () => updateVehicleExpenseOpeningFillSuggestion(true));
+      $("#vehicleExpenseOpeningFill")?.addEventListener("change", () => updateVehicleExpenseOpeningFillSuggestion());
       $("#vehicleExpenseFuelLiters")?.addEventListener("input", () => updateVehicleExpenseFuelPreview("liters"));
       $("#vehicleExpenseFuelUnitPrice")?.addEventListener("input", () => {
         updateVehicleExpenseFuelPreview("unit");
@@ -25149,6 +25280,7 @@
         }
         if (action === "edit-vehicle-km") editVehicleKmRecord(id);
         if (action === "delete-vehicle-km") deleteVehicleKmRecord(id);
+        if (action === "mark-opening-fuel") markFirstFuelAsOpening(id);
         if (action === "open-document-archive") { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("files"); renderDocumentArchive(); scrollContentTop(); }
         if (action === "open-document-file") openStoredDocument(id);
         if (action === "share-document-file") shareStoredDocument(id);
