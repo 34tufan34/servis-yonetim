@@ -1,21 +1,26 @@
-SERVİS YÖNETİM SİSTEMİ v4.41.1 — EVRAK TÜRLERİ GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.42.0 — VARDİYA, BİNİŞ SAATİ VE PERSONEL YOKLAMA GÜNCELLEMESİ
 
 BU PAKETTE:
-- Evrak Dosyası Kaydet formundaki Evrak Türü listesi standartlaştırıldı.
-- Ehliyet, Araç Ruhsatı, SRC-2, Psikoteknik Raporu, Sağlık Raporu EK-7, Adli Sicil Kaydı, Araç Muayenesi, Egzost Muayenesi, Trafik Sigortası, Koltuk Sigortası, Sürücü Ceza Puanı, Yol Belgesi, Tahditli Servis Plaka Belgesi, Mesleki Faaliyet Belgesi ve Diğer seçenekleri eklendi.
-- Evrak türü seçimi zorunlu hale getirildi.
-- Evrak arşivi filtresi aynı tür listesiyle güncellendi.
-- Eski evrak kayıtlarındaki farklı tür adları silinmez; filtrede “Eski kayıt” olarak görünmeye devam eder.
-- Önceki v4.41.0 Temel Kayıtlar düzeni ve v4.40.1 yakıt/KM düzeltmesi korunur.
+- İş / Sözleşme kaydına vardiya sistemi eklendi: vardiyasız, tekli, ikili, üçlü ve özel vardiya.
+- Her vardiya için ad, başlangıç saati, bitiş saati ve servis yönü tanımlanabilir.
+- Personel kaydına vardiya ve planlanan biniş saati eklendi.
+- Personel servisi başlatılırken seçilen iş ve vardiyaya göre yolcu listesi süzülür.
+- Aktif servis ekranında personelin planlanan biniş saatine kalan süre gösterilir.
+- Evrak kaydında dosya seçimi isteğe bağlı hale getirildi; yalnız evrak bilgisi kaydedilebilir.
+- Personel Servisi bölümüne ayrıntılı Yoklama Raporu eklendi.
+- Raporda firma, iş/sözleşme, vardiya ve ay filtreleri bulunur.
+- Raporda personelin planlanan biniş saati, gerçek biniş ve iniş zamanı, geldi/gelmedi durumu ve eksik kayıtlar gösterilir.
+- Personel yoklama raporu CSV ve Yazdır/PDF olarak alınabilir.
+- Mevcut v4.41.1 evrak türleri, v4.41.0 Temel Kayıtlar düzeni ve v4.40.1 başlangıç yakıtı düzeltmesi korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEKLER:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_41_1.txt
+PROJE_HAFIZA_NOTU_v4_42_0.txt
 
 COMMIT MESAJI:
-v4.41.1 evrak türleri güncellemesi
+v4.42.0 vardiya biniş saati ve personel yoklama
 
-APK yeniden oluşturulmaz. Veri şeması 30 olarak kalır.
+APK yeniden oluşturulmaz. Veri şeması 31'e yükselir. Mevcut kayıtlar korunur.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.41.1</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.42.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -9996,7 +9996,7 @@
 
   
 
-    /* v4.41.1 - Temel Kayıtlar tek merkez, sabit ilerleme ve panel içi kaydırma */
+    /* v4.42.0 - Temel Kayıtlar tek merkez, sabit ilerleme ve panel içi kaydırma */
     #screen-registry.active {
       display: flex;
       flex-direction: column;
@@ -10136,7 +10136,64 @@
       }
     }
 
-  </style>
+  
+
+    /* v4.42.0 - Vardiya, biniş saati ve personel raporu */
+    .job-shift-config {
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent) 12%);
+      border-radius: 16px;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+    .job-shift-config-head { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+    .job-shift-config-head .field { flex: 1 1 220px; }
+    .job-shift-rows { display: grid; gap: 10px; }
+    .job-shift-row {
+      display: grid;
+      grid-template-columns: minmax(140px,1.4fr) minmax(105px,.75fr) minmax(105px,.75fr) minmax(150px,1fr) auto;
+      gap: 10px;
+      align-items: end;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+    .job-shift-row .field { min-width: 0; }
+    .job-shift-remove { align-self: end; white-space: nowrap; }
+    .job-shift-hint { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .service-countdown {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .service-countdown.is-late { border-color: color-mix(in srgb, #f59e0b 55%, var(--border)); background: color-mix(in srgb, #f59e0b 13%, transparent); }
+    .service-countdown.is-now { border-color: color-mix(in srgb, #22c55e 55%, var(--border)); background: color-mix(in srgb, #22c55e 13%, transparent); }
+    .personnel-report-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:end; }
+    .personnel-report-table .status-cell { min-width: 130px; }
+    .personnel-report-table .time-cell { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .personnel-report-table tr.report-missing td { background: color-mix(in srgb, #f59e0b 9%, transparent); }
+    .document-no-file { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .document-actions .btn[disabled] { opacity:.55; cursor:not-allowed; }
+    @media (max-width: 980px) {
+      .job-shift-row { grid-template-columns: 1fr 1fr; }
+      .job-shift-row .field:first-child, .job-shift-row .field:nth-child(4) { grid-column: 1 / -1; }
+      .job-shift-remove { justify-self: start; }
+    }
+    @media (max-width: 620px) {
+      .job-shift-row { grid-template-columns: 1fr; }
+      .job-shift-row .field { grid-column: 1 !important; }
+    }
+</style>
 </head>
 
 <body class="auth-locked license-locked">
@@ -10312,7 +10369,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.41.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.42.0</div>
         </div>
       </div>
 
@@ -10580,6 +10637,7 @@
         <div class="tabs" id="personnelTabs">
           <button class="tab active" data-tab="service">Servis Başlat</button>
           <button class="tab" data-tab="ledger">Çetele</button>
+          <button class="tab" data-tab="reports">Yoklama Raporu</button>
           <button class="tab" data-tab="vehicles">Araç Evrakları</button>
           <button class="tab" data-tab="warnings">Uyarılar</button>
         </div>
@@ -10659,13 +10717,20 @@
                     </div>
                   </div>
 
-                  <div class="field">
-                    <label for="personStatus">Durum</label>
-                    <select id="personStatus">
-                      <option value="Aktif">Aktif</option>
-                      <option value="Pasif">Pasif</option>
-                      <option value="Geçici Durduruldu">Geçici Durduruldu</option>
-                    </select>
+                  <div class="two">
+                    <div class="field">
+                      <label for="personBoardingTime">Planlanan Biniş Saati</label>
+                      <input id="personBoardingTime" type="time" />
+                      <small class="field-help">Servis ekranında binişe kalan süre bu saatten hesaplanır.</small>
+                    </div>
+                    <div class="field">
+                      <label for="personStatus">Durum</label>
+                      <select id="personStatus">
+                        <option value="Aktif">Aktif</option>
+                        <option value="Pasif">Pasif</option>
+                        <option value="Geçici Durduruldu">Geçici Durduruldu</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
 
@@ -10821,6 +10886,24 @@
                     <label for="jobPlannedTrips">Günlük Planlanan Sefer</label>
                     <input id="jobPlannedTrips" type="number" min="1" step="1" value="2" />
                   </div>
+                </div>
+
+                <div class="job-shift-config">
+                  <div class="job-shift-config-head">
+                    <div class="field">
+                      <label for="jobShiftSystem">Vardiya Sistemi</label>
+                      <select id="jobShiftSystem">
+                        <option value="none">Vardiyasız / Sabit Saat</option>
+                        <option value="single">Tek Vardiya</option>
+                        <option value="double">2 Vardiya</option>
+                        <option value="triple">3 Vardiya</option>
+                        <option value="custom">Özel Vardiya Düzeni</option>
+                      </select>
+                    </div>
+                    <button class="btn small primary" id="addJobShiftBtn" type="button">Vardiya Ekle</button>
+                  </div>
+                  <div class="job-shift-rows" id="jobShiftRows"></div>
+                  <div class="job-shift-hint">Her vardiya için ad, başlangıç-bitiş saati ve servis yönü tanımlanabilir. Personel kaydındaki vardiya alanı bu sözleşme vardiyalarını kullanır.</div>
                 </div>
 
                 <div class="field">
@@ -11150,6 +11233,12 @@
                 <label for="serviceRoute">Firma</label>
                 <select id="serviceRoute"></select>
               </div>
+              <div class="field">
+                <label for="serviceShift">Vardiya</label>
+                <select id="serviceShift">
+                  <option value="">Varsayılan / Vardiyasız</option>
+                </select>
+              </div>
               <div class="field service-period-field">
                 <div class="service-period-head">
                   <label for="servicePeriod">Sefer Otomatik Seçilir</label>
@@ -11257,6 +11346,31 @@
               </div>
               <div id="routesTableHost"></div>
             </section>
+          </div>
+        </div>
+
+
+        <div class="tab-screen hidden" id="tab-reports">
+          <div class="card panel service-panel">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Personel Yoklama ve Firma Bilgi Raporu</h2>
+                <div class="panel-sub">Personelin hangi gün geldiğini, gelmediğini, planlanan ve gerçekleşen biniş-iniş saatlerini firma bazında görüntüle.</div>
+              </div>
+            </div>
+            <div class="service-controls personnel-report-controls">
+              <div class="field"><label for="personnelReportCompany">Firma</label><select id="personnelReportCompany"></select></div>
+              <div class="field"><label for="personnelReportJob">İş / Sözleşme</label><select id="personnelReportJob"></select></div>
+              <div class="field"><label for="personnelReportShift">Vardiya</label><select id="personnelReportShift"></select></div>
+              <div class="field"><label for="personnelReportMonth">Ay</label><input id="personnelReportMonth" type="month" /></div>
+              <div class="personnel-report-actions">
+                <button class="btn primary" id="refreshPersonnelReportBtn" type="button">Raporu Yenile</button>
+                <button class="btn" id="exportPersonnelReportCsvBtn" type="button">Firma Raporu CSV</button>
+                <button class="btn" id="printPersonnelReportBtn" type="button">Yazdır / PDF</button>
+              </div>
+            </div>
+            <div class="service-summary" id="personnelReportSummary"></div>
+            <div class="service-list-host personnel-report-table" id="personnelReportTableHost"></div>
           </div>
         </div>
 
@@ -11381,10 +11495,10 @@
                   </div>
                   <div class="two">
                     <div class="field"><label for="documentExpiryDate">Geçerlilik / Bitiş Tarihi</label><input id="documentExpiryDate" type="date" /></div>
-                    <div class="field"><label for="documentFile">Dosya *</label><input id="documentFile" type="file" accept="image/*,application/pdf,.pdf" required /></div>
+                    <div class="field"><label for="documentFile">Dosya (İsteğe Bağlı)</label><input id="documentFile" type="file" accept="image/*,application/pdf,.pdf" /><small class="field-help">Yalnızca evrak bilgisi kaydedilebilir; dosya daha sonra eklenmek zorunda değildir.</small></div>
                   </div>
                   <div class="field"><label for="documentNote">Açıklama</label><textarea id="documentNote" placeholder="Poliçe no, açıklama, ilgili kişi veya paylaşım notu..."></textarea></div>
-                  <div class="document-file-note">Dosyalar cihazın tarayıcı deposunda saklanır. En fazla 15 MB resim veya PDF yüklenebilir. JSON yedeği evrak listesini içerir ancak dosyanın kendisini içermez.</div>
+                  <div class="document-file-note">Dosya seçersen cihazın tarayıcı deposunda saklanır. En fazla 15 MB resim veya PDF yüklenebilir. Dosya seçmeden yalnız evrak bilgisi de kaydedebilirsin. JSON yedeği evrak listesini içerir ancak dosyanın kendisini içermez.</div>
                   <div class="form-actions">
                     <button class="btn primary" type="submit">Evrakı Kaydet</button>
                     <button class="btn" id="clearDocumentFileBtn" type="button">Temizle</button>
@@ -13574,11 +13688,11 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.41.1</strong>
+                <strong>v4.42.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
-                <strong id="schemaVersion">30</strong>
+                <strong id="schemaVersion">31</strong>
               </div>
               <div>
                 <span>Kayıt Anahtarı</span>
@@ -13603,9 +13717,9 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.41.1 - Başlangıç yakıt dolumu KM tüketim hesabından ayrıldı.
-    const APP_VERSION = "4.41.1";
-    const SCHEMA_VERSION = 30;
+    // v4.42.0 - Vardiya, biniş saati, personel yoklama raporu ve dosyasız evrak kaydı.
+    const APP_VERSION = "4.42.0";
+    const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -13716,6 +13830,22 @@
         ...record,
         fuelOpeningFill: Boolean(record?.fuelOpeningFill)
       }));
+      state.jobs = state.jobs.map((job) => ({
+        ...job,
+        shiftSystem: job?.shiftSystem || (Array.isArray(job?.shifts) && job.shifts.length ? "custom" : "none"),
+        shifts: normalizeJobShifts(job)
+      }));
+      state.people = state.people.map((person) => ({ ...person, boardingTime: String(person?.boardingTime || "") }));
+      state.attendance = state.attendance.map((record) => ({
+        ...record,
+        morningAt: record?.morningAt || "",
+        eveningAt: record?.eveningAt || "",
+        morningJobId: record?.morningJobId || "",
+        eveningJobId: record?.eveningJobId || "",
+        morningShiftKey: record?.morningShiftKey || "",
+        eveningShiftKey: record?.eveningShiftKey || ""
+      }));
+      state.dispatches = state.dispatches.map((dispatch) => ({ ...dispatch, completedServiceKeys: Array.isArray(dispatch?.completedServiceKeys) ? dispatch.completedServiceKeys : [] }));
       state.appVersion = APP_VERSION;
       state.schemaVersion = SCHEMA_VERSION;
       repairDispatchJobLinksForMonth("");
@@ -13958,6 +14088,7 @@
           person.morningOrder,
           person.eveningOrder,
           person.shift,
+          person.boardingTime || "",
           person.status,
           routeLabel(person.routeId),
           person.startDate,
@@ -14163,6 +14294,7 @@
       const companyId = $("#personCompany") ? $("#personCompany").value : "";
       const company = getCompany(companyId);
       const routeSelect = $("#personRoute");
+      renderPersonShiftOptions(companyId, $("#personShift")?.value || "Gündüz");
       const preview = $("#personCompanyAddressPreview");
 
       if (company) {
@@ -14421,6 +14553,7 @@
       if (!target || !source || target === source) return target;
       target.morningCompleted = Boolean(target.morningCompleted || source.morningCompleted);
       target.eveningCompleted = Boolean(target.eveningCompleted || source.eveningCompleted);
+      target.completedServiceKeys = [...new Set([...(target.completedServiceKeys || []), ...(source.completedServiceKeys || [])])];
       if (!Number(target.unitPrice || 0) && Number(source.unitPrice || 0)) target.unitPrice = Number(source.unitPrice || 0);
       if (!target.jobName && source.jobName) target.jobName = source.jobName;
       return target;
@@ -14499,6 +14632,7 @@
         billingModel: job?.billingModel || "trip",
         morningCompleted: false,
         eveningCompleted: false,
+        completedServiceKeys: [],
         unitPrice: job?.billingModel === "monthly"
           ? 0
           : Number(job?.tripPrice || getCompanyByRoute(routeId)?.tripPrice || state.settings?.personnelTripPrice || 2250)
@@ -14522,7 +14656,14 @@
         routeId,
         personId,
         morning: "",
-        evening: ""
+        evening: "",
+        morningAt: "",
+        eveningAt: "",
+        morningJobId: "",
+        eveningJobId: "",
+        morningShiftKey: "",
+        eveningShiftKey: "",
+        updatedAt: ""
       };
 
       state.attendance.push(record);
@@ -14565,8 +14706,7 @@
 
     function dispatchRevenue(dispatch) {
       if (!dispatch) return 0;
-      const count = (dispatch.morningCompleted ? 1 : 0) + (dispatch.eveningCompleted ? 1 : 0);
-      return count * Number(dispatch.unitPrice || 0);
+      return dispatchTripCount(dispatch) * Number(dispatch.unitPrice || 0);
     }
 
     function monthlyDispatchRevenue(month) {
@@ -14706,15 +14846,16 @@
     }
 
 
-    function getManualServiceOrder(date, routeId, period) {
-      const session = getServiceSession(date, routeId, period);
+    function getManualServiceOrder(date, routeId, period, shiftKey = getServiceShiftKey(), jobId = getServiceJobId()) {
+      const session = getServiceSession(date, routeId, period, jobId, shiftKey);
       return Array.isArray(session?.manualOrder) ? session.manualOrder : [];
     }
 
-    function servicePeopleBase(routeId, period) {
+    function servicePeopleBase(routeId, period, shiftKey = getServiceShiftKey(), jobId = getServiceJobId()) {
       if (!routeId) return [];
+      const shift = jobShiftByKey(getJob(jobId), shiftKey);
       return state.people
-        .filter((person) => person.status === "Aktif" && person.routeId === routeId)
+        .filter((person) => person.status === "Aktif" && person.routeId === routeId && personMatchesShift(person, shift))
         .sort((a, b) => {
           const ao = personOrderForPeriod(a, period);
           const bo = personOrderForPeriod(b, period);
@@ -14732,32 +14873,34 @@
       return ordered.concat(remaining);
     }
 
-    function servicePeopleFor(date, routeId, period) {
-      return applyManualOrder(servicePeopleBase(routeId, period), getManualServiceOrder(date, routeId, period));
+    function servicePeopleFor(date, routeId, period, shiftKey = getServiceShiftKey(), jobId = getServiceJobId()) {
+      return applyManualOrder(servicePeopleBase(routeId, period, shiftKey, jobId), getManualServiceOrder(date, routeId, period, shiftKey, jobId));
     }
 
     function moveServicePerson(personId, direction) {
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
 
       if (!routeId) {
         showToast("Önce firma seç.");
         return;
       }
 
-      const rows = servicePeopleFor(date, routeId, period);
+      const rows = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       const index = rows.findIndex((person) => person.id === personId);
       if (index < 0) return;
 
       const nextIndex = index + direction;
       if (nextIndex < 0 || nextIndex >= rows.length) return;
 
-      const session = getOrCreateServiceSession(date, routeId, period);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const ids = rows.map((person) => person.id);
       [ids[index], ids[nextIndex]] = [ids[nextIndex], ids[index]];
       session.manualOrder = ids;
-      session.currentIndex = Math.min(session.currentIndex || 0, ids.length - 1);
+      session.currentIndex = Math.min(Number(session.currentIndex || 0), Math.max(ids.length - 1, 0));
 
       saveState();
       showToast("Servis sırası güncellendi.");
@@ -14767,13 +14910,15 @@
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
 
       if (!routeId) {
         showToast("Önce firma seç.");
         return;
       }
 
-      const session = getServiceSession(date, routeId, period);
+      const session = getServiceSession(date, routeId, period, jobId, shiftKey);
       if (!session) {
         showToast("Bu servis için manuel sıra yok.");
         return;
@@ -14869,17 +15014,18 @@
       }
     }
 
-    function getServiceSession(date, routeId, period, jobId = getServiceJobId()) {
+    function getServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
       return state.serviceSessions.find((session) =>
         session.date === date &&
         session.routeId === routeId &&
         session.period === period &&
-        String(session.jobId || "") === String(jobId || "")
+        String(session.jobId || "") === String(jobId || "") &&
+        String(session.shiftKey || "") === String(shiftKey || "")
       ) || null;
     }
 
-    function getOrCreateServiceSession(date, routeId, period, jobId = getServiceJobId()) {
-      let session = getServiceSession(date, routeId, period, jobId);
+    function getOrCreateServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
+      let session = getServiceSession(date, routeId, period, jobId, shiftKey);
       if (session) return session;
 
       session = {
@@ -14887,6 +15033,8 @@
         date,
         routeId,
         jobId: jobId || "",
+        shiftKey: shiftKey || "",
+        shiftName: jobShiftByKey(getJob(jobId), shiftKey)?.name || "",
         period,
         currentIndex: 0,
         startedAt: "",
@@ -14937,9 +15085,11 @@
 
       const company = getSelectedServiceCompany();
       const job = getSelectedServiceJob();
-      const timingSource = job ? { morningTime: job.morningTime, eveningTime: job.eveningTime } : company;
+      const shift = getSelectedServiceShift();
+      const timingSource = shift ? { morningTime: shift.startTime, eveningTime: shift.endTime } : (job ? { morningTime: job.morningTime, eveningTime: job.eveningTime } : company);
       let period = inferServicePeriodForCompany(timingSource);
-      if (job?.direction === "morning" || job?.direction === "evening") period = job.direction;
+      if (shift?.direction === "morning" || shift?.direction === "evening") period = shift.direction;
+      else if (job?.direction === "morning" || job?.direction === "evening") period = job.direction;
       periodSelect.value = period;
 
       if (hint) {
@@ -15026,18 +15176,23 @@
       if (nextPending >= 0) session.currentIndex = nextPending;
     }
 
-    function autoMarkLeaveForService(date, routeId, period) {
+    function autoMarkLeaveForService(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
       const field = serviceStatusField(period);
-      servicePeople(routeId, period).forEach((person) => {
+      servicePeopleFor(date, routeId, period, shiftKey, jobId).forEach((person) => {
         if (!isPersonOnLeave(person, date)) return;
         const record = getOrCreateAttendance(date, routeId, person.id);
-        if (!record[field]) record[field] = "İzinli";
+        if (!record[field]) {
+          record[field] = "İzinli";
+          record[`${field}At`] = "";
+          record[`${field}JobId`] = jobId || "";
+          record[`${field}ShiftKey`] = shiftKey || "";
+        }
       });
     }
 
-    function serviceCounts(date, routeId, period) {
+    function serviceCounts(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
       const field = serviceStatusField(period);
-      const people = servicePeople(routeId, period);
+      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       const counts = {
         total: people.length,
         bindi: 0,
@@ -15049,7 +15204,7 @@
       people.forEach((person) => {
         const record = getAttendance(date, routeId, person.id);
         const status = displayAttendanceStatus(person, record, field, date);
-        if (status === "Bindi") counts.bindi += 1;
+        if (status === "Bindi" || status === "İndi") counts.bindi += 1;
         else if (status === "Yok") counts.yok += 1;
         else if (status === "İzinli") counts.izinli += 1;
         else counts.bekliyor += 1;
@@ -15072,9 +15227,11 @@
       const period = getServicePeriod();
       const company = getCompanyByRoute(routeId);
       const job = getSelectedServiceJob();
+      const shiftKey = getServiceShiftKey();
+      const shift = getSelectedServiceShift();
       const serviceVehicleId = job?.vehicleId || company?.defaultVehicleId || "";
-      const people = servicePeopleFor(date, routeId, period);
-      const session = getServiceSession(date, routeId, period);
+      const people = servicePeopleFor(date, routeId, period, shiftKey, job?.id || "");
+      const session = getServiceSession(date, routeId, period, job?.id || "", shiftKey);
 
       const vehicleLine = $("#serviceVehicleLine");
       if (vehicleLine) {
@@ -15090,12 +15247,10 @@
 
       if (session) normalizeServiceSessionIndex(session, people, period);
 
-      const counts = serviceCounts(date, routeId, period);
+      const counts = serviceCounts(date, routeId, period, job?.id || "", shiftKey);
       const completed = counts.total > 0 && counts.bekliyor === 0;
       const dispatch = getDispatch(date, routeId, job?.id || "");
-      const dispatchDone = period === "morning"
-        ? Boolean(dispatch && dispatch.morningCompleted)
-        : Boolean(dispatch && dispatch.eveningCompleted);
+      const dispatchDone = Boolean(dispatch && dispatchCompletedKeys(dispatch).has(dispatchServiceKey(period, shiftKey)));
 
       const servicePanel = $("#tab-service .service-panel");
       if (servicePanel) {
@@ -15117,7 +15272,7 @@
       }
 
       summaryHost.innerHTML = [
-        { label: job ? "İş / Sefer" : "Sefer", value: job ? `${job.name} · ${servicePeriodLabel(period)}` : servicePeriodLabel(period), risk: false },
+        { label: job ? "İş / Sefer" : "Sefer", value: job ? `${job.name}${shift ? ` · ${shift.name}` : ""} · ${servicePeriodLabel(period)}` : servicePeriodLabel(period), risk: false },
         { label: "Durum", value: session?.isActive ? "Canlı" : session?.finishedAt ? "Bitti" : "Bekliyor", risk: Boolean(session && session.isActive) },
         { label: "Toplam", value: `${counts.total} kişi`, risk: counts.total === 0 },
         { label: "Bindi", value: `${counts.bindi} kişi`, risk: false },
@@ -15163,7 +15318,7 @@
             <div>
               <div class="current-kicker">${session.isActive ? "CANLI SERVİS" : "Tamamlandı"}</div>
               <div class="current-name">Bekleyen personel yok</div>
-              <div class="current-meta">Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div>
+              <div class="current-meta">${period === "evening" ? "İndi" : "Bindi"}: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div>
             </div>
             <div class="current-actions">
               <button class="btn primary" type="button" id="finishServiceInlineBtn">Servisi Bitir ve Çeteleye İşle</button>
@@ -15180,6 +15335,9 @@
         const address = personAddressForPeriod(currentPerson, period);
         const order = people.findIndex((item) => item.id === currentPerson.id) + 1;
         const orderText = order > 0 ? order : "-";
+        const plannedTime = servicePlannedTime(currentPerson, period, job, shift);
+        const countdown = serviceCountdown(plannedTime, date);
+        const primaryStatus = period === "evening" ? "İndi" : "Bindi";
 
         currentHost.innerHTML = `
           <div class="current-card">
@@ -15188,7 +15346,8 @@
               <div class="current-name">${escapeHtml(currentPerson.name)}</div>
               <div class="current-meta">
                 ${escapeHtml(address || "Adres girilmemiş")}<br>
-                Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}
+                Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}<br>
+                <span class="service-countdown ${escapeHtml(countdown.className)}">⏱ ${escapeHtml(countdown.text)}</span>
               </div>
             </div>
             <div class="current-actions">
@@ -15197,7 +15356,7 @@
               <button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button>
               <button class="btn small" type="button" data-action="service-prev">Önceki</button>
               <button class="btn small" type="button" data-action="service-next">Sonraki</button>
-              <button class="btn small" type="button" data-action="service-mark" data-status="Bindi" data-person-id="${escapeHtml(currentPerson.id)}">Bindi</button>
+              <button class="btn small" type="button" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(currentPerson.id)}">${primaryStatus}</button>
               <button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button>
               <button class="btn small" type="button" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(currentPerson.id)}">İzinli</button>
             </div>
@@ -15214,6 +15373,7 @@
                 <th>Manuel</th>
                 <th>Personel</th>
                 <th>Adres</th>
+                <th>Planlanan Saat</th>
                 <th>Durum</th>
                 <th>İşlem</th>
               </tr>
@@ -15226,6 +15386,9 @@
                 const orderText = index + 1;
                 const address = personAddressForPeriod(person, period);
                 const activeRow = session && session.currentIndex === index;
+                const plannedTime = servicePlannedTime(person, period, job, shift);
+                const countdown = serviceCountdown(plannedTime, date);
+                const primaryStatus = period === "evening" ? "İndi" : "Bindi";
 
                 return `
                   <tr>
@@ -15236,11 +15399,12 @@
                     </td>
                     <td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td>
                     <td>${escapeHtml(address || "-")}</td>
+                    <td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td>
                     <td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td>
                     <td>
                       <button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button>
                       <button class="btn small" data-action="service-jump" data-index="${index}">Seç</button>
-                      <button class="btn small" data-action="service-mark" data-status="Bindi" data-person-id="${escapeHtml(person.id)}">Bindi</button>
+                      <button class="btn small" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>
                       <button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button>
                       <button class="btn small" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(person.id)}">İzinli</button>
                     </td>
@@ -15264,6 +15428,9 @@
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
       const job = getSelectedServiceJob();
+      const jobId = job?.id || "";
+      const shiftKey = getServiceShiftKey();
+      const shift = getSelectedServiceShift();
 
       if (job && !jobIsValidOnDate(job, date)) {
         showToast("Seçilen iş bu tarih veya çalışma günü için aktif değil.");
@@ -15275,13 +15442,13 @@
         return;
       }
 
-      const people = servicePeople(routeId, period);
+      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       if (!people.length) {
-        showToast("Bu güzergahta aktif personel yok.");
+        showToast(shift ? "Bu vardiyaya bağlı aktif personel yok." : "Bu güzergahta aktif personel yok.");
         return;
       }
 
-      const session = getOrCreateServiceSession(date, routeId, period);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const stoppedAt = new Date().toISOString();
       let closedOtherLiveSession = false;
 
@@ -15299,14 +15466,16 @@
         return;
       }
 
-      session.jobId = job?.id || "";
+      session.jobId = jobId;
       session.jobName = job?.name || "";
+      session.shiftKey = shiftKey || "";
+      session.shiftName = shift?.name || "";
       session.isActive = true;
       session.startedAt = new Date().toISOString();
       session.finishedAt = "";
       if (!Array.isArray(session.manualOrder)) session.manualOrder = [];
 
-      autoMarkLeaveForService(date, routeId, period);
+      autoMarkLeaveForService(date, routeId, period, jobId, shiftKey);
 
       const field = serviceStatusField(period);
       const nextPending = people.findIndex((person) => {
@@ -15317,33 +15486,39 @@
       session.currentIndex = nextPending >= 0 ? nextPending : 0;
 
       saveState();
-      showToast(`${servicePeriodLabel(period)} başlatıldı.`);
+      showToast(`${shift?.name ? shift.name + " · " : ""}${servicePeriodLabel(period)} başlatıldı.`);
     }
 
     function finishService() {
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
+      const job = getSelectedServiceJob();
+      const jobId = job?.id || "";
+      const shiftKey = getServiceShiftKey();
+      const shift = getSelectedServiceShift();
 
       if (!routeId) {
         showToast("Önce güzergah seç.");
         return;
       }
 
-      const job = getSelectedServiceJob();
-      const dispatch = getOrCreateDispatch(date, routeId, job?.id || "");
-      const session = getOrCreateServiceSession(date, routeId, period, job?.id || "");
+      const dispatch = getOrCreateDispatch(date, routeId, jobId);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const company = getCompanyByRoute(routeId);
       const price = job?.billingModel === "monthly"
         ? 0
         : Number(job?.tripPrice || company?.tripPrice || state.settings?.personnelTripPrice || 2250);
 
-      dispatch.jobId = job?.id || "";
+      dispatch.jobId = jobId;
       dispatch.jobName = job?.name || "";
       dispatch.billingModel = job?.billingModel || "trip";
       dispatch.unitPrice = price;
-      if (period === "morning") dispatch.morningCompleted = true;
-      if (period === "evening") dispatch.eveningCompleted = true;
+      const completedKey = dispatchServiceKey(period, shiftKey);
+      dispatch.completedServiceKeys = [...dispatchCompletedKeys(dispatch)];
+      if (!dispatch.completedServiceKeys.includes(completedKey)) dispatch.completedServiceKeys.push(completedKey);
+      if (!shiftKey && period === "morning") dispatch.morningCompleted = true;
+      if (!shiftKey && period === "evening") dispatch.eveningCompleted = true;
 
       const finishedAt = new Date().toISOString();
       state.serviceSessions.forEach((item) => {
@@ -15356,15 +15531,17 @@
       session.finishedAt = finishedAt;
 
       saveState();
-      showToast(`${servicePeriodLabel(period)} çeteleye işlendi.`);
+      showToast(`${shift?.name ? shift.name + " · " : ""}${servicePeriodLabel(period)} çeteleye işlendi.`);
     }
 
     function moveServiceCursor(delta) {
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
-      const people = servicePeople(routeId, period);
-      const session = getOrCreateServiceSession(date, routeId, period);
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
 
       if (!people.length) return;
 
@@ -15376,8 +15553,10 @@
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
-      const people = servicePeople(routeId, period);
-      const session = getOrCreateServiceSession(date, routeId, period);
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
 
       if (!people.length) return;
 
@@ -15389,16 +15568,24 @@
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
-      const people = servicePeople(routeId, period);
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       const field = serviceStatusField(period);
       const person = state.people.find((item) => item.id === personId);
 
       if (!routeId || !person) return;
 
-      const session = getOrCreateServiceSession(date, routeId, period);
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const record = getOrCreateAttendance(date, routeId, personId);
+      const markedAt = new Date().toISOString();
+      const isActualMovement = (field === "morning" && status === "Bindi") || (field === "evening" && (status === "İndi" || status === "Bindi"));
 
       record[field] = status;
+      record[`${field}At`] = isActualMovement ? markedAt : "";
+      record[`${field}JobId`] = jobId || "";
+      record[`${field}ShiftKey`] = shiftKey || "";
+      record.updatedAt = markedAt;
 
       const currentIndex = people.findIndex((item) => item.id === personId);
       const nextPending = people.findIndex((item, index) => {
@@ -15440,13 +15627,13 @@
 
 
     function getDispatchTripCount(dispatch) {
-      if (!dispatch) return 0;
-      return (dispatch.morningCompleted ? 1 : 0) + (dispatch.eveningCompleted ? 1 : 0);
+      return dispatchTripCount(dispatch);
     }
 
     function setDispatchTripCount(dispatch, count) {
       dispatch.morningCompleted = count >= 1;
       dispatch.eveningCompleted = count >= 2;
+      dispatch.completedServiceKeys = [];
     }
 
 
@@ -15926,7 +16113,7 @@
 
       lines.push("");
       lines.push(["PERSONEL YOKLAMA DETAYI"].map(csvCell).join(";"));
-      lines.push(["Tarih", "Güzergah", "Personel", "Sicil", "Sabah Sıra", "Sabah Adres", "Sabah", "Akşam Sıra", "Akşam Adres", "Akşam"].map(csvCell).join(";"));
+      lines.push(["Tarih", "Güzergah", "Personel", "Sicil", "Vardiya", "Planlanan Biniş", "Gerçek Biniş", "Sabah", "Gerçek İniş", "Akşam"].map(csvCell).join(";"));
 
       attendanceRows.forEach((record) => {
         const person = state.people.find((item) => item.id === record.personId);
@@ -15935,11 +16122,11 @@
           routeLabel(record.routeId),
           person ? person.name : "Silinmiş personel",
           person ? person.employeeNo || "" : "",
-          person ? person.morningOrder || "" : "",
-          person ? person.morningAddress || person.stop || "" : "",
+          person ? person.shift || "" : "",
+          person ? person.boardingTime || "" : "",
+          attendanceClock(record.morningAt),
           record.morning || "Bekliyor",
-          person ? person.eveningOrder || "" : "",
-          person ? person.eveningAddress || person.stop || "" : "",
+          attendanceClock(record.eveningAt),
           record.evening || "Bekliyor"
         ].map(csvCell).join(";"));
       });
@@ -16083,6 +16270,7 @@
                 <th>Firma / Departman</th>
                 <th>Güzergah</th>
                 <th>Vardiya</th>
+                <th>Planlanan Biniş</th>
                 <th>Biniş Noktası</th>
                 <th>Sıra / Adres</th>
                 <th>Tarih</th>
@@ -16110,6 +16298,7 @@
                     <td>${escapeHtml(companyDepartment)}</td>
                     <td>${escapeHtml(routeLabel(person.routeId))}</td>
                     <td>${escapeHtml(person.shift || "-")}</td>
+                    <td><strong>${escapeHtml(person.boardingTime || "-")}</strong></td>
                     <td>${escapeHtml(person.stop || "-")}</td>
                     <td>
                       <strong>S:</strong> ${escapeHtml(person.morningOrder || "-")} · <span class="muted">${escapeHtml(person.morningAddress || person.morningMapQuery || "-")}</span><br>
@@ -16995,6 +17184,7 @@
 
     function documentMimeLabel(meta) {
       const mime=String(meta?.mimeType||"").toLowerCase();
+      if (!meta?.fileName && !meta?.hasFile) return "KAYIT";
       if (mime==="application/pdf"||String(meta?.fileName||"").toLowerCase().endsWith(".pdf")) return "PDF";
       if (mime.startsWith("image/")) return "RESİM";
       return "DOSYA";
@@ -17037,17 +17227,19 @@
     async function saveDocumentArchiveFile(event) {
       event.preventDefault();
       const file=$("#documentFile")?.files?.[0], title=$("#documentTitle")?.value.trim()||"", category=$("#documentCategory")?.value||"";
-      if (!title||!category||!file) return showToast("Evrak başlığı, evrak türü ve dosya zorunlu.");
-      const isPdf=file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf");
-      const isImage=String(file.type||"").startsWith("image/");
-      if (!isPdf&&!isImage) return showToast("Yalnızca resim veya PDF dosyası kaydedilebilir.");
-      if (file.size>DOCUMENT_MAX_FILE_SIZE) return showToast("Dosya 15 MB sınırını aşıyor.");
+      if (!title||!category) return showToast("Evrak başlığı ve evrak türü zorunlu.");
+      const isPdf=Boolean(file)&&(file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf"));
+      const isImage=Boolean(file)&&String(file.type||"").startsWith("image/");
+      if (file&&!isPdf&&!isImage) return showToast("Yalnızca resim veya PDF dosyası kaydedilebilir.");
+      if (file&&file.size>DOCUMENT_MAX_FILE_SIZE) return showToast("Dosya 15 MB sınırını aşıyor.");
       const id=uid("document");
       try {
-        navigator.storage?.persist?.().catch(()=>{});
-        await putDocumentBlob(id,file);
-        state.documents.push({id,title,category,vehicleId:$("#documentVehicle")?.value||"",expiryDate:$("#documentExpiryDate")?.value||"",note:$("#documentNote")?.value.trim()||"",fileName:file.name,mimeType:file.type||(isPdf?"application/pdf":"image/*"),size:file.size,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
-        saveState(); clearDocumentArchiveForm(); showToast("Evrak dosyası cihazda kaydedildi.");
+        if (file) {
+          navigator.storage?.persist?.().catch(()=>{});
+          await putDocumentBlob(id,file);
+        }
+        state.documents.push({id,title,category,vehicleId:$("#documentVehicle")?.value||"",expiryDate:$("#documentExpiryDate")?.value||"",note:$("#documentNote")?.value.trim()||"",fileName:file?.name||"",mimeType:file?.type||(isPdf?"application/pdf":""),size:file?.size||0,hasFile:Boolean(file),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+        saveState(); clearDocumentArchiveForm(); showToast(file?"Evrak dosyası cihazda kaydedildi.":"Evrak bilgisi dosya eklenmeden kaydedildi.");
       } catch(error) {
         console.error("Evrak kaydedilemedi:",error); showToast("Evrak kaydedilemedi. Depolama iznini ve boş alanı kontrol et.");
       }
@@ -17074,12 +17266,13 @@
       const pdf=rows.filter((m)=>documentMimeLabel(m)==="PDF").length, images=rows.filter((m)=>documentMimeLabel(m)==="RESİM").length;
       const expiring=rows.filter((m)=>{const i=documentExpiryInfo(m.expiryDate);return i.days!==null&&i.days<=30;}).length;
       summary.innerHTML=[
-        {label:"Toplam Evrak",value:`${rows.length} dosya`,risk:false},{label:"PDF",value:`${pdf} dosya`,risk:false},{label:"Resim",value:`${images} dosya`,risk:false},{label:"Yaklaşan / Geçen",value:`${expiring} evrak`,risk:expiring>0},{label:"Cihaz Kullanımı",value:formatDocumentSize(totalSize),risk:false}
+        {label:"Toplam Evrak",value:`${rows.length} kayıt`,risk:false},{label:"PDF",value:`${pdf} dosya`,risk:false},{label:"Resim",value:`${images} dosya`,risk:false},{label:"Yaklaşan / Geçen",value:`${expiring} evrak`,risk:expiring>0},{label:"Cihaz Kullanımı",value:formatDocumentSize(totalSize),risk:false}
       ].map(financeSummaryChipHtml).join("");
-      if (!rows.length) { host.innerHTML='<div class="empty">Bu filtrede kayıtlı evrak dosyası yok.</div>'; return; }
+      if (!rows.length) { host.innerHTML='<div class="empty">Bu filtrede kayıtlı evrak bulunmuyor.</div>'; return; }
       host.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Dosya</th><th>Evrak</th><th>Bağlantı</th><th>Boyut</th><th>Bitiş / Durum</th><th>Kayıt Tarihi</th><th>Açıklama</th><th>İşlem</th></tr></thead><tbody>${rows.map((m)=>{
         const v=state.vehicles.find((item)=>item.id===m.vehicleId), expiry=documentExpiryInfo(m.expiryDate);
-        return `<tr><td><span class="document-type-badge">${escapeHtml(documentMimeLabel(m))}</span><br><div class="document-file-name" title="${escapeHtml(m.fileName||"")}">${escapeHtml(m.fileName||"Dosya")}</div></td><td><strong>${escapeHtml(m.title||"-")}</strong><br><span class="muted">${escapeHtml(m.category||"Diğer")}</span></td><td>${v?`<strong>${escapeHtml(v.plate)}</strong><br><span class="muted">${escapeHtml(v.driverName||"Şoför yok")}</span>`:'<span class="muted">Genel evrak</span>'}</td><td>${escapeHtml(formatDocumentSize(m.size))}</td><td><strong class="${escapeHtml(expiry.className)}">${escapeHtml(expiry.label)}</strong>${m.expiryDate?`<br><span class="muted">${escapeHtml(jobDateText(m.expiryDate))}</span>`:""}</td><td>${escapeHtml(formatDateTime(m.createdAt))}</td><td>${escapeHtml(m.note||"-")}</td><td><div class="document-actions"><button class="btn small" type="button" data-action="open-document-file" data-id="${escapeHtml(m.id)}">Aç</button><button class="btn small primary" type="button" data-action="share-document-file" data-id="${escapeHtml(m.id)}">WhatsApp / Paylaş</button><button class="btn small" type="button" data-action="download-document-file" data-id="${escapeHtml(m.id)}">İndir</button><button class="btn small danger" type="button" data-action="delete-document-file" data-id="${escapeHtml(m.id)}">Sil</button></div></td></tr>`;
+        const hasFile=Boolean(m.fileName||m.hasFile);
+        return `<tr><td><span class="document-type-badge">${escapeHtml(documentMimeLabel(m))}</span><br><div class="document-file-name" title="${escapeHtml(m.fileName||"")}">${hasFile?escapeHtml(m.fileName):'<span class="document-no-file">Dosya eklenmedi</span>'}</div></td><td><strong>${escapeHtml(m.title||"-")}</strong><br><span class="muted">${escapeHtml(m.category||"Diğer")}</span></td><td>${v?`<strong>${escapeHtml(v.plate)}</strong><br><span class="muted">${escapeHtml(v.driverName||"Şoför yok")}</span>`:'<span class="muted">Genel evrak</span>'}</td><td>${hasFile?escapeHtml(formatDocumentSize(m.size)):'-'}</td><td><strong class="${escapeHtml(expiry.className)}">${escapeHtml(expiry.label)}</strong>${m.expiryDate?`<br><span class="muted">${escapeHtml(jobDateText(m.expiryDate))}</span>`:""}</td><td>${escapeHtml(formatDateTime(m.createdAt))}</td><td>${escapeHtml(m.note||"-")}</td><td><div class="document-actions">${hasFile?`<button class="btn small" type="button" data-action="open-document-file" data-id="${escapeHtml(m.id)}">Aç</button><button class="btn small primary" type="button" data-action="share-document-file" data-id="${escapeHtml(m.id)}">WhatsApp / Paylaş</button><button class="btn small" type="button" data-action="download-document-file" data-id="${escapeHtml(m.id)}">İndir</button>`:'<button class="btn small" type="button" disabled>Dosya Yok</button>'}<button class="btn small danger" type="button" data-action="delete-document-file" data-id="${escapeHtml(m.id)}">Sil</button></div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -17118,9 +17311,9 @@
 
     async function deleteStoredDocument(id) {
       const meta=state.documents.find((item)=>item.id===id); if (!meta) return;
-      if (!confirm(`${meta.title||"Evrak"} dosyası ve kaydı silinsin mi?`)) return;
+      if (!confirm(`${meta.title||"Evrak"} kaydı${meta.hasFile||meta.fileName?" ve dosyası":""} silinsin mi?`)) return;
       try { await removeDocumentBlob(id); } catch(error) { console.error(error); }
-      state.documents=state.documents.filter((item)=>item.id!==id); saveState(); showToast("Evrak dosyası silindi.");
+      state.documents=state.documents.filter((item)=>item.id!==id); saveState(); showToast("Evrak kaydı silindi.");
     }
 
     function activateVehicleSubTab(name = "files") {
@@ -18592,7 +18785,7 @@
 
     function personnelCommandPassenger(session) {
       if (!session) return null;
-      const people = servicePeopleFor(session.date, session.routeId, session.period);
+      const people = servicePeopleFor(session.date, session.routeId, session.period, session.shiftKey || "", session.jobId || "");
       if (!people.length) return null;
       const field = serviceStatusField(session.period);
       let index = Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1));
@@ -18610,7 +18803,12 @@
         name: person.name,
         status,
         period: session.period,
-        detail: `Sıra ${index + 1} · ${personAddressForPeriod(person, session.period) || "Adres girilmemiş"}`
+        detail: (() => {
+          const shift = jobShiftByKey(getJob(session.jobId), session.shiftKey || "");
+          const planned = servicePlannedTime(person, session.period, getJob(session.jobId), shift);
+          const countdown = serviceCountdown(planned, session.date);
+          return `Sıra ${index + 1} · ${personAddressForPeriod(person, session.period) || "Adres girilmemiş"}${planned ? ` · ${countdown.text}` : ""}`;
+        })()
       };
     }
 
@@ -18672,7 +18870,7 @@
         const route = state.routes.find((item) => item.id === personnelSession.routeId);
         const job = getJob(personnelSession.jobId);
         const time = liveStartedTime(personnelSession.startedAt);
-        personnelMeta.textContent = `${job ? job.name + " · " : ""}${company?.name || route?.name || "Firma servisi"} · ${servicePeriodLabel(personnelSession.period)}${time ? " · " + time + " başladı" : ""}${personnelSessions.length > 1 ? " · +" + (personnelSessions.length - 1) + " canlı servis" : ""}`;
+        personnelMeta.textContent = `${job ? job.name + " · " : ""}${personnelSession.shiftName ? personnelSession.shiftName + " · " : ""}${company?.name || route?.name || "Firma servisi"} · ${servicePeriodLabel(personnelSession.period)}${time ? " · " + time + " başladı" : ""}${personnelSessions.length > 1 ? " · +" + (personnelSessions.length - 1) + " canlı servis" : ""}`;
         personnelState.textContent = "Canlı";
         const passenger = personnelCommandPassenger(personnelSession);
         if (personnelNext) {
@@ -18753,6 +18951,8 @@
         $("#serviceDate").value = session.date || todayISO();
         renderServiceJobOptions();
         $("#serviceJob").value = session.jobId || "";
+        renderServiceShiftOptions(session.shiftKey || "");
+        $("#serviceShift").value = session.shiftKey || "";
         $("#serviceRoute").value = session.routeId || "";
         $("#servicePeriod").value = session.period || "morning";
         $("#servicePeriod").dataset.manual = "1";
@@ -19563,6 +19763,165 @@
       showToast("Ödeme kaydı silindi.");
     }
 
+
+
+    function personnelReportCompany() { return $("#personnelReportCompany")?.value || ""; }
+    function personnelReportMonth() { return $("#personnelReportMonth")?.value || currentMonthISO(); }
+
+    function renderPersonnelAttendanceReportOptions() {
+      const companySelect = $("#personnelReportCompany");
+      const jobSelect = $("#personnelReportJob");
+      const shiftSelect = $("#personnelReportShift");
+      const monthInput = $("#personnelReportMonth");
+      if (!companySelect || !jobSelect || !shiftSelect || !monthInput) return;
+      if (!monthInput.value) monthInput.value = currentMonthISO();
+      const selectedCompany = companySelect.value || "";
+      const companies = [...state.companies].sort((a,b)=>String(a.name).localeCompare(String(b.name),"tr-TR"));
+      companySelect.innerHTML = ['<option value="">Firma seçin</option>'].concat(companies.map((company)=>`<option value="${escapeHtml(company.id)}">${escapeHtml(company.name)}</option>`)).join("");
+      companySelect.value = companies.some((company)=>company.id===selectedCompany) ? selectedCompany : (companies[0]?.id || "");
+      const companyId = companySelect.value || "";
+      const selectedJob = jobSelect.value || "Tümü";
+      const jobs = state.jobs.filter((job)=>!companyId||job.companyId===companyId).sort((a,b)=>String(a.name).localeCompare(String(b.name),"tr-TR"));
+      jobSelect.innerHTML = ['<option value="Tümü">İş / Sözleşme: Tümü</option>'].concat(jobs.map((job)=>`<option value="${escapeHtml(job.id)}">${escapeHtml(job.name)}</option>`)).join("");
+      jobSelect.value = [...jobSelect.options].some((option)=>option.value===selectedJob) ? selectedJob : "Tümü";
+      const selectedShift = shiftSelect.value || "Tümü";
+      const shifts = [...new Set([
+        ...state.people.filter((person)=>!companyId||person.companyId===companyId).map((person)=>person.shift),
+        ...jobs.flatMap((job)=>normalizeJobShifts(job).map((shift)=>shift.name))
+      ].filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"tr-TR"));
+      shiftSelect.innerHTML = ['<option value="Tümü">Vardiya: Tümü</option>'].concat(shifts.map((shift)=>`<option value="${escapeHtml(shift)}">${escapeHtml(shift)}</option>`)).join("");
+      shiftSelect.value = [...shiftSelect.options].some((option)=>option.value===selectedShift) ? selectedShift : "Tümü";
+    }
+
+    function personnelAttendanceReportRows() {
+      const companyId = personnelReportCompany();
+      const month = personnelReportMonth();
+      const jobId = $("#personnelReportJob")?.value || "Tümü";
+      const shiftFilter = $("#personnelReportShift")?.value || "Tümü";
+      const company = getCompany(companyId);
+      if (!company) return [];
+
+      const routeId = company.routeId || "";
+      const people = state.people.filter((person) => {
+        const belongs = person.companyId === companyId || (!person.companyId && person.routeId === routeId);
+        const shiftMatches = shiftFilter === "Tümü" || normalize(person.shift) === normalize(shiftFilter);
+        return belongs && shiftMatches;
+      });
+
+      const relevantSessions = state.serviceSessions.filter((session) => {
+        if (session.routeId !== routeId || !String(session.date || "").startsWith(month)) return false;
+        if (jobId !== "Tümü" && String(session.jobId || "") !== String(jobId)) return false;
+        if (shiftFilter !== "Tümü") {
+          const shiftName = session.shiftName || jobShiftByKey(getJob(session.jobId), session.shiftKey)?.name || "";
+          if (shiftName && normalize(shiftName) !== normalize(shiftFilter)) return false;
+        }
+        return true;
+      });
+
+      const dates = new Set();
+      state.attendance
+        .filter((record) => record.routeId === routeId && String(record.date || "").startsWith(month))
+        .forEach((record) => dates.add(record.date));
+      relevantSessions.forEach((session) => dates.add(session.date));
+
+      const rows = [];
+      [...dates].sort().forEach((date) => {
+        const dateSessions = relevantSessions.filter((session) => session.date === date);
+        people.forEach((person) => {
+          const record = getAttendance(date, routeId, person.id);
+          const recordJobIds = record ? [record.morningJobId, record.eveningJobId].filter(Boolean) : [];
+          const recordShiftKeys = record ? [record.morningShiftKey, record.eveningShiftKey].filter(Boolean) : [];
+
+          let sessionApplies = dateSessions.length === 0;
+          if (dateSessions.length) {
+            sessionApplies = dateSessions.some((session) => {
+              const sessionShift = jobShiftByKey(getJob(session.jobId), session.shiftKey);
+              return !sessionShift || personMatchesShift(person, sessionShift);
+            });
+          }
+          if (!sessionApplies) return;
+
+          if (jobId !== "Tümü") {
+            const hasMatchingRecordJob = recordJobIds.includes(jobId);
+            const hasMatchingSession = dateSessions.some((session) => String(session.jobId || "") === String(jobId));
+            if (recordJobIds.length && !hasMatchingRecordJob) return;
+            if (!recordJobIds.length && !hasMatchingSession) return;
+          }
+
+          if (shiftFilter !== "Tümü" && recordShiftKeys.length) {
+            const selectedJob = jobId !== "Tümü" ? getJob(jobId) : null;
+            const selectedShiftKeys = selectedJob
+              ? normalizeJobShifts(selectedJob).filter((item) => normalize(item.name) === normalize(shiftFilter)).map((item) => item.key)
+              : [];
+            if (selectedShiftKeys.length && !recordShiftKeys.some((key) => selectedShiftKeys.includes(key))) return;
+          }
+
+          const safeRecord = record || { date, routeId, personId: person.id, morning: "", evening: "" };
+          const morning = displayAttendanceStatus(person, safeRecord, "morning", date);
+          const evening = displayAttendanceStatus(person, safeRecord, "evening", date);
+          let dayStatus = "Eksik Kayıt";
+          if (morning === "Yok") dayStatus = "Gelmedi";
+          else if (morning === "İzinli") dayStatus = "İzinli";
+          else if (morning === "Bindi" && (evening === "İndi" || evening === "Bindi")) dayStatus = "Geldi / Tamamlandı";
+          else if (morning === "Bindi") dayStatus = "Geldi";
+          else if (evening === "İndi" || evening === "Bindi") dayStatus = "İniş Kaydı Var";
+
+          rows.push({
+            date,
+            person,
+            record: safeRecord,
+            morning,
+            evening,
+            dayStatus,
+            boardingAt: morning === "Bindi" ? (safeRecord.morningAt || "") : "",
+            alightingAt: (evening === "İndi" || evening === "Bindi") ? (safeRecord.eveningAt || "") : ""
+          });
+        });
+      });
+
+      return rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.person.name).localeCompare(String(b.person.name), "tr-TR"));
+    }
+
+    function renderPersonnelAttendanceReport() {
+      const summary=$("#personnelReportSummary"), host=$("#personnelReportTableHost");
+      if (!summary||!host) return;
+      renderPersonnelAttendanceReportOptions();
+      const company=getCompany(personnelReportCompany());
+      if (!company) { summary.innerHTML=""; host.innerHTML='<div class="service-empty">Rapor için firma seç.</div>'; return; }
+      const rows=personnelAttendanceReportRows();
+      const came=rows.filter((row)=>row.dayStatus.startsWith("Geldi")).length;
+      const absent=rows.filter((row)=>row.dayStatus==="Gelmedi").length;
+      const leave=rows.filter((row)=>row.dayStatus==="İzinli").length;
+      const incomplete=rows.filter((row)=>row.dayStatus==="Eksik Kayıt").length;
+      const uniquePeople=new Set(rows.map((row)=>row.person.id)).size;
+      summary.innerHTML=[
+        {label:"Firma",value:company.name,risk:false},{label:"Raporlanan Personel",value:`${uniquePeople} kişi`,risk:false},
+        {label:"Geldi",value:`${came} kayıt`,risk:false},{label:"Gelmedi",value:`${absent} kayıt`,risk:absent>0},
+        {label:"İzinli",value:`${leave} kayıt`,risk:false},{label:"Eksik Kayıt",value:`${incomplete} kayıt`,risk:incomplete>0}
+      ].map((chip)=>`<div class="insight-chip ${chip.risk?"risk":""}"><div class="insight-label">${escapeHtml(chip.label)}</div><div class="insight-value">${escapeHtml(chip.value)}</div></div>`).join("");
+      if (!rows.length) { host.innerHTML=`<div class="service-empty">${escapeHtml(company.name)} için seçilen ayda yoklama kaydı bulunmuyor.</div>`; return; }
+      host.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Personel</th><th>Vardiya</th><th>Planlanan Biniş</th><th>Gerçek Biniş</th><th>Gerçek İniş</th><th>Sabah</th><th>Akşam</th><th>Gün Sonucu</th></tr></thead><tbody>${rows.map((row)=>`<tr class="${row.dayStatus==="Eksik Kayıt"?"report-missing":""}"><td><strong>${escapeHtml(jobDateText(row.date))}</strong></td><td><strong>${escapeHtml(row.person.name)}</strong><br><span class="muted">${escapeHtml(row.person.employeeNo||"Sicil yok")}</span></td><td>${escapeHtml(row.person.shift||"-")}</td><td class="time-cell">${escapeHtml(row.person.boardingTime||"-")}</td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.boardingAt))}</strong></td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.alightingAt))}</strong></td><td><span class="pill ${statusClass(row.morning)}">${escapeHtml(row.morning)}</span></td><td><span class="pill ${statusClass(row.evening)}">${escapeHtml(row.evening)}</span></td><td class="status-cell"><strong>${escapeHtml(row.dayStatus)}</strong></td></tr>`).join("")}</tbody></table></div>`;
+    }
+
+    function exportPersonnelAttendanceCsv() {
+      const company=getCompany(personnelReportCompany()), rows=personnelAttendanceReportRows();
+      if (!company||!rows.length) { showToast("Dışa aktarılacak personel yoklama kaydı yok."); return; }
+      const header=["Firma","Tarih","Sicil","Personel","Departman","Vardiya","Planlanan Biniş","Gerçek Biniş","Gerçek İniş","Sabah Durumu","Akşam Durumu","Gün Sonucu"];
+      const lines=[header.map(csvCell).join(";")];
+      rows.forEach((row)=>lines.push([company.name,row.date,row.person.employeeNo||"",row.person.name,row.person.department||"",row.person.shift||"",row.person.boardingTime||"",attendanceClock(row.boardingAt),attendanceClock(row.alightingAt),row.morning,row.evening,row.dayStatus].map(csvCell).join(";")));
+      const blob=new Blob(["\ufeff"+lines.join("\n")],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+      a.href=url;a.download=`${slugKey(company.name,"firma")}-personel-yoklama-${personnelReportMonth()}.csv`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);showToast("Firma personel yoklama CSV raporu indirildi.");
+    }
+
+    function printPersonnelAttendanceReport() {
+      renderPersonnelAttendanceReport();
+      const company=getCompany(personnelReportCompany()), table=$("#personnelReportTableHost")?.innerHTML||"";
+      if (!company||!table||table.includes("service-empty")) { showToast("Yazdırılacak personel yoklama kaydı yok."); return; }
+      const win=window.open("", "_blank");
+      if (!win) { showToast("Yazdırma penceresi açılamadı."); return; }
+      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(company.name)} Personel Yoklama</title><style>body{font-family:Arial,sans-serif;color:#111;padding:24px}h1{font-size:22px;margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;vertical-align:top;text-align:left}th{background:#eef2f3}strong{font-weight:700}.muted{color:#666}.pill{display:inline-block;border:1px solid #aaa;border-radius:999px;padding:2px 6px}@page{size:A4 landscape;margin:10mm}</style></head><body><h1>${escapeHtml(company.name)} · Personel Yoklama Raporu</h1><p>Dönem: ${escapeHtml(personnelReportMonth())} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>${table}</body></html>`);
+      win.document.close();win.focus();window.setTimeout(()=>win.print(),250);
+    }
     function renderSchoolReportOptions() {
       const schoolSelect = $("#schoolReportSchool");
       const monthInput = $("#schoolReportMonth");
@@ -19685,6 +20044,182 @@
       "6": "Cmt"
     };
 
+
+    const JOB_SHIFT_PRESETS = {
+      none: [],
+      single: [
+        { key: "gunduz", name: "Gündüz", startTime: "08:00", endTime: "18:00", direction: "both" }
+      ],
+      double: [
+        { key: "vardiya-1", name: "1. Vardiya", startTime: "08:00", endTime: "16:00", direction: "both" },
+        { key: "vardiya-2", name: "2. Vardiya", startTime: "16:00", endTime: "00:00", direction: "both" }
+      ],
+      triple: [
+        { key: "vardiya-1", name: "1. Vardiya", startTime: "08:00", endTime: "16:00", direction: "both" },
+        { key: "vardiya-2", name: "2. Vardiya", startTime: "16:00", endTime: "00:00", direction: "both" },
+        { key: "vardiya-3", name: "3. Vardiya", startTime: "00:00", endTime: "08:00", direction: "both" }
+      ],
+      custom: []
+    };
+
+    function slugKey(value, fallback = "vardiya") {
+      const clean = String(value || "").toLocaleLowerCase("tr-TR")
+        .replaceAll("ı", "i").replaceAll("ğ", "g").replaceAll("ü", "u")
+        .replaceAll("ş", "s").replaceAll("ö", "o").replaceAll("ç", "c")
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      return clean || fallback;
+    }
+
+    function normalizeJobShifts(job) {
+      const rows = Array.isArray(job?.shifts) ? job.shifts : [];
+      return rows.map((shift, index) => ({
+        key: String(shift?.key || slugKey(shift?.name, `vardiya-${index + 1}`)),
+        name: String(shift?.name || `${index + 1}. Vardiya`).trim(),
+        startTime: String(shift?.startTime || ""),
+        endTime: String(shift?.endTime || ""),
+        direction: ["both", "morning", "evening"].includes(shift?.direction) ? shift.direction : "both"
+      })).filter((shift) => shift.name);
+    }
+
+    function jobShiftDirectionLabel(direction) {
+      if (direction === "morning") return "Sadece İşe Gidiş";
+      if (direction === "evening") return "Sadece İşten Dönüş";
+      return "İşe Gidiş + İşten Dönüş";
+    }
+
+    function jobShiftSummary(job) {
+      const rows = normalizeJobShifts(job);
+      if (!rows.length) return "Vardiyasız / sabit saat";
+      return rows.map((shift) => `${shift.name}${shift.startTime || shift.endTime ? ` (${shift.startTime || "--:--"}-${shift.endTime || "--:--"})` : ""}`).join(" · ");
+    }
+
+    function jobShiftByKey(job, key) {
+      const rows = normalizeJobShifts(job);
+      return rows.find((shift) => shift.key === key) || rows[0] || null;
+    }
+
+    function createJobShiftRowHtml(shift = {}, index = 0) {
+      const key = String(shift.key || slugKey(shift.name, `vardiya-${index + 1}`));
+      const direction = ["both", "morning", "evening"].includes(shift.direction) ? shift.direction : "both";
+      return `<div class="job-shift-row" data-job-shift-row data-shift-key="${escapeHtml(key)}">
+        <div class="field"><label>Vardiya Adı</label><input data-job-shift-name value="${escapeHtml(shift.name || `${index + 1}. Vardiya`)}" placeholder="Örn. Gece Vardiyası" /></div>
+        <div class="field"><label>Başlangıç</label><input data-job-shift-start type="time" value="${escapeHtml(shift.startTime || "")}" /></div>
+        <div class="field"><label>Bitiş</label><input data-job-shift-end type="time" value="${escapeHtml(shift.endTime || "")}" /></div>
+        <div class="field"><label>Servis Yönü</label><select data-job-shift-direction>
+          <option value="both" ${direction === "both" ? "selected" : ""}>İşe Gidiş + Dönüş</option>
+          <option value="morning" ${direction === "morning" ? "selected" : ""}>Sadece İşe Gidiş</option>
+          <option value="evening" ${direction === "evening" ? "selected" : ""}>Sadece İşten Dönüş</option>
+        </select></div>
+        <button class="btn small danger job-shift-remove" type="button" data-action="remove-job-shift">Kaldır</button>
+      </div>`;
+    }
+
+    function renderJobShiftRows(rows = null) {
+      const host = $("#jobShiftRows");
+      if (!host) return;
+      const system = $("#jobShiftSystem")?.value || "none";
+      const source = Array.isArray(rows) ? rows : (JOB_SHIFT_PRESETS[system] || []);
+      host.innerHTML = source.map((shift, index) => createJobShiftRowHtml(shift, index)).join("");
+      host.classList.toggle("hidden", system === "none");
+      const addButton = $("#addJobShiftBtn");
+      if (addButton) addButton.classList.toggle("hidden", system === "none");
+    }
+
+    function collectJobShifts() {
+      return $$("#jobShiftRows [data-job-shift-row]").map((row, index) => {
+        const name = row.querySelector("[data-job-shift-name]")?.value.trim() || `${index + 1}. Vardiya`;
+        return {
+          key: String(row.dataset.shiftKey || slugKey(name, `vardiya-${index + 1}`)),
+          name,
+          startTime: row.querySelector("[data-job-shift-start]")?.value || "",
+          endTime: row.querySelector("[data-job-shift-end]")?.value || "",
+          direction: row.querySelector("[data-job-shift-direction]")?.value || "both"
+        };
+      }).filter((shift) => shift.name);
+    }
+
+    function updateJobShiftSystemUI(usePreset = false) {
+      const system = $("#jobShiftSystem")?.value || "none";
+      if (usePreset || system === "none" || !$("#jobShiftRows")?.children.length) {
+        renderJobShiftRows((JOB_SHIFT_PRESETS[system] || []).map((row) => ({ ...row })));
+      } else {
+        $("#jobShiftRows")?.classList.toggle("hidden", system === "none");
+      }
+    }
+
+    function appendCustomJobShift() {
+      const host = $("#jobShiftRows");
+      if (!host) return;
+      if ($("#jobShiftSystem")?.value === "none") $("#jobShiftSystem").value = "custom";
+      const index = host.querySelectorAll("[data-job-shift-row]").length;
+      host.insertAdjacentHTML("beforeend", createJobShiftRowHtml({ name: `${index + 1}. Vardiya`, direction: "both" }, index));
+      host.classList.remove("hidden");
+    }
+
+    function renderPersonShiftOptions(companyId = $("#personCompany")?.value || "", preferred = $("#personShift")?.value || "") {
+      const select = $("#personShift");
+      if (!select) return;
+      const defaults = ["Gündüz", "Gece", "08:00-18:00", "16:00-00:00", "00:00-08:00"];
+      const contractShifts = state.jobs.filter((job) => !companyId || job.companyId === companyId).flatMap((job) => normalizeJobShifts(job).map((shift) => shift.name));
+      const options = [...new Set([...defaults, ...contractShifts, preferred].filter(Boolean))];
+      select.innerHTML = options.map((label) => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`).join("");
+      select.value = options.includes(preferred) ? preferred : (options[0] || "Gündüz");
+    }
+
+    function renderServiceShiftOptions(preferred = $("#serviceShift")?.value || "") {
+      const select = $("#serviceShift");
+      if (!select) return;
+      const job = getSelectedServiceJob();
+      const shifts = normalizeJobShifts(job);
+      select.innerHTML = shifts.length
+        ? shifts.map((shift) => `<option value="${escapeHtml(shift.key)}">${escapeHtml(shift.name)}${shift.startTime || shift.endTime ? ` · ${escapeHtml(shift.startTime || "--:--")}-${escapeHtml(shift.endTime || "--:--")}` : ""}</option>`).join("")
+        : '<option value="">Varsayılan / Vardiyasız</option>';
+      select.value = [...select.options].some((option) => option.value === preferred) ? preferred : (select.options[0]?.value || "");
+    }
+
+    function getServiceShiftKey() { return $("#serviceShift")?.value || ""; }
+    function getSelectedServiceShift() { return jobShiftByKey(getSelectedServiceJob(), getServiceShiftKey()); }
+
+    function personMatchesShift(person, shift) {
+      if (!shift) return true;
+      return normalize(person?.shift) === normalize(shift.name) || normalize(person?.shift) === normalize(shift.key);
+    }
+
+    function attendanceClock(value) {
+      if (!value) return "-";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "-";
+      return date.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function servicePlannedTime(person, period, job = getSelectedServiceJob(), shift = getSelectedServiceShift()) {
+      if (period === "morning") return person?.boardingTime || shift?.startTime || job?.morningTime || "";
+      return shift?.endTime || job?.eveningTime || "";
+    }
+
+    function serviceCountdown(timeValue, dateValue = getServiceDate()) {
+      const minutes = timeToMinutes(timeValue);
+      if (minutes === null) return { text: "Biniş saati girilmemiş", className: "" };
+      const now = new Date();
+      const serviceDate = String(dateValue || todayISO());
+      const today = todayISO();
+      if (serviceDate !== today) return { text: `Planlanan ${timeValue}`, className: "" };
+      let diff = minutes - currentMinutes();
+      if (diff < -720) diff += 1440;
+      if (diff > 720) diff -= 1440;
+      if (diff > 1) return { text: `${timeValue} · ${diff} dk kaldı`, className: "" };
+      if (diff >= -1) return { text: `${timeValue} · Biniş zamanı`, className: "is-now" };
+      return { text: `${timeValue} · ${Math.abs(diff)} dk geçti`, className: "is-late" };
+    }
+
+    function dispatchServiceKey(period, shiftKey = "") { return `${shiftKey || "default"}:${period || "morning"}`; }
+    function dispatchCompletedKeys(dispatch) {
+      const keys = new Set(Array.isArray(dispatch?.completedServiceKeys) ? dispatch.completedServiceKeys.filter(Boolean) : []);
+      if (dispatch?.morningCompleted) keys.add("default:morning");
+      if (dispatch?.eveningCompleted) keys.add("default:evening");
+      return keys;
+    }
+
     function getJob(jobId) {
       return state.jobs.find((job) => job.id === jobId) || null;
     }
@@ -19793,6 +20328,7 @@
 
       if ([...select.options].some((option) => option.value === selected)) select.value = selected;
       else select.value = "";
+      renderServiceShiftOptions();
     }
 
     function getServiceJobId() {
@@ -19812,6 +20348,7 @@
     function applyServiceJobSelection() {
       const job = getSelectedServiceJob();
       if (!job) {
+        renderServiceShiftOptions("");
         applyAutomaticServicePeriod();
         renderServicePanel();
         return;
@@ -19825,6 +20362,7 @@
 
       ensureCompanyRoute(company);
       $("#serviceRoute").value = company.routeId || job.routeId || "";
+      renderServiceShiftOptions();
       if (job.direction === "morning" || job.direction === "evening") {
         $("#servicePeriod").value = job.direction;
         $("#servicePeriod").dataset.manual = "1";
@@ -19864,6 +20402,8 @@
       renderJobOptions();
       $("#jobStatus").value = "Aktif";
       $("#jobDirection").value = "both";
+      $("#jobShiftSystem").value = "none";
+      renderJobShiftRows([]);
       $("#jobBillingModel").value = "trip";
       $("#jobStartDate").value = todayISO();
       $("#jobEndDate").value = "";
@@ -19893,6 +20433,8 @@
         startDate: $("#jobStartDate").value,
         endDate: $("#jobEndDate").value,
         direction: $("#jobDirection").value,
+        shiftSystem: $("#jobShiftSystem")?.value || "none",
+        shifts: collectJobShifts(),
         plannedTripsPerDay: Number($("#jobPlannedTrips").value || 1),
         workDays,
         billingModel: $("#jobBillingModel").value,
@@ -19919,6 +20461,14 @@
       }
       if (!job.workDays.length) {
         showToast("En az bir çalışma günü seç.");
+        return;
+      }
+      if (job.shiftSystem !== "none" && !job.shifts.length) {
+        showToast("Vardiya sistemi seçildi. En az bir vardiya tanımla.");
+        return;
+      }
+      if (job.shifts.some((shift) => !shift.name || !shift.startTime || !shift.endTime)) {
+        showToast("Vardiya adı, başlangıç ve bitiş saatlerini tamamla.");
         return;
       }
       if (job.billingModel === "trip" && job.tripPrice <= 0) {
@@ -19958,6 +20508,8 @@
       $("#jobStartDate").value = job.startDate || "";
       $("#jobEndDate").value = job.endDate || "";
       $("#jobDirection").value = job.direction || "both";
+      $("#jobShiftSystem").value = job.shiftSystem || (normalizeJobShifts(job).length ? "custom" : "none");
+      renderJobShiftRows(normalizeJobShifts(job));
       $("#jobPlannedTrips").value = job.plannedTripsPerDay || 1;
       $("#jobBillingModel").value = job.billingModel || "trip";
       $("#jobTripPrice").value = job.tripPrice || "";
@@ -20081,7 +20633,7 @@
                   <tr>
                     <td><strong>${escapeHtml(job.name)}</strong><br><span class="muted">${escapeHtml(job.contractNo || "Numara yok")}</span></td>
                     <td>${escapeHtml(company?.name || "Firma silinmiş")}<br><span class="muted">${escapeHtml(job.routeDescription || company?.address || "-")}</span></td>
-                    <td>${escapeHtml(jobDirectionLabel(job.direction))}<br><span class="muted">${escapeHtml(jobWorkdayText(job.workDays))} · ${escapeHtml(String(job.plannedTripsPerDay || 1))} sefer/gün</span></td>
+                    <td>${escapeHtml(jobDirectionLabel(job.direction))}<br><span class="muted">${escapeHtml(jobShiftSummary(job))}</span><br><span class="muted">${escapeHtml(jobWorkdayText(job.workDays))} · ${escapeHtml(String(job.plannedTripsPerDay || 1))} sefer/gün</span></td>
                     <td><strong>${escapeHtml(jobBillingLabel(job))}</strong><br><span class="muted">Aylık plan: ${escapeHtml(formatTRY(jobMonthlyProjection(job)))}</span></td>
                     <td>${escapeHtml(vehicle?.plate || "Araç yok")}<br><span class="muted">${escapeHtml(vehicle?.driverName || "Şoför yok")}</span></td>
                     <td>${escapeHtml(jobDateText(job.startDate))}<br><span class="muted">${job.endDate ? "Bitiş: " + escapeHtml(jobDateText(job.endDate)) : "Süresiz"}</span></td>
@@ -20140,7 +20692,7 @@
     }
 
     function dispatchTripCount(dispatch) {
-      return (dispatch?.morningCompleted ? 1 : 0) + (dispatch?.eveningCompleted ? 1 : 0);
+      return dispatchCompletedKeys(dispatch).size;
     }
 
     function financeDispatchesForJob(jobId, month) {
@@ -23577,6 +24129,8 @@
       renderGuidesTable();
       renderSchoolPaymentOptions();
       renderSchoolPayments();
+      renderPersonnelAttendanceReportOptions();
+      renderPersonnelAttendanceReport();
       renderSchoolReportOptions();
       renderSchoolReport();
       renderSchoolServicePanel();
@@ -23622,7 +24176,8 @@
       $("#personId").value = "";
       $("#personForm").reset();
       $("#personStatus").value = "Aktif";
-      $("#personShift").value = "Gündüz";
+      renderPersonShiftOptions("", "Gündüz");
+      $("#personBoardingTime").value = "";
       $("#personStartDate").value = "";
       $("#personEndDate").value = "";
       $("#personLeaveUntil").value = "";
@@ -23671,6 +24226,7 @@
         department: $("#personDepartment").value.trim(),
         routeId: selectedCompany ? selectedCompany.routeId : $("#personRoute").value,
         shift: $("#personShift").value,
+        boardingTime: $("#personBoardingTime").value,
         status: $("#personStatus").value,
         stop: $("#personStop").value.trim(),
         morningOrder: $("#personMorningOrder").value,
@@ -23852,7 +24408,9 @@
       $("#personDepartment").value = person.department || "";
       updatePersonCompanyAutoFields();
       $("#personRoute").value = person.routeId || (getCompany(companyId)?.routeId || "");
+      renderPersonShiftOptions(companyId, person.shift || "Gündüz");
       $("#personShift").value = person.shift || "Gündüz";
+      $("#personBoardingTime").value = person.boardingTime || "";
       $("#personStatus").value = person.status || "Aktif";
       $("#personStop").value = person.stop || "";
       $("#personMorningOrder").value = person.morningOrder || "";
@@ -23953,7 +24511,7 @@
 
 
 
-    // v4.41.1 - Temel Kayıtlar tek merkez ve panel içi kaydırma
+    // v4.42.0 - Temel Kayıtlar tek merkez ve panel içi kaydırma
     const REGISTRY_DEFINITIONS = {
       vehicles: {
         order: 1,
@@ -23984,7 +24542,7 @@
         source: "#tab-jobs .workarea",
         module: "personnel",
         tab: "jobs",
-        text: "Firma ile yapılan işi, fiyat modelini, bağlı aracı, servis saatlerini ve ödeme vadesini kaydet.",
+        text: "Firma ile yapılan işi, vardiya düzenini, servis yönlerini, fiyat modelini, bağlı aracı, servis saatlerini ve ödeme vadesini kaydet.",
         prerequisite: "Gerekli: Firma kaydı. Öneri: Araç kaydı.",
         count: () => state.jobs.length
       },
@@ -23995,7 +24553,7 @@
         source: "#tab-people .workarea",
         module: "personnel",
         tab: "people",
-        text: "Taşınacak personeli firmaya bağla; sabah-akşam adresini ve servis sırasını kaydet.",
+        text: "Taşınacak personeli firmaya bağla; vardiya, planlanan biniş saati, sabah-akşam adresi ve servis sırasını kaydet.",
         prerequisite: "Gerekli: Firma kaydı. İş / sözleşme kaydı finans bağlantılarını tamamlar.",
         count: () => state.people.length
       },
@@ -24182,6 +24740,7 @@
         "Departman",
         "Güzergah",
         "Vardiya",
+        "Planlanan Biniş Saati",
         "Durum",
         "Biniş Noktası",
         "Sabah Alma Sırası",
@@ -24776,8 +25335,8 @@
       c1.routeId=r1.id; c1.defaultVehicleId=v1.id;
       c2.routeId=r2.id; c2.defaultVehicleId=v2.id;
 
-      const j1 = fullDemoRecord("job", "marmara_day", { contractNo:"DEM-2026-001", name:"Marmara Teknoloji Gündüz Vardiyası", companyId:c1.id, companyName:c1.name, routeId:r1.id, status:"Aktif", startDate:fullDemoDate(months[0],1), endDate:"", direction:"both", plannedTripsPerDay:2, workDays:["1","2","3","4","5"], billingModel:"trip", tripPrice:2850, monthlyPrice:0, vehicleId:v1.id, morningTime:"07:20", eveningTime:"18:10", invoiceDay:1, dueDays:30, routeDescription:"Bakırköy - Şirinevler - Sefaköy - İkitelli", note:"Tüm personel servisi ekranlarını test eden demo sözleşme", createdAt:nowIso, updatedAt:nowIso });
-      const j2 = fullDemoRecord("job", "vega_month", { contractNo:"DEM-2026-002", name:"Vega Lojistik Aylık Servis", companyId:c2.id, companyName:c2.name, routeId:r2.id, status:"Aktif", startDate:fullDemoDate(months[0],1), endDate:"", direction:"both", plannedTripsPerDay:2, workDays:["1","2","3","4","5","6"], billingModel:"monthly", tripPrice:0, monthlyPrice:168000, vehicleId:v2.id, morningTime:"06:45", eveningTime:"17:30", invoiceDay:3, dueDays:20, routeDescription:"Avcılar - Beylikdüzü - Esenyurt - Hadımköy", note:"Aylık fiyatlı demo sözleşme", createdAt:nowIso, updatedAt:nowIso });
+      const j1 = fullDemoRecord("job", "marmara_day", { contractNo:"DEM-2026-001", name:"Marmara Teknoloji Gündüz Vardiyası", companyId:c1.id, companyName:c1.name, routeId:r1.id, status:"Aktif", startDate:fullDemoDate(months[0],1), endDate:"", direction:"both", shiftSystem:"single", shifts:[{key:"gunduz",name:"Gündüz",startTime:"07:20",endTime:"18:10",direction:"both"}], plannedTripsPerDay:2, workDays:["1","2","3","4","5"], billingModel:"trip", tripPrice:2850, monthlyPrice:0, vehicleId:v1.id, morningTime:"07:20", eveningTime:"18:10", invoiceDay:1, dueDays:30, routeDescription:"Bakırköy - Şirinevler - Sefaköy - İkitelli", note:"Tüm personel servisi ekranlarını test eden demo sözleşme", createdAt:nowIso, updatedAt:nowIso });
+      const j2 = fullDemoRecord("job", "vega_month", { contractNo:"DEM-2026-002", name:"Vega Lojistik Vardiyalı Servis", companyId:c2.id, companyName:c2.name, routeId:r2.id, status:"Aktif", startDate:fullDemoDate(months[0],1), endDate:"", direction:"both", shiftSystem:"double", shifts:[{key:"vardiya-1",name:"1. Vardiya",startTime:"06:45",endTime:"15:00",direction:"both"},{key:"vardiya-2",name:"2. Vardiya",startTime:"15:30",endTime:"23:30",direction:"both"}], plannedTripsPerDay:4, workDays:["1","2","3","4","5","6"], billingModel:"monthly", tripPrice:0, monthlyPrice:168000, vehicleId:v2.id, morningTime:"06:45", eveningTime:"17:30", invoiceDay:3, dueDays:20, routeDescription:"Avcılar - Beylikdüzü - Esenyurt - Hadımköy", note:"İki vardiyalı aylık demo sözleşme", createdAt:nowIso, updatedAt:nowIso });
 
       const s1 = fullDemoRecord("school", "gelecek", { name:"Gelecek Koleji", address:"Bahçeşehir 2. Kısım", mapQuery:"Bahçeşehir Gelecek Koleji", entryTime:"08:20", exitTime:"15:40", vehicleId:v2.id, driverName:v2.driverName, driverPhone:v2.driverPhone, status:"Aktif" });
       const s2 = fullDemoRecord("school", "bilgi", { name:"Bilgi Akademi", address:"Beylikdüzü Eğitim Vadisi", mapQuery:"Beylikdüzü", entryTime:"08:10", exitTime:"16:00", vehicleId:v3.id, driverName:v3.driverName, driverPhone:v3.driverPhone, status:"Aktif" });
@@ -24785,10 +25344,13 @@
       const g2 = fullDemoRecord("guide", "selin", { name:"Selin Aksoy", phone:"0507 222 21 02", schoolId:s2.id, vehicleId:v3.id, duty:"both", status:"Aktif", backupGuideId:"", backupUntil:"" });
 
       const people = [
-        ["1001","Ahmet Yılmaz","Üretim",c1,r1,"Meydan",1,3], ["1002","Ayşe Demir","Kalite",c1,r1,"Şirinevler",2,2],
-        ["1003","Murat Çelik","Paketleme",c1,r1,"Sefaköy",3,1], ["2001","Elif Arslan","Depo",c2,r2,"Avcılar",1,3],
-        ["2002","Kemal Şahin","Sevkiyat",c2,r2,"Beylikdüzü",2,2], ["2003","Derya Koç","Planlama",c2,r2,"Esenyurt",3,1]
-      ].map((row,index)=>fullDemoRecord("person", String(index+1), { employeeNo:row[0], name:row[1], phone:`0507 333 3${index} 0${index+1}`, companyId:row[3].id, company:row[3].name, department:row[2], routeId:row[4].id, shift:"Gündüz", status:"Aktif", stop:row[5], morningOrder:String(row[6]), eveningOrder:String(row[7]), morningAddress:`${row[5]} gidiş durağı`, morningMapQuery:`${row[5]} gidiş durağı`, eveningAddress:`${row[5]} dönüş durağı`, eveningMapQuery:`${row[5]} dönüş durağı`, startDate:fullDemoDate(months[0],1), endDate:"", leaveUntil:"", note:index===1?"Cuma günü farklı duraktan binebilir.":"" }));
+        ["1001","Ahmet Yılmaz","Üretim",c1,r1,"Meydan",1,3,"Gündüz","06:45"],
+        ["1002","Ayşe Demir","Kalite",c1,r1,"Şirinevler",2,2,"Gündüz","06:55"],
+        ["1003","Murat Çelik","Paketleme",c1,r1,"Sefaköy",3,1,"Gündüz","07:05"],
+        ["2001","Elif Arslan","Depo",c2,r2,"Avcılar",1,2,"1. Vardiya","06:05"],
+        ["2002","Kemal Şahin","Sevkiyat",c2,r2,"Beylikdüzü",2,1,"1. Vardiya","06:20"],
+        ["2003","Derya Koç","Planlama",c2,r2,"Esenyurt",1,1,"2. Vardiya","14:45"]
+      ].map((row,index)=>fullDemoRecord("person", String(index+1), { employeeNo:row[0], name:row[1], phone:`0507 333 3${index} 0${index+1}`, companyId:row[3].id, company:row[3].name, department:row[2], routeId:row[4].id, shift:row[8], boardingTime:row[9], status:"Aktif", stop:row[5], morningOrder:String(row[6]), eveningOrder:String(row[7]), morningAddress:`${row[5]} gidiş durağı`, morningMapQuery:`${row[5]} gidiş durağı`, eveningAddress:`${row[5]} dönüş durağı`, eveningMapQuery:`${row[5]} dönüş durağı`, startDate:fullDemoDate(months[0],1), endDate:"", leaveUntil:"", note:index===1?"Cuma günü farklı duraktan binebilir.":"" }));
 
       const students = [
         ["Deniz Yılmaz",s1,"5-A","Ayşe Yılmaz","0507 444 40 01","Bahçeşehir Meydan",1,3,4800],
@@ -24808,16 +25370,34 @@
         [[j1,r1,v1],[j2,r2,v2]].forEach(([job,route,vehicle],jobIndex)=>{
           state.trips.push(fullDemoRecord("trip",`${jobIndex}_${dayIndex}_m`,{date,direction:"Gidiş",routeId:route.id,vehicleId:vehicle.id,note:"Demo planlı gidiş"}));
           state.trips.push(fullDemoRecord("trip",`${jobIndex}_${dayIndex}_e`,{date,direction:"Dönüş",routeId:route.id,vehicleId:vehicle.id,note:"Demo planlı dönüş"}));
-          state.dispatches.push(fullDemoRecord("dispatch",`${jobIndex}_${dayIndex}`,{date,routeId:route.id,jobId:job.id,jobName:job.name,billingModel:job.billingModel,morningCompleted:true,eveningCompleted:dayIndex<4,unitPrice:job.billingModel==="monthly"?0:job.tripPrice}));
+          const demoShiftKeys = normalizeJobShifts(job).map((shift)=>shift.key);
+          const completedServiceKeys = demoShiftKeys.length
+            ? demoShiftKeys.flatMap((key)=>[`${key}:morning`, ...(dayIndex<4?[`${key}:evening`]:[])])
+            : ["default:morning", ...(dayIndex<4?["default:evening"]:[])];
+          state.dispatches.push(fullDemoRecord("dispatch",`${jobIndex}_${dayIndex}`,{date,routeId:route.id,jobId:job.id,jobName:job.name,billingModel:job.billingModel,morningCompleted:!demoShiftKeys.length,eveningCompleted:!demoShiftKeys.length&&dayIndex<4,completedServiceKeys,unitPrice:job.billingModel==="monthly"?0:job.tripPrice}));
         });
       });
-      people.forEach((person,index)=>{
-        const date=serviceDates[serviceDates.length-1];
-        state.attendance.push(fullDemoRecord("attendance",String(index),{date,routeId:person.routeId,personId:person.id,morning:index===4?"Yok":"Bindi",evening:index===1?"İzinli":"İndi"}));
+      serviceDates.forEach((date, dayIndex) => {
+        people.forEach((person,index)=>{
+          const job = person.companyId === c1.id ? j1 : j2;
+          const shiftDef = normalizeJobShifts(job).find((item)=>normalize(item.name)===normalize(person.shift)) || normalizeJobShifts(job)[0] || null;
+          const morning = (dayIndex===2 && index===4) ? "Yok" : (dayIndex===3 && index===1 ? "İzinli" : "Bindi");
+          const evening = morning === "Bindi" ? (dayIndex===4 && index===5 ? "" : "İndi") : (morning === "İzinli" ? "İzinli" : "Yok");
+          const baseHour = person.companyId === c1.id ? 6 : (person.shift === "2. Vardiya" ? 14 : 5);
+          state.attendance.push(fullDemoRecord("attendance",`${dayIndex}_${index}`,{
+            date, routeId:person.routeId, personId:person.id,
+            morning, evening,
+            morningAt:morning==="Bindi"?fullDemoIso(current,4+dayIndex,baseHour,35+Math.min(index,4)*5):"",
+            eveningAt:evening==="İndi"?fullDemoIso(current,4+dayIndex,person.shift==="2. Vardiya"?23:18,5+Math.min(index,4)*4):"",
+            morningJobId:job.id, eveningJobId:job.id,
+            morningShiftKey:shiftDef?.key||"", eveningShiftKey:shiftDef?.key||"",
+            updatedAt:fullDemoIso(current,4+dayIndex,19,0)
+          }));
+        });
       });
       state.serviceSessions.push(
-        fullDemoRecord("service","active",{date:todayISO(),routeId:r1.id,jobId:j1.id,period:"morning",currentIndex:2,startedAt:new Date(Date.now()-35*60000).toISOString(),finishedAt:"",isActive:true,manualOrder:people.filter(p=>p.routeId===r1.id).map(p=>p.id)}),
-        fullDemoRecord("service","complete",{date:fullDemoDate(current,8),routeId:r2.id,jobId:j2.id,period:"evening",currentIndex:3,startedAt:fullDemoIso(current,8,17,25),finishedAt:fullDemoIso(current,8,18,35),isActive:false,manualOrder:people.filter(p=>p.routeId===r2.id).map(p=>p.id)})
+        fullDemoRecord("service","active",{date:todayISO(),routeId:r1.id,jobId:j1.id,jobName:j1.name,shiftKey:"gunduz",shiftName:"Gündüz",period:"morning",currentIndex:2,startedAt:new Date(Date.now()-35*60000).toISOString(),finishedAt:"",isActive:true,manualOrder:people.filter(p=>p.routeId===r1.id).map(p=>p.id)}),
+        fullDemoRecord("service","complete",{date:fullDemoDate(current,8),routeId:r2.id,jobId:j2.id,jobName:j2.name,shiftKey:"vardiya-1",shiftName:"1. Vardiya",period:"evening",currentIndex:1,startedAt:fullDemoIso(current,8,14,55),finishedAt:fullDemoIso(current,8,15,45),isActive:false,manualOrder:people.filter(p=>p.routeId===r2.id&&p.shift==="1. Vardiya").map(p=>p.id)})
       );
       state.dayMarks.push(fullDemoRecord("daymark","holiday",{date:fullDemoDate(previous,15),routeId:r1.id,type:"holiday",note:"Demo tatil / izin günü"}));
 
@@ -25139,6 +25719,14 @@
       $("#personForm").addEventListener("submit", savePerson);
       $("#companyForm").addEventListener("submit", saveCompany);
       $("#jobForm").addEventListener("submit", saveJob);
+      $("#jobShiftSystem")?.addEventListener("change", () => updateJobShiftSystemUI(true));
+      $("#addJobShiftBtn")?.addEventListener("click", appendCustomJobShift);
+      $("#jobShiftRows")?.addEventListener("click", (event) => {
+        const button = event.target.closest('[data-action="remove-job-shift"]');
+        if (!button) return;
+        button.closest("[data-job-shift-row]")?.remove();
+        if (!$("#jobShiftRows")?.children.length && $("#jobShiftSystem")?.value !== "none") $("#jobShiftSystem").value = "custom";
+      });
       $("#financeRecordForm")?.addEventListener("submit", saveFinanceRecord);
       $("#routeForm").addEventListener("submit", saveRoute);
       $("#vehicleForm").addEventListener("submit", saveVehicle);
@@ -25216,6 +25804,15 @@
         saveState();
         showToast(event.target.checked ? "Veli WhatsApp bildirimi açıldı." : "Veli WhatsApp bildirimi kapatıldı.");
       });
+
+      ["personnelReportCompany", "personnelReportJob", "personnelReportShift", "personnelReportMonth"].forEach((id) => {
+        const element = $("#" + id);
+        if (!element) return;
+        element.addEventListener("change", () => { renderPersonnelAttendanceReportOptions(); renderPersonnelAttendanceReport(); });
+      });
+      $("#refreshPersonnelReportBtn")?.addEventListener("click", renderPersonnelAttendanceReport);
+      $("#exportPersonnelReportCsvBtn")?.addEventListener("click", exportPersonnelAttendanceCsv);
+      $("#printPersonnelReportBtn")?.addEventListener("click", printPersonnelAttendanceReport);
 
       ["schoolReportSchool", "schoolReportMonth"].forEach((id) => {
         const element = $(`#${id}`);
@@ -25312,6 +25909,7 @@
 
       const serviceJobElement = $("#serviceJob");
       if (serviceJobElement) serviceJobElement.addEventListener("change", applyServiceJobSelection);
+      $("#serviceShift")?.addEventListener("change", () => { applyAutomaticServicePeriod(); renderServicePanel(); });
 
       const serviceRouteElement = $("#serviceRoute");
       if (serviceRouteElement) {
@@ -25319,6 +25917,7 @@
           const selectedJob = getSelectedServiceJob();
           const selectedCompany = selectedJob ? getCompany(selectedJob.companyId) : null;
           if (selectedJob && selectedCompany?.routeId !== serviceRouteElement.value) $("#serviceJob").value = "";
+          renderServiceShiftOptions();
           const periodSelect = $("#servicePeriod");
           if (periodSelect) delete periodSelect.dataset.manual;
           applyAutomaticServicePeriod();
@@ -27350,6 +27949,7 @@
     clearPersonForm();
     clearCompanyForm();
     clearJobForm();
+    renderJobShiftRows([]);
     clearFinanceRecordForm();
     clearStaffPaymentForm();
     clearRouteForm();
@@ -27363,6 +27963,10 @@
     clearGuideForm();
     activateSchoolTab("operation");
     renderAll();
+    window.setInterval(() => {
+      if ($("#screen-personnel")?.classList.contains("active") && !$("#tab-service")?.classList.contains("hidden")) renderServicePanel();
+      if ($("#screen-command")?.classList.contains("active")) renderCommandPanel();
+    }, 30000);
   </script>
 </body>
 </html>
