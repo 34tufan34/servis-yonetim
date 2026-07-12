@@ -1,0 +1,32 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.40.0
+
+GÜNCEL DURUM
+- Web/PWA sürümü: v4.40.0
+- APK sürümü: 1.0.1 / versionCode 2
+- Veri şeması: 29
+- GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+
+v4.40.0 DEĞİŞİKLİKLERİ
+1. Temel Kayıtlar merkezi
+- Sol SYS paneline Temel Kayıtlar düğmesi eklendi.
+- Araç/Şoför, Firma, İş/Sözleşme, Personel, Okul, Öğrenci ve Rehber kayıtları tek merkezde toplandı.
+- Kayıt ekranı yedi alt sekmeye ayrıldı.
+- Önerilen kayıt sırası ve her bölümdeki mevcut kayıt sayısı gösterilir.
+- Tamamlanan adımlar ilerleme göstergesinde işaretlenir.
+
+2. Mevcut formlar korunarak merkezi kullanım
+- Yeni ve ayrı veri koleksiyonu oluşturulmadı.
+- Temel Kayıtlar ekranı mevcut kayıt formlarını kullanır.
+- Kaydedilen bilgiler doğrudan ilgili Personel Servisi ve Okul Servisi kayıtlarına işlenir.
+- Kayıt Listesini Aç düğmesi ilgili özgün liste ve düzenleme ekranına götürür.
+
+3. Yetki düzeni
+- Temel Kayıtlar bölümü yönetici ve operasyon kullanıcılarına açıktır.
+- Muhasebe kullanıcısının finans odaklı yetki düzeni değiştirilmedi.
+
+KORUNANLAR
+- Veri şeması 29 olarak kaldı.
+- Mevcut kullanıcı kayıtları, localStorage ve IndexedDB evrakları korunur.
+- Paket adı, APK imzası ve lisans sistemi değişmedi.
+- Tam ekran, hızlı finans, KM analizi, demo, rapor ve yedekleme özellikleri korunur.

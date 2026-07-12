@@ -1,30 +1,28 @@
-SERVİS YÖNETİM SİSTEMİ v4.39.0 — TAM EKRAN, KM ALTINDA ÖZEL KULLANIM VE HIZLI FİNANS GİRİŞİ
+SERVİS YÖNETİM SİSTEMİ v4.40.0 — TEMEL KAYITLAR MERKEZİ
 
 BU SÜRÜMDE
-- Üst sağ alana Tam Ekran / Tam Ekrandan Çık düğmesi eklendi.
-- PWA manifesti fullscreen görünümüne güncellendi.
-- Finans Özet içindeki bağımsız Özel Kullanım sekmesi kaldırıldı.
-- Özel Kullanım, Finans Özet → KM Analizi altında alt sekme oldu.
-- Sol menüye Gelir / Gider Kaydı hızlı erişimi eklendi.
-- Hızlı erişim, temaya uyumlu pencere içinde mevcut gider formunu açar.
-- Bu pencereden kaydedilen kayıtlar Finans Özet → Gelir / Gider bölümüne yazılır.
-- Veri şeması 29 olarak kaldı; mevcut kayıtlar korunur.
+- Sol SYS paneline Temel Kayıtlar düğmesi eklendi.
+- Araç/Şoför, Firmalar, İş/Sözleşme, Personeller, Okullar, Öğrenciler ve Rehberler tek merkezde alt sekmelere ayrıldı.
+- Kayıtların önerilen sırası ve tamamlanma durumu gösterilir.
+- Her alt sekme mevcut gerçek kayıt formunu kullanır; ayrı veri alanı oluşturmaz.
+- Kaydedilen bilgiler ilgili Personel Servisi ve Okul Servisi kayıtlarına işlenir.
+- Kayıt Listesini Aç düğmesi mevcut kayıtları düzenlemek için ilgili bölüme yönlendirir.
+- Veri şeması 29 olarak kaldı ve mevcut kayıtlar korunur.
 
 GITHUB'A YÜKLENECEK DOSYALAR
 1. index.html
 2. sw.js
 3. manifest.webmanifest
 4. KURULUM.txt
-5. PROJE_HAFIZA_NOTU_v4_39_0.txt
+5. PROJE_HAFIZA_NOTU_v4_40_0.txt
 
 COMMIT AÇIKLAMASI
-v4.39.0 tam ekran km özel kullanım ve hızlı finans
+v4.40.0 temel kayıtlar merkezi
 
 GÜNCELLEME SONRASI
 - GitHub Pages dağıtımının tamamlanmasını bekleyin.
 - Uygulamayı tamamen kapatıp yeniden açın.
 - Eski sürüm kalırsa Bana Ulaş → Ayarlar / Yedek → Çevrimdışı Dosyaları Güncelle işlemini çalıştırın.
-- Tam ekran PWA görünümünün kalıcı uygulanması için bazı cihazlarda ana ekran kısayolunu kaldırıp yeniden eklemek gerekebilir.
 
 APK
 Bu web güncellemesi için APK yeniden oluşturulmaz.

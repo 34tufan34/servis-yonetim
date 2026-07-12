@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.39.0</title>
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.40.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -9130,7 +9130,7 @@
 
   
 
-    /* v4.39.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
+    /* v4.40.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
     .table-action-row {
       display: inline-flex !important;
       flex-wrap: nowrap !important;
@@ -9354,7 +9354,7 @@
 
   
 
-    /* v4.39.0 - Gelir / Gider alt sekmeleri ve Okul Finans işlem hizası */
+    /* v4.40.0 - Gelir / Gider alt sekmeleri ve Okul Finans işlem hizası */
     .finance-flow-subtabs {
       flex: 0 0 auto;
       display: grid;
@@ -9466,7 +9466,7 @@
 
   
 
-    /* v4.39.0 - Temaya uyumlu uygulama içi uyarı penceresi ve Ayarlar/Yedek konumu */
+    /* v4.40.0 - Temaya uyumlu uygulama içi uyarı penceresi ve Ayarlar/Yedek konumu */
     .sidebar-settings-link {
       width: 100%;
       min-height: 54px;
@@ -9651,7 +9651,7 @@
     }
 
   
-    /* v4.39.0 - Tam ekran, hızlı gelir/gider penceresi ve KM altında özel kullanım */
+    /* v4.40.0 - Tam ekran, hızlı gelir/gider penceresi ve KM altında özel kullanım */
     .fullscreen-btn {
       white-space: nowrap;
       min-width: 104px;
@@ -9784,6 +9784,186 @@
       .quick-finance-head { padding: 15px 14px; }
       .quick-finance-host { padding: 12px; }
       .vehicle-km-subtabs { grid-template-columns: repeat(2, minmax(145px, 1fr)); overflow-x: auto; }
+    }
+
+  
+
+    /* v4.40.0 - Temel Kayıt Merkezi */
+    .registry-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 22px;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      background:
+        radial-gradient(circle at 86% 12%, rgba(var(--accent-rgb), .14), transparent 32%),
+        linear-gradient(145deg, rgba(var(--accent-rgb), .08), rgba(255,255,255,.015));
+    }
+    .registry-hero-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .registry-hero h2 { margin: 7px 0 8px; font-size: clamp(24px, 3vw, 38px); letter-spacing: -.03em; }
+    .registry-hero p { margin: 0; max-width: 780px; color: var(--muted); line-height: 1.65; }
+    .registry-progress-ring {
+      width: 112px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--accent) var(--registry-progress, 0%), rgba(var(--accent-rgb), .12) 0);
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+      position: relative;
+    }
+    .registry-progress-ring::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: inherit;
+      background: var(--panel);
+      border: 1px solid rgba(var(--accent-rgb), .16);
+    }
+    .registry-progress-ring span { position: relative; z-index: 1; text-align: center; }
+    .registry-progress-ring strong { display: block; font-size: 28px; line-height: 1; }
+    .registry-progress-ring small { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; font-weight: 850; }
+    .registry-flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding: 2px 0 8px;
+      scrollbar-width: thin;
+    }
+    .registry-step-card {
+      min-width: 122px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .registry-step-card:hover,
+    .registry-step-card.active {
+      transform: translateY(-2px);
+      border-color: rgba(var(--accent-rgb), .55);
+      background: rgba(var(--accent-rgb), .10);
+      box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    }
+    .registry-step-no {
+      display: inline-grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .registry-step-card strong { display: block; margin-top: 9px; font-size: 12px; line-height: 1.25; }
+    .registry-step-card small { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .registry-step-card.done .registry-step-no { background: rgba(57, 214, 134, .15); color: var(--green); }
+    .registry-tabs {
+      margin-bottom: 14px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      background: transparent !important;
+    }
+    .registry-tab { white-space: nowrap; }
+    .registry-tab .registry-tab-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      margin-left: 6px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .registry-workspace {
+      display: grid;
+      grid-template-columns: minmax(230px, .72fr) minmax(0, 2fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .registry-guide {
+      position: sticky;
+      top: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.02);
+    }
+    .registry-guide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: .06em;
+    }
+    .registry-guide h3 { margin: 12px 0 8px; font-size: 19px; }
+    .registry-guide p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 12px; }
+    .registry-prerequisite {
+      margin-top: 14px;
+      padding: 11px 12px;
+      border-radius: 13px;
+      border: 1px solid rgba(var(--accent-rgb), .18);
+      background: rgba(var(--accent-rgb), .06);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .registry-guide-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .registry-form-host { min-width: 0; }
+    .registry-form-host > .form-panel {
+      width: 100%;
+      max-height: none;
+      min-height: 520px;
+      overflow: visible;
+      box-shadow: 0 18px 42px rgba(0,0,0,.12);
+    }
+    .registry-form-host > .form-panel .form-grid { max-height: none; }
+    .registry-empty {
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+      border: 1px dashed rgba(var(--accent-rgb), .35);
+      border-radius: 18px;
+      color: var(--muted);
+      text-align: center;
+      padding: 28px;
+    }
+    body[data-theme="light"] .registry-hero,
+    body[data-theme="light"] .registry-step-card,
+    body[data-theme="light"] .registry-guide {
+      background-color: rgba(255,255,255,.86);
+    }
+    @media (max-width: 1050px) {
+      .registry-flow { grid-template-columns: repeat(7, 150px); }
+      .registry-workspace { grid-template-columns: 1fr; }
+      .registry-guide { position: static; }
+    }
+    @media (max-width: 700px) {
+      .registry-hero { grid-template-columns: 1fr; }
+      .registry-progress-ring { width: 92px; }
+      .registry-form-host > .form-panel { min-height: 0; }
     }
 
   </style>
@@ -9962,7 +10142,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.39.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.40.0</div>
         </div>
       </div>
 
@@ -9971,6 +10151,10 @@
         <button class="nav-btn" data-module="command">
           <span class="nav-label"><span class="dot"></span>Komuta Paneli</span>
           <span class="tag">Aktif</span>
+        </button>
+        <button class="nav-btn" data-module="registry">
+          <span class="nav-label"><span class="dot"></span>Temel Kayıtlar</span>
+          <span class="tag">Giriş</span>
         </button>
         <button class="nav-btn" data-module="personnel">
           <span class="nav-label"><span class="dot"></span>Personel Servisi</span>
@@ -10152,6 +10336,48 @@
             </span>
             <span class="command-card-state" id="commandMaintenanceState">Kontrol</span>
           </button>
+        </div>
+      </section>
+
+
+
+      <section class="module-screen" id="screen-registry">
+        <section class="card registry-hero">
+          <div>
+            <div class="registry-hero-kicker">SYS KAYIT MERKEZİ</div>
+            <h2>Temel Bilgi Girişi</h2>
+            <p>Araç, firma, sözleşme, personel, okul, öğrenci ve rehber kayıtlarını önerilen sırayla tek merkezden tamamla. Bu alan mevcut kayıt formlarını kullanır; girilen bilgiler doğrudan ilgili Personel Servisi ve Okul Servisi bölümlerine kaydedilir.</p>
+          </div>
+          <div class="registry-progress-ring" id="registryProgressRing" style="--registry-progress:0%">
+            <span><strong id="registryProgressValue">0/7</strong><small>TEMEL ADIM</small></span>
+          </div>
+        </section>
+
+        <div class="registry-flow" id="registryFlow" aria-label="Önerilen kayıt sırası"></div>
+
+        <div class="tabs registry-tabs" id="registryTabs">
+          <button class="tab registry-tab active" type="button" data-registry-tab="vehicles">Araç / Şoför <span class="registry-tab-count" data-registry-count="vehicles">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="companies">Firmalar <span class="registry-tab-count" data-registry-count="companies">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="jobs">İş / Sözleşme <span class="registry-tab-count" data-registry-count="jobs">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="people">Personeller <span class="registry-tab-count" data-registry-count="people">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="schools">Okullar <span class="registry-tab-count" data-registry-count="schools">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="students">Öğrenciler <span class="registry-tab-count" data-registry-count="students">0</span></button>
+          <button class="tab registry-tab" type="button" data-registry-tab="guides">Rehberler <span class="registry-tab-count" data-registry-count="guides">0</span></button>
+        </div>
+
+        <div class="registry-workspace">
+          <aside class="registry-guide">
+            <div class="registry-guide-badge" id="registryGuideBadge">1. ADIM</div>
+            <h3 id="registryGuideTitle">Araç / Şoför Kaydı</h3>
+            <p id="registryGuideText">Önce servis aracını ve araca bağlı şoför bilgisini kaydet. Sonraki firma ve okul bağlantıları bu araç listesini kullanır.</p>
+            <div class="registry-prerequisite" id="registryPrerequisite">Bu ilk adımdır; ön koşul bulunmuyor.</div>
+            <div class="registry-guide-actions">
+              <button class="btn small primary" id="registryOpenListBtn" type="button">Kayıt Listesini Aç</button>
+            </div>
+          </aside>
+          <div class="registry-form-host" id="registryFormHost">
+            <div class="registry-empty">Kayıt formu hazırlanıyor…</div>
+          </div>
         </div>
       </section>
 
@@ -13179,7 +13405,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.39.0</strong>
+                <strong>v4.40.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -13208,8 +13434,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.39.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
-    const APP_VERSION = "4.39.0";
+    // v4.40.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
+    const APP_VERSION = "4.40.0";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -18053,7 +18279,7 @@
     }
 
 
-    /* v4.39.0 - Komuta Paneli sıradaki yolcu durum görseli */
+    /* v4.40.0 - Komuta Paneli sıradaki yolcu durum görseli */
     function commandPassengerVisualHtml(options = {}) {
       const name = String(options.name || "").trim();
       const detail = String(options.detail || "").trim();
@@ -22541,7 +22767,7 @@
 
 
 
-    /* v4.39.0 - Tam ekran ve hızlı finans girişi */
+    /* v4.40.0 - Tam ekran ve hızlı finans girişi */
     function currentFullscreenElement() {
       return document.fullscreenElement || document.webkitFullscreenElement || null;
     }
@@ -22641,7 +22867,7 @@
       }
     }
 
-    /* v4.39.0 - Gelir / Gider alt sekmeleri */
+    /* v4.40.0 - Gelir / Gider alt sekmeleri */
     let activeFinanceFlowTab = "entry";
 
     function activateFinanceFlowTab(tabName = "entry", options = {}) {
@@ -23084,6 +23310,7 @@
       renderTripsTable();
       renderBackupRecovery();
       renderFullDemoDataStatus();
+      renderRegistryCenter();
     }
 
     function activatePersonFormPage(pageName) {
@@ -23431,13 +23658,187 @@
       showToast(message);
     }
 
+
+
+    // v4.40.0 - Temel Kayıt Merkezi
+    const REGISTRY_DEFINITIONS = {
+      vehicles: {
+        order: 1,
+        label: "Araç / Şoför",
+        title: "Araç / Şoför Kaydı",
+        source: "#vehicle-sub-cards .form-panel",
+        module: "personnel",
+        tab: "vehicles",
+        text: "Önce servis aracını ve araca bağlı şoför bilgisini kaydet. Firma, okul ve operasyon bağlantıları bu araç listesini kullanır.",
+        prerequisite: "Bu ilk adımdır; ön koşul bulunmuyor.",
+        count: () => state.vehicles.length
+      },
+      companies: {
+        order: 2,
+        label: "Firmalar",
+        title: "Firma Kaydı",
+        source: "#tab-companies .form-panel",
+        module: "personnel",
+        tab: "companies",
+        text: "Personel servisinin yapılacağı firmayı, adresi, servis saatlerini ve varsayılan aracı tanımla.",
+        prerequisite: "Öneri: Önce en az bir araç kaydı oluştur.",
+        count: () => state.companies.length
+      },
+      jobs: {
+        order: 3,
+        label: "İş / Sözleşme",
+        title: "İş ve Sözleşme Kaydı",
+        source: "#tab-jobs .form-panel",
+        module: "personnel",
+        tab: "jobs",
+        text: "Firma ile yapılan işi, fiyat modelini, bağlı aracı, servis saatlerini ve ödeme vadesini kaydet.",
+        prerequisite: "Gerekli: Firma kaydı. Öneri: Araç kaydı.",
+        count: () => state.jobs.length
+      },
+      people: {
+        order: 4,
+        label: "Personeller",
+        title: "Personel Kaydı",
+        source: "#tab-people .form-panel",
+        module: "personnel",
+        tab: "people",
+        text: "Taşınacak personeli firmaya bağla; sabah-akşam adresini ve servis sırasını kaydet.",
+        prerequisite: "Gerekli: Firma kaydı. İş / sözleşme kaydı finans bağlantılarını tamamlar.",
+        count: () => state.people.length
+      },
+      schools: {
+        order: 5,
+        label: "Okullar",
+        title: "Okul Tanımı",
+        source: "#school-tab-schools .form-panel",
+        module: "school",
+        tab: "schools",
+        text: "Okulu, giriş-çıkış saatlerini, bağlı aracı ve şoför bilgilerini kaydet.",
+        prerequisite: "Öneri: Önce en az bir araç / şoför kaydı oluştur.",
+        count: () => state.schools.length
+      },
+      students: {
+        order: 6,
+        label: "Öğrenciler",
+        title: "Öğrenci Kaydı",
+        source: "#school-tab-students .form-panel",
+        module: "school",
+        tab: "students",
+        text: "Öğrenciyi okuluna bağla; veli iletişim bilgisi, adres, sıra ve aylık ücret bilgilerini kaydet.",
+        prerequisite: "Gerekli: Okul kaydı.",
+        count: () => state.students.length
+      },
+      guides: {
+        order: 7,
+        label: "Rehberler",
+        title: "Rehber Personel Kaydı",
+        source: "#school-tab-guides .form-panel",
+        module: "school",
+        tab: "guides",
+        text: "Rehber personeli okul ve araca bağla; görev zamanını ve geçici yedek bilgisini belirle.",
+        prerequisite: "Gerekli: Okul kaydı. Öneri: Bağlı araç kaydı.",
+        count: () => state.guides.length
+      }
+    };
+
+    let activeRegistryTab = "vehicles";
+    let registryMountedPanel = null;
+    let registryPanelPlaceholder = null;
+
+    function registryOrderedDefinitions() {
+      return Object.entries(REGISTRY_DEFINITIONS).sort((a, b) => a[1].order - b[1].order);
+    }
+
+    function restoreRegistryPanel() {
+      if (!registryMountedPanel) return;
+      registryMountedPanel.classList.remove("registry-mounted-panel");
+      if (registryPanelPlaceholder?.parentNode) registryPanelPlaceholder.replaceWith(registryMountedPanel);
+      registryMountedPanel = null;
+      registryPanelPlaceholder = null;
+      const host = $("#registryFormHost");
+      if (host && !host.children.length) host.innerHTML = '<div class="registry-empty">Kayıt formu hazırlanıyor…</div>';
+    }
+
+    function mountRegistryPanel(tabName) {
+      const definition = REGISTRY_DEFINITIONS[tabName] || REGISTRY_DEFINITIONS.vehicles;
+      const host = $("#registryFormHost");
+      if (!host) return;
+      restoreRegistryPanel();
+      const panel = document.querySelector(definition.source);
+      if (!panel) {
+        host.innerHTML = '<div class="registry-empty"><div><strong>Form bulunamadı.</strong><br>İlgili bölümü ana menüden açmayı deneyin.</div></div>';
+        return;
+      }
+      registryPanelPlaceholder = document.createComment(`registry-placeholder-${tabName}`);
+      panel.parentNode.insertBefore(registryPanelPlaceholder, panel);
+      registryMountedPanel = panel;
+      panel.classList.add("registry-mounted-panel");
+      host.replaceChildren(panel);
+    }
+
+    function renderRegistryCenter() {
+      const flow = $("#registryFlow");
+      if (!flow) return;
+      const entries = registryOrderedDefinitions();
+      const completed = entries.filter(([, definition]) => Number(definition.count()) > 0).length;
+      const percentage = Math.round(completed / entries.length * 100);
+      $("#registryProgressRing")?.style.setProperty("--registry-progress", `${percentage}%`);
+      if ($("#registryProgressValue")) $("#registryProgressValue").textContent = `${completed}/${entries.length}`;
+
+      flow.innerHTML = entries.map(([key, definition]) => {
+        const count = Number(definition.count()) || 0;
+        return `<button class="registry-step-card ${count > 0 ? "done" : ""} ${key === activeRegistryTab ? "active" : ""}" type="button" data-registry-step="${key}">
+          <span class="registry-step-no">${count > 0 ? "✓" : definition.order}</span>
+          <strong>${escapeHtml(definition.label)}</strong>
+          <small>${count > 0 ? `${count} kayıt hazır` : "Kayıt bekleniyor"}</small>
+        </button>`;
+      }).join("");
+
+      entries.forEach(([key, definition]) => {
+        const countHost = document.querySelector(`[data-registry-count="${key}"]`);
+        if (countHost) countHost.textContent = String(Number(definition.count()) || 0);
+      });
+
+      $$("[data-registry-step]").forEach((button) => button.addEventListener("click", () => activateRegistryTab(button.dataset.registryStep)));
+    }
+
+    function activateRegistryTab(tabName = "vehicles") {
+      const target = REGISTRY_DEFINITIONS[tabName] ? tabName : "vehicles";
+      activeRegistryTab = target;
+      const definition = REGISTRY_DEFINITIONS[target];
+      $$("#registryTabs [data-registry-tab]").forEach((button) => button.classList.toggle("active", button.dataset.registryTab === target));
+      if ($("#registryGuideBadge")) $("#registryGuideBadge").textContent = `${definition.order}. ADIM`;
+      if ($("#registryGuideTitle")) $("#registryGuideTitle").textContent = definition.title;
+      if ($("#registryGuideText")) $("#registryGuideText").textContent = definition.text;
+      if ($("#registryPrerequisite")) $("#registryPrerequisite").textContent = definition.prerequisite;
+      mountRegistryPanel(target);
+      renderRegistryCenter();
+      $("#contentScroll")?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openRegistrySourceList() {
+      const definition = REGISTRY_DEFINITIONS[activeRegistryTab] || REGISTRY_DEFINITIONS.vehicles;
+      restoreRegistryPanel();
+      activateModule(definition.module);
+      if (definition.module === "personnel") {
+        activateTab(definition.tab);
+        if (definition.tab === "vehicles") activateVehicleSubTab("cards");
+      } else if (definition.module === "school") {
+        activateSchoolTab(definition.tab);
+      }
+      scrollContentTop();
+    }
+
+
     function activateModule(moduleName) {
+      if (moduleName !== "registry") restoreRegistryPanel();
       $$(".nav-btn[data-module]").forEach((button) => button.classList.toggle("active", button.dataset.module === moduleName));
       $$(".module-screen").forEach((screen) => screen.classList.remove("active"));
       $(`#screen-${moduleName}`).classList.add("active");
 
       const titles = {
         command: ["Komuta Paneli", "Büyük resim burada kurulacak: operasyon riski, günün seferleri, finans sinyali ve uyarılar."],
+        registry: ["Temel Kayıtlar", "Sistemin çalışması için gerekli araç, firma, sözleşme, personel, okul, öğrenci ve rehber bilgilerini tek merkezden kaydet."],
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
         finance: ["Finans Özet", "Gelir-gider, özel kullanım, bakım-mekanik, maliyet dağıtımı, KM analizi, hakediş, fatura-tahsilat ve okul finansı tek merkezde yönetilir."],
@@ -23447,6 +23848,7 @@
       $("#pageTitle").textContent = titles[moduleName][0];
       $("#pageLead").textContent = titles[moduleName][1];
       if (moduleName === "finance" && !$("#financeTabs .tab.active")) activateFinanceTab("overview");
+      if (moduleName === "registry") activateRegistryTab(activeRegistryTab);
       if (moduleName === "settings" && $("#sidebarContact")) $("#sidebarContact").open = true;
       $("#sidebar").classList.remove("open");
       const scroller = $("#contentScroll");
@@ -24468,6 +24870,8 @@
       $("#studentForm").addEventListener("submit", saveStudent);
       $("#schoolForm").addEventListener("submit", saveSchool);
       $("#guideForm").addEventListener("submit", saveGuide);
+      $$("#registryTabs [data-registry-tab]").forEach((button) => button.addEventListener("click", () => activateRegistryTab(button.dataset.registryTab)));
+      $("#registryOpenListBtn")?.addEventListener("click", openRegistrySourceList);
 
       $("#clearPersonFormBtn").addEventListener("click", clearPersonForm);
       $("#cancelPersonEditBtn").addEventListener("click", clearPersonForm);
@@ -24866,7 +25270,7 @@
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "personnel", "school", "finance", "settings"],
+        modules: ["command", "registry", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -24875,7 +25279,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "personnel", "school", "settings"],
+        modules: ["command", "registry", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
