@@ -1,0 +1,34 @@
+SERVİS YÖNETİM SİSTEMİ — PROJE HAFIZA NOTU v4.39.0
+
+GÜNCEL DURUM
+- Web/PWA sürümü: v4.39.0
+- APK sürümü: 1.0.1 / versionCode 2
+- Veri şeması: 29
+- GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+- Lisans API: https://servis-lisans-api.ops-429.workers.dev
+
+v4.39.0 DEĞİŞİKLİKLERİ
+1. Tam ekran
+- Üst sağ alana Tam Ekran düğmesi eklendi.
+- Fullscreen API destekleyen tarayıcılarda aç/kapat çalışır.
+- manifest.webmanifest display=fullscreen ve display_override=fullscreen/standalone yapıldı.
+- iPad desteğinde ana ekrana eklenen uygulama modu kullanılmaya devam eder.
+
+2. Özel Kullanım konumu
+- Finans Özet ana sekmelerindeki bağımsız Özel Kullanım kaldırıldı.
+- Finans Özet → KM Analizi altında KM Analizi ve Özel Kullanım alt sekmeleri oluşturuldu.
+- Komuta Panelindeki özel kullanım bağlantıları yeni konuma yönlendirilir.
+- Mevcut özel kullanım kayıtları ve raporları korunur.
+
+3. Hızlı Gelir / Gider girişi
+- Sol menüye Gelir / Gider Kaydı düğmesi eklendi.
+- Düğme temaya uyumlu modal pencere açar.
+- Mevcut araç/yakıt gider formunun aynısı kullanılır; ayrı veri yapısı oluşturulmaz.
+- Kayıtlar Finans Özet → Gelir / Gider bölümündeki vehicleExpenses koleksiyonuna yazılır.
+- Muhasebe/finans yetkisi olmayan kullanıcıdan düğme gizlenir.
+
+KORUNANLAR
+- Paket adı: com.tufan.servisyonetim
+- APK imzası ve lisans sistemi
+- Kullanıcı verileri, localStorage ve IndexedDB evrakları
+- Finans, okul, personel, demo, rapor ve yedekleme yapısı

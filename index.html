@@ -2,10 +2,11 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.38.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.39.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="./manifest.webmanifest" />
@@ -9129,7 +9130,7 @@
 
   
 
-    /* v4.38.1 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
+    /* v4.39.0 - Açık tema kontrast dengesi, yatay işlem butonları ve komuta yolcu göstergesi */
     .table-action-row {
       display: inline-flex !important;
       flex-wrap: nowrap !important;
@@ -9353,7 +9354,7 @@
 
   
 
-    /* v4.38.1 - Gelir / Gider alt sekmeleri ve Okul Finans işlem hizası */
+    /* v4.39.0 - Gelir / Gider alt sekmeleri ve Okul Finans işlem hizası */
     .finance-flow-subtabs {
       flex: 0 0 auto;
       display: grid;
@@ -9465,7 +9466,7 @@
 
   
 
-    /* v4.38.1 - Temaya uyumlu uygulama içi uyarı penceresi ve Ayarlar/Yedek konumu */
+    /* v4.39.0 - Temaya uyumlu uygulama içi uyarı penceresi ve Ayarlar/Yedek konumu */
     .sidebar-settings-link {
       width: 100%;
       min-height: 54px;
@@ -9649,6 +9650,142 @@
       .app-dialog-actions .btn { width: 100%; }
     }
 
+  
+    /* v4.39.0 - Tam ekran, hızlı gelir/gider penceresi ve KM altında özel kullanım */
+    .fullscreen-btn {
+      white-space: nowrap;
+      min-width: 104px;
+      justify-content: center;
+    }
+    .fullscreen-btn.is-active {
+      border-color: rgba(var(--accent-rgb), .58);
+      background: rgba(var(--accent-rgb), .16);
+      color: var(--text);
+    }
+
+    .nav-quick-finance {
+      border-color: rgba(var(--accent-rgb), .22) !important;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .10), rgba(var(--accent-rgb), .035)) !important;
+    }
+    .nav-quick-finance:hover {
+      border-color: rgba(var(--accent-rgb), .52) !important;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .19), rgba(var(--accent-rgb), .07)) !important;
+    }
+    .nav-quick-finance .tag {
+      color: color-mix(in srgb, var(--text) 80%, var(--accent) 20%);
+      border-color: rgba(var(--accent-rgb), .28);
+      background: rgba(var(--accent-rgb), .11);
+    }
+
+    .quick-finance-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(2, 5, 9, .72);
+      backdrop-filter: blur(13px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .18s ease, visibility .18s ease;
+    }
+    .quick-finance-layer.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .quick-finance-card {
+      width: min(900px, 100%);
+      max-height: min(94vh, 920px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--line) 76%, rgba(var(--accent-rgb), .42));
+      border-radius: 22px;
+      background: linear-gradient(155deg, color-mix(in srgb, var(--panel) 97%, #fff 3%), var(--panel-2));
+      box-shadow: 0 34px 110px rgba(0,0,0,.50), 0 0 0 1px rgba(var(--accent-rgb), .05);
+      transform: translateY(12px) scale(.985);
+      transition: transform .18s ease;
+    }
+    .quick-finance-layer.open .quick-finance-card { transform: translateY(0) scale(1); }
+    .quick-finance-head {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(var(--accent-rgb), .045);
+    }
+    .quick-finance-kicker {
+      margin-bottom: 5px;
+      color: color-mix(in srgb, var(--text) 65%, var(--accent) 35%);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .15em;
+    }
+    .quick-finance-head h2 { margin: 0 0 5px; font-size: 20px; }
+    .quick-finance-head p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .quick-finance-host {
+      min-height: 0;
+      overflow: auto;
+      padding: 16px;
+    }
+    .quick-finance-host .vehicle-expense-form-panel {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      min-height: 0;
+      max-height: none;
+    }
+    body[data-theme="light"] .quick-finance-layer { background: rgba(15,23,42,.38); }
+    body[data-theme="light"] .quick-finance-card {
+      box-shadow: 0 30px 90px rgba(15,23,42,.25), 0 0 0 1px rgba(255,255,255,.62);
+    }
+
+    .vehicle-km-subtabs {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 8px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+    .vehicle-km-subtabs .mini-tab {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+    }
+    .vehicle-km-subscreen {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .vehicle-km-subscreen > .vehicle-km-layout,
+    .vehicle-km-subscreen > .private-use-layout { width: 100%; }
+    body[data-theme="light"] .vehicle-km-subtabs .mini-tab {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    @media (max-width: 760px) {
+      .fullscreen-btn { min-width: 44px; padding-inline: 9px; font-size: 0; }
+      .fullscreen-btn::before { content: "⛶"; font-size: 16px; }
+      .quick-finance-layer { padding: 0; align-items: end; }
+      .quick-finance-card {
+        width: 100%;
+        max-height: 96vh;
+        border-radius: 22px 22px 0 0;
+      }
+      .quick-finance-head { padding: 15px 14px; }
+      .quick-finance-host { padding: 12px; }
+      .vehicle-km-subtabs { grid-template-columns: repeat(2, minmax(145px, 1fr)); overflow-x: auto; }
+    }
+
   </style>
 </head>
 
@@ -9805,13 +9942,27 @@
     </div>
   </div>
 
+  <div class="quick-finance-layer" id="quickFinanceEntryLayer" aria-hidden="true">
+    <section class="quick-finance-card" role="dialog" aria-modal="true" aria-labelledby="quickFinanceEntryTitle">
+      <div class="quick-finance-head">
+        <div>
+          <div class="quick-finance-kicker">HIZLI FİNANS GİRİŞİ</div>
+          <h2 id="quickFinanceEntryTitle">Gelir / Gider Kaydı</h2>
+          <p>Kayıt burada açılır; kaydedildiğinde Finans Özet → Gelir / Gider bölümüne işlenir.</p>
+        </div>
+        <button class="btn small" id="closeQuickFinanceEntryBtn" type="button" aria-label="Pencereyi kapat">Kapat</button>
+      </div>
+      <div class="quick-finance-host" id="quickFinanceEntryHost"></div>
+    </section>
+  </div>
+
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.38.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.39.0</div>
         </div>
       </div>
 
@@ -9832,6 +9983,10 @@
         <button class="nav-btn" data-module="finance">
           <span class="nav-label"><span class="dot"></span>Finans Özet</span>
           <span class="tag">Aktif</span>
+        </button>
+        <button class="nav-btn nav-quick-finance" id="quickFinanceEntryBtn" type="button">
+          <span class="nav-label"><span class="dot"></span>Gelir / Gider Kaydı</span>
+          <span class="tag">Hızlı</span>
         </button>
       </nav>
 
@@ -9868,6 +10023,7 @@
             <div class="session-user-avatar" id="sessionUserAvatar">?</div>
             <div><strong id="sessionUserName">Oturum kapalı</strong><span id="sessionUserRole">-</span></div>
           </div>
+          <button class="btn small fullscreen-btn" id="fullscreenBtn" type="button" title="Tam ekran görünümünü aç">⛶ Tam Ekran</button>
           <button class="btn small" id="lockSessionBtn" type="button">Kilitle</button>
           <button class="btn small danger" id="logoutBtn" type="button">Çıkış</button>
         </div>
@@ -11539,7 +11695,6 @@
             <button class="tab" type="button" data-finance-tab="maintenance">Bakım & Mekanik</button>
             <button class="tab" type="button" data-finance-tab="cost-report">Maliyet Dağılımı</button>
             <button class="tab" type="button" data-finance-tab="profitability">Kârlılık</button>
-            <button class="tab" type="button" data-finance-tab="private-use">Özel Kullanım</button>
             <button class="tab" type="button" data-finance-tab="staff">Şoför / Rehber</button>
             <button class="tab" type="button" data-finance-tab="km">KM Analizi</button>
             <button class="tab" type="button" data-finance-tab="reports">Raporlar</button>
@@ -11596,7 +11751,8 @@
                     <div class="panel-sub">İlk açılışta doğrudan kayıt ekranı gelir. Yakıt ve diğer araç giderlerini doğru araç ve operasyona bağla.</div>
                   </div>
                 </div>
-                <section class="vehicle-expense-form-panel">
+                <div id="vehicleExpenseFormAnchor" aria-hidden="true"></div>
+                <section class="vehicle-expense-form-panel" id="vehicleExpenseFormPanel">
 <div class="panel-header">
 <div>
 <h3 class="panel-title">Gider Kaydı</h3>
@@ -11794,57 +11950,6 @@
             </div>
           </div>
 
-<div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-private-use">
-            <div class="private-use-layout">
-              <section class="private-use-form-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title" id="privateUseFormTitle">Özel Kullanımı Başlat</h2>
-                    <div class="panel-sub">İş dışı kullanımı kilometre ve tahmini yakıt maliyetiyle ayrı izle.</div>
-                  </div>
-                </div>
-                <form class="private-use-form" id="privateVehicleUseForm">
-                  <input type="hidden" id="privateUseId" />
-                  <div class="field"><label for="privateUseVehicle">Araç *</label><select id="privateUseVehicle" required></select></div>
-                  <div class="two">
-                    <div class="field"><label for="privateUseStartDate">Başlangıç Tarihi *</label><input id="privateUseStartDate" type="date" required /></div>
-                    <div class="field"><label for="privateUseStartTime">Başlangıç Saati</label><input id="privateUseStartTime" type="time" /></div>
-                  </div>
-                  <div class="field"><label for="privateUsePerson">Kullanan Kişi *</label><input id="privateUsePerson" placeholder="Ad soyad" required /></div>
-                  <div class="field"><label for="privateUsePurpose">Kullanım Amacı *</label><input id="privateUsePurpose" placeholder="Örn. aile işi, kişisel ulaşım, özel taşıma" required /></div>
-                  <div class="field"><label for="privateUseStartKm">Başlangıç KM *</label><input id="privateUseStartKm" type="number" min="0" step="1" placeholder="Örn. 185420" required /></div>
-                  <div class="form-section-title">Kullanım Bittiğinde</div>
-                  <div class="two">
-                    <div class="field"><label for="privateUseEndDate">Bitiş Tarihi</label><input id="privateUseEndDate" type="date" /></div>
-                    <div class="field"><label for="privateUseEndTime">Bitiş Saati</label><input id="privateUseEndTime" type="time" /></div>
-                  </div>
-                  <div class="field"><label for="privateUseEndKm">Bitiş KM</label><input id="privateUseEndKm" type="number" min="0" step="1" placeholder="Kullanım bitince gir" /></div>
-                  <div class="field"><label for="privateUseNote">Not</label><textarea id="privateUseNote" placeholder="Güzergâh, açıklama veya özel not..."></textarea></div>
-                  <div class="private-use-status-note" id="privateUseStatusNote">Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.</div>
-                  <div class="form-actions">
-                    <button class="btn primary" id="savePrivateUseBtn" type="submit">Özel Kullanımı Başlat</button>
-                    <button class="btn" id="clearPrivateUseBtn" type="button">Temizle</button>
-                  </div>
-                </form>
-              </section>
-
-              <section class="private-use-list-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Özel Kullanım Takibi</h2>
-                    <div class="panel-sub">Servis operasyonuna ve ticari kâra karışmayan bilgi amaçlı kayıtlar.</div>
-                  </div>
-                </div>
-                <div class="toolbar simple-toolbar">
-                  <input id="privateUseMonth" type="month" />
-                  <select id="privateUseVehicleFilter"></select>
-                </div>
-                <div class="private-use-summary" id="privateUseSummary"></div>
-                <div class="private-use-table-host" id="privateUseTableHost"></div>
-              </section>
-            </div>
-          </div>
-
 <div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-maintenance">
             <div class="workarea">
               <section class="card panel form-panel">
@@ -11927,6 +12032,12 @@
           </div>
 
 <div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-km">
+            <div class="vehicle-km-subtabs" id="vehicleKmSubtabs" role="tablist" aria-label="KM analizi alt bölümleri">
+              <button class="mini-tab active" type="button" data-vehicle-km-tab="analysis">KM Analizi</button>
+              <button class="mini-tab" type="button" data-vehicle-km-tab="private-use">Özel Kullanım</button>
+            </div>
+
+            <div class="vehicle-km-subscreen" data-vehicle-km-screen="analysis">
             <div class="vehicle-km-layout">
               <section class="vehicle-km-form-panel">
                 <div class="panel-header">
@@ -11980,6 +12091,58 @@
                 </div>
                 <div class="vehicle-km-table-host" id="vehicleKmTableHost"></div>
               </section>
+            </div>
+            </div>
+
+            <div class="vehicle-km-subscreen hidden" data-vehicle-km-screen="private-use">
+            <div class="private-use-layout">
+              <section class="private-use-form-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title" id="privateUseFormTitle">Özel Kullanımı Başlat</h2>
+                    <div class="panel-sub">İş dışı kullanımı kilometre ve tahmini yakıt maliyetiyle ayrı izle.</div>
+                  </div>
+                </div>
+                <form class="private-use-form" id="privateVehicleUseForm">
+                  <input type="hidden" id="privateUseId" />
+                  <div class="field"><label for="privateUseVehicle">Araç *</label><select id="privateUseVehicle" required></select></div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseStartDate">Başlangıç Tarihi *</label><input id="privateUseStartDate" type="date" required /></div>
+                    <div class="field"><label for="privateUseStartTime">Başlangıç Saati</label><input id="privateUseStartTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUsePerson">Kullanan Kişi *</label><input id="privateUsePerson" placeholder="Ad soyad" required /></div>
+                  <div class="field"><label for="privateUsePurpose">Kullanım Amacı *</label><input id="privateUsePurpose" placeholder="Örn. aile işi, kişisel ulaşım, özel taşıma" required /></div>
+                  <div class="field"><label for="privateUseStartKm">Başlangıç KM *</label><input id="privateUseStartKm" type="number" min="0" step="1" placeholder="Örn. 185420" required /></div>
+                  <div class="form-section-title">Kullanım Bittiğinde</div>
+                  <div class="two">
+                    <div class="field"><label for="privateUseEndDate">Bitiş Tarihi</label><input id="privateUseEndDate" type="date" /></div>
+                    <div class="field"><label for="privateUseEndTime">Bitiş Saati</label><input id="privateUseEndTime" type="time" /></div>
+                  </div>
+                  <div class="field"><label for="privateUseEndKm">Bitiş KM</label><input id="privateUseEndKm" type="number" min="0" step="1" placeholder="Kullanım bitince gir" /></div>
+                  <div class="field"><label for="privateUseNote">Not</label><textarea id="privateUseNote" placeholder="Güzergâh, açıklama veya özel not..."></textarea></div>
+                  <div class="private-use-status-note" id="privateUseStatusNote">Bitiş kilometresi boş bırakılırsa kayıt “Devam ediyor” olarak açılır. Bitirildiğinde tahmini yakıt maliyeti o günkü araç verisinden sabitlenir.</div>
+                  <div class="form-actions">
+                    <button class="btn primary" id="savePrivateUseBtn" type="submit">Özel Kullanımı Başlat</button>
+                    <button class="btn" id="clearPrivateUseBtn" type="button">Temizle</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="private-use-list-panel">
+                <div class="panel-header">
+                  <div>
+                    <h2 class="panel-title">Özel Kullanım Takibi</h2>
+                    <div class="panel-sub">Servis operasyonuna ve ticari kâra karışmayan bilgi amaçlı kayıtlar.</div>
+                  </div>
+                </div>
+                <div class="toolbar simple-toolbar">
+                  <input id="privateUseMonth" type="month" />
+                  <select id="privateUseVehicleFilter"></select>
+                </div>
+                <div class="private-use-summary" id="privateUseSummary"></div>
+                <div class="private-use-table-host" id="privateUseTableHost"></div>
+              </section>
+            </div>
             </div>
           </div>
 
@@ -13016,7 +13179,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.38.1</strong>
+                <strong>v4.39.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -13045,8 +13208,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.38.1 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
-    const APP_VERSION = "4.38.1";
+    // v4.39.0 - Panel sekme şeritlerinin koyu arka planı kaldırıldı.
+    const APP_VERSION = "4.39.0";
     const SCHEMA_VERSION = 29;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -15770,7 +15933,7 @@
     function editVehicleKmRecord(id) {
       const record = state.vehicleKmRecords.find((item) => item.id === id);
       if (!record) return;
-      activateModule("finance"); activateFinanceTab("km"); renderVehicleKmOptions();
+      activateModule("finance"); activateFinanceTab("km"); activateVehicleKmSubTab("analysis", { scroll: false, instant: true }); renderVehicleKmOptions();
       $("#vehicleKmRecordId").value = record.id;
       $("#vehicleKmVehicle").value = record.vehicleId || "";
       $("#vehicleKmRecordMonth").value = record.month || getFinanceMonth();
@@ -16093,14 +16256,15 @@
       vehicle.currentKm = Math.max(Number(vehicle.currentKm || 0), completed ? endKm : startKm);
       saveState();
       clearPrivateVehicleUseForm();
-      activateFinanceTab("private-use");
+      activateFinanceTab("km");
+      activateVehicleKmSubTab("private-use", { scroll: false, instant: true });
       showToast(completed ? `${distanceKm.toLocaleString("tr-TR")} km özel kullanım tamamlandı.` : "Özel kullanım başlatıldı.");
     }
 
     function editPrivateVehicleUse(id, finishMode = false) {
       const record = state.privateVehicleUses.find((item) => item.id === id);
       if (!record) return;
-      activateModule("finance"); activateFinanceTab("private-use"); renderPrivateUseOptions();
+      activateModule("finance"); activateFinanceTab("km"); activateVehicleKmSubTab("private-use", { scroll: false, instant: true }); renderPrivateUseOptions();
       $("#privateUseId").value = record.id;
       $("#privateUseVehicle").value = record.vehicleId || "";
       $("#privateUseStartDate").value = record.startDate || todayISO();
@@ -17889,7 +18053,7 @@
     }
 
 
-    /* v4.38.1 - Komuta Paneli sıradaki yolcu durum görseli */
+    /* v4.39.0 - Komuta Paneli sıradaki yolcu durum görseli */
     function commandPassengerVisualHtml(options = {}) {
       const name = String(options.name || "").trim();
       const detail = String(options.detail || "").trim();
@@ -21353,6 +21517,12 @@
       if (index >= 0) state.vehicleExpenses[index] = expense;
       else state.vehicleExpenses.push(expense);
       saveState();
+      if (quickFinanceEntryOpen()) {
+        clearVehicleExpenseForm(true);
+        closeQuickFinanceEntry();
+        showToast("Araç gideri kaydedildi ve Finans Özet → Gelir / Gider bölümüne yansıtıldı.");
+        return;
+      }
       editVehicleExpense(id);
       showToast("Araç gideri kaydedildi ve Finans Özet'e yansıtıldı.");
     }
@@ -22370,7 +22540,108 @@
 
 
 
-    /* v4.38.1 - Gelir / Gider alt sekmeleri */
+
+    /* v4.39.0 - Tam ekran ve hızlı finans girişi */
+    function currentFullscreenElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    function updateFullscreenButton() {
+      const button = $("#fullscreenBtn");
+      if (!button) return;
+      const active = Boolean(currentFullscreenElement());
+      button.classList.toggle("is-active", active);
+      button.textContent = active ? "⛶ Tam Ekrandan Çık" : "⛶ Tam Ekran";
+      button.title = active ? "Tam ekran görünümünden çık" : "Tam ekran görünümünü aç";
+    }
+
+    async function toggleAppFullscreen() {
+      const root = document.documentElement;
+      try {
+        if (currentFullscreenElement()) {
+          const exit = document.exitFullscreen || document.webkitExitFullscreen;
+          if (exit) await exit.call(document);
+          updateFullscreenButton();
+          return;
+        }
+        const request = root.requestFullscreen || root.webkitRequestFullscreen;
+        if (!request) {
+          const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches || window.matchMedia?.("(display-mode: fullscreen)")?.matches || window.navigator.standalone === true;
+          showToast(standalone
+            ? "Uygulama zaten ana ekran uygulaması modunda çalışıyor."
+            : "Bu cihaz tarayıcı tam ekranını desteklemiyor. iPad’de Safari → Paylaş → Ana Ekrana Ekle yolunu kullanın.");
+          return;
+        }
+        await request.call(root);
+        updateFullscreenButton();
+      } catch (error) {
+        console.error("Tam ekran açılamadı:", error);
+        showToast("Tam ekran açılamadı. Tarayıcı izinlerini veya ana ekran uygulaması kurulumunu kontrol edin.");
+      }
+    }
+
+    function quickFinanceEntryOpen() {
+      return $("#quickFinanceEntryLayer")?.classList.contains("open");
+    }
+
+    function openQuickFinanceEntry() {
+      if (activeUser && (!hasModulePermission("finance") || !hasFinanceTabPermission("flow"))) {
+        showToast("Gelir / gider kaydı için finans yetkin yok.");
+        appendAudit("Güvenlik", "Yetkisiz hızlı finans girişimi", "flow");
+        return;
+      }
+      const layer = $("#quickFinanceEntryLayer");
+      const host = $("#quickFinanceEntryHost");
+      const panel = $("#vehicleExpenseFormPanel");
+      if (!layer || !host || !panel) {
+        showToast("Gelir / gider kayıt penceresi açılamadı.");
+        return;
+      }
+      renderVehicleExpenseOptions();
+      clearVehicleExpenseForm(true);
+      host.appendChild(panel);
+      layer.classList.add("open");
+      layer.setAttribute("aria-hidden", "false");
+      $("#sidebar")?.classList.remove("open");
+      window.setTimeout(() => $("#vehicleExpenseDate")?.focus(), 80);
+    }
+
+    function closeQuickFinanceEntry() {
+      const layer = $("#quickFinanceEntryLayer");
+      const panel = $("#vehicleExpenseFormPanel");
+      const anchor = $("#vehicleExpenseFormAnchor");
+      if (panel && anchor?.parentNode) anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+      layer?.classList.remove("open");
+      layer?.setAttribute("aria-hidden", "true");
+    }
+
+    let activeVehicleKmSubTab = "analysis";
+
+    function activateVehicleKmSubTab(tabName = "analysis", options = {}) {
+      const target = ["analysis", "private-use"].includes(tabName) ? tabName : "analysis";
+      activeVehicleKmSubTab = target;
+      $$("#vehicleKmSubtabs [data-vehicle-km-tab]").forEach((button) => {
+        const active = button.dataset.vehicleKmTab === target;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      $$("#finance-tab-km [data-vehicle-km-screen]").forEach((screen) => {
+        screen.classList.toggle("hidden", screen.dataset.vehicleKmScreen !== target);
+      });
+      if (target === "analysis") {
+        renderVehicleKmOptions();
+        renderVehicleKmAnalysis();
+      } else {
+        renderPrivateUseOptions();
+        renderPrivateVehicleUses();
+      }
+      if (options.scroll !== false) {
+        const screen = $("#finance-tab-km");
+        if (screen) screen.scrollTo({ top: 0, behavior: options.instant ? "auto" : "smooth" });
+      }
+    }
+
+    /* v4.39.0 - Gelir / Gider alt sekmeleri */
     let activeFinanceFlowTab = "entry";
 
     function activateFinanceFlowTab(tabName = "entry", options = {}) {
@@ -22405,7 +22676,7 @@
     }
 
     function activateFinanceTab(tabName) {
-      const targetName = ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"].includes(tabName) ? tabName : "overview";
+      const targetName = ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"].includes(tabName) ? tabName : "overview";
       $$("#financeTabs .tab").forEach((button) => button.classList.toggle("active", button.dataset.financeTab === targetName));
       $$("#screen-finance .finance-tab-screen").forEach((screen) => screen.classList.add("hidden"));
       $("#finance-tab-" + targetName)?.classList.remove("hidden");
@@ -22413,10 +22684,9 @@
       if (activeScreen) activeScreen.scrollTo({ top: 0, behavior: "smooth" });
       if (targetName === "overview") renderFinanceCharts();
       if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); activateFinanceFlowTab("entry", { scroll: false, instant: true }); }
-      if (targetName === "private-use") { renderPrivateUseOptions(); renderPrivateVehicleUses(); }
       if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
       if (targetName === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
-      if (targetName === "km") { renderVehicleKmOptions(); renderVehicleKmAnalysis(); }
+      if (targetName === "km") activateVehicleKmSubTab("analysis", { scroll: false, instant: true });
       if (targetName === "personnel") { renderFinanceSummary(); renderFinancePersonnelProfitTable(); }
       if (targetName === "profitability") renderProfitabilityAnalysis();
       if (targetName === "accruals") renderFinanceTable();
@@ -23162,7 +23432,7 @@
     }
 
     function activateModule(moduleName) {
-      $$(".nav-btn").forEach((button) => button.classList.toggle("active", button.dataset.module === moduleName));
+      $$(".nav-btn[data-module]").forEach((button) => button.classList.toggle("active", button.dataset.module === moduleName));
       $$(".module-screen").forEach((screen) => screen.classList.remove("active"));
       $(`#screen-${moduleName}`).classList.add("active");
 
@@ -23961,7 +24231,7 @@
     }
 
     function bindEvents() {
-      $$(".nav-btn").forEach((button) => {
+      $$(".nav-btn[data-module]").forEach((button) => {
         button.addEventListener("click", () => activateModule(button.dataset.module));
       });
 
@@ -23980,6 +24250,19 @@
       $$("#financeFlowSubtabs [data-finance-flow-tab]").forEach((button) => {
         button.addEventListener("click", () => activateFinanceFlowTab(button.dataset.financeFlowTab));
       });
+
+      $$("#vehicleKmSubtabs [data-vehicle-km-tab]").forEach((button) => {
+        button.addEventListener("click", () => activateVehicleKmSubTab(button.dataset.vehicleKmTab));
+      });
+      $("#quickFinanceEntryBtn")?.addEventListener("click", openQuickFinanceEntry);
+      $("#closeQuickFinanceEntryBtn")?.addEventListener("click", closeQuickFinanceEntry);
+      $("#quickFinanceEntryLayer")?.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) closeQuickFinanceEntry();
+      });
+      $("#fullscreenBtn")?.addEventListener("click", toggleAppFullscreen);
+      document.addEventListener("fullscreenchange", updateFullscreenButton);
+      document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
+      updateFullscreenButton();
 
       $$("#personFormTabs .mini-tab").forEach((button) => {
         button.addEventListener("click", () => activatePersonFormPage(button.dataset.personFormPage));
@@ -24444,19 +24727,19 @@
         if (action === "edit-private-use") editPrivateVehicleUse(id);
         if (action === "finish-private-use") editPrivateVehicleUse(id, true);
         if (action === "delete-private-use") deletePrivateVehicleUse(id);
-        if (action === "open-private-use") { activateModule("finance"); activateFinanceTab("private-use"); scrollContentTop(); }
+        if (action === "open-private-use") { activateModule("finance"); activateFinanceTab("km"); activateVehicleKmSubTab("private-use", { scroll: false, instant: true }); scrollContentTop(); }
         if (action === "open-cost-report") { activateModule("finance"); activateFinanceTab("cost-report"); scrollContentTop(); }
         if (action === "edit-maintenance") editVehicleMaintenance(id);
         if (action === "delete-maintenance") deleteVehicleMaintenance(id);
         if (action === "open-vehicle-alerts") openVehicleAlerts();
         if (action === "open-vehicle-record") openVehicleRecord(id);
         if (action === "open-vehicle-km") {
-          activateModule("finance"); activateFinanceTab("km");
+          activateModule("finance"); activateFinanceTab("km"); activateVehicleKmSubTab("analysis", { scroll: false, instant: true });
           if ($("#vehicleKmVehicleFilter")) $("#vehicleKmVehicleFilter").value = id || "Tümü";
           renderVehicleKmAnalysis(); scrollContentTop();
         }
         if (action === "new-vehicle-km") {
-          activateModule("finance"); activateFinanceTab("km"); clearVehicleKmForm();
+          activateModule("finance"); activateFinanceTab("km"); activateVehicleKmSubTab("analysis", { scroll: false, instant: true }); clearVehicleKmForm();
           if ($("#vehicleKmVehicle")) $("#vehicleKmVehicle").value = id || "";
           scrollContentTop();
         }
@@ -24566,7 +24849,9 @@
       }
 
       window.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") $("#sidebar").classList.remove("open");
+        if (event.key !== "Escape") return;
+        if (quickFinanceEntryOpen()) closeQuickFinanceEntry();
+        else $("#sidebar").classList.remove("open");
       });
     }
 
@@ -24583,7 +24868,7 @@
       admin: {
         modules: ["command", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
-        financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
+        financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: true,
         canManageUsers: true,
         canImport: true,
@@ -24601,7 +24886,7 @@
       accounting: {
         modules: ["school", "finance", "settings"],
         schoolTabs: ["students", "payments", "reports"],
-        financeTabs: ["overview", "flow", "private-use", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
+        financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "accruals", "invoices", "staff", "school", "reports"],
         canDelete: false,
         canManageUsers: false,
         canImport: false,
@@ -24873,6 +25158,7 @@
       $$("#financeTabs [data-finance-tab]").forEach((button) => {
         button.classList.toggle("permission-hidden", !rules.financeTabs.includes(button.dataset.financeTab));
       });
+      $("#quickFinanceEntryBtn")?.classList.toggle("permission-hidden", !rules.modules.includes("finance") || !rules.financeTabs.includes("flow"));
       $$(".admin-only-card").forEach((card) => card.classList.toggle("permission-hidden", !rules.canManageUsers));
 
       const backupCard = $("#backupBtn")?.closest(".settings-panel");
