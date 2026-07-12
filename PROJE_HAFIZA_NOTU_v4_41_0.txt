@@ -1,0 +1,24 @@
+SERVİS YÖNETİM SİSTEMİ — v4.41.0
+
+Web sürümü: 4.41.0
+APK: 1.0.1 / versionCode 2
+Veri şeması: 30
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Temel Kayıtlar tek kayıt merkezi haline getirildi.
+2. Personel Servisi'nden İş/Sözleşme, Firma ve Personel kayıt sekmeleri kaldırıldı.
+3. Okul Servisi'nden Öğrenci, Okul Tanımı ve Rehber kayıt sekmeleri kaldırıldı.
+4. Araç kartları Temel Kayıtlar'da; Personel Servisi'nde yalnız Evrak Dosyaları ve Evrak/Uyarılar kalır.
+5. Temel Kayıtlar üstündeki adım durumu (örn. ✓ 3 kayıt hazır) sabit görünür.
+6. Her sekmede form ve kayıt listesi aynı ekranda bulunur.
+7. Form ve liste panelleri birbirinden bağımsız iç kaydırmaya sahiptir.
+8. Liste satırındaki Düzenle işlemi ilgili Temel Kayıtlar sekmesini açar.
+9. v4.40.1 başlangıç dolumu ve KM yakıt hesabı ayrımı korunmuştur.
+
+VERİ GÜVENLİĞİ:
+- Mevcut kayıtlar korunur.
+- Veri şeması değişmez (30).
+- JSON yedek alınmadan güncelleme yapılmamalıdır.
+- APK yeniden üretilmez; web dosyaları güncellenir.

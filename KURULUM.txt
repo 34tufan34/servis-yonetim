@@ -1,22 +1,22 @@
-SERVİS YÖNETİM SİSTEMİ v4.40.1 — BAŞLANGIÇ YAKITI / KM HESABI DÜZELTMESİ
+SERVİS YÖNETİM SİSTEMİ v4.41.0 — TEMEL KAYITLAR TEK MERKEZ
 
-BU SÜRÜMDE
-- İlk yakıt alımı için “Başlangıç dolumu / depo referansı” seçeneği eklendi.
-- Başlangıç dolumu finans giderinde ve nakit raporlarında aynen kalır.
-- Başlangıç dolumu Yakıt TL/KM, 100 KM yakıt gideri ve L/100 KM hesabına katılmaz.
-- Bir aracın ilk yakıt kaydında seçenek otomatik önerilir.
-- Mevcut kayıtları düzeltmek için KM Analizi tablosunda “İlk Yakıtı Başlangıç Yap” düğmesi eklendi.
-- KM Analizi toplam yakıt ödemesi ile tüketim hesabına giren yakıtı ayrı gösterir.
+BU PAKETTE:
+- Temel Kayıtlar'a taşınan kayıt sekmeleri Personel ve Okul Servisi bölümlerinden kaldırıldı.
+- Araç kartı kaydı Temel Kayıtlar'da kaldı; Personel Servisi altında yalnız Araç Evrakları ve Uyarılar korunur.
+- Temel Kayıtlar ilerleme kartları ve sekmeleri ekranın üstünde sabit görünür.
+- Form ve kayıt listesi aynı sekmede yan yana çalışır.
+- Form alanı ve kayıt listesi kendi içinde bağımsız kayar.
+- Düzenle işlemleri doğrudan ilgili Temel Kayıtlar sekmesini açar.
+- Önceki v4.40.1 başlangıç yakıtı / KM hesabı düzeltmesi korunur.
 
-GITHUB'A YÜKLENECEK DOSYALAR
-1. index.html
-2. sw.js
-3. manifest.webmanifest
-4. KURULUM.txt
-5. PROJE_HAFIZA_NOTU_v4_40_1.txt
+GITHUB ANA DİZİNİNE YÜKLENECEKLER:
+index.html
+sw.js
+manifest.webmanifest
+KURULUM.txt
+PROJE_HAFIZA_NOTU_v4_41_0.txt
 
-COMMIT MESAJI
-v4.40.1 başlangıç yakıtı km hesabı düzeltmesi
+COMMIT MESAJI:
+v4.41.0 temel kayıtlar tek merkez ve sabit panel düzeni
 
-NOT
-APK yeniden oluşturulmaz. Veri şeması 30'dur. Mevcut kayıtlar korunur.
+APK yeniden oluşturulmaz. Veri şeması 30 olarak kalır.
