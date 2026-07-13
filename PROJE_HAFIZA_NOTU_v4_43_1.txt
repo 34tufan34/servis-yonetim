@@ -1,0 +1,22 @@
+SERVİS YÖNETİM SİSTEMİ — v4.43.1
+
+Web sürümü: 4.43.1
+APK: 1.0.2 / versionCode 3
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Şoför Modu ekranındaki panel çakışması düzeltildi.
+2. Canlı Yolcu Yönetimi paneli artık içeriği kadar uzar; işlem düğmeleri panel dışına taşmaz.
+3. Şoför Kısayolları paneli ayrı sütunda ve kendi sınırları içinde kalır.
+4. Yolcu Sırası paneli üst paneller bittikten sonra başlar; üstüne düğme veya kart binmez.
+5. Şoför Modu ekranı gerektiğinde kendi içinde dikey kayar.
+6. Yolcu listesi kendi paneli içinde kaydırılır.
+7. Geniş ekranda işlem düğmeleri üçlü düzende, orta ekranda üçlü, dar ekranda ikili düzende kalır.
+8. v4.43.0’daki Şoför Modu ve Android yerel PDF yazdırma desteği korunur.
+
+VERİ GEÇİŞİ:
+- Veri şeması 31 olarak kalır.
+- Mevcut kayıtlar, servis oturumları ve yoklama verileri korunur.
+- APK yeniden oluşturulmaz; yalnızca web dosyaları güncellenir.

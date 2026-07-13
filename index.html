@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Şoför Modu ve Yerel PDF Yazdırma v4.43.0</title>
+  <title>Servis Yönetim Sistemi | Şoför Modu ve Yerel PDF Yazdırma v4.43.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10552,7 +10552,7 @@
     }
 
 
-    /* v4.43.0 - Şoför modu ve ortak yazdırma merkezi */
+    /* v4.43.1 - Şoför modu ve ortak yazdırma merkezi */
     .driver-dashboard {
       display: grid;
       gap: 16px;
@@ -10820,9 +10820,58 @@
       body.unified-report-printing #unifiedReportPrintPortal tr { break-inside:avoid !important; page-break-inside:avoid !important; }
       .report-preview-back-fab { display:none !important; }
     }
+    /* v4.43.1 - Şoför Modu panel çakışma düzeltmesi */
+    #screen-driver.active {
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 4px;
+      scrollbar-gutter: stable;
+    }
+    .driver-dashboard {
+      min-height: max-content;
+      height: auto;
+      align-content: start;
+      grid-auto-rows: max-content;
+    }
+    .driver-main-grid {
+      align-items: start;
+      grid-auto-rows: max-content;
+    }
+    .driver-current-panel,
+    .driver-shortcuts-panel {
+      align-self: start;
+      height: auto;
+      overflow: visible;
+    }
+    .driver-current-panel {
+      display: flex;
+      flex-direction: column;
+    }
+    .driver-current-card,
+    .driver-action-grid {
+      flex: 0 0 auto;
+      position: static;
+    }
+    .driver-action-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 0;
+    }
+    .driver-passenger-panel {
+      position: relative;
+      z-index: 0;
+      height: auto;
+      overflow: hidden;
+    }
+    .driver-passenger-list {
+      min-height: 260px;
+      max-height: min(48dvh, 520px);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
     @media (max-width: 1050px) {
       .driver-main-grid { grid-template-columns: 1fr; }
       .driver-passenger-list { max-height: 42dvh; }
+      .driver-action-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
       .driver-hero { grid-template-columns: 1fr; }
@@ -11017,7 +11066,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.43.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.43.1</div>
         </div>
       </div>
 
@@ -14408,7 +14457,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.43.0</strong>
+                <strong>v4.43.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14453,8 +14502,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.43.0 - Şoför modu, ortak rapor önizleme ve Android yerel yazdırma desteği.
-    const APP_VERSION = "4.43.0";
+    // v4.43.1 - Şoför modu, ortak rapor önizleme ve Android yerel yazdırma desteği.
+    const APP_VERSION = "4.43.1";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
