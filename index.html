@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Resmî Sayfadan Yakıt Güncelleme v4.42.0</title>
+  <title>Servis Yönetim Sistemi | Personel Raporu ve PDF Düzeltme v4.42.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10138,7 +10138,7 @@
 
   
 
-    /* v4.42.0 - Vardiya, biniş saati ve personel raporu */
+    /* v4.42.1 - Personel raporu, grafikler ve yazdırma düzeltmeleri */
     .job-shift-config {
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 88%, var(--accent) 12%);
@@ -10178,10 +10178,178 @@
     }
     .service-countdown.is-late { border-color: color-mix(in srgb, #f59e0b 55%, var(--border)); background: color-mix(in srgb, #f59e0b 13%, transparent); }
     .service-countdown.is-now { border-color: color-mix(in srgb, #22c55e 55%, var(--border)); background: color-mix(in srgb, #22c55e 13%, transparent); }
-    .personnel-report-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:end; }
+    .personnel-report-controls { align-items: end; }
+    .personnel-report-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      grid-column: 1 / -1;
+      justify-content:flex-start;
+      padding-top: 4px;
+    }
+    .personnel-report-actions .btn { white-space: nowrap; }
     .personnel-report-table .status-cell { min-width: 130px; }
     .personnel-report-table .time-cell { white-space: nowrap; font-variant-numeric: tabular-nums; }
     .personnel-report-table tr.report-missing td { background: color-mix(in srgb, #f59e0b 9%, transparent); }
+    .personnel-report-charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .personnel-report-chart-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: color-mix(in srgb, var(--panel) 86%, rgba(var(--accent-rgb), .08));
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+    .personnel-report-chart-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 12px;
+    }
+    .personnel-report-chart-head h3 {
+      margin:0;
+      font-size: 15px;
+      font-weight: 850;
+    }
+    .personnel-report-chart-head small {
+      color: var(--muted);
+      display:block;
+      margin-top: 3px;
+    }
+    .personnel-report-total-pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .personnel-report-bars {
+      display:grid;
+      gap:10px;
+    }
+    .personnel-report-bar-row {
+      display:grid;
+      grid-template-columns: minmax(96px, 116px) 1fr auto;
+      align-items:center;
+      gap:10px;
+    }
+    .personnel-report-bar-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .personnel-report-bar-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface) 80%, rgba(255,255,255,.06));
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .personnel-report-bar-fill {
+      position:absolute;
+      inset:0 auto 0 0;
+      width:0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(var(--accent-rgb), .85), rgba(var(--accent-rgb), .45));
+    }
+    .personnel-report-bar-fill.ok { background: linear-gradient(90deg, rgba(52,211,153,.95), rgba(16,185,129,.45)); }
+    .personnel-report-bar-fill.warn { background: linear-gradient(90deg, rgba(245,158,11,.95), rgba(251,191,36,.45)); }
+    .personnel-report-bar-fill.risk { background: linear-gradient(90deg, rgba(248,113,113,.96), rgba(239,68,68,.45)); }
+    .personnel-report-bar-fill.info { background: linear-gradient(90deg, rgba(96,165,250,.96), rgba(59,130,246,.45)); }
+    .personnel-report-bar-value {
+      min-width: 58px;
+      text-align: right;
+      font-size: 12px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .personnel-report-trend {
+      display:grid;
+      gap:10px;
+    }
+    .personnel-report-trend-row {
+      display:grid;
+      grid-template-columns: 72px 1fr auto;
+      align-items:center;
+      gap:10px;
+    }
+    .personnel-report-trend-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .personnel-report-stack {
+      display:flex;
+      width:100%;
+      min-height: 12px;
+      border-radius: 999px;
+      overflow:hidden;
+      background: color-mix(in srgb, var(--surface) 80%, rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .personnel-report-stack > span { display:block; min-width: 0; }
+    .personnel-report-stack .ok { background: rgba(16,185,129,.92); }
+    .personnel-report-stack .risk { background: rgba(239,68,68,.88); }
+    .personnel-report-stack .warn { background: rgba(245,158,11,.88); }
+    .personnel-report-stack .muted { background: rgba(148,163,184,.75); }
+    .personnel-report-trend-value {
+      font-size: 11px;
+      color: var(--muted);
+      text-align:right;
+      min-width: 92px;
+      font-variant-numeric: tabular-nums;
+    }
+    .personnel-report-legend {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .personnel-report-legend span { display:inline-flex; align-items:center; gap:6px; }
+    .personnel-report-legend i {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      display:inline-block;
+    }
+    .personnel-report-legend .ok { background: rgba(16,185,129,.92); }
+    .personnel-report-legend .risk { background: rgba(239,68,68,.88); }
+    .personnel-report-legend .warn { background: rgba(245,158,11,.88); }
+    .personnel-report-legend .muted { background: rgba(148,163,184,.75); }
+    .personnel-report-empty-graph {
+      color: var(--muted);
+      font-size: 13px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-align:center;
+      background: rgba(255,255,255,.02);
+    }
+    @media (max-width: 900px) {
+      .personnel-report-actions { flex-direction: row; }
+      .personnel-report-actions .btn { flex: 1 1 180px; }
+      .personnel-report-bar-row { grid-template-columns: 84px 1fr 56px; }
+      .personnel-report-trend-row { grid-template-columns: 62px 1fr auto; }
+    }
+    @media (max-width: 640px) {
+      .personnel-report-actions { flex-direction: column; align-items: stretch; }
+      .personnel-report-actions .btn { width: 100%; }
+      .personnel-report-bar-row,
+      .personnel-report-trend-row { grid-template-columns: 1fr; }
+      .personnel-report-bar-value,
+      .personnel-report-trend-value { text-align: left; min-width: 0; }
+    }
     .document-no-file { color: var(--muted); font-size: 12px; font-weight: 700; }
     .document-actions .btn[disabled] { opacity:.55; cursor:not-allowed; }
     @media (max-width: 980px) {
@@ -10369,7 +10537,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.42.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.42.1</div>
         </div>
       </div>
 
@@ -10577,7 +10745,7 @@
             <p>Araç, firma, sözleşme, personel, okul, öğrenci ve rehber kayıtlarını önerilen sırayla tek merkezden tamamla. Bu alan mevcut kayıt formlarını kullanır; girilen bilgiler doğrudan ilgili Personel Servisi ve Okul Servisi bölümlerine kaydedilir.</p>
           </div>
           <div class="registry-progress-ring" id="registryProgressRing" style="--registry-progress:0%">
-            <span><strong id="registryProgressValue">0/7</strong><small>TEMEL ADIM</small></span>
+            <span><strong id="registryProgressValue">0/7</strong><small id="registryProgressLabel">TEMEL ADIM · %0</small></span>
           </div>
         </section>
 
@@ -11370,6 +11538,7 @@
               </div>
             </div>
             <div class="service-summary" id="personnelReportSummary"></div>
+            <div class="personnel-report-charts" id="personnelReportCharts"></div>
             <div class="service-list-host personnel-report-table" id="personnelReportTableHost"></div>
           </div>
         </div>
@@ -13688,7 +13857,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.42.0</strong>
+                <strong>v4.42.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -13717,8 +13886,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.42.0 - Vardiya, biniş saati, personel yoklama raporu ve dosyasız evrak kaydı.
-    const APP_VERSION = "4.42.0";
+    // v4.42.1 - Personel yoklama raporu iyileştirmeleri, PDF düzeltmesi ve temel kayıt ilerleme grafiği.
+    const APP_VERSION = "4.42.1";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -19767,6 +19936,167 @@
 
     function personnelReportCompany() { return $("#personnelReportCompany")?.value || ""; }
     function personnelReportMonth() { return $("#personnelReportMonth")?.value || currentMonthISO(); }
+    function personnelReportJobId() { return $("#personnelReportJob")?.value || "Tümü"; }
+    function personnelReportShiftFilter() { return $("#personnelReportShift")?.value || "Tümü"; }
+
+    function personBelongsToReportCompany(person, companyId, routeId = "") {
+      if (!person) return false;
+      return String(person.companyId || "") === String(companyId || "") || (!person.companyId && routeId && String(person.routeId || "") === String(routeId));
+    }
+
+    function personMatchesReportJob(person, job) {
+      if (!job) return true;
+      const company = getCompany(job.companyId);
+      const routeId = company?.routeId || "";
+      if (!personBelongsToReportCompany(person, job.companyId, routeId)) return false;
+      return true;
+    }
+
+    function personMatchesReportShift(person, shiftFilter, job = null) {
+      if (!person) return false;
+      if (!shiftFilter || shiftFilter === "Tümü") return true;
+      if (normalize(person.shift) === normalize(shiftFilter)) return true;
+      if (job) {
+        return normalizeJobShifts(job).some((shift) => normalize(shift.name) === normalize(shiftFilter) && personMatchesShift(person, shift));
+      }
+      return false;
+    }
+
+    function reportShiftNameFromKey(job, shiftKey) {
+      if (!shiftKey) return "";
+      return jobShiftByKey(job, shiftKey)?.name || "";
+    }
+
+    function buildPersonnelReportAnalytics(rows) {
+      const totals = { total: rows.length, came: 0, absent: 0, leave: 0, incomplete: 0 };
+      const byDate = new Map();
+      rows.forEach((row) => {
+        if (row.dayStatus.startsWith("Geldi")) totals.came += 1;
+        else if (row.dayStatus === "Gelmedi") totals.absent += 1;
+        else if (row.dayStatus === "İzinli") totals.leave += 1;
+        else totals.incomplete += 1;
+        const key = row.date;
+        if (!byDate.has(key)) byDate.set(key, { date: key, came: 0, absent: 0, leave: 0, incomplete: 0 });
+        const bucket = byDate.get(key);
+        if (row.dayStatus.startsWith("Geldi")) bucket.came += 1;
+        else if (row.dayStatus === "Gelmedi") bucket.absent += 1;
+        else if (row.dayStatus === "İzinli") bucket.leave += 1;
+        else bucket.incomplete += 1;
+      });
+      return { totals, byDate: [...byDate.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))) };
+    }
+
+    function renderPersonnelReportCharts(rows) {
+      const host = $("#personnelReportCharts");
+      if (!host) return;
+      if (!rows.length) {
+        host.innerHTML = '<div class="personnel-report-empty-graph">Grafik oluşturmak için seçilen filtrelerde yoklama kaydı bulunmuyor.</div>';
+        return;
+      }
+      const analytics = buildPersonnelReportAnalytics(rows);
+      const totals = analytics.totals;
+      const statusBars = [
+        { label: "Geldi", value: totals.came, tone: "ok" },
+        { label: "Gelmedi", value: totals.absent, tone: "risk" },
+        { label: "İzinli", value: totals.leave, tone: "warn" },
+        { label: "Eksik", value: totals.incomplete, tone: "info" }
+      ];
+      const maxStatus = Math.max(1, ...statusBars.map((item) => item.value));
+      const trendRows = analytics.byDate.slice(-10);
+      const maxTrend = Math.max(1, ...trendRows.map((item) => item.came + item.absent + item.leave + item.incomplete));
+      host.innerHTML = `
+        <section class="personnel-report-chart-card">
+          <div class="personnel-report-chart-head">
+            <div><h3>Durum Dağılımı</h3><small>Geldi, gelmedi, izinli ve eksik kayıt toplamları.</small></div>
+            <div class="personnel-report-total-pill">Toplam ${escapeHtml(String(totals.total))} kayıt</div>
+          </div>
+          <div class="personnel-report-bars">
+            ${statusBars.map((item) => `
+              <div class="personnel-report-bar-row">
+                <div class="personnel-report-bar-label">${escapeHtml(item.label)}</div>
+                <div class="personnel-report-bar-track"><span class="personnel-report-bar-fill ${item.tone}" style="width:${Math.round(item.value / maxStatus * 100)}%"></span></div>
+                <div class="personnel-report-bar-value">${escapeHtml(String(item.value))}</div>
+              </div>`).join("")}
+          </div>
+        </section>
+        <section class="personnel-report-chart-card">
+          <div class="personnel-report-chart-head">
+            <div><h3>Günlük Yoklama Eğilimi</h3><small>Son 10 kayıt gününde günlük dağılım.</small></div>
+            <div class="personnel-report-total-pill">${escapeHtml(String(trendRows.length))} gün</div>
+          </div>
+          <div class="personnel-report-trend">
+            ${trendRows.map((item) => {
+              const dayTotal = item.came + item.absent + item.leave + item.incomplete;
+              const unit = maxTrend ? (100 / maxTrend) : 0;
+              return `
+                <div class="personnel-report-trend-row">
+                  <div class="personnel-report-trend-label">${escapeHtml(jobDateText(item.date).slice(0, 5))}</div>
+                  <div class="personnel-report-stack">
+                    <span class="ok" style="width:${item.came * unit}%"></span>
+                    <span class="risk" style="width:${item.absent * unit}%"></span>
+                    <span class="warn" style="width:${item.leave * unit}%"></span>
+                    <span class="muted" style="width:${item.incomplete * unit}%"></span>
+                  </div>
+                  <div class="personnel-report-trend-value">${escapeHtml(String(dayTotal))} kayıt</div>
+                </div>`;
+            }).join("")}
+          </div>
+          <div class="personnel-report-legend">
+            <span><i class="ok"></i>Geldi</span>
+            <span><i class="risk"></i>Gelmedi</span>
+            <span><i class="warn"></i>İzinli</span>
+            <span><i class="muted"></i>Eksik</span>
+          </div>
+        </section>`;
+    }
+
+    function printHtmlWithFrame(title, html) {
+      const existing = document.querySelectorAll('.finance-print-frame.personnel-print-frame');
+      existing.forEach((frame) => frame.remove());
+      const frame = document.createElement('iframe');
+      frame.className = 'finance-print-frame personnel-print-frame';
+      frame.style.position = 'fixed';
+      frame.style.right = '0';
+      frame.style.bottom = '0';
+      frame.style.width = '0';
+      frame.style.height = '0';
+      frame.style.border = '0';
+      frame.style.opacity = '0';
+      document.body.appendChild(frame);
+      const cleanup = () => {
+        window.setTimeout(() => {
+          try { frame.remove(); } catch (error) {}
+        }, 120);
+      };
+      const doc = frame.contentWindow?.document;
+      if (!doc || !frame.contentWindow) {
+        cleanup();
+        showToast('Yazdırma belgesi hazırlanamadı.');
+        return;
+      }
+      doc.open();
+      doc.write(html);
+      doc.close();
+      frame.onload = () => {
+        const win = frame.contentWindow;
+        if (!win) {
+          cleanup();
+          showToast('Yazdırma penceresi açılamadı.');
+          return;
+        }
+        win.addEventListener('afterprint', cleanup, { once: true });
+        window.setTimeout(() => {
+          try {
+            win.focus();
+            win.print();
+          } catch (error) {
+            cleanup();
+            showToast('Yazdırma başlatılamadı.');
+          }
+        }, 260);
+        window.setTimeout(cleanup, 15000);
+      };
+    }
 
     function renderPersonnelAttendanceReportOptions() {
       const companySelect = $("#personnelReportCompany");
@@ -19780,14 +20110,18 @@
       companySelect.innerHTML = ['<option value="">Firma seçin</option>'].concat(companies.map((company)=>`<option value="${escapeHtml(company.id)}">${escapeHtml(company.name)}</option>`)).join("");
       companySelect.value = companies.some((company)=>company.id===selectedCompany) ? selectedCompany : (companies[0]?.id || "");
       const companyId = companySelect.value || "";
-      const selectedJob = jobSelect.value || "Tümü";
+      const preservedJob = jobSelect.value || "Tümü";
       const jobs = state.jobs.filter((job)=>!companyId||job.companyId===companyId).sort((a,b)=>String(a.name).localeCompare(String(b.name),"tr-TR"));
       jobSelect.innerHTML = ['<option value="Tümü">İş / Sözleşme: Tümü</option>'].concat(jobs.map((job)=>`<option value="${escapeHtml(job.id)}">${escapeHtml(job.name)}</option>`)).join("");
-      jobSelect.value = [...jobSelect.options].some((option)=>option.value===selectedJob) ? selectedJob : "Tümü";
+      jobSelect.value = [...jobSelect.options].some((option)=>option.value===preservedJob) ? preservedJob : "Tümü";
+      const activeJob = jobSelect.value !== "Tümü" ? getJob(jobSelect.value) : null;
+      const routeId = getCompany(companyId)?.routeId || "";
       const selectedShift = shiftSelect.value || "Tümü";
       const shifts = [...new Set([
-        ...state.people.filter((person)=>!companyId||person.companyId===companyId).map((person)=>person.shift),
-        ...jobs.flatMap((job)=>normalizeJobShifts(job).map((shift)=>shift.name))
+        ...state.people
+          .filter((person)=>personBelongsToReportCompany(person, companyId, routeId) && personMatchesReportJob(person, activeJob))
+          .map((person)=>person.shift),
+        ...(activeJob ? normalizeJobShifts(activeJob).map((shift)=>shift.name) : jobs.flatMap((job)=>normalizeJobShifts(job).map((shift)=>shift.name)))
       ].filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"tr-TR"));
       shiftSelect.innerHTML = ['<option value="Tümü">Vardiya: Tümü</option>'].concat(shifts.map((shift)=>`<option value="${escapeHtml(shift)}">${escapeHtml(shift)}</option>`)).join("");
       shiftSelect.value = [...shiftSelect.options].some((option)=>option.value===selectedShift) ? selectedShift : "Tümü";
@@ -19796,27 +20130,30 @@
     function personnelAttendanceReportRows() {
       const companyId = personnelReportCompany();
       const month = personnelReportMonth();
-      const jobId = $("#personnelReportJob")?.value || "Tümü";
-      const shiftFilter = $("#personnelReportShift")?.value || "Tümü";
+      const jobId = personnelReportJobId();
+      const shiftFilter = personnelReportShiftFilter();
       const company = getCompany(companyId);
+      const selectedJob = jobId !== "Tümü" ? getJob(jobId) : null;
       if (!company) return [];
 
       const routeId = company.routeId || "";
       const people = state.people.filter((person) => {
-        const belongs = person.companyId === companyId || (!person.companyId && person.routeId === routeId);
-        const shiftMatches = shiftFilter === "Tümü" || normalize(person.shift) === normalize(shiftFilter);
-        return belongs && shiftMatches;
+        const belongs = personBelongsToReportCompany(person, companyId, routeId);
+        const jobMatches = personMatchesReportJob(person, selectedJob);
+        const shiftMatches = personMatchesReportShift(person, shiftFilter, selectedJob);
+        return belongs && jobMatches && shiftMatches;
       });
 
-      const relevantSessions = state.serviceSessions.filter((session) => {
-        if (session.routeId !== routeId || !String(session.date || "").startsWith(month)) return false;
+      const allMonthSessions = state.serviceSessions.filter((session) => session.routeId === routeId && String(session.date || "").startsWith(month));
+      let relevantSessions = allMonthSessions.filter((session) => {
         if (jobId !== "Tümü" && String(session.jobId || "") !== String(jobId)) return false;
         if (shiftFilter !== "Tümü") {
-          const shiftName = session.shiftName || jobShiftByKey(getJob(session.jobId), session.shiftKey)?.name || "";
-          if (shiftName && normalize(shiftName) !== normalize(shiftFilter)) return false;
+          const sessionShiftName = session.shiftName || reportShiftNameFromKey(getJob(session.jobId), session.shiftKey) || "";
+          if (sessionShiftName && normalize(sessionShiftName) !== normalize(shiftFilter)) return false;
         }
         return true;
       });
+      if (!relevantSessions.length && (jobId !== "Tümü" || shiftFilter !== "Tümü")) relevantSessions = allMonthSessions;
 
       const dates = new Set();
       state.attendance
@@ -19827,34 +20164,43 @@
       const rows = [];
       [...dates].sort().forEach((date) => {
         const dateSessions = relevantSessions.filter((session) => session.date === date);
+        const fallbackDateSessions = allMonthSessions.filter((session) => session.date === date);
+        const scopedSessions = dateSessions.length ? dateSessions : fallbackDateSessions;
         people.forEach((person) => {
           const record = getAttendance(date, routeId, person.id);
           const recordJobIds = record ? [record.morningJobId, record.eveningJobId].filter(Boolean) : [];
           const recordShiftKeys = record ? [record.morningShiftKey, record.eveningShiftKey].filter(Boolean) : [];
-
-          let sessionApplies = dateSessions.length === 0;
-          if (dateSessions.length) {
-            sessionApplies = dateSessions.some((session) => {
-              const sessionShift = jobShiftByKey(getJob(session.jobId), session.shiftKey);
-              return !sessionShift || personMatchesShift(person, sessionShift);
-            });
-          }
-          if (!sessionApplies) return;
+          const recordJobs = [...new Set(recordJobIds.map((id) => getJob(id)).filter(Boolean))];
 
           if (jobId !== "Tümü") {
-            const hasMatchingRecordJob = recordJobIds.includes(jobId);
-            const hasMatchingSession = dateSessions.some((session) => String(session.jobId || "") === String(jobId));
-            if (recordJobIds.length && !hasMatchingRecordJob) return;
-            if (!recordJobIds.length && !hasMatchingSession) return;
+            const hasMatchingRecordJob = recordJobIds.some((id) => String(id) === String(jobId));
+            const hasOtherRecordJob = recordJobIds.length > 0 && !hasMatchingRecordJob;
+            const hasMatchingSession = scopedSessions.some((session) => String(session.jobId || "") === String(jobId) && (!session.shiftKey || personMatchesShift(person, jobShiftByKey(getJob(session.jobId), session.shiftKey))));
+            if (hasOtherRecordJob && !hasMatchingRecordJob) return;
+            if (!recordJobIds.length && dateSessions.length && !hasMatchingSession) return;
           }
 
-          if (shiftFilter !== "Tümü" && recordShiftKeys.length) {
-            const selectedJob = jobId !== "Tümü" ? getJob(jobId) : null;
-            const selectedShiftKeys = selectedJob
-              ? normalizeJobShifts(selectedJob).filter((item) => normalize(item.name) === normalize(shiftFilter)).map((item) => item.key)
+          if (shiftFilter !== "Tümü") {
+            const shiftKeysFromSelectedJob = selectedJob
+              ? normalizeJobShifts(selectedJob).filter((item) => normalize(item.name) === normalize(shiftFilter)).map((item) => String(item.key))
               : [];
-            if (selectedShiftKeys.length && !recordShiftKeys.some((key) => selectedShiftKeys.includes(key))) return;
+            const recordShiftMatch = recordShiftKeys.length
+              ? recordShiftKeys.some((key) => !shiftKeysFromSelectedJob.length || shiftKeysFromSelectedJob.includes(String(key)))
+              : personMatchesReportShift(person, shiftFilter, selectedJob || recordJobs[0] || null);
+            const sessionShiftMatch = scopedSessions.length
+              ? scopedSessions.some((session) => {
+                  const sessionShiftName = session.shiftName || reportShiftNameFromKey(getJob(session.jobId), session.shiftKey) || "";
+                  return !sessionShiftName || normalize(sessionShiftName) === normalize(shiftFilter);
+                })
+              : true;
+            if (!recordShiftMatch && !sessionShiftMatch) return;
           }
+
+          const sessionApplies = scopedSessions.length === 0 || scopedSessions.some((session) => {
+            const sessionShift = jobShiftByKey(getJob(session.jobId), session.shiftKey);
+            return !sessionShift || personMatchesShift(person, sessionShift);
+          });
+          if (!sessionApplies) return;
 
           const safeRecord = record || { date, routeId, personId: person.id, morning: "", evening: "" };
           const morning = displayAttendanceStatus(person, safeRecord, "morning", date);
@@ -19883,24 +20229,35 @@
     }
 
     function renderPersonnelAttendanceReport() {
-      const summary=$("#personnelReportSummary"), host=$("#personnelReportTableHost");
-      if (!summary||!host) return;
+      const summary = $("#personnelReportSummary");
+      const host = $("#personnelReportTableHost");
+      const chartHost = $("#personnelReportCharts");
+      if (!summary || !host || !chartHost) return;
       renderPersonnelAttendanceReportOptions();
-      const company=getCompany(personnelReportCompany());
-      if (!company) { summary.innerHTML=""; host.innerHTML='<div class="service-empty">Rapor için firma seç.</div>'; return; }
-      const rows=personnelAttendanceReportRows();
-      const came=rows.filter((row)=>row.dayStatus.startsWith("Geldi")).length;
-      const absent=rows.filter((row)=>row.dayStatus==="Gelmedi").length;
-      const leave=rows.filter((row)=>row.dayStatus==="İzinli").length;
-      const incomplete=rows.filter((row)=>row.dayStatus==="Eksik Kayıt").length;
-      const uniquePeople=new Set(rows.map((row)=>row.person.id)).size;
-      summary.innerHTML=[
+      const company = getCompany(personnelReportCompany());
+      if (!company) {
+        summary.innerHTML = "";
+        chartHost.innerHTML = "";
+        host.innerHTML = '<div class="service-empty">Rapor için firma seç.</div>';
+        return;
+      }
+      const rows = personnelAttendanceReportRows();
+      const came = rows.filter((row)=>row.dayStatus.startsWith("Geldi")).length;
+      const absent = rows.filter((row)=>row.dayStatus==="Gelmedi").length;
+      const leave = rows.filter((row)=>row.dayStatus==="İzinli").length;
+      const incomplete = rows.filter((row)=>row.dayStatus==="Eksik Kayıt").length;
+      const uniquePeople = new Set(rows.map((row)=>row.person.id)).size;
+      summary.innerHTML = [
         {label:"Firma",value:company.name,risk:false},{label:"Raporlanan Personel",value:`${uniquePeople} kişi`,risk:false},
         {label:"Geldi",value:`${came} kayıt`,risk:false},{label:"Gelmedi",value:`${absent} kayıt`,risk:absent>0},
         {label:"İzinli",value:`${leave} kayıt`,risk:false},{label:"Eksik Kayıt",value:`${incomplete} kayıt`,risk:incomplete>0}
       ].map((chip)=>`<div class="insight-chip ${chip.risk?"risk":""}"><div class="insight-label">${escapeHtml(chip.label)}</div><div class="insight-value">${escapeHtml(chip.value)}</div></div>`).join("");
-      if (!rows.length) { host.innerHTML=`<div class="service-empty">${escapeHtml(company.name)} için seçilen ayda yoklama kaydı bulunmuyor.</div>`; return; }
-      host.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Personel</th><th>Vardiya</th><th>Planlanan Biniş</th><th>Gerçek Biniş</th><th>Gerçek İniş</th><th>Sabah</th><th>Akşam</th><th>Gün Sonucu</th></tr></thead><tbody>${rows.map((row)=>`<tr class="${row.dayStatus==="Eksik Kayıt"?"report-missing":""}"><td><strong>${escapeHtml(jobDateText(row.date))}</strong></td><td><strong>${escapeHtml(row.person.name)}</strong><br><span class="muted">${escapeHtml(row.person.employeeNo||"Sicil yok")}</span></td><td>${escapeHtml(row.person.shift||"-")}</td><td class="time-cell">${escapeHtml(row.person.boardingTime||"-")}</td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.boardingAt))}</strong></td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.alightingAt))}</strong></td><td><span class="pill ${statusClass(row.morning)}">${escapeHtml(row.morning)}</span></td><td><span class="pill ${statusClass(row.evening)}">${escapeHtml(row.evening)}</span></td><td class="status-cell"><strong>${escapeHtml(row.dayStatus)}</strong></td></tr>`).join("")}</tbody></table></div>`;
+      renderPersonnelReportCharts(rows);
+      if (!rows.length) {
+        host.innerHTML = `<div class="service-empty">${escapeHtml(company.name)} için seçilen ayda yoklama kaydı bulunmuyor.</div>`;
+        return;
+      }
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Personel</th><th>Vardiya</th><th>Planlanan Biniş</th><th>Gerçek Biniş</th><th>Gerçek İniş</th><th>Sabah</th><th>Akşam</th><th>Gün Sonucu</th></tr></thead><tbody>${rows.map((row)=>`<tr class="${row.dayStatus==="Eksik Kayıt"?"report-missing":""}"><td><strong>${escapeHtml(jobDateText(row.date))}</strong></td><td><strong>${escapeHtml(row.person.name)}</strong><br><span class="muted">${escapeHtml(row.person.employeeNo||"Sicil yok")}</span></td><td>${escapeHtml(row.person.shift||"-")}</td><td class="time-cell">${escapeHtml(row.person.boardingTime||"-")}</td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.boardingAt))}</strong></td><td class="time-cell"><strong>${escapeHtml(attendanceClock(row.alightingAt))}</strong></td><td><span class="pill ${statusClass(row.morning)}">${escapeHtml(row.morning)}</span></td><td><span class="pill ${statusClass(row.evening)}">${escapeHtml(row.evening)}</span></td><td class="status-cell"><strong>${escapeHtml(row.dayStatus)}</strong></td></tr>`).join("")}</tbody></table></div>`;
     }
 
     function exportPersonnelAttendanceCsv() {
@@ -19915,13 +20272,44 @@
 
     function printPersonnelAttendanceReport() {
       renderPersonnelAttendanceReport();
-      const company=getCompany(personnelReportCompany()), table=$("#personnelReportTableHost")?.innerHTML||"";
-      if (!company||!table||table.includes("service-empty")) { showToast("Yazdırılacak personel yoklama kaydı yok."); return; }
-      const win=window.open("", "_blank");
-      if (!win) { showToast("Yazdırma penceresi açılamadı."); return; }
-      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(company.name)} Personel Yoklama</title><style>body{font-family:Arial,sans-serif;color:#111;padding:24px}h1{font-size:22px;margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;vertical-align:top;text-align:left}th{background:#eef2f3}strong{font-weight:700}.muted{color:#666}.pill{display:inline-block;border:1px solid #aaa;border-radius:999px;padding:2px 6px}@page{size:A4 landscape;margin:10mm}</style></head><body><h1>${escapeHtml(company.name)} · Personel Yoklama Raporu</h1><p>Dönem: ${escapeHtml(personnelReportMonth())} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>${table}</body></html>`);
-      win.document.close();win.focus();window.setTimeout(()=>win.print(),250);
+      const company = getCompany(personnelReportCompany());
+      const summary = $("#personnelReportSummary")?.innerHTML || "";
+      const charts = $("#personnelReportCharts")?.innerHTML || "";
+      const table = $("#personnelReportTableHost")?.innerHTML || "";
+      if (!company || !table || table.includes("service-empty")) {
+        showToast("Yazdırılacak personel yoklama kaydı yok.");
+        return;
+      }
+      const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(company.name)} Personel Yoklama</title><style>
+        html,body{margin:0;padding:0;background:#fff !important;color:#111827;font-family:Arial,Helvetica,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        body{padding:18px}
+        h1{font-size:22px;margin:0 0 4px}
+        p{margin:0 0 16px;color:#4b5563;font-size:12px}
+        .print-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px}
+        .insight-chip{border:1px solid #d1d5db;border-radius:14px;padding:10px 12px;background:#f9fafb}
+        .insight-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-bottom:4px}
+        .insight-value{font-size:14px;font-weight:700;color:#111827}
+        .print-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 14px}
+        .personnel-report-chart-card{border:1px solid #d1d5db;border-radius:16px;padding:12px;background:#fff}
+        .personnel-report-chart-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;align-items:flex-start}
+        .personnel-report-chart-head h3{margin:0;font-size:14px}.personnel-report-chart-head small{display:block;color:#6b7280;font-size:11px;margin-top:2px}
+        .personnel-report-total-pill{padding:5px 8px;border-radius:999px;background:#eef2ff;color:#1f2937;font-size:11px;font-weight:700;white-space:nowrap}
+        .personnel-report-bars,.personnel-report-trend{display:grid;gap:8px}
+        .personnel-report-bar-row{display:grid;grid-template-columns:92px 1fr 46px;gap:8px;align-items:center}
+        .personnel-report-trend-row{display:grid;grid-template-columns:60px 1fr 74px;gap:8px;align-items:center}
+        .personnel-report-bar-label,.personnel-report-trend-label{font-size:11px;font-weight:700;color:#4b5563}
+        .personnel-report-bar-track,.personnel-report-stack{background:#edf2f7;border-radius:999px;overflow:hidden;min-height:10px}
+        .personnel-report-bar-fill,.personnel-report-stack>span{display:block;height:10px}
+        .personnel-report-bar-fill.ok,.personnel-report-stack .ok{background:#10b981}.personnel-report-bar-fill.risk,.personnel-report-stack .risk{background:#ef4444}.personnel-report-bar-fill.warn,.personnel-report-stack .warn{background:#f59e0b}.personnel-report-bar-fill.info,.personnel-report-stack .muted{background:#94a3b8}
+        .personnel-report-bar-value,.personnel-report-trend-value{font-size:10px;text-align:right;color:#374151}
+        .personnel-report-stack{display:flex}
+        .personnel-report-legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:10px;font-size:10px;color:#4b5563}.personnel-report-legend span{display:inline-flex;align-items:center;gap:5px}.personnel-report-legend i{width:10px;height:10px;border-radius:999px;display:inline-block}.personnel-report-legend .ok{background:#10b981}.personnel-report-legend .risk{background:#ef4444}.personnel-report-legend .warn{background:#f59e0b}.personnel-report-legend .muted{background:#94a3b8}
+        table{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed}th,td{border:1px solid #d1d5db;padding:6px;vertical-align:top;text-align:left;word-break:break-word}th{background:#f3f4f6}strong{font-weight:700}.muted{color:#6b7280}.pill{display:inline-block;border:1px solid #9ca3af;border-radius:999px;padding:2px 6px;font-size:10px}.time-cell{white-space:nowrap}.status-cell{min-width:120px}.report-missing td{background:#fef3c7 !important}@page{size:A4 landscape;margin:10mm}
+      </style></head><body><h1>${escapeHtml(company.name)} · Personel Yoklama Raporu</h1><p>Dönem: ${escapeHtml(personnelReportMonth())} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p><div class="print-summary">${summary}</div><div class="print-charts">${charts}</div>${table}</body></html>`;
+      printHtmlWithFrame(`${company.name} Personel Yoklama`, html);
+      showToast('Personel yoklama raporu yazdırma penceresi açılıyor. PDF olarak kaydet seçeneğini kullanabilirsin.');
     }
+
     function renderSchoolReportOptions() {
       const schoolSelect = $("#schoolReportSchool");
       const monthInput = $("#schoolReportMonth");
@@ -24635,6 +25023,7 @@
       const percentage = Math.round(completed / entries.length * 100);
       $("#registryProgressRing")?.style.setProperty("--registry-progress", `${percentage}%`);
       if ($("#registryProgressValue")) $("#registryProgressValue").textContent = `${completed}/${entries.length}`;
+      if ($("#registryProgressLabel")) $("#registryProgressLabel").textContent = `TAMAMLANMA · %${percentage}`;
 
       flow.innerHTML = entries.map(([key, definition]) => {
         const count = Number(definition.count()) || 0;
