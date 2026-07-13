@@ -14,6 +14,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -40,9 +44,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.json.JSONObject;
+
 public class MainActivity extends Activity {
     private static final int FILE_CHOOSER_REQUEST = 1001;
     private static final int LOCATION_PERMISSION_REQUEST = 1002;
+    private static final int VOICE_RECOGNITION_REQUEST = 1003;
+    private static final int MICROPHONE_PERMISSION_REQUEST = 1004;
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -51,6 +59,7 @@ public class MainActivity extends Activity {
     private String pendingGeoOrigin;
     private AndroidBridge androidBridge;
     private String nativeBridgeScript = "";
+    private String pendingVoicePrompt = "Şoför komutunu söyleyin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +310,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == VOICE_RECOGNITION_REQUEST) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String spoken = results != null && !results.isEmpty() ? results.get(0) : "";
+                deliverVoiceResult(spoken, spoken.trim().isEmpty() ? "Ses algılanamadı." : "");
+            } else {
+                deliverVoiceResult("", "Sesli komut iptal edildi.");
+            }
+            return;
+        }
+
         if (requestCode != FILE_CHOOSER_REQUEST || pendingFileCallback == null) return;
 
         Uri[] results = null;
@@ -335,16 +356,100 @@ public class MainActivity extends Activity {
             pendingGeoCallback.invoke(pendingGeoOrigin, granted, granted);
             pendingGeoCallback = null;
             pendingGeoOrigin = null;
+            return;
+        }
+        if (requestCode == MICROPHONE_PERMISSION_REQUEST) {
+            boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (granted) launchVoiceRecognizer();
+            else deliverVoiceResult("", "Mikrofon izni verilmedi.");
         }
     }
 
-    @Override
-    public void onBackPressed() {
+    void startVoiceRecognition(String prompt) {
+        runOnUiThread(() -> {
+            pendingVoicePrompt = prompt == null || prompt.trim().isEmpty()
+                    ? "Şoför komutunu söyleyin"
+                    : prompt.trim();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_REQUEST);
+                return;
+            }
+            launchVoiceRecognizer();
+        });
+    }
+
+    private void launchVoiceRecognizer() {
+        try {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "tr-TR");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "tr-TR");
+            intent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, false);
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, pendingVoicePrompt);
+            intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+            startActivityForResult(intent, VOICE_RECOGNITION_REQUEST);
+        } catch (ActivityNotFoundException error) {
+            deliverVoiceResult("", "Bu cihazda ses tanıma hizmeti bulunamadı.");
+        } catch (Exception error) {
+            deliverVoiceResult("", "Sesli komut başlatılamadı.");
+        }
+    }
+
+    private void deliverVoiceResult(String spokenText, String errorMessage) {
+        if (webView == null) return;
+        String spoken = spokenText == null ? "" : spokenText;
+        String error = errorMessage == null ? "" : errorMessage;
+        String script = "(function(){if(window.__servisReceiveVoiceCommand){window.__servisReceiveVoiceCommand("
+                + JSONObject.quote(spoken) + "," + JSONObject.quote(error) + ");}})();";
+        webView.post(() -> webView.evaluateJavascript(script, null));
+    }
+
+    void printCurrentPage(String requestedTitle) {
+        runOnUiThread(() -> {
+            if (webView == null) {
+                Toast.makeText(this, "Yazdırılacak sayfa bulunamadı.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            try {
+                String title = requestedTitle == null || requestedTitle.trim().isEmpty()
+                        ? "Servis Yönetim Sistemi Raporu"
+                        : requestedTitle.trim();
+                PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+                PrintDocumentAdapter adapter = webView.createPrintDocumentAdapter(title);
+                PrintAttributes attributes = new PrintAttributes.Builder()
+                        .setMediaSize(PrintAttributes.MediaSize.ISO_A4.asLandscape())
+                        .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                        .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                        .build();
+                printManager.print(title, adapter, attributes);
+            } catch (Exception error) {
+                Toast.makeText(this, "Android yazdırma ekranı açılamadı.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void performDefaultBack() {
         if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView == null) {
+            super.onBackPressed();
+            return;
+        }
+        webView.evaluateJavascript(
+                "(function(){try{return !!(window.__servisHandleAndroidBack && window.__servisHandleAndroidBack());}catch(e){return false;}})()",
+                value -> {
+                    if ("true".equals(value)) return;
+                    performDefaultBack();
+                }
+        );
     }
 
     @Override

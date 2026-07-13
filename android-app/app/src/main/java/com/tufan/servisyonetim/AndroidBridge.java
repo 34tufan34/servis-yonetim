@@ -48,6 +48,16 @@ public final class AndroidBridge {
         return AppConfig.WEB_VERSION;
     }
 
+    @JavascriptInterface
+    public void printCurrentPage(String jobName) {
+        activity.printCurrentPage(jobName);
+    }
+
+    @JavascriptInterface
+    public void startVoiceRecognition(String prompt) {
+        activity.startVoiceRecognition(prompt);
+    }
+
 
     /**
      * Lisans isteğini Android'in yerel ağ katmanından gönderir.
