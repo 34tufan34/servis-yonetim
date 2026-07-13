@@ -1,25 +1,28 @@
-SERVİS YÖNETİM SİSTEMİ v4.44.2 — TEMEL KAYITLAR İLERLEME DÜZENİ
+SERVİS YÖNETİM SİSTEMİ v4.45.0 — TEK PANEL ŞOFÖR MODU
 
-WEB SÜRÜMÜ: 4.44.2
+WEB SÜRÜMÜ: 4.45.0
 APK SÜRÜMÜ: 1.0.4 / versionCode 5
 VERİ ŞEMASI: 31
 
 BU SÜRÜMDE:
-- Temel Kayıtlar ekranının üstündeki geniş boş alan kaldırıldı.
-- 4/7 halka grafik, daha az yer kaplayan yatay ilerleme çubuğuna çevrildi.
-- Tamamlanan temel adım sayısı çubuğun solunda görünür.
-- İlerleme çubuğu masaüstü, tablet ve telefon genişliklerine uyumlu hale getirildi.
-- Şoför Modu, sesli komutlar, Android PDF sistemi ve mevcut kayıt yapısı korunur.
+- Sesli Komut düğmesi modern, yuvarlak ve dokunmatik kullanıma uygun hale getirildi.
+- Şoför Modu servis başlatma dahil tek operasyon paneline dönüştürüldü.
+- Personel ve okul servisi başka panele geçmeden Şoför Modu içinden başlatılır.
+- Sıradaki yolcu, tüm yolcu listesi ve Bindi / İndi / Yok / İzinli durumları aynı ekranda görünür.
+- Yolcu satırlarına tek dokunuşla Aldım / İndi, Yok ve İzinli işlemleri eklendi.
+- Yolcu arama, yolcu haritası, sıralı rota, önceki / sonraki ve servis bitirme aynı panelde tutulur.
+- Sesli servis başlatma ve saha komutları başka modüle yönlendirme yapmadan çalışır.
+- v4.44.2 Temel Kayıtlar ilerleme çubuğu, Android ses tanıma ve PDF sistemi korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEK DOSYALAR:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_44_2.txt
+PROJE_HAFIZA_NOTU_v4_45_0.txt
 
 COMMIT MESAJI:
-v4.44.2 temel kayıtlar boşluk ve ilerleme çubuğu düzeltmesi
+v4.45.0 tek panel şoför modu ve modern sesli komut düğmesi
 
 Bu güncelleme yalnızca web arayüzü değişikliğidir.
 APK yeniden oluşturulmaz. Mevcut APK 1.0.4 kullanılmaya devam eder.

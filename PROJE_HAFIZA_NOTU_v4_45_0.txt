@@ -1,0 +1,34 @@
+SERVİS YÖNETİM SİSTEMİ — v4.45.0
+
+Web sürümü: 4.45.0
+APK: 1.0.4 / versionCode 5
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Şoför Modu sesli komut düğmesi modern, tam yuvarlak ve dokunmatik kullanıma uygun hale getirildi.
+2. Dinleme durumunda kırmızı nabız ve dış halka animasyonu eklendi.
+3. Şoför Modu, başka modüle geçiş yaptırmayan tek panel saha operasyonuna dönüştürüldü.
+4. Personel ve okul servisleri Şoför Modu içinden seçilip başlatılabilir.
+5. Sıradaki yolcu ve tüm yolcu sırası aynı panelde birlikte gösterilir.
+6. Her yolcu satırına Aldım / İndi, Yok ve İzinli tek dokunuş düğmeleri eklendi.
+7. Bindi, İndi, Yok, İzinli ve Bekliyor durumları yolcu listesinde canlı görünür.
+8. Yolcuyu Ara, Yolcu Haritası, Sıralı Rota, Önceki, Sonraki ve Servisi Bitir aynı panelde tutulur.
+9. Servisi Bitir dokunmatik kullanımda yanlış işlemi önlemek için onay ister.
+10. Sesli “personel servisini başlat”, “okul servisini başlat” ve “servisi başlat” komutları panel değiştirmeden çalışır.
+11. Sesli “aldım”, “bindi”, “indi”, “yolcuyu ara”, “sonraki”, “önceki”, “yok”, “izinli”, “sıralı harita” ve “servisi bitir” komutları desteklenir.
+12. Şoför Modu içindeki eski Personel Servisi, Okul Servisi, Rapor, Evrak ve Uyarılar panel geçiş kısayolları kaldırıldı.
+13. v4.44.2 Temel Kayıtlar ilerleme çubuğu, v4.44.1 Android yerel ses tanıma ve v4.43.0 Android PDF yazdırma sistemi korunur.
+
+VERİ GEÇİŞİ:
+- Veri şeması 31 olarak kalır.
+- Yeni kalıcı veri alanı eklenmedi.
+- Araç, firma, personel, okul, yoklama, finans, servis oturumu ve evrak kayıtları korunur.
+
+GÜNCELLEME:
+- GitHub ana dizinine index.html, sw.js, manifest.webmanifest, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_45_0.txt yüklenir.
+- Bu güncelleme web arayüzü ve mevcut JavaScript akışı değişikliğidir.
+- APK yeniden oluşturulmaz; mevcut APK 1.0.4 kullanılmaya devam eder.
+- Servis worker önbelleği servis-sys-v4-45-0 olarak güncellendi.
+

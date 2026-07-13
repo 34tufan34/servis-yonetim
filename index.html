@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.2</title>
+  <title>Servis Yönetim Sistemi | Tek Panel Şoför Modu v4.45.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11063,6 +11063,270 @@
       .registry-progress-copy small { display: none; }
       .registry-progress-copy strong { font-size: 16px; }
     }
+
+    /* v4.45.0 - Tek panel şoför operasyon merkezi */
+    .driver-main-grid.driver-main-grid-wide {
+      display: block;
+    }
+    .driver-console-panel {
+      overflow: hidden;
+      padding: 0;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(var(--accent-rgb), .12), transparent 28%),
+        var(--panel);
+    }
+    .driver-console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .driver-console-header-copy { min-width: 0; }
+    .driver-console-header-copy .driver-current-meta { margin-top: 6px; }
+    .driver-current-head-actions.driver-voice-control {
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .driver-voice-copy {
+      display: grid;
+      gap: 3px;
+      text-align: right;
+    }
+    .driver-voice-copy strong {
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .08em;
+    }
+    .driver-voice-copy small { color: var(--muted); font-size: 10px; }
+    .driver-voice-btn {
+      position: relative;
+      width: 62px;
+      height: 62px;
+      min-width: 62px;
+      padding: 0;
+      border: 1px solid rgba(var(--accent-rgb), .62);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255,255,255,.24), transparent 26%),
+        linear-gradient(145deg, color-mix(in srgb, var(--accent) 78%, #ffffff 22%), color-mix(in srgb, var(--accent) 76%, #08090d 24%));
+      color: #fff;
+      box-shadow:
+        0 12px 28px rgba(var(--accent-rgb), .27),
+        inset 0 1px 0 rgba(255,255,255,.24);
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .driver-voice-btn:hover { transform: translateY(-2px) scale(1.02); }
+    .driver-voice-btn:active { transform: translateY(0) scale(.96); }
+    .driver-voice-btn::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      z-index: -1;
+      border: 1px solid rgba(var(--accent-rgb), .26);
+      border-radius: inherit;
+    }
+    .driver-voice-btn svg {
+      width: 27px;
+      height: 27px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .driver-voice-btn.listening {
+      border-color: rgba(248,113,113,.92);
+      background: linear-gradient(145deg, #ef4444, #991b1b);
+      color: #fff;
+      animation: driverVoicePulse 1s ease-in-out infinite;
+    }
+    .driver-voice-btn.listening::before { animation: driverVoiceRing 1s ease-out infinite; }
+    @keyframes driverVoiceRing {
+      from { inset: -4px; opacity: .9; }
+      to { inset: -15px; opacity: 0; }
+    }
+    .driver-voice-status {
+      min-height: 0;
+      margin: 0;
+      padding: 9px 20px;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel-2) 90%, var(--accent) 10%);
+      font-size: 11px;
+    }
+    .driver-start-host { padding: 20px; }
+    .driver-start-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(170px, .3fr) auto;
+      align-items: end;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid rgba(var(--accent-rgb), .34);
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--panel-2) 88%, var(--accent) 12%);
+    }
+    .driver-start-copy { grid-column: 1 / -1; }
+    .driver-start-copy strong { display: block; font-size: 18px; }
+    .driver-start-copy small { display: block; margin-top: 5px; color: var(--muted); line-height: 1.45; }
+    .driver-start-field { display: grid; gap: 6px; }
+    .driver-start-field label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .driver-start-field select,
+    .driver-start-field input { width: 100%; min-height: 46px; }
+    .driver-start-btn { min-height: 46px; min-width: 170px; border-radius: 14px; }
+    .driver-console-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      min-height: 0;
+    }
+    .driver-live-column { min-width: 0; padding: 18px; }
+    .driver-list-column {
+      min-width: 0;
+      padding: 18px;
+      border-left: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel-2) 94%, var(--accent) 6%);
+    }
+    .driver-list-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .driver-list-head h3 { margin: 0; font-size: 16px; }
+    .driver-list-head small { display: block; margin-top: 4px; color: var(--muted); }
+    .driver-list-count {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .driver-console-body .driver-current-card { min-height: 238px; }
+    .driver-action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+    }
+    .driver-action-grid .driver-primary-action {
+      grid-column: span 2;
+      min-height: 64px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 950;
+    }
+    .driver-action-grid .driver-status-action { min-height: 64px; border-radius: 16px; font-weight: 900; }
+    .driver-action-grid .driver-tool-action { min-height: 46px; border-radius: 13px; }
+    .driver-action-grid .driver-finish-action { grid-column: span 2; }
+    .driver-passenger-list {
+      min-height: 330px;
+      max-height: min(62dvh, 690px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: grid;
+      align-content: start;
+      gap: 9px;
+      padding-right: 4px;
+    }
+    .driver-passenger-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+    }
+    .driver-passenger-row.current {
+      border-color: rgba(var(--accent-rgb), .72);
+      box-shadow: 0 0 0 2px rgba(var(--accent-rgb), .11);
+    }
+    .driver-passenger-select {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+    .driver-passenger-copy { min-width: 0; }
+    .driver-passenger-copy strong,
+    .driver-passenger-copy small {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .driver-passenger-quick {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+    .driver-passenger-quick .btn {
+      min-width: 0;
+      min-height: 34px;
+      padding: 6px 9px;
+      border-radius: 10px;
+      font-size: 10px;
+      margin: 0;
+    }
+    .driver-passenger-quick .driver-row-primary {
+      border-color: rgba(34,197,94,.54);
+      background: rgba(34,197,94,.14);
+      color: #bbf7d0;
+    }
+    body[data-theme="light"] .driver-passenger-quick .driver-row-primary { color: #166534; }
+    @media (max-width: 1060px) {
+      .driver-console-body { grid-template-columns: 1fr; }
+      .driver-list-column { border-left: 0; border-top: 1px solid var(--border); }
+      .driver-passenger-list { max-height: 46dvh; }
+      .driver-start-card { grid-template-columns: 1fr 1fr; }
+      .driver-start-card > .driver-start-field:nth-child(2) { grid-column: 1 / -1; }
+      .driver-start-btn { width: 100%; min-width: 0; }
+    }
+    @media (max-width: 700px) {
+      .driver-console-header { align-items: flex-start; padding: 15px; }
+      .driver-voice-copy { display: none; }
+      .driver-voice-btn { width: 56px; height: 56px; min-width: 56px; }
+      .driver-voice-status { padding-inline: 15px; }
+      .driver-start-host,
+      .driver-live-column,
+      .driver-list-column { padding: 14px; }
+      .driver-start-card { grid-template-columns: 1fr; padding: 14px; }
+      .driver-start-card > .driver-start-field:nth-child(2) { grid-column: auto; }
+      .driver-action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .driver-action-grid .driver-primary-action,
+      .driver-action-grid .driver-finish-action { grid-column: span 2; }
+      .driver-passenger-row { grid-template-columns: 1fr; }
+      .driver-passenger-quick { justify-content: stretch; }
+      .driver-passenger-quick .btn { flex: 1 1 0; }
+    }
+    @media (max-width: 430px) {
+      .driver-type-card { grid-template-columns: auto minmax(0, 1fr); }
+      .driver-type-state { grid-column: 2; justify-self: start; }
+      .driver-current-progress { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .driver-passenger-select { grid-template-columns: auto minmax(0, 1fr); }
+      .driver-passenger-select .driver-passenger-status { grid-column: 2; justify-self: start; }
+    }
 </style>
 </head>
 
@@ -11239,7 +11503,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.45.0</div>
         </div>
       </div>
 
@@ -11457,35 +11721,37 @@
           </div>
 
           <div class="driver-main-grid driver-main-grid-wide">
-            <section class="card panel driver-current-panel">
-              <div class="driver-current-head">
-                <div>
-                  <h3 class="driver-current-title">Canlı Yolcu Yönetimi</h3>
-                  <div class="driver-current-meta" id="driverOperationMeta">Servis başladığında aktif operasyon burada görünür.</div>
+            <section class="card panel driver-console-panel">
+              <div class="driver-console-header">
+                <div class="driver-console-header-copy">
+                  <h3 class="driver-current-title">Tek Panel Saha Yönetimi</h3>
+                  <div class="driver-current-meta" id="driverOperationMeta">Servisi burada başlat; yolcuyu, yoklamayı ve rotayı ekrandan ayrılmadan yönet.</div>
                 </div>
-                <div class="driver-current-head-actions">
-                  <button class="btn small driver-voice-btn" id="driverVoiceBtn" type="button" data-action="driver-voice">🎙 Sesli Komut</button>
-                  <button class="btn small primary" type="button" data-action="driver-open-source">Servis Ekranını Aç</button>
+                <div class="driver-current-head-actions driver-voice-control">
+                  <span class="driver-voice-copy"><strong>SESLE YÖNET</strong><small>Tek dokunuşla dinle</small></span>
+                  <button class="driver-voice-btn" id="driverVoiceBtn" type="button" data-action="driver-voice" aria-label="Sesli komutu başlat" title="Sesli komutu başlat">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6"></path></svg>
+                  </button>
                 </div>
               </div>
-              <div class="driver-voice-status" id="driverVoiceStatus">“Bindi”, “sonraki”, “sıralı harita” veya “servisi bitir” diyebilirsin.</div>
-              <div class="driver-current-card empty" id="driverCurrentCard">
-                Aktif servis yok. Personel Servisi veya Okul Servisi bölümünden servisi başlat.
-              </div>
-              <div class="driver-action-grid" id="driverActionHost"></div>
-            </section>
+              <div class="driver-voice-status" id="driverVoiceStatus">“Aldım”, “indi”, “yok”, “sonraki”, “ara”, “sıralı harita” veya “servisi bitir” diyebilirsin.</div>
 
-            <section class="card panel driver-shortcuts-panel">
-              <div class="panel-header">
-                <div><h3 class="panel-title">Şoför Kısayolları</h3><div class="panel-sub">Sahada en çok kullanılan ekranlara tek dokunuşla geç.</div></div>
-              </div>
-              <div class="driver-shortcut-grid">
-                <button class="driver-shortcut" type="button" data-action="driver-open-personnel"><i>P</i><span><strong>Personel Servisi</strong><small>Servisi başlat, yolcu sırasını yönet.</small></span></button>
-                <button class="driver-shortcut" type="button" data-action="driver-open-school"><i>O</i><span><strong>Okul Servisi</strong><small>Öğrenci yoklaması ve veli bildirimleri.</small></span></button>
-                <button class="driver-shortcut" type="button" data-action="driver-ordered-map"><i>H</i><span><strong>Sıralı Harita</strong><small>Aktif servisin tüm duraklarını aç.</small></span></button>
-                <button class="driver-shortcut" type="button" data-action="driver-open-report"><i>R</i><span><strong>Yoklama Raporu</strong><small>Personel veya okul raporuna geç.</small></span></button>
-                <button class="driver-shortcut" type="button" data-action="driver-open-documents"><i>E</i><span><strong>Araç Evrakları</strong><small>Ruhsat, sigorta ve muayene kayıtları.</small></span></button>
-                <button class="driver-shortcut" type="button" data-action="open-vehicle-alerts"><i>U</i><span><strong>Araç Uyarıları</strong><small>Yaklaşan bakım ve evrak süreleri.</small></span></button>
+              <div class="driver-start-host" id="driverStartHost"></div>
+
+              <div class="driver-console-body hidden" id="driverConsoleBody">
+                <div class="driver-live-column">
+                  <div class="driver-current-card empty" id="driverCurrentCard">Aktif servis bekleniyor.</div>
+                  <div class="driver-action-grid" id="driverActionHost"></div>
+                </div>
+                <div class="driver-list-column">
+                  <div class="driver-list-head">
+                    <div><h3>Yolcu Durumları</h3><small id="driverPassengerListMeta">Bindi, indi ve bekleyen yolcular aynı listede.</small></div>
+                    <span class="driver-list-count" id="driverPassengerListCount">0 yolcu</span>
+                  </div>
+                  <div class="driver-passenger-list" id="driverPassengerList">
+                    <div class="driver-empty-state">Aktif servis bulunmuyor.</div>
+                  </div>
+                </div>
               </div>
             </section>
           </div>
@@ -14613,7 +14879,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.2</strong>
+                <strong>v4.45.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14658,8 +14924,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.2 - Sesli şoför komutları, otomatik yolcu geçişi ve sadeleştirilmiş saha panelleri.
-    const APP_VERSION = "4.44.2";
+    // v4.45.0 - Tek panel şoför operasyonu ve modern yuvarlak sesli komut düğmesi.
+    const APP_VERSION = "4.45.0";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -19777,6 +20043,7 @@
     }
 
     let driverModeSelectedType = "personnel";
+    let driverModeTypePinned = false;
 
     function driverPersonnelContext(session) {
       if (!session) return null;
@@ -19789,6 +20056,7 @@
         index: rowIndex,
         name: person.name,
         secondary: personAddressForPeriod(person, session.period) || person.employeeNo || "Adres yok",
+        phone: person.phone || "",
         status: displayAttendanceStatus(person, getAttendance(session.date, session.routeId, person.id), field, session.date),
         entity: person
       }));
@@ -19835,6 +20103,8 @@
         index: rowIndex,
         name: student.name,
         secondary: `${student.className || "Sınıf yok"} · ${student.homeAddress || "Adres yok"}`,
+        phone: student.guardianPhone || "",
+        contactName: student.guardianName || "",
         status: getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period),
         entity: student
       }));
@@ -19868,14 +20138,6 @@
       const schoolSession = activeSchoolServiceSessions()[0] || null;
       if (driverModeSelectedType === "personnel" && personnelSession) return driverPersonnelContext(personnelSession);
       if (driverModeSelectedType === "school" && schoolSession) return driverSchoolContext(schoolSession);
-      if (personnelSession) {
-        driverModeSelectedType = "personnel";
-        return driverPersonnelContext(personnelSession);
-      }
-      if (schoolSession) {
-        driverModeSelectedType = "school";
-        return driverSchoolContext(schoolSession);
-      }
       return null;
     }
 
@@ -19911,39 +20173,200 @@
       }
     }
 
+    function driverStartTargets(type = driverModeSelectedType, date = todayISO()) {
+      if (type === "school") {
+        return state.schools
+          .filter((school) => school.status === "Aktif")
+          .sort((a, b) => String(a.name).localeCompare(String(b.name), "tr-TR"))
+          .map((school) => ({
+            key: `school:${school.id}`,
+            type: "school",
+            schoolId: school.id,
+            direction: "both",
+            suggestedPeriod: inferServicePeriodForCompany({ morningTime: school.entryTime, eveningTime: school.exitTime }),
+            label: `${school.name} · ${schoolServiceStudents(school.id, "morning").length} öğrenci`
+          }));
+      }
+
+      const jobs = state.jobs
+        .filter((job) => jobIsValidOnDate(job, date))
+        .sort((a, b) => String(a.name).localeCompare(String(b.name), "tr-TR"));
+      const targets = [];
+      jobs.forEach((job) => {
+        const company = getCompany(job.companyId);
+        const shifts = normalizeJobShifts(job);
+        const rows = shifts.length ? shifts : [null];
+        rows.forEach((shift) => {
+          const routeId = company?.routeId || job.routeId || "";
+          const direction = [shift?.direction, job.direction].find((value) => value === "morning" || value === "evening") || "both";
+          const suggestedPeriod = direction === "both"
+            ? inferServicePeriodForCompany({
+                morningTime: shift?.startTime || job.morningTime || company?.morningTime,
+                eveningTime: shift?.endTime || job.eveningTime || company?.eveningTime
+              })
+            : direction;
+          const peopleCount = routeId ? servicePeopleBase(routeId, suggestedPeriod, shift?.key || "", job.id).length : 0;
+          targets.push({
+            key: `personnel:${job.id}:${shift?.key || "default"}`,
+            type: "personnel",
+            jobId: job.id,
+            shiftKey: shift?.key || "",
+            routeId,
+            direction,
+            suggestedPeriod,
+            label: `${job.name}${shift?.name ? " · " + shift.name : ""} · ${peopleCount} yolcu`
+          });
+        });
+      });
+
+      if (targets.length) return targets;
+      return state.companies
+        .filter((company) => company.status !== "Pasif" && company.routeId)
+        .sort((a, b) => String(a.name).localeCompare(String(b.name), "tr-TR"))
+        .map((company) => ({
+          key: `personnel:route:${company.routeId}`,
+          type: "personnel",
+          jobId: "",
+          shiftKey: "",
+          routeId: company.routeId,
+          direction: "both",
+          suggestedPeriod: inferServicePeriodForCompany(company),
+          label: `${company.name} · ${state.people.filter((person) => person.status === "Aktif" && person.routeId === company.routeId).length} yolcu`
+        }));
+    }
+
+    function driverStartPanelHtml() {
+      const targets = driverStartTargets();
+      const first = targets[0] || null;
+      const suggested = first?.suggestedPeriod || (currentMinutes() < 12 * 60 ? "morning" : "evening");
+      const typeLabel = driverModeSelectedType === "school" ? "okul" : "personel";
+      const morningLabel = driverModeSelectedType === "school" ? "Sabah Alma" : "Sabah Gidiş";
+      const eveningLabel = driverModeSelectedType === "school" ? "Akşam Bırakma" : "Akşam Dönüş";
+      const periodLocked = first?.direction === "morning" || first?.direction === "evening";
+      if (!targets.length) {
+        return `<div class="driver-empty-state">Başlatılabilecek aktif ${typeLabel} servisi bulunmuyor. Önce Temel Kayıtlar bölümünde aktif kayıt oluştur.</div>`;
+      }
+      return `<div class="driver-start-card">
+        <div class="driver-start-copy">
+          <strong>Servis beklemede</strong>
+          <small>Servisi buradan başlat. Başladıktan sonra yolcu, durum, arama ve rota işlemlerinin tamamı bu panelde kalır.</small>
+        </div>
+        <div class="driver-start-field">
+          <label for="driverStartTarget">Servis Seçimi</label>
+          <select id="driverStartTarget">${targets.map((target) => `<option value="${escapeHtml(target.key)}">${escapeHtml(target.label)}</option>`).join("")}</select>
+        </div>
+        <div class="driver-start-field">
+          <label for="driverStartPeriod">Sefer</label>
+          <select id="driverStartPeriod" ${periodLocked ? "disabled" : ""}>
+            <option value="morning" ${suggested === "morning" ? "selected" : ""}>${morningLabel}</option>
+            <option value="evening" ${suggested === "evening" ? "selected" : ""}>${eveningLabel}</option>
+          </select>
+        </div>
+        <button class="btn primary driver-start-btn" type="button" data-action="driver-start-inline">Servisi Başlat</button>
+      </div>`;
+    }
+
+    function driverSyncStartPeriodForTarget() {
+      const targets = driverStartTargets();
+      const selectedKey = $("#driverStartTarget")?.value || "";
+      const target = targets.find((item) => item.key === selectedKey) || targets[0] || null;
+      const periodSelect = $("#driverStartPeriod");
+      if (!target || !periodSelect) return;
+      const periodLocked = target.direction === "morning" || target.direction === "evening";
+      periodSelect.value = periodLocked ? target.direction : (target.suggestedPeriod || "morning");
+      periodSelect.disabled = periodLocked;
+    }
+
+    function driverStartSelectedService() {
+      if (currentDriverContext()) {
+        showToast("Seçili servis zaten canlı.");
+        return;
+      }
+      const targets = driverStartTargets();
+      const selectedKey = $("#driverStartTarget")?.value || targets[0]?.key || "";
+      const target = targets.find((item) => item.key === selectedKey) || targets[0] || null;
+      if (!target) {
+        showToast("Başlatılabilecek servis bulunamadı.");
+        return;
+      }
+      let period = $("#driverStartPeriod")?.value || target.suggestedPeriod || "morning";
+      if (target.direction === "morning" || target.direction === "evening") period = target.direction;
+
+      if (target.type === "school") {
+        if ($("#schoolServiceDate")) $("#schoolServiceDate").value = todayISO();
+        renderSchoolServiceOptions();
+        forceSelectValue($("#schoolServiceSchool"), target.schoolId, "Seçili okul");
+        if ($("#schoolServicePeriod")) $("#schoolServicePeriod").value = period;
+        startSchoolService();
+        return;
+      }
+
+      if ($("#serviceDate")) $("#serviceDate").value = todayISO();
+      renderServiceJobOptions();
+      forceSelectValue($("#serviceJob"), target.jobId || "", "Seçili iş");
+      const job = getJob(target.jobId);
+      const company = job ? getCompany(job.companyId) : getCompanyByRoute(target.routeId);
+      if (company) ensureCompanyRoute(company);
+      renderServiceRouteOptions();
+      forceSelectValue($("#serviceRoute"), company?.routeId || target.routeId || job?.routeId || "", "Seçili firma");
+      renderServiceShiftOptions(target.shiftKey || "");
+      forceSelectValue($("#serviceShift"), target.shiftKey || "", "Seçili vardiya");
+      if ($("#servicePeriod")) {
+        $("#servicePeriod").value = period;
+        $("#servicePeriod").dataset.manual = "1";
+      }
+      startService();
+    }
+
     function renderDriverMode() {
       const personnelSessions = activePersonnelServiceSessions();
       const schoolSessions = activeSchoolServiceSessions();
-      const total = personnelSessions.length + schoolSessions.length;
+      if (!$("#screen-driver")) return;
+
+      if (!driverModeTypePinned) {
+        if (personnelSessions.length) driverModeSelectedType = "personnel";
+        else if (schoolSessions.length) driverModeSelectedType = "school";
+      }
+
       const context = currentDriverContext();
       const personnelCard = $("#driverPersonnelTypeCard");
       const schoolCard = $("#driverSchoolTypeCard");
-      if (!$("#screen-driver")) return;
-
       personnelCard?.classList.toggle("is-live", personnelSessions.length > 0);
       schoolCard?.classList.toggle("is-live", schoolSessions.length > 0);
       personnelCard?.classList.toggle("active", driverModeSelectedType === "personnel");
       schoolCard?.classList.toggle("active", driverModeSelectedType === "school");
-      if ($("#driverPersonnelTypeState")) $("#driverPersonnelTypeState").textContent = personnelSessions.length ? "Canlı" : "Beklemede";
-      if ($("#driverSchoolTypeState")) $("#driverSchoolTypeState").textContent = schoolSessions.length ? "Canlı" : "Beklemede";
-      if ($("#driverPersonnelTypeMeta")) $("#driverPersonnelTypeMeta").textContent = personnelSessions.length ? `${personnelSessions.length} aktif personel servisi` : "Aktif servis bekleniyor.";
-      if ($("#driverSchoolTypeMeta")) $("#driverSchoolTypeMeta").textContent = schoolSessions.length ? `${schoolSessions.length} aktif okul servisi` : "Aktif servis bekleniyor.";
+      if ($("#driverPersonnelTypeState")) $("#driverPersonnelTypeState").textContent = personnelSessions.length ? "Canlı" : "Hazır";
+      if ($("#driverSchoolTypeState")) $("#driverSchoolTypeState").textContent = schoolSessions.length ? "Canlı" : "Hazır";
+      if ($("#driverPersonnelTypeMeta")) $("#driverPersonnelTypeMeta").textContent = personnelSessions.length ? `${personnelSessions.length} aktif personel servisi` : "Bu panelden başlatılabilir.";
+      if ($("#driverSchoolTypeMeta")) $("#driverSchoolTypeMeta").textContent = schoolSessions.length ? `${schoolSessions.length} aktif okul servisi` : "Bu panelden başlatılabilir.";
 
+      const startHost = $("#driverStartHost");
+      const consoleBody = $("#driverConsoleBody");
       const currentCard = $("#driverCurrentCard");
       const actionHost = $("#driverActionHost");
-      if (!currentCard || !actionHost) return;
+      const listHost = $("#driverPassengerList");
+      if (!startHost || !consoleBody || !currentCard || !actionHost || !listHost) return;
 
       if (!context) {
-        if ($("#driverOperationMeta")) $("#driverOperationMeta").textContent = "Servis başladığında aktif operasyon burada görünür.";
+        if ($("#driverOperationMeta")) $("#driverOperationMeta").textContent = `${driverModeSelectedType === "school" ? "Okul" : "Personel"} servisini seç ve ekrandan ayrılmadan başlat.`;
+        startHost.classList.remove("hidden");
+        startHost.innerHTML = driverStartPanelHtml();
+        consoleBody.classList.add("hidden");
         currentCard.className = "driver-current-card empty";
-        currentCard.innerHTML = "Aktif servis yok. Personel Servisi veya Okul Servisi bölümünden servisi başlat.";
-        actionHost.innerHTML = `
-          <button class="btn primary" type="button" data-action="driver-open-personnel">Personel Servisini Aç</button>
-          <button class="btn primary" type="button" data-action="driver-open-school">Okul Servisini Aç</button>`;
+        currentCard.textContent = "Aktif servis bekleniyor.";
+        actionHost.innerHTML = "";
+        listHost.innerHTML = '<div class="driver-empty-state">Servis başlayınca tüm yolcular burada görünür.</div>';
+        if ($("#driverPassengerListCount")) $("#driverPassengerListCount").textContent = "0 yolcu";
         return;
       }
 
+      startHost.classList.add("hidden");
+      startHost.innerHTML = "";
+      consoleBody.classList.remove("hidden");
       if ($("#driverOperationMeta")) $("#driverOperationMeta").textContent = `${context.title} · ${context.meta}`;
+      if ($("#driverPassengerListMeta")) $("#driverPassengerListMeta").textContent = `${context.periodLabel} · Duruma dokun, kayıt anında işlensin.`;
+      if ($("#driverPassengerListCount")) $("#driverPassengerListCount").textContent = `${context.rows.length} yolcu`;
+
       currentCard.className = "driver-current-card";
       currentCard.innerHTML = context.current ? `
         <div class="driver-current-top">
@@ -19953,25 +20376,44 @@
         <h3 class="driver-current-name">${escapeHtml(context.current.name)}</h3>
         <div class="driver-current-detail">
           <span class="driver-current-detail-line">${escapeHtml(context.detail)}</span>
+          ${context.type === "school" ? `<span class="driver-current-detail-line">Veli: ${escapeHtml(context.current.guardianName || "-")} · ${escapeHtml(context.current.guardianPhone || "Telefon yok")}</span>` : `<span class="driver-current-detail-line">Telefon: ${escapeHtml(context.current.phone || "Kayıtlı değil")}</span>`}
           ${context.type === "personnel" && context.plannedTime ? `<span class="driver-time-line">Planlanan ${escapeHtml(context.plannedTime)} <span class="driver-countdown ${escapeHtml(context.countdown?.className || "is-ok")}">${escapeHtml(context.countdownShort || context.countdown?.text || "")}</span></span>` : ""}
         </div>
         <div class="driver-current-progress">
           ${context.stats.map(([label, value]) => `<div class="driver-stat-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value))}</strong></div>`).join("")}
         </div>` : '<div class="driver-empty-state">Bu serviste yolcu bulunmuyor.</div>';
 
-      const alternateButton = context.type === "school" && context.session.period === "evening"
-        ? '<button class="btn" type="button" data-action="driver-mark-status" data-status="Başka Adreste İndi">Farklı Adres</button>' : "";
+      const isMorning = context.session.period !== "evening";
+      const primaryLabel = isMorning ? "Yolcuyu Aldım" : "Yolcu İndi";
+      const alternateButton = context.type === "school" && !isMorning
+        ? '<button class="btn driver-status-action" type="button" data-action="driver-mark-status" data-status="Başka Adreste İndi">Farklı Adres</button>' : "";
+      const hasPhone = digitsOnly(context.type === "school" ? context.current?.guardianPhone : context.current?.phone).length >= 7;
       actionHost.innerHTML = `
-        <button class="btn map-btn" type="button" data-action="driver-current-map">Yolcu Haritası</button>
-        <button class="btn map-btn" type="button" data-action="driver-ordered-map">Sıralı Harita</button>
-        <button class="btn" type="button" data-action="driver-prev">Önceki</button>
-        <button class="btn" type="button" data-action="driver-next">Sonraki</button>
-        <button class="btn primary" type="button" data-action="driver-mark-status" data-status="${escapeHtml(context.primaryStatus)}">${escapeHtml(context.primaryStatus)}</button>
-        <button class="btn danger" type="button" data-action="driver-mark-status" data-status="Yok">Yok</button>
-        <button class="btn" type="button" data-action="driver-mark-status" data-status="İzinli">İzinli</button>
+        <button class="btn primary driver-primary-action" type="button" data-action="driver-mark-status" data-status="${escapeHtml(context.primaryStatus)}">${escapeHtml(primaryLabel)}</button>
+        <button class="btn danger driver-status-action" type="button" data-action="driver-mark-status" data-status="Yok">Yok</button>
+        <button class="btn driver-status-action" type="button" data-action="driver-mark-status" data-status="İzinli">İzinli</button>
         ${alternateButton}
-        <button class="btn danger" type="button" data-action="driver-finish">Servisi Bitir</button>`;
+        <button class="btn map-btn driver-tool-action" type="button" data-action="driver-current-map">Yolcu Haritası</button>
+        <button class="btn map-btn driver-tool-action" type="button" data-action="driver-ordered-map">Sıralı Rota</button>
+        <button class="btn driver-tool-action" type="button" data-action="driver-call" ${hasPhone ? "" : "disabled"}>Yolcuyu Ara</button>
+        <button class="btn driver-tool-action" type="button" data-action="driver-prev">Önceki</button>
+        <button class="btn driver-tool-action" type="button" data-action="driver-next">Sonraki</button>
+        <button class="btn danger driver-tool-action driver-finish-action" type="button" data-action="driver-finish">Servisi Bitir</button>`;
 
+      const rowPrimaryLabel = isMorning ? "Aldım" : "İndi";
+      listHost.innerHTML = context.rows.length ? context.rows.map((row) => `
+        <div class="driver-passenger-row ${row.index === context.currentIndex ? "current" : ""}">
+          <button class="driver-passenger-select" type="button" data-action="driver-select-passenger" data-index="${row.index}" aria-label="${escapeHtml(row.name)} yolcusunu seç">
+            <span class="driver-passenger-index">${row.index + 1}</span>
+            <span class="driver-passenger-copy"><strong>${escapeHtml(row.name)}</strong><small>${escapeHtml(row.secondary)}</small></span>
+            <span class="driver-passenger-status ${statusClass(row.status)}">${escapeHtml(row.status)}</span>
+          </button>
+          <span class="driver-passenger-quick">
+            <button class="btn driver-row-primary" type="button" data-action="driver-mark-passenger" data-id="${escapeHtml(row.id)}" data-status="${escapeHtml(context.primaryStatus)}">${escapeHtml(rowPrimaryLabel)}</button>
+            <button class="btn danger" type="button" data-action="driver-mark-passenger" data-id="${escapeHtml(row.id)}" data-status="Yok">Yok</button>
+            <button class="btn" type="button" data-action="driver-mark-passenger" data-id="${escapeHtml(row.id)}" data-status="İzinli">İzinli</button>
+          </span>
+        </div>`).join("") : '<div class="driver-empty-state">Bu serviste yolcu bulunmuyor.</div>';
     }
 
     let driverVoiceRecognition = null;
@@ -20004,35 +20446,37 @@
 
       if (command.includes("personel servisi")) {
         driverSwitch("personnel");
-        if (command.includes("başlat")) { activateModule("personnel"); activateTab("service"); window.setTimeout(startService, 80); }
+        if (command.includes("başlat")) window.setTimeout(driverStartSelectedService, 80);
         return;
       }
       if (command.includes("okul servisi")) {
         driverSwitch("school");
-        if (command.includes("başlat")) { activateModule("school"); activateSchoolTab("operation"); window.setTimeout(startSchoolService, 80); }
+        if (command.includes("başlat")) window.setTimeout(driverStartSelectedService, 80);
         return;
       }
       if (command.includes("servisi başlat") || command === "başlat") {
-        if (driverModeSelectedType === "school") { activateModule("school"); activateSchoolTab("operation"); window.setTimeout(startSchoolService, 80); }
-        else { activateModule("personnel"); activateTab("service"); window.setTimeout(startService, 80); }
+        driverStartSelectedService();
         return;
       }
       if (command.includes("servisi bitir") || command === "bitir") {
-        if (confirm("Aktif servis sesli komutla bitirilsin mi?")) driverFinishService();
+        if (confirm("Aktif servis sesli komutla bitirilsin mi?")) driverFinishService(true);
         return;
       }
       if (command.includes("sıralı harita") || command.includes("rota aç")) { driverOrderedMap(); return; }
       if (command.includes("yolcu haritas") || command === "haritayı aç" || command === "harita aç") { driverCurrentMap(); return; }
+      if (command === "ara" || command.includes("yolcuyu ara") || command.includes("veliyi ara")) { driverCallCurrent(); return; }
       if (command.includes("sonraki")) { driverMove(1); return; }
       if (command.includes("önceki")) { driverMove(-1); return; }
       if (command.includes("izinli")) { driverMarkStatus("İzinli"); return; }
       if (command.includes("yok")) { driverMarkStatus("Yok"); return; }
       if (command.includes("farklı adres") || command.includes("başka adres")) { driverMarkStatus("Başka Adreste İndi"); return; }
-      if (command.includes("bindi")) { driverMarkStatus("Bindi"); return; }
-      if (command.includes("indi")) { driverMarkStatus("İndi"); return; }
-      if (command.includes("rapor")) { driverOpenReport(); return; }
-      if (command.includes("evrak")) { driverOpenDocuments(); return; }
-      if (command.includes("uyarı")) { activateModule("personnel"); activateTab("vehicles"); activateVehicleSubTab("alerts"); scrollContentTop(); return; }
+      if (command.includes("bindi") || command.includes("aldı") || command.includes("aldık")) { driverMarkStatus("Bindi"); return; }
+      if (command.includes("indi") || command.includes("bıraktım") || command.includes("yolcuyu bıraktım")) { driverMarkStatus("İndi"); return; }
+      if (command.includes("rapor") || command.includes("evrak") || command.includes("uyarı")) {
+        setDriverVoiceStatus("Şoför Modu saha işlemlerinde kalır; yönetim ekranlarına geçiş yapılmadı.", "error");
+        showToast("Şoför panelinden ayrılmadan saha işlemlerine devam edebilirsiniz.");
+        return;
+      }
 
       setDriverVoiceStatus(`Komut tanınmadı: “${spokenText}”`, "error");
       showToast("Sesli komut tanınmadı.");
@@ -20107,13 +20551,8 @@
 
     function driverSwitch(type) {
       driverModeSelectedType = type === "school" ? "school" : "personnel";
+      driverModeTypePinned = true;
       renderDriverMode();
-    }
-
-    function driverOpenSource() {
-      const context = currentDriverContext();
-      if (context?.type === "school") openSchoolLiveFromCommand();
-      else openPersonnelLiveFromCommand();
     }
 
     function driverMarkStatus(status) {
@@ -20132,6 +20571,18 @@
       syncDriverContextControls(updated);
       if (updated.type === "school") jumpSchoolServiceCursor(markedIndex + 1);
       else jumpServiceCursor(markedIndex + 1);
+    }
+
+    function driverMarkPassengerStatus(passengerId, status) {
+      const context = currentDriverContext();
+      const row = context?.rows.find((item) => item.id === passengerId) || null;
+      if (!context || !row) {
+        showToast("Yolcu kaydı bulunamadı.");
+        return;
+      }
+      syncDriverContextControls(context);
+      if (context.type === "school") markSchoolServiceAttendance(row.id, status);
+      else markServiceAttendance(row.id, status);
     }
 
     function driverMove(delta) {
@@ -20160,6 +20611,21 @@
       else openPersonMap(context.current.id);
     }
 
+    function driverCallCurrent() {
+      const context = currentDriverContext();
+      if (!context?.current) {
+        showToast("Aranacak yolcu bulunamadı.");
+        return;
+      }
+      const phone = context.type === "school" ? context.current.guardianPhone : context.current.phone;
+      const normalized = digitsOnly(phone);
+      if (normalized.length < 7) {
+        showToast("Bu yolcu için telefon kaydı yok.");
+        return;
+      }
+      window.location.href = `tel:${normalized}`;
+    }
+
     function driverOrderedMap() {
       const context = currentDriverContext();
       if (!context) { showToast("Sıralı harita için aktif servis yok."); return; }
@@ -20168,31 +20634,13 @@
       else openOrderedMap();
     }
 
-    function driverFinishService() {
+    function driverFinishService(confirmed = false) {
       const context = currentDriverContext();
       if (!context) return;
+      if (!confirmed && !confirm(`${context.title} servisi bitirilsin mi?`)) return;
       syncDriverContextControls(context);
       if (context.type === "school") finishSchoolService();
       else finishService();
-    }
-
-    function driverOpenReport() {
-      const context = currentDriverContext();
-      if (context?.type === "school") {
-        activateModule("school");
-        activateSchoolTab("reports");
-      } else {
-        activateModule("personnel");
-        activateTab("reports");
-      }
-      scrollContentTop();
-    }
-
-    function driverOpenDocuments() {
-      activateModule("personnel");
-      activateTab("vehicles");
-      activateVehicleSubTab("files");
-      scrollContentTop();
     }
 
     function renderCommandPanel() {
@@ -27697,19 +28145,17 @@
         if (action === "open-school-live") openSchoolLiveFromCommand();
         if (action === "driver-switch-personnel") driverSwitch("personnel");
         if (action === "driver-switch-school") driverSwitch("school");
-        if (action === "driver-open-source") driverOpenSource();
+        if (action === "driver-start-inline") driverStartSelectedService();
         if (action === "driver-voice") startDriverVoiceCommand();
-        if (action === "driver-open-personnel") { activateModule("personnel"); activateTab("service"); scrollContentTop(); }
-        if (action === "driver-open-school") { activateModule("school"); activateSchoolTab("operation"); scrollContentTop(); }
         if (action === "driver-current-map") driverCurrentMap();
         if (action === "driver-ordered-map") driverOrderedMap();
         if (action === "driver-prev") driverMove(-1);
         if (action === "driver-next") driverMove(1);
+        if (action === "driver-call") driverCallCurrent();
         if (action === "driver-mark-status") driverMarkStatus(button.dataset.status || "Bindi");
+        if (action === "driver-mark-passenger") driverMarkPassengerStatus(id, button.dataset.status || "Bindi");
         if (action === "driver-select-passenger") driverSelectPassenger(Number(button.dataset.index || 0));
         if (action === "driver-finish") driverFinishService();
-        if (action === "driver-open-report") driverOpenReport();
-        if (action === "driver-open-documents") driverOpenDocuments();
         if (action === "edit-person") editPerson(id);
         if (action === "delete-person") deleteById("people", id, "Personel silindi.");
         if (action === "edit-company") editCompany(id);
@@ -27817,6 +28263,10 @@
         if (action === "service-next") moveServiceCursor(1);
         if (action === "service-prev") moveServiceCursor(-1);
         if (action === "service-jump") jumpServiceCursor(button.dataset.index);
+      });
+
+      document.body.addEventListener("change", (event) => {
+        if (event.target?.id === "driverStartTarget") driverSyncStartPeriodForTarget();
       });
 
 
