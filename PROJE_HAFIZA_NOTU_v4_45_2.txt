@@ -1,0 +1,42 @@
+SERVİS YÖNETİM SİSTEMİ — v4.45.2
+
+Web sürümü: 4.45.2
+APK: 1.0.4 / versionCode 5
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Şoför Modu tek servis seçmeli görünümden iki bağımsız komuta paneline dönüştürüldü.
+2. Personel Servisi solda, Okul Servisi sağda aynı ekran üzerinde sürekli görünür.
+3. Personel ve okul servisleri ayrı seçim/sefer alanlarıyla birbirinden bağımsız başlatılabilir; biri çalışırken diğer panel kapanmaz.
+4. Her panel sıradaki yolcuyu, adres ve telefon/veli bilgisini, güncel durumu ve Toplam, Bindi/İndi, Yok/İzinli, Bekleyen sayılarını gösterir.
+5. Aldım/Bindi veya İndi, Atla/Sonraki, Yok, İzinli, Önceki Yolcu, Yolcuyu Ara, Haritayı Aç ve Servisi Bitir işlemleri büyük, yüksek karşıtlıklı tuşlara dönüştürüldü.
+6. Yolcu ve öğrenci listeleri kendi paneli içinde açılıp kapanır; listeden yolcu seçilebilir ve Bindi/İndi, Yok, İzinli kayıtları hızlıca işlenebilir.
+7. Panel değişimi kaldırıldı. Personel ve okul yoklamaları kendilerine ait data-driver-type hedefiyle doğru kayıt grubuna yönlendirilir.
+8. Paylaşılan modern yuvarlak Sesli Komut düğmesine hedef göstergesi eklendi.
+9. “Personel aldım”, “okul indi”, “atla”, “yok”, “izinli”, “haritayı aç” ve “servisi bitir” komutları seçilen veya açıkça söylenen servis türüne uygulanır.
+10. Panel başlığı veya Canlı/Hazır etiketi sesli komut hedefini seçer; herhangi bir panel işlemi de hedefi otomatik olarak o panele taşır.
+11. Renkler tema değişkenlerinden alınır. Turkuaz temada kullanıcının onayladığı koyu petrol/turkuaz görünüm ile sarı, kırmızı ve mavi karşıt işlem renkleri uygulanır.
+12. 1200 piksel altında paneller alt alta geçer; mobilde büyük tuşlar ve iki sütunlu işlem düzeni korunur.
+13. v4.45.1 Bölümsel Yedekler, güvenli birleştirme ve CSV dışa aktarma işlevleri aynen korunur.
+
+DOĞRULAMA:
+- Satır içi JavaScript blokları sözdizimi kontrolünden geçti.
+- Simüle edilmiş canlı Personel ve Okul servisleri aynı anda oluşturularak iki panelin birlikte görünmesi doğrulandı.
+- Okul panelindeki işlem yalnız okul yoklamasına, personel panelindeki işlem yalnız personel yoklamasına yazıldı.
+- Sesli “personel aldım” komutunun okul kaydını değiştirmeden doğru personel kaydına işlendiği doğrulandı.
+- İki ayrı başlatma alanının benzersiz kimliklerle çalıştığı ve her iki servisin birlikte başlatılabildiği doğrulandı.
+- 1536 × 960 tarayıcı görünümünde iki panelin yan yana kaldığı ve Servisi Bitir dahil ana tuşların görünür olduğu doğrulandı.
+- Tarayıcı çalışma zamanı hatası oluşmadı.
+
+VERİ GEÇİŞİ:
+- Veri şeması 31 olarak kalır.
+- Yeni kalıcı veri alanı eklenmedi.
+- Mevcut personel, öğrenci, finans, yoklama, servis ve yedek verileri korunur.
+
+GÜNCELLEME:
+- GitHub ana dizinine index.html, sw.js, manifest.webmanifest, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_45_2.txt yüklenir.
+- Bu güncelleme web arayüzü ve Şoför Modu işlem yönlendirmesi değişikliğidir.
+- Android kaynak kodu değişmedi; APK yeniden oluşturulmaz ve mevcut APK 1.0.4 kullanılmaya devam eder.
+- Service Worker önbelleği servis-sys-v4-45-2 olarak güncellendi.

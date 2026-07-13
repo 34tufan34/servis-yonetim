@@ -1,29 +1,33 @@
-SERVİS YÖNETİM SİSTEMİ v4.45.0 — TEK PANEL ŞOFÖR MODU
+SERVİS YÖNETİM SİSTEMİ v4.45.2 — ÇİFT ŞOFÖR KOMUTA PANELİ
 
-WEB SÜRÜMÜ: 4.45.0
+WEB SÜRÜMÜ: 4.45.2
 APK SÜRÜMÜ: 1.0.4 / versionCode 5
 VERİ ŞEMASI: 31
 
 BU SÜRÜMDE:
-- Sesli Komut düğmesi modern, yuvarlak ve dokunmatik kullanıma uygun hale getirildi.
-- Şoför Modu servis başlatma dahil tek operasyon paneline dönüştürüldü.
-- Personel ve okul servisi başka panele geçmeden Şoför Modu içinden başlatılır.
-- Sıradaki yolcu, tüm yolcu listesi ve Bindi / İndi / Yok / İzinli durumları aynı ekranda görünür.
-- Yolcu satırlarına tek dokunuşla Aldım / İndi, Yok ve İzinli işlemleri eklendi.
-- Yolcu arama, yolcu haritası, sıralı rota, önceki / sonraki ve servis bitirme aynı panelde tutulur.
-- Sesli servis başlatma ve saha komutları başka modüle yönlendirme yapmadan çalışır.
-- v4.44.2 Temel Kayıtlar ilerleme çubuğu, Android ses tanıma ve PDF sistemi korunur.
+- Şoför Modu, Personel Servisi solda ve Okul Servisi sağda olacak şekilde iki bağımsız komuta paneline ayrıldı.
+- İki servis türü aynı anda görünür ve canlı kalır; servis türü seçmek için panelden panele geçiş yapılmaz.
+- Her panel kendi servis seçimi ve sefer alanından ayrı olarak başlatılabilir.
+- Sıradaki yolcu, adres/iletişim bilgisi, canlı durum ve servis sayıları kendi panelinde gösterilir.
+- Aldım/Bindi veya İndi, Atla/Sonraki, Yok, İzinli, Önceki Yolcu, Yolcuyu Ara, Haritayı Aç ve Servisi Bitir tuşları yol kullanımına uygun büyütüldü.
+- Tüm yolcular, aynı paneldeki açılır Yolcu/Öğrenci Listesi içinde görülebilir ve hızlı durum tuşlarıyla işlenebilir.
+- Modern yuvarlak Sesli Komut düğmesi korunarak iki paneli hedefleyebilir hale getirildi. “Personel aldım” ve “okul indi” gibi komutlar doğru servise gider.
+- Panel başlığına veya canlı durum etiketine dokunularak kısa sesli komutların hedefi seçilebilir.
+- Renkler mevcut temalardan otomatik alınır; Turkuaz temada koyu petrol zemin ve yüksek karşıtlıklı turkuaz, sarı, mavi ve kırmızı işlem renkleri kullanılır.
+- Dar ekranlarda iki panel alt alta geçer; ana işlem tuşları büyük kalır.
+- v4.45.1 personel/öğrenci bölümsel JSON ve CSV yedekleri korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEK DOSYALAR:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_45_0.txt
+PROJE_HAFIZA_NOTU_v4_45_2.txt
 
 COMMIT MESAJI:
-v4.45.0 tek panel şoför modu ve modern sesli komut düğmesi
+v4.45.2 çift şoför komuta paneli
 
-Bu güncelleme yalnızca web arayüzü değişikliğidir.
+Bu güncelleme web arayüzü ve Şoför Modu işlem yönlendirmesi değişikliğidir.
 APK yeniden oluşturulmaz. Mevcut APK 1.0.4 kullanılmaya devam eder.
+Veri şeması değişmediği için mevcut kayıtlar korunur.
 Yüklemeden önce JSON yedek alınması önerilir.
