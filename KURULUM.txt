@@ -1,7 +1,7 @@
-SERVİS YÖNETİM SİSTEMİ v4.44.0 — SESLİ ŞOFÖR MODU
+SERVİS YÖNETİM SİSTEMİ v4.44.1 — SESLİ ŞOFÖR MODU
 
-WEB SÜRÜMÜ: 4.44.0
-APK SÜRÜMÜ: 1.0.3 / versionCode 4
+WEB SÜRÜMÜ: 4.44.1
+APK SÜRÜMÜ: 1.0.4 / versionCode 5
 VERİ ŞEMASI: 31
 
 BU SÜRÜMDE:
@@ -29,7 +29,14 @@ android-app/app/src/main/java/com/tufan/servisyonetim/AndroidBridge.java
 android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java
 
 COMMIT MESAJI:
-v4.44.0 sesli şoför modu ve saha akışı
+v4.44.1 sesli şoför modu ve saha akışı
 
-Bu sürüm mikrofon ve Android ses tanıma desteği eklediği için APK 1.0.3 yeniden oluşturulmalıdır.
+Bu sürüm mikrofon ve Android ses tanıma desteği eklediği için APK 1.0.4 yeniden oluşturulmalıdır.
 Mevcut APK kaldırılmadan yeni APK üzerine kurulmalıdır.
+
+
+v4.44.1 DÜZELTMESİ
+- APK içindeki AndroidBridge ses tanıma işlevi doğrudan çağrılır.
+- Native köprü yüklenmezse Web Speech yedeğine yanlışlıkla düşülmez.
+- WebView mikrofon kaynak izni güvenilir uygulama adresi için yönetilir.
+- not-allowed hatası için açık izin mesajı gösterilir.
