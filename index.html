@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Personel Raporu ve PDF Düzeltme v4.42.1</title>
+  <title>Servis Yönetim Sistemi | Aylık Yoklama ve PDF Düzeltme v4.42.2</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -9844,17 +9844,43 @@
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: conic-gradient(var(--accent) var(--registry-progress, 0%), rgba(var(--accent-rgb), .12) 0);
-      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 0 0 1px rgba(var(--accent-rgb), .10);
       position: relative;
+      background: radial-gradient(circle at center, color-mix(in srgb, var(--panel) 94%, rgba(var(--accent-rgb), .08)) 0 62%, transparent 63%);
+      isolation: isolate;
     }
-    .registry-progress-ring::before {
+    .registry-progress-ring svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      overflow: visible;
+      filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), .20));
+    }
+    .registry-progress-track,
+    .registry-progress-value {
+      fill: none;
+      stroke-width: 10;
+    }
+    .registry-progress-track {
+      stroke: rgba(var(--accent-rgb), .14);
+    }
+    .registry-progress-value {
+      stroke: var(--accent);
+      stroke-linecap: round;
+      stroke-dasharray: 301.5929;
+      stroke-dashoffset: 301.5929;
+      transition: stroke-dashoffset .7s cubic-bezier(.2,.8,.2,1);
+    }
+    .registry-progress-ring::after {
       content: "";
       position: absolute;
-      inset: 9px;
+      inset: 17px;
       border-radius: inherit;
-      background: var(--panel);
-      border: 1px solid rgba(var(--accent-rgb), .16);
+      background: color-mix(in srgb, var(--panel) 96%, rgba(var(--accent-rgb), .05));
+      border: 1px solid rgba(var(--accent-rgb), .14);
+      z-index: -1;
     }
     .registry-progress-ring span { position: relative; z-index: 1; text-align: center; }
     .registry-progress-ring strong { display: block; font-size: 28px; line-height: 1; }
@@ -10138,7 +10164,7 @@
 
   
 
-    /* v4.42.1 - Personel raporu, grafikler ve yazdırma düzeltmeleri */
+    /* v4.42.2 - Aylık personel raporu, PDF önizleme ve halka grafik */
     .job-shift-config {
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 88%, var(--accent) 12%);
@@ -10336,6 +10362,143 @@
       text-align:center;
       background: rgba(255,255,255,.02);
     }
+    .personnel-monthly-summary {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: color-mix(in srgb, var(--panel) 92%, rgba(var(--accent-rgb), .05));
+      padding: 14px;
+    }
+    .personnel-monthly-summary-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+    .personnel-monthly-summary-head h3 { margin:0; font-size:15px; }
+    .personnel-monthly-summary-head small { display:block; margin-top:4px; color:var(--muted); }
+    .personnel-monthly-summary .table-wrap { max-height: 320px; overflow:auto; }
+    .personnel-monthly-summary table { min-width: 760px; }
+    .personnel-monthly-summary thead th { position: sticky; top: 0; z-index: 2; }
+    .personnel-monthly-rate {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 66px;
+      padding:5px 8px;
+      border-radius:999px;
+      background:rgba(var(--accent-rgb), .12);
+      font-weight:850;
+      font-variant-numeric: tabular-nums;
+    }
+    .personnel-print-preview {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: #eef2f7;
+      color: #111827;
+    }
+    .personnel-print-preview.hidden { display:none !important; }
+    .personnel-print-preview-toolbar {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 18px;
+      background:#ffffff;
+      border-bottom:1px solid #d1d5db;
+      box-shadow:0 8px 24px rgba(15,23,42,.10);
+      position:relative;
+      z-index:2;
+    }
+    .personnel-print-preview-toolbar strong { display:block; font-size:16px; }
+    .personnel-print-preview-toolbar small { display:block; margin-top:3px; color:#6b7280; }
+    .personnel-print-preview-actions { display:flex; gap:10px; flex-wrap:wrap; }
+    .personnel-print-preview-body {
+      overflow:auto;
+      padding:18px;
+      background:#eef2f7;
+    }
+    .personnel-print-sheet {
+      width:min(1480px, 100%);
+      margin:0 auto;
+      background:#fff;
+      color:#111827;
+      padding:22px;
+      border-radius:16px;
+      box-shadow:0 18px 50px rgba(15,23,42,.15);
+    }
+    .personnel-print-sheet .insight-chip,
+    .personnel-print-sheet .personnel-report-chart-card,
+    .personnel-print-sheet .personnel-monthly-summary {
+      background:#fff !important;
+      color:#111827 !important;
+      border-color:#d1d5db !important;
+      box-shadow:none !important;
+    }
+    .personnel-print-sheet .insight-label,
+    .personnel-print-sheet .personnel-report-chart-head small,
+    .personnel-print-sheet .personnel-report-bar-label,
+    .personnel-print-sheet .personnel-report-trend-label,
+    .personnel-print-sheet .personnel-report-trend-value,
+    .personnel-print-sheet .personnel-report-legend,
+    .personnel-print-sheet .personnel-monthly-summary-head small,
+    .personnel-print-sheet .muted { color:#6b7280 !important; }
+    .personnel-print-sheet .insight-value,
+    .personnel-print-sheet .personnel-report-chart-head h3,
+    .personnel-print-sheet .personnel-monthly-summary-head h3,
+    .personnel-print-sheet td,
+    .personnel-print-sheet th { color:#111827 !important; }
+    .personnel-print-sheet .personnel-report-total-pill,
+    .personnel-print-sheet .personnel-monthly-rate { background:#eef2ff !important; color:#1f2937 !important; }
+    .personnel-print-sheet .personnel-report-bar-track,
+    .personnel-print-sheet .personnel-report-stack { background:#edf2f7 !important; border-color:#e5e7eb !important; }
+    .personnel-print-sheet .table-wrap { overflow:visible !important; max-height:none !important; }
+    .personnel-print-sheet table { width:100%; border-collapse:collapse; font-size:10px; }
+    .personnel-print-sheet th,
+    .personnel-print-sheet td { border:1px solid #d1d5db !important; padding:6px !important; vertical-align:top; }
+    .personnel-print-sheet th { background:#f3f4f6 !important; }
+    .personnel-print-sheet .pill { border-color:#9ca3af !important; background:#fff !important; color:#111827 !important; }
+    .personnel-report-print-portal { display:none; }
+    @media print {
+      @page { size: A4 landscape; margin: 10mm; }
+      body.personnel-report-printing {
+        background:#fff !important;
+        color:#111827 !important;
+        overflow:visible !important;
+        height:auto !important;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+      body.personnel-report-printing > * { display:none !important; }
+      body.personnel-report-printing > #personnelReportPrintPortal {
+        display:block !important;
+        position:static !important;
+        width:100% !important;
+      }
+      body.personnel-report-printing .personnel-print-sheet {
+        width:100% !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        border:0 !important;
+        border-radius:0 !important;
+        box-shadow:none !important;
+      }
+      body.personnel-report-printing table { table-layout:fixed !important; width:100% !important; }
+      body.personnel-report-printing thead { display:table-header-group !important; }
+      body.personnel-report-printing th,
+      body.personnel-report-printing td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
+      body.personnel-report-printing tr { break-inside:avoid !important; page-break-inside:avoid !important; }
+      body.personnel-report-printing .personnel-report-chart-card,
+      body.personnel-report-printing .personnel-monthly-summary { break-inside:avoid !important; page-break-inside:avoid !important; }
+      body.personnel-report-printing .personnel-monthly-summary .table-wrap { max-height:none !important; overflow:visible !important; }
+      body.personnel-report-printing .personnel-monthly-summary thead th { position:static !important; }
+    }
+
     @media (max-width: 900px) {
       .personnel-report-actions { flex-direction: row; }
       .personnel-report-actions .btn { flex: 1 1 180px; }
@@ -10537,7 +10700,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.42.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.42.2</div>
         </div>
       </div>
 
@@ -10744,8 +10907,12 @@
             <h2>Temel Bilgi Girişi</h2>
             <p>Araç, firma, sözleşme, personel, okul, öğrenci ve rehber kayıtlarını önerilen sırayla tek merkezden tamamla. Bu alan mevcut kayıt formlarını kullanır; girilen bilgiler doğrudan ilgili Personel Servisi ve Okul Servisi bölümlerine kaydedilir.</p>
           </div>
-          <div class="registry-progress-ring" id="registryProgressRing" style="--registry-progress:0%">
-            <span><strong id="registryProgressValue">0/7</strong><small id="registryProgressLabel">TEMEL ADIM · %0</small></span>
+          <div class="registry-progress-ring" id="registryProgressRing" role="img" aria-label="Temel kayıt tamamlanma oranı yüzde 0">
+            <svg viewBox="0 0 112 112" aria-hidden="true">
+              <circle class="registry-progress-track" cx="56" cy="56" r="48"></circle>
+              <circle class="registry-progress-value" id="registryProgressCircle" cx="56" cy="56" r="48"></circle>
+            </svg>
+            <span><strong id="registryProgressValue">0/7</strong><small id="registryProgressLabel">TAMAMLANMA · %0</small></span>
           </div>
         </section>
 
@@ -11539,6 +11706,7 @@
             </div>
             <div class="service-summary" id="personnelReportSummary"></div>
             <div class="personnel-report-charts" id="personnelReportCharts"></div>
+            <div class="personnel-monthly-summary" id="personnelReportMonthlySummary"></div>
             <div class="service-list-host personnel-report-table" id="personnelReportTableHost"></div>
           </div>
         </div>
@@ -13857,7 +14025,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.42.1</strong>
+                <strong>v4.42.2</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -13879,6 +14047,20 @@
     </main>
   </div>
 
+  <div class="personnel-print-preview hidden" id="personnelPrintPreview" role="dialog" aria-modal="true" aria-labelledby="personnelPrintPreviewTitle">
+    <div class="personnel-print-preview-toolbar">
+      <div>
+        <strong id="personnelPrintPreviewTitle">Aylık Personel Yoklama Raporu</strong>
+        <small>Önizlemeyi kontrol et; ardından PDF / Yazdır düğmesini kullan.</small>
+      </div>
+      <div class="personnel-print-preview-actions">
+        <button class="btn primary" id="openPersonnelPrintDialogBtn" type="button">PDF / Yazdırmayı Aç</button>
+        <button class="btn" id="closePersonnelPrintPreviewBtn" type="button">Kapat</button>
+      </div>
+    </div>
+    <div class="personnel-print-preview-body" id="personnelPrintPreviewBody"></div>
+  </div>
+  <div class="personnel-report-print-portal" id="personnelReportPrintPortal"></div>
   <div class="finance-report-print-portal" id="financeReportPrintPortal"></div>
   <div class="toast" id="toast"></div>
 
@@ -13886,8 +14068,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.42.1 - Personel yoklama raporu iyileştirmeleri, PDF düzeltmesi ve temel kayıt ilerleme grafiği.
-    const APP_VERSION = "4.42.1";
+    // v4.42.2 - Aylık yoklama özeti, güvenli PDF önizleme ve gerçek halka ilerleme grafiği.
+    const APP_VERSION = "4.42.2";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -19986,6 +20168,68 @@
       return { totals, byDate: [...byDate.values()].sort((a, b) => String(a.date).localeCompare(String(b.date))) };
     }
 
+    function personnelReportMonthLabel(month = personnelReportMonth()) {
+      const match = String(month || "").match(/^(\d{4})-(\d{2})$/);
+      if (!match) return month || "-";
+      return new Date(Number(match[1]), Number(match[2]) - 1, 1).toLocaleDateString("tr-TR", { month: "long", year: "numeric" });
+    }
+
+    function buildPersonnelMonthlySummary(rows) {
+      const groups = new Map();
+      rows.forEach((row) => {
+        if (!groups.has(row.person.id)) {
+          groups.set(row.person.id, {
+            person: row.person,
+            total: 0,
+            came: 0,
+            absent: 0,
+            leave: 0,
+            incomplete: 0
+          });
+        }
+        const item = groups.get(row.person.id);
+        item.total += 1;
+        if (row.dayStatus.startsWith("Geldi")) item.came += 1;
+        else if (row.dayStatus === "Gelmedi") item.absent += 1;
+        else if (row.dayStatus === "İzinli") item.leave += 1;
+        else item.incomplete += 1;
+      });
+      return [...groups.values()].map((item) => ({
+        ...item,
+        attendanceRate: item.total > 0 ? (item.came / item.total) * 100 : 0
+      })).sort((a, b) => String(a.person.name).localeCompare(String(b.person.name), "tr-TR"));
+    }
+
+    function renderPersonnelMonthlySummary(rows) {
+      const host = $("#personnelReportMonthlySummary");
+      if (!host) return;
+      const summaryRows = buildPersonnelMonthlySummary(rows);
+      if (!summaryRows.length) {
+        host.innerHTML = '<div class="personnel-report-empty-graph">Seçilen ay için personel bazlı aylık özet bulunmuyor.</div>';
+        return;
+      }
+      host.innerHTML = `
+        <div class="personnel-monthly-summary-head">
+          <div><h3>Aylık Personel Yoklama Özeti</h3><small>${escapeHtml(personnelReportMonthLabel())} döneminde personel bazında toplam durumlar.</small></div>
+          <div class="personnel-report-total-pill">${escapeHtml(String(summaryRows.length))} personel</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Personel</th><th>Vardiya</th><th>Toplam Gün</th><th>Geldi</th><th>Gelmedi</th><th>İzinli</th><th>Eksik</th><th>Devam Oranı</th></tr></thead>
+            <tbody>${summaryRows.map((item) => `<tr>
+              <td><strong>${escapeHtml(item.person.name)}</strong><br><span class="muted">${escapeHtml(item.person.employeeNo || "Sicil yok")}</span></td>
+              <td>${escapeHtml(item.person.shift || "-")}</td>
+              <td>${escapeHtml(String(item.total))}</td>
+              <td>${escapeHtml(String(item.came))}</td>
+              <td>${escapeHtml(String(item.absent))}</td>
+              <td>${escapeHtml(String(item.leave))}</td>
+              <td>${escapeHtml(String(item.incomplete))}</td>
+              <td><span class="personnel-monthly-rate">%${escapeHtml(item.attendanceRate.toLocaleString("tr-TR", { maximumFractionDigits: 1 }))}</span></td>
+            </tr>`).join("")}</tbody>
+          </table>
+        </div>`;
+    }
+
     function renderPersonnelReportCharts(rows) {
       const host = $("#personnelReportCharts");
       if (!host) return;
@@ -20002,7 +20246,7 @@
         { label: "Eksik", value: totals.incomplete, tone: "info" }
       ];
       const maxStatus = Math.max(1, ...statusBars.map((item) => item.value));
-      const trendRows = analytics.byDate.slice(-10);
+      const trendRows = analytics.byDate;
       const maxTrend = Math.max(1, ...trendRows.map((item) => item.came + item.absent + item.leave + item.incomplete));
       host.innerHTML = `
         <section class="personnel-report-chart-card">
@@ -20021,7 +20265,7 @@
         </section>
         <section class="personnel-report-chart-card">
           <div class="personnel-report-chart-head">
-            <div><h3>Günlük Yoklama Eğilimi</h3><small>Son 10 kayıt gününde günlük dağılım.</small></div>
+            <div><h3>Aylık Günlük Yoklama Dağılımı</h3><small>Seçilen ayın tüm yoklama günleri.</small></div>
             <div class="personnel-report-total-pill">${escapeHtml(String(trendRows.length))} gün</div>
           </div>
           <div class="personnel-report-trend">
@@ -20050,52 +20294,39 @@
         </section>`;
     }
 
-    function printHtmlWithFrame(title, html) {
-      const existing = document.querySelectorAll('.finance-print-frame.personnel-print-frame');
-      existing.forEach((frame) => frame.remove());
-      const frame = document.createElement('iframe');
-      frame.className = 'finance-print-frame personnel-print-frame';
-      frame.style.position = 'fixed';
-      frame.style.right = '0';
-      frame.style.bottom = '0';
-      frame.style.width = '0';
-      frame.style.height = '0';
-      frame.style.border = '0';
-      frame.style.opacity = '0';
-      document.body.appendChild(frame);
-      const cleanup = () => {
-        window.setTimeout(() => {
-          try { frame.remove(); } catch (error) {}
-        }, 120);
-      };
-      const doc = frame.contentWindow?.document;
-      if (!doc || !frame.contentWindow) {
-        cleanup();
-        showToast('Yazdırma belgesi hazırlanamadı.');
+    function cleanupPersonnelPrint() {
+      document.body.classList.remove("personnel-report-printing");
+      const portal = $("#personnelReportPrintPortal");
+      if (portal) portal.innerHTML = "";
+    }
+
+    function closePersonnelPrintPreview() {
+      $("#personnelPrintPreview")?.classList.add("hidden");
+      cleanupPersonnelPrint();
+    }
+
+    function openPersonnelPrintDialog() {
+      const previewBody = $("#personnelPrintPreviewBody");
+      const portal = $("#personnelReportPrintPortal");
+      if (!previewBody?.innerHTML || !portal) {
+        showToast("Yazdırma önizlemesi hazırlanamadı.");
         return;
       }
-      doc.open();
-      doc.write(html);
-      doc.close();
-      frame.onload = () => {
-        const win = frame.contentWindow;
-        if (!win) {
-          cleanup();
-          showToast('Yazdırma penceresi açılamadı.');
-          return;
+      portal.innerHTML = previewBody.innerHTML;
+      document.body.classList.add("personnel-report-printing");
+      const cleanup = () => cleanupPersonnelPrint();
+      window.addEventListener("afterprint", cleanup, { once: true });
+      window.setTimeout(() => {
+        try {
+          window.focus();
+          window.print();
+        } catch (error) {
+          console.error("Personel yoklama raporu yazdırılamadı:", error);
+          cleanupPersonnelPrint();
+          showToast("Yazdırma ekranı açılamadı. Tarayıcı yazdırma iznini kontrol et.");
         }
-        win.addEventListener('afterprint', cleanup, { once: true });
-        window.setTimeout(() => {
-          try {
-            win.focus();
-            win.print();
-          } catch (error) {
-            cleanup();
-            showToast('Yazdırma başlatılamadı.');
-          }
-        }, 260);
-        window.setTimeout(cleanup, 15000);
-      };
+      }, 120);
+      window.setTimeout(cleanupPersonnelPrint, 120000);
     }
 
     function renderPersonnelAttendanceReportOptions() {
@@ -20232,12 +20463,14 @@
       const summary = $("#personnelReportSummary");
       const host = $("#personnelReportTableHost");
       const chartHost = $("#personnelReportCharts");
-      if (!summary || !host || !chartHost) return;
+      const monthlyHost = $("#personnelReportMonthlySummary");
+      if (!summary || !host || !chartHost || !monthlyHost) return;
       renderPersonnelAttendanceReportOptions();
       const company = getCompany(personnelReportCompany());
       if (!company) {
         summary.innerHTML = "";
         chartHost.innerHTML = "";
+        monthlyHost.innerHTML = "";
         host.innerHTML = '<div class="service-empty">Rapor için firma seç.</div>';
         return;
       }
@@ -20248,11 +20481,12 @@
       const incomplete = rows.filter((row)=>row.dayStatus==="Eksik Kayıt").length;
       const uniquePeople = new Set(rows.map((row)=>row.person.id)).size;
       summary.innerHTML = [
-        {label:"Firma",value:company.name,risk:false},{label:"Raporlanan Personel",value:`${uniquePeople} kişi`,risk:false},
+        {label:"Dönem",value:personnelReportMonthLabel(),risk:false},{label:"Firma",value:company.name,risk:false},{label:"Raporlanan Personel",value:`${uniquePeople} kişi`,risk:false},
         {label:"Geldi",value:`${came} kayıt`,risk:false},{label:"Gelmedi",value:`${absent} kayıt`,risk:absent>0},
         {label:"İzinli",value:`${leave} kayıt`,risk:false},{label:"Eksik Kayıt",value:`${incomplete} kayıt`,risk:incomplete>0}
       ].map((chip)=>`<div class="insight-chip ${chip.risk?"risk":""}"><div class="insight-label">${escapeHtml(chip.label)}</div><div class="insight-value">${escapeHtml(chip.value)}</div></div>`).join("");
       renderPersonnelReportCharts(rows);
+      renderPersonnelMonthlySummary(rows);
       if (!rows.length) {
         host.innerHTML = `<div class="service-empty">${escapeHtml(company.name)} için seçilen ayda yoklama kaydı bulunmuyor.</div>`;
         return;
@@ -20261,53 +20495,73 @@
     }
 
     function exportPersonnelAttendanceCsv() {
-      const company=getCompany(personnelReportCompany()), rows=personnelAttendanceReportRows();
-      if (!company||!rows.length) { showToast("Dışa aktarılacak personel yoklama kaydı yok."); return; }
-      const header=["Firma","Tarih","Sicil","Personel","Departman","Vardiya","Planlanan Biniş","Gerçek Biniş","Gerçek İniş","Sabah Durumu","Akşam Durumu","Gün Sonucu"];
-      const lines=[header.map(csvCell).join(";")];
-      rows.forEach((row)=>lines.push([company.name,row.date,row.person.employeeNo||"",row.person.name,row.person.department||"",row.person.shift||"",row.person.boardingTime||"",attendanceClock(row.boardingAt),attendanceClock(row.alightingAt),row.morning,row.evening,row.dayStatus].map(csvCell).join(";")));
-      const blob=new Blob(["\ufeff"+lines.join("\n")],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
-      a.href=url;a.download=`${slugKey(company.name,"firma")}-personel-yoklama-${personnelReportMonth()}.csv`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);showToast("Firma personel yoklama CSV raporu indirildi.");
+      const company = getCompany(personnelReportCompany());
+      const rows = personnelAttendanceReportRows();
+      if (!company || !rows.length) { showToast("Dışa aktarılacak personel yoklama kaydı yok."); return; }
+      const monthly = buildPersonnelMonthlySummary(rows);
+      const lines = [];
+      lines.push(["AYLIK PERSONEL YOKLAMA ÖZETİ", company.name, personnelReportMonthLabel()].map(csvCell).join(";"));
+      lines.push(["Sicil", "Personel", "Vardiya", "Toplam Gün", "Geldi", "Gelmedi", "İzinli", "Eksik", "Devam Oranı %"].map(csvCell).join(";"));
+      monthly.forEach((item) => lines.push([
+        item.person.employeeNo || "", item.person.name, item.person.shift || "", item.total,
+        item.came, item.absent, item.leave, item.incomplete,
+        item.attendanceRate.toLocaleString("tr-TR", { maximumFractionDigits: 1 })
+      ].map(csvCell).join(";")));
+      lines.push("");
+      lines.push(["GÜNLÜK YOKLAMA DETAYI", company.name, personnelReportMonthLabel()].map(csvCell).join(";"));
+      const header = ["Firma","Tarih","Sicil","Personel","Departman","Vardiya","Planlanan Biniş","Gerçek Biniş","Gerçek İniş","Sabah Durumu","Akşam Durumu","Gün Sonucu"];
+      lines.push(header.map(csvCell).join(";"));
+      rows.forEach((row) => lines.push([
+        company.name,row.date,row.person.employeeNo||"",row.person.name,row.person.department||"",row.person.shift||"",
+        row.person.boardingTime||"",attendanceClock(row.boardingAt),attendanceClock(row.alightingAt),row.morning,row.evening,row.dayStatus
+      ].map(csvCell).join(";")));
+      const blob = new Blob(["\ufeff" + lines.join("\n")], { type:"text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${slugKey(company.name,"firma")}-aylik-personel-yoklama-${personnelReportMonth()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast("Aylık personel yoklama CSV raporu indirildi.");
+    }
+
+    function buildPersonnelPrintSheet() {
+      const company = getCompany(personnelReportCompany());
+      const rows = personnelAttendanceReportRows();
+      if (!company || !rows.length) return "";
+      const summary = $("#personnelReportSummary")?.innerHTML || "";
+      const charts = $("#personnelReportCharts")?.innerHTML || "";
+      const monthly = $("#personnelReportMonthlySummary")?.innerHTML || "";
+      const table = $("#personnelReportTableHost")?.innerHTML || "";
+      return `<article class="personnel-print-sheet">
+        <h1 style="font-size:22px;margin:0 0 4px">${escapeHtml(company.name)} · Aylık Personel Yoklama Raporu</h1>
+        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Dönem: ${escapeHtml(personnelReportMonthLabel())} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>
+        <div class="print-summary" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px">${summary}</div>
+        <div class="print-charts" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 14px">${charts}</div>
+        ${monthly}
+        <div style="margin-top:14px"><h2 style="font-size:15px;margin:0 0 10px">Günlük Yoklama Detayı</h2>${table}</div>
+      </article>`;
     }
 
     function printPersonnelAttendanceReport() {
       renderPersonnelAttendanceReport();
-      const company = getCompany(personnelReportCompany());
-      const summary = $("#personnelReportSummary")?.innerHTML || "";
-      const charts = $("#personnelReportCharts")?.innerHTML || "";
-      const table = $("#personnelReportTableHost")?.innerHTML || "";
-      if (!company || !table || table.includes("service-empty")) {
-        showToast("Yazdırılacak personel yoklama kaydı yok.");
+      const sheet = buildPersonnelPrintSheet();
+      if (!sheet) {
+        showToast("Yazdırılacak aylık personel yoklama kaydı yok.");
         return;
       }
-      const html = `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(company.name)} Personel Yoklama</title><style>
-        html,body{margin:0;padding:0;background:#fff !important;color:#111827;font-family:Arial,Helvetica,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-        body{padding:18px}
-        h1{font-size:22px;margin:0 0 4px}
-        p{margin:0 0 16px;color:#4b5563;font-size:12px}
-        .print-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px}
-        .insight-chip{border:1px solid #d1d5db;border-radius:14px;padding:10px 12px;background:#f9fafb}
-        .insight-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-bottom:4px}
-        .insight-value{font-size:14px;font-weight:700;color:#111827}
-        .print-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 14px}
-        .personnel-report-chart-card{border:1px solid #d1d5db;border-radius:16px;padding:12px;background:#fff}
-        .personnel-report-chart-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;align-items:flex-start}
-        .personnel-report-chart-head h3{margin:0;font-size:14px}.personnel-report-chart-head small{display:block;color:#6b7280;font-size:11px;margin-top:2px}
-        .personnel-report-total-pill{padding:5px 8px;border-radius:999px;background:#eef2ff;color:#1f2937;font-size:11px;font-weight:700;white-space:nowrap}
-        .personnel-report-bars,.personnel-report-trend{display:grid;gap:8px}
-        .personnel-report-bar-row{display:grid;grid-template-columns:92px 1fr 46px;gap:8px;align-items:center}
-        .personnel-report-trend-row{display:grid;grid-template-columns:60px 1fr 74px;gap:8px;align-items:center}
-        .personnel-report-bar-label,.personnel-report-trend-label{font-size:11px;font-weight:700;color:#4b5563}
-        .personnel-report-bar-track,.personnel-report-stack{background:#edf2f7;border-radius:999px;overflow:hidden;min-height:10px}
-        .personnel-report-bar-fill,.personnel-report-stack>span{display:block;height:10px}
-        .personnel-report-bar-fill.ok,.personnel-report-stack .ok{background:#10b981}.personnel-report-bar-fill.risk,.personnel-report-stack .risk{background:#ef4444}.personnel-report-bar-fill.warn,.personnel-report-stack .warn{background:#f59e0b}.personnel-report-bar-fill.info,.personnel-report-stack .muted{background:#94a3b8}
-        .personnel-report-bar-value,.personnel-report-trend-value{font-size:10px;text-align:right;color:#374151}
-        .personnel-report-stack{display:flex}
-        .personnel-report-legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:10px;font-size:10px;color:#4b5563}.personnel-report-legend span{display:inline-flex;align-items:center;gap:5px}.personnel-report-legend i{width:10px;height:10px;border-radius:999px;display:inline-block}.personnel-report-legend .ok{background:#10b981}.personnel-report-legend .risk{background:#ef4444}.personnel-report-legend .warn{background:#f59e0b}.personnel-report-legend .muted{background:#94a3b8}
-        table{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed}th,td{border:1px solid #d1d5db;padding:6px;vertical-align:top;text-align:left;word-break:break-word}th{background:#f3f4f6}strong{font-weight:700}.muted{color:#6b7280}.pill{display:inline-block;border:1px solid #9ca3af;border-radius:999px;padding:2px 6px;font-size:10px}.time-cell{white-space:nowrap}.status-cell{min-width:120px}.report-missing td{background:#fef3c7 !important}@page{size:A4 landscape;margin:10mm}
-      </style></head><body><h1>${escapeHtml(company.name)} · Personel Yoklama Raporu</h1><p>Dönem: ${escapeHtml(personnelReportMonth())} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p><div class="print-summary">${summary}</div><div class="print-charts">${charts}</div>${table}</body></html>`;
-      printHtmlWithFrame(`${company.name} Personel Yoklama`, html);
-      showToast('Personel yoklama raporu yazdırma penceresi açılıyor. PDF olarak kaydet seçeneğini kullanabilirsin.');
+      const preview = $("#personnelPrintPreview");
+      const previewBody = $("#personnelPrintPreviewBody");
+      if (!preview || !previewBody) {
+        showToast("Yazdırma önizlemesi hazırlanamadı.");
+        return;
+      }
+      previewBody.innerHTML = sheet;
+      preview.classList.remove("hidden");
+      previewBody.scrollTop = 0;
+      showToast("Aylık yoklama raporu hazır. PDF / Yazdırmayı Aç düğmesini kullan.");
     }
 
     function renderSchoolReportOptions() {
@@ -25021,7 +25275,14 @@
       const entries = registryOrderedDefinitions();
       const completed = entries.filter(([, definition]) => Number(definition.count()) > 0).length;
       const percentage = Math.round(completed / entries.length * 100);
-      $("#registryProgressRing")?.style.setProperty("--registry-progress", `${percentage}%`);
+      const circumference = 2 * Math.PI * 48;
+      const progressCircle = $("#registryProgressCircle");
+      if (progressCircle) {
+        progressCircle.style.strokeDasharray = String(circumference);
+        progressCircle.style.strokeDashoffset = String(circumference * (1 - percentage / 100));
+      }
+      const ring = $("#registryProgressRing");
+      if (ring) ring.setAttribute("aria-label", `Temel kayıt tamamlanma oranı yüzde ${percentage}`);
       if ($("#registryProgressValue")) $("#registryProgressValue").textContent = `${completed}/${entries.length}`;
       if ($("#registryProgressLabel")) $("#registryProgressLabel").textContent = `TAMAMLANMA · %${percentage}`;
 
@@ -26202,6 +26463,12 @@
       $("#refreshPersonnelReportBtn")?.addEventListener("click", renderPersonnelAttendanceReport);
       $("#exportPersonnelReportCsvBtn")?.addEventListener("click", exportPersonnelAttendanceCsv);
       $("#printPersonnelReportBtn")?.addEventListener("click", printPersonnelAttendanceReport);
+      $("#openPersonnelPrintDialogBtn")?.addEventListener("click", openPersonnelPrintDialog);
+      $("#closePersonnelPrintPreviewBtn")?.addEventListener("click", closePersonnelPrintPreview);
+      $("#personnelPrintPreview")?.addEventListener("click", (event) => {
+        if (event.target?.id === "personnelPrintPreview") closePersonnelPrintPreview();
+      });
+      window.addEventListener("keydown", (event) => { if (event.key === "Escape" && !$("#personnelPrintPreview")?.classList.contains("hidden")) closePersonnelPrintPreview(); });
 
       ["schoolReportSchool", "schoolReportMonth"].forEach((id) => {
         const element = $(`#${id}`);

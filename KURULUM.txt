@@ -1,26 +1,25 @@
-SERVİS YÖNETİM SİSTEMİ v4.42.0 — VARDİYA, BİNİŞ SAATİ VE PERSONEL YOKLAMA GÜNCELLEMESİ
+SERVİS YÖNETİM SİSTEMİ v4.42.2 — AYLIK YOKLAMA, PDF ÖNİZLEME VE HALKA GRAFİĞİ
 
 BU PAKETTE:
-- İş / Sözleşme kaydına vardiya sistemi eklendi: vardiyasız, tekli, ikili, üçlü ve özel vardiya.
-- Her vardiya için ad, başlangıç saati, bitiş saati ve servis yönü tanımlanabilir.
-- Personel kaydına vardiya ve planlanan biniş saati eklendi.
-- Personel servisi başlatılırken seçilen iş ve vardiyaya göre yolcu listesi süzülür.
-- Aktif servis ekranında personelin planlanan biniş saatine kalan süre gösterilir.
-- Evrak kaydında dosya seçimi isteğe bağlı hale getirildi; yalnız evrak bilgisi kaydedilebilir.
-- Personel Servisi bölümüne ayrıntılı Yoklama Raporu eklendi.
-- Raporda firma, iş/sözleşme, vardiya ve ay filtreleri bulunur.
-- Raporda personelin planlanan biniş saati, gerçek biniş ve iniş zamanı, geldi/gelmedi durumu ve eksik kayıtlar gösterilir.
-- Personel yoklama raporu CSV ve Yazdır/PDF olarak alınabilir.
-- Mevcut v4.41.1 evrak türleri, v4.41.0 Temel Kayıtlar düzeni ve v4.40.1 başlangıç yakıtı düzeltmesi korunur.
+- Personel Yoklama ve Firma Bilgi Raporu ay bazında çalışır.
+- Seçilen ay için her personelin toplam gün, geldi, gelmedi, izinli, eksik kayıt ve devam oranı gösterilir.
+- Aylık özet tablosu ile günlük yoklama detayı aynı raporda bulunur.
+- CSV çıktısına önce aylık personel özeti, ardından günlük detay eklenir.
+- PDF / Yazdır işlemi uygulama içi beyaz önizleme üzerinden çalışır.
+- Koyu boş sayfa açılması, yazdırma sayfasının hiç açılmaması ve geri dönememe sorunları giderildi.
+- Önizleme ekranında PDF / Yazdırmayı Aç ve Kapat düğmeleri bulunur.
+- Temel Kayıtlar bölümündeki 4/7 göstergesi gerçek SVG halka grafiğine dönüştürüldü.
+- Halka tamamlanma oranına göre dolar ve yüzde değeri merkezde gösterilir.
+- v4.42.1 sözleşme filtresi düzeltmeleri, grafikler ve önceki tüm özellikler korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEKLER:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_42_0.txt
+PROJE_HAFIZA_NOTU_v4_42_2.txt
 
 COMMIT MESAJI:
-v4.42.0 vardiya biniş saati ve personel yoklama
+v4.42.2 aylık yoklama PDF ve halka grafik düzeltmesi
 
-APK yeniden oluşturulmaz. Veri şeması 31'e yükselir. Mevcut kayıtlar korunur.
+APK yeniden oluşturulmaz. Veri şeması 31 olarak kalır. Mevcut kayıtlar korunur.
