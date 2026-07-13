@@ -77,6 +77,20 @@
     }
   }, true);
 
+  window.__SERVIS_NATIVE_PRINT_AVAILABLE__ = typeof window.AndroidBridge.printCurrentPage === "function";
+  window.servisNativePrint = function (title) {
+    if (!window.__SERVIS_NATIVE_PRINT_AVAILABLE__) return false;
+    window.AndroidBridge.printCurrentPage(title || "Servis Yönetim Sistemi Raporu");
+    return true;
+  };
+
+  window.__SERVIS_NATIVE_VOICE_AVAILABLE__ = typeof window.AndroidBridge.startVoiceRecognition === "function";
+  window.servisNativeVoiceStart = function (prompt) {
+    if (!window.__SERVIS_NATIVE_VOICE_AVAILABLE__) return false;
+    window.AndroidBridge.startVoiceRecognition(prompt || "Şoför komutunu söyleyin");
+    return true;
+  };
+
   document.documentElement.setAttribute("data-servis-android-apk", "true");
   const installButton = document.getElementById("installAppBtn");
   if (installButton) {
