@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Sesli Şoför Modu ve Saha Akışı v4.44.1</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.2</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10892,7 +10892,7 @@
     }
 
 
-    /* v4.44.1 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.2 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -10985,6 +10985,84 @@
       .registry-progress-only { justify-content: center; }
     }
 
+
+
+    /* v4.44.2 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    .registry-progress-only {
+      display: grid;
+      grid-template-columns: auto minmax(220px, 1fr);
+      gap: 14px;
+      align-items: center;
+      min-height: 0;
+      margin: 0 0 10px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.018);
+    }
+    .registry-progress-copy {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .registry-progress-copy strong {
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 950;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .registry-progress-copy small {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .registry-progress-only .registry-progress-ring {
+      --registry-progress: 0%;
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 10px;
+      min-width: 0;
+      aspect-ratio: auto;
+      flex: none;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--accent-rgb, 225, 29, 46), .28);
+      background: rgba(var(--accent-rgb, 225, 29, 46), .14);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,.24);
+      isolation: auto;
+    }
+    .registry-progress-only .registry-progress-ring::before { display: none; }
+    .registry-progress-only .registry-progress-ring > span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      z-index: 1;
+      display: block;
+      width: var(--registry-progress);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg,
+        rgba(var(--accent-rgb, 225, 29, 46), .78),
+        rgb(var(--accent-rgb, 225, 29, 46))
+      );
+      box-shadow: 0 0 12px rgba(var(--accent-rgb, 225, 29, 46), .38);
+      transition: width .35s ease;
+    }
+    body[data-theme="light"] .registry-progress-only {
+      background: rgba(255,255,255,.88);
+    }
+    @media (max-width: 700px) {
+      .registry-progress-only {
+        grid-template-columns: auto minmax(110px, 1fr);
+        gap: 10px;
+        padding: 8px 10px;
+      }
+      .registry-progress-copy small { display: none; }
+      .registry-progress-copy strong { font-size: 16px; }
+    }
 </style>
 </head>
 
@@ -11161,7 +11239,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.2</div>
         </div>
       </div>
 
@@ -11420,8 +11498,12 @@
       <section class="module-screen" id="screen-registry">
         <div class="registry-fixed-zone">
         <div class="registry-progress-only">
-          <div class="registry-progress-ring" id="registryProgressRing" role="img" aria-label="7 temel adımdan 0 adım tamamlandı" style="--registry-progress:0%">
-            <span><strong id="registryProgressValue">0/7</strong><small>TEMEL ADIM</small></span>
+          <div class="registry-progress-copy">
+            <strong id="registryProgressValue">0/7</strong>
+            <small>TEMEL ADIM TAMAMLANDI</small>
+          </div>
+          <div class="registry-progress-ring" id="registryProgressRing" role="progressbar" aria-label="7 temel adımdan 0 adım tamamlandı" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="--registry-progress:0%">
+            <span aria-hidden="true"></span>
           </div>
         </div>
 
@@ -14531,7 +14613,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.1</strong>
+                <strong>v4.44.2</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14576,8 +14658,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.1 - Sesli şoför komutları, otomatik yolcu geçişi ve sadeleştirilmiş saha panelleri.
-    const APP_VERSION = "4.44.1";
+    // v4.44.2 - Sesli şoför komutları, otomatik yolcu geçişi ve sadeleştirilmiş saha panelleri.
+    const APP_VERSION = "4.44.2";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -26251,6 +26333,7 @@
       if (ring) {
         ring.style.setProperty("--registry-progress", `${percentage}%`);
         ring.setAttribute("aria-label", `${entries.length} temel adımdan ${completed} adım tamamlandı`);
+        ring.setAttribute("aria-valuenow", String(percentage));
       }
       if ($("#registryProgressValue")) $("#registryProgressValue").textContent = `${completed}/${entries.length}`;
 

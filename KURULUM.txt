@@ -1,42 +1,26 @@
-SERVİS YÖNETİM SİSTEMİ v4.44.1 — SESLİ ŞOFÖR MODU
+SERVİS YÖNETİM SİSTEMİ v4.44.2 — TEMEL KAYITLAR İLERLEME DÜZENİ
 
-WEB SÜRÜMÜ: 4.44.1
+WEB SÜRÜMÜ: 4.44.2
 APK SÜRÜMÜ: 1.0.4 / versionCode 5
 VERİ ŞEMASI: 31
 
 BU SÜRÜMDE:
-- Şoför Modu üst tanıtım paneli kaldırıldı.
-- Şoför Modu altındaki Yolcu Sırası paneli kaldırıldı.
-- Yolcuya Bindi / İndi işlendiğinde sıradaki yolcuya otomatik geçiş güçlendirildi.
-- Planlanan saate kalan süre yeşil, gecikme süresi kırmızı gösterilir.
-- Temel Kayıtlar bölümündeki büyük SYS Kayıt Merkezi tanıtım paneli kaldırıldı; halka ilerleme göstergesi korunur.
-- Şoför Modu'na mikrofonlu sesli komut sistemi eklendi.
-- Desteklenen komutlar: Bindi, İndi, Yok, İzinli, Sonraki, Önceki, Yolcu Haritası, Sıralı Harita, Servisi Başlat, Servisi Bitir, Personel Servisi, Okul Servisi, Rapor, Evrak ve Uyarılar.
-- Servisi bitir sesli komutunda yanlış işlemi önlemek için onay istenir.
+- Temel Kayıtlar ekranının üstündeki geniş boş alan kaldırıldı.
+- 4/7 halka grafik, daha az yer kaplayan yatay ilerleme çubuğuna çevrildi.
+- Tamamlanan temel adım sayısı çubuğun solunda görünür.
+- İlerleme çubuğu masaüstü, tablet ve telefon genişliklerine uyumlu hale getirildi.
+- Şoför Modu, sesli komutlar, Android PDF sistemi ve mevcut kayıt yapısı korunur.
 
-GITHUB ANA DİZİNİNE VE İLGİLİ KLASÖRLERE YÜKLENECEK DOSYALAR:
+GITHUB ANA DİZİNİNE YÜKLENECEK DOSYALAR:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_44_0.txt
-.github/workflows/build-android-apk.yml
-android-app/app/build.gradle
-android-app/app/src/main/AndroidManifest.xml
-android-app/app/src/main/assets/native-bridge.js
-android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java
-android-app/app/src/main/java/com/tufan/servisyonetim/AndroidBridge.java
-android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java
+PROJE_HAFIZA_NOTU_v4_44_2.txt
 
 COMMIT MESAJI:
-v4.44.1 sesli şoför modu ve saha akışı
+v4.44.2 temel kayıtlar boşluk ve ilerleme çubuğu düzeltmesi
 
-Bu sürüm mikrofon ve Android ses tanıma desteği eklediği için APK 1.0.4 yeniden oluşturulmalıdır.
-Mevcut APK kaldırılmadan yeni APK üzerine kurulmalıdır.
-
-
-v4.44.1 DÜZELTMESİ
-- APK içindeki AndroidBridge ses tanıma işlevi doğrudan çağrılır.
-- Native köprü yüklenmezse Web Speech yedeğine yanlışlıkla düşülmez.
-- WebView mikrofon kaynak izni güvenilir uygulama adresi için yönetilir.
-- not-allowed hatası için açık izin mesajı gösterilir.
+Bu güncelleme yalnızca web arayüzü değişikliğidir.
+APK yeniden oluşturulmaz. Mevcut APK 1.0.4 kullanılmaya devam eder.
+Yüklemeden önce JSON yedek alınması önerilir.
