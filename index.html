@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Akıllı Google Rota v4.46.1</title>
+  <title>Servis Yönetim Sistemi | v4.46.2</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -8249,6 +8249,11 @@
 
     .vehicle-km-form,
     .document-upload-form { display: grid; gap: 10px; }
+    .document-upload-panel { padding-bottom: 26px; }
+    .document-upload-form .form-actions {
+      margin-top: 7px;
+      padding-bottom: 8px;
+    }
 
     .vehicle-km-summary,
     .document-summary {
@@ -10187,6 +10192,35 @@
     .service-countdown.is-ok,
     .service-countdown.is-now { border-color: color-mix(in srgb, #22c55e 65%, var(--border)); background: color-mix(in srgb, #22c55e 14%, transparent); color: #bbf7d0; }
     .personnel-report-controls { align-items: end; }
+    .personnel-report-overview-grid {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: minmax(320px, .78fr) minmax(0, 1.22fr);
+      gap: 14px;
+      align-items: stretch;
+      margin-bottom: 12px;
+    }
+    .personnel-report-kpi-summary {
+      margin: 0;
+      padding: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: color-mix(in srgb, var(--panel) 92%, rgba(var(--accent-rgb), .05));
+    }
+    .personnel-report-kpi-summary .insight-chip { min-height: 62px; }
+    .personnel-report-kpi-summary .insight-chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .personnel-report-overview-grid .personnel-monthly-summary {
+      min-width: 0;
+      height: 100%;
+      margin: 0;
+    }
+    @media (max-width: 1120px) {
+      .personnel-report-overview-grid { grid-template-columns: 1fr; }
+      .personnel-report-kpi-summary { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .personnel-report-kpi-summary .insight-chip:last-child:nth-child(odd) { grid-column: auto; }
+    }
     .personnel-report-actions {
       display:flex;
       gap:10px;
@@ -10521,6 +10555,7 @@
     .personnel-report-panel .panel-header,
     .personnel-report-panel .personnel-report-controls,
     .personnel-report-panel .service-summary { flex: 0 0 auto; }
+    .personnel-report-panel .personnel-report-overview-grid,
     .personnel-report-panel .personnel-monthly-summary { flex: 0 0 auto; }
     .personnel-report-panel .personnel-report-table {
       flex: 0 0 auto;
@@ -11554,47 +11589,7 @@
     body[data-theme="light"] .driver-dual-actions .driver-skip-action,
     body[data-theme="light"] .driver-dual-actions .driver-leave-action { color: #7c4a03; }
     body[data-theme="light"] .driver-dual-actions .driver-map-action { color: #1e3a8a; }
-    .driver-dual-actions .driver-route-action,
-    .btn.route-optimize-btn {
-      border-color: color-mix(in srgb, var(--green) 64%, transparent);
-      background:
-        linear-gradient(135deg, color-mix(in srgb, var(--green) 24%, var(--panel)), color-mix(in srgb, var(--blue) 18%, var(--panel)));
-      color: color-mix(in srgb, var(--green) 78%, #ffffff);
-    }
-    .driver-dual-actions .driver-route-action {
-      grid-column: span 2;
-      font-size: 16px;
-    }
-    .driver-dual-actions .driver-route-action.is-loading,
-    .btn.route-optimize-btn.is-loading {
-      cursor: wait;
-      opacity: .72;
-    }
-    .driver-dual-actions .driver-route-action.is-loading::after,
-    .btn.route-optimize-btn.is-loading::after {
-      content: "";
-      width: 15px;
-      height: 15px;
-      margin-left: 8px;
-      display: inline-block;
-      vertical-align: -2px;
-      border: 2px solid currentColor;
-      border-right-color: transparent;
-      border-radius: 50%;
-      animation: routeButtonSpin .72s linear infinite;
-    }
     .driver-dual-actions .driver-finish-action { grid-column: span 4; }
-    body[data-theme="light"] .driver-dual-actions .driver-route-action,
-    body[data-theme="light"] .btn.route-optimize-btn { color: #166534; }
-    @keyframes routeButtonSpin { to { transform: rotate(360deg); } }
-    .route-optimization-note {
-      display: block;
-      margin-top: 8px;
-      color: color-mix(in srgb, var(--green) 78%, var(--text));
-      font-size: 11px;
-      font-weight: 850;
-      line-height: 1.45;
-    }
     .driver-queue-details {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -11935,7 +11930,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.46.1</div>
+          <div class="brand-sub">Servis Yönetimi v4.46.2</div>
         </div>
       </div>
 
@@ -12152,7 +12147,7 @@
               </button>
             </div>
           </section>
-          <div class="driver-voice-status" id="driverVoiceStatus">“Personel aldım”, “okul indi”, “yok”, “sonraki”, “en uygun rota”, “haritayı aç” veya “servisi bitir” diyebilirsin.</div>
+          <div class="driver-voice-status" id="driverVoiceStatus">“Personel aldım”, “okul indi”, “yok”, “sonraki”, “haritayı aç” veya “servisi bitir” diyebilirsin.</div>
 
           <div class="driver-dual-grid">
             <section class="card panel driver-service-panel" id="driverPersonnelPanel" data-driver-panel="personnel">
@@ -12890,7 +12885,6 @@
                 <button class="btn primary" id="startServiceBtn" type="button">Servisi Başlat</button>
                 <button class="btn" id="finishServiceBtn" type="button">Servisi Bitir</button>
                 <button class="btn map-btn" id="openOrderedMapBtn" type="button">Sıralı Harita</button>
-                <button class="btn route-optimize-btn" id="optimizePersonnelRouteBtn" data-route-optimize-type="personnel" type="button">En Uygun Rotayı Bul</button>
                 <button class="btn small primary" id="openLargeServiceListBtn" type="button">Listeyi Aç</button>
                 <button class="btn small hidden" id="closeLargeServiceListBtn" type="button">Geri Dön</button>
               </div>
@@ -13007,8 +13001,10 @@
                 <button class="btn" id="printPersonnelReportBtn" type="button">Yazdır / PDF</button>
               </div>
             </div>
-            <div class="service-summary" id="personnelReportSummary"></div>
-            <div class="personnel-monthly-summary" id="personnelReportMonthlySummary"></div>
+            <div class="personnel-report-overview-grid">
+              <div class="service-summary personnel-report-kpi-summary" id="personnelReportSummary"></div>
+              <div class="personnel-monthly-summary" id="personnelReportMonthlySummary"></div>
+            </div>
             <div class="service-list-host personnel-report-table" id="personnelReportTableHost"></div>
           </div>
         </div>
@@ -13306,7 +13302,6 @@
                 <button class="btn primary" id="startSchoolServiceBtn" type="button">Servisi Başlat</button>
                 <button class="btn" id="finishSchoolServiceBtn" type="button">Servisi Bitir</button>
                 <button class="btn map-btn" id="openSchoolOrderedMapBtn" type="button">Sıralı Harita</button>
-                <button class="btn route-optimize-btn" id="optimizeSchoolRouteBtn" data-route-optimize-type="school" type="button">En Uygun Rotayı Bul</button>
               </div>
             </div>
 
@@ -15368,7 +15363,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.46.1</strong>
+                <strong>v4.46.2</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15413,8 +15408,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.46.1 - Ücretsiz akıllı rota sıralaması ve Google Haritalar aktarımı.
-    const APP_VERSION = "4.46.1";
+    // v4.46.2 - Akşam Bindi/İndi akışı, rapor yerleşimi ve evrak formu düzenlemesi.
+    const APP_VERSION = "4.46.2";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -15448,10 +15443,7 @@
     const LICENSE_STORAGE_KEY = "SYS_LICENSE_V1";
     const LICENSE_DEVICE_KEY = "SYS_LICENSE_DEVICE_V1";
     const LICENSE_OFFLINE_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
-    const ROUTE_OPTIMIZER_MAX_STOPS = 40;
     const GOOGLE_MAPS_MAX_WAYPOINTS = 9;
-    const ROUTE_LOCATION_CACHE_MAX = 300;
-    const ROUTE_LOCATION_CACHE_MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 
     const defaultState = () => ({
       appVersion: APP_VERSION,
@@ -15502,7 +15494,6 @@
         fuelShellManualPrice: 0,
         fuelOpetManualPrice: 0,
         schoolWhatsappAutoOpen: true,
-        routeLocationCache: {},
         financeDefaultVatRate: 10,
         fuelPriceCache: {
           region: "istanbul-avrupa",
@@ -15566,9 +15557,6 @@
         manualOrder: Array.isArray(session?.manualOrder) ? session.manualOrder : []
       }));
       if (!state.settings || typeof state.settings !== "object") state.settings = {};
-      if (!state.settings.routeLocationCache || typeof state.settings.routeLocationCache !== "object" || Array.isArray(state.settings.routeLocationCache)) {
-        state.settings.routeLocationCache = {};
-      }
       state.appVersion = APP_VERSION;
       state.schemaVersion = SCHEMA_VERSION;
       repairDispatchJobLinksForMonth("");
@@ -16709,128 +16697,8 @@
       return String(company?.eveningFinalMapQuery || company?.eveningFinalAddress || "").trim();
     }
 
-    const routeOptimizationBusy = { personnel: false, school: false };
-
-    function routeLocationCacheKey(value) {
-      return normalize(String(value || "").replace(/\s+/g, " "));
-    }
-
-    function cachedRouteLocation(address) {
-      const key = routeLocationCacheKey(address);
-      const entry = state.settings?.routeLocationCache?.[key];
-      const location = Array.isArray(entry?.location) ? entry.location.map(Number) : [];
-      const savedAt = Date.parse(entry?.savedAt || "");
-      if (!key || location.length !== 2 || !location.every(Number.isFinite)) return null;
-      if (!Number.isFinite(savedAt) || Date.now() - savedAt > ROUTE_LOCATION_CACHE_MAX_AGE_MS) return null;
-      return location;
-    }
-
-    function optimizerPointForAddress(address) {
-      const location = cachedRouteLocation(address);
-      return location ? { location } : { address: String(address || "").trim() };
-    }
-
-    function rememberRouteLocation(address, location) {
-      const key = routeLocationCacheKey(address);
-      if (!key || !Array.isArray(location) || location.length !== 2 || !location.map(Number).every(Number.isFinite)) return;
-      if (!state.settings || typeof state.settings !== "object") state.settings = {};
-      if (!state.settings.routeLocationCache || typeof state.settings.routeLocationCache !== "object") state.settings.routeLocationCache = {};
-      state.settings.routeLocationCache[key] = {
-        location: location.map((value) => Number(Number(value).toFixed(6))),
-        savedAt: new Date().toISOString()
-      };
-
-      const rows = Object.entries(state.settings.routeLocationCache);
-      if (rows.length <= ROUTE_LOCATION_CACHE_MAX) return;
-      rows.sort((a, b) => String(b[1]?.savedAt || "").localeCompare(String(a[1]?.savedAt || "")));
-      state.settings.routeLocationCache = Object.fromEntries(rows.slice(0, ROUTE_LOCATION_CACHE_MAX));
-    }
-
-    function routeCoordinateText(location) {
-      if (!Array.isArray(location) || location.length !== 2) return "";
-      const lon = Number(location[0]);
-      const lat = Number(location[1]);
-      return Number.isFinite(lon) && Number.isFinite(lat) ? `${lat},${lon}` : "";
-    }
-
     function googleMapsLocationQuery(value) {
-      const address = String(value || "").trim();
-      if (!address) return "";
-      return routeCoordinateText(cachedRouteLocation(address)) || address;
-    }
-
-    function getCurrentRouteLocation(timeoutMs = 8000) {
-      return new Promise((resolve) => {
-        if (!navigator.geolocation) { resolve(null); return; }
-        navigator.geolocation.getCurrentPosition(
-          (position) => resolve([
-            Number(position.coords.longitude.toFixed(6)),
-            Number(position.coords.latitude.toFixed(6))
-          ]),
-          () => resolve(null),
-          { enableHighAccuracy: true, maximumAge: 60000, timeout: timeoutMs }
-        );
-      });
-    }
-
-    function openRouteProgressWindow() {
-      if (window.AndroidBridge && typeof window.AndroidBridge.openExternalUrl === "function") return null;
-      const routeWindow = window.open("", "SYS_SMART_GOOGLE_ROUTE");
-      if (!routeWindow) return null;
-      try {
-        routeWindow.opener = null;
-        routeWindow.document.title = "Rota Hesaplanıyor";
-        routeWindow.document.body.innerHTML = `
-          <main style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#061a1d;color:#ecfeff;font-family:system-ui,sans-serif;text-align:center">
-            <div><div style="width:54px;height:54px;margin:0 auto 18px;border:5px solid #164e54;border-right-color:#22d3ee;border-radius:50%;animation:spin .8s linear infinite"></div><h1 style="font-size:22px;margin:0 0 8px">En uygun sıra hesaplanıyor</h1><p style="margin:0;color:#a5f3fc">Google Haritalar birazdan otomatik açılacak.</p></div>
-          </main><style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
-      } catch {}
-      return routeWindow;
-    }
-
-    function navigateRouteWindow(routeWindow, url) {
-      if (!url) return false;
-      try {
-        if (window.AndroidBridge && typeof window.AndroidBridge.openExternalUrl === "function") {
-          return Boolean(window.AndroidBridge.openExternalUrl(url));
-        }
-      } catch {}
-      try {
-        if (routeWindow && !routeWindow.closed) {
-          routeWindow.location.replace(url);
-          return true;
-        }
-      } catch {}
-      const opened = window.open(url, "_blank", "noopener,noreferrer");
-      return Boolean(opened);
-    }
-
-    function setRouteOptimizationBusy(type, busy) {
-      routeOptimizationBusy[type] = Boolean(busy);
-      $$(`[data-route-optimize-type="${type}"]`).forEach((button) => {
-        button.disabled = Boolean(busy);
-        button.classList.toggle("is-loading", Boolean(busy));
-        const isDriverButton = button.classList.contains("driver-route-action");
-        button.textContent = busy
-          ? (isDriverButton ? "ROTA HESAPLANIYOR" : "Rota Hesaplanıyor")
-          : (isDriverButton ? "EN UYGUN ROTAYI BUL" : "En Uygun Rotayı Bul");
-      });
-    }
-
-    function routeOptimizationSummaryText(summary) {
-      const distance = Number(summary?.distanceMeters || 0);
-      const duration = Number(summary?.durationSeconds || 0);
-      const parts = [];
-      if (distance > 0) parts.push(`${(distance / 1000).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} km`);
-      if (duration > 0) parts.push(`${Math.max(1, Math.round(duration / 60))} dk`);
-      return parts.join(" · ");
-    }
-
-    function routeOptimizationNote(session) {
-      const routeInfo = session?.routeOptimization;
-      if (!routeInfo?.optimizedAt) return "";
-      const summary = routeOptimizationSummaryText(routeInfo);
-      return `Akıllı sıra hazır${summary ? ` · ${summary}` : ""}`;
+      return String(value || "").trim();
     }
 
     function buildGoogleMapsDirectionsUrl({ origin = "", destination = "", waypoints = [] }) {
@@ -16917,111 +16785,6 @@
       if (!route?.url) { showToast("Google Haritalar rotası hazırlanamadı."); return; }
       window.open(route.url, "_blank", "noopener,noreferrer");
       showPersonnelMapResult(route, context.period);
-    }
-
-    async function requestRouteOptimization(payload) {
-      const license = currentLicenseSession || readLicenseRecord();
-      if (!license?.licenseKey) throw new Error("Akıllı rota için çevrim içi lisans doğrulaması gerekiyor.");
-      return requestLicenseApi("/optimize-route", {
-        licenseKey: license.licenseKey,
-        deviceId: license.deviceId || getLicenseDeviceId(),
-        ...payload
-      });
-    }
-
-    function cacheResolvedRoutePoints(startAddress, endAddress, stopRows, locations) {
-      if (startAddress && locations?.start) rememberRouteLocation(startAddress, locations.start);
-      if (endAddress && locations?.end) rememberRouteLocation(endAddress, locations.end);
-      const byId = new Map((locations?.stops || []).map((item) => [Number(item.id), item.location]));
-      stopRows.forEach((row) => rememberRouteLocation(row.address, byId.get(row.apiId)));
-    }
-
-    async function optimizePersonnelRoute() {
-      if (routeOptimizationBusy.personnel) return;
-      const context = personnelRouteContext();
-      if (!context.routeId || !context.company) { showToast("Önce firma seç."); return; }
-      const workplace = companyWorkplaceMapQuery(context.company);
-      if (!workplace) { showToast("Firma kaydındaki işyeri harita adresi eksik."); return; }
-
-      const field = serviceStatusField(context.period);
-      const pending = context.people.filter((person) => displayAttendanceStatus(person, getAttendance(context.date, context.routeId, person.id), field, context.date) === "Bekliyor");
-      const missing = pending.filter((person) => !personMapQueryForPeriod(person, context.period));
-      if (missing.length) { showToast(`${missing[0].name} için harita adresi eksik.`); return; }
-      if (!pending.length) { showToast("Sıralanacak bekleyen personel yok."); return; }
-      if (pending.length > ROUTE_OPTIMIZER_MAX_STOPS) { showToast(`Tek seferde en fazla ${ROUTE_OPTIMIZER_MAX_STOPS} durak sıralanabilir.`); return; }
-
-      const routeWindow = openRouteProgressWindow();
-      setRouteOptimizationBusy("personnel", true);
-      let currentLocation = null;
-      try {
-        currentLocation = context.period === "morning" ? await getCurrentRouteLocation() : null;
-        let fixedPrefix = [];
-        let optimizationPeople = [...pending];
-        let startAddress = "";
-        let start = null;
-        const endAddress = context.period === "morning" ? workplace : companyEveningFinalMapQuery(context.company);
-        const end = endAddress ? optimizerPointForAddress(endAddress) : null;
-
-        if (context.period === "morning") {
-          if (currentLocation) start = { location: currentLocation };
-          else if (optimizationPeople.length > 2) {
-            fixedPrefix = [optimizationPeople.shift()];
-            startAddress = personMapQueryForPeriod(fixedPrefix[0], context.period);
-            start = optimizerPointForAddress(startAddress);
-          }
-        } else {
-          startAddress = workplace;
-          start = optimizerPointForAddress(startAddress);
-        }
-
-        let optimizedPeople = fixedPrefix.concat(optimizationPeople);
-        let response = null;
-        if (optimizationPeople.length >= 2) {
-          const stopRows = optimizationPeople.map((person, index) => ({
-            apiId: index + 1,
-            person,
-            address: personMapQueryForPeriod(person, context.period)
-          }));
-          response = await requestRouteOptimization({
-            start,
-            end,
-            stops: stopRows.map((row) => ({ id: row.apiId, ...optimizerPointForAddress(row.address) }))
-          });
-          const personByApiId = new Map(stopRows.map((row) => [row.apiId, row.person]));
-          optimizedPeople = fixedPrefix.concat(response.orderedStopIds.map((id) => personByApiId.get(Number(id))).filter(Boolean));
-          cacheResolvedRoutePoints(startAddress, endAddress, stopRows, response.locations);
-        }
-
-        const pendingIds = new Set(pending.map((person) => person.id));
-        const completedIds = context.people.filter((person) => !pendingIds.has(person.id)).map((person) => person.id);
-        const session = getOrCreateServiceSession(context.date, context.routeId, context.period, context.jobId, context.shiftKey);
-        session.manualOrder = completedIds.concat(optimizedPeople.map((person) => person.id));
-        session.currentIndex = completedIds.length;
-        session.routeOptimization = {
-          optimizedAt: new Date().toISOString(),
-          provider: response?.provider || "saved-order",
-          distanceMeters: Number(response?.summary?.distanceMeters || 0),
-          durationSeconds: Number(response?.summary?.durationSeconds || 0),
-          stopCount: optimizedPeople.length
-        };
-        saveState();
-
-        const route = buildPersonnelGoogleMapsRoute(optimizedPeople, context.period, context.company, {
-          origin: context.period === "morning" ? routeCoordinateText(currentLocation) : ""
-        });
-        const opened = navigateRouteWindow(routeWindow, route?.url);
-        const summary = routeOptimizationSummaryText(session.routeOptimization);
-        showToast(`En uygun sıra hazır${summary ? ` · ${summary}` : ""}${opened ? " · Google Haritalar açıldı" : " · Sıralı Harita'ya bas"}.`);
-      } catch (error) {
-        console.error("Personel rota optimizasyonu başarısız:", error);
-        const fallback = buildPersonnelGoogleMapsRoute(pending, context.period, context.company, {
-          origin: context.period === "morning" ? routeCoordinateText(currentLocation) : ""
-        });
-        navigateRouteWindow(routeWindow, fallback?.url);
-        showToast(`${error.message || "En uygun sıra bulunamadı."} Kayıtlı sıra Google Haritalar'da açıldı.`);
-      } finally {
-        setRouteOptimizationBusy("personnel", false);
-      }
     }
 
     function getServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
@@ -17366,7 +17129,7 @@
       }
 
       if (!session) {
-        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">Hazır</div><div class="current-name">Servis bekliyor</div><div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button><button class="btn route-optimize-btn" type="button" data-action="optimize-personnel-route" data-route-optimize-type="personnel">En Uygun Rotayı Bul</button></div></div>`;
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">Hazır</div><div class="current-name">Servis bekliyor</div><div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button></div></div>`;
       } else if (period === "evening" && phase === "boarding" && counts.boardingPending === 0) {
         const hasBoarded = counts.bindi > 0;
         currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">AKŞAM SERVİSİ · BİNİŞLER TAMAMLANDI</div><div class="current-name">${hasBoarded ? "Harekete hazır" : "Servise katılan personel yok"}</div><div class="current-meta">Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araçta: ${counts.onboard}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">${hasBoarded ? "Dağıtıma Başla" : "Servisi Bitir ve Kaydet"}</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button></div></div>`;
@@ -20562,7 +20325,6 @@
             <div class="current-actions">
               <button class="btn map-btn" type="button" data-action="open-school-student-map" data-id="${escapeHtml(currentStudent.id)}">Harita</button>
               <button class="btn map-btn" type="button" data-action="open-school-ordered-map">Sıralı Harita</button>
-              <button class="btn route-optimize-btn" type="button" data-action="optimize-school-route" data-route-optimize-type="school">En Uygun Rotayı Bul</button>
               ${schoolServiceActionButtons(period, currentStudent.id, false)}
             </div>
           </div>
@@ -21205,7 +20967,6 @@
           ${context.type === "personnel" && context.plannedTime
             ? `<span class="driver-time-line">Planlanan ${escapeHtml(context.plannedTime)} <span class="driver-countdown ${escapeHtml(context.countdown?.className || "is-ok")}">${escapeHtml(context.countdownShort || context.countdown?.text || "")}</span></span>`
             : ""}
-          ${routeOptimizationNote(context.session) ? `<span class="route-optimization-note">${escapeHtml(routeOptimizationNote(context.session))}</span>` : ""}
         </div>
         <div class="driver-current-progress">
           ${context.stats.map(([label, value]) => `<div class="driver-stat-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value))}</strong></div>`).join("")}
@@ -21233,7 +20994,6 @@
           <button class="btn" type="button" data-action="driver-prev" data-driver-type="personnel">ÖNCEKİ YOLCU</button>
           <button class="btn" type="button" data-action="driver-call" data-driver-type="personnel" ${hasPhone ? "" : "disabled"}>YOLCUYU ARA</button>
           <button class="btn driver-map-action" type="button" data-action="driver-current-map" data-driver-type="personnel">HARİTAYI AÇ</button>
-          <button class="btn driver-route-action" type="button" data-action="driver-optimize-route" data-driver-type="personnel" data-route-optimize-type="personnel">EN UYGUN ROTAYI BUL</button>
           <button class="btn danger driver-finish-action" type="button" data-action="driver-finish" data-driver-type="personnel">SERVİSİ BİTİR</button>`;
       }
       const isMorning = context.session.period !== "evening";
@@ -21245,7 +21005,6 @@
         <button class="btn" type="button" data-action="driver-prev" data-driver-type="${type}">ÖNCEKİ YOLCU</button>
         <button class="btn" type="button" data-action="driver-call" data-driver-type="${type}" ${hasPhone ? "" : "disabled"}>YOLCUYU ARA</button>
         <button class="btn driver-map-action" type="button" data-action="driver-current-map" data-driver-type="${type}">HARİTAYI AÇ</button>
-        <button class="btn driver-route-action" type="button" data-action="driver-optimize-route" data-driver-type="${type}" data-route-optimize-type="${type}">EN UYGUN ROTAYI BUL</button>
         <button class="btn danger driver-finish-action" type="button" data-action="driver-finish" data-driver-type="${type}">SERVİSİ BİTİR</button>`;
     }
 
@@ -21358,7 +21117,6 @@
         }
         return;
       }
-      if (command.includes("en uygun rota") || command.includes("rotayı sırala") || command.includes("akıllı rota")) { driverOptimizeRoute(commandType); return; }
       if (command.includes("sıralı harita") || command.includes("rota aç")) { driverOrderedMap(commandType); return; }
       if (command.includes("yolcu haritas") || command.includes("haritayı aç") || command.includes("harita aç")) { driverCurrentMap(commandType); return; }
       if (command === "ara" || command.includes("yolcuyu ara") || command.includes("veliyi ara")) { driverCallCurrent(commandType); return; }
@@ -21540,15 +21298,6 @@
       syncDriverContextControls(context);
       if (context.type === "school") openSchoolOrderedMap();
       else openOrderedMap();
-    }
-
-    function driverOptimizeRoute(type = driverModeSelectedType) {
-      driverSetSelectedType(type, true);
-      const context = currentDriverContext(type);
-      if (!context) { showToast("En uygun rota için aktif servis yok."); return; }
-      syncDriverContextControls(context);
-      if (context.type === "school") optimizeSchoolRoute();
-      else optimizePersonnelRoute();
     }
 
     function driverStartEveningDistribution(type = driverModeSelectedType) {
@@ -22026,92 +21775,6 @@
       if (!route?.url) { showToast("Google Haritalar rotası hazırlanamadı."); return; }
       window.open(route.url, "_blank", "noopener,noreferrer");
       showSchoolMapResult(route, context.period);
-    }
-
-    async function optimizeSchoolRoute() {
-      if (routeOptimizationBusy.school) return;
-      const context = schoolRouteContext();
-      const schoolQuery = String(context.school?.mapQuery || context.school?.address || "").trim();
-      if (!context.school || !schoolQuery) { showToast("Okulun harita adresi eksik."); return; }
-
-      const pending = context.students.filter((student) => getSchoolServiceStatus(context.date, context.schoolId, student.id, context.period) === "Bekliyor");
-      const missing = pending.filter((student) => !(student.mapQuery || student.homeAddress));
-      if (missing.length) { showToast(`${missing[0].name} için harita adresi eksik.`); return; }
-      if (!pending.length) { showToast("Sıralanacak bekleyen öğrenci yok."); return; }
-      if (pending.length > ROUTE_OPTIMIZER_MAX_STOPS) { showToast(`Tek seferde en fazla ${ROUTE_OPTIMIZER_MAX_STOPS} durak sıralanabilir.`); return; }
-
-      const routeWindow = openRouteProgressWindow();
-      setRouteOptimizationBusy("school", true);
-      let currentLocation = null;
-      try {
-        currentLocation = context.period === "morning" ? await getCurrentRouteLocation() : null;
-        let fixedPrefix = [];
-        let optimizationStudents = [...pending];
-        let startAddress = "";
-        let start = null;
-        const endAddress = context.period === "morning" ? schoolQuery : "";
-        const end = endAddress ? optimizerPointForAddress(endAddress) : null;
-
-        if (context.period === "morning") {
-          if (currentLocation) start = { location: currentLocation };
-          else if (optimizationStudents.length > 2) {
-            fixedPrefix = [optimizationStudents.shift()];
-            startAddress = String(fixedPrefix[0].mapQuery || fixedPrefix[0].homeAddress || "").trim();
-            start = optimizerPointForAddress(startAddress);
-          }
-        } else {
-          startAddress = schoolQuery;
-          start = optimizerPointForAddress(startAddress);
-        }
-
-        let optimizedStudents = fixedPrefix.concat(optimizationStudents);
-        let response = null;
-        if (optimizationStudents.length >= 2) {
-          const stopRows = optimizationStudents.map((student, index) => ({
-            apiId: index + 1,
-            student,
-            address: String(student.mapQuery || student.homeAddress || "").trim()
-          }));
-          response = await requestRouteOptimization({
-            start,
-            end,
-            stops: stopRows.map((row) => ({ id: row.apiId, ...optimizerPointForAddress(row.address) }))
-          });
-          const studentByApiId = new Map(stopRows.map((row) => [row.apiId, row.student]));
-          optimizedStudents = fixedPrefix.concat(response.orderedStopIds.map((id) => studentByApiId.get(Number(id))).filter(Boolean));
-          cacheResolvedRoutePoints(startAddress, endAddress, stopRows, response.locations);
-        }
-
-        const pendingIds = new Set(pending.map((student) => student.id));
-        const completedIds = context.students.filter((student) => !pendingIds.has(student.id)).map((student) => student.id);
-        const session = getOrCreateSchoolServiceSession(context.date, context.schoolId, context.period);
-        session.manualOrder = completedIds.concat(optimizedStudents.map((student) => student.id));
-        session.currentIndex = completedIds.length;
-        session.routeOptimization = {
-          optimizedAt: new Date().toISOString(),
-          provider: response?.provider || "saved-order",
-          distanceMeters: Number(response?.summary?.distanceMeters || 0),
-          durationSeconds: Number(response?.summary?.durationSeconds || 0),
-          stopCount: optimizedStudents.length
-        };
-        saveState();
-
-        const route = buildSchoolGoogleMapsRoute(optimizedStudents, context.period, context.school, {
-          origin: context.period === "morning" ? routeCoordinateText(currentLocation) : ""
-        });
-        const opened = navigateRouteWindow(routeWindow, route?.url);
-        const summary = routeOptimizationSummaryText(session.routeOptimization);
-        showToast(`En uygun sıra hazır${summary ? ` · ${summary}` : ""}${opened ? " · Google Haritalar açıldı" : " · Sıralı Harita'ya bas"}.`);
-      } catch (error) {
-        console.error("Okul rota optimizasyonu başarısız:", error);
-        const fallback = buildSchoolGoogleMapsRoute(pending, context.period, context.school, {
-          origin: context.period === "morning" ? routeCoordinateText(currentLocation) : ""
-        });
-        navigateRouteWindow(routeWindow, fallback?.url);
-        showToast(`${error.message || "En uygun sıra bulunamadı."} Kayıtlı sıra Google Haritalar'da açıldı.`);
-      } finally {
-        setRouteOptimizationBusy("school", false);
-      }
     }
 
     function getStudent(studentId) {
@@ -29301,7 +28964,6 @@
       $("#startSchoolServiceBtn").addEventListener("click", startSchoolService);
       $("#finishSchoolServiceBtn").addEventListener("click", finishSchoolService);
       $("#openSchoolOrderedMapBtn").addEventListener("click", openSchoolOrderedMap);
-      $("#optimizeSchoolRouteBtn")?.addEventListener("click", optimizeSchoolRoute);
       $("#schoolArrivedMessageBtn")?.addEventListener("click", sendSchoolArrivalGroupMessage);
       $("#schoolDelayMessageBtn")?.addEventListener("click", sendSchoolDelayGroupMessage);
       $("#schoolWhatsappAutoOpen")?.addEventListener("change", (event) => {
@@ -29462,7 +29124,6 @@
       $("#startServiceBtn").addEventListener("click", startService);
       $("#finishServiceBtn").addEventListener("click", finishService);
       $("#openOrderedMapBtn").addEventListener("click", openOrderedMap);
-      $("#optimizePersonnelRouteBtn")?.addEventListener("click", optimizePersonnelRoute);
 
       const saveTripPriceBtn = $("#saveTripPriceBtn");
       if (saveTripPriceBtn) saveTripPriceBtn.addEventListener("click", saveLedgerPrice);
@@ -29514,7 +29175,6 @@
         if (action === "driver-voice") startDriverVoiceCommand();
         if (action === "driver-current-map") driverCurrentMap(driverType);
         if (action === "driver-ordered-map") driverOrderedMap(driverType);
-        if (action === "driver-optimize-route") driverOptimizeRoute(driverType);
         if (action === "driver-prev") driverMove(-1, driverType);
         if (action === "driver-next") driverMove(1, driverType);
         if (action === "driver-call") driverCallCurrent(driverType);
@@ -29616,14 +29276,12 @@
         if (action === "open-school-map") openSchoolMap(id);
         if (action === "open-school-student-map") openSchoolServiceStudentMap(id);
         if (action === "open-school-ordered-map") openSchoolOrderedMap();
-        if (action === "optimize-school-route") optimizeSchoolRoute();
         if (action === "school-service-mark") markSchoolServiceAttendance(button.dataset.studentId, button.dataset.status);
         if (action === "school-service-jump") jumpSchoolServiceCursor(button.dataset.index);
         if (action === "cycle-attendance") cycleAttendance(button.dataset.personId, button.dataset.period);
         if (action === "cycle-ledger-day") cycleLedgerDay(button.dataset.date);
         if (action === "open-map") openPersonMap(button.dataset.personId);
         if (action === "open-ordered-map") openOrderedMap();
-        if (action === "optimize-personnel-route") optimizePersonnelRoute();
         if (action === "open-large-service-list") openLargeServiceList();
         if (action === "reset-service-order") resetServiceManualOrder();
         if (action === "service-order-up") moveServicePerson(button.dataset.personId, -1);
@@ -31286,7 +30944,7 @@
     }
 
     async function requestLicenseApi(path, payload) {
-      const requestLabel = path === "/optimize-route" ? "Rota sıralama" : "Lisans kontrolü";
+      const requestLabel = "Lisans kontrolü";
       // Android APK içinde lisans isteğini yerel ağ katmanından gönder.
       // Bu yol, bazı Android WebView sürümlerindeki CORS/fetch sorunlarını aşar.
       if (window.AndroidBridge && typeof window.AndroidBridge.requestLicense === "function") {

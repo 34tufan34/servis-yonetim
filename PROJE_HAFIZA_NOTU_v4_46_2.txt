@@ -1,0 +1,53 @@
+SERVİS YÖNETİM SİSTEMİ — v4.46.2
+
+Web sürümü: 4.46.2
+APK: 1.0.5 / versionCode 6
+Veri şeması: 33
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+SON GÜNCELLEME KARARLARI:
+1. “En Uygun Rotayı Bul” özelliği tamamen kullanıcı arayüzünden kaldırıldı.
+2. Personel Servisi, Okul Servisi ve Şoför Modundaki ilgili düğmeler kaldırıldı.
+3. Sesli komuttaki “en uygun rota”, “rotayı sırala” ve “akıllı rota” komutları kaldırıldı.
+4. İstemci tarafındaki rota optimizasyon fonksiyonları, koordinat önbelleği ve Android lisans köprüsündeki /optimize-route desteği kaldırıldı.
+5. Normal “Sıralı Harita” özelliği korunmuştur; kullanıcı tarafından belirlenen kayıtlı sıra Google Haritalar'a aktarılır.
+
+AKŞAM PERSONEL SERVİSİ İKİ AŞAMALI AKIŞ:
+1. Servis Biniş Aşaması ile açılır.
+2. Her personel Bindi, Yok veya İzinli olarak işaretlenir.
+3. Tüm biniş durumları tamamlanmadan Dağıtıma Başla işlemi çalışmaz.
+4. Dağıtım başladığında yalnızca Bindi kaydı bulunan personeller gösterilir.
+5. Personel bırakıldığında İndi kaydı ve gerçek iniş saati tutulur.
+6. Akşam biniş saati eveningBoardingAt, iniş saati eveningAt alanında saklanır.
+7. Araçta personel varken servis bitirilemez.
+8. Eski kayıtlar veri kaybı olmadan yorumlanır.
+9. Personel Servisi, Şoför Modu ve aylık rapor aynı kayıt mantığını kullanır.
+
+AYLIK PERSONEL YOKLAMA EKRANI:
+- KPI özeti ve Aylık Personel Yoklama Özeti geniş ekranlarda yan yana gösterilir.
+- KPI özeti iki sütunlu kompakt panel olarak düzenlenmiştir.
+- Tablet ve dar ekranlarda paneller otomatik olarak alt alta geçer.
+- Günlük yoklama detay tablosu alt bölümde kalır.
+
+EVRAK DOSYASI PANELİ:
+- Evrak yükleme panelinin alt iç boşluğu artırılmıştır.
+- Evrakı Kaydet ve Temizle düğmelerinin panel tabanına yapışması giderilmiştir.
+
+SÜRÜM / ÖNBELLEK:
+- APP_VERSION: 4.46.2
+- Service Worker önbelleği: servis-sys-v4-46-2
+- Android AppConfig WEB_VERSION: 4.46.2
+- APK_VERSION: 1.0.5 olarak kalır.
+
+DOĞRULAMA:
+- İki satır içi JavaScript bloğu node --check ile doğrulandı.
+- Akşam akış testi geçti: 2 Bindi + 1 Yok → Dağıtıma Başla → 2 İndi → araçta 0 → servis tamamlandı.
+- Araçta 1 kişi varken servis bitirme engeli doğrulandı.
+- Rota optimizasyonuna ait düğme, komut, fonksiyon ve /optimize-route istemci desteği kalmadığı metin taramasıyla doğrulandı.
+- Aylık rapor panellerinin yeni yan yana grid yapısı ve evrak düğmesi boşluk stilleri dosyada doğrulandı.
+
+DAĞITIM:
+- GitHub tam paket: GITHUB_YUKLEME_DOSYALARI_v4_46_2.zip
+- Yalnız değişen dosyalar: SADECE_DEGISEN_DOSYALAR_v4_46_2.zip
+- Yeni APK kurulumu gerekmez.

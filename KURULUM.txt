@@ -1,81 +1,52 @@
-SERVİS YÖNETİM SİSTEMİ v4.46.1 — AKŞAM BİNDİ / İNDİ AKIŞI
+SERVİS YÖNETİM SİSTEMİ v4.46.2
 
-WEB SÜRÜMÜ: 4.46.1
-BU SÜRÜMDE AKŞAM PERSONEL SERVİSİ:
-- Önce Bindi / Yok / İzinli kayıtları tamamlanır.
-- Dağıtıma Başla ile ikinci aşamaya geçilir.
-- Her personel bırakıldığında İndi işaretlenir.
-- Araçta personel varken servis bitirilemez.
-- APK sürümü 1.0.5 olarak kalır; web güncellemesi GitHub Pages üzerinden gelir.
-
+WEB SÜRÜMÜ: 4.46.2
 APK SÜRÜMÜ: 1.0.5 / versionCode 6
 VERİ ŞEMASI: 33
-LİSANS WORKER: 1.1.0
 
-BU SÜRÜMDE:
-- Personel ve okul servislerine “En Uygun Rotayı Bul” işlemi eklendi.
-- Şoför Modundaki iki komuta panelinde büyük akıllı rota düğmesi bulunur.
-- Bekleyen yolcu/öğrenciler yol ağına göre sıralanır; binmiş/işlenmiş kayıtlar geriye alınmaz.
-- Hesaplanan sıra yalnızca o tarih ve seferin oturumuna yazılır. Temel kayıtlardaki kalıcı sabah/akşam sırası değiştirilmez.
-- Sabah rotası mümkünse telefonun güncel konumundan başlar ve işyeri/okulda biter.
-- Akşam rotası işyeri/okuldan başlar ve sıradaki bırakma noktalarına gider.
-- Sıralama tamamlandığında Google Haritalar uygulaması doğru durak sırasıyla açılır.
-- Google Haritalar URL kullanımı için Google API anahtarı ve Google faturalandırması gerekmez.
-- Akıllı sıra hesabı ücretsiz openrouteservice servisiyle, gizli sunucu anahtarı üzerinden yapılır.
-- Rota servisi kullanılamazsa mevcut kayıtlı sıra korunur ve Google Haritalar yine açılır.
-- Okul sabah servis özetindeki döngü hatası giderildi.
+BU GÜNCELLEMEDE:
+- “En Uygun Rotayı Bul” özelliği Personel Servisi, Okul Servisi ve Şoför Modundan kaldırıldı.
+- Sesli komuttaki en uygun rota / akıllı rota komutları kaldırıldı.
+- Normal “Sıralı Harita” düğmeleri çalışmaya devam eder ve kayıtlı sırayı Google Haritalar'da açar.
+- Akşam personel servisi iki aşamalı çalışır:
+  1. Bindi / Yok / İzinli
+  2. Dağıtıma Başla
+  3. Her personel bırakıldığında İndi
+  4. Araç boşaldığında Servisi Bitir
+- Araçta personel varken servis bitirilemez.
+- Akşam araca biniş ve iniş saatleri ayrı kaydedilir.
+- Aylık personel yoklama ekranındaki iki özet paneli geniş ekranlarda yan yana yerleştirildi.
+- Dar ekranlarda bu paneller okunabilirlik için yeniden alt alta geçer.
+- Evrak Dosyası Kaydet panelindeki “Evrakı Kaydet” ve “Temizle” düğmelerinin alt boşluğu artırıldı.
 
-GÜNCELLEME SIRASI — v4.46.0 → v4.46.1:
-1. Güncellemeden önce uygulamada Ayarlar / Yedek bölümünden tam yedek al.
-2. ZIP içindeki dosyaları GitHub deposuna aynı klasör yapısıyla yükle.
-3. Commit mesajı olarak “v4.46.1 akşam Bindi-İndi akışı” yaz.
-4. GitHub Pages güncellendikten sonra APK’yı kapatıp yeniden aç.
-5. Eski ekran görünürse Ayarlar / Yedek bölümündeki “Çevrimdışı önbelleği güncelle” işlemini bir kez çalıştır.
-6. APK 1.0.5’i kaldırma. Bu güncelleme için yeni APK derlemek veya kurmak gerekmez.
+GITHUB'A YÜKLEME:
+1. Uygulamada Ayarlar / Yedek bölümünden tam JSON yedeği al.
+2. GITHUB_YUKLEME_DOSYALARI_v4_46_2.zip dosyasını çıkart.
+3. Çıkan dosya ve klasörleri GitHub deposunun ana dizinine aynı klasör yapısıyla yükle.
+4. Mevcut dosyaların değiştirilmesini onayla.
+5. Commit mesajı olarak şunu yaz:
+   v4.46.2 rota kaldırma ve panel düzenlemeleri
+6. GitHub Pages güncellendikten sonra APK'yı tamamen kapatıp yeniden aç.
+7. Eski ekran görünürse Ayarlar / Yedek > Çevrimdışı önbelleği güncelle işlemini bir kez çalıştır.
 
-ANAHTAR GÜVENLİĞİ:
-- ORS_API_KEY kesinlikle index.html veya Android kaynak koduna yazılmaz.
-- Anahtar yalnızca Cloudflare Worker > Settings > Variables and Secrets bölümünde şifreli secret olarak tutulur.
-- Personel/öğrenci adresleri rota hesabı sırasında geçici olarak gönderilir; D1 veritabanına kaydedilmez.
-- Worker aylık lisans başına 1000 akıllı rota isteği sınırı uygular.
-
-GITHUB ANA DİZİNİNE YÜKLENECEK WEB DOSYALARI:
-index.html
-sw.js
-manifest.webmanifest
-KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_46_1.txt
-
-APK / ANDROID DURUMU:
-- Native Android kodunda işlev değişikliği yoktur.
-- APK sürümü 1.0.5 ve versionCode 6 olarak kalır.
-- Yalnızca gelecekteki kaynak derlemeleriyle tutarlılık için AppConfig.java içindeki WEB_VERSION 4.46.1 yapılmıştır.
-- Bu güncellemede GitHub Actions ile APK üretmek zorunlu değildir.
-
-COMMIT MESAJI:
-v4.46.1 akşam Bindi-İndi akışı
+APK DURUMU:
+- Yeni APK kurmak zorunlu değildir.
+- Kurulu APK 1.0.5 GitHub Pages'teki yeni web sürümünü açar.
+- Android kaynakları gelecekteki derlemelerle tutarlı olacak şekilde temizlendi.
+- GitHub Actions yalnızca elle çalıştırılır; dosyaları yüklemek otomatik olarak APK üretmez.
 
 VERİ GÜVENLİĞİ:
-- Veri şeması 32’den 33’e otomatik yükselir.
-- Mevcut firma, personel, öğrenci, finans ve servis kayıtları korunur.
-- APK’yı kaldırma; yeni APK kurulumu gerekmez.
-- Güncellemeden önce Ayarlar / Yedek bölümünden tam yedek almak tavsiye edilir.
+- Mevcut personel, öğrenci, finans, evrak ve servis kayıtları korunur.
+- Veri şeması değişmedi: 33.
+- APK'yı kaldırma ve uygulama verilerini temizleme.
 
 AKŞAM PERSONEL SERVİSİ KULLANIMI:
 1. Akşam servisini başlat.
 2. Her personel için Bindi, Yok veya İzinli seç.
-3. Tüm biniş kayıtları tamamlanınca Dağıtıma Başla düğmesine bas.
-4. Her bırakılan personel için İndi seç.
-5. Araçta kişi sayısı sıfırlandığında Servisi Bitir düğmesine bas.
-
-KULLANIM:
-1. Personel Servisi, Okul Servisi veya Şoför Modunu aç.
-2. Servis ve seferi seç veya servisi başlat.
-3. “En Uygun Rotayı Bul” düğmesine dokun.
-4. Konum izni istenirse izin ver.
-5. Hesaplanan sıra panele uygulanır ve Google Haritalar açılır.
+3. Tüm biniş durumları tamamlanınca Dağıtıma Başla düğmesine bas.
+4. Personel araçtan indikçe İndi düğmesine bas.
+5. Araçta kalan kişi sıfır olduğunda Servisi Bitir düğmesine bas.
 
 NOT:
-- Tek hesaplamada en fazla 40 bekleyen durak sıralanır.
-- Google Haritalar URL sınırı nedeniyle tek açılışta en fazla 9 ara durak kullanılır; uzun listelerde paneldeki akıllı sıra korunur ve sonraki bölüm yeniden açılabilir.
-- Adres bulunamazsa ilgili kişinin “Harita Arama Metni” alanını açık adres veya Google Haritalar konumu olarak düzelt.
+- “En Uygun Rotayı Bul” kaldırılmıştır.
+- Manuel personel sırası ve “Sıralı Harita” özelliği korunmuştur.
