@@ -1,0 +1,39 @@
+SERVİS YÖNETİM SİSTEMİ — v4.45.3
+
+Web sürümü: 4.45.3
+APK: 1.0.4 / versionCode 5
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+DÜZELTİLEN HATA:
+1. Personel Servisi panelinde “Personel Servisini Başlat” düğmesi, Sefer alanıyla aynı dar satıra sıkıştığı için metnin sağ tarafı kesiliyordu.
+2. Başlatma kartı tek sütuna geçirildi; Servis Seçimi, Sefer ve Başlat düğmesi kendi tam genişlikte satırına alındı.
+3. Düğme metni panel başlığı zaten servis türünü gösterdiği için “Servisi Başlat” olarak sadeleştirildi.
+4. Düğmeye normal metin kaydırma desteği eklendi; daha dar ekranlarda da taşma engellendi.
+5. Şoför Modu üst açıklamasında v4.45.0'dan kalan “tek geniş panel” ifadesi çift komuta paneline uygun metinle değiştirildi.
+
+KORUNANLAR:
+- Personel ve Okul servisleri aynı ekranda, birbirini kapatmadan bağımsız çalışır.
+- Büyük Aldım/Bindi, İndi, Atla/Sonraki, Yok, İzinli, Arama, Harita ve Servisi Bitir tuşları korunur.
+- Panel içi yolcu/öğrenci listeleri ve servis türünü hedefleyen sesli komutlar korunur.
+- Turkuaz temadaki koyu petrol zemin ve karşıt işlem renkleri korunur.
+- v4.45.1 Bölümsel Yedekler ve güvenli birleştirme korunur.
+
+DOĞRULAMA:
+- Satır içi JavaScript blokları sözdizimi kontrolünden geçti.
+- Personel ve Okul canlı servis işlem yönlendirme testlerinin tamamı geçti.
+- İki bağımsız servis başlatma alanı ve aynı anda iki servis başlatma testleri geçti.
+- 1536 × 960 gerçek tarayıcı görünümünde düğme 520,5 px genişliğe ulaştı; metin genişliği kullanılabilir alanı aşmadı.
+- Başlatma düğmesi tam genişlikte ve kesilmeden görsel olarak doğrulandı.
+- Tarayıcı çalışma zamanı hatası oluşmadı.
+
+VERİ GEÇİŞİ:
+- Veri şeması 31 olarak kalır.
+- Yeni kalıcı veri alanı eklenmedi.
+- Mevcut kayıtlar korunur.
+
+GÜNCELLEME:
+- GitHub ana dizinine index.html, sw.js, manifest.webmanifest, KURULUM.txt ve PROJE_HAFIZA_NOTU_v4_45_3.txt yüklenir.
+- Android kaynak kodu değişmedi; APK yeniden oluşturulmaz ve mevcut APK 1.0.4 kullanılmaya devam eder.
+- Service Worker önbelleği servis-sys-v4-45-3 olarak güncellendi.

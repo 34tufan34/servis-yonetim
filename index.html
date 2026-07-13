@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Çift Şoför Paneli v4.45.2</title>
+  <title>Servis Yönetim Sistemi | Çift Şoför Paneli v4.45.3</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11328,7 +11328,7 @@
       .driver-passenger-select .driver-passenger-status { grid-column: 2; justify-self: start; }
     }
 
-    /* v4.45.2 - Personel ve okul servisi için çift komuta paneli */
+    /* v4.45.2 çift komuta paneli; v4.45.3 servis başlatma taşma düzeltmesi */
     .driver-dashboard.driver-dashboard-dual {
       display: grid;
       gap: 12px;
@@ -11455,16 +11455,17 @@
     }
     .driver-service-start-host { padding: 15px; }
     .driver-service-panel .driver-start-card {
-      grid-template-columns: minmax(0, 1fr) minmax(132px, .42fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 10px;
       padding: 14px;
       border-radius: 18px;
     }
     .driver-service-panel .driver-start-copy { grid-column: 1 / -1; }
     .driver-service-panel .driver-start-copy strong { font-size: 17px; }
-    .driver-service-panel .driver-start-copy + .driver-start-field { grid-column: 1 / -1; }
+    .driver-service-panel .driver-start-field { grid-column: 1 / -1; }
     .driver-service-panel .driver-start-field select { min-width: 0; }
     .driver-service-panel .driver-start-btn {
+      grid-column: 1 / -1;
       width: 100%;
       min-width: 0;
       min-height: 62px;
@@ -11473,6 +11474,7 @@
       font-weight: 950;
       letter-spacing: .035em;
       text-transform: uppercase;
+      white-space: normal;
     }
     .driver-service-live {
       display: grid;
@@ -11616,7 +11618,7 @@
       .driver-service-head { padding: 13px; }
       .driver-service-symbol { width: 43px; height: 43px; border-radius: 14px; }
       .driver-service-panel .driver-start-card { grid-template-columns: 1fr; }
-      .driver-service-panel .driver-start-copy + .driver-start-field { grid-column: auto; }
+      .driver-service-panel .driver-start-field { grid-column: auto; }
       .driver-service-panel .driver-start-btn { min-height: 68px; }
       .driver-service-live { padding: 12px; }
       .driver-service-live .driver-current-progress { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -11892,7 +11894,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.45.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.45.3</div>
         </div>
       </div>
 
@@ -15323,7 +15325,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.45.2</strong>
+                <strong>v4.45.3</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15368,8 +15370,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.45.2 - Personel ve okul servisi için aynı ekranda bağımsız çift şoför komuta paneli.
-    const APP_VERSION = "4.45.2";
+    // v4.45.3 - Çift panel servis başlatma alanı taşma düzeltmesi.
+    const APP_VERSION = "4.45.3";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20710,7 +20712,7 @@
             <option value="evening" ${suggested === "evening" ? "selected" : ""}>${eveningLabel}</option>
           </select>
         </div>
-        <button class="btn primary driver-start-btn" type="button" data-action="driver-start-inline" data-driver-type="${type}">${isSchool ? "Okul Servisini" : "Personel Servisini"} Başlat</button>
+        <button class="btn primary driver-start-btn" type="button" data-action="driver-start-inline" data-driver-type="${type}">Servisi Başlat</button>
       </div>`;
     }
 
@@ -27341,7 +27343,7 @@
 
       const titles = {
         command: ["Komuta Paneli", "Büyük resim burada kurulacak: operasyon riski, günün seferleri, finans sinyali ve uyarılar."],
-        driver: ["Şoför Modu", "Canlı yolcu sırası, yoklama, harita ve saha kısayollarını tek geniş panelden yönet."],
+        driver: ["Şoför Modu", "Personel ve okul servisini yan yana komuta panellerinden, ekran değiştirmeden yönet."],
         registry: ["Temel Kayıtlar", "Sistemin çalışması için gerekli araç, firma, sözleşme, personel, okul, öğrenci ve rehber bilgilerini tek merkezden kaydet."],
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
