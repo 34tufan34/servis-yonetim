@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.MimeTypeMap;
+import android.webkit.PermissionRequest;
 import android.webkit.ServiceWorkerClient;
 import android.webkit.ServiceWorkerController;
 import android.webkit.ValueCallback;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity {
     private static final int LOCATION_PERMISSION_REQUEST = 1002;
     private static final int VOICE_RECOGNITION_REQUEST = 1003;
     private static final int MICROPHONE_PERMISSION_REQUEST = 1004;
+    private static final int WEB_AUDIO_PERMISSION_REQUEST = 1005;
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -60,6 +62,7 @@ public class MainActivity extends Activity {
     private AndroidBridge androidBridge;
     private String nativeBridgeScript = "";
     private String pendingVoicePrompt = "Şoför komutunu söyleyin";
+    private PermissionRequest pendingWebAudioPermissionRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +198,42 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "Dosya seçici açılamadı.", Toast.LENGTH_LONG).show();
                 return false;
             }
+        }
+
+        @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            runOnUiThread(() -> {
+                if (request == null || !isTrustedAppUrl(request.getOrigin())) {
+                    if (request != null) request.deny();
+                    return;
+                }
+
+                boolean wantsAudio = false;
+                for (String resource : request.getResources()) {
+                    if (PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(resource)) {
+                        wantsAudio = true;
+                        break;
+                    }
+                }
+                if (!wantsAudio) {
+                    request.deny();
+                    return;
+                }
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                        || checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                    request.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+                    return;
+                }
+
+                pendingWebAudioPermissionRequest = request;
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, WEB_AUDIO_PERMISSION_REQUEST);
+            });
+        }
+
+        @Override
+        public void onPermissionRequestCanceled(PermissionRequest request) {
+            if (pendingWebAudioPermissionRequest == request) pendingWebAudioPermissionRequest = null;
         }
 
         @Override
@@ -362,6 +401,16 @@ public class MainActivity extends Activity {
             boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             if (granted) launchVoiceRecognizer();
             else deliverVoiceResult("", "Mikrofon izni verilmedi.");
+            return;
+        }
+        if (requestCode == WEB_AUDIO_PERMISSION_REQUEST && pendingWebAudioPermissionRequest != null) {
+            boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (granted) {
+                pendingWebAudioPermissionRequest.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+            } else {
+                pendingWebAudioPermissionRequest.deny();
+            }
+            pendingWebAudioPermissionRequest = null;
         }
     }
 
