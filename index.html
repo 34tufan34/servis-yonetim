@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.46.2</title>
+  <title>Servis Yönetim Sistemi | v4.46.3</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11930,7 +11930,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.46.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.46.3</div>
         </div>
       </div>
 
@@ -15363,7 +15363,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.46.2</strong>
+                <strong>v4.46.3</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15408,8 +15408,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.46.2 - Akşam Bindi/İndi akışı, rapor yerleşimi ve evrak formu düzenlemesi.
-    const APP_VERSION = "4.46.2";
+    // v4.46.3 - Akşam dönüşte toplu biniş kontrolü ve sıralı dağıtım akışı.
+    const APP_VERSION = "4.46.3";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -16414,12 +16414,9 @@
     function serviceSessionPhase(session) {
       if (!session || session.period !== "evening") return "service";
       if (session.eveningPhase === "boarding" || session.eveningPhase === "dropoff") return session.eveningPhase;
-      const people = servicePeopleFor(session.date, session.routeId, session.period, session.shiftKey || "", session.jobId || "");
-      const hasDropRecord = people.some((person) => {
-        const value = String(getAttendance(session.date, session.routeId, person.id)?.evening || "");
-        return value === "İndi" || value === "Başka Adreste İndi";
-      });
-      return hasDropRecord ? "dropoff" : "boarding";
+      // Akşam dönüş her zaman açık bir biniş aşamasıyla başlar. Eski İndi kayıtları
+      // servisi doğrudan dağıtım aşamasına geçirmemelidir.
+      return session.eveningDistributionStartedAt ? "dropoff" : "boarding";
     }
 
     function servicePhaseStatus(person, record, period, date, session) {
@@ -16779,9 +16776,26 @@
     function openOrderedMap() {
       const context = personnelRouteContext();
       if (!context.routeId || !context.company) { showToast("Önce firma seç."); return; }
-      if (!context.people.some((person) => personMapQueryForPeriod(person, context.period))) { showToast("Haritada açılacak personel adresi yok."); return; }
+
+      let routePeople = context.people;
+      if (context.period === "evening") {
+        const session = getServiceSession(context.date, context.routeId, context.period, context.jobId || "", context.shiftKey || "");
+        if (!session?.isActive) {
+          showToast("Önce akşam servisini başlatıp binişleri kaydedin.");
+          return;
+        }
+        if (serviceSessionPhase(session) !== "dropoff") {
+          const counts = serviceCounts(context.date, context.routeId, context.period, context.jobId || "", context.shiftKey || "", session);
+          const pendingText = counts.boardingPending > 0 ? ` ${counts.boardingPending} kişinin biniş durumu bekliyor.` : "";
+          showToast(`Sıralı rota, Dağıtıma Başla işleminden sonra açılır.${pendingText}`);
+          return;
+        }
+        routePeople = servicePeopleForSession(session);
+      }
+
+      if (!routePeople.some((person) => personMapQueryForPeriod(person, context.period))) { showToast("Haritada açılacak personel adresi yok."); return; }
       if (!companyWorkplaceMapQuery(context.company)) { showToast("Firma kaydındaki işyeri harita adresi eksik."); return; }
-      const route = buildPersonnelGoogleMapsRoute(context.people, context.period, context.company);
+      const route = buildPersonnelGoogleMapsRoute(routePeople, context.period, context.company);
       if (!route?.url) { showToast("Google Haritalar rotası hazırlanamadı."); return; }
       window.open(route.url, "_blank", "noopener,noreferrer");
       showPersonnelMapResult(route, context.period);
@@ -17092,6 +17106,12 @@
           ? (counts.boardingPending > 0 ? "Binişleri Tamamla" : counts.bindi > 0 ? "Dağıtıma Başla" : "Servisi Bitir")
           : "Servisi Bitir";
       }
+      const orderedMapButton = $("#openOrderedMapBtn");
+      if (orderedMapButton) {
+        const eveningBoardingLocked = period === "evening" && (!session?.isActive || phase === "boarding");
+        orderedMapButton.disabled = eveningBoardingLocked;
+        orderedMapButton.textContent = eveningBoardingLocked ? "Dağıtımdan Sonra Harita" : "Sıralı Harita";
+      }
 
       const statusValue = session?.isActive
         ? (period === "evening" ? (phase === "boarding" ? "Biniş Aşaması" : "Dağıtım Aşaması") : "Canlı")
@@ -17129,12 +17149,14 @@
       }
 
       if (!session) {
-        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">Hazır</div><div class="current-name">Servis bekliyor</div><div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button></div></div>`;
+        const readyMapButton = period === "evening" ? "" : `<button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>`;
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">Hazır</div><div class="current-name">Servis bekliyor</div><div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}${period === "evening" ? "<br>Önce toplu biniş kontrolü yapılacak; rota daha sonra açılacaktır." : ""}</div></div><div class="current-actions"><button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button>${readyMapButton}</div></div>`;
       } else if (period === "evening" && phase === "boarding" && counts.boardingPending === 0) {
         const hasBoarded = counts.bindi > 0;
-        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">AKŞAM SERVİSİ · BİNİŞLER TAMAMLANDI</div><div class="current-name">${hasBoarded ? "Harekete hazır" : "Servise katılan personel yok"}</div><div class="current-meta">Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araçta: ${counts.onboard}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">${hasBoarded ? "Dağıtıma Başla" : "Servisi Bitir ve Kaydet"}</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button></div></div>`;
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">AKŞAM SERVİSİ · TOPLU BİNİŞ KONTROLÜ TAMAMLANDI</div><div class="current-name">${hasBoarded ? "Araç harekete hazır" : "Servise katılan personel yok"}</div><div class="current-meta">Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araçta: ${counts.onboard}<br>${hasBoarded ? "Dağıtıma Başla düğmesinden sonra yalnızca binen personeller sıralı eve dağıtım listesine alınacaktır." : "Kayıt tamamlanarak servis kapatılabilir."}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">${hasBoarded ? "Dağıtıma Başla" : "Servisi Bitir ve Kaydet"}</button></div></div>`;
       } else if (completed) {
-        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${session.isActive ? "CANLI SERVİS" : "Tamamlandı"}</div><div class="current-name">${period === "evening" ? "Tüm personel araçtan indi" : "Bekleyen personel yok"}</div><div class="current-meta">${period === "evening" ? `Bindi: ${counts.bindi} · İndi: ${counts.indi} · Araçta: ${counts.onboard}` : `Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli}`} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">Servisi Bitir ve Çeteleye İşle</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button><button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button></div></div>`;
+        const returnBoardingButton = period === "evening" && session.isActive ? `<button class="btn small" type="button" data-action="return-evening-boarding">Biniş Kontrolüne Dön</button>` : "";
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${session.isActive ? "CANLI SERVİS" : "Tamamlandı"}</div><div class="current-name">${period === "evening" ? "Tüm personel araçtan indi" : "Bekleyen personel yok"}</div><div class="current-meta">${period === "evening" ? `Bindi: ${counts.bindi} · İndi: ${counts.indi} · Araçta: ${counts.onboard}` : `Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli}`} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">Servisi Bitir ve Çeteleye İşle</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>${returnBoardingButton}<button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button></div></div>`;
       } else {
         const currentPerson = people[session.currentIndex] || people[0];
         const currentRecord = getAttendance(date, routeId, currentPerson.id);
@@ -17148,7 +17170,17 @@
         const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
         const stageLabel = period === "evening" ? (phase === "boarding" ? "BİNİŞ AŞAMASI" : "DAĞITIM AŞAMASI") : "CANLI SERVİS";
         const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button><button class="btn small" type="button" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(currentPerson.id)}">İzinli</button>`;
-        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${stageLabel} · Sıradaki Personel · Sıra ${escapeHtml(order || "-")}</div><div class="current-name">${escapeHtml(currentPerson.name)}</div><div class="current-meta">${escapeHtml(address || "Adres girilmemiş")}<br>Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}<br><span class="service-countdown ${escapeHtml(countdown.className)}">⏱ ${escapeHtml(countdown.text)}</span></div></div><div class="current-actions"><button class="btn small map-btn" type="button" data-action="open-map" data-person-id="${escapeHtml(currentPerson.id)}">Haritada Aç</button><button class="btn small map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button><button class="btn small" type="button" data-action="service-prev">Önceki</button><button class="btn small" type="button" data-action="service-next">Sonraki</button><button class="btn small primary" type="button" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(currentPerson.id)}">${primaryStatus}</button>${absenceButtons}</div></div>`;
+        const routeButtons = period === "evening" && phase === "boarding"
+          ? ""
+          : `<button class="btn small map-btn" type="button" data-action="open-map" data-person-id="${escapeHtml(currentPerson.id)}">Haritada Aç</button><button class="btn small map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>`;
+        const recoveryButton = period === "evening" && phase === "dropoff" ? `<button class="btn small" type="button" data-action="return-evening-boarding">Biniş Kontrolüne Dön</button>` : "";
+        const currentKicker = period === "evening" && phase === "boarding"
+          ? `TOPLU BİNİŞ KONTROLÜ · ${counts.boardingPending} KİŞİ BEKLİYOR`
+          : `${stageLabel} · Sıradaki Personel · Sıra ${escapeHtml(order || "-")}`;
+        const phaseNote = period === "evening" && phase === "boarding"
+          ? "<br>Personeller geliş sırasına göre Bindi, gelmeyenler Yok veya İzinli olarak işaretlenir. Bu aşamada rota açılmaz."
+          : "";
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${currentKicker}</div><div class="current-name">${escapeHtml(currentPerson.name)}</div><div class="current-meta">${escapeHtml(address || "Adres girilmemiş")}<br>Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}${phaseNote}<br><span class="service-countdown ${escapeHtml(countdown.className)}">⏱ ${escapeHtml(countdown.text)}</span></div></div><div class="current-actions">${routeButtons}<button class="btn small" type="button" data-action="service-prev">Önceki</button><button class="btn small" type="button" data-action="service-next">Sonraki</button><button class="btn small primary" type="button" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(currentPerson.id)}">${primaryStatus}</button>${absenceButtons}${recoveryButton}</div></div>`;
       }
 
       const addressHeader = period === "evening" && phase === "boarding" ? "Biniş Noktası" : (period === "evening" ? "Bırakma Adresi" : "Adres");
@@ -17161,7 +17193,8 @@
         const countdown = serviceCountdown(plannedTime, date);
         const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
         const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button><button class="btn small" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(person.id)}">İzinli</button>`;
-        return `<tr><td><strong>${index + 1}</strong>${activeRow ? '<br><span class="pill active">Sırada</span>' : ''}</td><td><button class="btn small order-btn" data-action="service-order-up" data-person-id="${escapeHtml(person.id)}">↑</button><button class="btn small order-btn" data-action="service-order-down" data-person-id="${escapeHtml(person.id)}">↓</button></td><td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td><td>${escapeHtml(address || "-")}</td><td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td><td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td><td><button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button><button class="btn small" data-action="service-jump" data-index="${index}">Seç</button><button class="btn small primary" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>${absenceButtons}</td></tr>`;
+        const rowMapButton = period === "evening" && phase === "boarding" ? "" : `<button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button>`;
+        return `<tr><td><strong>${index + 1}</strong>${activeRow ? '<br><span class="pill active">Seçili</span>' : ''}</td><td><button class="btn small order-btn" data-action="service-order-up" data-person-id="${escapeHtml(person.id)}">↑</button><button class="btn small order-btn" data-action="service-order-down" data-person-id="${escapeHtml(person.id)}">↓</button></td><td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td><td>${escapeHtml(address || "-")}</td><td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td><td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td><td>${rowMapButton}<button class="btn small" data-action="service-jump" data-index="${index}">Seç</button><button class="btn small primary" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>${absenceButtons}</td></tr>`;
       }).join("")}</tbody></table></div>`;
 
       $("#startServiceInlineBtn")?.addEventListener("click", startService);
@@ -17207,9 +17240,10 @@
       session.finishedAt = "";
       if (!Array.isArray(session.manualOrder)) session.manualOrder = [];
       if (period === "evening") {
-        session.eveningPhase = serviceSessionPhase(session) || "boarding";
-        if (session.eveningPhase !== "dropoff") session.eveningPhase = "boarding";
-        if (session.eveningPhase === "boarding") session.eveningDistributionStartedAt = "";
+        // Servisi Başlat akşam dönüşte daima toplu biniş kontrolünü açar.
+        // Dağıtım aşamasına yalnızca Dağıtıma Başla düğmesi geçirir.
+        session.eveningPhase = "boarding";
+        session.eveningDistributionStartedAt = "";
       }
 
       autoMarkLeaveForService(date, routeId, period, jobId, shiftKey);
@@ -17244,6 +17278,35 @@
       session.currentIndex = nextPending >= 0 ? nextPending : 0;
       saveState();
       showToast(`Dağıtım başladı · Araçta ${counts.onboard} personel var.`);
+      return true;
+    }
+
+    function returnToEveningBoarding() {
+      const date = getServiceDate();
+      const routeId = getServiceRouteId();
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const session = getServiceSession(date, routeId, "evening", jobId, shiftKey);
+      if (!session?.isActive) { showToast("Aktif akşam servisi bulunamadı."); return false; }
+      if (serviceSessionPhase(session) !== "dropoff") { showToast("Servis zaten biniş kontrolünde."); return false; }
+      if (!confirm("Biniş kontrolüne dönülsün mü? Bu servisteki İndi kayıtları temizlenecek; Bindi / Yok / İzinli kayıtları korunacaktır.")) return false;
+
+      servicePeopleFor(date, routeId, "evening", shiftKey, jobId).forEach((person) => {
+        const record = getAttendance(date, routeId, person.id);
+        if (!record) return;
+        if (["İndi", "Başka Adreste İndi"].includes(String(record.evening || ""))) {
+          record.evening = "";
+          record.eveningAt = "";
+          record.updatedAt = new Date().toISOString();
+        }
+      });
+      session.eveningPhase = "boarding";
+      session.eveningDistributionStartedAt = "";
+      const people = servicePeopleForSession(session);
+      const nextPending = people.findIndex((person) => eveningBoardingStatus(person, getAttendance(date, routeId, person.id), date) === "Bekliyor");
+      session.currentIndex = nextPending >= 0 ? nextPending : 0;
+      saveState();
+      showToast("Toplu biniş kontrolüne dönüldü.");
       return true;
     }
 
@@ -20953,9 +21016,12 @@
 
     function driverCurrentCardHtml(context) {
       if (!context.current) return '<div class="driver-empty-state">Bu serviste yolcu bulunmuyor.</div>';
+      const currentLabel = context.type === "personnel" && context.session.period === "evening" && context.phase === "boarding"
+        ? `Toplu Biniş Kontrolü · Personel ${context.currentIndex + 1}/${context.rows.length}`
+        : `Sıradaki Yolcu · Sıra ${context.currentIndex + 1}`;
       return `
         <div class="driver-current-top">
-          <span class="driver-current-label">Sıradaki Yolcu · Sıra ${context.currentIndex + 1}</span>
+          <span class="driver-current-label">${currentLabel}</span>
           <span class="driver-current-status ${statusClass(context.currentStatus)}">${escapeHtml(context.currentStatus)}</span>
         </div>
         <h3 class="driver-current-name">${escapeHtml(context.current.name)}</h3>
@@ -20977,23 +21043,24 @@
       const hasPhone = digitsOnly(context.type === "school" ? context.current?.guardianPhone : context.current?.phone).length >= 7;
       if (type === "personnel" && context.session.period === "evening") {
         if (context.phase === "boarding") {
-          const transition = context.canStartDistribution
-            ? `<button class="btn primary driver-primary-action" type="button" data-action="driver-start-distribution" data-driver-type="personnel">DAĞITIMA BAŞLA</button>`
-            : `<button class="btn primary driver-primary-action" type="button" data-action="driver-mark-status" data-driver-type="personnel" data-status="Bindi">BİNDİ</button>`;
-          return `${transition}
-            <button class="btn driver-skip-action" type="button" data-action="driver-next" data-driver-type="personnel">ATLA / SONRAKİ</button>
+          if (context.canStartDistribution) {
+            return `<button class="btn primary driver-primary-action" type="button" data-action="driver-start-distribution" data-driver-type="personnel">DAĞITIMA BAŞLA</button>
+              <button class="btn" type="button" data-action="driver-prev" data-driver-type="personnel">BİNİŞLERİ KONTROL ET</button>`;
+          }
+          return `<button class="btn primary driver-primary-action" type="button" data-action="driver-mark-status" data-driver-type="personnel" data-status="Bindi">BİNDİ</button>
             <button class="btn driver-absence-action" type="button" data-action="driver-mark-status" data-driver-type="personnel" data-status="Yok">YOK</button>
             <button class="btn driver-leave-action" type="button" data-action="driver-mark-status" data-driver-type="personnel" data-status="İzinli">İZİNLİ</button>
-            <button class="btn" type="button" data-action="driver-prev" data-driver-type="personnel">ÖNCEKİ YOLCU</button>
-            <button class="btn" type="button" data-action="driver-call" data-driver-type="personnel" ${hasPhone ? "" : "disabled"}>YOLCUYU ARA</button>
-            <button class="btn driver-map-action" type="button" data-action="driver-current-map" data-driver-type="personnel">HARİTAYI AÇ</button>
-            <button class="btn danger driver-finish-action" type="button" data-action="driver-finish" data-driver-type="personnel">SERVİSİ BİTİR</button>`;
+            <button class="btn driver-skip-action" type="button" data-action="driver-next" data-driver-type="personnel">ATLA / SONRAKİ</button>
+            <button class="btn" type="button" data-action="driver-prev" data-driver-type="personnel">ÖNCEKİ PERSONEL</button>
+            <button class="btn" type="button" data-action="driver-call" data-driver-type="personnel" ${hasPhone ? "" : "disabled"}>PERSONELİ ARA</button>`;
         }
         return `<button class="btn primary driver-primary-action" type="button" data-action="driver-mark-status" data-driver-type="personnel" data-status="İndi">İNDİ</button>
           <button class="btn driver-skip-action" type="button" data-action="driver-next" data-driver-type="personnel">ATLA / SONRAKİ</button>
           <button class="btn" type="button" data-action="driver-prev" data-driver-type="personnel">ÖNCEKİ YOLCU</button>
           <button class="btn" type="button" data-action="driver-call" data-driver-type="personnel" ${hasPhone ? "" : "disabled"}>YOLCUYU ARA</button>
-          <button class="btn driver-map-action" type="button" data-action="driver-current-map" data-driver-type="personnel">HARİTAYI AÇ</button>
+          <button class="btn driver-map-action" type="button" data-action="driver-current-map" data-driver-type="personnel">BU ADRESİ AÇ</button>
+          <button class="btn driver-map-action" type="button" data-action="driver-ordered-map" data-driver-type="personnel">SIRALI ROTAYI AÇ</button>
+          <button class="btn" type="button" data-action="driver-return-boarding" data-driver-type="personnel">BİNİŞ KONTROLÜNE DÖN</button>
           <button class="btn danger driver-finish-action" type="button" data-action="driver-finish" data-driver-type="personnel">SERVİSİ BİTİR</button>`;
       }
       const isMorning = context.session.period !== "evening";
@@ -21270,6 +21337,10 @@
       driverSetSelectedType(type, true);
       const context = currentDriverContext(type);
       if (!context?.current) { showToast("Haritada açılacak yolcu yok."); return; }
+      if (context.type === "personnel" && context.session.period === "evening" && context.phase === "boarding") {
+        showToast("Akşam sıralı rota, toplu biniş kontrolü bittikten sonra açılır.");
+        return;
+      }
       syncDriverContextControls(context);
       if (context.type === "school") openSchoolServiceStudentMap(context.current.id);
       else openPersonMap(context.current.id);
@@ -21309,6 +21380,17 @@
       }
       syncDriverContextControls(context);
       startEveningDistribution();
+    }
+
+    function driverReturnToEveningBoarding(type = driverModeSelectedType) {
+      driverSetSelectedType(type, true);
+      const context = currentDriverContext(type);
+      if (!context || context.type !== "personnel" || context.session.period !== "evening") {
+        showToast("Biniş kontrolüne dönecek aktif akşam personel servisi yok.");
+        return;
+      }
+      syncDriverContextControls(context);
+      returnToEveningBoarding();
     }
 
     function driverFinishService(type = driverModeSelectedType, confirmed = false) {
@@ -29179,6 +29261,7 @@
         if (action === "driver-next") driverMove(1, driverType);
         if (action === "driver-call") driverCallCurrent(driverType);
         if (action === "driver-start-distribution") driverStartEveningDistribution(driverType);
+        if (action === "driver-return-boarding") driverReturnToEveningBoarding(driverType);
         if (action === "driver-mark-status") driverMarkStatus(button.dataset.status || "Bindi", driverType);
         if (action === "driver-mark-passenger") driverMarkPassengerStatus(id, button.dataset.status || "Bindi", driverType);
         if (action === "driver-select-passenger") driverSelectPassenger(Number(button.dataset.index || 0), driverType);
@@ -29284,6 +29367,7 @@
         if (action === "open-ordered-map") openOrderedMap();
         if (action === "open-large-service-list") openLargeServiceList();
         if (action === "reset-service-order") resetServiceManualOrder();
+        if (action === "return-evening-boarding") returnToEveningBoarding();
         if (action === "service-order-up") moveServicePerson(button.dataset.personId, -1);
         if (action === "service-order-down") moveServicePerson(button.dataset.personId, 1);
         if (action === "service-mark") markServiceAttendance(button.dataset.personId, button.dataset.status);

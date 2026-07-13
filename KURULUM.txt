@@ -1,6 +1,6 @@
-SERVİS YÖNETİM SİSTEMİ v4.46.2
+SERVİS YÖNETİM SİSTEMİ v4.46.3
 
-WEB SÜRÜMÜ: 4.46.2
+WEB SÜRÜMÜ: 4.46.3
 APK SÜRÜMÜ: 1.0.5 / versionCode 6
 VERİ ŞEMASI: 33
 
@@ -25,7 +25,7 @@ GITHUB'A YÜKLEME:
 3. Çıkan dosya ve klasörleri GitHub deposunun ana dizinine aynı klasör yapısıyla yükle.
 4. Mevcut dosyaların değiştirilmesini onayla.
 5. Commit mesajı olarak şunu yaz:
-   v4.46.2 rota kaldırma ve panel düzenlemeleri
+   v4.46.3 akşam toplu biniş ve sıralı dağıtım akışı
 6. GitHub Pages güncellendikten sonra APK'yı tamamen kapatıp yeniden aç.
 7. Eski ekran görünürse Ayarlar / Yedek > Çevrimdışı önbelleği güncelle işlemini bir kez çalıştır.
 
