@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Tek Panel Şoför Modu v4.45.0</title>
+  <title>Servis Yönetim Sistemi | Bölümsel Yedekler v4.45.1</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11327,6 +11327,88 @@
       .driver-passenger-select { grid-template-columns: auto minmax(0, 1fr); }
       .driver-passenger-select .driver-passenger-status { grid-column: 2; justify-self: start; }
     }
+
+    /* v4.45.1 - Personel ve öğrenci için ayrı bölümsel yedekler */
+    #screen-settings .settings-selective-backup-card {
+      grid-column: 1 / -1;
+      order: 2;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 4% 0%, rgba(var(--accent-rgb), .13), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,.052), rgba(255,255,255,.022)),
+        var(--panel);
+    }
+    .selective-backup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .selective-backup-box {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 13px;
+      align-items: start;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+    }
+    .selective-backup-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(var(--accent-rgb), .34);
+      border-radius: 18px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -.05em;
+    }
+    .selective-backup-box.student .selective-backup-icon {
+      border-color: rgba(34,197,94,.34);
+      background: rgba(34,197,94,.11);
+    }
+    .selective-backup-copy { min-width: 0; }
+    .selective-backup-copy h3 { margin: 1px 0 5px; font-size: 16px; }
+    .selective-backup-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .selective-backup-count {
+      display: inline-flex;
+      margin-top: 9px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.025);
+      font-size: 10px;
+      font-weight: 850;
+    }
+    .selective-backup-actions {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .selective-backup-actions .btn { width: 100%; min-height: 42px; }
+    .selective-backup-privacy {
+      margin-top: 0;
+      border-style: solid;
+    }
+    @media (max-width: 820px) {
+      .selective-backup-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .selective-backup-box { grid-template-columns: 48px minmax(0, 1fr); padding: 12px; }
+      .selective-backup-icon { width: 48px; height: 48px; border-radius: 15px; font-size: 15px; }
+      .selective-backup-actions { grid-template-columns: 1fr; }
+    }
 </style>
 </head>
 
@@ -11503,7 +11585,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.45.0</div>
+          <div class="brand-sub">Servis Yönetimi v4.45.1</div>
         </div>
       </div>
 
@@ -14514,6 +14596,48 @@
             </div>
           </div>
 
+          <div class="card panel settings-panel admin-only-card settings-wide-card settings-selective-backup-card" id="selectiveBackupCard">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Bölümsel Yedekler</h2>
+                <div class="panel-sub">Yalnız personel veya yalnız öğrenci bilgilerini, diğer sistem kayıtlarını karıştırmadan indir.</div>
+              </div>
+              <span class="pill active">Ayrı ve Güvenli</span>
+            </div>
+
+            <div class="selective-backup-grid">
+              <article class="selective-backup-box">
+                <div class="selective-backup-icon" aria-hidden="true">PE</div>
+                <div class="selective-backup-copy">
+                  <h3>Personel Bilgileri</h3>
+                  <p>Ad, sicil, telefon, firma, firma adresi, vardiya, durak, sabah-akşam adresleri, harita metinleri, tarihler ve notlar.</p>
+                  <span class="selective-backup-count" id="personnelSelectiveBackupCount">Kayıtlar hazırlanıyor</span>
+                </div>
+                <div class="selective-backup-actions">
+                  <button class="btn primary" id="backupPersonnelOnlyBtn" type="button">Personel JSON Yedeği</button>
+                  <button class="btn" id="exportPersonnelOnlyCsvBtn" type="button">Personel CSV Listesi</button>
+                </div>
+              </article>
+
+              <article class="selective-backup-box student">
+                <div class="selective-backup-icon" aria-hidden="true">ÖĞ</div>
+                <div class="selective-backup-copy">
+                  <h3>Öğrenci ve Veli Bilgileri</h3>
+                  <p>Öğrenci, okul, sınıf, veli adı, veli telefonu, ev adresi, harita metni, servis sıraları, ücret ve bildirim tercihi.</p>
+                  <span class="selective-backup-count" id="studentSelectiveBackupCount">Kayıtlar hazırlanıyor</span>
+                </div>
+                <div class="selective-backup-actions">
+                  <button class="btn primary" id="backupStudentsOnlyBtn" type="button">Öğrenci JSON Yedeği</button>
+                  <button class="btn" id="exportStudentsOnlyCsvBtn" type="button">Öğrenci CSV Listesi</button>
+                </div>
+              </article>
+            </div>
+
+            <div class="settings-note selective-backup-privacy">
+              Bu dosyalara kullanıcı şifreleri, finans, tahsilat, yoklama, servis oturumları, evraklar ve işlem geçmişi eklenmez. JSON dosyaları yukarıdaki “Yedek İçe Aktar” düğmesiyle mevcut kayıtları silmeden geri eklenebilir. Kişisel veri içerdiği için yalnız yönetici hesabında görünür.
+            </div>
+          </div>
+
 
           <div class="card panel settings-panel settings-pwa-card" id="pwaInstallCard">
             <div class="panel-header">
@@ -14879,7 +15003,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.45.0</strong>
+                <strong>v4.45.1</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14924,8 +15048,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.45.0 - Tek panel şoför operasyonu ve modern yuvarlak sesli komut düğmesi.
-    const APP_VERSION = "4.45.0";
+    // v4.45.1 - Personel ve öğrenci için ayrı JSON / CSV bölümsel yedekleri.
+    const APP_VERSION = "4.45.1";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -26301,6 +26425,7 @@
       renderVehicleAlerts();
       renderTripsTable();
       renderBackupRecovery();
+      renderSelectiveBackupStatus();
       renderFullDemoDataStatus();
       renderRegistryCenter();
     }
@@ -26946,6 +27071,225 @@
       showToast("Personel CSV dosyası indirildi.");
     }
 
+    function selectiveBackupStamp() {
+      return new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+    }
+
+    function downloadSelectiveFile(filename, content, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function selectiveBackupAllowed() {
+      if (!activeUser || activeUser.role === "admin") return true;
+      showToast("Bölümsel kişisel veri yedeğini yalnız yönetici indirebilir.");
+      return false;
+    }
+
+    function personnelSelectiveBackupRecords() {
+      return state.people
+        .slice()
+        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "tr-TR"))
+        .map((person) => {
+          const company = getCompany(person.companyId);
+          const route = state.routes.find((item) => item.id === person.routeId) || null;
+          return {
+            ...person,
+            linkedCompanyName: company?.name || person.company || "",
+            linkedCompanyAddress: company?.address || "",
+            linkedCompanyPhone: company?.phone || "",
+            linkedRouteCode: route?.code || "",
+            linkedRouteName: route?.name || ""
+          };
+        });
+    }
+
+    function studentSelectiveBackupRecords() {
+      return state.students
+        .slice()
+        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "tr-TR"))
+        .map((student) => {
+          const school = getSchool(student.schoolId);
+          return {
+            ...student,
+            linkedSchoolName: school?.name || "",
+            linkedSchoolAddress: school?.address || "",
+            linkedSchoolMapQuery: school?.mapQuery || "",
+            linkedSchoolPhone: school?.phone || ""
+          };
+        });
+    }
+
+    function renderSelectiveBackupStatus() {
+      const personnelCount = $("#personnelSelectiveBackupCount");
+      const studentCount = $("#studentSelectiveBackupCount");
+      if (personnelCount) {
+        const phones = state.people.filter((person) => digitsOnly(person.phone).length >= 7).length;
+        const addresses = state.people.filter((person) => person.morningAddress || person.eveningAddress || person.stop).length;
+        personnelCount.textContent = `${state.people.length} kayıt · ${phones} telefon · ${addresses} adres`;
+      }
+      if (studentCount) {
+        const phones = state.students.filter((student) => digitsOnly(student.guardianPhone).length >= 7).length;
+        const addresses = state.students.filter((student) => String(student.homeAddress || "").trim()).length;
+        studentCount.textContent = `${state.students.length} kayıt · ${phones} veli telefonu · ${addresses} adres`;
+      }
+    }
+
+    function backupPersonnelOnly() {
+      if (!selectiveBackupAllowed()) return;
+      const records = personnelSelectiveBackupRecords();
+      if (!records.length) {
+        showToast("Yedeklenecek personel kaydı yok.");
+        return;
+      }
+      const createdAt = new Date().toISOString();
+      const payload = {
+        backupType: "personnel-registry-only",
+        formatVersion: 1,
+        appVersion: APP_VERSION,
+        schemaVersion: SCHEMA_VERSION,
+        createdAt,
+        recordCount: records.length,
+        excludedCollections: ["users", "auditLogs", "financeRecords", "attendance", "serviceSessions", "dispatches", "documents"],
+        relatedCompanies: state.companies
+          .filter((company) => records.some((person) => person.companyId === company.id))
+          .map((company) => ({
+            id: company.id,
+            code: company.code || "",
+            name: company.name || "",
+            address: company.address || "",
+            mapQuery: company.mapQuery || "",
+            morningTime: company.morningTime || "",
+            eveningTime: company.eveningTime || "",
+            eveningFinalAddress: company.eveningFinalAddress || "",
+            eveningFinalMapQuery: company.eveningFinalMapQuery || "",
+            status: company.status || "Aktif",
+            routeId: company.routeId || ""
+          })),
+        relatedRoutes: state.routes
+          .filter((route) => records.some((person) => person.routeId === route.id))
+          .map((route) => ({
+            id: route.id,
+            code: route.code || "",
+            name: route.name || "",
+            time: route.time || "",
+            km: route.km || "",
+            stops: route.stops || ""
+          })),
+        personnel: records
+      };
+      downloadSelectiveFile(
+        `personel-bilgi-yedegi-${selectiveBackupStamp()}.json`,
+        JSON.stringify(payload, null, 2),
+        "application/json;charset=utf-8"
+      );
+      appendAudit("Yedek", "Personel bölümsel yedeği indirildi", `${records.length} personel kaydı`);
+      showToast(`${records.length} personel kaydı JSON olarak yedeklendi.`);
+    }
+
+    function backupStudentsOnly() {
+      if (!selectiveBackupAllowed()) return;
+      const records = studentSelectiveBackupRecords();
+      if (!records.length) {
+        showToast("Yedeklenecek öğrenci kaydı yok.");
+        return;
+      }
+      const createdAt = new Date().toISOString();
+      const payload = {
+        backupType: "student-guardian-registry-only",
+        formatVersion: 1,
+        appVersion: APP_VERSION,
+        schemaVersion: SCHEMA_VERSION,
+        createdAt,
+        recordCount: records.length,
+        excludedCollections: ["users", "auditLogs", "schoolPayments", "schoolAttendance", "schoolServiceSessions", "schoolNotifications", "documents"],
+        relatedSchools: state.schools
+          .filter((school) => records.some((student) => student.schoolId === school.id))
+          .map((school) => ({
+            id: school.id,
+            name: school.name || "",
+            address: school.address || "",
+            mapQuery: school.mapQuery || "",
+            entryTime: school.entryTime || "",
+            exitTime: school.exitTime || "",
+            status: school.status || "Aktif"
+          })),
+        students: records
+      };
+      downloadSelectiveFile(
+        `ogrenci-veli-bilgi-yedegi-${selectiveBackupStamp()}.json`,
+        JSON.stringify(payload, null, 2),
+        "application/json;charset=utf-8"
+      );
+      appendAudit("Yedek", "Öğrenci bölümsel yedeği indirildi", `${records.length} öğrenci kaydı`);
+      showToast(`${records.length} öğrenci ve veli kaydı JSON olarak yedeklendi.`);
+    }
+
+    function exportPersonnelOnlyCsv() {
+      if (!selectiveBackupAllowed()) return;
+      const rows = personnelSelectiveBackupRecords();
+      if (!rows.length) {
+        showToast("Dışa aktarılacak personel kaydı yok.");
+        return;
+      }
+      const header = [
+        "Sicil No", "Ad Soyad", "Telefon", "Firma", "Firma Adresi", "Departman", "Güzergah",
+        "Vardiya", "Planlanan Biniş Saati", "Durum", "Biniş Noktası", "Sabah Alma Sırası",
+        "Sabah Biniş Adresi", "Sabah Harita Metni", "Akşam Bırakma Sırası", "Akşam İniş Adresi",
+        "Akşam Harita Metni", "Başlama Tarihi", "Ayrılma Tarihi", "İzinli Bitiş Tarihi", "Not"
+      ];
+      const data = rows.map((person) => [
+        person.employeeNo, person.name, person.phone, person.linkedCompanyName, person.linkedCompanyAddress,
+        person.department, [person.linkedRouteCode, person.linkedRouteName].filter(Boolean).join(" · "),
+        person.shift, person.boardingTime, person.status, person.stop, person.morningOrder,
+        person.morningAddress, person.morningMapQuery, person.eveningOrder, person.eveningAddress,
+        person.eveningMapQuery, person.startDate, person.endDate, person.leaveUntil, person.note
+      ]);
+      const lines = [header, ...data].map((row) => row.map(csvCell).join(";"));
+      downloadSelectiveFile(
+        `personel-iletisim-adres-listesi-${selectiveBackupStamp()}.csv`,
+        "\ufeff" + lines.join("\n"),
+        "text/csv;charset=utf-8"
+      );
+      appendAudit("Yedek", "Personel iletişim CSV indirildi", `${rows.length} personel kaydı`);
+      showToast("Personel telefon ve adres listesi CSV olarak indirildi.");
+    }
+
+    function exportStudentsOnlyCsv() {
+      if (!selectiveBackupAllowed()) return;
+      const rows = studentSelectiveBackupRecords();
+      if (!rows.length) {
+        showToast("Dışa aktarılacak öğrenci kaydı yok.");
+        return;
+      }
+      const header = [
+        "Öğrenci Adı Soyadı", "Okul", "Okul Adresi", "Sınıf", "Veli Adı Soyadı", "Veli Telefonu",
+        "Ev / Biniş Adresi", "Harita Arama Metni", "Sabah Alma Sırası", "Akşam Bırakma Sırası",
+        "Aylık Ücret", "Durum", "Veli WhatsApp Bildirimi"
+      ];
+      const data = rows.map((student) => [
+        student.name, student.linkedSchoolName, student.linkedSchoolAddress, student.className,
+        student.guardianName, student.guardianPhone, student.homeAddress, student.mapQuery,
+        student.morningOrder, student.eveningOrder, student.monthlyFee, student.status,
+        student.guardianWhatsappEnabled === false ? "Kapalı" : "Açık"
+      ]);
+      const lines = [header, ...data].map((row) => row.map(csvCell).join(";"));
+      downloadSelectiveFile(
+        `ogrenci-veli-iletisim-adres-listesi-${selectiveBackupStamp()}.csv`,
+        "\ufeff" + lines.join("\n"),
+        "text/csv;charset=utf-8"
+      );
+      appendAudit("Yedek", "Öğrenci ve veli iletişim CSV indirildi", `${rows.length} öğrenci kaydı`);
+      showToast("Öğrenci, veli telefonu ve adres listesi CSV olarak indirildi.");
+    }
+
 
 
     let localBackupBusy = false;
@@ -27262,6 +27606,81 @@
       showToast("JSON yedeği indirildi. Evrak dosyalarının kendisi cihazda kalır.");
     }
 
+    function pickSelectiveBackupFields(record, fields, idPrefix) {
+      const source = record && typeof record === "object" ? record : {};
+      const clean = {};
+      fields.forEach((field) => {
+        if (Object.prototype.hasOwnProperty.call(source, field)) clean[field] = source[field];
+      });
+      if (!clean.id) clean.id = uid(idPrefix);
+      return clean;
+    }
+
+    function mergeSelectiveBackupRows(currentRows, incomingRows, fields, idPrefix, overwriteExisting = true) {
+      const next = Array.isArray(currentRows) ? currentRows.slice() : [];
+      (Array.isArray(incomingRows) ? incomingRows : []).forEach((row) => {
+        const clean = pickSelectiveBackupFields(row, fields, idPrefix);
+        const index = next.findIndex((item) => String(item.id || "") === String(clean.id));
+        if (index >= 0) {
+          next[index] = overwriteExisting ? { ...next[index], ...clean } : { ...clean, ...next[index] };
+        } else {
+          next.push(clean);
+        }
+      });
+      return next;
+    }
+
+    function importSelectiveBackup(parsed) {
+      const type = String(parsed?.backupType || "");
+      if (type !== "personnel-registry-only" && type !== "student-guardian-registry-only") return false;
+      if (!selectiveBackupAllowed()) return true;
+
+      createLocalBackup("Bölümsel içe aktarma öncesi", { force: true });
+
+      if (type === "personnel-registry-only") {
+        if (!Array.isArray(parsed.personnel)) {
+          showToast("Personel yedek içeriği geçersiz.");
+          return true;
+        }
+        const companyFields = [
+          "id", "code", "name", "address", "mapQuery", "morningTime", "eveningTime",
+          "eveningFinalAddress", "eveningFinalMapQuery", "defaultVehicleId", "tripPrice", "status", "routeId"
+        ];
+        const routeFields = ["id", "code", "name", "time", "km", "stops"];
+        const personFields = [
+          "id", "employeeNo", "name", "phone", "companyId", "company", "department", "routeId",
+          "shift", "boardingTime", "status", "stop", "morningOrder", "eveningOrder", "morningAddress",
+          "morningMapQuery", "eveningAddress", "eveningMapQuery", "startDate", "endDate", "leaveUntil", "note"
+        ];
+        state.companies = mergeSelectiveBackupRows(state.companies, parsed.relatedCompanies, companyFields, "company", false);
+        state.routes = mergeSelectiveBackupRows(state.routes, parsed.relatedRoutes, routeFields, "route", false);
+        state.people = mergeSelectiveBackupRows(state.people, parsed.personnel, personFields, "person", true);
+        saveState();
+        appendAudit("Yedek", "Personel bölümsel yedeği geri yüklendi", `${parsed.personnel.length} personel kaydı · mevcut diğer veriler korundu`);
+        showToast(`${parsed.personnel.length} personel kaydı mevcut veriler silinmeden geri yüklendi.`);
+        return true;
+      }
+
+      if (!Array.isArray(parsed.students)) {
+        showToast("Öğrenci yedek içeriği geçersiz.");
+        return true;
+      }
+      const schoolFields = [
+        "id", "name", "address", "mapQuery", "entryTime", "exitTime", "vehicleId",
+        "driverName", "driverPhone", "whatsappGroupName", "status"
+      ];
+      const studentFields = [
+        "id", "name", "schoolId", "className", "guardianName", "guardianPhone", "homeAddress",
+        "mapQuery", "morningOrder", "eveningOrder", "monthlyFee", "status", "guardianWhatsappEnabled"
+      ];
+      state.schools = mergeSelectiveBackupRows(state.schools, parsed.relatedSchools, schoolFields, "school", false);
+      state.students = mergeSelectiveBackupRows(state.students, parsed.students, studentFields, "student", true);
+      saveState();
+      appendAudit("Yedek", "Öğrenci bölümsel yedeği geri yüklendi", `${parsed.students.length} öğrenci kaydı · mevcut diğer veriler korundu`);
+      showToast(`${parsed.students.length} öğrenci kaydı mevcut veriler silinmeden geri yüklendi.`);
+      return true;
+    }
+
     function importData(file) {
       if (!file) return;
 
@@ -27275,6 +27694,8 @@
             showToast("Geçersiz yedek dosyası.");
             return;
           }
+
+          if (importSelectiveBackup(parsed)) return;
 
           const nextState = {
             ...defaultState(),
@@ -28050,6 +28471,11 @@
 
       const exportLedgerCsvSettingsBtn = $("#exportLedgerCsvSettingsBtn");
       if (exportLedgerCsvSettingsBtn) exportLedgerCsvSettingsBtn.addEventListener("click", exportLedgerMonthlyCsv);
+
+      $("#backupPersonnelOnlyBtn")?.addEventListener("click", backupPersonnelOnly);
+      $("#backupStudentsOnlyBtn")?.addEventListener("click", backupStudentsOnly);
+      $("#exportPersonnelOnlyCsvBtn")?.addEventListener("click", exportPersonnelOnlyCsv);
+      $("#exportStudentsOnlyCsvBtn")?.addEventListener("click", exportStudentsOnlyCsv);
 
       ["ledgerMonth", "tripUnitPrice", "ledgerMode"].forEach((id) => {
         const element = $(`#${id}`);
