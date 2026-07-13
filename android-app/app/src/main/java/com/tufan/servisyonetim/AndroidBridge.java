@@ -58,7 +58,6 @@ public final class AndroidBridge {
         activity.startVoiceRecognition(prompt);
     }
 
-
     /**
      * Lisans isteğini Android'in yerel ağ katmanından gönderir.
      * Böylece bazı WebView sürümlerindeki CORS / fetch sorunları aşılır.
@@ -70,12 +69,12 @@ public final class AndroidBridge {
 
         try {
             if (!"/activate".equals(path) && !"/validate".equals(path)) {
-                throw new IllegalArgumentException("Geçersiz lisans adresi");
+                throw new IllegalArgumentException("Geçersiz servis adresi");
             }
 
             String payloadText = jsonPayload == null ? "{}" : jsonPayload;
             if (payloadText.length() > 4096) {
-                throw new IllegalArgumentException("Lisans isteği çok büyük");
+                throw new IllegalArgumentException("Servis isteği çok büyük");
             }
 
             URL url = new URL(AppConfig.LICENSE_API_URL + path);
