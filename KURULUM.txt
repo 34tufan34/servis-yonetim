@@ -1,25 +1,26 @@
-SERVİS YÖNETİM SİSTEMİ v4.42.2 — AYLIK YOKLAMA, PDF ÖNİZLEME VE HALKA GRAFİĞİ
+SERVİS YÖNETİM SİSTEMİ v4.42.3 — FİNANS SADELEŞTİRME VE YOKLAMA YAZDIRMA DÜZELTMESİ
 
 BU PAKETTE:
-- Personel Yoklama ve Firma Bilgi Raporu ay bazında çalışır.
-- Seçilen ay için her personelin toplam gün, geldi, gelmedi, izinli, eksik kayıt ve devam oranı gösterilir.
-- Aylık özet tablosu ile günlük yoklama detayı aynı raporda bulunur.
-- CSV çıktısına önce aylık personel özeti, ardından günlük detay eklenir.
-- PDF / Yazdır işlemi uygulama içi beyaz önizleme üzerinden çalışır.
-- Koyu boş sayfa açılması, yazdırma sayfasının hiç açılmaması ve geri dönememe sorunları giderildi.
-- Önizleme ekranında PDF / Yazdırmayı Aç ve Kapat düğmeleri bulunur.
-- Temel Kayıtlar bölümündeki 4/7 göstergesi gerçek SVG halka grafiğine dönüştürüldü.
-- Halka tamamlanma oranına göre dolar ve yüzde değeri merkezde gösterilir.
-- v4.42.1 sözleşme filtresi düzeltmeleri, grafikler ve önceki tüm özellikler korunur.
+- Personel Finans ve Personel Hakedişleri aynı sekmede birleştirildi.
+- Ayrı Personel Hakedişleri sekmesi kaldırıldı; bütün personel gelir, hakediş, gider, fatura, tahsilat ve alacak bilgileri Personel Finans altında tutulur.
+- Personel Yoklama ve Firma Bilgi Raporu paneli kendi içinde kayar.
+- Aylık/günlük yoklama dağılımı ve durum dağılımı grafikleri bu sayfadan kaldırıldı.
+- Aylık personel özeti ve günlük yoklama detay tablosu korunur.
+- Yoklama PDF/Yazdır işlemi gizli yazdırma çerçevesiyle yeniden düzenlendi.
+- Yazdırma önizleme ekranına Geri Dön düğmesi eklendi.
+- Temel Kayıtlar 4/7 göstergesi dolu bölümü temanın gerçek rengiyle gösteren halka grafiğe dönüştürüldü.
+- Halka içindeki “Tamamlanma %...” yazısı kaldırıldı; yalnız 4/7 ve TEMEL ADIM görünür.
+- Personel Servisi ekranındaki Servisi Başlat, Servisi Bitir, Sıralı Harita ve Listeyi Aç düğmeleri yan yana düzenlendi.
+- v4.42.2 aylık yoklama ve önceki tüm kayıt yapıları korunur.
 
 GITHUB ANA DİZİNİNE YÜKLENECEKLER:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_42_2.txt
+PROJE_HAFIZA_NOTU_v4_42_3.txt
 
 COMMIT MESAJI:
-v4.42.2 aylık yoklama PDF ve halka grafik düzeltmesi
+v4.42.3 finans sadeleştirme ve yoklama yazdırma düzeltmesi
 
 APK yeniden oluşturulmaz. Veri şeması 31 olarak kalır. Mevcut kayıtlar korunur.
