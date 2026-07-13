@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Finans Sadeleştirme ve Yoklama Yazdırma v4.42.3</title>
+  <title>Servis Yönetim Sistemi | Şoför Modu ve Yerel PDF Yazdırma v4.43.0</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10551,6 +10551,296 @@
       .personnel-report-panel { padding-right: 10px; }
     }
 
+
+    /* v4.43.0 - Şoför modu ve ortak yazdırma merkezi */
+    .driver-dashboard {
+      display: grid;
+      gap: 16px;
+      min-height: 100%;
+      padding-bottom: 20px;
+    }
+    .driver-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 18px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 88% 16%, rgba(var(--accent-rgb), .18), transparent 34%),
+        linear-gradient(135deg, color-mix(in srgb, var(--panel) 94%, var(--accent) 6%), var(--panel));
+    }
+    .driver-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .driver-hero h2 { margin: 7px 0 6px; font-size: clamp(24px, 3vw, 38px); }
+    .driver-hero p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .driver-live-badge {
+      min-width: 128px;
+      padding: 15px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel-2) 88%, var(--accent) 12%);
+      text-align: center;
+    }
+    .driver-live-badge strong { display: block; font-size: 30px; line-height: 1; }
+    .driver-live-badge span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .driver-type-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .driver-type-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+    .driver-type-card.active { border-color: rgba(var(--accent-rgb), .70); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .13), var(--shadow-soft); }
+    .driver-type-card.is-live { background: color-mix(in srgb, var(--panel) 84%, rgba(34,197,94,.16)); }
+    .driver-type-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: rgba(var(--accent-rgb), .13);
+      color: var(--accent);
+      font-weight: 950;
+      font-size: 18px;
+    }
+    .driver-type-card strong { display: block; font-size: 16px; }
+    .driver-type-card small { display: block; margin-top: 4px; color: var(--muted); line-height: 1.4; }
+    .driver-type-state {
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+    .driver-type-card.is-live .driver-type-state { color: #bbf7d0; border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.13); }
+    .driver-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: 16px;
+      min-height: 0;
+    }
+    .driver-current-panel,
+    .driver-passenger-panel,
+    .driver-shortcuts-panel { min-height: 0; }
+    .driver-current-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .driver-current-title { margin: 0; font-size: 18px; }
+    .driver-current-meta { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .driver-current-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      background: color-mix(in srgb, var(--panel-2) 92%, var(--accent) 8%);
+    }
+    .driver-current-card.empty { color: var(--muted); text-align: center; padding: 34px 18px; }
+    .driver-current-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .driver-current-label { color: var(--muted); font-size: 11px; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; }
+    .driver-current-status {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .driver-current-name { margin: 13px 0 6px; font-size: clamp(24px, 4vw, 42px); line-height: 1.05; }
+    .driver-current-detail { color: var(--muted); line-height: 1.55; }
+    .driver-current-progress {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .driver-stat-chip {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+    .driver-stat-chip span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+    .driver-stat-chip strong { display: block; margin-top: 4px; font-size: 17px; }
+    .driver-action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 14px;
+    }
+    .driver-action-grid .btn { width: 100%; min-width: 0; margin: 0; min-height: 46px; }
+    .driver-shortcut-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .driver-shortcut {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel-2);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+    .driver-shortcut i {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 900;
+    }
+    .driver-shortcut strong { display:block; font-size: 13px; }
+    .driver-shortcut small { display:block; margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .driver-passenger-panel { display: flex; flex-direction: column; }
+    .driver-passenger-list {
+      min-height: 280px;
+      max-height: min(55dvh, 620px);
+      overflow: auto;
+      display: grid;
+      gap: 8px;
+      padding-right: 4px;
+    }
+    .driver-passenger-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+    .driver-passenger-row.current { border-color: rgba(var(--accent-rgb), .70); box-shadow: 0 0 0 2px rgba(var(--accent-rgb), .10); }
+    .driver-passenger-index {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(var(--accent-rgb), .10);
+      font-weight: 900;
+    }
+    .driver-passenger-row strong { display:block; font-size: 13px; }
+    .driver-passenger-row small { display:block; margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .driver-passenger-status { font-size: 10px; font-weight: 850; white-space: nowrap; }
+    .driver-empty-state {
+      padding: 28px 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+    }
+    .report-preview-back-fab {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 5003;
+      min-width: 136px;
+      min-height: 48px;
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(15,23,42,.28);
+    }
+    .personnel-print-preview-toolbar {
+      position: sticky !important;
+      top: 0;
+      z-index: 5002;
+    }
+    .unified-report-print-portal { display: none; }
+    @media print {
+      body.unified-report-printing {
+        background:#fff !important;
+        color:#111827 !important;
+        overflow:visible !important;
+        height:auto !important;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+      body.unified-report-printing > * { display:none !important; }
+      body.unified-report-printing > #unifiedReportPrintPortal {
+        display:block !important;
+        position:static !important;
+        width:100% !important;
+        background:#fff !important;
+      }
+      body.unified-report-printing #unifiedReportPrintPortal .personnel-print-sheet,
+      body.unified-report-printing #unifiedReportPrintPortal .finance-report-sheet {
+        width:100% !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        border:0 !important;
+        border-radius:0 !important;
+        box-shadow:none !important;
+        background:#fff !important;
+      }
+      body.unified-report-printing #unifiedReportPrintPortal .table-wrap,
+      body.unified-report-printing #unifiedReportPrintPortal .report-table-wrap {
+        overflow:visible !important;
+        max-height:none !important;
+      }
+      body.unified-report-printing #unifiedReportPrintPortal table { width:100% !important; table-layout:fixed !important; border-collapse:collapse !important; }
+      body.unified-report-printing #unifiedReportPrintPortal thead { display:table-header-group !important; }
+      body.unified-report-printing #unifiedReportPrintPortal th,
+      body.unified-report-printing #unifiedReportPrintPortal td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
+      body.unified-report-printing #unifiedReportPrintPortal tr { break-inside:avoid !important; page-break-inside:avoid !important; }
+      .report-preview-back-fab { display:none !important; }
+    }
+    @media (max-width: 1050px) {
+      .driver-main-grid { grid-template-columns: 1fr; }
+      .driver-passenger-list { max-height: 42dvh; }
+    }
+    @media (max-width: 760px) {
+      .driver-hero { grid-template-columns: 1fr; }
+      .driver-live-badge { min-width: 0; width: 100%; }
+      .driver-type-switch { grid-template-columns: 1fr; }
+      .driver-action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .driver-current-progress { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .personnel-print-preview-toolbar { align-items: stretch; flex-direction: column; }
+      .personnel-print-preview-actions { display:grid; grid-template-columns: 1fr 1fr; width:100%; }
+      .personnel-print-preview-actions .btn { min-width:0; width:100%; }
+    }
+    @media (max-width: 520px) {
+      .driver-shortcut-grid { grid-template-columns: 1fr; }
+      .driver-action-grid { grid-template-columns: 1fr 1fr; }
+      .driver-passenger-row { grid-template-columns: auto minmax(0, 1fr); }
+      .driver-passenger-status { grid-column: 2; }
+    }
+
 </style>
 </head>
 
@@ -10727,7 +11017,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.42.3</div>
+          <div class="brand-sub">Servis Yönetimi v4.43.0</div>
         </div>
       </div>
 
@@ -10736,6 +11026,10 @@
         <button class="nav-btn" data-module="command">
           <span class="nav-label"><span class="dot"></span>Komuta Paneli</span>
           <span class="tag">Aktif</span>
+        </button>
+        <button class="nav-btn" data-module="driver">
+          <span class="nav-label"><span class="dot"></span>Şoför Modu</span>
+          <span class="tag">Saha</span>
         </button>
         <button class="nav-btn" data-module="registry">
           <span class="nav-label"><span class="dot"></span>Temel Kayıtlar</span>
@@ -10921,6 +11215,75 @@
             </span>
             <span class="command-card-state" id="commandMaintenanceState">Kontrol</span>
           </button>
+        </div>
+      </section>
+
+
+      <section class="module-screen" id="screen-driver">
+        <div class="driver-dashboard">
+          <section class="card driver-hero">
+            <div>
+              <div class="driver-kicker">SYS ŞOFÖR MODU</div>
+              <h2 id="driverModeTitle">Saha operasyonu hazır</h2>
+              <p id="driverModeLead">Aktif personel veya okul servisini tek ekrandan yönet; sıradaki yolcuyu, haritayı ve yoklamayı hızlıca aç.</p>
+            </div>
+            <div class="driver-live-badge">
+              <strong id="driverLiveCount">0</strong>
+              <span>Canlı Servis</span>
+            </div>
+          </section>
+
+          <div class="driver-type-switch">
+            <button class="driver-type-card" id="driverPersonnelTypeCard" type="button" data-action="driver-switch-personnel">
+              <span class="driver-type-icon">P</span>
+              <span><strong>Personel Servisi</strong><small id="driverPersonnelTypeMeta">Aktif servis bekleniyor.</small></span>
+              <span class="driver-type-state" id="driverPersonnelTypeState">Beklemede</span>
+            </button>
+            <button class="driver-type-card" id="driverSchoolTypeCard" type="button" data-action="driver-switch-school">
+              <span class="driver-type-icon">O</span>
+              <span><strong>Okul Servisi</strong><small id="driverSchoolTypeMeta">Aktif servis bekleniyor.</small></span>
+              <span class="driver-type-state" id="driverSchoolTypeState">Beklemede</span>
+            </button>
+          </div>
+
+          <div class="driver-main-grid">
+            <section class="card panel driver-current-panel">
+              <div class="driver-current-head">
+                <div>
+                  <h3 class="driver-current-title">Canlı Yolcu Yönetimi</h3>
+                  <div class="driver-current-meta" id="driverOperationMeta">Servis başladığında aktif operasyon burada görünür.</div>
+                </div>
+                <button class="btn small primary" type="button" data-action="driver-open-source">Servis Ekranını Aç</button>
+              </div>
+              <div class="driver-current-card empty" id="driverCurrentCard">
+                Aktif servis yok. Personel Servisi veya Okul Servisi bölümünden servisi başlat.
+              </div>
+              <div class="driver-action-grid" id="driverActionHost"></div>
+            </section>
+
+            <section class="card panel driver-shortcuts-panel">
+              <div class="panel-header">
+                <div><h3 class="panel-title">Şoför Kısayolları</h3><div class="panel-sub">Sahada en çok kullanılan ekranlara tek dokunuşla geç.</div></div>
+              </div>
+              <div class="driver-shortcut-grid">
+                <button class="driver-shortcut" type="button" data-action="driver-open-personnel"><i>P</i><span><strong>Personel Servisi</strong><small>Servisi başlat, yolcu sırasını yönet.</small></span></button>
+                <button class="driver-shortcut" type="button" data-action="driver-open-school"><i>O</i><span><strong>Okul Servisi</strong><small>Öğrenci yoklaması ve veli bildirimleri.</small></span></button>
+                <button class="driver-shortcut" type="button" data-action="driver-ordered-map"><i>H</i><span><strong>Sıralı Harita</strong><small>Aktif servisin tüm duraklarını aç.</small></span></button>
+                <button class="driver-shortcut" type="button" data-action="driver-open-report"><i>R</i><span><strong>Yoklama Raporu</strong><small>Personel veya okul raporuna geç.</small></span></button>
+                <button class="driver-shortcut" type="button" data-action="driver-open-documents"><i>E</i><span><strong>Araç Evrakları</strong><small>Ruhsat, sigorta ve muayene kayıtları.</small></span></button>
+                <button class="driver-shortcut" type="button" data-action="open-vehicle-alerts"><i>U</i><span><strong>Araç Uyarıları</strong><small>Yaklaşan bakım ve evrak süreleri.</small></span></button>
+              </div>
+            </section>
+          </div>
+
+          <section class="card panel driver-passenger-panel">
+            <div class="panel-header">
+              <div><h3 class="panel-title">Yolcu Sırası</h3><div class="panel-sub" id="driverPassengerListMeta">Aktif servisin yolcu listesi burada görünür.</div></div>
+            </div>
+            <div class="driver-passenger-list" id="driverPassengerList">
+              <div class="driver-empty-state">Aktif servis bulunmuyor.</div>
+            </div>
+          </section>
         </div>
       </section>
 
@@ -12527,6 +12890,7 @@
               </div>
               <div class="service-control-actions">
                 <button class="btn primary" id="refreshSchoolReportBtn" type="button">Raporu Yenile</button>
+                <button class="btn" id="printSchoolReportBtn" type="button">PDF / Yazdır</button>
               </div>
             </div>
 
@@ -14044,7 +14408,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.42.3</strong>
+                <strong>v4.43.0</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14066,29 +14430,31 @@
     </main>
   </div>
 
-  <div class="personnel-print-preview hidden" id="personnelPrintPreview" role="dialog" aria-modal="true" aria-labelledby="personnelPrintPreviewTitle">
+  <div class="personnel-print-preview hidden" id="personnelPrintPreview" role="dialog" aria-modal="true" aria-labelledby="personnelPrintPreviewTitle" data-report-mode="personnel">
     <div class="personnel-print-preview-toolbar">
       <div>
-        <strong id="personnelPrintPreviewTitle">Aylık Personel Yoklama Raporu</strong>
-        <small>Raporu kontrol et; PDF / Yazdır ile çıktı alabilir, Geri Dön ile programa dönebilirsin.</small>
+        <strong id="personnelPrintPreviewTitle">Rapor Önizleme</strong>
+        <small>PDF / Yazdır ile Android yazdırma ekranını aç. Geri Dön düğmesi her zaman programa döndürür.</small>
       </div>
       <div class="personnel-print-preview-actions">
         <button class="btn primary" id="openPersonnelPrintDialogBtn" type="button">PDF / Yazdır</button>
-        <button class="btn" id="closePersonnelPrintPreviewBtn" type="button">Geri Dön</button>
+        <button class="btn" id="closePersonnelPrintPreviewBtn" type="button">← Geri Dön</button>
       </div>
     </div>
     <div class="personnel-print-preview-body" id="personnelPrintPreviewBody"></div>
+    <button class="btn primary report-preview-back-fab" id="reportPreviewBackFab" type="button">← Programa Dön</button>
   </div>
   <div class="personnel-report-print-portal" id="personnelReportPrintPortal"></div>
   <div class="finance-report-print-portal" id="financeReportPrintPortal"></div>
+  <div class="unified-report-print-portal" id="unifiedReportPrintPortal"></div>
   <div class="toast" id="toast"></div>
 
   <script>
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.42.3 - Personel finans sadeleştirme, yoklama paneli, yazdırma ve halka grafik düzeltmeleri.
-    const APP_VERSION = "4.42.3";
+    // v4.43.0 - Şoför modu, ortak rapor önizleme ve Android yerel yazdırma desteği.
+    const APP_VERSION = "4.43.0";
     const SCHEMA_VERSION = 31;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -19205,6 +19571,294 @@
       };
     }
 
+    let driverModeSelectedType = "personnel";
+
+    function driverPersonnelContext(session) {
+      if (!session) return null;
+      const people = servicePeopleFor(session.date, session.routeId, session.period, session.shiftKey || "", session.jobId || "");
+      const field = serviceStatusField(session.period);
+      const index = people.length ? Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1)) : 0;
+      const current = people[index] || null;
+      const rows = people.map((person, rowIndex) => ({
+        id: person.id,
+        index: rowIndex,
+        name: person.name,
+        secondary: personAddressForPeriod(person, session.period) || person.employeeNo || "Adres yok",
+        status: displayAttendanceStatus(person, getAttendance(session.date, session.routeId, person.id), field, session.date),
+        entity: person
+      }));
+      const counts = serviceCounts(session.date, session.routeId, session.period, session.jobId || "", session.shiftKey || "");
+      const company = getCompanyByRoute(session.routeId);
+      const job = getJob(session.jobId);
+      const shift = jobShiftByKey(job, session.shiftKey || "");
+      const vehicleId = job?.vehicleId || company?.defaultVehicleId || "";
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId) || null;
+      const currentStatus = current ? displayAttendanceStatus(current, getAttendance(session.date, session.routeId, current.id), field, session.date) : "Bekliyor";
+      const planned = current ? servicePlannedTime(current, session.period, job, shift) : "";
+      const countdown = planned ? serviceCountdown(planned, session.date) : null;
+      return {
+        type: "personnel",
+        session,
+        rows,
+        current,
+        currentIndex: index,
+        currentStatus,
+        primaryStatus: session.period === "evening" ? "İndi" : "Bindi",
+        periodLabel: servicePeriodLabel(session.period),
+        title: job?.name || company?.name || "Personel Servisi",
+        meta: `${company?.name || "Firma"}${shift?.name ? " · " + shift.name : ""} · ${servicePeriodLabel(session.period)}${vehicle?.plate ? " · " + vehicle.plate : ""}`,
+        detail: current ? `${personAddressForPeriod(current, session.period) || "Adres girilmemiş"}${planned ? ` · Planlanan ${planned}${countdown ? ` · ${countdown.text}` : ""}` : ""}` : "Yolcu bulunmuyor.",
+        stats: [
+          ["Toplam", counts.total || 0],
+          [session.period === "evening" ? "İndi" : "Bindi", counts.bindi || 0],
+          ["Yok / İzinli", `${counts.yok || 0} / ${counts.izinli || 0}`],
+          ["Bekleyen", counts.bekliyor || 0]
+        ]
+      };
+    }
+
+    function driverSchoolContext(session) {
+      if (!session) return null;
+      const students = schoolServiceStudents(session.schoolId, session.period);
+      const index = students.length ? Math.max(0, Math.min(Number(session.currentIndex || 0), students.length - 1)) : 0;
+      const current = students[index] || null;
+      const rows = students.map((student, rowIndex) => ({
+        id: student.id,
+        index: rowIndex,
+        name: student.name,
+        secondary: `${student.className || "Sınıf yok"} · ${student.homeAddress || "Adres yok"}`,
+        status: getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period),
+        entity: student
+      }));
+      const school = getSchool(session.schoolId);
+      const vehicle = school ? state.vehicles.find((item) => item.id === school.vehicleId) : null;
+      const counts = schoolServiceCounts(session.date, session.schoolId, session.period, students);
+      const currentStatus = current ? getSchoolServiceStatus(session.date, session.schoolId, current.id, session.period) : "Bekliyor";
+      return {
+        type: "school",
+        session,
+        rows,
+        current,
+        currentIndex: index,
+        currentStatus,
+        primaryStatus: session.period === "evening" ? "İndi" : "Bindi",
+        periodLabel: schoolServicePeriodLabel(session.period),
+        title: school?.name || "Okul Servisi",
+        meta: `${schoolServicePeriodLabel(session.period)}${vehicle?.plate ? " · " + vehicle.plate : ""}${session.guideName ? " · Rehber: " + session.guideName : ""}`,
+        detail: current ? `${current.className || "Sınıf yok"} · ${current.homeAddress || "Adres girilmemiş"}` : "Öğrenci bulunmuyor.",
+        stats: [
+          ["Toplam", students.length],
+          [session.period === "evening" ? "İndi" : "Bindi", session.period === "evening" ? (counts.İndi || 0) : (counts.Bindi || 0)],
+          ["Yok / İzinli", `${counts.Yok || 0} / ${counts.İzinli || 0}`],
+          ["Bekleyen", counts.Bekliyor || 0]
+        ]
+      };
+    }
+
+    function currentDriverContext() {
+      const personnelSession = activePersonnelServiceSessions()[0] || null;
+      const schoolSession = activeSchoolServiceSessions()[0] || null;
+      if (driverModeSelectedType === "personnel" && personnelSession) return driverPersonnelContext(personnelSession);
+      if (driverModeSelectedType === "school" && schoolSession) return driverSchoolContext(schoolSession);
+      if (personnelSession) {
+        driverModeSelectedType = "personnel";
+        return driverPersonnelContext(personnelSession);
+      }
+      if (schoolSession) {
+        driverModeSelectedType = "school";
+        return driverSchoolContext(schoolSession);
+      }
+      return null;
+    }
+
+    function forceSelectValue(element, value, label = "Aktif kayıt") {
+      if (!element) return;
+      const safeValue = String(value || "");
+      if (safeValue && !Array.from(element.options || []).some((option) => String(option.value) === safeValue)) {
+        element.add(new Option(label, safeValue));
+      }
+      element.value = safeValue;
+    }
+
+    function syncDriverContextControls(context) {
+      if (!context) return;
+      if (context.type === "personnel") {
+        const session = context.session;
+        if ($("#serviceDate")) $("#serviceDate").value = session.date || todayISO();
+        renderServiceJobOptions();
+        forceSelectValue($("#serviceJob"), session.jobId || "", context.title || "Aktif sözleşme");
+        renderServiceShiftOptions(session.shiftKey || "");
+        forceSelectValue($("#serviceShift"), session.shiftKey || "", session.shiftName || "Aktif vardiya");
+        forceSelectValue($("#serviceRoute"), session.routeId || "", context.meta || "Aktif firma");
+        if ($("#servicePeriod")) {
+          $("#servicePeriod").value = session.period || "morning";
+          $("#servicePeriod").dataset.manual = "1";
+        }
+      } else {
+        const session = context.session;
+        renderSchoolServiceOptions();
+        if ($("#schoolServiceDate")) $("#schoolServiceDate").value = session.date || todayISO();
+        forceSelectValue($("#schoolServiceSchool"), session.schoolId || "", context.title || "Aktif okul");
+        if ($("#schoolServicePeriod")) $("#schoolServicePeriod").value = session.period || "morning";
+      }
+    }
+
+    function renderDriverMode() {
+      const personnelSessions = activePersonnelServiceSessions();
+      const schoolSessions = activeSchoolServiceSessions();
+      const total = personnelSessions.length + schoolSessions.length;
+      const context = currentDriverContext();
+      const personnelCard = $("#driverPersonnelTypeCard");
+      const schoolCard = $("#driverSchoolTypeCard");
+      if (!$("#screen-driver")) return;
+
+      if ($("#driverLiveCount")) $("#driverLiveCount").textContent = String(total);
+      if ($("#driverModeTitle")) $("#driverModeTitle").textContent = total ? "Canlı servis şoför panelinde" : "Saha operasyonu hazır";
+      if ($("#driverModeLead")) $("#driverModeLead").textContent = total
+        ? "Sıradaki yolcuyu, durum işlemlerini, haritayı ve servis bitirmeyi tek ekrandan yönet."
+        : "Personel veya okul servisini başlattığında tüm saha kısayolları burada aktif olur.";
+
+      personnelCard?.classList.toggle("is-live", personnelSessions.length > 0);
+      schoolCard?.classList.toggle("is-live", schoolSessions.length > 0);
+      personnelCard?.classList.toggle("active", driverModeSelectedType === "personnel");
+      schoolCard?.classList.toggle("active", driverModeSelectedType === "school");
+      if ($("#driverPersonnelTypeState")) $("#driverPersonnelTypeState").textContent = personnelSessions.length ? "Canlı" : "Beklemede";
+      if ($("#driverSchoolTypeState")) $("#driverSchoolTypeState").textContent = schoolSessions.length ? "Canlı" : "Beklemede";
+      if ($("#driverPersonnelTypeMeta")) $("#driverPersonnelTypeMeta").textContent = personnelSessions.length ? `${personnelSessions.length} aktif personel servisi` : "Aktif servis bekleniyor.";
+      if ($("#driverSchoolTypeMeta")) $("#driverSchoolTypeMeta").textContent = schoolSessions.length ? `${schoolSessions.length} aktif okul servisi` : "Aktif servis bekleniyor.";
+
+      const currentCard = $("#driverCurrentCard");
+      const actionHost = $("#driverActionHost");
+      const listHost = $("#driverPassengerList");
+      if (!currentCard || !actionHost || !listHost) return;
+
+      if (!context) {
+        if ($("#driverOperationMeta")) $("#driverOperationMeta").textContent = "Servis başladığında aktif operasyon burada görünür.";
+        if ($("#driverPassengerListMeta")) $("#driverPassengerListMeta").textContent = "Aktif servisin yolcu listesi burada görünür.";
+        currentCard.className = "driver-current-card empty";
+        currentCard.innerHTML = "Aktif servis yok. Personel Servisi veya Okul Servisi bölümünden servisi başlat.";
+        actionHost.innerHTML = `
+          <button class="btn primary" type="button" data-action="driver-open-personnel">Personel Servisini Aç</button>
+          <button class="btn primary" type="button" data-action="driver-open-school">Okul Servisini Aç</button>`;
+        listHost.innerHTML = '<div class="driver-empty-state">Aktif servis bulunmuyor.</div>';
+        return;
+      }
+
+      if ($("#driverOperationMeta")) $("#driverOperationMeta").textContent = `${context.title} · ${context.meta}`;
+      if ($("#driverPassengerListMeta")) $("#driverPassengerListMeta").textContent = `${context.rows.length} yolcu · ${context.periodLabel}`;
+      currentCard.className = "driver-current-card";
+      currentCard.innerHTML = context.current ? `
+        <div class="driver-current-top">
+          <span class="driver-current-label">Sıradaki Yolcu · Sıra ${context.currentIndex + 1}</span>
+          <span class="driver-current-status ${statusClass(context.currentStatus)}">${escapeHtml(context.currentStatus)}</span>
+        </div>
+        <h3 class="driver-current-name">${escapeHtml(context.current.name)}</h3>
+        <div class="driver-current-detail">${escapeHtml(context.detail)}</div>
+        <div class="driver-current-progress">
+          ${context.stats.map(([label, value]) => `<div class="driver-stat-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value))}</strong></div>`).join("")}
+        </div>` : '<div class="driver-empty-state">Bu serviste yolcu bulunmuyor.</div>';
+
+      const alternateButton = context.type === "school" && context.session.period === "evening"
+        ? '<button class="btn" type="button" data-action="driver-mark-status" data-status="Başka Adreste İndi">Farklı Adres</button>' : "";
+      actionHost.innerHTML = `
+        <button class="btn map-btn" type="button" data-action="driver-current-map">Yolcu Haritası</button>
+        <button class="btn map-btn" type="button" data-action="driver-ordered-map">Sıralı Harita</button>
+        <button class="btn" type="button" data-action="driver-prev">Önceki</button>
+        <button class="btn" type="button" data-action="driver-next">Sonraki</button>
+        <button class="btn primary" type="button" data-action="driver-mark-status" data-status="${escapeHtml(context.primaryStatus)}">${escapeHtml(context.primaryStatus)}</button>
+        <button class="btn danger" type="button" data-action="driver-mark-status" data-status="Yok">Yok</button>
+        <button class="btn" type="button" data-action="driver-mark-status" data-status="İzinli">İzinli</button>
+        ${alternateButton}
+        <button class="btn danger" type="button" data-action="driver-finish">Servisi Bitir</button>`;
+
+      listHost.innerHTML = context.rows.length ? context.rows.map((row) => `
+        <button class="driver-passenger-row ${row.index === context.currentIndex ? "current" : ""}" type="button" data-action="driver-select-passenger" data-index="${row.index}">
+          <span class="driver-passenger-index">${row.index + 1}</span>
+          <span><strong>${escapeHtml(row.name)}</strong><small>${escapeHtml(row.secondary)}</small></span>
+          <span class="driver-passenger-status ${statusClass(row.status)}">${escapeHtml(row.status)}</span>
+        </button>`).join("") : '<div class="driver-empty-state">Bu serviste yolcu bulunmuyor.</div>';
+    }
+
+    function driverSwitch(type) {
+      driverModeSelectedType = type === "school" ? "school" : "personnel";
+      renderDriverMode();
+    }
+
+    function driverOpenSource() {
+      const context = currentDriverContext();
+      if (context?.type === "school") openSchoolLiveFromCommand();
+      else openPersonnelLiveFromCommand();
+    }
+
+    function driverMarkStatus(status) {
+      const context = currentDriverContext();
+      if (!context?.current) { showToast("İşlem yapılacak yolcu yok."); return; }
+      syncDriverContextControls(context);
+      if (context.type === "school") markSchoolServiceAttendance(context.current.id, status);
+      else markServiceAttendance(context.current.id, status);
+    }
+
+    function driverMove(delta) {
+      const context = currentDriverContext();
+      if (!context) return;
+      syncDriverContextControls(context);
+      if (context.type === "school") {
+        const next = Math.max(0, Math.min(context.currentIndex + delta, context.rows.length - 1));
+        jumpSchoolServiceCursor(next);
+      } else moveServiceCursor(delta);
+    }
+
+    function driverSelectPassenger(index) {
+      const context = currentDriverContext();
+      if (!context) return;
+      syncDriverContextControls(context);
+      if (context.type === "school") jumpSchoolServiceCursor(index);
+      else jumpServiceCursor(index);
+    }
+
+    function driverCurrentMap() {
+      const context = currentDriverContext();
+      if (!context?.current) { showToast("Haritada açılacak yolcu yok."); return; }
+      syncDriverContextControls(context);
+      if (context.type === "school") openSchoolServiceStudentMap(context.current.id);
+      else openPersonMap(context.current.id);
+    }
+
+    function driverOrderedMap() {
+      const context = currentDriverContext();
+      if (!context) { showToast("Sıralı harita için aktif servis yok."); return; }
+      syncDriverContextControls(context);
+      if (context.type === "school") openSchoolOrderedMap();
+      else openOrderedMap();
+    }
+
+    function driverFinishService() {
+      const context = currentDriverContext();
+      if (!context) return;
+      syncDriverContextControls(context);
+      if (context.type === "school") finishSchoolService();
+      else finishService();
+    }
+
+    function driverOpenReport() {
+      const context = currentDriverContext();
+      if (context?.type === "school") {
+        activateModule("school");
+        activateSchoolTab("reports");
+      } else {
+        activateModule("personnel");
+        activateTab("reports");
+      }
+      scrollContentTop();
+    }
+
+    function driverOpenDocuments() {
+      activateModule("personnel");
+      activateTab("vehicles");
+      activateVehicleSubTab("files");
+      scrollContentTop();
+    }
+
     function renderCommandPanel() {
       const personnelSessions = activePersonnelServiceSessions();
       const schoolSessions = activeSchoolServiceSessions();
@@ -20313,81 +20967,124 @@
         </section>`;
     }
 
-    function cleanupPersonnelPrint() {
-      document.body.classList.remove("personnel-report-printing");
-      const portal = $("#personnelReportPrintPortal");
+    let reportPreviewHistoryPushed = false;
+
+    function cleanupUnifiedReportPrint() {
+      document.body.classList.remove("unified-report-printing", "personnel-report-printing", "finance-report-printing");
+      const portal = $("#unifiedReportPrintPortal");
       if (portal) portal.innerHTML = "";
+      const personnelPortal = $("#personnelReportPrintPortal");
+      if (personnelPortal) personnelPortal.innerHTML = "";
+      const financePortal = $("#financeReportPrintPortal");
+      if (financePortal) financePortal.innerHTML = "";
     }
 
-    function closePersonnelPrintPreview() {
-      $("#personnelPrintPreview")?.classList.add("hidden");
-      cleanupPersonnelPrint();
+    function cleanupPersonnelPrint() {
+      cleanupUnifiedReportPrint();
+    }
+
+    function closePersonnelPrintPreview(options = {}) {
+      const preview = $("#personnelPrintPreview");
+      if (preview) preview.classList.add("hidden");
+      cleanupUnifiedReportPrint();
+      if (!options.fromHistory && reportPreviewHistoryPushed && history.length > 1) {
+        reportPreviewHistoryPushed = false;
+        try { history.back(); } catch (error) {}
+      } else {
+        reportPreviewHistoryPushed = false;
+      }
+    }
+
+    function openUnifiedReportPreview({ title, html, mode = "personnel" } = {}) {
+      const preview = $("#personnelPrintPreview");
+      const previewBody = $("#personnelPrintPreviewBody");
+      const titleHost = $("#personnelPrintPreviewTitle");
+      if (!preview || !previewBody || !html) {
+        showToast("Rapor önizlemesi hazırlanamadı.");
+        return false;
+      }
+      preview.dataset.reportMode = mode;
+      preview.dataset.reportTitle = title || "Servis Yönetim Sistemi Raporu";
+      if (titleHost) titleHost.textContent = title || "Rapor Önizleme";
+      previewBody.innerHTML = html;
+      preview.classList.remove("hidden");
+      previewBody.scrollTop = 0;
+      if (!reportPreviewHistoryPushed) {
+        try {
+          history.pushState({ sysReportPreview: true }, "", location.href);
+          reportPreviewHistoryPushed = true;
+        } catch (error) {}
+      }
+      return true;
+    }
+
+    function requestUnifiedReportPrint() {
+      const preview = $("#personnelPrintPreview");
+      const previewBody = $("#personnelPrintPreviewBody");
+      const portal = $("#unifiedReportPrintPortal");
+      if (!preview || preview.classList.contains("hidden") || !previewBody?.innerHTML || !portal) {
+        showToast("Yazdırılacak rapor bulunamadı.");
+        return;
+      }
+
+      portal.innerHTML = previewBody.innerHTML;
+      document.body.classList.add("unified-report-printing");
+      const title = preview.dataset.reportTitle || "Servis Yönetim Sistemi Raporu";
+
+      try {
+        if (window.AndroidBridge && typeof window.AndroidBridge.printCurrentPage === "function") {
+          window.AndroidBridge.printCurrentPage(title);
+          showToast("Android yazdırma ekranı açılıyor. İşlem bitince Geri Dön ile programa dönebilirsin.");
+          window.setTimeout(cleanupUnifiedReportPrint, 45000);
+          return;
+        }
+
+        const runningInsideApk = Boolean(window.AndroidBridge || document.documentElement.hasAttribute("data-servis-android-apk"));
+        if (runningInsideApk) {
+          cleanupUnifiedReportPrint();
+          showToast("Bu APK sürümünde yerel yazdırma yok. PDF için APK 1.0.2 sürümünü kur.");
+          return;
+        }
+
+        if (typeof window.print === "function") {
+          window.print();
+          showToast("Tarayıcı yazdırma ekranı açılıyor.");
+          window.setTimeout(cleanupUnifiedReportPrint, 15000);
+          return;
+        }
+
+        cleanupUnifiedReportPrint();
+        showToast("Bu cihaz yazdırmayı desteklemiyor. APK 1.0.2 sürümünü kurman gerekiyor.");
+      } catch (error) {
+        console.error("Rapor yazdırılamadı:", error);
+        cleanupUnifiedReportPrint();
+        showToast("Yazdırma başlatılamadı. APK 1.0.2 sürümünü kurup tekrar dene.");
+      }
     }
 
     function openPersonnelPrintDialog() {
-      const previewBody = $("#personnelPrintPreviewBody");
-      const sheet = previewBody?.innerHTML || buildPersonnelPrintSheet();
-      if (!sheet) {
-        showToast("Yazdırma önizlemesi hazırlanamadı.");
-        return;
-      }
-
-      document.querySelectorAll(".finance-print-frame.personnel-print-frame").forEach((frame) => frame.remove());
-      const allStyles = Array.from(document.querySelectorAll("style")).map((style) => style.textContent || "").join("\n");
-      const printCss = `
-        @page { size: A4 landscape; margin: 10mm; }
-        html, body { margin:0 !important; padding:0 !important; background:#fff !important; color:#111827 !important; width:auto !important; min-height:0 !important; height:auto !important; overflow:visible !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-        body { font-family: Inter, Arial, sans-serif !important; }
-        .personnel-print-sheet { width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; background:#fff !important; color:#111827 !important; }
-        .personnel-print-sheet table { width:100% !important; table-layout:fixed !important; border-collapse:collapse !important; }
-        .personnel-print-sheet thead { display:table-header-group !important; }
-        .personnel-print-sheet th, .personnel-print-sheet td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
-        .personnel-print-sheet tr { break-inside:avoid !important; page-break-inside:avoid !important; }
-        .personnel-print-sheet .table-wrap { max-height:none !important; overflow:visible !important; }
-        .personnel-print-sheet .personnel-monthly-summary { break-inside:avoid !important; page-break-inside:avoid !important; }
-        .personnel-print-sheet .personnel-monthly-summary thead th { position:static !important; }
-        .toast, .app, .auth-gate, .personnel-print-preview, .personnel-report-print-portal, .finance-report-print-portal { display:none !important; }
-      `;
-
-      const frame = document.createElement("iframe");
-      frame.className = "finance-print-frame personnel-print-frame";
-      frame.setAttribute("title", "Personel yoklama raporu yazdırma");
-      document.body.appendChild(frame);
-
-      const frameDoc = frame.contentDocument || frame.contentWindow?.document;
-      const printWindow = frame.contentWindow;
-      if (!frameDoc || !printWindow) {
-        frame.remove();
-        showToast("Yazdırma belgesi hazırlanamadı.");
-        return;
-      }
-
-      frameDoc.open();
-      frameDoc.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aylık Personel Yoklama Raporu</title><style>${allStyles}
-${printCss}</style></head><body>${sheet}</body></html>`);
-      frameDoc.close();
-
-      let removed = false;
-      const removeFrame = () => {
-        if (removed) return;
-        removed = true;
-        window.setTimeout(() => frame.remove(), 250);
-      };
-
-      printWindow.addEventListener("afterprint", removeFrame, { once: true });
-      showToast("Yazdırma ekranı açılıyor. İşlemden sonra Geri Dön düğmesiyle programa dönebilirsin.");
-      window.setTimeout(() => {
-        try {
-          printWindow.focus();
-          printWindow.print();
-        } catch (error) {
-          console.error("Personel yoklama raporu yazdırılamadı:", error);
-          removeFrame();
-          showToast("Yazdırma ekranı açılamadı. Raporu Chrome üzerinden açıp tekrar deneyin.");
-        }
-      }, 400);
-      window.setTimeout(removeFrame, 120000);
+      requestUnifiedReportPrint();
     }
+
+    window.addEventListener("afterprint", cleanupUnifiedReportPrint);
+    window.addEventListener("popstate", () => {
+      const preview = $("#personnelPrintPreview");
+      if (preview && !preview.classList.contains("hidden")) closePersonnelPrintPreview({ fromHistory: true });
+    });
+
+    window.__servisHandleAndroidBack = function () {
+      const preview = $("#personnelPrintPreview");
+      if (preview && !preview.classList.contains("hidden")) {
+        closePersonnelPrintPreview();
+        return true;
+      }
+      const sidebar = $("#sidebar");
+      if (sidebar?.classList.contains("open")) {
+        sidebar.classList.remove("open");
+        return true;
+      }
+      return false;
+    };
 
     function renderPersonnelAttendanceReportOptions() {
       const companySelect = $("#personnelReportCompany");
@@ -20607,16 +21304,42 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
         showToast("Yazdırılacak aylık personel yoklama kaydı yok.");
         return;
       }
-      const preview = $("#personnelPrintPreview");
-      const previewBody = $("#personnelPrintPreviewBody");
-      if (!preview || !previewBody) {
-        showToast("Yazdırma önizlemesi hazırlanamadı.");
+      const company = getCompany(personnelReportCompany());
+      const title = `${company?.name || "Firma"} · Aylık Personel Yoklama Raporu`;
+      if (openUnifiedReportPreview({ title, html: sheet, mode: "personnel" })) {
+        showToast("Rapor hazır. PDF / Yazdır düğmesi Android yazdırma ekranını açar.");
+      }
+    }
+
+    function buildSchoolPrintSheet() {
+      const schoolId = $("#schoolReportSchool")?.value || "";
+      const month = $("#schoolReportMonth")?.value || currentMonthISO();
+      const school = getSchool(schoolId);
+      const summary = $("#schoolReportSummary")?.innerHTML || "";
+      const table = $("#schoolReportTableHost")?.innerHTML || "";
+      if (!school || !table || table.includes("service-empty")) return "";
+      return `<article class="personnel-print-sheet">
+        <h1 style="font-size:22px;margin:0 0 4px">${escapeHtml(school.name)} · Okul Yoklama Raporu</h1>
+        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Dönem: ${escapeHtml(month)} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>
+        <div class="print-summary" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px">${summary}</div>
+        <div style="margin-top:14px">${table}</div>
+      </article>`;
+    }
+
+    function printSchoolAttendanceReport() {
+      renderSchoolReport();
+      const sheet = buildSchoolPrintSheet();
+      if (!sheet) {
+        showToast("Yazdırılacak okul yoklama kaydı yok.");
         return;
       }
-      previewBody.innerHTML = sheet;
-      preview.classList.remove("hidden");
-      previewBody.scrollTop = 0;
-      showToast("Aylık yoklama raporu hazır. PDF / Yazdırmayı Aç düğmesini kullan.");
+      const school = getSchool($("#schoolReportSchool")?.value || "");
+      openUnifiedReportPreview({
+        title: `${school?.name || "Okul"} · Okul Yoklama Raporu`,
+        html: sheet,
+        mode: "school"
+      });
+      showToast("Okul yoklama raporu hazır. PDF / Yazdır düğmesini kullan.");
     }
 
     function renderSchoolReportOptions() {
@@ -24180,72 +24903,11 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
         showToast("Yazdırılacak rapor oluşturulamadı.");
         return;
       }
-
       const type = $("#financeReportType")?.value || "management";
-      const reportTitle = `${financeReportTypeLabel(type)} - ${getFinanceReportMonth()}`;
-      const allStyles = Array.from(document.querySelectorAll("style")).map((style) => style.textContent || "").join("\n");
-      const standalonePrintCss = `
-        @page { size: A4 landscape; margin: 10mm; }
-        html, body { margin: 0 !important; padding: 0 !important; width: auto !important; min-height: 0 !important; height: auto !important; overflow: visible !important; background: #fff !important; color: #111827 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        body { font-family: Inter, Arial, sans-serif !important; }
-        .finance-report-sheet { width: 100% !important; max-width: none !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; }
-        .report-table { table-layout: fixed !important; width: 100% !important; }
-        .report-table thead { display: table-header-group !important; }
-        .report-table th, .report-table td { white-space: normal !important; overflow-wrap: anywhere !important; word-break: normal !important; line-height: 1.25 !important; }
-        .report-table .money { white-space: normal !important; }
-        .report-table tr, .report-section:not(.report-section-splittable), .report-chart-card, .report-kpi { break-inside: avoid !important; page-break-inside: avoid !important; }
-        .report-section-splittable, .report-table-wrap { break-inside: auto !important; page-break-inside: auto !important; overflow: visible !important; }
-        .report-chart-card { min-height: 0 !important; }
-        .report-footer { position: static !important; left: auto !important; right: auto !important; bottom: auto !important; margin-top: 12px !important; }
-        .report-page-number::after { content: counter(page); }
-        .toast, .app, .auth-gate, .finance-report-print-portal { display: none !important; }
-      `;
-
-      document.querySelectorAll(".finance-print-frame").forEach((frame) => frame.remove());
-      const frame = document.createElement("iframe");
-      frame.className = "finance-print-frame";
-      frame.setAttribute("title", "Finans raporu yazdırma");
-      document.body.appendChild(frame);
-
-      const frameDoc = frame.contentDocument || frame.contentWindow?.document;
-      if (!frameDoc) {
-        frame.remove();
-        showToast("Yazdırma belgesi hazırlanamadı.");
-        return;
+      const reportTitle = `${financeReportTypeLabel(type)} · ${getFinanceReportMonth()}`;
+      if (openUnifiedReportPreview({ title: reportTitle, html: preview.innerHTML, mode: "finance" })) {
+        showToast("Finans raporu hazır. PDF / Yazdır düğmesi Android yazdırma ekranını açar.");
       }
-
-      frameDoc.open();
-      frameDoc.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(reportTitle)}</title><style>${allStyles}\n${standalonePrintCss}</style></head><body>${preview.innerHTML}</body></html>`);
-      frameDoc.close();
-
-      let removed = false;
-      const removeFrame = () => {
-        if (removed) return;
-        removed = true;
-        window.setTimeout(() => frame.remove(), 250);
-      };
-
-      const printWindow = frame.contentWindow;
-      if (!printWindow) {
-        removeFrame();
-        showToast("Yazdırma penceresi açılamadı.");
-        return;
-      }
-
-      printWindow.addEventListener("afterprint", removeFrame, { once: true });
-      showToast("Yalnızca seçilen rapor yazdırılacak. PDF ekranında “PDF olarak kaydet” seçeneğini kullanabilirsiniz.");
-      window.setTimeout(() => {
-        try {
-          printWindow.focus();
-          printWindow.print();
-        } catch (error) {
-          console.error("Rapor yazdırılamadı:", error);
-          showToast("Rapor yazdırılamadı. Tarayıcı yazdırma iznini kontrol et.");
-          removeFrame();
-        }
-      }, 350);
-
-      window.setTimeout(removeFrame, 120000);
     }
 
     function downloadFinanceReportCsv(filename, header, rows) {
@@ -24832,6 +25494,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
       renderSchoolReport();
       renderSchoolServicePanel();
       renderCommandPanel();
+      renderDriverMode();
       renderFuelPricePanel();
       renderPersonnelFilterOptions();
       renderLedgerPanel();
@@ -25395,6 +26058,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
 
       const titles = {
         command: ["Komuta Paneli", "Büyük resim burada kurulacak: operasyon riski, günün seferleri, finans sinyali ve uyarılar."],
+        driver: ["Şoför Modu", "Canlı yolcu sırası, yoklama, harita ve saha kısayollarını tek geniş panelden yönet."],
         registry: ["Temel Kayıtlar", "Sistemin çalışması için gerekli araç, firma, sözleşme, personel, okul, öğrenci ve rehber bilgilerini tek merkezden kaydet."],
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
@@ -25405,6 +26069,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
       $("#pageTitle").textContent = titles[moduleName][0];
       $("#pageLead").textContent = titles[moduleName][1];
       if (moduleName === "finance" && !$("#financeTabs .tab.active")) activateFinanceTab("overview");
+      if (moduleName === "driver") renderDriverMode();
       if (moduleName === "registry") activateRegistryTab(activeRegistryTab);
       if (moduleName === "settings" && $("#sidebarContact")) $("#sidebarContact").open = true;
       $("#sidebar").classList.remove("open");
@@ -26516,16 +27181,26 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
       $("#printPersonnelReportBtn")?.addEventListener("click", printPersonnelAttendanceReport);
       $("#openPersonnelPrintDialogBtn")?.addEventListener("click", openPersonnelPrintDialog);
       $("#closePersonnelPrintPreviewBtn")?.addEventListener("click", closePersonnelPrintPreview);
+      $("#reportPreviewBackFab")?.addEventListener("click", closePersonnelPrintPreview);
       $("#personnelPrintPreview")?.addEventListener("click", (event) => {
         if (event.target?.id === "personnelPrintPreview") closePersonnelPrintPreview();
       });
       window.addEventListener("keydown", (event) => { if (event.key === "Escape" && !$("#personnelPrintPreview")?.classList.contains("hidden")) closePersonnelPrintPreview(); });
+      document.body.addEventListener("click", (event) => {
+        const target = event.target instanceof Element ? event.target.closest("#openPersonnelPrintDialogBtn, #closePersonnelPrintPreviewBtn, #reportPreviewBackFab") : null;
+        if (!target) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (target.id === "openPersonnelPrintDialogBtn") requestUnifiedReportPrint();
+        else closePersonnelPrintPreview();
+      }, true);
 
       ["schoolReportSchool", "schoolReportMonth"].forEach((id) => {
         const element = $(`#${id}`);
         if (element) element.addEventListener("change", renderSchoolReport);
       });
       $("#refreshSchoolReportBtn").addEventListener("click", renderSchoolReport);
+      $("#printSchoolReportBtn")?.addEventListener("click", printSchoolAttendanceReport);
 
       ["schoolPaymentMonth", "schoolPaymentSchool", "schoolPaymentStatus", "schoolPaymentBillingFilter"].forEach((id) => {
         const element = $(`#${id}`);
@@ -26683,6 +27358,20 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
 
         if (action === "open-personnel-live") openPersonnelLiveFromCommand();
         if (action === "open-school-live") openSchoolLiveFromCommand();
+        if (action === "driver-switch-personnel") driverSwitch("personnel");
+        if (action === "driver-switch-school") driverSwitch("school");
+        if (action === "driver-open-source") driverOpenSource();
+        if (action === "driver-open-personnel") { activateModule("personnel"); activateTab("service"); scrollContentTop(); }
+        if (action === "driver-open-school") { activateModule("school"); activateSchoolTab("operation"); scrollContentTop(); }
+        if (action === "driver-current-map") driverCurrentMap();
+        if (action === "driver-ordered-map") driverOrderedMap();
+        if (action === "driver-prev") driverMove(-1);
+        if (action === "driver-next") driverMove(1);
+        if (action === "driver-mark-status") driverMarkStatus(button.dataset.status || "Bindi");
+        if (action === "driver-select-passenger") driverSelectPassenger(Number(button.dataset.index || 0));
+        if (action === "driver-finish") driverFinishService();
+        if (action === "driver-open-report") driverOpenReport();
+        if (action === "driver-open-documents") driverOpenDocuments();
         if (action === "edit-person") editPerson(id);
         if (action === "delete-person") deleteById("people", id, "Personel silindi.");
         if (action === "edit-company") editCompany(id);
@@ -26877,7 +27566,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "registry", "personnel", "school", "finance", "settings"],
+        modules: ["command", "driver", "registry", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -26886,7 +27575,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
         canReset: true
       },
       operation: {
-        modules: ["command", "registry", "personnel", "school", "settings"],
+        modules: ["command", "driver", "registry", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
@@ -28673,6 +29362,7 @@ ${printCss}</style></head><body>${sheet}</body></html>`);
     window.setInterval(() => {
       if ($("#screen-personnel")?.classList.contains("active") && !$("#tab-service")?.classList.contains("hidden")) renderServicePanel();
       if ($("#screen-command")?.classList.contains("active")) renderCommandPanel();
+      if ($("#screen-driver")?.classList.contains("active")) renderDriverMode();
     }, 30000);
   </script>
 </body>

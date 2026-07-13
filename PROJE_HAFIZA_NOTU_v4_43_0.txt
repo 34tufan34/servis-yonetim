@@ -1,0 +1,34 @@
+SERVİS YÖNETİM SİSTEMİ — v4.43.0
+
+Web sürümü: 4.43.0
+APK: 1.0.2 / versionCode 3
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Ana menüye geniş Şoför Modu eklendi.
+2. Şoför Modu canlı personel ve okul servislerini tek ekranda gösterir.
+3. Sıradaki yolcu, yolcu sırası ve durum bilgileri canlı görünür.
+4. Bindi, İndi, Yok, İzinli, önceki/sonraki, yolcu haritası, sıralı harita ve servisi bitirme işlemleri eklendi.
+5. Personel Servisi, Okul Servisi, Yoklama Raporu, Araç Evrakları ve Araç Uyarıları kısayolları eklendi.
+6. Personel, okul ve finans raporları ortak beyaz rapor önizleme ekranına bağlandı.
+7. Önizlemenin üstünde ve sağ altında sürekli görünür Geri Dön düğmesi bulunur.
+8. Android fiziksel geri tuşu rapor önizlemesini kapatır.
+9. WebView’de çalışmayan window.print yerine Android PrintManager yerel yazdırma köprüsü eklendi.
+10. Yerel PDF/yazdırma nedeniyle APK sürümü 1.0.2’ye, versionCode 3’e yükseltildi.
+11. Tarayıcı/PWA yazdırma desteği korunur.
+12. Okul Yoklama Raporuna PDF / Yazdır düğmesi eklendi.
+13. Veri şeması 31 olarak kaldı; mevcut veriler korunur.
+
+ÖNEMLİ:
+- Web dosyalarını GitHub Pages’e yüklemek Şoför Modunu getirir.
+- APK içindeki PDF yazdırmanın çalışması için Android kaynakları da yüklenmeli ve APK 1.0.2 GitHub Actions ile yeniden oluşturulmalıdır.
+- APK 1.0.1’de Android PrintManager köprüsü yoktur.
+- APK güncellemesini mevcut uygulamanın üzerine kur; uygulamayı kaldırma veya verileri temizleme.
+
+TESTLER:
+- JavaScript node --check başarılı.
+- HTML tekil ID ve gerekli seçici kontrolü başarılı.
+- Chromium CDP testinde Şoför Modu açılışı, canlı yolcu kartı, Bindi işlemi, ortak rapor önizleme, yazdırma köprüsü çağrısı ve Geri Dön düğmesi doğrulandı.
+- Android kaynaklarında yerel PrintManager ve geri tuşu köprüsü eklendi.

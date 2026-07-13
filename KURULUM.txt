@@ -1,26 +1,41 @@
-SERVİS YÖNETİM SİSTEMİ v4.42.3 — FİNANS SADELEŞTİRME VE YOKLAMA YAZDIRMA DÜZELTMESİ
+SERVİS YÖNETİM SİSTEMİ v4.43.0 — ŞOFÖR MODU VE ANDROID YEREL PDF YAZDIRMA
 
-BU PAKETTE:
-- Personel Finans ve Personel Hakedişleri aynı sekmede birleştirildi.
-- Ayrı Personel Hakedişleri sekmesi kaldırıldı; bütün personel gelir, hakediş, gider, fatura, tahsilat ve alacak bilgileri Personel Finans altında tutulur.
-- Personel Yoklama ve Firma Bilgi Raporu paneli kendi içinde kayar.
-- Aylık/günlük yoklama dağılımı ve durum dağılımı grafikleri bu sayfadan kaldırıldı.
-- Aylık personel özeti ve günlük yoklama detay tablosu korunur.
-- Yoklama PDF/Yazdır işlemi gizli yazdırma çerçevesiyle yeniden düzenlendi.
-- Yazdırma önizleme ekranına Geri Dön düğmesi eklendi.
-- Temel Kayıtlar 4/7 göstergesi dolu bölümü temanın gerçek rengiyle gösteren halka grafiğe dönüştürüldü.
-- Halka içindeki “Tamamlanma %...” yazısı kaldırıldı; yalnız 4/7 ve TEMEL ADIM görünür.
-- Personel Servisi ekranındaki Servisi Başlat, Servisi Bitir, Sıralı Harita ve Listeyi Aç düğmeleri yan yana düzenlendi.
-- v4.42.2 aylık yoklama ve önceki tüm kayıt yapıları korunur.
+WEB SÜRÜMÜ: 4.43.0
+APK SÜRÜMÜ: 1.0.2 / versionCode 3
+VERİ ŞEMASI: 31
 
-GITHUB ANA DİZİNİNE YÜKLENECEKLER:
+BU SÜRÜMDE:
+- SYS ana menüsüne geniş “Şoför Modu” paneli eklendi.
+- Şoför Modu; canlı personel/okul servisi seçimi, sıradaki yolcu, yolcu listesi, Bindi/İndi/Yok/İzinli işlemleri, önceki/sonraki yolcu, yolcu haritası, sıralı harita ve servisi bitirme kısayollarını içerir.
+- Personel Servisi, Okul Servisi, Yoklama Raporu, Araç Evrakları ve Araç Uyarıları kısayolları eklendi.
+- Personel yoklama, okul yoklama ve Finans Raporları tek ortak rapor önizleme ekranında açılır.
+- Rapor önizlemesinin üstünde ve sağ alt köşesinde sürekli görünür Geri Dön düğmesi vardır.
+- Android geri tuşu rapor önizlemesi açıkken programdan çıkmak yerine önizlemeyi kapatır.
+- APK içindeki WebView için Android PrintManager yerel yazdırma köprüsü eklendi.
+- PDF / Yazdır düğmesi artık APK 1.0.2’de Android yazdırma ekranını açar.
+- Eski APK 1.0.1 yerel yazdırma desteğine sahip değildir; PDF için yeni APK kurulmalıdır.
+- Tarayıcı/PWA kullanımında window.print yedeği korunur.
+- Veri şeması değişmedi; mevcut kayıtlar korunur.
+
+GITHUB ANA DİZİNİNE YÜKLENECEK WEB DOSYALARI:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_42_3.txt
+PROJE_HAFIZA_NOTU_v4_43_0.txt
+
+APK 1.0.2 İÇİN GITHUB’DA GÜNCELLENECEK DOSYALAR:
+.github/workflows/build-android-apk.yml
+android-app/app/build.gradle
+android-app/app/src/main/assets/native-bridge.js
+android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java
+android-app/app/src/main/java/com/tufan/servisyonetim/AndroidBridge.java
+android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java
 
 COMMIT MESAJI:
-v4.42.3 finans sadeleştirme ve yoklama yazdırma düzeltmesi
+v4.43.0 şoför modu ve Android PDF yazdırma
 
-APK yeniden oluşturulmaz. Veri şeması 31 olarak kalır. Mevcut kayıtlar korunur.
+APK OLUŞTURMA:
+GitHub → Actions → Android APK Oluştur → Run workflow
+İşlem tamamlanınca servis-yonetim-apk-v1.0.2 artefaktını indir ve mevcut APK’nin üzerine kur.
+Uygulama verisini temizleme ve uygulamayı kaldırma; cihazdaki yerel kayıtlar korunmalıdır.
