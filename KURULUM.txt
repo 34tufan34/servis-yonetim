@@ -1,25 +1,35 @@
-SERVİS YÖNETİM SİSTEMİ v4.43.1 — ŞOFÖR MODU PANEL DÜZENİ
+SERVİS YÖNETİM SİSTEMİ v4.44.0 — SESLİ ŞOFÖR MODU
 
-WEB SÜRÜMÜ: 4.43.1
-APK SÜRÜMÜ: 1.0.2 / versionCode 3
+WEB SÜRÜMÜ: 4.44.0
+APK SÜRÜMÜ: 1.0.3 / versionCode 4
 VERİ ŞEMASI: 31
 
 BU SÜRÜMDE:
-- Şoför Modu ekranındaki üst panel, işlem düğmeleri ve Yolcu Sırası paneli arasındaki çakışma düzeltildi.
-- Canlı Yolcu Yönetimi paneli içeriği kadar uzar.
-- İşlem düğmeleri panel dışına taşmaz.
-- Yolcu Sırası paneli üst panellerden sonra temiz biçimde başlar.
-- Şoför Modu gerektiğinde kendi içinde dikey kayar.
-- Yolcu listesi kendi paneli içinde kayar.
+- Şoför Modu üst tanıtım paneli kaldırıldı.
+- Şoför Modu altındaki Yolcu Sırası paneli kaldırıldı.
+- Yolcuya Bindi / İndi işlendiğinde sıradaki yolcuya otomatik geçiş güçlendirildi.
+- Planlanan saate kalan süre yeşil, gecikme süresi kırmızı gösterilir.
+- Temel Kayıtlar bölümündeki büyük SYS Kayıt Merkezi tanıtım paneli kaldırıldı; halka ilerleme göstergesi korunur.
+- Şoför Modu'na mikrofonlu sesli komut sistemi eklendi.
+- Desteklenen komutlar: Bindi, İndi, Yok, İzinli, Sonraki, Önceki, Yolcu Haritası, Sıralı Harita, Servisi Başlat, Servisi Bitir, Personel Servisi, Okul Servisi, Rapor, Evrak ve Uyarılar.
+- Servisi bitir sesli komutunda yanlış işlemi önlemek için onay istenir.
 
-GITHUB ANA DİZİNİNE YÜKLENECEK DOSYALAR:
+GITHUB ANA DİZİNİNE VE İLGİLİ KLASÖRLERE YÜKLENECEK DOSYALAR:
 index.html
 sw.js
 manifest.webmanifest
 KURULUM.txt
-PROJE_HAFIZA_NOTU_v4_43_1.txt
+PROJE_HAFIZA_NOTU_v4_44_0.txt
+.github/workflows/build-android-apk.yml
+android-app/app/build.gradle
+android-app/app/src/main/AndroidManifest.xml
+android-app/app/src/main/assets/native-bridge.js
+android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java
+android-app/app/src/main/java/com/tufan/servisyonetim/AndroidBridge.java
+android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java
 
 COMMIT MESAJI:
-v4.43.1 şoför modu panel çakışma düzeltmesi
+v4.44.0 sesli şoför modu ve saha akışı
 
-APK yeniden oluşturulmaz. Mevcut APK 1.0.2 kullanılmaya devam eder.
+Bu sürüm mikrofon ve Android ses tanıma desteği eklediği için APK 1.0.3 yeniden oluşturulmalıdır.
+Mevcut APK kaldırılmadan yeni APK üzerine kurulmalıdır.

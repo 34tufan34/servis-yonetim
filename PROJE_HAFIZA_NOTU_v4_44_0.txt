@@ -1,0 +1,39 @@
+SERVİS YÖNETİM SİSTEMİ — v4.44.0
+
+Web sürümü: 4.44.0
+APK: 1.0.3 / versionCode 4
+Veri şeması: 31
+GitHub Pages: https://34tufan34.github.io/servis-yonetim/
+Paket kimliği: com.tufan.servisyonetim
+
+BU SÜRÜMDE:
+1. Şoför Modu üst tanıtım kartı kaldırıldı.
+2. Şoför Modu altındaki Yolcu Sırası paneli kaldırıldı.
+3. Canlı Yolcu Yönetimi ve Şoför Kısayolları tek geniş saha düzeninde bırakıldı.
+4. Personel servisinde planlanan saate kalan süre yeşil; geçen/geciken süre kırmızı gösterilir.
+5. Bindi veya İndi işlemi sonrası sıradaki yolcuya otomatik geçiş garanti altına alındı.
+6. Temel Kayıtlar bölümündeki SYS Kayıt Merkezi / Temel Bilgi Girişi tanıtım paneli kaldırıldı.
+7. Temel Kayıtlar halka ilerleme göstergesi bağımsız ve kompakt biçimde korunur.
+8. Şoför Modu'na Sesli Komut düğmesi eklendi.
+9. Android RecognizerIntent tabanlı Türkçe ses tanıma sistemi eklendi.
+10. Mikrofon izni AndroidManifest'e eklendi.
+11. Sesli komutlar: Bindi, İndi, Yok, İzinli, Sonraki, Önceki, Yolcu Haritası, Sıralı Harita, Servisi Başlat, Servisi Bitir, Personel Servisi, Okul Servisi, Rapor, Evrak, Uyarılar.
+12. Servisi Bitir sesli komutu güvenlik için onay ister.
+13. Tarayıcıda destek varsa Web Speech API yedek sistemi kullanılır.
+14. v4.43.1 panel çakışma düzeltmeleri ve v4.43.0 yerel PDF yazdırma sistemi korunur.
+
+VERİ GEÇİŞİ:
+- Veri şeması 31 olarak kalır.
+- Mevcut araç, firma, personel, okul, yoklama, finans ve evrak kayıtları korunur.
+- Yeni kalıcı veri alanı eklenmedi.
+
+APK / GÜNCELLEME:
+- APK sürümü 1.0.3, versionCode 4'tür.
+- Sesli komut için APK yeniden oluşturulmalıdır.
+- Yeni APK mevcut uygulamanın üzerine kurulmalıdır; uygulama kaldırılmamalıdır.
+- GitHub Actions artifact adı: servis-yonetim-apk-v1.0.3
+
+GÜVENLİK:
+- İmza anahtarı ve şifreler açık depoya yüklenmez.
+- Kullanıcı verileri cihazda yerel kalır.
+- Güncellemeden önce JSON yedek alınmalıdır.
