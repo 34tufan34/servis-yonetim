@@ -10788,7 +10788,7 @@
       border: 1px dashed var(--border);
       border-radius: 16px;
     }
-    /* v4.44.10 - Dikkat dağıtmayan tek ekran Şoför Modu */
+    /* v4.44.11 - Dikkat dağıtmayan tek ekran Şoför Modu */
     .driver-simple-shell {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -10920,7 +10920,7 @@
     }
 
 
-    /* v4.44.10 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
+    /* v4.44.11 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
     body.driver-focus-mode {
       overflow: hidden;
     }
@@ -12199,6 +12199,13 @@
       .driver-stat:nth-child(-n+2) { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     }
 
+
+    /* v4.44.11 - Şoför Modu menü görünürlük güvencesi */
+    .nav .nav-btn[data-module="driver"] {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
 </style>
 </head>
 
@@ -12375,7 +12382,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.10</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.11</div>
         </div>
       </div>
 
@@ -27306,6 +27313,28 @@
     }
 
 
+    function ensureDriverMenuEntry() {
+      const nav = document.querySelector(".nav");
+      if (!nav) return null;
+      let button = nav.querySelector('.nav-btn[data-module="driver"]');
+      if (!button) {
+        button = document.createElement("button");
+        button.className = "nav-btn";
+        button.type = "button";
+        button.dataset.module = "driver";
+        button.innerHTML = '<span class="nav-label"><span class="dot"></span>Şoför Modu</span><span class="tag">Saha</span>';
+        const commandButton = nav.querySelector('.nav-btn[data-module="command"]');
+        if (commandButton?.nextSibling) nav.insertBefore(button, commandButton.nextSibling);
+        else nav.prepend(button);
+      }
+      button.hidden = false;
+      button.removeAttribute("aria-hidden");
+      button.style.removeProperty("display");
+      button.style.removeProperty("visibility");
+      button.style.removeProperty("opacity");
+      return button;
+    }
+
     function activateModule(moduleName) {
       if (!$(`#screen-${moduleName}`)) moduleName = "command";
       document.body.classList.remove("driver-focus-mode");
@@ -30912,6 +30941,7 @@
 
 
     initLicenseGate();
+    ensureDriverMenuEntry();
     bindAppDialogEvents();
     bindDriverModeEvents();
     bindEvents();
