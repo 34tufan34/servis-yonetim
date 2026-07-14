@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.46.4</title>
+  <title>Servis Yönetim Sistemi | v4.46.5</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11756,7 +11756,7 @@
     }
 
 
-    /* v4.46.4 - Şoför modu sabit yolcu paneli ve tema uyumlu zarif düğmeler */
+    /* v4.46.5 - Şoför modu sabit yolcu paneli ve tema uyumlu zarif düğmeler */
     .driver-queue-panel {
       overflow: hidden;
       border: 1px solid rgba(var(--accent-rgb), .22);
@@ -11862,6 +11862,62 @@
       .driver-panel-passenger-list { max-height: 52dvh; padding: 8px; }
       .driver-panel-passenger-list .driver-passenger-quick { gap: 5px; }
       .driver-panel-passenger-list .driver-passenger-quick .btn { min-height: 38px; padding-inline: 7px; font-size: 10px; }
+    }
+
+
+    /* v4.46.5 - Şoför Modu sol kontrol paneli ve çift panel görünürlüğü */
+    #screen-driver .driver-service-panel,
+    #screen-driver .driver-current-card,
+    #screen-driver .driver-dual-actions,
+    #screen-driver .driver-queue-panel {
+      visibility: visible !important;
+    }
+    #screen-driver .driver-service-panel {
+      display: block !important;
+    }
+    #screen-driver .driver-service-live:not(.hidden) {
+      display: grid !important;
+    }
+
+    /* Tablet yatay ve geniş ekranlarda sol ana kontrol menüsünü sabit tut. */
+    @media (min-width: 640px) {
+      .sidebar {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        transform: none !important;
+      }
+      .main {
+        margin-left: var(--sidebar) !important;
+      }
+      .mobile-toggle {
+        display: none !important;
+      }
+    }
+
+    /* Orta genişlikte menüyü daralt; Şoför Moduna daha fazla çalışma alanı bırak. */
+    @media (min-width: 640px) and (max-width: 980px) {
+      :root { --sidebar: 224px; }
+      .sidebar { padding-inline: 16px; }
+      .sidebar-footer { left: 16px; right: 16px; }
+      #screen-driver .driver-dual-toolbar-copy p { display: none; }
+    }
+
+    /* Personel solda, okul sağda. Yeterli genişlikte iki paneli kesinlikle yan yana tut. */
+    @media (min-width: 900px) {
+      #screen-driver .driver-dual-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+      #driverPersonnelPanel { grid-column: 1 !important; }
+      #driverSchoolPanel { grid-column: 2 !important; }
+    }
+
+    /* Daha dar tablet/telefonlarda servis panelleri alt alta, sol menü ise 640px üstünde sabit kalır. */
+    @media (max-width: 899px) {
+      #screen-driver .driver-dual-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
     }
 
   </style>
@@ -12040,7 +12096,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.46.4</div>
+          <div class="brand-sub">Servis Yönetimi v4.46.5</div>
         </div>
       </div>
 
@@ -15473,7 +15529,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.46.4</strong>
+                <strong>v4.46.5</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15518,8 +15574,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.46.4 - Şoför modu yolcu listesi sabit panel ve zarif tema uyumlu durum düğmeleri.
-    const APP_VERSION = "4.46.4";
+    // v4.46.5 - Şoför modu yolcu listesi sabit panel ve zarif tema uyumlu durum düğmeleri.
+    const APP_VERSION = "4.46.5";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
