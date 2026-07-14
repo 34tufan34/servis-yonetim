@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.5</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.6</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10766,7 +10766,7 @@
       border: 1px dashed var(--border);
       border-radius: 16px;
     }
-    /* v4.44.5 - Dikkat dağıtmayan tek ekran Şoför Modu */
+    /* v4.44.6 - Dikkat dağıtmayan tek ekran Şoför Modu */
     .driver-simple-shell {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -10897,6 +10897,195 @@
       .driver-large-actions { grid-template-columns: 1fr 1fr; }
     }
 
+
+    /* v4.44.6 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
+    body.driver-focus-mode {
+      overflow: hidden;
+    }
+    body.driver-focus-mode .sidebar {
+      display: none !important;
+    }
+    body.driver-focus-mode .main {
+      margin-left: 0 !important;
+      width: 100%;
+      height: 100dvh;
+    }
+    body.driver-focus-mode .topbar {
+      display: none !important;
+    }
+    body.driver-focus-mode .content-scroll {
+      padding: 10px 12px 12px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    body.driver-focus-mode #screen-driver.active {
+      min-height: 100%;
+      height: auto;
+      overflow: visible;
+      padding: 0;
+    }
+    body.driver-focus-mode .driver-simple-shell {
+      width: min(1080px, 100%);
+      min-height: calc(100dvh - 22px);
+      gap: 9px;
+      padding-bottom: 0;
+    }
+    body.driver-focus-mode .driver-simple-hero {
+      padding: 12px 14px;
+    }
+    .driver-hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .driver-back-btn {
+      min-height: 40px;
+      padding: 9px 13px;
+      border-radius: 12px;
+      white-space: nowrap;
+      background: color-mix(in srgb, var(--panel-2) 92%, var(--accent) 8%);
+      border-color: color-mix(in srgb, var(--border) 78%, var(--accent) 22%);
+    }
+    body.driver-focus-mode .driver-hero h2 {
+      margin: 3px 0 3px;
+      font-size: clamp(22px, 2.5vw, 30px);
+    }
+    body.driver-focus-mode .driver-hero p {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    body.driver-focus-mode .driver-live-badge {
+      min-width: 102px;
+      padding: 10px 13px;
+      border-radius: 15px;
+    }
+    body.driver-focus-mode .driver-live-badge strong { font-size: 24px; }
+    body.driver-focus-mode .driver-live-badge span { margin-top: 4px; font-size: 9px; }
+    body.driver-focus-mode .driver-type-switch { gap: 8px; }
+    body.driver-focus-mode .driver-type-card {
+      gap: 9px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      transition: background .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+    }
+    .driver-type-card.active {
+      background: color-mix(in srgb, var(--panel) 84%, var(--accent) 16%);
+      border-color: color-mix(in srgb, var(--accent) 68%, var(--border));
+      box-shadow: 0 0 0 2px rgba(var(--accent-rgb), .10), var(--shadow-soft);
+      transform: translateY(-1px);
+    }
+    .driver-type-card.active .driver-type-icon {
+      background: color-mix(in srgb, var(--accent) 22%, var(--panel-2));
+    }
+    body.driver-focus-mode .driver-type-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+    body.driver-focus-mode .driver-type-card strong { font-size: 14px; }
+    body.driver-focus-mode .driver-type-card small { margin-top: 2px; font-size: 10px; }
+    body.driver-focus-mode .driver-type-state { padding: 4px 7px; font-size: 9px; }
+    body.driver-focus-mode .driver-quick-panel,
+    body.driver-focus-mode .driver-simple-current-panel {
+      padding: 12px;
+      border-radius: 16px;
+    }
+    body.driver-focus-mode .driver-simple-selectors { gap: 8px; }
+    body.driver-focus-mode .driver-simple-selectors .field label { margin-bottom: 5px; font-size: 10px; }
+    body.driver-focus-mode .driver-simple-selectors select { min-height: 40px; }
+    body.driver-focus-mode .driver-start-grid { gap: 8px; margin-top: 8px; }
+    body.driver-focus-mode .driver-start-btn {
+      min-height: 46px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    body.driver-focus-mode .driver-current-head { margin-bottom: 8px; }
+    body.driver-focus-mode .driver-current-title { font-size: 16px; }
+    body.driver-focus-mode .driver-current-meta { margin-top: 3px; font-size: 10px; }
+    body.driver-focus-mode .driver-current-status { padding: 4px 8px; font-size: 9px; }
+    body.driver-focus-mode .driver-current-card,
+    body.driver-focus-mode .driver-current-card.driver-has-passenger {
+      padding: 12px;
+      border-radius: 15px;
+    }
+    body.driver-focus-mode .driver-current-card.empty { padding: 20px 12px; }
+    body.driver-focus-mode .driver-current-label { font-size: 9px; }
+    body.driver-focus-mode .driver-current-name {
+      margin: 8px 0 4px;
+      font-size: clamp(22px, 3vw, 31px);
+    }
+    body.driver-focus-mode .driver-current-route { font-size: 11px; line-height: 1.4; }
+    body.driver-focus-mode .driver-current-time {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+    body.driver-focus-mode .driver-current-time small { font-size: 10px; }
+    body.driver-focus-mode .driver-countdown { min-height: 26px; padding: 4px 8px; font-size: 11px; }
+    body.driver-focus-mode .driver-current-summary { gap: 6px; margin-top: 8px; }
+    body.driver-focus-mode .driver-current-summary span { padding: 6px 8px; border-radius: 10px; font-size: 8px; }
+    body.driver-focus-mode .driver-current-summary strong { margin-top: 2px; font-size: 14px; }
+    .driver-next-preview {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--panel) 92%, var(--accent) 8%);
+    }
+    .driver-next-preview > span {
+      color: var(--accent);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .driver-next-preview strong { display: block; font-size: 12px; }
+    .driver-next-preview small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; line-height: 1.3; }
+    .driver-next-preview em {
+      color: var(--muted);
+      font-size: 10px;
+      font-style: normal;
+      white-space: nowrap;
+    }
+    .driver-next-preview.is-empty {
+      grid-template-columns: 1fr;
+      color: var(--muted);
+      text-align: center;
+      font-size: 10px;
+    }
+    body.driver-focus-mode .driver-large-actions {
+      gap: 7px;
+      margin-top: 8px;
+    }
+    body.driver-focus-mode .driver-large-actions .btn {
+      min-height: 48px;
+      border-radius: 12px;
+      font-size: 13px;
+      padding: 9px 8px;
+    }
+    body.driver-focus-mode .driver-finish-btn {
+      min-height: 46px;
+      margin-top: 8px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    @media (max-width: 700px) {
+      body.driver-focus-mode .content-scroll { padding: 8px; }
+      body.driver-focus-mode .driver-simple-shell { min-height: calc(100dvh - 16px); }
+      .driver-hero-actions { justify-content: stretch; }
+      .driver-back-btn { flex: 1 1 auto; }
+      body.driver-focus-mode .driver-live-badge { flex: 0 0 96px; width: auto; }
+      .driver-next-preview { grid-template-columns: auto minmax(0, 1fr); }
+      .driver-next-preview em { grid-column: 2; }
+    }
+
     .report-preview-back-fab {
       position: fixed;
       right: max(18px, env(safe-area-inset-right));
@@ -11023,7 +11212,7 @@
     }
 
 
-    /* v4.44.5 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.6 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -11118,7 +11307,7 @@
 
 
 
-    /* v4.44.5 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    /* v4.44.6 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
     .registry-progress-only {
       display: grid;
       grid-template-columns: auto minmax(220px, 1fr);
@@ -11370,7 +11559,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.5</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.6</div>
         </div>
       </div>
 
@@ -11454,7 +11643,10 @@
               <h2>Şoför Modu</h2>
               <p>Servisi başlat, sıradaki yolcuyu gör, durumunu tek dokunuşla işle ve servisi bitir.</p>
             </div>
-            <div class="driver-live-badge"><strong id="driverLiveCount">0</strong><span>Canlı Servis</span></div>
+            <div class="driver-hero-actions">
+              <button class="btn driver-back-btn" id="driverExitBtn" type="button">← Geri Dön</button>
+              <div class="driver-live-badge"><strong id="driverLiveCount">0</strong><span>Canlı Servis</span></div>
+            </div>
           </div>
 
           <div class="driver-type-switch" aria-label="Servis türü">
@@ -11499,6 +11691,8 @@
             <div class="driver-current-card empty" id="driverCurrentCard">
               Servisi başlattığında sıradaki yolcu burada görünecek.
             </div>
+
+            <div class="driver-next-preview is-empty" id="driverNextPreview">Bir sonraki yolcu servis başladığında burada görünecek.</div>
 
             <div class="driver-action-grid driver-large-actions" id="driverActionGrid">
               <button class="btn primary" id="driverBoardBtn" type="button">Bindi</button>
@@ -14752,7 +14946,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.5</strong>
+                <strong>v4.44.6</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14797,8 +14991,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.5 - Sade Şoför Modu yeniden eklendi; otomatik oturum kilidi kapalı; akşam Bindi/İndi akışı korunuyor.
-    const APP_VERSION = "4.44.5";
+    // v4.44.6 - Şoför Modu tam ekran ve kompakt; İndi sonrası otomatik geçiş, aktif servis vurgusu ve sonraki yolcu önizlemesi eklendi.
+    const APP_VERSION = "4.44.6";
     const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20032,8 +20226,9 @@
       };
     }
 
-    // v4.44.5 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
+    // v4.44.6 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
     let driverModeType = "personnel";
+    let driverReturnModule = "command";
     const driverModeSelection = { personnel: "", school: "" };
 
     function driverSetUnderlyingPersonnel(session = null, period = null) {
@@ -20166,6 +20361,68 @@
       };
     }
 
+
+    function driverNextPersonnelPreview(session, current) {
+      if (!session || !current) return null;
+      const people = servicePeopleForSession(session);
+      if (!people.length) return null;
+      const pending = (person) => servicePhaseStatus(person, getAttendance(session.date, session.routeId, person.id), session.period, session.date, session) === "Bekliyor";
+      let index = people.findIndex((person, idx) => idx > current.index && pending(person));
+      if (index < 0) index = people.findIndex((person, idx) => idx !== current.index && pending(person));
+      if (index < 0) return null;
+      const person = people[index];
+      const job = getJob(session.jobId);
+      const shift = jobShiftByKey(job, session.shiftKey || "");
+      const planned = servicePlannedTime(person, session.period, job, shift);
+      return {
+        name: person.name,
+        detail: personAddressForPeriod(person, session.period) || "Adres girilmemiş",
+        index,
+        total: people.length,
+        countdown: serviceCountdown(planned, session.date)
+      };
+    }
+
+    function driverNextSchoolPreview(session, current) {
+      if (!session || !current) return null;
+      const students = schoolServiceStudents(session.schoolId, session.period);
+      if (!students.length) return null;
+      const pending = (student) => getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period) === "Bekliyor";
+      let index = students.findIndex((student, idx) => idx > current.index && pending(student));
+      if (index < 0) index = students.findIndex((student, idx) => idx !== current.index && pending(student));
+      if (index < 0) return null;
+      const student = students[index];
+      const school = getSchool(session.schoolId);
+      const planned = session.period === "morning" ? school?.entryTime : school?.exitTime;
+      return {
+        name: student.name,
+        detail: `${student.className ? `${student.className} · ` : ""}${student.homeAddress || "Adres girilmemiş"}`,
+        index,
+        total: students.length,
+        countdown: serviceCountdown(planned || "", session.date)
+      };
+    }
+
+    function renderDriverNextPreview(session, current) {
+      const host = $("#driverNextPreview");
+      if (!host) return;
+      if (!session || !current) {
+        host.className = "driver-next-preview is-empty";
+        host.textContent = "Bir sonraki yolcu servis başladığında burada görünecek.";
+        return;
+      }
+      const next = driverModeType === "personnel"
+        ? driverNextPersonnelPreview(session, current)
+        : driverNextSchoolPreview(session, current);
+      if (!next) {
+        host.className = "driver-next-preview is-empty";
+        host.textContent = "Sırada bekleyen başka yolcu yok.";
+        return;
+      }
+      host.className = "driver-next-preview";
+      host.innerHTML = `<span>Bir Sonraki</span><div><strong>${escapeHtml(next.name)}</strong><small>${escapeHtml(next.detail)}</small></div><em>${escapeHtml(next.countdown?.text || `Sıra ${next.index + 1}/${next.total}`)}</em>`;
+    }
+
     function driverSummaryHtml(items) {
       return `<div class="driver-current-summary">${items.map((item) => `<span>${escapeHtml(item.label)}<strong>${escapeHtml(item.value)}</strong></span>`).join("")}</div>`;
     }
@@ -20183,6 +20440,8 @@
       if ($("#driverSchoolState")) $("#driverSchoolState").textContent = schoolSession ? "Canlı" : "Beklemede";
       $("#driverTypePersonnel")?.classList.toggle("active", driverModeType === "personnel");
       $("#driverTypeSchool")?.classList.toggle("active", driverModeType === "school");
+      $("#driverTypePersonnel")?.setAttribute("aria-pressed", driverModeType === "personnel" ? "true" : "false");
+      $("#driverTypeSchool")?.setAttribute("aria-pressed", driverModeType === "school" ? "true" : "false");
       $("#driverTypePersonnel")?.classList.toggle("is-live", Boolean(personnelSession));
       $("#driverTypeSchool")?.classList.toggle("is-live", Boolean(schoolSession));
 
@@ -20246,6 +20505,7 @@
           card.textContent = "Servisi başlattığında sıradaki yolcu burada görünecek.";
         }
         if (finishBtn) finishBtn.textContent = "Servisi Bitir";
+        renderDriverNextPreview(null, null);
         return;
       }
 
@@ -20299,11 +20559,16 @@
           ${driverSummaryHtml(summaryItems)}
         `;
       }
+      renderDriverNextPreview(session, current);
     }
 
     function setDriverModeType(type) {
       driverModeType = type === "school" ? "school" : "personnel";
       renderDriverPanel();
+    }
+
+    function exitDriverMode() {
+      activateModule(driverReturnModule && driverReturnModule !== "driver" ? driverReturnModule : "command");
     }
 
     function startDriverService(period) {
@@ -20336,6 +20601,9 @@
         if (!current) { showToast("İşlem yapılacak öğrenci yok."); return; }
         markSchoolServiceAttendance(current.id, status);
       }
+      // Yoklama fonksiyonları imleci sıradaki bekleyen yolcuya taşır.
+      // İndi işleminde paneli aynı dokunuş içinde yenileyerek geçişi görünür kıl.
+      if (status === "İndi") window.requestAnimationFrame(renderDriverPanel);
     }
 
     function driverNextPassenger() {
@@ -26564,6 +26832,13 @@
 
 
     function activateModule(moduleName) {
+      const previousModule = $(".nav-btn.active")?.dataset.module || "command";
+      if (moduleName === "driver") {
+        if (previousModule && previousModule !== "driver") driverReturnModule = previousModule;
+        document.body.classList.add("driver-focus-mode");
+      } else {
+        document.body.classList.remove("driver-focus-mode");
+      }
       if (moduleName !== "registry") restoreRegistryPanel();
       $$(".nav-btn[data-module]").forEach((button) => button.classList.toggle("active", button.dataset.module === moduleName));
       $$(".module-screen").forEach((screen) => screen.classList.remove("active"));
@@ -27396,6 +27671,7 @@
       $$("[data-driver-type]").forEach((button) => {
         button.addEventListener("click", () => setDriverModeType(button.dataset.driverType));
       });
+      $("#driverExitBtn")?.addEventListener("click", exitDriverMode);
       $("#driverServiceSelect")?.addEventListener("change", (event) => {
         driverModeSelection[driverModeType] = event.target.value || "";
         renderDriverPanel();
