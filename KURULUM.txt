@@ -1,52 +1,26 @@
-SERVİS YÖNETİM SİSTEMİ v4.46.3
+SERVİS YÖNETİM SİSTEMİ v4.44.2 — TEMEL KAYITLAR İLERLEME DÜZENİ
 
-WEB SÜRÜMÜ: 4.46.3
-APK SÜRÜMÜ: 1.0.5 / versionCode 6
-VERİ ŞEMASI: 33
+WEB SÜRÜMÜ: 4.44.2
+APK SÜRÜMÜ: 1.0.4 / versionCode 5
+VERİ ŞEMASI: 31
 
-BU GÜNCELLEMEDE:
-- “En Uygun Rotayı Bul” özelliği Personel Servisi, Okul Servisi ve Şoför Modundan kaldırıldı.
-- Sesli komuttaki en uygun rota / akıllı rota komutları kaldırıldı.
-- Normal “Sıralı Harita” düğmeleri çalışmaya devam eder ve kayıtlı sırayı Google Haritalar'da açar.
-- Akşam personel servisi iki aşamalı çalışır:
-  1. Bindi / Yok / İzinli
-  2. Dağıtıma Başla
-  3. Her personel bırakıldığında İndi
-  4. Araç boşaldığında Servisi Bitir
-- Araçta personel varken servis bitirilemez.
-- Akşam araca biniş ve iniş saatleri ayrı kaydedilir.
-- Aylık personel yoklama ekranındaki iki özet paneli geniş ekranlarda yan yana yerleştirildi.
-- Dar ekranlarda bu paneller okunabilirlik için yeniden alt alta geçer.
-- Evrak Dosyası Kaydet panelindeki “Evrakı Kaydet” ve “Temizle” düğmelerinin alt boşluğu artırıldı.
+BU SÜRÜMDE:
+- Temel Kayıtlar ekranının üstündeki geniş boş alan kaldırıldı.
+- 4/7 halka grafik, daha az yer kaplayan yatay ilerleme çubuğuna çevrildi.
+- Tamamlanan temel adım sayısı çubuğun solunda görünür.
+- İlerleme çubuğu masaüstü, tablet ve telefon genişliklerine uyumlu hale getirildi.
+- Şoför Modu, sesli komutlar, Android PDF sistemi ve mevcut kayıt yapısı korunur.
 
-GITHUB'A YÜKLEME:
-1. Uygulamada Ayarlar / Yedek bölümünden tam JSON yedeği al.
-2. GITHUB_YUKLEME_DOSYALARI_v4_46_2.zip dosyasını çıkart.
-3. Çıkan dosya ve klasörleri GitHub deposunun ana dizinine aynı klasör yapısıyla yükle.
-4. Mevcut dosyaların değiştirilmesini onayla.
-5. Commit mesajı olarak şunu yaz:
-   v4.46.3 akşam toplu biniş ve sıralı dağıtım akışı
-6. GitHub Pages güncellendikten sonra APK'yı tamamen kapatıp yeniden aç.
-7. Eski ekran görünürse Ayarlar / Yedek > Çevrimdışı önbelleği güncelle işlemini bir kez çalıştır.
+GITHUB ANA DİZİNİNE YÜKLENECEK DOSYALAR:
+index.html
+sw.js
+manifest.webmanifest
+KURULUM.txt
+PROJE_HAFIZA_NOTU_v4_44_2.txt
 
-APK DURUMU:
-- Yeni APK kurmak zorunlu değildir.
-- Kurulu APK 1.0.5 GitHub Pages'teki yeni web sürümünü açar.
-- Android kaynakları gelecekteki derlemelerle tutarlı olacak şekilde temizlendi.
-- GitHub Actions yalnızca elle çalıştırılır; dosyaları yüklemek otomatik olarak APK üretmez.
+COMMIT MESAJI:
+v4.44.2 temel kayıtlar boşluk ve ilerleme çubuğu düzeltmesi
 
-VERİ GÜVENLİĞİ:
-- Mevcut personel, öğrenci, finans, evrak ve servis kayıtları korunur.
-- Veri şeması değişmedi: 33.
-- APK'yı kaldırma ve uygulama verilerini temizleme.
-
-AKŞAM PERSONEL SERVİSİ KULLANIMI:
-1. Akşam servisini başlat.
-2. Her personel için Bindi, Yok veya İzinli seç.
-3. Tüm biniş durumları tamamlanınca Dağıtıma Başla düğmesine bas.
-4. Personel araçtan indikçe İndi düğmesine bas.
-5. Araçta kalan kişi sıfır olduğunda Servisi Bitir düğmesine bas.
-
-NOT:
-- “En Uygun Rotayı Bul” kaldırılmıştır.
-- Manuel personel sırası ve “Sıralı Harita” özelliği korunmuştur.
+Bu güncelleme yalnızca web arayüzü değişikliğidir.
+APK yeniden oluşturulmaz. Mevcut APK 1.0.4 kullanılmaya devam eder.
+Yüklemeden önce JSON yedek alınması önerilir.
