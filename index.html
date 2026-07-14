@@ -12382,7 +12382,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.11</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.12</div>
         </div>
       </div>
 
@@ -15775,7 +15775,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.10 - Şoför Modu tamamen kaldırıldı. Akşam personel servisinde toplu biniş, sıralı dağıtım, otomatik sonraki personel ve canlı Servisi Bitir akışı güçlendirildi.
-    const APP_VERSION = "4.44.10";
+    const APP_VERSION = "4.44.12";
     const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -28838,9 +28838,10 @@
       accounting: "Muhasebe"
     };
 
+    // v4.44.12 - Şoför Modu yönetici ve operasyon rollerine yetkilendirildi.
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "registry", "personnel", "school", "finance", "settings"],
+        modules: ["command", "driver", "registry", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -28849,7 +28850,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "registry", "personnel", "school", "settings"],
+        modules: ["command", "driver", "registry", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
