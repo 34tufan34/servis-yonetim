@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.2</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.3</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10892,7 +10892,7 @@
     }
 
 
-    /* v4.44.2 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.3 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -10987,7 +10987,7 @@
 
 
 
-    /* v4.44.2 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    /* v4.44.3 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
     .registry-progress-only {
       display: grid;
       grid-template-columns: auto minmax(220px, 1fr);
@@ -11239,7 +11239,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.2</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.3</div>
         </div>
       </div>
 
@@ -14613,7 +14613,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.2</strong>
+                <strong>v4.44.3</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14658,9 +14658,9 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.2 - Sesli şoför komutları, otomatik yolcu geçişi ve sadeleştirilmiş saha panelleri.
-    const APP_VERSION = "4.44.2";
-    const SCHEMA_VERSION = 31;
+    // v4.44.3 - Akşam personel servisinde Bindi kontrolü, dağıtıma başlama ve İndi akışı.
+    const APP_VERSION = "4.44.3";
+    const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -14777,16 +14777,30 @@
         shifts: normalizeJobShifts(job)
       }));
       state.people = state.people.map((person) => ({ ...person, boardingTime: String(person?.boardingTime || "") }));
-      state.attendance = state.attendance.map((record) => ({
-        ...record,
-        morningAt: record?.morningAt || "",
-        eveningAt: record?.eveningAt || "",
-        morningJobId: record?.morningJobId || "",
-        eveningJobId: record?.eveningJobId || "",
-        morningShiftKey: record?.morningShiftKey || "",
-        eveningShiftKey: record?.eveningShiftKey || ""
-      }));
+      state.attendance = state.attendance.map((record) => {
+        const legacyEvening = String(record?.evening || "");
+        const inferredBoarding = ["İndi", "Başka Adreste İndi", "Bindi"].includes(legacyEvening)
+          ? "Bindi"
+          : (["Yok", "İzinli"].includes(legacyEvening) ? legacyEvening : "");
+        return {
+          ...record,
+          morningAt: record?.morningAt || "",
+          eveningAt: record?.eveningAt || "",
+          eveningBoarding: record?.eveningBoarding || inferredBoarding,
+          eveningBoardingAt: record?.eveningBoardingAt || "",
+          morningJobId: record?.morningJobId || "",
+          eveningJobId: record?.eveningJobId || "",
+          morningShiftKey: record?.morningShiftKey || "",
+          eveningShiftKey: record?.eveningShiftKey || ""
+        };
+      });
       state.dispatches = state.dispatches.map((dispatch) => ({ ...dispatch, completedServiceKeys: Array.isArray(dispatch?.completedServiceKeys) ? dispatch.completedServiceKeys : [] }));
+      state.serviceSessions = state.serviceSessions.map((session) => ({
+        ...session,
+        manualOrder: Array.isArray(session?.manualOrder) ? session.manualOrder : [],
+        eveningPhase: session?.period === "evening" ? (session?.eveningPhase || "") : "",
+        eveningDistributionStartedAt: session?.eveningDistributionStartedAt || ""
+      }));
       state.appVersion = APP_VERSION;
       state.schemaVersion = SCHEMA_VERSION;
       repairDispatchJobLinksForMonth("");
@@ -15589,7 +15603,11 @@
 
     function getOrCreateAttendance(date, routeId, personId) {
       let record = getAttendance(date, routeId, personId);
-      if (record) return record;
+      if (record) {
+        if (typeof record.eveningBoarding !== "string") record.eveningBoarding = "";
+        if (typeof record.eveningBoardingAt !== "string") record.eveningBoardingAt = "";
+        return record;
+      }
 
       record = {
         id: uid("attendance"),
@@ -15600,6 +15618,8 @@
         evening: "",
         morningAt: "",
         eveningAt: "",
+        eveningBoarding: "",
+        eveningBoardingAt: "",
         morningJobId: "",
         eveningJobId: "",
         morningShiftKey: "",
@@ -15616,6 +15636,45 @@
       if (saved) return saved;
       if (isPersonOnLeave(person, date)) return "İzinli";
       return "Bekliyor";
+    }
+
+    function eveningBoardingStatus(person, record, date) {
+      const saved = String(record?.eveningBoarding || "");
+      if (saved) return saved;
+      const legacy = String(record?.evening || "");
+      if (["İndi", "Başka Adreste İndi", "Bindi"].includes(legacy)) return "Bindi";
+      if (["Yok", "İzinli"].includes(legacy)) return legacy;
+      if (isPersonOnLeave(person, date)) return "İzinli";
+      return "Bekliyor";
+    }
+
+    function eveningDropStatus(person, record, date) {
+      const saved = String(record?.evening || "");
+      if (saved === "Bindi") return "Bekliyor";
+      if (saved) return saved;
+      return "Bekliyor";
+    }
+
+    function serviceSessionPhase(session) {
+      if (!session || session.period !== "evening") return "service";
+      if (session.eveningPhase === "boarding" || session.eveningPhase === "dropoff") return session.eveningPhase;
+      // Akşam dönüş her zaman açık bir biniş aşamasıyla başlar. Eski İndi kayıtları
+      // servisi doğrudan dağıtım aşamasına geçirmemelidir.
+      return session.eveningDistributionStartedAt ? "dropoff" : "boarding";
+    }
+
+    function servicePhaseStatus(person, record, period, date, session) {
+      if (period !== "evening") return displayAttendanceStatus(person, record, "morning", date);
+      return serviceSessionPhase(session) === "dropoff"
+        ? eveningDropStatus(person, record, date)
+        : eveningBoardingStatus(person, record, date);
+    }
+
+    function servicePeopleForSession(session) {
+      if (!session) return [];
+      const all = servicePeopleFor(session.date, session.routeId, session.period, session.shiftKey || "", session.jobId || "");
+      if (session.period !== "evening" || serviceSessionPhase(session) !== "dropoff") return all;
+      return all.filter((person) => eveningBoardingStatus(person, getAttendance(session.date, session.routeId, person.id), session.date) === "Bindi");
     }
 
     function statusClass(status) {
@@ -15884,6 +15943,8 @@
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
       const selectedJob = getSelectedServiceJob();
+      const jobId = selectedJob?.id || "";
+      const shiftKey = getServiceShiftKey();
       const company = selectedJob ? getCompany(selectedJob.companyId) : getCompanyByRoute(routeId);
 
       if (!routeId || !company) {
@@ -15891,7 +15952,23 @@
         return;
       }
 
-      const personnelStops = servicePeopleFor(date, routeId, period)
+      let routePeople = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+      if (period === "evening") {
+        const session = getServiceSession(date, routeId, period, jobId, shiftKey);
+        if (!session?.isActive) {
+          showToast("Önce akşam servisini başlatıp binişleri kaydedin.");
+          return;
+        }
+        if (serviceSessionPhase(session) !== "dropoff") {
+          const counts = serviceCounts(date, routeId, period, jobId, shiftKey, session);
+          const pendingText = counts.boardingPending > 0 ? ` ${counts.boardingPending} kişinin biniş durumu bekliyor.` : "";
+          showToast(`Sıralı rota, Dağıtıma Başla işleminden sonra açılır.${pendingText}`);
+          return;
+        }
+        routePeople = servicePeopleForSession(session);
+      }
+
+      const personnelStops = routePeople
         .map((person) => personMapQueryForPeriod(person, period))
         .map((query) => String(query || "").trim())
         .filter(Boolean);
@@ -15907,32 +15984,24 @@
         return;
       }
 
-      const params = new URLSearchParams({
-        api: "1",
-        travelmode: "driving"
-      });
-
+      const params = new URLSearchParams({ api: "1", travelmode: "driving" });
       let usedPersonnelCount = 0;
       let fallbackEveningTarget = false;
 
       if (period === "morning") {
-        // Mevcut konum → sıralı personel durakları → kayıtlı işyeri.
         const waypoints = personnelStops.slice(0, 9);
         usedPersonnelCount = waypoints.length;
         params.set("destination", workplace);
         params.set("waypoints", waypoints.join("|"));
       } else {
-        // Kayıtlı işyeri → sıralı personel durakları → kullanıcının belirlediği son nokta.
         const configuredFinal = companyEveningFinalMapQuery(company);
         params.set("origin", workplace);
-
         if (configuredFinal) {
           const waypoints = personnelStops.slice(0, 9);
           usedPersonnelCount = waypoints.length;
           params.set("destination", configuredFinal);
           params.set("waypoints", waypoints.join("|"));
         } else {
-          // Eski kayıtların bozulmaması için son nokta girilmemişse son personelde bitir.
           fallbackEveningTarget = true;
           const destination = personnelStops[personnelStops.length - 1];
           const waypoints = personnelStops.slice(0, -1).slice(0, 9);
@@ -15943,16 +16012,10 @@
       }
 
       window.open(`https://www.google.com/maps/dir/?${params.toString()}`, "_blank", "noopener,noreferrer");
-
-      if (usedPersonnelCount < personnelStops.length) {
-        showToast(`Google Maps sınırı nedeniyle ilk ${usedPersonnelCount} personel durağı açıldı.`);
-      } else if (fallbackEveningTarget) {
-        showToast("Akşam son nokta tanımlı değil; rota son personelde bitirildi.");
-      } else if (period === "morning") {
-        showToast("Rota personellerden sonra kayıtlı işyerinde bitecek.");
-      } else {
-        showToast("Rota işyerinden başlayıp belirlediğin son noktada bitecek.");
-      }
+      if (usedPersonnelCount < personnelStops.length) showToast(`Google Maps sınırı nedeniyle ilk ${usedPersonnelCount} personel durağı açıldı.`);
+      else if (fallbackEveningTarget) showToast("Akşam son nokta tanımlı değil; rota son personelde bitirildi.");
+      else if (period === "morning") showToast("Rota personellerden sonra kayıtlı işyerinde bitecek.");
+      else showToast("Yalnızca araca binen personeller için eve dağıtım rotası açıldı.");
     }
 
     function getServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
@@ -15967,7 +16030,14 @@
 
     function getOrCreateServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
       let session = getServiceSession(date, routeId, period, jobId, shiftKey);
-      if (session) return session;
+      if (session) {
+        if (!Array.isArray(session.manualOrder)) session.manualOrder = [];
+        if (period === "evening" && !["boarding", "dropoff"].includes(session.eveningPhase)) {
+          session.eveningPhase = serviceSessionPhase(session);
+        }
+        if (typeof session.eveningDistributionStartedAt !== "string") session.eveningDistributionStartedAt = "";
+        return session;
+      }
 
       session = {
         id: uid("service"),
@@ -15981,7 +16051,9 @@
         startedAt: "",
         finishedAt: "",
         isActive: false,
-        manualOrder: []
+        manualOrder: [],
+        eveningPhase: period === "evening" ? "boarding" : "",
+        eveningDistributionStartedAt: ""
       };
 
       state.serviceSessions.push(session);
@@ -16102,55 +16174,92 @@
       if (session.currentIndex < 0) session.currentIndex = 0;
       if (session.currentIndex >= people.length) session.currentIndex = people.length - 1;
 
-      const field = serviceStatusField(period);
       const currentPerson = people[session.currentIndex];
       const currentRecord = currentPerson ? getAttendance(session.date, session.routeId, currentPerson.id) : null;
-      const currentStatus = currentPerson ? displayAttendanceStatus(currentPerson, currentRecord, field, session.date) : "Bekliyor";
+      const currentStatus = currentPerson ? servicePhaseStatus(currentPerson, currentRecord, period, session.date, session) : "Bekliyor";
 
       if (currentStatus === "Bekliyor") return;
 
       const nextPending = people.findIndex((person) => {
         const record = getAttendance(session.date, session.routeId, person.id);
-        return displayAttendanceStatus(person, record, field, session.date) === "Bekliyor";
+        return servicePhaseStatus(person, record, period, session.date, session) === "Bekliyor";
       });
 
       if (nextPending >= 0) session.currentIndex = nextPending;
     }
 
     function autoMarkLeaveForService(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
-      const field = serviceStatusField(period);
       servicePeopleFor(date, routeId, period, shiftKey, jobId).forEach((person) => {
         if (!isPersonOnLeave(person, date)) return;
         const record = getOrCreateAttendance(date, routeId, person.id);
-        if (!record[field]) {
-          record[field] = "İzinli";
-          record[`${field}At`] = "";
-          record[`${field}JobId`] = jobId || "";
-          record[`${field}ShiftKey`] = shiftKey || "";
+        if (period === "evening") {
+          if (!record.eveningBoarding) {
+            record.eveningBoarding = "İzinli";
+            record.eveningBoardingAt = "";
+          }
+          if (!record.evening) {
+            record.evening = "İzinli";
+            record.eveningAt = "";
+          }
+          record.eveningJobId = jobId || "";
+          record.eveningShiftKey = shiftKey || "";
+          return;
+        }
+        if (!record.morning) {
+          record.morning = "İzinli";
+          record.morningAt = "";
+          record.morningJobId = jobId || "";
+          record.morningShiftKey = shiftKey || "";
         }
       });
     }
 
-    function serviceCounts(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
-      const field = serviceStatusField(period);
-      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+    function serviceCounts(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey(), sessionArg = null) {
+      const allPeople = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+      const session = sessionArg || getServiceSession(date, routeId, period, jobId, shiftKey);
+      const phase = period === "evening" ? serviceSessionPhase(session) : "service";
       const counts = {
-        total: people.length,
+        total: allPeople.length,
         bindi: 0,
+        indi: 0,
+        onboard: 0,
         yok: 0,
         izinli: 0,
-        bekliyor: 0
+        bekliyor: 0,
+        boardingPending: 0,
+        dropPending: 0,
+        phase
       };
 
-      people.forEach((person) => {
+      if (period !== "evening") {
+        allPeople.forEach((person) => {
+          const record = getAttendance(date, routeId, person.id);
+          const status = displayAttendanceStatus(person, record, "morning", date);
+          if (status === "Bindi") counts.bindi += 1;
+          else if (status === "Yok") counts.yok += 1;
+          else if (status === "İzinli") counts.izinli += 1;
+          else counts.bekliyor += 1;
+        });
+        return counts;
+      }
+
+      allPeople.forEach((person) => {
         const record = getAttendance(date, routeId, person.id);
-        const status = displayAttendanceStatus(person, record, field, date);
-        if (status === "Bindi" || status === "İndi") counts.bindi += 1;
-        else if (status === "Yok") counts.yok += 1;
-        else if (status === "İzinli") counts.izinli += 1;
-        else counts.bekliyor += 1;
+        const boarding = eveningBoardingStatus(person, record, date);
+        if (boarding === "Bindi") counts.bindi += 1;
+        else if (boarding === "Yok") counts.yok += 1;
+        else if (boarding === "İzinli") counts.izinli += 1;
+        else counts.boardingPending += 1;
+
+        if (boarding === "Bindi") {
+          const drop = eveningDropStatus(person, record, date);
+          if (drop === "İndi" || drop === "Başka Adreste İndi") counts.indi += 1;
+          else counts.dropPending += 1;
+        }
       });
 
+      counts.onboard = Math.max(0, counts.bindi - counts.indi);
+      counts.bekliyor = phase === "dropoff" ? counts.dropPending : counts.boardingPending;
       return counts;
     }
 
@@ -16158,11 +16267,9 @@
       const summaryHost = $("#serviceSummary");
       const currentHost = $("#serviceCurrent");
       const listHost = $("#serviceListHost");
-
       if (!summaryHost || !currentHost || !listHost) return;
 
       ensureServiceDefaults();
-
       const date = getServiceDate();
       const routeId = getServiceRouteId();
       const period = getServicePeriod();
@@ -16171,8 +16278,11 @@
       const shiftKey = getServiceShiftKey();
       const shift = getSelectedServiceShift();
       const serviceVehicleId = job?.vehicleId || company?.defaultVehicleId || "";
-      const people = servicePeopleFor(date, routeId, period, shiftKey, job?.id || "");
       const session = getServiceSession(date, routeId, period, job?.id || "", shiftKey);
+      const phase = period === "evening" ? serviceSessionPhase(session) : "service";
+      const allPeople = servicePeopleFor(date, routeId, period, shiftKey, job?.id || "");
+      const people = session ? servicePeopleForSession(session) : allPeople;
+      const counts = serviceCounts(date, routeId, period, job?.id || "", shiftKey, session);
 
       const vehicleLine = $("#serviceVehicleLine");
       if (vehicleLine) {
@@ -16180,16 +16290,18 @@
         const eveningFinal = companyEveningFinalMapQuery(company);
         const targetLabel = period === "morning"
           ? `Son hedef: ${workplace || "İşyeri adresi eksik"}`
-          : `Başlangıç: ${workplace || "İşyeri adresi eksik"} · Son hedef: ${eveningFinal || "Son personel (özel son nokta girilmedi)"}`;
+          : phase === "boarding"
+            ? `Biniş noktası: ${workplace || "İşyeri adresi eksik"}`
+            : `Dağıtım başlangıcı: ${workplace || "İşyeri adresi eksik"} · Son hedef: ${eveningFinal || "Son personel"}`;
         vehicleLine.innerHTML = company
           ? `${job ? `<strong>İş:</strong> ${escapeHtml(job.name)} · ` : ""}<strong>Firma:</strong> ${escapeHtml(company.name)} · <strong>Araç:</strong> ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")} · <strong>${escapeHtml(targetLabel)}</strong>`
           : "Firma seçilmedi.";
       }
 
       if (session) normalizeServiceSessionIndex(session, people, period);
-
-      const counts = serviceCounts(date, routeId, period, job?.id || "", shiftKey);
-      const completed = counts.total > 0 && counts.bekliyor === 0;
+      const completed = period === "evening"
+        ? (phase === "boarding" ? counts.boardingPending === 0 : counts.dropPending === 0)
+        : counts.total > 0 && counts.bekliyor === 0;
       const dispatch = getDispatch(date, routeId, job?.id || "");
       const dispatchDone = Boolean(dispatch && dispatchCompletedKeys(dispatch).has(dispatchServiceKey(period, shiftKey)));
 
@@ -16201,167 +16313,109 @@
 
       const startButton = $("#startServiceBtn");
       const finishButton = $("#finishServiceBtn");
-
       if (startButton) {
         startButton.textContent = session?.isActive ? "Servis Canlı" : session?.finishedAt ? "Tekrar Başlat" : "Servisi Başlat";
         startButton.classList.toggle("live", Boolean(session && session.isActive));
       }
-
       if (finishButton) {
         finishButton.disabled = !session || !session.isActive;
-        finishButton.textContent = "Servisi Bitir";
+        finishButton.textContent = period === "evening" && phase === "boarding"
+          ? (counts.boardingPending > 0 ? "Binişleri Tamamla" : counts.bindi > 0 ? "Dağıtıma Başla" : "Servisi Bitir")
+          : "Servisi Bitir";
+      }
+      const orderedMapButton = $("#openOrderedMapBtn");
+      if (orderedMapButton) {
+        const eveningBoardingLocked = period === "evening" && (!session?.isActive || phase === "boarding");
+        orderedMapButton.disabled = eveningBoardingLocked;
+        orderedMapButton.textContent = eveningBoardingLocked ? "Dağıtımdan Sonra Harita" : "Sıralı Harita";
       }
 
-      summaryHost.innerHTML = [
-        { label: job ? "İş / Sefer" : "Sefer", value: job ? `${job.name}${shift ? ` · ${shift.name}` : ""} · ${servicePeriodLabel(period)}` : servicePeriodLabel(period), risk: false },
-        { label: "Durum", value: session?.isActive ? "Canlı" : session?.finishedAt ? "Bitti" : "Bekliyor", risk: Boolean(session && session.isActive) },
+      const statusValue = session?.isActive
+        ? (period === "evening" ? (phase === "boarding" ? "Biniş Aşaması" : "Dağıtım Aşaması") : "Canlı")
+        : session?.finishedAt ? "Bitti" : "Bekliyor";
+      const chips = period === "evening" ? [
+        { label: job ? "İş / Sefer" : "Sefer", value: job ? `${job.name}${shift ? ` · ${shift.name}` : ""} · Akşam Dönüş` : "Akşam Dönüş", risk: false },
+        { label: "Durum", value: statusValue, risk: Boolean(session?.isActive) },
         { label: "Toplam", value: `${counts.total} kişi`, risk: counts.total === 0 },
         { label: "Bindi", value: `${counts.bindi} kişi`, risk: false },
-        { label: "Yok / izinli", value: `${counts.yok} / ${counts.izinli}`, risk: counts.yok > 0 },
+        { label: "İndi", value: `${counts.indi} kişi`, risk: false },
+        { label: "Araçta", value: `${counts.onboard} kişi`, risk: counts.onboard > 0 && phase === "dropoff" },
+        { label: phase === "boarding" ? "Biniş Bekleyen" : "İniş Bekleyen", value: `${counts.bekliyor} kişi`, risk: counts.bekliyor > 0 },
+        { label: "Yok / İzinli", value: `${counts.yok} / ${counts.izinli}`, risk: counts.yok > 0 },
+        { label: "Çetele", value: dispatchDone ? "Tamamlandı" : "Bekliyor", risk: !dispatchDone }
+      ] : [
+        { label: job ? "İş / Sefer" : "Sefer", value: job ? `${job.name}${shift ? ` · ${shift.name}` : ""} · ${servicePeriodLabel(period)}` : servicePeriodLabel(period), risk: false },
+        { label: "Durum", value: statusValue, risk: Boolean(session?.isActive) },
+        { label: "Toplam", value: `${counts.total} kişi`, risk: counts.total === 0 },
+        { label: "Bindi", value: `${counts.bindi} kişi`, risk: false },
+        { label: "Yok / İzinli", value: `${counts.yok} / ${counts.izinli}`, risk: counts.yok > 0 },
         { label: "Bekleyen", value: `${counts.bekliyor} kişi`, risk: counts.bekliyor > 0 },
         { label: "Çetele", value: dispatchDone ? "Tamamlandı" : "Bekliyor", risk: !dispatchDone }
-      ].map((chip) => `
-        <div class="insight-chip ${chip.risk ? "risk" : ""}">
-          <div class="insight-label">${escapeHtml(chip.label)}</div>
-          <div class="insight-value">${escapeHtml(chip.value)}</div>
-        </div>
-      `).join("");
+      ];
+      summaryHost.innerHTML = chips.map((chip) => `<div class="insight-chip ${chip.risk ? "risk" : ""}"><div class="insight-label">${escapeHtml(chip.label)}</div><div class="insight-value">${escapeHtml(chip.value)}</div></div>`).join("");
 
       if (!routeId) {
         currentHost.innerHTML = "";
         listHost.innerHTML = `<div class="service-empty">Servis başlatmak için önce firma seç.</div>`;
         return;
       }
-
-      if (!people.length) {
+      if (!allPeople.length) {
         currentHost.innerHTML = "";
         listHost.innerHTML = `<div class="service-empty">Bu firmaya bağlı aktif personel yok.</div>`;
         return;
       }
 
       if (!session) {
-        currentHost.innerHTML = `
-          <div class="current-card">
-            <div>
-              <div class="current-kicker">Hazır</div>
-              <div class="current-name">Servis bekliyor</div>
-              <div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div>
-            </div>
-            <div class="current-actions">
-              <button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button>
-              <button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>
-            </div>
-          </div>
-        `;
+        const readyMapButton = period === "evening" ? "" : `<button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>`;
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">Hazır</div><div class="current-name">Servis bekliyor</div><div class="current-meta">${escapeHtml(routeLabel(routeId))} · ${escapeHtml(servicePeriodLabel(period))} · ${escapeHtml(date)} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}${period === "evening" ? "<br>Önce toplu biniş kontrolü yapılacak; rota daha sonra açılacaktır." : ""}</div></div><div class="current-actions"><button class="btn primary" type="button" id="startServiceInlineBtn">Servisi Başlat</button>${readyMapButton}</div></div>`;
+      } else if (period === "evening" && phase === "boarding" && counts.boardingPending === 0) {
+        const hasBoarded = counts.bindi > 0;
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">AKŞAM SERVİSİ · TOPLU BİNİŞ KONTROLÜ TAMAMLANDI</div><div class="current-name">${hasBoarded ? "Araç harekete hazır" : "Servise katılan personel yok"}</div><div class="current-meta">Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araçta: ${counts.onboard}<br>${hasBoarded ? "Dağıtıma Başla düğmesinden sonra yalnızca binen personeller sıralı eve dağıtım listesine alınacaktır." : "Kayıt tamamlanarak servis kapatılabilir."}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">${hasBoarded ? "Dağıtıma Başla" : "Servisi Bitir ve Kaydet"}</button></div></div>`;
       } else if (completed) {
-        currentHost.innerHTML = `
-          <div class="current-card">
-            <div>
-              <div class="current-kicker">${session.isActive ? "CANLI SERVİS" : "Tamamlandı"}</div>
-              <div class="current-name">Bekleyen personel yok</div>
-              <div class="current-meta">${period === "evening" ? "İndi" : "Bindi"}: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div>
-            </div>
-            <div class="current-actions">
-              <button class="btn primary" type="button" id="finishServiceInlineBtn">Servisi Bitir ve Çeteleye İşle</button>
-              <button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>
-              <button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button>
-            </div>
-          </div>
-        `;
+        const returnBoardingButton = period === "evening" && session.isActive ? `<button class="btn small" type="button" data-action="return-evening-boarding">Biniş Kontrolüne Dön</button>` : "";
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${session.isActive ? "CANLI SERVİS" : "Tamamlandı"}</div><div class="current-name">${period === "evening" ? "Tüm personel araçtan indi" : "Bekleyen personel yok"}</div><div class="current-meta">${period === "evening" ? `Bindi: ${counts.bindi} · İndi: ${counts.indi} · Araçta: ${counts.onboard}` : `Bindi: ${counts.bindi} · Yok: ${counts.yok} · İzinli: ${counts.izinli}`} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}</div></div><div class="current-actions"><button class="btn primary" type="button" id="finishServiceInlineBtn">Servisi Bitir ve Çeteleye İşle</button><button class="btn map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>${returnBoardingButton}<button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button></div></div>`;
       } else {
         const currentPerson = people[session.currentIndex] || people[0];
         const currentRecord = getAttendance(date, routeId, currentPerson.id);
-        const field = serviceStatusField(period);
-        const currentStatus = displayAttendanceStatus(currentPerson, currentRecord, field, date);
-        const address = personAddressForPeriod(currentPerson, period);
+        const currentStatus = servicePhaseStatus(currentPerson, currentRecord, period, date, session);
+        const address = period === "evening" && phase === "boarding"
+          ? (companyWorkplaceMapQuery(company) || "İşyeri biniş noktası")
+          : personAddressForPeriod(currentPerson, period);
         const order = people.findIndex((item) => item.id === currentPerson.id) + 1;
-        const orderText = order > 0 ? order : "-";
         const plannedTime = servicePlannedTime(currentPerson, period, job, shift);
         const countdown = serviceCountdown(plannedTime, date);
-        const primaryStatus = period === "evening" ? "İndi" : "Bindi";
-
-        currentHost.innerHTML = `
-          <div class="current-card">
-            <div>
-              <div class="current-kicker">${session?.isActive ? "CANLI SERVİS" : "Servis"} · Sıradaki Personel · Sıra ${escapeHtml(orderText)}</div>
-              <div class="current-name">${escapeHtml(currentPerson.name)}</div>
-              <div class="current-meta">
-                ${escapeHtml(address || "Adres girilmemiş")}<br>
-                Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}<br>
-                <span class="service-countdown ${escapeHtml(countdown.className)}">⏱ ${escapeHtml(countdown.text)}</span>
-              </div>
-            </div>
-            <div class="current-actions">
-              <button class="btn small map-btn" type="button" data-action="open-map" data-person-id="${escapeHtml(currentPerson.id)}">Haritada Aç</button>
-              <button class="btn small map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>
-              <button class="btn small" type="button" data-action="reset-service-order">Sırayı Sıfırla</button>
-              <button class="btn small" type="button" data-action="service-prev">Önceki</button>
-              <button class="btn small" type="button" data-action="service-next">Sonraki</button>
-              <button class="btn small" type="button" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(currentPerson.id)}">${primaryStatus}</button>
-              <button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button>
-              <button class="btn small" type="button" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(currentPerson.id)}">İzinli</button>
-            </div>
-          </div>
-        `;
+        const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
+        const stageLabel = period === "evening" ? (phase === "boarding" ? "BİNİŞ AŞAMASI" : "DAĞITIM AŞAMASI") : "CANLI SERVİS";
+        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button><button class="btn small" type="button" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(currentPerson.id)}">İzinli</button>`;
+        const routeButtons = period === "evening" && phase === "boarding"
+          ? ""
+          : `<button class="btn small map-btn" type="button" data-action="open-map" data-person-id="${escapeHtml(currentPerson.id)}">Haritada Aç</button><button class="btn small map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>`;
+        const recoveryButton = period === "evening" && phase === "dropoff" ? `<button class="btn small" type="button" data-action="return-evening-boarding">Biniş Kontrolüne Dön</button>` : "";
+        const currentKicker = period === "evening" && phase === "boarding"
+          ? `TOPLU BİNİŞ KONTROLÜ · ${counts.boardingPending} KİŞİ BEKLİYOR`
+          : `${stageLabel} · Sıradaki Personel · Sıra ${escapeHtml(order || "-")}`;
+        const phaseNote = period === "evening" && phase === "boarding"
+          ? "<br>Personeller geliş sırasına göre Bindi, gelmeyenler Yok veya İzinli olarak işaretlenir. Bu aşamada rota açılmaz."
+          : "";
+        currentHost.innerHTML = `<div class="current-card"><div><div class="current-kicker">${currentKicker}</div><div class="current-name">${escapeHtml(currentPerson.name)}</div><div class="current-meta">${escapeHtml(address || "Adres girilmemiş")}<br>Durum: <strong>${escapeHtml(currentStatus)}</strong> · Sicil: ${escapeHtml(currentPerson.employeeNo || "-")} · Araç: ${escapeHtml(serviceVehicleId ? vehicleShortLabel(serviceVehicleId) : "Yok")}${phaseNote}<br><span class="service-countdown ${escapeHtml(countdown.className)}">⏱ ${escapeHtml(countdown.text)}</span></div></div><div class="current-actions">${routeButtons}<button class="btn small" type="button" data-action="service-prev">Önceki</button><button class="btn small" type="button" data-action="service-next">Sonraki</button><button class="btn small primary" type="button" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(currentPerson.id)}">${primaryStatus}</button>${absenceButtons}${recoveryButton}</div></div>`;
       }
 
-      listHost.innerHTML = `
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Sıra</th>
-                <th>Manuel</th>
-                <th>Personel</th>
-                <th>Adres</th>
-                <th>Planlanan Saat</th>
-                <th>Durum</th>
-                <th>İşlem</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${people.map((person, index) => {
-                const record = getAttendance(date, routeId, person.id);
-                const field = serviceStatusField(period);
-                const status = displayAttendanceStatus(person, record, field, date);
-                const orderText = index + 1;
-                const address = personAddressForPeriod(person, period);
-                const activeRow = session && session.currentIndex === index;
-                const plannedTime = servicePlannedTime(person, period, job, shift);
-                const countdown = serviceCountdown(plannedTime, date);
-                const primaryStatus = period === "evening" ? "İndi" : "Bindi";
+      const addressHeader = period === "evening" && phase === "boarding" ? "Biniş Noktası" : (period === "evening" ? "Bırakma Adresi" : "Adres");
+      listHost.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Sıra</th><th>Manuel</th><th>Personel</th><th>${addressHeader}</th><th>Planlanan Saat</th><th>Durum</th><th>İşlem</th></tr></thead><tbody>${people.map((person, index) => {
+        const record = getAttendance(date, routeId, person.id);
+        const status = servicePhaseStatus(person, record, period, date, session);
+        const address = period === "evening" && phase === "boarding" ? (companyWorkplaceMapQuery(company) || "İşyeri") : personAddressForPeriod(person, period);
+        const activeRow = session && session.currentIndex === index;
+        const plannedTime = servicePlannedTime(person, period, job, shift);
+        const countdown = serviceCountdown(plannedTime, date);
+        const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
+        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button><button class="btn small" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(person.id)}">İzinli</button>`;
+        const rowMapButton = period === "evening" && phase === "boarding" ? "" : `<button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button>`;
+        return `<tr><td><strong>${index + 1}</strong>${activeRow ? '<br><span class="pill active">Seçili</span>' : ''}</td><td><button class="btn small order-btn" data-action="service-order-up" data-person-id="${escapeHtml(person.id)}">↑</button><button class="btn small order-btn" data-action="service-order-down" data-person-id="${escapeHtml(person.id)}">↓</button></td><td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td><td>${escapeHtml(address || "-")}</td><td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td><td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td><td>${rowMapButton}<button class="btn small" data-action="service-jump" data-index="${index}">Seç</button><button class="btn small primary" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>${absenceButtons}</td></tr>`;
+      }).join("")}</tbody></table></div>`;
 
-                return `
-                  <tr>
-                    <td><strong>${escapeHtml(orderText)}</strong>${activeRow ? '<br><span class="pill active">Sırada</span>' : ''}</td>
-                    <td>
-                      <button class="btn small order-btn" data-action="service-order-up" data-person-id="${escapeHtml(person.id)}">↑</button>
-                      <button class="btn small order-btn" data-action="service-order-down" data-person-id="${escapeHtml(person.id)}">↓</button>
-                    </td>
-                    <td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td>
-                    <td>${escapeHtml(address || "-")}</td>
-                    <td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td>
-                    <td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td>
-                    <td>
-                      <button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button>
-                      <button class="btn small" data-action="service-jump" data-index="${index}">Seç</button>
-                      <button class="btn small" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>
-                      <button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button>
-                      <button class="btn small" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(person.id)}">İzinli</button>
-                    </td>
-                  </tr>
-                `;
-              }).join("")}
-            </tbody>
-          </table>
-        </div>
-      `;
-
-      const inlineStart = $("#startServiceInlineBtn");
-      if (inlineStart) inlineStart.addEventListener("click", startService);
-
-      const inlineFinish = $("#finishServiceInlineBtn");
-      if (inlineFinish) inlineFinish.addEventListener("click", finishService);
+      $("#startServiceInlineBtn")?.addEventListener("click", startService);
+      $("#finishServiceInlineBtn")?.addEventListener("click", finishService);
     }
 
     function startService() {
@@ -16373,26 +16427,14 @@
       const shiftKey = getServiceShiftKey();
       const shift = getSelectedServiceShift();
 
-      if (job && !jobIsValidOnDate(job, date)) {
-        showToast("Seçilen iş bu tarih veya çalışma günü için aktif değil.");
-        return;
-      }
-
-      if (!routeId) {
-        showToast("Önce güzergah seç.");
-        return;
-      }
-
-      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
-      if (!people.length) {
-        showToast(shift ? "Bu vardiyaya bağlı aktif personel yok." : "Bu güzergahta aktif personel yok.");
-        return;
-      }
+      if (job && !jobIsValidOnDate(job, date)) { showToast("Seçilen iş bu tarih veya çalışma günü için aktif değil."); return; }
+      if (!routeId) { showToast("Önce güzergah seç."); return; }
+      const allPeople = servicePeopleFor(date, routeId, period, shiftKey, jobId);
+      if (!allPeople.length) { showToast(shift ? "Bu vardiyaya bağlı aktif personel yok." : "Bu güzergahta aktif personel yok."); return; }
 
       const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const stoppedAt = new Date().toISOString();
       let closedOtherLiveSession = false;
-
       state.serviceSessions.forEach((item) => {
         if (item.id !== session.id && item.isActive) {
           item.isActive = false;
@@ -16400,7 +16442,6 @@
           closedOtherLiveSession = true;
         }
       });
-
       if (session.isActive) {
         if (closedOtherLiveSession) saveState();
         showToast("Servis zaten canlı.");
@@ -16415,19 +16456,75 @@
       session.startedAt = new Date().toISOString();
       session.finishedAt = "";
       if (!Array.isArray(session.manualOrder)) session.manualOrder = [];
+      if (period === "evening") {
+        // Servisi Başlat akşam dönüşte daima toplu biniş kontrolünü açar.
+        // Dağıtım aşamasına yalnızca Dağıtıma Başla düğmesi geçirir.
+        session.eveningPhase = "boarding";
+        session.eveningDistributionStartedAt = "";
+      }
 
       autoMarkLeaveForService(date, routeId, period, jobId, shiftKey);
-
-      const field = serviceStatusField(period);
-      const nextPending = people.findIndex((person) => {
-        const record = getAttendance(date, routeId, person.id);
-        return displayAttendanceStatus(person, record, field, date) === "Bekliyor";
-      });
-
+      const people = servicePeopleForSession(session);
+      const nextPending = people.findIndex((person) => servicePhaseStatus(person, getAttendance(date, routeId, person.id), period, date, session) === "Bekliyor");
       session.currentIndex = nextPending >= 0 ? nextPending : 0;
 
       saveState();
-      showToast(`${shift?.name ? shift.name + " · " : ""}${servicePeriodLabel(period)} başlatıldı.`);
+      showToast(`${shift?.name ? shift.name + " · " : ""}${servicePeriodLabel(period)} başlatıldı${period === "evening" ? " · Biniş aşaması" : ""}.`);
+    }
+
+    function startEveningDistribution() {
+      const date = getServiceDate();
+      const routeId = getServiceRouteId();
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const session = getServiceSession(date, routeId, "evening", jobId, shiftKey);
+      if (!session?.isActive) { showToast("Önce akşam servisini başlat."); return false; }
+      const counts = serviceCounts(date, routeId, "evening", jobId, shiftKey, session);
+      if (counts.boardingPending > 0) {
+        showToast(`${counts.boardingPending} personelin Bindi / Yok / İzinli kaydı tamamlanmadı.`);
+        return false;
+      }
+      if (counts.bindi === 0) {
+        showToast("Araca binen personel yok. Servisi bitirerek kaydedebilirsiniz.");
+        return false;
+      }
+      session.eveningPhase = "dropoff";
+      session.eveningDistributionStartedAt = new Date().toISOString();
+      const people = servicePeopleForSession(session);
+      const nextPending = people.findIndex((person) => eveningDropStatus(person, getAttendance(date, routeId, person.id), date) === "Bekliyor");
+      session.currentIndex = nextPending >= 0 ? nextPending : 0;
+      saveState();
+      showToast(`Dağıtım başladı · Araçta ${counts.onboard} personel var.`);
+      return true;
+    }
+
+    function returnToEveningBoarding() {
+      const date = getServiceDate();
+      const routeId = getServiceRouteId();
+      const jobId = getServiceJobId();
+      const shiftKey = getServiceShiftKey();
+      const session = getServiceSession(date, routeId, "evening", jobId, shiftKey);
+      if (!session?.isActive) { showToast("Aktif akşam servisi bulunamadı."); return false; }
+      if (serviceSessionPhase(session) !== "dropoff") { showToast("Servis zaten biniş kontrolünde."); return false; }
+      if (!confirm("Biniş kontrolüne dönülsün mü? Bu servisteki İndi kayıtları temizlenecek; Bindi / Yok / İzinli kayıtları korunacaktır.")) return false;
+
+      servicePeopleFor(date, routeId, "evening", shiftKey, jobId).forEach((person) => {
+        const record = getAttendance(date, routeId, person.id);
+        if (!record) return;
+        if (["İndi", "Başka Adreste İndi"].includes(String(record.evening || ""))) {
+          record.evening = "";
+          record.eveningAt = "";
+          record.updatedAt = new Date().toISOString();
+        }
+      });
+      session.eveningPhase = "boarding";
+      session.eveningDistributionStartedAt = "";
+      const people = servicePeopleForSession(session);
+      const nextPending = people.findIndex((person) => eveningBoardingStatus(person, getAttendance(date, routeId, person.id), date) === "Bekliyor");
+      session.currentIndex = nextPending >= 0 ? nextPending : 0;
+      saveState();
+      showToast("Toplu biniş kontrolüne dönüldü.");
+      return true;
     }
 
     function finishService() {
@@ -16438,19 +16535,30 @@
       const jobId = job?.id || "";
       const shiftKey = getServiceShiftKey();
       const shift = getSelectedServiceShift();
+      if (!routeId) { showToast("Önce güzergah seç."); return; }
 
-      if (!routeId) {
-        showToast("Önce güzergah seç.");
-        return;
+      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
+      if (period === "evening") {
+        const counts = serviceCounts(date, routeId, period, jobId, shiftKey, session);
+        const phase = serviceSessionPhase(session);
+        if (phase === "boarding") {
+          if (counts.boardingPending > 0) {
+            showToast(`${counts.boardingPending} personelin Bindi / Yok / İzinli kaydı tamamlanmadı.`);
+            return;
+          }
+          if (counts.bindi > 0) {
+            startEveningDistribution();
+            return;
+          }
+        } else if (counts.onboard > 0 || counts.dropPending > 0) {
+          showToast(`Araçta hâlâ ${counts.onboard} personel görünüyor. İndi işlemlerini tamamlayın.`);
+          return;
+        }
       }
 
       const dispatch = getOrCreateDispatch(date, routeId, jobId);
-      const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const company = getCompanyByRoute(routeId);
-      const price = job?.billingModel === "monthly"
-        ? 0
-        : Number(job?.tripPrice || company?.tripPrice || state.settings?.personnelTripPrice || 2250);
-
+      const price = job?.billingModel === "monthly" ? 0 : Number(job?.tripPrice || company?.tripPrice || state.settings?.personnelTripPrice || 2250);
       dispatch.jobId = jobId;
       dispatch.jobName = job?.name || "";
       dispatch.billingModel = job?.billingModel || "trip";
@@ -16463,14 +16571,10 @@
 
       const finishedAt = new Date().toISOString();
       state.serviceSessions.forEach((item) => {
-        if (item.isActive) {
-          item.isActive = false;
-          item.finishedAt = finishedAt;
-        }
+        if (item.isActive) { item.isActive = false; item.finishedAt = finishedAt; }
       });
       session.isActive = false;
       session.finishedAt = finishedAt;
-
       saveState();
       showToast(`${shift?.name ? shift.name + " · " : ""}${servicePeriodLabel(period)} çeteleye işlendi.`);
     }
@@ -16481,11 +16585,9 @@
       const period = getServicePeriod();
       const jobId = getServiceJobId();
       const shiftKey = getServiceShiftKey();
-      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
-
+      const people = servicePeopleForSession(session);
       if (!people.length) return;
-
       session.currentIndex = Math.min(Math.max((session.currentIndex || 0) + delta, 0), people.length - 1);
       saveState();
     }
@@ -16496,11 +16598,9 @@
       const period = getServicePeriod();
       const jobId = getServiceJobId();
       const shiftKey = getServiceShiftKey();
-      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
       const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
-
+      const people = servicePeopleForSession(session);
       if (!people.length) return;
-
       session.currentIndex = Math.min(Math.max(Number(index || 0), 0), people.length - 1);
       saveState();
     }
@@ -16511,42 +16611,59 @@
       const period = getServicePeriod();
       const jobId = getServiceJobId();
       const shiftKey = getServiceShiftKey();
-      const people = servicePeopleFor(date, routeId, period, shiftKey, jobId);
-      const field = serviceStatusField(period);
       const person = state.people.find((item) => item.id === personId);
-
       if (!routeId || !person) return;
 
       const session = getOrCreateServiceSession(date, routeId, period, jobId, shiftKey);
       const record = getOrCreateAttendance(date, routeId, personId);
       const markedAt = new Date().toISOString();
-      const isActualMovement = (field === "morning" && status === "Bindi") || (field === "evening" && (status === "İndi" || status === "Bindi"));
 
-      record[field] = status;
-      record[`${field}At`] = isActualMovement ? markedAt : "";
-      record[`${field}JobId`] = jobId || "";
-      record[`${field}ShiftKey`] = shiftKey || "";
+      if (period === "evening") {
+        const phase = serviceSessionPhase(session);
+        if (phase === "boarding") {
+          if (!["Bindi", "Yok", "İzinli"].includes(status)) {
+            showToast("Biniş aşamasında Bindi, Yok veya İzinli seçilebilir.");
+            return;
+          }
+          record.eveningBoarding = status;
+          record.eveningBoardingAt = status === "Bindi" ? markedAt : "";
+          record.evening = status === "Bindi" ? "" : status;
+          record.eveningAt = "";
+        } else {
+          if (eveningBoardingStatus(person, record, date) !== "Bindi") {
+            showToast("Bu personelin araca bindi kaydı yok.");
+            return;
+          }
+          if (!["İndi", "Başka Adreste İndi"].includes(status)) {
+            showToast("Dağıtım aşamasında yalnızca İndi kaydı verilebilir.");
+            return;
+          }
+          record.evening = status;
+          record.eveningAt = markedAt;
+        }
+        record.eveningJobId = jobId || "";
+        record.eveningShiftKey = shiftKey || "";
+      } else {
+        if (!["Bindi", "Yok", "İzinli"].includes(status)) return;
+        record.morning = status;
+        record.morningAt = status === "Bindi" ? markedAt : "";
+        record.morningJobId = jobId || "";
+        record.morningShiftKey = shiftKey || "";
+      }
       record.updatedAt = markedAt;
 
+      const people = servicePeopleForSession(session);
       const currentIndex = people.findIndex((item) => item.id === personId);
-      const nextPending = people.findIndex((item, index) => {
-        if (index <= currentIndex) return false;
-        const nextRecord = getAttendance(date, routeId, item.id);
-        return displayAttendanceStatus(item, nextRecord, field, date) === "Bekliyor";
-      });
-
-      if (nextPending >= 0) {
-        session.currentIndex = nextPending;
-      } else {
-        const anyPending = people.findIndex((item) => {
-          const nextRecord = getAttendance(date, routeId, item.id);
-          return displayAttendanceStatus(item, nextRecord, field, date) === "Bekliyor";
-        });
+      const nextPending = people.findIndex((item, index) => index > currentIndex && servicePhaseStatus(item, getAttendance(date, routeId, item.id), period, date, session) === "Bekliyor");
+      if (nextPending >= 0) session.currentIndex = nextPending;
+      else {
+        const anyPending = people.findIndex((item) => servicePhaseStatus(item, getAttendance(date, routeId, item.id), period, date, session) === "Bekliyor");
         if (anyPending >= 0) session.currentIndex = anyPending;
       }
 
       saveState();
-      showToast(`${person.name} · ${status}`);
+      const phaseText = period === "evening" ? (serviceSessionPhase(session) === "boarding" ? "Biniş" : "İniş") : "Yoklama";
+      showToast(`${person.name} · ${phaseText}: ${status}`);
     }
 
     function openPersonMap(personId) {
@@ -27811,6 +27928,7 @@
         if (action === "open-ordered-map") openOrderedMap();
         if (action === "open-large-service-list") openLargeServiceList();
         if (action === "reset-service-order") resetServiceManualOrder();
+        if (action === "return-evening-boarding") returnToEveningBoarding();
         if (action === "service-order-up") moveServicePerson(button.dataset.personId, -1);
         if (action === "service-order-down") moveServicePerson(button.dataset.personId, 1);
         if (action === "service-mark") markServiceAttendance(button.dataset.personId, button.dataset.status);
