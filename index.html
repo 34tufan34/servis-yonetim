@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.7</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.8</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10766,7 +10766,7 @@
       border: 1px dashed var(--border);
       border-radius: 16px;
     }
-    /* v4.44.7 - Dikkat dağıtmayan tek ekran Şoför Modu */
+    /* v4.44.8 - Dikkat dağıtmayan tek ekran Şoför Modu */
     .driver-simple-shell {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -10898,7 +10898,7 @@
     }
 
 
-    /* v4.44.7 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
+    /* v4.44.8 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
     body.driver-focus-mode {
       overflow: hidden;
     }
@@ -11087,7 +11087,7 @@
     }
 
 
-    /* v4.44.7 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    /* v4.44.8 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
     body.driver-focus-mode .content-scroll {
       padding: 0 !important;
       height: 100dvh;
@@ -11280,7 +11280,7 @@
       body.unified-report-printing #unifiedReportPrintPortal td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
       body.unified-report-printing #unifiedReportPrintPortal tr { break-inside:avoid !important; page-break-inside:avoid !important; }
   
-    /* v4.44.7 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    /* v4.44.8 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
     body.driver-focus-mode .content-scroll {
       padding: 0 !important;
       height: 100dvh;
@@ -11492,7 +11492,7 @@
     }
 
 
-    /* v4.44.7 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.8 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -11587,7 +11587,7 @@
 
 
 
-    /* v4.44.7 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    /* v4.44.8 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
     .registry-progress-only {
       display: grid;
       grid-template-columns: auto minmax(220px, 1fr);
@@ -11662,6 +11662,75 @@
       }
       .registry-progress-copy small { display: none; }
       .registry-progress-copy strong { font-size: 16px; }
+    }
+
+    /* v4.44.8 - Şoför Modu kompakt işlem tuşları ve net otomatik geçiş */
+    body.driver-focus-mode .driver-large-actions {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+    }
+    body.driver-focus-mode .driver-large-actions .driver-compact-action {
+      min-height: 46px;
+      padding: 6px 8px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 7px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.05;
+      box-shadow: none;
+    }
+    .driver-action-icon {
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: color-mix(in srgb, var(--accent) 13%, var(--panel));
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 900;
+    }
+    .driver-action-copy {
+      display: block;
+      min-width: 0;
+    }
+    .driver-action-copy strong {
+      display: block;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .driver-action-copy small {
+      display: block;
+      max-width: 100%;
+      margin-top: 3px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 700;
+      line-height: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    body.driver-focus-mode .driver-finish-btn {
+      min-height: 44px;
+      margin-top: 7px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    @media (max-width: 820px) {
+      body.driver-focus-mode .driver-large-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 520px) {
+      body.driver-focus-mode .driver-large-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      body.driver-focus-mode .driver-large-actions .driver-compact-action { min-height: 44px; }
     }
 </style>
 </head>
@@ -11839,7 +11908,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.7</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.8</div>
         </div>
       </div>
 
@@ -11975,11 +12044,11 @@
             <div class="driver-next-preview is-empty" id="driverNextPreview">Bir sonraki yolcu servis başladığında burada görünecek.</div>
 
             <div class="driver-action-grid driver-large-actions" id="driverActionGrid">
-              <button class="btn primary" id="driverBoardBtn" type="button">Bindi</button>
-              <button class="btn" id="driverAlightBtn" type="button">İndi</button>
-              <button class="btn danger" id="driverAbsentBtn" type="button">Yok</button>
-              <button class="btn" id="driverLeaveBtn" type="button">İzinli</button>
-              <button class="btn" id="driverNextBtn" type="button">Sonraki Yolcu</button>
+              <button class="btn primary driver-compact-action" id="driverBoardBtn" type="button"><span class="driver-action-icon">↗</span><span class="driver-action-copy"><strong>Bindi</strong><small>Araca aldı</small></span></button>
+              <button class="btn driver-compact-action" id="driverAlightBtn" type="button"><span class="driver-action-icon">↘</span><span class="driver-action-copy"><strong>İndi</strong><small>Sonrakine geç</small></span></button>
+              <button class="btn danger driver-compact-action" id="driverAbsentBtn" type="button"><span class="driver-action-icon">×</span><span class="driver-action-copy"><strong>Yok</strong><small>Gelmedi</small></span></button>
+              <button class="btn driver-compact-action" id="driverLeaveBtn" type="button"><span class="driver-action-icon">–</span><span class="driver-action-copy"><strong>İzinli</strong><small>Servise binmez</small></span></button>
+              <button class="btn driver-compact-action" id="driverNextBtn" type="button"><span class="driver-action-icon">›</span><span class="driver-action-copy"><strong>Sonraki</strong><small>İşlem yapmadan</small></span></button>
             </div>
 
             <button class="btn danger driver-finish-btn" id="driverFinishBtn" type="button">Servisi Bitir</button>
@@ -15226,7 +15295,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.7</strong>
+                <strong>v4.44.8</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15271,8 +15340,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.7 - Şoför Modu tam ekran ve kompakt; İndi sonrası otomatik geçiş, aktif servis vurgusu ve sonraki yolcu önizlemesi eklendi.
-    const APP_VERSION = "4.44.7";
+    // v4.44.8 - Şoför Modu tam ekran ve kompakt; İndi sonrası otomatik geçiş, aktif servis vurgusu ve sonraki yolcu önizlemesi eklendi.
+    const APP_VERSION = "4.44.8";
     const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20506,7 +20575,7 @@
       };
     }
 
-    // v4.44.7 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
+    // v4.44.8 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
     let driverModeType = "personnel";
     let driverReturnModule = "command";
     const driverModeSelection = { personnel: "", school: "" };
@@ -20873,38 +20942,79 @@
       }
     }
 
-    function driverAdvanceAfterMark(session, markedId, type) {
-      if (!session) return;
+    function driverResolveLiveSession(type, sourceSession) {
+      if (!sourceSession) return null;
       if (type === "personnel") {
-        const people = servicePeopleForSession(session);
-        if (!people.length) return;
-        const markedIndex = people.findIndex((item) => item.id === markedId);
+        return state.serviceSessions.find((item) =>
+          item.isActive &&
+          item.date === sourceSession.date &&
+          item.routeId === sourceSession.routeId &&
+          item.period === sourceSession.period &&
+          String(item.jobId || "") === String(sourceSession.jobId || "") &&
+          String(item.shiftKey || "") === String(sourceSession.shiftKey || "")
+        ) || driverActivePersonnelSession();
+      }
+      return state.schoolServiceSessions.find((item) =>
+        item.status === "Aktif" &&
+        item.date === sourceSession.date &&
+        item.schoolId === sourceSession.schoolId &&
+        item.period === sourceSession.period
+      ) || driverActiveSchoolSession();
+    }
+
+    function driverAdvanceAfterMark(session, markedId, type, previousOrder = []) {
+      const liveSession = driverResolveLiveSession(type, session);
+      if (!liveSession) return null;
+
+      if (type === "personnel") {
+        const people = servicePeopleForSession(liveSession);
+        if (!people.length) return null;
         const pending = (person) => servicePhaseStatus(
           person,
-          getAttendance(session.date, session.routeId, person.id),
-          session.period,
-          session.date,
-          session
+          getAttendance(liveSession.date, liveSession.routeId, person.id),
+          liveSession.period,
+          liveSession.date,
+          liveSession
         ) === "Bekliyor";
-        let nextIndex = people.findIndex((person, index) => index > markedIndex && pending(person));
-        if (nextIndex < 0) nextIndex = people.findIndex((person, index) => index !== markedIndex && pending(person));
-        session.currentIndex = nextIndex >= 0 ? nextIndex : Math.max(0, Math.min(markedIndex, people.length - 1));
-        return;
+        let markedIndex = people.findIndex((item) => item.id === markedId);
+        if (markedIndex < 0 && previousOrder.length) {
+          const oldIndex = previousOrder.indexOf(markedId);
+          markedIndex = Math.max(-1, Math.min(oldIndex, people.length - 1));
+        }
+        for (let step = 1; step <= people.length; step += 1) {
+          const index = (Math.max(markedIndex, -1) + step) % people.length;
+          if (!pending(people[index])) continue;
+          liveSession.currentIndex = index;
+          return { session: liveSession, person: people[index], index };
+        }
+        liveSession.currentIndex = Math.max(0, Math.min(markedIndex, people.length - 1));
+        return null;
       }
 
-      const students = schoolServiceStudents(session.schoolId, session.period);
-      if (!students.length) return;
-      const markedIndex = students.findIndex((item) => item.id === markedId);
-      const pending = (student) => getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period) === "Bekliyor";
-      let nextIndex = students.findIndex((student, index) => index > markedIndex && pending(student));
-      if (nextIndex < 0) nextIndex = students.findIndex((student, index) => index !== markedIndex && pending(student));
-      session.currentIndex = nextIndex >= 0 ? nextIndex : Math.max(0, Math.min(markedIndex, students.length - 1));
+      const students = schoolServiceStudents(liveSession.schoolId, liveSession.period);
+      if (!students.length) return null;
+      const pending = (student) => getSchoolServiceStatus(liveSession.date, liveSession.schoolId, student.id, liveSession.period) === "Bekliyor";
+      let markedIndex = students.findIndex((item) => item.id === markedId);
+      if (markedIndex < 0 && previousOrder.length) {
+        const oldIndex = previousOrder.indexOf(markedId);
+        markedIndex = Math.max(-1, Math.min(oldIndex, students.length - 1));
+      }
+      for (let step = 1; step <= students.length; step += 1) {
+        const index = (Math.max(markedIndex, -1) + step) % students.length;
+        if (!pending(students[index])) continue;
+        liveSession.currentIndex = index;
+        return { session: liveSession, person: students[index], index };
+      }
+      liveSession.currentIndex = Math.max(0, Math.min(markedIndex, students.length - 1));
+      return null;
     }
 
     function driverMarkCurrent(status) {
       let session = null;
       let markedId = "";
+      let markedName = "";
       let type = driverModeType;
+      let previousOrder = [];
 
       if (driverModeType === "personnel") {
         session = driverActivePersonnelSession();
@@ -20912,7 +21022,9 @@
         driverSetUnderlyingPersonnel(session, session.period);
         const current = driverPersonnelCurrent(session);
         if (!current) { showToast("İşlem yapılacak personel yok."); return; }
+        previousOrder = servicePeopleForSession(session).map((item) => item.id);
         markedId = current.id;
+        markedName = current.name;
         markServiceAttendance(markedId, status);
       } else {
         session = driverActiveSchoolSession();
@@ -20920,16 +21032,23 @@
         driverSetUnderlyingSchool(session, session.period);
         const current = driverSchoolCurrent(session);
         if (!current) { showToast("İşlem yapılacak öğrenci yok."); return; }
+        previousOrder = schoolServiceStudents(session.schoolId, session.period).map((item) => item.id);
         markedId = current.id;
+        markedName = current.name;
         markSchoolServiceAttendance(markedId, status);
       }
 
-      // Yoklama kaydından sonra imleci açıkça sıradaki bekleyen yolcuya taşı.
-      // Bu ikinci kontrol, ana servis ekranındaki imleç mantığından bağımsız olarak
-      // Şoför Modunda Bindi / İndi / Yok / İzinli sonrası otomatik geçişi garanti eder.
-      driverAdvanceAfterMark(session, markedId, type);
+      // Kayıt tamamlandıktan sonra aktif oturumu yeniden bulur ve sıradaki
+      // bekleyen yolcuya zorunlu olarak geçirir. Özellikle akşam İndi işleminde
+      // aynı personelin ekranda kalmasını engeller.
+      const advanced = driverAdvanceAfterMark(session, markedId, type, previousOrder);
       saveState();
       renderDriverPanel();
+      if (advanced?.person) {
+        showToast(`${markedName} · ${status} — Sıradaki: ${advanced.person.name}`);
+      } else {
+        showToast(`${markedName} · ${status} — Bekleyen yolcu kalmadı.`);
+      }
     }
 
     function driverNextPassenger() {
