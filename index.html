@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.6</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.7</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10766,7 +10766,7 @@
       border: 1px dashed var(--border);
       border-radius: 16px;
     }
-    /* v4.44.6 - Dikkat dağıtmayan tek ekran Şoför Modu */
+    /* v4.44.7 - Dikkat dağıtmayan tek ekran Şoför Modu */
     .driver-simple-shell {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -10898,7 +10898,7 @@
     }
 
 
-    /* v4.44.6 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
+    /* v4.44.7 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
     body.driver-focus-mode {
       overflow: hidden;
     }
@@ -11086,6 +11086,146 @@
       .driver-next-preview em { grid-column: 2; }
     }
 
+
+    /* v4.44.7 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    body.driver-focus-mode .content-scroll {
+      padding: 0 !important;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    body.driver-focus-mode #screen-driver.active {
+      width: 100%;
+      height: 100dvh;
+      min-height: 100dvh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 8px;
+    }
+    body.driver-focus-mode .driver-simple-shell {
+      width: 100% !important;
+      max-width: none !important;
+      min-height: calc(100dvh - 16px) !important;
+      margin: 0 !important;
+      gap: 7px !important;
+      align-content: start;
+    }
+    body.driver-focus-mode .driver-simple-hero {
+      padding: 9px 11px;
+      border-radius: 14px;
+    }
+    body.driver-focus-mode .driver-hero h2 {
+      font-size: clamp(20px, 2.2vw, 27px);
+    }
+    body.driver-focus-mode .driver-hero p {
+      margin-top: 2px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-live-badge {
+      min-width: 90px;
+      padding: 7px 10px;
+      border-radius: 12px;
+    }
+    body.driver-focus-mode .driver-live-badge strong { font-size: 20px; }
+    .driver-back-btn {
+      min-height: 34px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-type-switch { gap: 7px; }
+    body.driver-focus-mode .driver-type-card {
+      min-height: 54px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border-width: 1px;
+    }
+    body.driver-focus-mode .driver-type-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    body.driver-focus-mode .driver-type-card strong { font-size: 13px; }
+    body.driver-focus-mode .driver-type-card small { font-size: 9px; }
+    .driver-type-card.active {
+      border: 2px solid var(--accent) !important;
+      background: color-mix(in srgb, var(--panel) 70%, var(--accent) 30%) !important;
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15), 0 10px 24px rgba(0,0,0,.16) !important;
+      transform: none;
+    }
+    .driver-type-card.active strong { color: var(--text); }
+    .driver-type-card.active .driver-type-state {
+      color: var(--panel);
+      background: var(--accent);
+      border-color: var(--accent);
+      font-weight: 950;
+      letter-spacing: .04em;
+    }
+    body.driver-focus-mode .driver-type-state {
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 8px;
+    }
+    body.driver-focus-mode .driver-quick-panel,
+    body.driver-focus-mode .driver-simple-current-panel {
+      padding: 9px;
+      border-radius: 14px;
+    }
+    body.driver-focus-mode .driver-simple-selectors select { min-height: 35px; }
+    body.driver-focus-mode .driver-start-grid { gap: 7px; margin-top: 7px; }
+    body.driver-focus-mode .driver-start-btn {
+      min-height: 39px;
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-current-head { margin-bottom: 6px; }
+    body.driver-focus-mode .driver-current-title { font-size: 14px; }
+    body.driver-focus-mode .driver-current-card,
+    body.driver-focus-mode .driver-current-card.driver-has-passenger {
+      padding: 9px;
+      border-radius: 13px;
+    }
+    body.driver-focus-mode .driver-current-card.empty { padding: 14px 9px; }
+    body.driver-focus-mode .driver-current-name {
+      margin: 5px 0 3px;
+      font-size: clamp(20px, 2.7vw, 27px);
+    }
+    body.driver-focus-mode .driver-current-time {
+      margin-top: 6px;
+      padding-top: 6px;
+    }
+    body.driver-focus-mode .driver-current-summary { gap: 5px; margin-top: 6px; }
+    body.driver-focus-mode .driver-current-summary span { padding: 5px 7px; }
+    .driver-next-preview {
+      margin-top: 6px;
+      padding: 6px 8px;
+      border-radius: 10px;
+    }
+    body.driver-focus-mode .driver-large-actions {
+      gap: 6px;
+      margin-top: 6px;
+    }
+    body.driver-focus-mode .driver-large-actions .btn {
+      min-height: 40px;
+      border-radius: 10px;
+      padding: 6px 7px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-finish-btn {
+      min-height: 40px;
+      margin-top: 6px;
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 11px;
+    }
+    @media (max-width: 700px) {
+      body.driver-focus-mode #screen-driver.active { padding: 6px; }
+      body.driver-focus-mode .driver-simple-shell { min-height: calc(100dvh - 12px) !important; }
+      body.driver-focus-mode .driver-type-card { min-height: 50px; }
+      body.driver-focus-mode .driver-large-actions .btn { min-height: 42px; }
+    }
+
     .report-preview-back-fab {
       position: fixed;
       right: max(18px, env(safe-area-inset-right));
@@ -11139,7 +11279,147 @@
       body.unified-report-printing #unifiedReportPrintPortal th,
       body.unified-report-printing #unifiedReportPrintPortal td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
       body.unified-report-printing #unifiedReportPrintPortal tr { break-inside:avoid !important; page-break-inside:avoid !important; }
-      .report-preview-back-fab { display:none !important; }
+  
+    /* v4.44.7 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    body.driver-focus-mode .content-scroll {
+      padding: 0 !important;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    body.driver-focus-mode #screen-driver.active {
+      width: 100%;
+      height: 100dvh;
+      min-height: 100dvh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 8px;
+    }
+    body.driver-focus-mode .driver-simple-shell {
+      width: 100% !important;
+      max-width: none !important;
+      min-height: calc(100dvh - 16px) !important;
+      margin: 0 !important;
+      gap: 7px !important;
+      align-content: start;
+    }
+    body.driver-focus-mode .driver-simple-hero {
+      padding: 9px 11px;
+      border-radius: 14px;
+    }
+    body.driver-focus-mode .driver-hero h2 {
+      font-size: clamp(20px, 2.2vw, 27px);
+    }
+    body.driver-focus-mode .driver-hero p {
+      margin-top: 2px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-live-badge {
+      min-width: 90px;
+      padding: 7px 10px;
+      border-radius: 12px;
+    }
+    body.driver-focus-mode .driver-live-badge strong { font-size: 20px; }
+    .driver-back-btn {
+      min-height: 34px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-type-switch { gap: 7px; }
+    body.driver-focus-mode .driver-type-card {
+      min-height: 54px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border-width: 1px;
+    }
+    body.driver-focus-mode .driver-type-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    body.driver-focus-mode .driver-type-card strong { font-size: 13px; }
+    body.driver-focus-mode .driver-type-card small { font-size: 9px; }
+    .driver-type-card.active {
+      border: 2px solid var(--accent) !important;
+      background: color-mix(in srgb, var(--panel) 70%, var(--accent) 30%) !important;
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15), 0 10px 24px rgba(0,0,0,.16) !important;
+      transform: none;
+    }
+    .driver-type-card.active strong { color: var(--text); }
+    .driver-type-card.active .driver-type-state {
+      color: var(--panel);
+      background: var(--accent);
+      border-color: var(--accent);
+      font-weight: 950;
+      letter-spacing: .04em;
+    }
+    body.driver-focus-mode .driver-type-state {
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 8px;
+    }
+    body.driver-focus-mode .driver-quick-panel,
+    body.driver-focus-mode .driver-simple-current-panel {
+      padding: 9px;
+      border-radius: 14px;
+    }
+    body.driver-focus-mode .driver-simple-selectors select { min-height: 35px; }
+    body.driver-focus-mode .driver-start-grid { gap: 7px; margin-top: 7px; }
+    body.driver-focus-mode .driver-start-btn {
+      min-height: 39px;
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-current-head { margin-bottom: 6px; }
+    body.driver-focus-mode .driver-current-title { font-size: 14px; }
+    body.driver-focus-mode .driver-current-card,
+    body.driver-focus-mode .driver-current-card.driver-has-passenger {
+      padding: 9px;
+      border-radius: 13px;
+    }
+    body.driver-focus-mode .driver-current-card.empty { padding: 14px 9px; }
+    body.driver-focus-mode .driver-current-name {
+      margin: 5px 0 3px;
+      font-size: clamp(20px, 2.7vw, 27px);
+    }
+    body.driver-focus-mode .driver-current-time {
+      margin-top: 6px;
+      padding-top: 6px;
+    }
+    body.driver-focus-mode .driver-current-summary { gap: 5px; margin-top: 6px; }
+    body.driver-focus-mode .driver-current-summary span { padding: 5px 7px; }
+    .driver-next-preview {
+      margin-top: 6px;
+      padding: 6px 8px;
+      border-radius: 10px;
+    }
+    body.driver-focus-mode .driver-large-actions {
+      gap: 6px;
+      margin-top: 6px;
+    }
+    body.driver-focus-mode .driver-large-actions .btn {
+      min-height: 40px;
+      border-radius: 10px;
+      padding: 6px 7px;
+      font-size: 11px;
+    }
+    body.driver-focus-mode .driver-finish-btn {
+      min-height: 40px;
+      margin-top: 6px;
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 11px;
+    }
+    @media (max-width: 700px) {
+      body.driver-focus-mode #screen-driver.active { padding: 6px; }
+      body.driver-focus-mode .driver-simple-shell { min-height: calc(100dvh - 12px) !important; }
+      body.driver-focus-mode .driver-type-card { min-height: 50px; }
+      body.driver-focus-mode .driver-large-actions .btn { min-height: 42px; }
+    }
+
+    .report-preview-back-fab { display:none !important; }
     }
     /* v4.43.1 - Şoför Modu panel çakışma düzeltmesi */
     #screen-driver.active {
@@ -11212,7 +11492,7 @@
     }
 
 
-    /* v4.44.6 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.7 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -11307,7 +11587,7 @@
 
 
 
-    /* v4.44.6 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    /* v4.44.7 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
     .registry-progress-only {
       display: grid;
       grid-template-columns: auto minmax(220px, 1fr);
@@ -11559,7 +11839,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.6</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.7</div>
         </div>
       </div>
 
@@ -14946,7 +15226,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.6</strong>
+                <strong>v4.44.7</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -14991,8 +15271,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.6 - Şoför Modu tam ekran ve kompakt; İndi sonrası otomatik geçiş, aktif servis vurgusu ve sonraki yolcu önizlemesi eklendi.
-    const APP_VERSION = "4.44.6";
+    // v4.44.7 - Şoför Modu tam ekran ve kompakt; İndi sonrası otomatik geçiş, aktif servis vurgusu ve sonraki yolcu önizlemesi eklendi.
+    const APP_VERSION = "4.44.7";
     const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20226,7 +20506,7 @@
       };
     }
 
-    // v4.44.6 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
+    // v4.44.7 - Şoför Modu: personel ve okul servisi tek dokunuş kontrolü
     let driverModeType = "personnel";
     let driverReturnModule = "command";
     const driverModeSelection = { personnel: "", school: "" };
@@ -20436,8 +20716,16 @@
       const schoolSession = driverActiveSchoolSession();
       const activeCount = Number(Boolean(personnelSession)) + Number(Boolean(schoolSession));
       if ($("#driverLiveCount")) $("#driverLiveCount").textContent = String(activeCount);
-      if ($("#driverPersonnelState")) $("#driverPersonnelState").textContent = personnelSession ? "Canlı" : "Beklemede";
-      if ($("#driverSchoolState")) $("#driverSchoolState").textContent = schoolSession ? "Canlı" : "Beklemede";
+      if ($("#driverPersonnelState")) {
+        $("#driverPersonnelState").textContent = driverModeType === "personnel"
+          ? (personnelSession ? "✓ SEÇİLİ · CANLI" : "✓ SEÇİLİ")
+          : (personnelSession ? "CANLI" : "Beklemede");
+      }
+      if ($("#driverSchoolState")) {
+        $("#driverSchoolState").textContent = driverModeType === "school"
+          ? (schoolSession ? "✓ SEÇİLİ · CANLI" : "✓ SEÇİLİ")
+          : (schoolSession ? "CANLI" : "Beklemede");
+      }
       $("#driverTypePersonnel")?.classList.toggle("active", driverModeType === "personnel");
       $("#driverTypeSchool")?.classList.toggle("active", driverModeType === "school");
       $("#driverTypePersonnel")?.setAttribute("aria-pressed", driverModeType === "personnel" ? "true" : "false");
@@ -20585,25 +20873,63 @@
       }
     }
 
+    function driverAdvanceAfterMark(session, markedId, type) {
+      if (!session) return;
+      if (type === "personnel") {
+        const people = servicePeopleForSession(session);
+        if (!people.length) return;
+        const markedIndex = people.findIndex((item) => item.id === markedId);
+        const pending = (person) => servicePhaseStatus(
+          person,
+          getAttendance(session.date, session.routeId, person.id),
+          session.period,
+          session.date,
+          session
+        ) === "Bekliyor";
+        let nextIndex = people.findIndex((person, index) => index > markedIndex && pending(person));
+        if (nextIndex < 0) nextIndex = people.findIndex((person, index) => index !== markedIndex && pending(person));
+        session.currentIndex = nextIndex >= 0 ? nextIndex : Math.max(0, Math.min(markedIndex, people.length - 1));
+        return;
+      }
+
+      const students = schoolServiceStudents(session.schoolId, session.period);
+      if (!students.length) return;
+      const markedIndex = students.findIndex((item) => item.id === markedId);
+      const pending = (student) => getSchoolServiceStatus(session.date, session.schoolId, student.id, session.period) === "Bekliyor";
+      let nextIndex = students.findIndex((student, index) => index > markedIndex && pending(student));
+      if (nextIndex < 0) nextIndex = students.findIndex((student, index) => index !== markedIndex && pending(student));
+      session.currentIndex = nextIndex >= 0 ? nextIndex : Math.max(0, Math.min(markedIndex, students.length - 1));
+    }
+
     function driverMarkCurrent(status) {
+      let session = null;
+      let markedId = "";
+      let type = driverModeType;
+
       if (driverModeType === "personnel") {
-        const session = driverActivePersonnelSession();
+        session = driverActivePersonnelSession();
         if (!session) { showToast("Önce servisi başlat."); return; }
         driverSetUnderlyingPersonnel(session, session.period);
         const current = driverPersonnelCurrent(session);
         if (!current) { showToast("İşlem yapılacak personel yok."); return; }
-        markServiceAttendance(current.id, status);
+        markedId = current.id;
+        markServiceAttendance(markedId, status);
       } else {
-        const session = driverActiveSchoolSession();
+        session = driverActiveSchoolSession();
         if (!session) { showToast("Önce servisi başlat."); return; }
         driverSetUnderlyingSchool(session, session.period);
         const current = driverSchoolCurrent(session);
         if (!current) { showToast("İşlem yapılacak öğrenci yok."); return; }
-        markSchoolServiceAttendance(current.id, status);
+        markedId = current.id;
+        markSchoolServiceAttendance(markedId, status);
       }
-      // Yoklama fonksiyonları imleci sıradaki bekleyen yolcuya taşır.
-      // İndi işleminde paneli aynı dokunuş içinde yenileyerek geçişi görünür kıl.
-      if (status === "İndi") window.requestAnimationFrame(renderDriverPanel);
+
+      // Yoklama kaydından sonra imleci açıkça sıradaki bekleyen yolcuya taşı.
+      // Bu ikinci kontrol, ana servis ekranındaki imleç mantığından bağımsız olarak
+      // Şoför Modunda Bindi / İndi / Yok / İzinli sonrası otomatik geçişi garanti eder.
+      driverAdvanceAfterMark(session, markedId, type);
+      saveState();
+      renderDriverPanel();
     }
 
     function driverNextPassenger() {
