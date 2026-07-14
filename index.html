@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.46.3</title>
+  <title>Servis Yönetim Sistemi | v4.46.4</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -11754,7 +11754,117 @@
       .selective-backup-icon { width: 48px; height: 48px; border-radius: 15px; font-size: 15px; }
       .selective-backup-actions { grid-template-columns: 1fr; }
     }
-</style>
+
+
+    /* v4.46.4 - Şoför modu sabit yolcu paneli ve tema uyumlu zarif düğmeler */
+    .driver-queue-panel {
+      overflow: hidden;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(var(--accent-rgb), .055), transparent 64px),
+        color-mix(in srgb, var(--panel-2) 96%, rgb(var(--accent-rgb)) 4%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+    }
+    .driver-queue-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 54px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .driver-queue-head strong {
+      padding: 6px 10px;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), .08);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .driver-panel-passenger-list {
+      min-height: 160px;
+      max-height: min(48dvh, 520px);
+      padding: 10px;
+    }
+    .driver-panel-passenger-list .driver-passenger-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      padding: 10px 11px;
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--panel) 96%, rgb(var(--accent-rgb)) 4%);
+      transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+    .driver-panel-passenger-list .driver-passenger-row.current {
+      border-color: rgba(var(--accent-rgb), .58);
+      background: color-mix(in srgb, var(--panel) 90%, rgb(var(--accent-rgb)) 10%);
+      box-shadow: 0 0 0 2px rgba(var(--accent-rgb), .08);
+    }
+    .driver-panel-passenger-list .driver-passenger-quick {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(54px, auto));
+      justify-content: end;
+      gap: 7px;
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .btn {
+      flex: none;
+      min-width: 58px;
+      min-height: 36px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--panel-3) 82%, transparent);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 0;
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--accent-rgb), .40);
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .driver-row-select {
+      background: color-mix(in srgb, var(--panel-3) 92%, rgb(var(--accent-rgb)) 8%);
+      color: var(--muted);
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .driver-row-primary {
+      border-color: rgba(var(--accent-rgb), .52);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .88), rgba(var(--accent-rgb), .56));
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(var(--accent-rgb), .16), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .driver-row-absence {
+      border-color: color-mix(in srgb, var(--danger) 38%, var(--line));
+      background: color-mix(in srgb, var(--panel-3) 84%, var(--danger) 16%);
+      color: color-mix(in srgb, var(--text) 82%, var(--danger) 18%);
+    }
+    .driver-panel-passenger-list .driver-passenger-quick .driver-row-leave {
+      border-color: color-mix(in srgb, var(--yellow) 28%, var(--line));
+      background: color-mix(in srgb, var(--panel-3) 90%, var(--yellow) 10%);
+      color: color-mix(in srgb, var(--text) 90%, var(--yellow) 10%);
+    }
+    body[data-theme="light"] .driver-panel-passenger-list .driver-passenger-quick .driver-row-primary { color: #fff; }
+    body[data-theme="light"] .driver-panel-passenger-list .driver-passenger-quick .driver-row-absence { color: #7f1d1d; }
+    body[data-theme="light"] .driver-panel-passenger-list .driver-passenger-quick .driver-row-leave { color: #713f12; }
+    @media (max-width: 1280px) {
+      .driver-panel-passenger-list .driver-passenger-row { grid-template-columns: 1fr; }
+      .driver-panel-passenger-list .driver-passenger-quick { justify-content: stretch; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .driver-panel-passenger-list .driver-passenger-quick .btn { min-width: 0; }
+    }
+    @media (max-width: 560px) {
+      .driver-panel-passenger-list { max-height: 52dvh; padding: 8px; }
+      .driver-panel-passenger-list .driver-passenger-quick { gap: 5px; }
+      .driver-panel-passenger-list .driver-passenger-quick .btn { min-height: 38px; padding-inline: 7px; font-size: 10px; }
+    }
+
+  </style>
 </head>
 
 <body class="auth-locked license-locked">
@@ -11930,7 +12040,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.46.3</div>
+          <div class="brand-sub">Servis Yönetimi v4.46.4</div>
         </div>
       </div>
 
@@ -12164,12 +12274,12 @@
               <div class="driver-service-live hidden" id="driverPersonnelBody">
                 <div class="driver-current-card empty" id="driverPersonnelCurrentCard">Aktif servis bekleniyor.</div>
                 <div class="driver-dual-actions" id="driverPersonnelActionHost"></div>
-                <details class="driver-queue-details">
-                  <summary><span>Yolcu Listesi</span><strong id="driverPersonnelListCount">0 yolcu</strong></summary>
+                <section class="driver-queue-panel" aria-label="Personel yolcu listesi">
+                  <div class="driver-queue-head"><span>Yolcu Listesi</span><strong id="driverPersonnelListCount">0 yolcu</strong></div>
                   <div class="driver-passenger-list driver-panel-passenger-list" id="driverPersonnelPassengerList">
                     <div class="driver-empty-state">Aktif servis bulunmuyor.</div>
                   </div>
-                </details>
+                </section>
               </div>
             </section>
 
@@ -12187,12 +12297,12 @@
               <div class="driver-service-live hidden" id="driverSchoolBody">
                 <div class="driver-current-card empty" id="driverSchoolCurrentCard">Aktif servis bekleniyor.</div>
                 <div class="driver-dual-actions" id="driverSchoolActionHost"></div>
-                <details class="driver-queue-details">
-                  <summary><span>Öğrenci Listesi</span><strong id="driverSchoolListCount">0 öğrenci</strong></summary>
+                <section class="driver-queue-panel" aria-label="Öğrenci listesi">
+                  <div class="driver-queue-head"><span>Öğrenci Listesi</span><strong id="driverSchoolListCount">0 öğrenci</strong></div>
                   <div class="driver-passenger-list driver-panel-passenger-list" id="driverSchoolPassengerList">
                     <div class="driver-empty-state">Aktif servis bulunmuyor.</div>
                   </div>
-                </details>
+                </section>
               </div>
             </section>
           </div>
@@ -15363,7 +15473,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.46.3</strong>
+                <strong>v4.46.4</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15408,8 +15518,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.46.3 - Akşam dönüşte toplu biniş kontrolü ve sıralı dağıtım akışı.
-    const APP_VERSION = "4.46.3";
+    // v4.46.4 - Şoför modu yolcu listesi sabit panel ve zarif tema uyumlu durum düğmeleri.
+    const APP_VERSION = "4.46.4";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -21080,8 +21190,9 @@
       const personnelEvening = type === "personnel" && context.session.period === "evening";
       const rowPrimaryLabel = personnelEvening ? (context.phase === "boarding" ? "Bindi" : "İndi") : (context.session.period === "evening" ? "İndi" : "Bindi");
       return context.rows.map((row) => {
-        const absenceButtons = personnelEvening && context.phase === "dropoff" ? "" : `<button class="btn danger" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="Yok">Yok</button><button class="btn" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="İzinli">İzinli</button>`;
-        return `<div class="driver-passenger-row ${row.index === context.currentIndex ? "current" : ""}"><button class="driver-passenger-select" type="button" data-action="driver-select-passenger" data-driver-type="${type}" data-index="${row.index}" aria-label="${escapeHtml(row.name)} yolcusunu seç"><span class="driver-passenger-index">${row.index + 1}</span><span class="driver-passenger-copy"><strong>${escapeHtml(row.name)}</strong><small>${escapeHtml(row.secondary)}</small></span><span class="driver-passenger-status ${statusClass(row.status)}">${escapeHtml(row.status)}</span></button><span class="driver-passenger-quick"><button class="btn driver-row-primary" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="${escapeHtml(context.primaryStatus)}">${rowPrimaryLabel}</button>${absenceButtons}</span></div>`;
+        const selectButton = `<button class="btn driver-row-select" type="button" data-action="driver-select-passenger" data-driver-type="${type}" data-index="${row.index}">Seç</button>`;
+        const absenceButtons = personnelEvening && context.phase === "dropoff" ? "" : `<button class="btn driver-row-absence" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="Yok">Yok</button><button class="btn driver-row-leave" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="İzinli">İzinli</button>`;
+        return `<div class="driver-passenger-row ${row.index === context.currentIndex ? "current" : ""}"><button class="driver-passenger-select" type="button" data-action="driver-select-passenger" data-driver-type="${type}" data-index="${row.index}" aria-label="${escapeHtml(row.name)} yolcusunu seç"><span class="driver-passenger-index">${row.index + 1}</span><span class="driver-passenger-copy"><strong>${escapeHtml(row.name)}</strong><small>${escapeHtml(row.secondary)}</small></span><span class="driver-passenger-status ${statusClass(row.status)}">${escapeHtml(row.status)}</span></button><span class="driver-passenger-quick">${selectButton}<button class="btn driver-row-primary" type="button" data-action="driver-mark-passenger" data-driver-type="${type}" data-id="${escapeHtml(row.id)}" data-status="${escapeHtml(context.primaryStatus)}">${rowPrimaryLabel}</button>${absenceButtons}</span></div>`;
       }).join("");
     }
 
