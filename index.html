@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.19</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.20</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12683,7 +12683,7 @@
     }
 
 
-    /* v4.44.19 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.20 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12886,7 +12886,7 @@
       }
     }
 
-    /* v4.44.19 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.20 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12899,7 +12899,7 @@
     }
 
 
-    /* v4.44.19 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    /* v4.44.20 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
     .registry-flow,
     .registry-guide { display: none !important; }
     .registry-fixed-zone { display: grid; gap: 8px; }
@@ -12947,6 +12947,111 @@
       .registry-tab-description em { grid-column: 1 / -1; text-align: left; }
       .registry-form-host > .registry-mounted-workarea { grid-template-columns: 1fr !important; }
     }
+
+  
+
+    /* v4.44.20 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
+    .session-controls { position: relative; }
+    .session-user-chip {
+      cursor: pointer;
+      user-select: none;
+      transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+    .session-user-chip:hover,
+    .session-user-chip.switch-open {
+      border-color: rgba(var(--accent-rgb, 20,184,166), .48);
+      background: rgba(var(--accent-rgb, 20,184,166), .10);
+    }
+    .session-user-chip::after {
+      content: "⌄";
+      align-self: center;
+      justify-self: end;
+      grid-column: 3;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .session-user-chip { grid-template-columns: 34px minmax(0,1fr) auto; }
+    .quick-user-switch {
+      position: absolute;
+      z-index: 140;
+      top: calc(100% + 8px);
+      right: 0;
+      width: min(330px, calc(100vw - 28px));
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--panel) 96%, transparent);
+      box-shadow: 0 22px 54px rgba(0,0,0,.36);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: .16s ease;
+    }
+    .quick-user-switch.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .quick-user-switch-head { padding: 5px 6px 9px; border-bottom: 1px solid var(--line); }
+    .quick-user-switch-head strong { display:block; font-size:12px; }
+    .quick-user-switch-head span { display:block; margin-top:3px; color:var(--muted); font-size:10px; }
+    .quick-user-switch-list { display:grid; gap:6px; margin-top:8px; max-height:280px; overflow:auto; }
+    .quick-user-option {
+      width:100%; display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:9px; align-items:center;
+      padding:8px; border:1px solid var(--line); border-radius:12px; color:var(--text);
+      background:rgba(255,255,255,.028); text-align:left;
+    }
+    .quick-user-option:hover { background:rgba(255,255,255,.06); }
+    .quick-user-option.current { border-color:rgba(var(--accent-rgb),.44); background:rgba(var(--accent-rgb),.10); }
+    .quick-user-option-avatar { width:32px; height:32px; display:grid; place-items:center; border-radius:10px; background:rgba(var(--accent-rgb),.16); font-weight:900; }
+    .quick-user-option strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
+    .quick-user-option small { display:block; margin-top:2px; color:var(--muted); font-size:9px; }
+    .quick-user-option em { color:var(--muted); font-size:9px; font-style:normal; font-weight:850; }
+    .quick-user-empty { padding:16px 10px; color:var(--muted); text-align:center; font-size:11px; }
+
+    .driver-workspace { grid-template-columns: minmax(420px,1.10fr) minmax(330px,.90fr); }
+    .driver-operation-panel,
+    .driver-list-panel { width:100%; min-width:0; }
+    .driver-operation-panel > * { width:100%; min-width:0; }
+    @media (max-width:1180px) {
+      .driver-workspace { grid-template-columns:minmax(380px,1.12fr) minmax(280px,.88fr); }
+    }
+    @media (max-width:860px) { .driver-workspace { grid-template-columns:1fr; } }
+
+    .registry-progress-only .registry-progress-ring > span {
+      background: linear-gradient(90deg,
+        color-mix(in srgb, rgb(var(--accent-rgb, 20,184,166)) 34%, white) 0%,
+        rgb(var(--accent-rgb, 20,184,166)) 58%,
+        color-mix(in srgb, rgb(var(--accent-rgb, 20,184,166)) 72%, black) 100%
+      ) !important;
+    }
+
+    .route-segment-layer {
+      position:fixed; inset:0; z-index:360; display:grid; place-items:center; padding:18px;
+      background:rgba(0,0,0,.66); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      opacity:0; visibility:hidden; transition:.16s ease;
+    }
+    .route-segment-layer.open { opacity:1; visibility:visible; }
+    .route-segment-card {
+      width:min(520px,100%); max-height:min(78dvh,620px); display:flex; flex-direction:column;
+      border:1px solid var(--line); border-radius:20px; overflow:hidden;
+      background:color-mix(in srgb,var(--panel) 97%,transparent); box-shadow:0 28px 80px rgba(0,0,0,.48);
+    }
+    .route-segment-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 16px; border-bottom:1px solid var(--line); }
+    .route-segment-head strong { display:block; font-size:15px; }
+    .route-segment-head span { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .route-segment-close { min-width:38px; min-height:36px; border-radius:10px; border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,.04); }
+    .route-segment-list { display:grid; gap:8px; padding:14px; overflow:auto; }
+    .route-segment-btn {
+      display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:11px; align-items:center;
+      width:100%; padding:11px; border-radius:14px; border:1px solid rgba(var(--accent-rgb),.32);
+      color:var(--text); background:rgba(var(--accent-rgb),.08); text-align:left;
+    }
+    .route-segment-btn:hover { background:rgba(var(--accent-rgb),.14); }
+    .route-segment-btn.opened { border-color:rgba(34,197,94,.44); background:rgba(34,197,94,.10); }
+    .route-segment-no { width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:rgba(var(--accent-rgb),.18); font-weight:950; }
+    .route-segment-btn strong { display:block; font-size:12px; }
+    .route-segment-btn small { display:block; margin-top:3px; color:var(--muted); font-size:10px; }
+    .route-segment-btn em { color:var(--muted); font-size:10px; font-style:normal; font-weight:850; }
 
   </style>
 </head>
@@ -13124,7 +13229,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.19</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.20</div>
         </div>
       </div>
 
@@ -13132,31 +13237,24 @@
       <nav class="nav" aria-label="Ana menü">
         <button class="nav-btn" data-module="command">
           <span class="nav-label"><span class="dot"></span>Komuta Paneli</span>
-          <span class="tag">Aktif</span>
         </button>
         <button class="nav-btn" data-module="personnel">
           <span class="nav-label"><span class="dot"></span>Personel Servisi</span>
-          <span class="tag">Aktif</span>
         </button>
         <button class="nav-btn active" data-module="school">
           <span class="nav-label"><span class="dot"></span>Okul Servisi</span>
-          <span class="tag">Aktif</span>
         </button>
         <button class="nav-btn" data-module="driver">
           <span class="nav-label"><span class="dot"></span>Şoför Modu</span>
-          <span class="tag">Saha</span>
         </button>
         <button class="nav-btn" data-module="registry">
           <span class="nav-label"><span class="dot"></span>Temel Kayıtlar</span>
-          <span class="tag">Giriş</span>
         </button>
         <button class="nav-btn" data-module="addresses">
           <span class="nav-label"><span class="dot"></span>Adres Defteri</span>
-          <span class="tag">Harita</span>
         </button>
         <button class="nav-btn" data-module="finance">
           <span class="nav-label"><span class="dot"></span>Finans Özet</span>
-          <span class="tag">Aktif</span>
         </button>
       </nav>
 
@@ -13192,6 +13290,10 @@
           <div class="session-user-chip" id="sessionUserChip" title="Aktif kullanıcı">
             <div class="session-user-avatar" id="sessionUserAvatar">?</div>
             <div><strong id="sessionUserName">Oturum kapalı</strong><span id="sessionUserRole">-</span></div>
+          </div>
+          <div class="quick-user-switch" id="quickUserSwitch" aria-hidden="true">
+            <div class="quick-user-switch-head"><strong>Hızlı Kullanıcı Değiştir</strong><span>Şifre ile güvenli geçiş</span></div>
+            <div class="quick-user-switch-list" id="quickUserSwitchList"></div>
           </div>
           <button class="btn small fullscreen-btn" id="fullscreenBtn" type="button" title="Tam ekran görünümünü aç">⛶ Tam Ekran</button>
           <button class="btn small" id="lockSessionBtn" type="button">Kilitle</button>
@@ -13351,16 +13453,16 @@
           <div class="driver-info-bar" id="driverInfoBar"></div>
 
           <div class="driver-workspace">
-            <section class="driver-panel driver-list-panel">
-              <div class="driver-panel-head"><strong id="driverListTitle">Yolcu Listesi</strong><span id="driverListCount">0 yolcu</span></div>
-              <div class="driver-list" id="driverPassengerList"></div>
-            </section>
-
             <section class="driver-panel driver-operation-panel">
               <div id="driverCurrentHost"></div>
               <div id="driverActionsHost"></div>
               <div id="driverStatsHost"></div>
               <div id="driverFinishHost"></div>
+            </section>
+
+            <section class="driver-panel driver-list-panel">
+              <div class="driver-panel-head"><strong id="driverListTitle">Yolcu Listesi</strong><span id="driverListCount">0 yolcu</span></div>
+              <div class="driver-list" id="driverPassengerList"></div>
             </section>
           </div>
         </div>
@@ -16529,7 +16631,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.19</strong>
+                <strong>v4.44.20</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16575,7 +16677,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.19";
+    const APP_VERSION = "4.44.20";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -17859,6 +17961,114 @@
       return String(company?.eveningFinalMapQuery || company?.eveningFinalAddress || "").trim();
     }
 
+
+    let pendingRouteSegments = [];
+
+    function mapsDirectionsUrl(origin, destination, waypoints = []) {
+      const params = new URLSearchParams({ api: "1", travelmode: "driving" });
+      if (origin) params.set("origin", origin);
+      if (destination) params.set("destination", destination);
+      if (waypoints.length) params.set("waypoints", waypoints.join("|"));
+      return `https://www.google.com/maps/dir/?${params.toString()}`;
+    }
+
+    function buildRouteSegments(stops, options = {}) {
+      const cleanStops = (stops || []).map((value) => String(value || "").trim()).filter(Boolean);
+      const chunks = [];
+      for (let index = 0; index < cleanStops.length; index += 10) chunks.push(cleanStops.slice(index, index + 10));
+      const routes = [];
+      chunks.forEach((chunk, index) => {
+        const first = index === 0;
+        const last = index === chunks.length - 1;
+        let origin = "";
+        let destination = "";
+        let waypoints = [];
+
+        if (first && options.start) {
+          origin = options.start;
+          destination = chunk[chunk.length - 1];
+          waypoints = chunk.slice(0, -1);
+          if (last && options.final && chunk.length <= 9) {
+            destination = options.final;
+            waypoints = chunk;
+          }
+        } else {
+          origin = chunk[0];
+          if (last && options.final) {
+            destination = options.final;
+            waypoints = chunk.slice(1);
+          } else {
+            destination = chunk[chunk.length - 1];
+            waypoints = chunk.slice(1, -1);
+          }
+        }
+
+        routes.push({
+          title: `${options.label || "Rota"} ${index + 1}`,
+          detail: `Durak ${index * 10 + 1}–${index * 10 + chunk.length}`,
+          url: mapsDirectionsUrl(origin, destination, waypoints)
+        });
+      });
+
+      if (options.final && routes.length && chunks.length === 1 && options.start && chunks[0].length > 9) {
+        const lastStop = cleanStops[cleanStops.length - 1];
+        routes.push({ title: `${options.label || "Rota"} ${routes.length + 1}`, detail: "Son noktaya geçiş", url: mapsDirectionsUrl(lastStop, options.final, []) });
+      }
+      if (!cleanStops.length && options.start && options.final) {
+        routes.push({ title: `${options.label || "Rota"} 1`, detail: "Doğrudan hedef", url: mapsDirectionsUrl(options.start, options.final, []) });
+      }
+      return routes;
+    }
+
+    function ensureRouteSegmentLayer() {
+      let layer = $("#routeSegmentLayer");
+      if (layer) return layer;
+      layer = document.createElement("div");
+      layer.id = "routeSegmentLayer";
+      layer.className = "route-segment-layer";
+      layer.setAttribute("aria-hidden", "true");
+      layer.innerHTML = `<div class="route-segment-card" role="dialog" aria-modal="true" aria-labelledby="routeSegmentTitle">
+        <div class="route-segment-head"><div><strong id="routeSegmentTitle">Sıralı Rotalar</strong><span id="routeSegmentCopy">Her rotayı sırasıyla aç.</span></div><button class="route-segment-close" type="button" data-route-close>×</button></div>
+        <div class="route-segment-list" id="routeSegmentList"></div>
+      </div>`;
+      document.body.appendChild(layer);
+      layer.addEventListener("click", (event) => {
+        if (event.target === layer || event.target.closest("[data-route-close]")) {
+          layer.classList.remove("open");
+          layer.setAttribute("aria-hidden", "true");
+          return;
+        }
+        const button = event.target.closest("[data-route-index]");
+        if (!button) return;
+        const route = pendingRouteSegments[Number(button.dataset.routeIndex)];
+        if (!route?.url) return;
+        window.open(route.url, "_blank", "noopener,noreferrer");
+        button.classList.add("opened");
+        const stateText = button.querySelector("em");
+        if (stateText) stateText.textContent = "AÇILDI";
+      });
+      return layer;
+    }
+
+    function openRouteSegments(routes, title = "Sıralı Rotalar") {
+      if (!routes.length) return showToast("Açılacak rota bulunamadı.");
+      if (routes.length === 1) {
+        window.open(routes[0].url, "_blank", "noopener,noreferrer");
+        showToast(`${routes[0].title} haritada açıldı.`);
+        return;
+      }
+      pendingRouteSegments = routes;
+      const layer = ensureRouteSegmentLayer();
+      $("#routeSegmentTitle").textContent = title;
+      $("#routeSegmentCopy").textContent = `${routes.length} rota hazır. Rotaları sırayla aç.`;
+      $("#routeSegmentList").innerHTML = routes.map((route, index) => `<button class="route-segment-btn" type="button" data-route-index="${index}">
+        <span class="route-segment-no">${index + 1}</span><span><strong>${escapeHtml(route.title)}</strong><small>${escapeHtml(route.detail)}</small></span><em>HARİTADA AÇ</em>
+      </button>`).join("");
+      layer.classList.add("open");
+      layer.setAttribute("aria-hidden", "false");
+      showToast(`${routes.length} ayrı rota oluşturuldu.`);
+    }
+
     function openOrderedMap() {
       const date = getServiceDate();
       const routeId = getServiceRouteId();
@@ -17905,38 +18115,12 @@
         return;
       }
 
-      const params = new URLSearchParams({ api: "1", travelmode: "driving" });
-      let usedPersonnelCount = 0;
-      let fallbackEveningTarget = false;
-
-      if (period === "morning") {
-        const waypoints = personnelStops.slice(0, 9);
-        usedPersonnelCount = waypoints.length;
-        params.set("destination", workplace);
-        params.set("waypoints", waypoints.join("|"));
-      } else {
-        const configuredFinal = companyEveningFinalMapQuery(company);
-        params.set("origin", workplace);
-        if (configuredFinal) {
-          const waypoints = personnelStops.slice(0, 9);
-          usedPersonnelCount = waypoints.length;
-          params.set("destination", configuredFinal);
-          params.set("waypoints", waypoints.join("|"));
-        } else {
-          fallbackEveningTarget = true;
-          const destination = personnelStops[personnelStops.length - 1];
-          const waypoints = personnelStops.slice(0, -1).slice(0, 9);
-          usedPersonnelCount = waypoints.length + 1;
-          params.set("destination", destination);
-          if (waypoints.length) params.set("waypoints", waypoints.join("|"));
-        }
-      }
-
-      window.open(`https://www.google.com/maps/dir/?${params.toString()}`, "_blank", "noopener,noreferrer");
-      if (usedPersonnelCount < personnelStops.length) showToast(`Google Maps sınırı nedeniyle ilk ${usedPersonnelCount} personel durağı açıldı.`);
-      else if (fallbackEveningTarget) showToast("Akşam son nokta tanımlı değil; rota son personelde bitirildi.");
-      else if (period === "morning") showToast("Rota personellerden sonra kayıtlı işyerinde bitecek.");
-      else showToast("Yalnızca araca binen personeller için eve dağıtım rotası açıldı.");
+      const configuredFinal = period === "evening" ? companyEveningFinalMapQuery(company) : workplace;
+      const routes = period === "morning"
+        ? buildRouteSegments(personnelStops, { final: workplace, label: "Personel Rotası" })
+        : buildRouteSegments(personnelStops, { start: workplace, final: configuredFinal || "", label: "Dağıtım Rotası" });
+      openRouteSegments(routes, period === "morning" ? "Personel Sabah Rotaları" : "Personel Akşam Dağıtım Rotaları");
+      if (period === "evening" && !configuredFinal) showToast("Akşam son nokta tanımlı değil; son rota son personelde bitecek.");
     }
 
     function getServiceSession(date, routeId, period, jobId = getServiceJobId(), shiftKey = getServiceShiftKey()) {
@@ -21967,7 +22151,7 @@
       };
     }
 
-    // v4.44.19 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.20 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
@@ -22423,43 +22607,29 @@
     }
 
     function openSchoolOrderedMap() {
-      // v4.44.19: Öğrenci durakları kayıtlı sırayla tek Google Maps rotasına aktarılır.
       const schoolId = getSchoolServiceSchoolId();
       const period = getSchoolServicePeriod();
       const school = getSchool(schoolId);
       const students = schoolServiceStudents(schoolId, period);
-      const schoolQuery = school?.mapQuery || school?.address || "";
+      const schoolQuery = String(school?.mapQuery || school?.address || "").trim();
       const studentStops = students
         .map((student) => student.mapQuery || student.homeAddress || "")
+        .map((value) => String(value || "").trim())
         .filter(Boolean);
 
       if (!school || !schoolQuery) {
         showToast("Okulun harita adresi eksik.");
         return;
       }
-
       if (!studentStops.length) {
         showToast("Sıralı harita için öğrenci adresi bulunamadı.");
         return;
       }
 
-      let origin;
-      let destination;
-      let waypoints;
-
-      if (period === "evening") {
-        origin = schoolQuery;
-        destination = studentStops[studentStops.length - 1];
-        waypoints = studentStops.slice(0, -1);
-      } else {
-        origin = studentStops[0];
-        destination = schoolQuery;
-        waypoints = studentStops.slice(1);
-      }
-
-      const params = new URLSearchParams({ api: "1", origin, destination, travelmode: "driving" });
-      if (waypoints.length) params.set("waypoints", waypoints.join("|"));
-      window.open(`https://www.google.com/maps/dir/?${params.toString()}`, "_blank", "noopener,noreferrer");
+      const routes = period === "evening"
+        ? buildRouteSegments(studentStops, { start: schoolQuery, label: "Okul Dağıtım Rotası" })
+        : buildRouteSegments(studentStops, { final: schoolQuery, label: "Okul Toplama Rotası" });
+      openRouteSegments(routes, period === "evening" ? "Okul Akşam Dağıtım Rotaları" : "Okul Sabah Toplama Rotaları");
     }
 
     function getStudent(studentId) {
@@ -30104,6 +30274,71 @@
       if ($("#sessionUserName")) $("#sessionUserName").textContent = user?.fullName || user?.username || "Oturum kapalı";
       if ($("#sessionUserRole")) $("#sessionUserRole").textContent = user ? roleLabel(user.role) : "-";
       $("#sessionControls")?.classList.toggle("permission-hidden", !user);
+      if ($("#quickUserSwitch")?.classList.contains("open")) renderQuickUserSwitch();
+    }
+
+    function closeQuickUserSwitch() {
+      $("#quickUserSwitch")?.classList.remove("open");
+      $("#quickUserSwitch")?.setAttribute("aria-hidden", "true");
+      $("#sessionUserChip")?.classList.remove("switch-open");
+    }
+
+    function renderQuickUserSwitch() {
+      const host = $("#quickUserSwitchList");
+      if (!host) return;
+      const users = (state.users || []).filter((user) => user.status !== "inactive");
+      if (!users.length) {
+        host.innerHTML = '<div class="quick-user-empty">Aktif kullanıcı bulunamadı.</div>';
+        return;
+      }
+      host.innerHTML = users.map((user) => `<button class="quick-user-option ${user.id === activeUser?.id ? "current" : ""}" type="button" data-quick-user-id="${escapeHtml(user.id)}">
+        <span class="quick-user-option-avatar">${escapeHtml(initials(user.fullName || user.username))}</span>
+        <span><strong>${escapeHtml(user.fullName || user.username)}</strong><small>${escapeHtml(roleLabel(user.role))} · ${escapeHtml(user.username)}</small></span>
+        <em>${user.id === activeUser?.id ? "AKTİF" : "GEÇ"}</em>
+      </button>`).join("");
+    }
+
+    function toggleQuickUserSwitch() {
+      const panel = $("#quickUserSwitch");
+      if (!panel || !activeUser) return;
+      const opening = !panel.classList.contains("open");
+      if (opening) renderQuickUserSwitch();
+      panel.classList.toggle("open", opening);
+      panel.setAttribute("aria-hidden", opening ? "false" : "true");
+      $("#sessionUserChip")?.classList.toggle("switch-open", opening);
+    }
+
+    async function quickSwitchUser(userId) {
+      const target = (state.users || []).find((user) => user.id === userId && user.status !== "inactive");
+      if (!target) return showToast("Kullanıcı bulunamadı.");
+      if (target.id === activeUser?.id) {
+        closeQuickUserSwitch();
+        return showToast("Bu kullanıcı zaten aktif.");
+      }
+      const password = await appPrompt(`${target.fullName || target.username} kullanıcısına geçmek için şifreyi yaz.`, {
+        title: "Hızlı Kullanıcı Değiştir",
+        label: `${target.username} şifresi`,
+        inputType: "password",
+        autocomplete: "current-password",
+        confirmText: "Kullanıcıya Geç",
+        cancelText: "İptal",
+        required: true,
+        icon: "↔"
+      });
+      if (password === null) return;
+      const verified = await authenticate(target.username, password);
+      if (!verified) {
+        appendAudit("Güvenlik", "Hızlı kullanıcı değişimi başarısız", `Hedef kullanıcı: ${target.username}`);
+        return showToast("Şifre hatalı.");
+      }
+      const previousName = activeUser?.fullName || activeUser?.username || "Bilinmeyen kullanıcı";
+      setSession(verified);
+      appendAudit("Oturum", "Hızlı kullanıcı değişimi", `${previousName} → ${verified.fullName || verified.username}`);
+      const activeModule = $(".module-screen.active")?.id?.replace("screen-", "") || "command";
+      if (!hasModulePermission(activeModule)) activateModule(currentRoleRules().modules[0] || "command");
+      else applyRoleUI();
+      closeQuickUserSwitch();
+      showToast(`${verified.fullName || verified.username} kullanıcısına geçildi.`);
     }
 
     async function authenticate(username, password) {
@@ -30605,6 +30840,18 @@
 
     function bindSecurityEvents() {
       $("#authForm")?.addEventListener("submit", handleAuthSubmit);
+      $("#sessionUserChip")?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleQuickUserSwitch();
+      });
+      $("#quickUserSwitch")?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const button = event.target.closest("[data-quick-user-id]");
+        if (button) quickSwitchUser(button.dataset.quickUserId);
+      });
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest("#sessionUserChip") && !event.target.closest("#quickUserSwitch")) closeQuickUserSwitch();
+      });
       $("#logoutBtn")?.addEventListener("click", () => clearSession("Kullanıcı çıkış yaptı."));
       $("#lockSessionBtn")?.addEventListener("click", () => {
         const user = activeUser;
