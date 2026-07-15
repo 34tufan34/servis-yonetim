@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli ve Şoför Modu İyileştirmeleri v4.44.17</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.18</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12682,6 +12682,222 @@
       .command-live-metrics > span:last-child { grid-column: 1 / -1; }
     }
 
+
+    /* v4.44.18 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    .btn-return {
+      color: #f1e8ff !important;
+      background: rgba(139,92,246,.16) !important;
+      border-color: rgba(167,139,250,.48) !important;
+      box-shadow: 0 0 0 1px rgba(139,92,246,.06), 0 8px 22px rgba(76,29,149,.16) !important;
+    }
+    .btn-return:hover {
+      color: #ffffff !important;
+      background: rgba(139,92,246,.25) !important;
+      border-color: rgba(196,181,253,.68) !important;
+    }
+    body[data-theme="light"] .btn-return {
+      color: #5b21b6 !important;
+      background: #f3e8ff !important;
+      border-color: #c4b5fd !important;
+      box-shadow: 0 4px 12px rgba(91,33,182,.10) !important;
+    }
+
+    #screen-command .command-service-card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 9px;
+      padding: clamp(10px, .95vw, 15px);
+      cursor: default;
+    }
+    #screen-command .command-card-summary {
+      appearance: none;
+      width: 100%;
+      min-width: 0;
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr) auto;
+      align-items: center;
+      gap: clamp(10px, 1vw, 16px);
+      padding: 0;
+      border: 0;
+      color: var(--text);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    #screen-command .command-card-summary:hover .command-card-title {
+      color: color-mix(in srgb, var(--text) 82%, rgb(var(--accent-rgb)) 18%);
+    }
+    #screen-command .command-card-copy {
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #screen-command .command-next-passenger {
+      flex: 0 0 auto;
+      min-height: 128px;
+      margin-top: 9px;
+      padding: 9px 11px;
+      align-content: center;
+      overflow: hidden;
+    }
+    #screen-command .command-next-name {
+      font-size: clamp(13px, 1.1vw, 16px);
+    }
+    #screen-command .command-next-address {
+      font-size: 10px;
+    }
+    #screen-command .command-quick-actions {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    #screen-command .command-quick-btn {
+      appearance: none;
+      min-width: 0;
+      min-height: 31px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 5px 7px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+      font-size: 9px;
+      font-weight: 850;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, color .16s ease;
+    }
+    #screen-command .command-quick-btn:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+      border-color: rgba(var(--accent-rgb), .42);
+      background: rgba(var(--accent-rgb), .10);
+    }
+    #screen-command .command-quick-btn span {
+      width: 17px;
+      height: 17px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: rgba(255,255,255,.055);
+      font-size: 10px;
+    }
+    #screen-command .command-quick-btn strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font: inherit;
+    }
+    #screen-command .command-quick-btn.period.is-active {
+      color: #d7fff0;
+      border-color: rgba(34,197,94,.45);
+      background: rgba(34,197,94,.13);
+      box-shadow: inset 0 0 0 1px rgba(34,197,94,.05);
+    }
+    #screen-command .command-quick-btn.bindi { color: #bbf7d0; border-color: rgba(34,197,94,.28); }
+    #screen-command .command-quick-btn.indi { color: #bae6fd; border-color: rgba(14,165,233,.28); }
+    #screen-command .command-quick-btn.yok { color: #fecdd3; border-color: rgba(244,63,94,.28); }
+    #screen-command .command-quick-btn.izinli { color: #fde68a; border-color: rgba(245,158,11,.30); }
+    #screen-command .command-quick-btn.finish {
+      color: #fecaca;
+      border-color: rgba(239,68,68,.42);
+      background: rgba(127,29,29,.14);
+    }
+    #screen-command .command-quick-btn.finish.is-ready {
+      color: #fff1f2;
+      border-color: rgba(248,113,113,.65);
+      background: rgba(185,28,28,.25);
+      box-shadow: 0 0 18px rgba(239,68,68,.15);
+    }
+    #screen-command .command-quick-btn.detail {
+      color: color-mix(in srgb, var(--text) 72%, rgb(var(--accent-rgb)) 28%);
+      border-color: rgba(var(--accent-rgb), .30);
+    }
+    body[data-theme="light"] #screen-command .command-quick-btn {
+      color: #475569;
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+    body[data-theme="light"] #screen-command .command-quick-btn.period.is-active {
+      color: #166534;
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+    body[data-theme="light"] #screen-command .command-quick-btn.finish {
+      color: #b91c1c;
+      background: #fff1f2;
+      border-color: #fda4af;
+    }
+
+    @media (min-width: 1080px) {
+      #screen-command .command-dashboard {
+        grid-template-rows: auto minmax(245px, 1fr) auto auto;
+      }
+      #screen-command .command-service-card {
+        overflow: visible;
+      }
+      #screen-command .command-next-passenger {
+        max-height: none;
+      }
+    }
+    @media (min-width: 1080px) and (max-height: 820px) {
+      #screen-command .command-dashboard {
+        grid-template-rows: auto minmax(218px, 1fr) auto auto;
+      }
+      #screen-command .command-service-card {
+        padding: 9px 11px;
+        gap: 6px;
+      }
+      #screen-command .command-next-passenger {
+        min-height: 82px;
+        margin-top: 5px;
+        padding: 6px 8px;
+      }
+      #screen-command .command-live-metrics > span {
+        min-height: 34px;
+        padding: 4px 6px;
+      }
+      #screen-command .command-quick-actions {
+        gap: 4px;
+        padding-top: 5px;
+      }
+      #screen-command .command-quick-btn {
+        min-height: 27px;
+        padding: 4px 5px;
+        font-size: 8px;
+      }
+    }
+    @media (max-width: 900px) {
+      #screen-command .command-card-summary {
+        grid-template-columns: 52px minmax(0,1fr) auto;
+      }
+      #screen-command .command-quick-actions {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    /* v4.44.18 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    @media (min-width: 1080px) {
+      #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
+      #screen-command .command-service-grid,
+      #screen-command .command-dashboard > .command-service-grid {
+        height: auto;
+        grid-auto-rows: auto !important;
+      }
+      #screen-command .command-service-card { height: auto; }
+      #screen-command .command-card-summary { flex: 0 0 auto; }
+    }
+
   </style>
 </head>
 
@@ -12858,7 +13074,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.17</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.18</div>
         </div>
       </div>
 
@@ -12953,37 +13169,61 @@
           </section>
 
           <div class="command-service-grid">
-            <button class="command-service-card" id="commandPersonnelCard" type="button" data-action="open-personnel-live">
-              <span class="live-beacon" aria-hidden="true"><span class="live-beacon-core">P</span></span>
-              <span>
-                <span class="command-card-kicker">Personel Operasyonu</span>
-                <span class="command-card-title">Personel Servisi</span>
-                <span class="command-card-meta" id="commandPersonnelMeta">Başlatılmış servis bulunmuyor.</span>
-                <span class="command-next-passenger is-empty" id="commandPersonnelNext">
-                  <span class="command-next-top"><span class="command-next-label">Sıradaki Yolcu</span><span class="command-next-current">Beklemede</span></span>
-                  <strong class="command-next-name">Aktif operasyon yok</strong>
-                  <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
-                  <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+            <section class="command-service-card" id="commandPersonnelCard">
+              <button class="command-card-summary" type="button" data-action="open-personnel-live" aria-label="Personel Servisi ayrıntılarını aç">
+                <span class="live-beacon" aria-hidden="true"><span class="live-beacon-core">P</span></span>
+                <span class="command-card-copy">
+                  <span class="command-card-kicker">Personel Operasyonu</span>
+                  <span class="command-card-title">Personel Servisi</span>
+                  <span class="command-card-meta" id="commandPersonnelMeta">Başlatılmış servis bulunmuyor.</span>
+                  <span class="command-next-passenger is-empty" id="commandPersonnelNext">
+                    <span class="command-next-top"><span class="command-next-label">Sıradaki Personel</span><span class="command-next-current">Beklemede</span></span>
+                    <strong class="command-next-name">Aktif operasyon yok</strong>
+                    <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
+                    <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+                  </span>
                 </span>
-              </span>
-              <span class="command-card-state" id="commandPersonnelState">Beklemede</span>
-            </button>
+                <span class="command-card-state" id="commandPersonnelState">Beklemede</span>
+              </button>
+              <div class="command-quick-actions" aria-label="Personel servisi hızlı işlemleri">
+                <button class="command-quick-btn period" id="commandPersonnelMorningBtn" type="button" data-action="command-personnel-start" data-period="morning"><span>☀</span><strong>Sabah Servisi</strong></button>
+                <button class="command-quick-btn period" id="commandPersonnelEveningBtn" type="button" data-action="command-personnel-start" data-period="evening"><span>☾</span><strong>Akşam Servisi</strong></button>
+                <button class="command-quick-btn bindi" type="button" data-action="command-personnel-mark" data-status="Bindi"><span>↗</span><strong>Bindi</strong></button>
+                <button class="command-quick-btn indi" type="button" data-action="command-personnel-mark" data-status="İndi"><span>↘</span><strong>İndi</strong></button>
+                <button class="command-quick-btn yok" type="button" data-action="command-personnel-mark" data-status="Yok"><span>×</span><strong>Yok</strong></button>
+                <button class="command-quick-btn izinli" type="button" data-action="command-personnel-mark" data-status="İzinli"><span>●</span><strong>İzinli</strong></button>
+                <button class="command-quick-btn finish" id="commandPersonnelFinishBtn" type="button" data-action="command-personnel-finish"><span>■</span><strong>Servisi Bitir</strong></button>
+                <button class="command-quick-btn detail" type="button" data-action="open-personnel-live"><span>›</span><strong>Detaya Git</strong></button>
+              </div>
+            </section>
 
-            <button class="command-service-card" id="commandSchoolCard" type="button" data-action="open-school-live">
-              <span class="live-beacon" aria-hidden="true"><span class="live-beacon-core">O</span></span>
-              <span>
-                <span class="command-card-kicker">Okul Operasyonu</span>
-                <span class="command-card-title">Okul Servisi</span>
-                <span class="command-card-meta" id="commandSchoolMeta">Başlatılmış servis bulunmuyor.</span>
-                <span class="command-next-passenger is-empty" id="commandSchoolNext">
-                  <span class="command-next-top"><span class="command-next-label">Sıradaki Yolcu</span><span class="command-next-current">Beklemede</span></span>
-                  <strong class="command-next-name">Aktif operasyon yok</strong>
-                  <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
-                  <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+            <section class="command-service-card" id="commandSchoolCard">
+              <button class="command-card-summary" type="button" data-action="open-school-live" aria-label="Okul Servisi ayrıntılarını aç">
+                <span class="live-beacon" aria-hidden="true"><span class="live-beacon-core">O</span></span>
+                <span class="command-card-copy">
+                  <span class="command-card-kicker">Okul Operasyonu</span>
+                  <span class="command-card-title">Okul Servisi</span>
+                  <span class="command-card-meta" id="commandSchoolMeta">Başlatılmış servis bulunmuyor.</span>
+                  <span class="command-next-passenger is-empty" id="commandSchoolNext">
+                    <span class="command-next-top"><span class="command-next-label">Sıradaki Öğrenci</span><span class="command-next-current">Beklemede</span></span>
+                    <strong class="command-next-name">Aktif operasyon yok</strong>
+                    <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
+                    <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
+                  </span>
                 </span>
-              </span>
-              <span class="command-card-state" id="commandSchoolState">Beklemede</span>
-            </button>
+                <span class="command-card-state" id="commandSchoolState">Beklemede</span>
+              </button>
+              <div class="command-quick-actions" aria-label="Okul servisi hızlı işlemleri">
+                <button class="command-quick-btn period" id="commandSchoolMorningBtn" type="button" data-action="command-school-start" data-period="morning"><span>☀</span><strong>Sabah Servisi</strong></button>
+                <button class="command-quick-btn period" id="commandSchoolEveningBtn" type="button" data-action="command-school-start" data-period="evening"><span>☾</span><strong>Akşam Servisi</strong></button>
+                <button class="command-quick-btn bindi" type="button" data-action="command-school-mark" data-status="Bindi"><span>↗</span><strong>Bindi</strong></button>
+                <button class="command-quick-btn indi" type="button" data-action="command-school-mark" data-status="İndi"><span>↘</span><strong>İndi</strong></button>
+                <button class="command-quick-btn yok" type="button" data-action="command-school-mark" data-status="Yok"><span>×</span><strong>Yok</strong></button>
+                <button class="command-quick-btn izinli" type="button" data-action="command-school-mark" data-status="İzinli"><span>●</span><strong>İzinli</strong></button>
+                <button class="command-quick-btn finish" id="commandSchoolFinishBtn" type="button" data-action="command-school-finish"><span>■</span><strong>Servisi Bitir</strong></button>
+                <button class="command-quick-btn detail" type="button" data-action="open-school-live"><span>›</span><strong>Detaya Git</strong></button>
+              </div>
+            </section>
           </div>
 
           <section class="card fuel-live-panel" id="commandFuelPanel">
@@ -16245,7 +16485,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.17</strong>
+                <strong>v4.44.18</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16291,7 +16531,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.17";
+    const APP_VERSION = "4.44.18";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -21565,7 +21805,7 @@
       const address = String(options.address || "").trim();
       const rawStatus = String(options.status || "Bekliyor");
       const normalizedStatus = rawStatus === "Başka Adreste İndi" ? "İndi" : rawStatus;
-      const recommended = options.period === "evening" ? "İndi" : "Bindi";
+      const recommended = String(options.recommendedStatus || (options.period === "evening" ? "İndi" : "Bindi"));
       const empty = !name;
       const statusText = empty ? "Beklemede" : normalizedStatus;
       const order = Number(options.order || 0);
@@ -21602,10 +21842,9 @@
 
     function personnelCommandPassenger(session) {
       if (!session) return null;
-      const people = servicePeopleFor(session.date, session.routeId, session.period, session.shiftKey || "", session.jobId || "");
+      const people = servicePeopleForSession(session);
       if (!people.length) return null;
-      const field = serviceStatusField(session.period);
-      const statusOf = (item) => displayAttendanceStatus(item, getAttendance(session.date, session.routeId, item.id), field, session.date);
+      const statusOf = (item) => servicePhaseStatus(item, getAttendance(session.date, session.routeId, item.id), session.period, session.date, session);
       let index = Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1));
       let person = people[index];
       let status = statusOf(person);
@@ -21628,6 +21867,7 @@
         name: person.name,
         status,
         period: session.period,
+        recommendedStatus: session.period === "evening" && serviceSessionPhase(session) === "dropoff" ? "İndi" : "Bindi",
         address: personAddressForPeriod(person, session.period) || "Adres girilmemiş",
         detail: `${servicePeriodLabel(session.period)} · ${phase}`,
         order: index + 1,
@@ -21664,6 +21904,7 @@
         name: student.name,
         status,
         period: session.period,
+        recommendedStatus: session.period === "evening" ? "İndi" : "Bindi",
         address: student.homeAddress || student.mapQuery || "Adres girilmemiş",
         detail: `${schoolServicePeriodLabel(session.period)} · ${student.className || "Sınıf belirtilmemiş"}`,
         order: index + 1,
@@ -21674,7 +21915,93 @@
       };
     }
 
-    // v4.44.14 - Şoför Modu kaldırıldı; operasyon Personel Servisi ve Okul Servisi ekranlarından yönetilir.
+    // v4.44.18 - Komuta Paneli hızlı servis işlemleri
+    function styleReturnButtons(root = document) {
+      const scope = root && typeof root.querySelectorAll === "function" ? root : document;
+      scope.querySelectorAll("button, a.btn").forEach((button) => {
+        const label = String(button.textContent || "").replace(/\s+/g, " ").trim();
+        button.classList.toggle("btn-return", /(^|\s)Geri Dön($|\s)/i.test(label));
+      });
+    }
+
+    function commandSetDriverKind(kind) {
+      driverModeKind = kind === "school" ? "school" : "personnel";
+    }
+
+    function commandStartService(kind, period) {
+      commandSetDriverKind(kind);
+      const active = kind === "school" ? activeSchoolServiceSessions()[0] : activePersonnelServiceSessions()[0];
+      if (active) {
+        const activePeriod = active.period || "morning";
+        if (activePeriod === period) showToast(`${period === "evening" ? "Akşam" : "Sabah"} servisi zaten canlı.`);
+        else showToast("Önce devam eden servisi bitir. Aynı anda tek servis yönetilebilir.");
+        return;
+      }
+      driverStartService(period);
+    }
+
+    function commandMarkService(kind, status) {
+      commandSetDriverKind(kind);
+      const context = driverContext();
+      const active = context.session && (kind === "school" ? context.session.status === "Aktif" : context.session.isActive);
+      if (!active) { showToast("Önce Sabah Servisi veya Akşam Servisi düğmesiyle servisi başlat."); return; }
+
+      if (kind === "personnel") {
+        if (context.period === "morning" && status === "İndi") { showToast("Sabah personel servisinde Bindi, Yok veya İzinli kullanılır."); return; }
+        if (context.period === "evening" && context.phase === "boarding" && status === "İndi") { showToast("Önce Bindi / Yok / İzinli kayıtlarını tamamla; sonra Dağıtıma Başla."); return; }
+        if (context.period === "evening" && context.phase === "dropoff" && status !== "İndi") { showToast("Dağıtım aşamasında yalnızca İndi işlemi kullanılabilir."); return; }
+      } else {
+        if (context.period === "morning" && status === "İndi") { showToast("Sabah okul servisinde Bindi, Yok veya İzinli kullanılır."); return; }
+        if (context.period === "evening" && !["İndi", "İzinli"].includes(status)) { showToast("Akşam okul servisinde İndi veya İzinli kullanılır."); return; }
+      }
+
+      driverMarkCurrent(status);
+    }
+
+    function commandFinishService(kind) {
+      commandSetDriverKind(kind);
+      const active = kind === "school" ? activeSchoolServiceSessions()[0] : activePersonnelServiceSessions()[0];
+      if (!active) { showToast("Bitirilecek aktif servis bulunmuyor."); return; }
+      driverFinishService();
+    }
+
+    function renderCommandQuickActionState(personnelSession, schoolSession) {
+      const pMorning = $("#commandPersonnelMorningBtn");
+      const pEvening = $("#commandPersonnelEveningBtn");
+      const sMorning = $("#commandSchoolMorningBtn");
+      const sEvening = $("#commandSchoolEveningBtn");
+      const pFinish = $("#commandPersonnelFinishBtn");
+      const sFinish = $("#commandSchoolFinishBtn");
+
+      pMorning?.classList.toggle("is-active", personnelSession?.period === "morning");
+      pEvening?.classList.toggle("is-active", personnelSession?.period === "evening");
+      sMorning?.classList.toggle("is-active", schoolSession?.period === "morning");
+      sEvening?.classList.toggle("is-active", schoolSession?.period === "evening");
+
+      let personnelReady = false;
+      let personnelFinishLabel = "Servisi Bitir";
+      if (personnelSession) {
+        const counts = serviceCounts(personnelSession.date, personnelSession.routeId, personnelSession.period, personnelSession.jobId || "", personnelSession.shiftKey || "", personnelSession);
+        if (personnelSession.period === "evening" && serviceSessionPhase(personnelSession) === "boarding" && counts.boardingPending === 0 && counts.bindi > 0) {
+          personnelReady = true;
+          personnelFinishLabel = "Dağıtıma Başla";
+        } else if (personnelSession.period === "evening") {
+          personnelReady = serviceSessionPhase(personnelSession) === "dropoff" ? counts.onboard === 0 : (counts.boardingPending === 0 && counts.bindi === 0);
+        } else {
+          personnelReady = counts.bekliyor === 0;
+        }
+      }
+      pFinish?.classList.toggle("is-ready", personnelReady);
+      if (pFinish?.querySelector("strong")) pFinish.querySelector("strong").textContent = personnelFinishLabel;
+
+      let schoolReady = false;
+      if (schoolSession) {
+        const students = schoolServiceStudents(schoolSession.schoolId, schoolSession.period);
+        const counts = schoolServiceCounts(schoolSession.date, schoolSession.schoolId, schoolSession.period, students);
+        schoolReady = counts.Bekliyor === 0;
+      }
+      sFinish?.classList.toggle("is-ready", schoolReady);
+    }
 
     function renderCommandPanel() {
       const personnelSessions = activePersonnelServiceSessions();
@@ -21749,6 +22076,8 @@
           schoolNext.innerHTML = commandPassengerVisualHtml({});
         }
       }
+
+      renderCommandQuickActionState(personnelSession, schoolSession);
 
       const vehicleAlerts = getVehicleAlerts();
       const maintenanceAlert = $("#commandMaintenanceAlert");
@@ -27448,6 +27777,7 @@
       renderBackupRecovery();
       renderFullDemoDataStatus();
       renderRegistryCenter();
+      styleReturnButtons();
     }
 
     function activatePersonFormPage(pageName) {
@@ -29291,8 +29621,14 @@
           return;
         }
 
-        if (action === "open-personnel-live") openPersonnelLiveFromCommand();
-        if (action === "open-school-live") openSchoolLiveFromCommand();
+        if (action === "command-personnel-start") { commandStartService("personnel", button.dataset.period || "morning"); return; }
+        if (action === "command-school-start") { commandStartService("school", button.dataset.period || "morning"); return; }
+        if (action === "command-personnel-mark") { commandMarkService("personnel", button.dataset.status || ""); return; }
+        if (action === "command-school-mark") { commandMarkService("school", button.dataset.status || ""); return; }
+        if (action === "command-personnel-finish") { commandFinishService("personnel"); return; }
+        if (action === "command-school-finish") { commandFinishService("school"); return; }
+        if (action === "open-personnel-live") { openPersonnelLiveFromCommand(); return; }
+        if (action === "open-school-live") { openSchoolLiveFromCommand(); return; }
         if (action === "edit-person") editPerson(id);
         if (action === "delete-person") deleteById("people", id, "Personel silindi.");
         if (action === "edit-company") editCompany(id);
