@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.10</title>
+  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.13</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -10788,7 +10788,7 @@
       border: 1px dashed var(--border);
       border-radius: 16px;
     }
-    /* v4.44.11 - Dikkat dağıtmayan tek ekran Şoför Modu */
+    /* v4.44.13 - Dikkat dağıtmayan tek ekran Şoför Modu */
     .driver-simple-shell {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -10920,7 +10920,7 @@
     }
 
 
-    /* v4.44.11 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
+    /* v4.44.13 - Şoför Modu tam ekran, kompakt yerleşim ve aktif servis vurgusu */
     body.driver-focus-mode {
       overflow: hidden;
     }
@@ -11109,7 +11109,7 @@
     }
 
 
-    /* v4.44.10 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    /* v4.44.13 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
     body.driver-focus-mode .content-scroll {
       padding: 0 !important;
       height: 100dvh;
@@ -11302,7 +11302,7 @@
       body.unified-report-printing #unifiedReportPrintPortal td { white-space:normal !important; overflow-wrap:anywhere !important; line-height:1.25 !important; }
       body.unified-report-printing #unifiedReportPrintPortal tr { break-inside:avoid !important; page-break-inside:avoid !important; }
   
-    /* v4.44.10 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
+    /* v4.44.13 - Şoför Modu gerçek tam ekran, küçük tuşlar ve belirgin aktif servis */
     body.driver-focus-mode .content-scroll {
       padding: 0 !important;
       height: 100dvh;
@@ -11514,7 +11514,7 @@
     }
 
 
-    /* v4.44.10 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
+    /* v4.44.13 - Sade şoför paneli, renkli zaman durumu ve sesli komutlar */
     .driver-dashboard.driver-dashboard-compact { gap: 14px; }
     .driver-main-grid.driver-main-grid-wide { grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); }
     .driver-current-head-actions {
@@ -11609,7 +11609,7 @@
 
 
 
-    /* v4.44.10 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
+    /* v4.44.13 - Temel Kayıtlar üst boşluğunu kaldıran kompakt ilerleme çubuğu */
     .registry-progress-only {
       display: grid;
       grid-template-columns: auto minmax(220px, 1fr);
@@ -11686,7 +11686,7 @@
       .registry-progress-copy strong { font-size: 16px; }
     }
 
-    /* v4.44.10 - Şoför Modu kompakt işlem tuşları ve net otomatik geçiş */
+    /* v4.44.13 - Şoför Modu kompakt işlem tuşları ve net otomatik geçiş */
     body.driver-focus-mode .driver-large-actions {
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 6px;
@@ -11756,7 +11756,7 @@
     }
 
 
-    /* v4.44.10 - Şoför Modu operasyon paneli */
+    /* v4.44.13 - Şoför Modu operasyon paneli */
     #screen-driver {
       height: 100%;
       min-height: 0;
@@ -12200,13 +12200,38 @@
     }
 
 
-    /* v4.44.11 - Şoför Modu menü görünürlük güvencesi */
-    .nav .nav-btn[data-module="driver"] {
-      display: flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
+
+    /* v4.44.13 - Servisi Bitir kırmızı canlı durum + Komuta paneli dikey boşluk düzeltmesi */
+    #finishServiceBtn.service-finish-live,
+    #finishServiceInlineBtn.service-finish-live,
+    #finishSchoolServiceBtn.service-finish-live {
+      color: #fff7f7 !important;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;
+      border-color: rgba(248,113,113,.92) !important;
+      box-shadow: 0 0 0 1px rgba(248,113,113,.18), 0 0 26px rgba(239,68,68,.30) !important;
+      animation: serviceFinishRedPulse 1.35s ease-in-out infinite !important;
     }
-</style>
+
+    @keyframes serviceFinishRedPulse {
+      0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 0 0 1px rgba(248,113,113,.18), 0 0 18px rgba(239,68,68,.22);
+      }
+      50% {
+        transform: translateY(-1px);
+        box-shadow: 0 0 0 3px rgba(248,113,113,.13), 0 0 34px rgba(239,68,68,.42);
+      }
+    }
+
+    .command-dashboard > .command-service-grid {
+      margin-bottom: 18px;
+    }
+
+    #commandFuelPanel {
+      margin-top: 0;
+    }
+
+  </style>
 </head>
 
 <body class="auth-locked license-locked">
@@ -12382,7 +12407,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.12</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.13</div>
         </div>
       </div>
 
@@ -15729,7 +15754,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.10</strong>
+                <strong>v4.44.13</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15774,8 +15799,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.10 - Şoför Modu tamamen kaldırıldı. Akşam personel servisinde toplu biniş, sıralı dağıtım, otomatik sonraki personel ve canlı Servisi Bitir akışı güçlendirildi.
-    const APP_VERSION = "4.44.12";
+    // v4.44.13 - Şoför Modu tamamen kaldırıldı. Akşam personel servisinde toplu biniş, sıralı dağıtım, otomatik sonraki personel ve canlı Servisi Bitir akışı güçlendirildi.
+    const APP_VERSION = "4.44.13";
     const SCHEMA_VERSION = 32;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20749,6 +20774,7 @@
       if (finishButton) {
         finishButton.disabled = !isLive;
         finishButton.textContent = "Servisi Bitir";
+        finishButton.classList.toggle("service-finish-live", isLive);
       }
 
       if (!school) {
@@ -21119,7 +21145,7 @@
       };
     }
 
-    // v4.44.10 - Şoför Modu kaldırıldı; operasyon Personel Servisi ve Okul Servisi ekranlarından yönetilir.
+    // v4.44.13 - Şoför Modu kaldırıldı; operasyon Personel Servisi ve Okul Servisi ekranlarından yönetilir.
 
     function renderCommandPanel() {
       const personnelSessions = activePersonnelServiceSessions();
@@ -27313,28 +27339,6 @@
     }
 
 
-    function ensureDriverMenuEntry() {
-      const nav = document.querySelector(".nav");
-      if (!nav) return null;
-      let button = nav.querySelector('.nav-btn[data-module="driver"]');
-      if (!button) {
-        button = document.createElement("button");
-        button.className = "nav-btn";
-        button.type = "button";
-        button.dataset.module = "driver";
-        button.innerHTML = '<span class="nav-label"><span class="dot"></span>Şoför Modu</span><span class="tag">Saha</span>';
-        const commandButton = nav.querySelector('.nav-btn[data-module="command"]');
-        if (commandButton?.nextSibling) nav.insertBefore(button, commandButton.nextSibling);
-        else nav.prepend(button);
-      }
-      button.hidden = false;
-      button.removeAttribute("aria-hidden");
-      button.style.removeProperty("display");
-      button.style.removeProperty("visibility");
-      button.style.removeProperty("opacity");
-      return button;
-    }
-
     function activateModule(moduleName) {
       if (!$(`#screen-${moduleName}`)) moduleName = "command";
       document.body.classList.remove("driver-focus-mode");
@@ -28838,10 +28842,9 @@
       accounting: "Muhasebe"
     };
 
-    // v4.44.12 - Şoför Modu yönetici ve operasyon rollerine yetkilendirildi.
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "driver", "registry", "personnel", "school", "finance", "settings"],
+        modules: ["command", "registry", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -28850,7 +28853,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "driver", "registry", "personnel", "school", "settings"],
+        modules: ["command", "registry", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
@@ -30593,7 +30596,7 @@
 
 
 
-    // v4.44.10 - Şoför Modu, mevcut servis kayıt motorunu kullanır.
+    // v4.44.13 - Şoför Modu, mevcut servis kayıt motorunu kullanır.
     let driverModeKind = "personnel";
 
     function driverStatusClassName(status) {
@@ -30942,7 +30945,6 @@
 
 
     initLicenseGate();
-    ensureDriverMenuEntry();
     bindAppDialogEvents();
     bindDriverModeEvents();
     bindEvents();
