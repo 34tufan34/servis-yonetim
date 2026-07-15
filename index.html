@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Temel Kayıtlar İlerleme Çubuğu v4.44.14</title>
+  <title>Servis Yönetim Sistemi | Adres Defteri ve Kompakt Komuta Paneli v4.44.15</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12248,6 +12248,228 @@
       z-index: 1;
     }
 
+
+    /* v4.44.15 - Adres Defteri */
+    .address-book-layout {
+      height: 100%;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(300px, .72fr) minmax(460px, 1.28fr);
+      gap: 14px;
+    }
+    .address-book-form-card,
+    .address-book-list-card {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 18px;
+    }
+    .address-book-head,
+    .address-book-list-head { flex: 0 0 auto; margin-bottom: 14px; }
+    .address-book-kicker {
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .address-book-form {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .address-book-form textarea { resize: vertical; min-height: 76px; }
+    .address-book-hint {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+      background: rgba(255,255,255,.025);
+    }
+    .address-book-actions { margin-top: auto; padding-top: 4px; }
+    .address-book-search-wrap { width: min(300px, 42vw); }
+    .address-book-search-wrap input { width: 100%; }
+    .address-book-list {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      display: grid;
+      align-content: start;
+      gap: 9px;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.18) transparent;
+    }
+    .address-book-list::-webkit-scrollbar { width: 8px; }
+    .address-book-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16); border-radius: 999px; }
+    .address-book-row {
+      display: grid;
+      grid-template-columns: 46px minmax(0,1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+    }
+    .address-book-row:hover { border-color: rgba(var(--accent-rgb), .30); }
+    .address-book-pin {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--accent);
+      font-size: 20px;
+      border: 1px solid rgba(var(--accent-rgb), .25);
+      background: rgba(var(--accent-rgb), .09);
+    }
+    .address-book-copy { min-width: 0; }
+    .address-book-copy strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 15px;
+      letter-spacing: -.02em;
+    }
+    .address-book-location,
+    .address-book-note {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .address-book-row-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .address-map-open {
+      color: #d9f7ff;
+      background: rgba(var(--accent-rgb), .16);
+      border-color: rgba(var(--accent-rgb), .36);
+      font-weight: 900;
+    }
+    .address-book-empty {
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      padding: 24px;
+      line-height: 1.6;
+    }
+
+    /* v4.44.15 - Komuta Paneli tek ekran kompakt yerleşim */
+    @media (min-width: 1080px) {
+      #screen-command { overflow: hidden; }
+      #screen-command .command-dashboard {
+        height: 100%;
+        overflow: hidden;
+        gap: 8px;
+        padding: 0 2px 4px;
+      }
+      #screen-command .command-overview {
+        min-height: 72px;
+        padding: 11px 15px;
+        gap: 12px;
+      }
+      #screen-command .command-overview-kicker { margin-bottom: 3px; font-size: 9px; }
+      #screen-command .command-overview-title { font-size: clamp(22px, 2.6vw, 30px); }
+      #screen-command .command-overview-text { margin-top: 4px; font-size: 11px; line-height: 1.3; }
+      #screen-command .command-live-total { min-width: 98px; padding: 9px 12px; border-radius: 14px; }
+      #screen-command .command-live-total strong { font-size: 26px; }
+      #screen-command .command-live-total span { font-size: 9px; margin-top: 3px; }
+
+      #screen-command .command-service-grid,
+      #screen-command .command-dashboard > .command-service-grid {
+        flex: 0 0 166px !important;
+        min-height: 166px !important;
+        grid-auto-rows: 166px !important;
+        gap: 8px;
+        margin-bottom: 0 !important;
+      }
+      #screen-command .command-service-card {
+        min-height: 166px;
+        padding: 13px 14px;
+        grid-template-columns: 52px minmax(0,1fr) auto;
+        gap: 12px;
+        border-radius: 15px;
+        box-shadow: none;
+      }
+      #screen-command .live-beacon { width: 50px; height: 50px; }
+      #screen-command .live-beacon-core { width: 31px; height: 31px; font-size: 12px; }
+      #screen-command .command-card-kicker { font-size: 9px; margin-bottom: 4px; }
+      #screen-command .command-card-title { font-size: 25px; margin-bottom: 5px; }
+      #screen-command .command-card-meta { font-size: 10px; line-height: 1.25; }
+      #screen-command .command-card-state { padding: 5px 8px; font-size: 9px; }
+      #screen-command .command-next-passenger { margin-top: 7px; padding: 7px 9px; gap: 3px; border-radius: 11px; }
+      #screen-command .command-next-name { font-size: 12px; }
+      #screen-command .command-next-detail { font-size: 9px; }
+      #screen-command .command-status-rail { display: none; }
+
+      #screen-command .fuel-live-panel {
+        min-height: 116px;
+        padding: 9px 13px;
+        gap: 6px;
+        border-radius: 15px;
+      }
+      #screen-command .fuel-live-title { font-size: 14px; }
+      #screen-command .fuel-live-status { margin-top: 2px; font-size: 9px; }
+      #screen-command .fuel-live-actions .btn { min-height: 31px; padding: 6px 9px; font-size: 10px; }
+      #screen-command .fuel-live-grid { gap: 7px; }
+      #screen-command .fuel-price-card { min-height: 57px; padding: 7px 10px; border-radius: 12px; }
+      #screen-command .fuel-brand-logo.shell-logo,
+      #screen-command .fuel-brand-logo.shell-logo img { width: 42px; height: 42px; }
+      #screen-command .fuel-brand-logo.opet-logo { width: 76px; height: 30px; }
+      #screen-command .fuel-brand-logo.opet-logo img { width: 74px; height: 29px; }
+      #screen-command .fuel-price-meta { display: none; }
+      #screen-command .fuel-price-value strong { font-size: 21px; }
+
+      #screen-command .command-cost-grid { gap: 8px; }
+      #screen-command .command-cost-card { min-height: 52px; padding: 7px 10px; gap: 9px; border-radius: 13px; }
+      #screen-command .command-cost-icon { width: 34px; height: 34px; border-radius: 10px; }
+      #screen-command .command-cost-card strong { font-size: 12px; }
+      #screen-command .command-cost-card small { margin-top: 1px; font-size: 9px; line-height: 1.2; }
+      #screen-command .command-cost-value { font-size: 11px; }
+
+      #screen-command .command-maintenance-alert { min-height: 50px; padding: 7px 11px; gap: 9px; border-radius: 13px; }
+      #screen-command .command-maintenance-icon { width: 34px; height: 34px; border-radius: 10px; }
+      #screen-command .command-maintenance-alert strong { font-size: 12px; }
+      #screen-command .command-maintenance-alert .command-card-meta { font-size: 9px; line-height: 1.2; }
+    }
+
+    @media (max-width: 1079px) {
+      .address-book-layout { grid-template-columns: 1fr; overflow-y: auto; }
+      .address-book-form-card,
+      .address-book-list-card { overflow: visible; }
+      .address-book-list { max-height: 460px; }
+    }
+    @media (max-width: 680px) {
+      .address-book-list-head { align-items: stretch; flex-direction: column; }
+      .address-book-search-wrap { width: 100%; }
+      .address-book-row { grid-template-columns: 40px minmax(0,1fr); }
+      .address-book-pin { width: 38px; height: 38px; border-radius: 12px; }
+      .address-book-row-actions { grid-column: 1 / -1; justify-content: stretch; }
+      .address-book-row-actions .btn { flex: 1 1 auto; }
+    }
+
   </style>
 </head>
 
@@ -12424,7 +12646,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.14</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.15</div>
         </div>
       </div>
 
@@ -12441,6 +12663,10 @@
         <button class="nav-btn" data-module="registry">
           <span class="nav-label"><span class="dot"></span>Temel Kayıtlar</span>
           <span class="tag">Giriş</span>
+        </button>
+        <button class="nav-btn" data-module="addresses">
+          <span class="nav-label"><span class="dot"></span>Adres Defteri</span>
+          <span class="tag">Harita</span>
         </button>
         <button class="nav-btn" data-module="personnel">
           <span class="nav-label"><span class="dot"></span>Personel Servisi</span>
@@ -12695,6 +12921,57 @@
           <div class="registry-form-host" id="registryFormHost">
             <div class="registry-empty">Kayıt formu hazırlanıyor…</div>
           </div>
+        </div>
+      </section>
+
+
+      <section class="module-screen" id="screen-addresses">
+        <div class="address-book-layout">
+          <section class="card address-book-form-card">
+            <div class="panel-header address-book-head">
+              <div>
+                <div class="address-book-kicker">HIZLI KONUM KAYDI</div>
+                <h2 class="panel-title">Adres Ekle</h2>
+                <div class="panel-sub">İsim ve konum bilgisini kaydet; tek dokunuşla haritada aç.</div>
+              </div>
+              <span class="pill" id="addressBookCountBadge">0 kayıt</span>
+            </div>
+
+            <form id="addressBookForm" class="address-book-form">
+              <input id="addressBookId" type="hidden" />
+              <div class="field">
+                <label for="addressBookName">Kayıt Adı</label>
+                <input id="addressBookName" type="text" maxlength="80" placeholder="Örn. İGDAŞ Sultangazi, Ev, Sanayi" required />
+              </div>
+              <div class="field">
+                <label for="addressBookLocation">Konum Bilgisi</label>
+                <textarea id="addressBookLocation" rows="3" maxlength="600" placeholder="Adres, koordinat veya Google Maps bağlantısı" required></textarea>
+              </div>
+              <div class="field">
+                <label for="addressBookNote">Not</label>
+                <textarea id="addressBookNote" rows="2" maxlength="240" placeholder="Kapı, kişi, telefon veya kısa açıklama"></textarea>
+              </div>
+              <div class="address-book-hint">Google Maps bağlantısı, <strong>41.0123, 28.9765</strong> koordinatı veya normal açık adres kullanılabilir.</div>
+              <div class="form-actions address-book-actions">
+                <button class="btn primary" id="saveAddressBookBtn" type="submit">Adresi Kaydet</button>
+                <button class="btn" id="clearAddressBookBtn" type="button">Temizle</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card address-book-list-card">
+            <div class="panel-header address-book-list-head">
+              <div>
+                <div class="address-book-kicker">KAYITLI KONUMLAR</div>
+                <h2 class="panel-title">Adres Defteri</h2>
+                <div class="panel-sub">Gitmek istediğin konumu tek tuşla aç.</div>
+              </div>
+              <div class="address-book-search-wrap">
+                <input id="addressBookSearch" type="search" placeholder="İsim veya konum ara" autocomplete="off" />
+              </div>
+            </div>
+            <div class="address-book-list" id="addressBookList"></div>
+          </section>
         </div>
       </section>
 
@@ -15771,7 +16048,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.14</strong>
+                <strong>v4.44.15</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -15816,9 +16093,9 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.14 - Şoför Modu tamamen kaldırıldı. Akşam personel servisinde toplu biniş, sıralı dağıtım, otomatik sonraki personel ve canlı Servisi Bitir akışı güçlendirildi.
-    const APP_VERSION = "4.44.14";
-    const SCHEMA_VERSION = 32;
+    // v4.44.15 - Adres Defteri eklendi; Komuta Paneli tek ekrana sığacak şekilde kompaktlaştırıldı.
+    const APP_VERSION = "4.44.15";
+    const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -15866,6 +16143,7 @@
       privateVehicleUses: [],
       vehicleKmRecords: [],
       documents: [],
+      addressBook: [],
       staffPayments: [],
       users: [],
       auditLogs: [],
@@ -15921,6 +16199,7 @@
     function migrateVehicleCostDataV430() {
       if (!Array.isArray(state.privateVehicleUses)) state.privateVehicleUses = [];
       if (!Array.isArray(state.financeBudgets)) state.financeBudgets = [];
+      if (!Array.isArray(state.addressBook)) state.addressBook = [];
       state.vehicleMaintenance = state.vehicleMaintenance.map((record) => ({
         ...record,
         allocationMonths: maintenanceAllocationMonths(record)
@@ -16058,6 +16337,7 @@
           privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
           vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
           documents: Array.isArray(parsed.documents) ? parsed.documents : [],
+          addressBook: Array.isArray(parsed.addressBook) ? parsed.addressBook : [],
           staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
           users: Array.isArray(parsed.users) ? parsed.users : [],
           auditLogs: Array.isArray(parsed.auditLogs) ? parsed.auditLogs : [],
@@ -26771,6 +27051,129 @@
     }
 
 
+    /* v4.44.15 - Adres Defteri */
+    function addressBookRows() {
+      if (!Array.isArray(state.addressBook)) state.addressBook = [];
+      return state.addressBook;
+    }
+
+    function clearAddressBookForm() {
+      if ($("#addressBookId")) $("#addressBookId").value = "";
+      if ($("#addressBookForm")) $("#addressBookForm").reset();
+      if ($("#saveAddressBookBtn")) $("#saveAddressBookBtn").textContent = "Adresi Kaydet";
+    }
+
+    function addressBookMapUrl(locationValue) {
+      const value = String(locationValue || "").trim();
+      if (!value) return "";
+      if (/^https?:\/\//i.test(value)) return value;
+      if (/^geo:/i.test(value)) return value;
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(value)}`;
+    }
+
+    function openAddressBookMap(id) {
+      const item = addressBookRows().find((entry) => entry.id === id);
+      if (!item) return showToast("Adres kaydı bulunamadı.");
+      const url = addressBookMapUrl(item.location);
+      if (!url) return showToast("Bu kayıt için konum bilgisi yok.");
+      window.open(url, "_blank", "noopener,noreferrer");
+      appendAudit("Adres Defteri", "Haritada açıldı", item.name || item.location || "Konum");
+    }
+
+    function editAddressBookEntry(id) {
+      const item = addressBookRows().find((entry) => entry.id === id);
+      if (!item) return;
+      $("#addressBookId").value = item.id;
+      $("#addressBookName").value = item.name || "";
+      $("#addressBookLocation").value = item.location || "";
+      $("#addressBookNote").value = item.note || "";
+      $("#saveAddressBookBtn").textContent = "Değişiklikleri Kaydet";
+      $("#addressBookName")?.focus();
+      $("#contentScroll")?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function deleteAddressBookEntry(id) {
+      const item = addressBookRows().find((entry) => entry.id === id);
+      if (!item) return;
+      if (!confirm(`“${item.name || "Bu adres"}” kaydını silmek istediğine emin misin?`)) return;
+      state.addressBook = addressBookRows().filter((entry) => entry.id !== id);
+      appendAudit("Adres Defteri", "Adres silindi", item.name || item.location || "Konum");
+      clearAddressBookForm();
+      saveState();
+      showToast("Adres kaydı silindi.");
+    }
+
+    function renderAddressBook() {
+      const host = $("#addressBookList");
+      if (!host) return;
+      const query = normalize($("#addressBookSearch")?.value || "");
+      const rows = [...addressBookRows()]
+        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "tr-TR"))
+        .filter((item) => !query || normalize(`${item.name || ""} ${item.location || ""} ${item.note || ""}`).includes(query));
+      const badge = $("#addressBookCountBadge");
+      if (badge) badge.textContent = `${addressBookRows().length} kayıt`;
+
+      if (!rows.length) {
+        host.innerHTML = `<div class="address-book-empty">${query ? "Aramana uygun adres bulunamadı." : "Henüz adres kaydı yok.<br>Soldaki formdan ilk konumu kaydet."}</div>`;
+        return;
+      }
+
+      host.innerHTML = rows.map((item) => `
+        <article class="address-book-row">
+          <div class="address-book-pin" aria-hidden="true">⌖</div>
+          <div class="address-book-copy">
+            <strong>${escapeHtml(item.name || "İsimsiz Konum")}</strong>
+            <span class="address-book-location">${escapeHtml(item.location || "Konum bilgisi yok")}</span>
+            ${item.note ? `<span class="address-book-note">${escapeHtml(item.note)}</span>` : ""}
+          </div>
+          <div class="address-book-row-actions">
+            <button class="btn small address-map-open" type="button" data-address-action="map" data-id="${escapeHtml(item.id)}">Haritada Aç</button>
+            <button class="btn small" type="button" data-address-action="edit" data-id="${escapeHtml(item.id)}">Düzenle</button>
+            <button class="btn small danger" type="button" data-address-action="delete" data-id="${escapeHtml(item.id)}">Sil</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function handleAddressBookSubmit(event) {
+      event.preventDefault();
+      const id = String($("#addressBookId")?.value || "").trim();
+      const name = String($("#addressBookName")?.value || "").trim();
+      const location = String($("#addressBookLocation")?.value || "").trim();
+      const note = String($("#addressBookNote")?.value || "").trim();
+      if (!name) return showToast("Kayıt adını yaz.");
+      if (!location) return showToast("Adres, koordinat veya harita bağlantısı gir.");
+
+      const now = new Date().toISOString();
+      if (id) {
+        const item = addressBookRows().find((entry) => entry.id === id);
+        if (!item) return showToast("Düzenlenecek adres kaydı bulunamadı.");
+        Object.assign(item, { name, location, note, updatedAt: now });
+        appendAudit("Adres Defteri", "Adres güncellendi", name);
+      } else {
+        addressBookRows().push({ id: uid("address"), name, location, note, createdAt: now, updatedAt: now });
+        appendAudit("Adres Defteri", "Adres kaydedildi", name);
+      }
+      clearAddressBookForm();
+      saveState();
+      showToast("Adres defterine kaydedildi.");
+    }
+
+    function bindAddressBookEvents() {
+      $("#addressBookForm")?.addEventListener("submit", handleAddressBookSubmit);
+      $("#clearAddressBookBtn")?.addEventListener("click", clearAddressBookForm);
+      $("#addressBookSearch")?.addEventListener("input", renderAddressBook);
+      $("#addressBookList")?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-address-action]");
+        if (!button) return;
+        const id = button.dataset.id || "";
+        if (button.dataset.addressAction === "map") openAddressBookMap(id);
+        if (button.dataset.addressAction === "edit") editAddressBookEntry(id);
+        if (button.dataset.addressAction === "delete") deleteAddressBookEntry(id);
+      });
+    }
+
+
     function renderAll() {
       applyTheme();
       renderStats();
@@ -26800,6 +27203,7 @@
       renderSchoolServicePanel();
       renderDriverPanel();
       renderCommandPanel();
+      renderAddressBook();
       renderFuelPricePanel();
       renderPersonnelFilterOptions();
       renderLedgerPanel();
@@ -27368,6 +27772,7 @@
         command: ["Komuta Paneli", "Büyük resim burada kurulacak: operasyon riski, günün seferleri, finans sinyali ve uyarılar."],
         driver: ["Şoför Modu", "Personel ve okul servislerini tek ekrandan, dikkati dağıtmadan yönet."],
         registry: ["Temel Kayıtlar", "Sistemin çalışması için gerekli araç, firma, sözleşme, personel, okul, öğrenci ve rehber bilgilerini tek merkezden kaydet."],
+        addresses: ["Adres Defteri", "Sık kullandığın adresleri, koordinatları ve Google Maps bağlantılarını kaydet; tek tuşla yol tarifini aç."],
         personnel: ["Personel Servisi", "Personel, güzergah, araç ve sefer planlama altyapısı. İlk hedef: kayıtların doğru tutulması, hataların erken görünmesi."],
         school: ["Okul Servisi", "Öğrenci, veli, okul ve servis bağlantıları. İlk hedef: kayıtların doğru tutulması ve eksiklerin erken görünmesi."],
         finance: ["Finans Özet", "Gelir-gider, özel kullanım, bakım-mekanik, maliyet dağıtımı, KM analizi, hakediş, fatura-tahsilat ve okul finansı tek merkezde yönetilir."],
@@ -27510,7 +27915,7 @@
     }
 
     function localBackupRecordCount(snapshot) {
-      const keys = ["people", "companies", "jobs", "financeRecords", "financeBudgets", "vehicleExpenses", "vehicleMaintenance", "privateVehicleUses", "vehicleKmRecords", "documents", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
+      const keys = ["people", "companies", "jobs", "financeRecords", "financeBudgets", "vehicleExpenses", "vehicleMaintenance", "privateVehicleUses", "vehicleKmRecords", "documents", "addressBook", "staffPayments", "routes", "vehicles", "students", "schools", "guides", "schoolAttendance", "schoolServiceSessions", "schoolPayments", "schoolNotifications", "trips", "dispatches", "attendance", "serviceSessions", "dayMarks", "users", "auditLogs"];
       return keys.reduce((total, key) => total + (Array.isArray(snapshot?.[key]) ? snapshot[key].length : 0), 0);
     }
 
@@ -27530,6 +27935,7 @@
         privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
         vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
         documents: Array.isArray(parsed.documents) ? parsed.documents : [],
+        addressBook: Array.isArray(parsed.addressBook) ? parsed.addressBook : [],
         staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
         users: Array.isArray(parsed.users) ? parsed.users : [],
         auditLogs: Array.isArray(parsed.auditLogs) ? parsed.auditLogs : [],
@@ -27814,6 +28220,7 @@
             privateVehicleUses: Array.isArray(parsed.privateVehicleUses) ? parsed.privateVehicleUses : [],
             vehicleKmRecords: Array.isArray(parsed.vehicleKmRecords) ? parsed.vehicleKmRecords : [],
             documents: Array.isArray(parsed.documents) ? parsed.documents : [],
+            addressBook: Array.isArray(parsed.addressBook) ? parsed.addressBook : [],
             staffPayments: Array.isArray(parsed.staffPayments) ? parsed.staffPayments : [],
             routes: Array.isArray(parsed.routes) ? parsed.routes : [],
             vehicles: Array.isArray(parsed.vehicles) ? parsed.vehicles : [],
@@ -28861,7 +29268,7 @@
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "registry", "personnel", "school", "finance", "settings"],
+        modules: ["command", "registry", "addresses", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -28870,7 +29277,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "registry", "personnel", "school", "settings"],
+        modules: ["command", "registry", "addresses", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
@@ -28879,7 +29286,7 @@
         canReset: false
       },
       accounting: {
-        modules: ["school", "finance", "settings"],
+        modules: ["addresses", "school", "finance", "settings"],
         schoolTabs: ["students", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: false,
@@ -30964,6 +31371,7 @@
     initLicenseGate();
     bindAppDialogEvents();
     bindDriverModeEvents();
+    bindAddressBookEvents();
     bindEvents();
     bindSecurityEvents();
     bindBackupRecoveryEvents();
@@ -30974,6 +31382,7 @@
     initFuelPriceTracking();
     initPwa();
     clearPersonForm();
+    clearAddressBookForm();
     clearCompanyForm();
     clearJobForm();
     renderJobShiftRows([]);
