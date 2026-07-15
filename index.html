@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.23</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.24</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -5724,7 +5724,7 @@
     }
 
 
-    /* v4.44.23 - Finans sekmelerinde senkron aylık dönem seçimi */
+    /* v4.44.24 - Finans sekmelerinde senkron aylık dönem seçimi */
     .finance-section-period {
       flex: 0 0 auto;
       display: flex;
@@ -12773,7 +12773,7 @@
     }
 
 
-    /* v4.44.23 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.24 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12976,7 +12976,7 @@
       }
     }
 
-    /* v4.44.23 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.24 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12989,7 +12989,7 @@
     }
 
 
-    /* v4.44.23 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    /* v4.44.24 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
     .registry-flow,
     .registry-guide { display: none !important; }
     .registry-fixed-zone { display: grid; gap: 8px; }
@@ -13040,7 +13040,7 @@
 
   
 
-    /* v4.44.23 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
+    /* v4.44.24 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
     .session-controls { position: relative; }
     .session-user-chip {
       cursor: pointer;
@@ -13144,7 +13144,7 @@
     .route-segment-btn em { color:var(--muted); font-size:10px; font-style:normal; font-weight:850; }
 
 
-    /* v4.44.23 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
+    /* v4.44.24 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
     html,
     body {
       color-scheme: dark;
@@ -13292,6 +13292,132 @@
       }
     }
 
+  
+
+    /* v4.44.24 - zorunlu intro, komuta yerleşimi, gradyan grafikler ve fatura uyarısı */
+    .sys-splash-skip { display: none !important; }
+    #sysSplash { cursor: default; }
+
+    #screen-command .command-overview {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto !important;
+      align-items: center !important;
+      min-height: 88px !important;
+      height: auto !important;
+      overflow: hidden !important;
+    }
+    #screen-command .command-overview > div:first-child { min-width: 0; }
+    #screen-command .command-overview-title {
+      line-height: 1.08 !important;
+      overflow-wrap: anywhere;
+    }
+    #screen-command .command-overview-text {
+      max-width: 100%;
+      margin-top: 5px !important;
+      line-height: 1.35 !important;
+      white-space: normal;
+      overflow: visible;
+    }
+    #screen-command .command-live-total { align-self: stretch; display: grid; align-content: center; }
+
+    .finance-donut-gradient {
+      filter: saturate(1.08);
+      box-shadow: inset 0 0 0 1px var(--line), 0 14px 34px rgba(0,0,0,.16);
+    }
+    .finance-bar-fill {
+      background: linear-gradient(90deg,
+        color-mix(in srgb, rgb(var(--accent-rgb)) 38%, white) 0%,
+        rgb(var(--accent-rgb)) 56%,
+        color-mix(in srgb, rgb(var(--accent-rgb)) 70%, black) 100%) !important;
+      box-shadow: 0 0 14px rgba(var(--accent-rgb), .18);
+    }
+    .finance-bar-fill.collected {
+      background: linear-gradient(90deg, #bbf7d0 0%, #22c55e 56%, #166534 100%) !important;
+      box-shadow: 0 0 14px rgba(34,197,94,.18);
+    }
+    .finance-bar-fill.expense {
+      background: linear-gradient(90deg, #fde68a 0%, #f59e0b 56%, #92400e 100%) !important;
+      box-shadow: 0 0 14px rgba(245,158,11,.18);
+    }
+    .finance-bar-fill.net {
+      background: linear-gradient(90deg, #bfdbfe 0%, #3b82f6 56%, #1e3a8a 100%) !important;
+      box-shadow: 0 0 14px rgba(59,130,246,.18);
+    }
+    .finance-bar-fill.receivable {
+      background: linear-gradient(90deg, #fecdd3 0%, #f43f5e 56%, #881337 100%) !important;
+      box-shadow: 0 0 14px rgba(244,63,94,.18);
+    }
+
+    .command-invoice-alert {
+      width: 100%;
+      min-height: 50px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(245,158,11,.34);
+      border-radius: 14px;
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(245,158,11,.12), rgba(120,53,15,.06));
+      text-align: left;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.018);
+    }
+    .command-invoice-alert:hover {
+      border-color: rgba(251,191,36,.58);
+      background: linear-gradient(135deg, rgba(245,158,11,.18), rgba(120,53,15,.09));
+    }
+    .command-invoice-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #fde68a;
+      background: rgba(245,158,11,.16);
+      border: 1px solid rgba(245,158,11,.28);
+      font-weight: 950;
+    }
+    .command-invoice-alert strong { display: block; font-size: 12px; }
+    .command-invoice-alert .command-card-meta { display: block; margin-top: 2px; font-size: 9px; line-height: 1.25; }
+
+    #personnelPrintPreview .personnel-print-preview-actions .btn {
+      opacity: 1 !important;
+      visibility: visible !important;
+      min-height: 44px;
+      color: #ffffff !important;
+      text-shadow: none !important;
+    }
+    #personnelPrintPreview #openPersonnelPrintDialogBtn {
+      background: linear-gradient(135deg, #14b8a6, #0f766e) !important;
+      border-color: #0d9488 !important;
+      box-shadow: 0 8px 20px rgba(13,148,136,.20) !important;
+    }
+    #personnelPrintPreview #reportPreviewBackFab {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
+      border-color: #7c3aed !important;
+      color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(109,40,217,.22) !important;
+    }
+
+    @media (min-width: 1080px) {
+      #screen-command .command-dashboard {
+        grid-template-rows: minmax(88px, auto) auto auto auto auto !important;
+      }
+    }
+    @media (min-width: 1080px) and (max-height: 820px) {
+      #screen-command .command-overview { min-height: 80px !important; padding: 10px 13px !important; }
+      #screen-command .command-overview-text { font-size: 10px !important; }
+      .command-invoice-alert { min-height: 46px; padding: 6px 10px; }
+    }
+    @media (max-width: 760px) {
+      #screen-command .command-overview { grid-template-columns: 1fr !important; }
+      #screen-command .command-live-total { width: 100%; min-width: 0; }
+      .command-invoice-alert { grid-template-columns: auto minmax(0,1fr); }
+      .command-invoice-alert .command-card-state { grid-column: 2; justify-self: start; }
+    }
+
   </style>
 </head>
 
@@ -13312,7 +13438,6 @@
       <div class="sys-splash-status"><span class="sys-splash-pulse"></span><span>Sistem kontrolü tamamlandı</span></div>
       <div class="sys-splash-progress" aria-hidden="true"><span></span></div>
     </div>
-    <button class="sys-splash-skip" id="sysSplashSkip" type="button">Geç</button>
   </div>
   <script>
     (() => {
@@ -13320,32 +13445,15 @@
       if (!splash) return;
 
       let closed = false;
-      const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
       const closeSplash = () => {
         if (closed) return;
         closed = true;
         splash.classList.add("is-leaving");
-        window.setTimeout(() => splash.remove(), reducedMotion ? 80 : 680);
+        window.setTimeout(() => splash.remove(), 680);
       };
 
-      const timer = window.setTimeout(closeSplash, reducedMotion ? 900 : 6000);
-      const skip = document.getElementById("sysSplashSkip");
-      skip?.addEventListener("click", (event) => {
-        event.stopPropagation();
-        window.clearTimeout(timer);
-        closeSplash();
-      });
-      splash.addEventListener("click", () => {
-        window.clearTimeout(timer);
-        closeSplash();
-      });
-      document.addEventListener("keydown", (event) => {
-        if (closed) return;
-        if (["Escape", "Enter", " "].includes(event.key)) {
-          window.clearTimeout(timer);
-          closeSplash();
-        }
-      });
+      // Açılış introsu zorunludur; dokunma, tıklama veya klavye ile atlanamaz.
+      window.setTimeout(closeSplash, 6000);
     })();
   </script>
 
@@ -13468,7 +13576,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.23</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.24</div>
         </div>
       </div>
 
@@ -13671,6 +13779,15 @@
               <span class="command-card-meta" id="commandMaintenanceText">Yaklaşan bakım, muayene ve sigorta tarihleri burada görünür.</span>
             </span>
             <span class="command-card-state" id="commandMaintenanceState">Kontrol</span>
+          </button>
+
+          <button class="command-invoice-alert hidden" id="commandInvoiceReminder" type="button" data-action="open-monthly-invoice-reminder">
+            <span class="command-invoice-icon">F</span>
+            <span>
+              <strong id="commandInvoiceReminderTitle">Ay başı fatura hatırlatması</strong>
+              <span class="command-card-meta" id="commandInvoiceReminderText">Personel firmaları ve okullar için aylık fatura kontrolü.</span>
+            </span>
+            <span class="command-card-state" id="commandInvoiceReminderState">Fatura</span>
           </button>
         </div>
       </section>
@@ -17001,7 +17118,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.23</strong>
+                <strong>v4.44.24</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -17046,7 +17163,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.23";
+    const APP_VERSION = "4.44.24";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -22581,7 +22698,7 @@
       };
     }
 
-    // v4.44.23 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.24 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
@@ -22667,6 +22784,96 @@
         schoolReady = counts.Bekliyor === 0;
       }
       sFinish?.classList.toggle("is-ready", schoolReady);
+    }
+
+    function localDateParts(date = new Date()) {
+      return {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate(),
+        dateKey: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`,
+        monthKey: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+      };
+    }
+
+    function monthlyInvoiceReminderData(date = new Date()) {
+      const parts = localDateParts(date);
+      const activeJobs = (state.jobs || []).filter((job) => job.status === "Aktif" && jobOverlapsMonth(job, parts.monthKey));
+      const companyIds = [...new Set(activeJobs.map((job) => job.companyId).filter(Boolean))];
+      const personnelCompanies = companyIds
+        .map((id) => state.companies.find((company) => company.id === id))
+        .filter((company) => company && company.status !== "Pasif");
+      const schools = (state.schools || []).filter((school) => school.status === "Aktif");
+      return {
+        ...parts,
+        activeJobs,
+        personnelCompanies,
+        schools,
+        total: personnelCompanies.length + schools.length,
+        isReminderDay: parts.day === 1
+      };
+    }
+
+    function monthlyInvoiceReminderMessage(data) {
+      const personnelNames = data.personnelCompanies.map((company) => company.name || "İsimsiz firma");
+      const schoolNames = data.schools.map((school) => school.name || "İsimsiz okul");
+      const preview = [];
+      if (personnelNames.length) preview.push(`Personel firmaları (${personnelNames.length}): ${personnelNames.slice(0, 4).join(" · ")}${personnelNames.length > 4 ? ` · +${personnelNames.length - 4}` : ""}`);
+      if (schoolNames.length) preview.push(`Okullar (${schoolNames.length}): ${schoolNames.slice(0, 4).join(" · ")}${schoolNames.length > 4 ? ` · +${schoolNames.length - 4}` : ""}`);
+      return `Yeni ay başladı. Aylık hizmet faturalarını kontrol et ve kes.\n\n${preview.join("\n")}`;
+    }
+
+    function openMonthlyInvoiceReminderFinance() {
+      if (!hasModulePermission("finance") || !hasFinanceTabPermission("invoices")) {
+        showToast("Fatura paneli için yönetici veya muhasebe yetkisi gerekiyor.");
+        return;
+      }
+      activateModule("finance");
+      activateFinanceTab("invoices");
+      scrollContentTop();
+    }
+
+    function renderCommandInvoiceReminder() {
+      const card = $("#commandInvoiceReminder");
+      const title = $("#commandInvoiceReminderTitle");
+      const textHost = $("#commandInvoiceReminderText");
+      const stateHost = $("#commandInvoiceReminderState");
+      if (!card || !title || !textHost || !stateHost) return;
+      const data = monthlyInvoiceReminderData();
+      const visible = data.isReminderDay && data.total > 0;
+      card.classList.toggle("hidden", !visible);
+      if (!visible) return;
+      title.textContent = `${data.total} kurum için fatura hatırlatması`;
+      textHost.textContent = `${data.personnelCompanies.length} personel firması · ${data.schools.length} okul · Bugün kontrol et.`;
+      stateHost.textContent = "Ay Başı";
+    }
+
+    async function showMonthlyInvoiceReminder() {
+      if (!activeUser) return;
+      const data = monthlyInvoiceReminderData();
+      if (!data.isReminderDay || data.total === 0) return;
+      const storageKey = `servis-monthly-invoice-reminder:${data.dateKey}:${activeUser.id}`;
+      if (localStorage.getItem(storageKey) === "1") return;
+      localStorage.setItem(storageKey, "1");
+      const canOpen = hasModulePermission("finance") && hasFinanceTabPermission("invoices");
+      const open = await appConfirm(monthlyInvoiceReminderMessage(data), {
+        title: "Ay Başı Fatura Hatırlatması",
+        confirmText: canOpen ? "Fatura Panelini Aç" : "Tamam",
+        cancelText: "Daha Sonra",
+        icon: "₺"
+      });
+      if (open && canOpen) openMonthlyInvoiceReminderFinance();
+    }
+
+    function scheduleMonthlyInvoiceReminder(attempt = 0) {
+      window.setTimeout(() => {
+        if (!activeUser) return;
+        if ($("#appDialogLayer")?.classList.contains("open") && attempt < 12) {
+          scheduleMonthlyInvoiceReminder(attempt + 1);
+          return;
+        }
+        showMonthlyInvoiceReminder().catch((error) => console.error("Aylık fatura uyarısı gösterilemedi:", error));
+      }, attempt === 0 ? 1500 : 850);
     }
 
     function renderCommandPanel() {
@@ -22757,6 +22964,8 @@
         maintenanceText.textContent = vehicleAlerts.length ? `${critical} kritik kayıt var. Detay için karta dokun.` : "Yaklaşan bakım, muayene veya sigorta uyarısı bulunmuyor.";
         maintenanceState.textContent = critical ? `${critical} Kritik` : vehicleAlerts.length ? "Yaklaşıyor" : "Güncel";
       }
+
+      renderCommandInvoiceReminder();
 
       const personnelNav = $('.nav-btn[data-module="personnel"]');
       const schoolNav = $('.nav-btn[data-module="school"]');
@@ -28049,9 +28258,11 @@
       const total = totals.personnel.accrual + totals.school.expected;
       const personnelRatio = total > 0 ? totals.personnel.accrual / total * 100 : 50;
       const schoolRatio = total > 0 ? totals.school.expected / total * 100 : 50;
+      const personnelMid = Math.max(0, personnelRatio * .58);
+      const schoolMid = Math.min(100, personnelRatio + schoolRatio * .58);
       host.innerHTML = `
         <div class="finance-donut-wrap">
-          <div class="finance-donut" style="background: conic-gradient(var(--donut-personnel) 0 ${personnelRatio}%, var(--donut-school) ${personnelRatio}% 100%);">
+          <div class="finance-donut finance-donut-gradient" style="background: conic-gradient(from -90deg, color-mix(in srgb, var(--donut-personnel) 38%, white) 0%, var(--donut-personnel) ${personnelMid}%, color-mix(in srgb, var(--donut-personnel) 72%, black) ${personnelRatio}%, color-mix(in srgb, var(--donut-school) 38%, white) ${personnelRatio}%, var(--donut-school) ${schoolMid}%, color-mix(in srgb, var(--donut-school) 72%, black) 100%);">
             <div class="finance-donut-center"><strong>${escapeHtml(financeCompactMoney(total))}</strong><span>Toplam gelir</span></div>
           </div>
           <div class="finance-donut-legend">
@@ -30594,6 +30805,7 @@
         if (action === "open-cost-report") { activateModule("finance"); activateFinanceTab("cost-report"); scrollContentTop(); }
         if (action === "edit-maintenance") editVehicleMaintenance(id);
         if (action === "delete-maintenance") deleteVehicleMaintenance(id);
+        if (action === "open-monthly-invoice-reminder") { openMonthlyInvoiceReminderFinance(); return; }
         if (action === "open-vehicle-alerts") openVehicleAlerts();
         if (action === "open-vehicle-record") openVehicleRecord(id);
         if (action === "open-vehicle-km") {
@@ -30892,6 +31104,7 @@
       updateSessionChip();
       applyRoleUI();
       scheduleStartupVehicleAlerts();
+      scheduleMonthlyInvoiceReminder();
       stopInactivityWatch(); // Otomatik kilit kapalı
     }
 
