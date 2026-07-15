@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.22</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.23</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -5724,7 +5724,7 @@
     }
 
 
-    /* v4.44.22 - Finans sekmelerinde senkron aylık dönem seçimi */
+    /* v4.44.23 - Finans sekmelerinde senkron aylık dönem seçimi */
     .finance-section-period {
       flex: 0 0 auto;
       display: flex;
@@ -12773,7 +12773,7 @@
     }
 
 
-    /* v4.44.22 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.23 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12976,7 +12976,7 @@
       }
     }
 
-    /* v4.44.22 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.23 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12989,7 +12989,7 @@
     }
 
 
-    /* v4.44.22 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    /* v4.44.23 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
     .registry-flow,
     .registry-guide { display: none !important; }
     .registry-fixed-zone { display: grid; gap: 8px; }
@@ -13040,7 +13040,7 @@
 
   
 
-    /* v4.44.22 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
+    /* v4.44.23 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
     .session-controls { position: relative; }
     .session-user-chip {
       cursor: pointer;
@@ -13144,7 +13144,7 @@
     .route-segment-btn em { color:var(--muted); font-size:10px; font-style:normal; font-weight:850; }
 
 
-    /* v4.44.22 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
+    /* v4.44.23 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
     html,
     body {
       color-scheme: dark;
@@ -13233,6 +13233,31 @@
       min-height: 44px;
     }
 
+    .settings-pdf-filter {
+      display: grid;
+      grid-template-columns: minmax(190px, 320px) minmax(0, 1fr);
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 10px;
+      padding: 11px;
+      border: 1px solid rgba(var(--accent-rgb), .24);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .09), rgba(255,255,255,.025));
+    }
+
+    .settings-pdf-filter .field { margin: 0; min-width: 0; }
+    .settings-pdf-filter select { width: 100%; min-height: 42px; }
+    .settings-pdf-filter-note {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+      padding: 9px 11px;
+      border-radius: 11px;
+      background: rgba(0,0,0,.10);
+      border: 1px solid var(--line);
+    }
+
     .settings-export-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -13257,6 +13282,7 @@
     }
 
     @media (max-width: 760px) {
+      .settings-pdf-filter { grid-template-columns: 1fr; }
       .settings-export-grid {
         grid-template-columns: 1fr;
       }
@@ -13442,7 +13468,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.22</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.23</div>
         </div>
       </div>
 
@@ -16757,6 +16783,18 @@
               </div>
             </div>
 
+            <div class="settings-pdf-filter">
+              <div class="field">
+                <label for="settingsPdfVehicleFilter">PDF Araç Filtresi</label>
+                <select id="settingsPdfVehicleFilter">
+                  <option value="Tümü">Araç: Tümü</option>
+                </select>
+              </div>
+              <div class="settings-pdf-filter-note" id="settingsPdfVehicleHint">
+                Seçilen araç filtresi Personel PDF ve Aylık Çetele PDF raporlarına uygulanır. CSV raporları kendi ekran filtrelerini kullanmaya devam eder.
+              </div>
+            </div>
+
             <div class="settings-export-grid">
               <div class="settings-export-group">
                 <strong>Personel Bilgileri</strong>
@@ -16775,7 +16813,7 @@
             </div>
 
             <div class="settings-note">
-              Çetele CSV ve PDF, Çetele ekranında seçili olan ay, iş ve firma bilgisine göre hazırlanır.
+              Çetele CSV, Çetele ekranındaki ay, iş ve firma bilgisine göre hazırlanır. PDF raporlarında bunlara ek olarak yukarıdaki araç filtresi uygulanır.
             </div>
           </div>
 
@@ -16963,7 +17001,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.22</strong>
+                <strong>v4.44.23</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16989,15 +17027,14 @@
     <div class="personnel-print-preview-toolbar">
       <div>
         <strong id="personnelPrintPreviewTitle">Rapor Önizleme</strong>
-        <small>PDF / Yazdır ile Android yazdırma ekranını aç. Geri Dön düğmesi her zaman programa döndürür.</small>
+        <small>PDF / Yazdır ile Android yazdırma ekranını aç. Programa Dön düğmesi rapor ekranını kapatır.</small>
       </div>
       <div class="personnel-print-preview-actions">
         <button class="btn primary" id="openPersonnelPrintDialogBtn" type="button">PDF / Yazdır</button>
-        <button class="btn" id="closePersonnelPrintPreviewBtn" type="button">← Geri Dön</button>
+        <button class="btn btn-return" id="reportPreviewBackFab" type="button">← Programa Dön</button>
       </div>
     </div>
     <div class="personnel-print-preview-body" id="personnelPrintPreviewBody"></div>
-    <button class="btn primary report-preview-back-fab" id="reportPreviewBackFab" type="button">← Programa Dön</button>
   </div>
   <div class="personnel-report-print-portal" id="personnelReportPrintPortal"></div>
   <div class="finance-report-print-portal" id="financeReportPrintPortal"></div>
@@ -17009,7 +17046,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.22";
+    const APP_VERSION = "4.44.23";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -22544,12 +22581,12 @@
       };
     }
 
-    // v4.44.22 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.23 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
         const label = String(button.textContent || "").replace(/\s+/g, " ").trim();
-        button.classList.toggle("btn-return", /(^|\s)Geri Dön($|\s)/i.test(label));
+        button.classList.toggle("btn-return", /(^|\s)(Geri Dön|Programa Dön)($|\s)/i.test(label));
       });
     }
 
@@ -28390,6 +28427,7 @@
       renderStaffPayments();
       renderCompaniesTable();
       renderVehicleOptions();
+      renderSettingsPdfVehicleOptions();
       renderSchoolServiceOptions();
       renderStudentSchoolOptions();
       renderSchoolVehicleOptions();
@@ -29002,6 +29040,64 @@
       return `"${text}"`;
     }
 
+    function settingsPdfVehicleId() {
+      const value = $("#settingsPdfVehicleFilter")?.value || "Tümü";
+      return value === "Tümü" ? "" : value;
+    }
+
+    function renderSettingsPdfVehicleOptions() {
+      const select = $("#settingsPdfVehicleFilter");
+      const hint = $("#settingsPdfVehicleHint");
+      if (!select) return;
+      const selected = select.value || "Tümü";
+      const vehicles = [...state.vehicles].sort((a, b) => String(a.plate || "").localeCompare(String(b.plate || ""), "tr-TR"));
+      select.innerHTML = [`<option value="Tümü">Araç: Tümü</option>`]
+        .concat(vehicles.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.plate || "Plakasız araç")}${vehicle.driverName ? ` · ${escapeHtml(vehicle.driverName)}` : ""}</option>`))
+        .join("");
+      select.value = [...select.options].some((option) => option.value === selected) ? selected : "Tümü";
+      const vehicle = state.vehicles.find((item) => item.id === settingsPdfVehicleId());
+      if (hint) hint.textContent = vehicle
+        ? `${vehicle.plate || "Seçili araç"} için Personel PDF ve Aylık Çetele PDF verileri süzülecek.`
+        : "Seçilen araç filtresi Personel PDF ve Aylık Çetele PDF raporlarına uygulanır. CSV raporları kendi ekran filtrelerini kullanmaya devam eder.";
+    }
+
+    function personMatchesSettingsPdfVehicle(person, vehicleId) {
+      if (!vehicleId) return true;
+      const company = getCompany(person.companyId) || getCompanyByRoute(person.routeId);
+      if (company?.defaultVehicleId === vehicleId) return true;
+      return state.jobs.some((job) =>
+        job.vehicleId === vehicleId &&
+        ((person.companyId && String(job.companyId || "") === String(person.companyId)) ||
+          (person.routeId && String(job.routeId || getCompany(job.companyId)?.routeId || "") === String(person.routeId)))
+      );
+    }
+
+    function dispatchSettingsPdfVehicleId(dispatch) {
+      const job = getJob(dispatch?.jobId);
+      const company = job ? getCompany(job.companyId) : getCompanyByRoute(dispatch?.routeId);
+      const trip = state.trips.find((item) =>
+        String(item.routeId || "") === String(dispatch?.routeId || "") &&
+        (!dispatch?.date || !item.date || String(item.date) === String(dispatch.date))
+      );
+      return job?.vehicleId || trip?.vehicleId || company?.defaultVehicleId || "";
+    }
+
+    function attendanceSettingsPdfVehicleId(record) {
+      const job = getJob(record?.jobId);
+      const company = job ? getCompany(job.companyId) : getCompanyByRoute(record?.routeId);
+      const trip = state.trips.find((item) =>
+        String(item.routeId || "") === String(record?.routeId || "") &&
+        (!record?.date || !item.date || String(item.date) === String(record.date))
+      );
+      return job?.vehicleId || trip?.vehicleId || company?.defaultVehicleId || "";
+    }
+
+    function selectedSettingsPdfVehicleLabel() {
+      const vehicleId = settingsPdfVehicleId();
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId);
+      return vehicle ? (vehicle.plate || "Seçili araç") : "Tüm araçlar";
+    }
+
     function exportPeopleCsv() {
       const rows = getFilteredPeople();
 
@@ -29075,15 +29171,17 @@
     }
 
     function openPeoplePdfReport() {
-      const rows = getFilteredPeople();
+      const vehicleId = settingsPdfVehicleId();
+      const rows = getFilteredPeople().filter((person) => personMatchesSettingsPdfVehicle(person, vehicleId));
       if (!rows.length) {
-        showToast("PDF hazırlanacak personel kaydı yok.");
+        showToast(`${selectedSettingsPdfVehicleLabel()} için PDF hazırlanacak personel kaydı yok.`);
         return;
       }
       const stamp = new Date().toLocaleString("tr-TR");
+      const vehicleLabel = selectedSettingsPdfVehicleLabel();
       const html = `<article class="personnel-print-sheet">
         <h1 style="font-size:22px;margin:0 0 4px">Personel Bilgi Raporu</h1>
-        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Kayıt sayısı: ${rows.length} · Oluşturma: ${escapeHtml(stamp)}</p>
+        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Araç: ${escapeHtml(vehicleLabel)} · Kayıt sayısı: ${rows.length} · Oluşturma: ${escapeHtml(stamp)}</p>
         <div class="table-wrap"><table>
           <thead><tr><th>Sicil</th><th>Ad Soyad</th><th>Telefon</th><th>Firma</th><th>Departman</th><th>Vardiya</th><th>Sabah Biniş</th><th>Akşam İniş</th><th>Durum</th></tr></thead>
           <tbody>${rows.map((person) => `<tr>
@@ -29099,12 +29197,12 @@
           </tr>`).join("")}</tbody>
         </table></div>
       </article>`;
-      if (openUnifiedReportPreview({ title: "Personel Bilgi Raporu", html, mode: "personnel" })) {
+      if (openUnifiedReportPreview({ title: `Personel Bilgi Raporu · ${vehicleLabel}`, html, mode: "personnel" })) {
         showToast("Personel PDF önizlemesi hazır.");
       }
     }
 
-    function ledgerPdfRows() {
+    function ledgerPdfRows(vehicleId = settingsPdfVehicleId()) {
       const month = getLedgerMonth();
       const routeId = getLedgerRouteId();
       const jobId = getLedgerJobId();
@@ -29112,25 +29210,31 @@
         .filter((dispatch) =>
           (!routeId || dispatch.routeId === routeId) &&
           (!jobId || String(dispatch.jobId || "") === String(jobId)) &&
-          String(dispatch.date || "").startsWith(month)
+          String(dispatch.date || "").startsWith(month) &&
+          (!vehicleId || dispatchSettingsPdfVehicleId(dispatch) === vehicleId)
         )
         .sort((a, b) => String(a.date).localeCompare(String(b.date)));
       const attendanceRows = state.attendance
-        .filter((record) => (!routeId || record.routeId === routeId) && String(record.date || "").startsWith(month))
+        .filter((record) =>
+          (!routeId || record.routeId === routeId) &&
+          String(record.date || "").startsWith(month) &&
+          (!vehicleId || attendanceSettingsPdfVehicleId(record) === vehicleId)
+        )
         .sort((a, b) => String(a.date).localeCompare(String(b.date)));
-      return { month, routeId, jobId, dispatchRows, attendanceRows };
+      return { month, routeId, jobId, vehicleId, dispatchRows, attendanceRows };
     }
 
     function openLedgerPdfReport() {
-      const { month, routeId, dispatchRows, attendanceRows } = ledgerPdfRows();
+      const { month, routeId, vehicleId, dispatchRows, attendanceRows } = ledgerPdfRows();
       if (!dispatchRows.length && !attendanceRows.length) {
-        showToast("PDF hazırlanacak aylık çetele verisi yok.");
+        showToast(`${selectedSettingsPdfVehicleLabel()} için PDF hazırlanacak aylık çetele verisi yok.`);
         return;
       }
-      const title = `Aylık Çetele Raporu · ${financeMonthTitle(month)}`;
+      const vehicleLabel = selectedSettingsPdfVehicleLabel();
+      const title = `Aylık Çetele Raporu · ${financeMonthTitle(month)} · ${vehicleLabel}`;
       const html = `<article class="personnel-print-sheet">
         <h1 style="font-size:22px;margin:0 0 4px">${escapeHtml(title)}</h1>
-        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Güzergah: ${escapeHtml(routeId ? routeLabel(routeId) : "Tümü")} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>
+        <p style="margin:0 0 16px;color:#4b5563;font-size:12px">Araç: ${escapeHtml(vehicleLabel)} · Güzergah: ${escapeHtml(routeId ? routeLabel(routeId) : "Tümü")} · Oluşturma: ${escapeHtml(new Date().toLocaleString("tr-TR"))}</p>
         <h2 style="font-size:15px;margin:0 0 10px">Sefer Gelir Özeti</h2>
         <div class="table-wrap"><table>
           <thead><tr><th>Tarih</th><th>İş / Sözleşme</th><th>Güzergah</th><th>Sabah</th><th>Akşam</th><th>Günlük Gelir</th></tr></thead>
@@ -30319,6 +30423,8 @@
 
       const exportPeopleCsvTopBtn = $("#exportPeopleCsvTopBtn");
       if (exportPeopleCsvTopBtn) exportPeopleCsvTopBtn.addEventListener("click", exportPeopleCsv);
+
+      $("#settingsPdfVehicleFilter")?.addEventListener("change", renderSettingsPdfVehicleOptions);
 
       const exportPeopleCsvSettingsBtn = $("#exportPeopleCsvSettingsBtn");
       if (exportPeopleCsvSettingsBtn) exportPeopleCsvSettingsBtn.addEventListener("click", exportPeopleCsv);
