@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Adres Defteri ve Kompakt Komuta Paneli v4.44.15</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli ve Şoför Modu İyileştirmeleri v4.44.16</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12470,6 +12470,98 @@
       .address-book-row-actions .btn { flex: 1 1 auto; }
     }
 
+
+    /* v4.44.16 - Komuta Paneli sade, ekran boyutuna uyumlu yerleşim */
+    #screen-command .command-dashboard {
+      gap: clamp(8px, 1.1vh, 12px);
+    }
+
+    @media (min-width: 1080px) {
+      #screen-command {
+        min-height: 0;
+        overflow: hidden;
+      }
+      #screen-command .command-dashboard {
+        height: 100%;
+        min-height: 0;
+        display: grid;
+        grid-template-rows: auto minmax(178px, 1fr) auto auto;
+        align-content: stretch;
+        overflow: hidden;
+        padding: 0 2px 4px;
+      }
+      #screen-command .command-overview,
+      #screen-command .fuel-live-panel,
+      #screen-command .command-maintenance-alert {
+        min-width: 0;
+      }
+      #screen-command .command-service-grid,
+      #screen-command .command-dashboard > .command-service-grid {
+        flex: none !important;
+        min-height: 0 !important;
+        height: 100%;
+        grid-auto-rows: minmax(0, 1fr) !important;
+        gap: clamp(8px, .85vw, 12px);
+        margin: 0 !important;
+        overflow: hidden;
+      }
+      #screen-command .command-service-card {
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+        padding: clamp(12px, 1.1vw, 17px);
+      }
+      #screen-command .command-next-passenger {
+        max-height: 92px;
+        overflow: hidden;
+      }
+      #screen-command #commandFuelPanel {
+        margin: 0 !important;
+      }
+      #screen-command .command-maintenance-alert {
+        margin: 0;
+      }
+    }
+
+    @media (min-width: 1080px) and (max-height: 820px) {
+      #screen-command .command-dashboard {
+        grid-template-rows: auto minmax(150px, 1fr) auto auto;
+        gap: 8px;
+      }
+      #screen-command .command-overview { min-height: 62px; padding: 9px 13px; }
+      #screen-command .command-overview-title { font-size: 22px; }
+      #screen-command .command-service-card { padding: 11px 13px; }
+      #screen-command .command-card-title { font-size: 22px; }
+      #screen-command .command-next-passenger { margin-top: 6px; padding: 6px 8px; max-height: 76px; }
+      #screen-command .fuel-live-panel { padding: 8px 11px; }
+      #screen-command .fuel-price-card { min-height: 52px; }
+      #screen-command .command-maintenance-alert { min-height: 46px; padding: 6px 10px; }
+    }
+
+    @media (max-width: 1079px) {
+      #screen-command .command-dashboard {
+        overflow-y: auto;
+        padding-bottom: 10px;
+      }
+      #screen-command .command-service-grid {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    /* Şoför Modu yönetici ve operasyon rollerinde görünür; ekran SYS içinde açılır. */
+    #screen-driver .driver-shell {
+      min-height: 100%;
+    }
+    #screen-driver .driver-service-tab.active {
+      border-color: rgba(var(--accent-rgb), .78);
+      box-shadow: 0 0 0 2px rgba(var(--accent-rgb), .14), 0 16px 34px rgba(0,0,0,.18);
+    }
+    #screen-driver .driver-service-tab.active .driver-tab-state {
+      color: #d9fff2;
+      background: rgba(var(--accent-rgb), .20);
+      border-color: rgba(var(--accent-rgb), .52);
+    }
+
   </style>
 </head>
 
@@ -12646,7 +12738,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.15</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.16</div>
         </div>
       </div>
 
@@ -12824,21 +12916,6 @@
               </div>
             </div>
           </section>
-
-
-
-          <div class="command-cost-grid">
-            <button class="command-cost-card" type="button" data-action="open-private-use">
-              <span class="command-cost-icon">Ö</span>
-              <span><strong>Özel Kullanım</strong><small id="commandPrivateUseText">Bu ay özel kullanım kaydı yok.</small></span>
-              <span class="command-cost-value" id="commandPrivateUseValue">0 km</span>
-            </button>
-            <button class="command-cost-card" type="button" data-action="open-cost-report">
-              <span class="command-cost-icon">M</span>
-              <span><strong>Dağıtılmış Mekanik Maliyet</strong><small id="commandMechanicalCostText">Bu aya düşen bakım payı.</small></span>
-              <span class="command-cost-value" id="commandMechanicalCostValue">₺0</span>
-            </button>
-          </div>
 
           <button class="command-maintenance-alert" id="commandMaintenanceAlert" type="button" data-action="open-vehicle-alerts">
             <span class="command-maintenance-icon">A</span>
@@ -16048,7 +16125,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.15</strong>
+                <strong>v4.44.16</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16093,8 +16170,8 @@
     "use strict";
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
-    // v4.44.15 - Adres Defteri eklendi; Komuta Paneli tek ekrana sığacak şekilde kompaktlaştırıldı.
-    const APP_VERSION = "4.44.15";
+    // v4.44.16 - Komuta Paneli sadeleştirildi, Şoför Modu yetkisi geri getirildi ve rota açıklaması netleştirildi.
+    const APP_VERSION = "4.44.16";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -17858,7 +17935,7 @@
       if (orderedMapButton) {
         const eveningBoardingLocked = period === "evening" && (!session?.isActive || phase === "boarding");
         orderedMapButton.disabled = eveningBoardingLocked;
-        orderedMapButton.textContent = eveningBoardingLocked ? "Dağıtımdan Sonra Harita" : "Sıralı Harita";
+        orderedMapButton.textContent = eveningBoardingLocked ? "Biniş Bitince Rota Açılır" : "Sıralı Harita";
       }
 
       const statusValue = session?.isActive
@@ -21530,18 +21607,6 @@
         maintenanceText.textContent = vehicleAlerts.length ? `${critical} kritik kayıt var. Detay için karta dokun.` : "Yaklaşan bakım, muayene veya sigorta uyarısı bulunmuyor.";
         maintenanceState.textContent = critical ? `${critical} Kritik` : vehicleAlerts.length ? "Yaklaşıyor" : "Güncel";
       }
-
-      const commandMonth = getFinanceMonth();
-      const privateMonth = privateUseTotals("", commandMonth);
-      const commandPrivateText = $("#commandPrivateUseText");
-      const commandPrivateValue = $("#commandPrivateUseValue");
-      const commandMechanicalText = $("#commandMechanicalCostText");
-      const commandMechanicalValue = $("#commandMechanicalCostValue");
-      if (commandPrivateText) commandPrivateText.textContent = privateMonth.km > 0 ? `${privateMonth.count} kayıt · Tahmini yakıt ${formatTRY(privateMonth.cost)}` : "Bu ay özel kullanım kaydı yok.";
-      if (commandPrivateValue) commandPrivateValue.textContent = `${privateMonth.km.toLocaleString("tr-TR")} km`;
-      const allocatedMechanical = maintenanceAllocatedForMonth("", commandMonth);
-      if (commandMechanicalText) commandMechanicalText.textContent = allocatedMechanical > 0 ? `${vehicleCostMonthLabel(commandMonth)} yönetim maliyet yükü` : "Bu aya düşen bakım payı yok.";
-      if (commandMechanicalValue) commandMechanicalValue.textContent = formatTRY(allocatedMechanical);
 
       const personnelNav = $('.nav-btn[data-module="personnel"]');
       const schoolNav = $('.nav-btn[data-module="school"]');
@@ -29268,7 +29333,7 @@
 
     const ROLE_RULES = {
       admin: {
-        modules: ["command", "registry", "addresses", "personnel", "school", "finance", "settings"],
+        modules: ["command", "driver", "registry", "addresses", "personnel", "school", "finance", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "payments", "reports"],
         financeTabs: ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"],
         canDelete: true,
@@ -29277,7 +29342,7 @@
         canReset: true
       },
       operation: {
-        modules: ["command", "registry", "addresses", "personnel", "school", "settings"],
+        modules: ["command", "driver", "registry", "addresses", "personnel", "school", "settings"],
         schoolTabs: ["operation", "students", "schools", "guides", "reports"],
         financeTabs: [],
         canDelete: false,
