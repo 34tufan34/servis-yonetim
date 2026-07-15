@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.20</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.21</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -5720,6 +5720,95 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.45;
+    }
+
+
+    /* v4.44.21 - Finans sekmelerinde senkron aylık dönem seçimi */
+    .finance-section-period {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .095), rgba(255,255,255,.025)),
+        var(--panel);
+      border-radius: 14px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.12);
+    }
+
+    .finance-section-period-copy {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .finance-section-period-copy span {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .finance-section-period-copy strong {
+      font-size: 14px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .finance-section-period-actions {
+      display: flex;
+      align-items: end;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .finance-section-period-actions .field {
+      min-width: 168px;
+    }
+
+    .finance-section-period-actions .field label {
+      margin-bottom: 4px;
+      font-size: 9px;
+    }
+
+    .finance-section-period-actions input[type="month"] {
+      min-height: 36px;
+      padding: 7px 10px;
+    }
+
+    .finance-section-period-actions .btn {
+      min-height: 36px;
+      padding: 7px 10px;
+    }
+
+    .maintenance-month-summary {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .finance-section-period {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .finance-section-period-actions {
+        justify-content: flex-start;
+      }
+      .finance-section-period-actions .field {
+        flex: 1 1 180px;
+      }
+      .maintenance-month-summary {
+        grid-template-columns: 1fr;
+      }
     }
 
     .finance-tabs {
@@ -12683,7 +12772,7 @@
     }
 
 
-    /* v4.44.20 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.21 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12886,7 +12975,7 @@
       }
     }
 
-    /* v4.44.20 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.21 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12899,7 +12988,7 @@
     }
 
 
-    /* v4.44.20 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    /* v4.44.21 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
     .registry-flow,
     .registry-guide { display: none !important; }
     .registry-fixed-zone { display: grid; gap: 8px; }
@@ -12950,7 +13039,7 @@
 
   
 
-    /* v4.44.20 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
+    /* v4.44.21 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
     .session-controls { position: relative; }
     .session-user-chip {
       cursor: pointer;
@@ -13229,7 +13318,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.20</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.21</div>
         </div>
       </div>
 
@@ -15151,6 +15240,21 @@
           </div>
 
           <div class="finance-tab-screen" id="finance-tab-overview">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Genel Finans Özeti</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Genel Finans Özeti ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
             <section class="card finance-general-card">
               <div class="panel-header">
                 <div>
@@ -15405,6 +15509,22 @@
           </div>
 
 <div class="finance-tab-screen hidden finance-vehicle-cost-screen" id="finance-tab-maintenance">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Bakım & Mekanik</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Bakım & Mekanik ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
+            <div class="maintenance-month-summary" id="maintenanceMonthSummary"></div>
             <div class="workarea">
               <section class="card panel form-panel">
                 <div class="panel-header person-form-header">
@@ -15601,6 +15721,21 @@
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-personnel">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Personel Finans</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Personel Finans ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
             <div class="finance-summary" id="financeSummary"></div>
             <section class="card finance-personnel-profit-panel">
               <div class="panel-header">
@@ -15646,6 +15781,21 @@
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-profitability">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Kârlılık Analizi</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Kârlılık Analizi ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
             <section class="card profitability-panel">
               <div class="panel-header">
                 <div>
@@ -15849,6 +15999,21 @@
 
 
           <div class="finance-tab-screen hidden" id="finance-tab-staff">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Şoför / Rehber Ödemeleri</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Şoför / Rehber Ödemeleri ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
             <section class="card staff-payment-panel">
               <div class="panel-header">
                 <div>
@@ -16059,6 +16224,21 @@
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-school">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy">
+                <span>Okul Finans</span>
+                <strong class="finance-section-month-title">Aylık görünüm</strong>
+              </div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field">
+                  <label>Görüntülenecek Ay</label>
+                  <input class="finance-month-sync" type="month" aria-label="Okul Finans ay seçimi" />
+                </div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
             <section class="card finance-school-panel">
             <div class="panel-header">
               <div>
@@ -16631,7 +16811,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.20</strong>
+                <strong>v4.44.21</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16677,7 +16857,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.20";
+    const APP_VERSION = "4.44.21";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -20805,17 +20985,37 @@
       showToast("Bakım kaydı ve bağlı gider silindi.");
     }
 
+    function renderVehicleMaintenanceMonthSummary() {
+      const host = $("#maintenanceMonthSummary");
+      if (!host) return;
+      const month = getFinanceMonth();
+      const filter = $("#maintenanceVehicleFilter")?.value || "Tümü";
+      const rows = state.vehicleMaintenance.filter((record) => filter === "Tümü" || record.vehicleId === filter);
+      const cashRows = rows.filter((record) => String(record.date || "").startsWith(month));
+      const cash = cashRows.reduce((sum, record) => sum + Number(record.amount || 0), 0);
+      const allocated = rows.reduce((sum, record) => sum + maintenanceAllocatedInMonth(record, month), 0);
+      const activeRecords = rows.filter((record) => String(record.date || "").startsWith(month) || maintenanceAllocatedInMonth(record, month) > 0).length;
+      host.innerHTML = [
+        { label: "Seçili Ay Kayıtları", value: `${activeRecords} kayıt`, risk: false },
+        { label: "Gerçek Ödeme", value: formatTRY(cash), risk: cash > 0 },
+        { label: "Aylık Dağıtılmış Maliyet", value: formatTRY(allocated), risk: allocated > 0 }
+      ].map((item) => `<div class="insight-chip ${item.risk ? "risk" : ""}"><div class="insight-label">${escapeHtml(item.label)}</div><div class="insight-value">${escapeHtml(item.value)}</div></div>`).join("");
+    }
+
     function renderVehicleMaintenanceTable() {
       const host = $("#vehicleMaintenanceTableHost");
       if (!host) return;
       const filter = $("#maintenanceVehicleFilter")?.value || "Tümü";
+      const month = getFinanceMonth();
       const search = normalize($("#maintenanceSearch")?.value || "");
       const rows = state.vehicleMaintenance.filter((record) => {
         if (filter !== "Tümü" && record.vehicleId !== filter) return false;
+        if (!String(record.date || "").startsWith(month) && maintenanceAllocatedInMonth(record, month) <= 0) return false;
         const vehicle = state.vehicles.find((item) => item.id === record.vehicleId);
         return !search || normalize([record.vehiclePlate, vehicle?.plate, record.type, record.provider, record.invoiceNo, record.description].join(" ")).includes(search);
       }).sort((a,b) => String(b.date).localeCompare(String(a.date)));
-      if (!rows.length) { host.innerHTML = `<div class="empty">Bu filtrede bakım veya mekanik gider kaydı bulunmuyor.</div>`; return; }
+      renderVehicleMaintenanceMonthSummary();
+      if (!rows.length) { host.innerHTML = `<div class="empty">${escapeHtml(financeMonthTitle(month))} döneminde bakım veya mekanik maliyet kaydı bulunmuyor.</div>`; return; }
       host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Araç</th><th>KM</th><th>İşlem</th><th>Servis / Usta</th><th>Gerçek Ödeme</th><th>Dağıtım</th><th>Sonraki</th><th>İşlem</th></tr></thead><tbody>${rows.map((r) => `<tr><td><strong>${escapeHtml(jobDateText(r.date))}</strong></td><td>${escapeHtml(r.vehiclePlate || vehicleLabel(r.vehicleId))}</td><td>${r.km ? escapeHtml(Number(r.km).toLocaleString("tr-TR")) : "-"}</td><td><strong>${escapeHtml(r.type)}</strong><br><span class="muted">${escapeHtml(r.description || "Açıklama yok")}</span></td><td>${escapeHtml(r.provider || "-")}<br><span class="muted">${escapeHtml(r.invoiceNo || "Fatura yok")}</span></td><td><strong>${escapeHtml(formatTRY(r.amount || 0))}</strong>${r.expenseId ? '<br><span class="pill active">Finansa işlendi</span>' : ''}</td><td><strong>${maintenanceAllocationMonths(r)} ay</strong><br><span class="muted">${escapeHtml(formatTRY(maintenanceMonthlyAllocation(r)))} / ay</span></td><td>${r.nextDate ? escapeHtml(jobDateText(r.nextDate)) : "-"}<br><span class="muted">${r.nextKm ? Number(r.nextKm).toLocaleString("tr-TR") + " km" : "KM yok"}</span></td><td><div class="table-action-row maintenance-row-actions"><button class="btn small" data-action="edit-maintenance" data-id="${escapeHtml(r.id)}">Düzenle</button><button class="btn small danger" data-action="delete-maintenance" data-id="${escapeHtml(r.id)}">Sil</button></div></td></tr>`).join("")}</tbody></table></div>`;
     }
 
@@ -22151,7 +22351,7 @@
       };
     }
 
-    // v4.44.20 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.21 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
@@ -24436,6 +24636,37 @@
       return input && input.value ? input.value : currentMonthISO();
     }
 
+
+    function syncFinanceMonthControls(month = getFinanceMonth()) {
+      const targetMonth = String(month || currentMonthISO()).slice(0, 7) || currentMonthISO();
+      $$(".finance-month-sync").forEach((input) => {
+        if (input.value !== targetMonth) input.value = targetMonth;
+      });
+      $$(".finance-section-month-title").forEach((label) => {
+        label.textContent = `${financeMonthTitle(targetMonth)} verileri`;
+      });
+    }
+
+    function financeShiftedMonth(month, step = 0) {
+      const [year, monthNo] = String(month || currentMonthISO()).split("-").map(Number);
+      const date = new Date(year || new Date().getFullYear(), (monthNo || 1) - 1 + Number(step || 0), 1);
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+    }
+
+    function applyFinanceMonth(month, options = {}) {
+      const targetMonth = /^\d{4}-\d{2}$/.test(String(month || "")) ? String(month) : currentMonthISO();
+      const mainInput = $("#financeMonth");
+      if (mainInput) mainInput.value = targetMonth;
+      syncFinanceMonthControls(targetMonth);
+      if (options.clearForms !== false) {
+        clearFinanceRecordForm();
+        clearVehicleExpenseForm();
+        clearStaffPaymentForm();
+      }
+      renderFinanceDashboard();
+      if (options.notify !== false) showToast(`${financeMonthTitle(targetMonth)} finans verileri yüklendi.`);
+    }
+
     function monthBounds(month) {
       const [year, monthNo] = String(month || currentMonthISO()).split("-").map(Number);
       const first = `${year}-${String(monthNo).padStart(2, "0")}-01`;
@@ -24597,6 +24828,7 @@
     function ensureFinanceDefaults() {
       const monthInput = $("#financeMonth");
       if (monthInput && !monthInput.value) monthInput.value = currentMonthISO();
+      syncFinanceMonthControls(monthInput?.value || currentMonthISO());
     }
 
     function renderFinanceJobOptions() {
@@ -27473,7 +27705,7 @@
       if (activeScreen) activeScreen.scrollTo({ top: 0, behavior: "smooth" });
       if (targetName === "overview") renderFinanceCharts();
       if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); activateFinanceFlowTab("entry", { scroll: false, instant: true }); }
-      if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
+      if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceMonthSummary(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
       if (targetName === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
       if (targetName === "km") activateVehicleKmSubTab("analysis", { scroll: false, instant: true });
       if (targetName === "personnel") { renderFinanceSummary(); renderFinancePersonnelProfitTable(); renderFinanceTable(); }
@@ -27774,6 +28006,7 @@
       renderFinanceSchoolOptions();
       const periodTitle = $("#financePeriodTitle");
       if (periodTitle) periodTitle.textContent = `${financeMonthTitle(getFinanceMonth())} finans görünümü`;
+      syncFinanceMonthControls(getFinanceMonth());
       renderFinanceGeneralSummary();
       renderFinanceCharts();
       renderFinanceFlowSummary();
@@ -27783,6 +28016,8 @@
       renderProfitabilityAnalysis();
       renderFinanceTable();
       renderVehicleExpenses();
+      renderVehicleMaintenanceOptions();
+      renderVehicleMaintenanceTable();
       renderStaffPayments();
       renderFinanceInvoiceTable();
       renderFinanceSchoolSummary();
@@ -29462,11 +29697,24 @@
 
 
 
+      $$(".finance-month-sync").forEach((input) => {
+        input.addEventListener("change", () => applyFinanceMonth(input.value));
+      });
+      $$('[data-finance-month-step]').forEach((button) => {
+        button.addEventListener("click", () => applyFinanceMonth(financeShiftedMonth(getFinanceMonth(), Number(button.dataset.financeMonthStep || 0))));
+      });
+      $$('[data-finance-month-current]').forEach((button) => {
+        button.addEventListener("click", () => applyFinanceMonth(currentMonthISO()));
+      });
+
       ["financeMonth", "financeJobFilter", "financeStatusFilter"].forEach((id) => {
         const element = $(`#${id}`);
         if (!element) return;
         element.addEventListener("change", () => {
-          if (id === "financeMonth") { clearFinanceRecordForm(); clearVehicleExpenseForm(); clearStaffPaymentForm(); }
+          if (id === "financeMonth") {
+            applyFinanceMonth(element.value);
+            return;
+          }
           renderFinanceDashboard();
         });
       });
@@ -29656,7 +29904,7 @@
       $("#documentCategoryFilter")?.addEventListener("change", renderDocumentArchive);
       $("#documentVehicleFilter")?.addEventListener("change", renderDocumentArchive);
       $("#documentSearch")?.addEventListener("input", renderDocumentArchive);
-      $("#maintenanceVehicleFilter")?.addEventListener("change", renderVehicleMaintenanceTable);
+      $("#maintenanceVehicleFilter")?.addEventListener("change", () => { renderVehicleMaintenanceMonthSummary(); renderVehicleMaintenanceTable(); });
       $("#maintenanceSearch")?.addEventListener("input", renderVehicleMaintenanceTable);
       $("#tripForm").addEventListener("submit", saveTrip);
       $("#studentForm").addEventListener("submit", saveStudent);
