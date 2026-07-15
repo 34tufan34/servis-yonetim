@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.18</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.19</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12683,7 +12683,7 @@
     }
 
 
-    /* v4.44.18 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.19 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12886,7 +12886,7 @@
       }
     }
 
-    /* v4.44.18 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.19 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12896,6 +12896,56 @@
       }
       #screen-command .command-service-card { height: auto; }
       #screen-command .command-card-summary { flex: 0 0 auto; }
+    }
+
+
+    /* v4.44.19 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    .registry-flow,
+    .registry-guide { display: none !important; }
+    .registry-fixed-zone { display: grid; gap: 8px; }
+    .registry-tabs { margin-bottom: 0 !important; }
+    .registry-tab-description {
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) minmax(210px, .7fr);
+      gap: 10px 14px;
+      align-items: center;
+      padding: 10px 12px;
+      margin: 0 0 10px;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .08), rgba(255,255,255,.018));
+    }
+    .registry-tab-description-step {
+      display: inline-grid;
+      place-items: center;
+      min-width: 62px;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 10px;
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), .13);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+    .registry-tab-description div { min-width: 0; }
+    .registry-tab-description strong { display: block; font-size: 13px; }
+    .registry-tab-description small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .registry-tab-description em { color: color-mix(in srgb, var(--text) 68%, var(--muted) 32%); font-size: 10px; font-style: normal; line-height: 1.4; text-align: right; }
+    .registry-workspace { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) !important; gap: 0 !important; }
+    .registry-form-host > .registry-mounted-workarea { grid-template-columns: minmax(360px, .82fr) minmax(0, 1.42fr) !important; gap: 14px !important; }
+    .backup-scope-actions { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+    #screen-command .command-quick-btn { min-height: 39px; padding: 7px 9px; border-radius: 10px; font-size: 10px; gap: 6px; }
+    #screen-command .command-quick-btn span { width: 20px; height: 20px; font-size: 11px; }
+    @media (min-width: 1080px) and (max-height: 820px) {
+      #screen-command .command-quick-btn { min-height: 34px; padding: 5px 7px; font-size: 9px; }
+    }
+    @media (max-width: 900px) {
+      .registry-tab-description { grid-template-columns: auto minmax(0,1fr); }
+      .registry-tab-description em { grid-column: 1 / -1; text-align: left; }
+      .registry-form-host > .registry-mounted-workarea { grid-template-columns: 1fr !important; }
     }
 
   </style>
@@ -13074,7 +13124,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.18</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.19</div>
         </div>
       </div>
 
@@ -13082,6 +13132,14 @@
       <nav class="nav" aria-label="Ana menü">
         <button class="nav-btn" data-module="command">
           <span class="nav-label"><span class="dot"></span>Komuta Paneli</span>
+          <span class="tag">Aktif</span>
+        </button>
+        <button class="nav-btn" data-module="personnel">
+          <span class="nav-label"><span class="dot"></span>Personel Servisi</span>
+          <span class="tag">Aktif</span>
+        </button>
+        <button class="nav-btn active" data-module="school">
+          <span class="nav-label"><span class="dot"></span>Okul Servisi</span>
           <span class="tag">Aktif</span>
         </button>
         <button class="nav-btn" data-module="driver">
@@ -13096,21 +13154,9 @@
           <span class="nav-label"><span class="dot"></span>Adres Defteri</span>
           <span class="tag">Harita</span>
         </button>
-        <button class="nav-btn" data-module="personnel">
-          <span class="nav-label"><span class="dot"></span>Personel Servisi</span>
-          <span class="tag">Aktif</span>
-        </button>
-        <button class="nav-btn active" data-module="school">
-          <span class="nav-label"><span class="dot"></span>Okul Servisi</span>
-          <span class="tag">Aktif</span>
-        </button>
         <button class="nav-btn" data-module="finance">
           <span class="nav-label"><span class="dot"></span>Finans Özet</span>
           <span class="tag">Aktif</span>
-        </button>
-        <button class="nav-btn nav-quick-finance" id="quickFinanceEntryBtn" type="button">
-          <span class="nav-label"><span class="dot"></span>Gelir / Gider Kaydı</span>
-          <span class="tag">Hızlı</span>
         </button>
       </nav>
 
@@ -13332,8 +13378,6 @@
           </div>
         </div>
 
-        <div class="registry-flow" id="registryFlow" aria-label="Önerilen kayıt sırası"></div>
-
         <div class="tabs registry-tabs" id="registryTabs">
           <button class="tab registry-tab active" type="button" data-registry-tab="vehicles">Araç / Şoför <span class="registry-tab-count" data-registry-count="vehicles">0</span></button>
           <button class="tab registry-tab" type="button" data-registry-tab="companies">Firmalar <span class="registry-tab-count" data-registry-count="companies">0</span></button>
@@ -13343,18 +13387,14 @@
           <button class="tab registry-tab" type="button" data-registry-tab="students">Öğrenciler <span class="registry-tab-count" data-registry-count="students">0</span></button>
           <button class="tab registry-tab" type="button" data-registry-tab="guides">Rehberler <span class="registry-tab-count" data-registry-count="guides">0</span></button>
         </div>
+        <div class="registry-tab-description" id="registryTabDescription" aria-live="polite">
+          <span class="registry-tab-description-step">1. ADIM</span>
+          <div><strong>Araç / Şoför Kaydı</strong><small>Önce servis aracını ve araca bağlı şoför bilgisini kaydet. Sonraki firma ve okul bağlantıları bu araç listesini kullanır.</small></div>
+          <em>Bu ilk adımdır; ön koşul bulunmuyor.</em>
+        </div>
         </div>
 
         <div class="registry-workspace">
-          <aside class="registry-guide">
-            <div class="registry-guide-badge" id="registryGuideBadge">1. ADIM</div>
-            <h3 id="registryGuideTitle">Araç / Şoför Kaydı</h3>
-            <p id="registryGuideText">Önce servis aracını ve araca bağlı şoför bilgisini kaydet. Sonraki firma ve okul bağlantıları bu araç listesini kullanır.</p>
-            <div class="registry-prerequisite" id="registryPrerequisite">Bu ilk adımdır; ön koşul bulunmuyor.</div>
-            <div class="registry-guide-actions">
-              <button class="btn small primary" id="registryOpenListBtn" type="button">Kayıt Listesine Git</button>
-            </div>
-          </aside>
           <div class="registry-form-host" id="registryFormHost">
             <div class="registry-empty">Kayıt formu hazırlanıyor…</div>
           </div>
@@ -16114,13 +16154,17 @@
             </div>
 
             <div class="settings-actions">
-              <button class="btn primary" id="backupBtn" type="button">JSON Yedek Al</button>
+              <button class="btn primary" id="backupBtn" type="button">Tam JSON Yedek Al</button>
               <button class="btn" id="importBtn" type="button">Yedek İçe Aktar</button>
               <input id="importFile" class="hidden" type="file" accept="application/json,.json" />
             </div>
+            <div class="settings-actions backup-scope-actions">
+              <button class="btn" id="personnelInfoBackupBtn" type="button">Personel Bilgileri Yedeği</button>
+              <button class="btn" id="schoolInfoBackupBtn" type="button">Okul / Öğrenci Bilgileri Yedeği</button>
+            </div>
 
             <div class="settings-note">
-              JSON yedek; personel, firma, iş/sözleşme, hakediş, fatura, tahsilat, araç, şoför/rehber ödemeleri, öğrenci, okul, rehber, çetele, yoklama ve servis kayıtlarını birlikte saklar.
+              Tam JSON yedek bütün sistemi saklar. Ayrı bilgi yedekleri; personel, öğrenci, veli, adres, telefon, firma, okul, araç ve bağlantılı temel kayıtları içerir. Evrak dosyalarının kendisi cihazda kalır.
             </div>
           </div>
 
@@ -16485,7 +16529,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.18</strong>
+                <strong>v4.44.19</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -16531,7 +16575,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.18";
+    const APP_VERSION = "4.44.19";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -21267,19 +21311,25 @@
       return true;
     }
 
+    function schoolServiceVehiclePlate(school) {
+      const vehicle = school ? state.vehicles.find((item) => item.id === school.vehicleId) : null;
+      return String(vehicle?.plate || "Plaka belirtilmedi").trim();
+    }
+
     function guardianMessageForSchoolStatus(student, school, period, status, alternateAddress = "") {
       const guardian = student.guardianName || "Velimiz";
       const studentName = student.name || "Öğrenciniz";
       const clock = schoolNotificationClock();
       const dateText = schoolNotificationDateText(getSchoolServiceDate());
       const schoolName = school?.name || "okul servisi";
+      const vehicleLine = `Servis aracı: ${schoolServiceVehiclePlate(school)}.`;
 
-      if (status === "Bindi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla ${schoolName} servisine binmiştir.\n\nBilginize sunarız.`;
-      if (status === "İndi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla kayıtlı bırakma adresinde servisten inmiştir.\n\nBilginize sunarız.`;
-      if (status === "Başka Adreste İndi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla ${alternateAddress} konumunda servisten inmiştir.\n\nBilginize sunarız.`;
-      if (status === "Yok") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla servis noktasında bulunamadığı için yok olarak işaretlenmiştir.\n\nBilginize sunarız.`;
-      if (status === "İzinli") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihli ${schoolName} seferinde izinli olarak işaretlenmiştir.\n\nBilginize sunarız.`;
-      return `Sayın ${guardian},\n\n${studentName} için ${dateText} tarihli servis durumu: ${status}.\n\nBilginize sunarız.`;
+      if (status === "Bindi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla ${schoolName} servisine binmiştir.\n${vehicleLine}\n\nBilginize sunarız.`;
+      if (status === "İndi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla kayıtlı bırakma adresinde servisten inmiştir.\n${vehicleLine}\n\nBilginize sunarız.`;
+      if (status === "Başka Adreste İndi") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla ${alternateAddress} konumunda servisten inmiştir.\n${vehicleLine}\n\nBilginize sunarız.`;
+      if (status === "Yok") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihinde saat ${clock} itibarıyla servis noktasında bulunamadığı için yok olarak işaretlenmiştir.\n${vehicleLine}\n\nBilginize sunarız.`;
+      if (status === "İzinli") return `Sayın ${guardian},\n\n${studentName}, ${dateText} tarihli ${schoolName} seferinde izinli olarak işaretlenmiştir.\n${vehicleLine}\n\nBilginize sunarız.`;
+      return `Sayın ${guardian},\n\n${studentName} için ${dateText} tarihli servis durumu: ${status}.\n${vehicleLine}\n\nBilginize sunarız.`;
     }
 
     function notifyGuardianForSchoolStatus(student, school, period, status, alternateAddress = "") {
@@ -21299,7 +21349,8 @@
       const schoolId = getSchoolServiceSchoolId();
       const school = getSchool(schoolId);
       if (!school) { showToast("Önce okul seç."); return; }
-      const message = `Değerli Velilerimiz,\n\n${school.name} servisindeki öğrencilerimiz saat ${schoolNotificationClock()} itibarıyla okula güvenli şekilde ulaşmıştır.\n\nBilginize sunar, iyi dersler dileriz.`;
+      const plate = schoolServiceVehiclePlate(school);
+      const message = `Değerli Velilerimiz,\n\n${school.name} servisindeki öğrencilerimiz saat ${schoolNotificationClock()} itibarıyla okula güvenli şekilde ulaşmıştır.\nServis aracı: ${plate}.\n\nBilginize sunar, iyi dersler dileriz.`;
       openWhatsAppGroupShare(message);
       addSchoolNotificationLog({ type: "Okula Varış", schoolId, message, status: "Grup mesajı hazırlandı" });
       saveState();
@@ -21318,7 +21369,8 @@
       if (reasonRaw === null) return;
       const reason = reasonRaw.trim() || "Trafik yoğunluğu";
       const eta = new Date(Date.now() + minutes * 60000).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
-      const message = `Değerli Velilerimiz,\n\n${school.name} servisimiz ${reason.toLocaleLowerCase("tr-TR")} nedeniyle yaklaşık ${minutes} dakika gecikmeli ilerlemektedir. Tahmini varış saati ${eta}'dir.\n\nAnlayışınız için teşekkür ederiz.`;
+      const plate = schoolServiceVehiclePlate(school);
+      const message = `Değerli Velilerimiz,\n\n${school.name} servisimiz (${plate}) ${reason.toLocaleLowerCase("tr-TR")} nedeniyle yaklaşık ${minutes} dakika gecikmeli ilerlemektedir. Tahmini varış saati ${eta}'dir.\n\nAnlayışınız için teşekkür ederiz.`;
       openWhatsAppGroupShare(message);
       addSchoolNotificationLog({ type: "Gecikme", schoolId, message, status: "Grup mesajı hazırlandı" });
       saveState();
@@ -21915,7 +21967,7 @@
       };
     }
 
-    // v4.44.18 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.19 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
@@ -22371,6 +22423,7 @@
     }
 
     function openSchoolOrderedMap() {
+      // v4.44.19: Öğrenci durakları kayıtlı sırayla tek Google Maps rotasına aktarılır.
       const schoolId = getSchoolServiceSchoolId();
       const period = getSchoolServicePeriod();
       const school = getSchool(schoolId);
@@ -28248,7 +28301,6 @@
 
     function renderRegistryCenter() {
       const flow = $("#registryFlow");
-      if (!flow) return;
       const entries = registryOrderedDefinitions();
       const completed = entries.filter(([, definition]) => Number(definition.count()) > 0).length;
       const percentage = Math.round(completed / entries.length * 100);
@@ -28259,22 +28311,21 @@
         ring.setAttribute("aria-valuenow", String(percentage));
       }
       if ($("#registryProgressValue")) $("#registryProgressValue").textContent = `${completed}/${entries.length}`;
-
-      flow.innerHTML = entries.map(([key, definition]) => {
-        const count = Number(definition.count()) || 0;
-        return `<button class="registry-step-card ${count > 0 ? "done" : ""} ${key === activeRegistryTab ? "active" : ""}" type="button" data-registry-step="${key}">
-          <span class="registry-step-no">${count > 0 ? "✓" : definition.order}</span>
-          <strong>${escapeHtml(definition.label)}</strong>
-          <small>${count > 0 ? `${count} kayıt hazır` : "Kayıt bekleniyor"}</small>
-        </button>`;
-      }).join("");
-
+      if (flow) {
+        flow.innerHTML = entries.map(([key, definition]) => {
+          const count = Number(definition.count()) || 0;
+          return `<button class="registry-step-card ${count > 0 ? "done" : ""} ${key === activeRegistryTab ? "active" : ""}" type="button" data-registry-step="${key}">
+            <span class="registry-step-no">${count > 0 ? "✓" : definition.order}</span>
+            <strong>${escapeHtml(definition.label)}</strong>
+            <small>${count > 0 ? `${count} kayıt hazır` : "Kayıt bekleniyor"}</small>
+          </button>`;
+        }).join("");
+        $$('[data-registry-step]').forEach((button) => button.addEventListener("click", () => activateRegistryTab(button.dataset.registryStep)));
+      }
       entries.forEach(([key, definition]) => {
         const countHost = document.querySelector(`[data-registry-count="${key}"]`);
         if (countHost) countHost.textContent = String(Number(definition.count()) || 0);
       });
-
-      $$("[data-registry-step]").forEach((button) => button.addEventListener("click", () => activateRegistryTab(button.dataset.registryStep)));
     }
 
     function activateRegistryTab(tabName = "vehicles") {
@@ -28282,10 +28333,8 @@
       activeRegistryTab = target;
       const definition = REGISTRY_DEFINITIONS[target];
       $$("#registryTabs [data-registry-tab]").forEach((button) => button.classList.toggle("active", button.dataset.registryTab === target));
-      if ($("#registryGuideBadge")) $("#registryGuideBadge").textContent = `${definition.order}. ADIM`;
-      if ($("#registryGuideTitle")) $("#registryGuideTitle").textContent = definition.title;
-      if ($("#registryGuideText")) $("#registryGuideText").textContent = definition.text;
-      if ($("#registryPrerequisite")) $("#registryPrerequisite").textContent = definition.prerequisite;
+      const description = $("#registryTabDescription");
+      if (description) description.innerHTML = `<span class="registry-tab-description-step">${definition.order}. ADIM</span><div><strong>${escapeHtml(definition.title)}</strong><small>${escapeHtml(definition.text)}</small></div><em>${escapeHtml(definition.prerequisite)}</em>`;
       mountRegistryPanel(target);
       renderRegistryCenter();
       window.requestAnimationFrame(() => {
@@ -28741,6 +28790,44 @@
       showToast("JSON yedeği indirildi. Evrak dosyalarının kendisi cihazda kalır.");
     }
 
+    function downloadScopedBackup(payload, filePrefix, successMessage) {
+      const stamp = new Date().toISOString().slice(0, 10);
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${filePrefix}-${stamp}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast(successMessage);
+    }
+
+    function backupPersonnelInformation() {
+      downloadScopedBackup({
+        backupType: "personnel-info", appVersion: APP_VERSION, schemaVersion: SCHEMA_VERSION, exportedAt: new Date().toISOString(),
+        people: state.people || [], companies: state.companies || [], jobs: state.jobs || [], routes: state.routes || [], vehicles: state.vehicles || []
+      }, "personel-bilgileri-yedek", "Personel adres, telefon ve bağlantılı temel kayıtları yedeklendi.");
+    }
+
+    function backupSchoolInformation() {
+      downloadScopedBackup({
+        backupType: "school-info", appVersion: APP_VERSION, schemaVersion: SCHEMA_VERSION, exportedAt: new Date().toISOString(),
+        students: state.students || [], schools: state.schools || [], guides: state.guides || [], vehicles: state.vehicles || []
+      }, "okul-ogrenci-bilgileri-yedek", "Öğrenci, veli, adres, telefon, okul ve rehber bilgileri yedeklendi.");
+    }
+
+    function mergeBackupRecords(existing, incoming) {
+      const map = new Map((Array.isArray(existing) ? existing : []).filter(Boolean).map((item) => [String(item.id || uid("record")), item]));
+      (Array.isArray(incoming) ? incoming : []).forEach((item) => {
+        if (!item || typeof item !== "object") return;
+        const id = String(item.id || uid("record"));
+        map.set(id, { ...(map.get(id) || {}), ...item, id });
+      });
+      return [...map.values()];
+    }
+
     function importData(file) {
       if (!file) return;
 
@@ -28753,6 +28840,22 @@
           if (!parsed || typeof parsed !== "object") {
             showToast("Geçersiz yedek dosyası.");
             return;
+          }
+
+          if (parsed.backupType === "personnel-info") {
+            state.people = mergeBackupRecords(state.people, parsed.people);
+            state.companies = mergeBackupRecords(state.companies, parsed.companies);
+            state.jobs = mergeBackupRecords(state.jobs, parsed.jobs);
+            state.routes = mergeBackupRecords(state.routes, parsed.routes);
+            state.vehicles = mergeBackupRecords(state.vehicles, parsed.vehicles);
+            saveState(); renderAll(); showToast("Personel bilgi yedeği mevcut kayıtlarla birleştirildi."); return;
+          }
+          if (parsed.backupType === "school-info") {
+            state.students = mergeBackupRecords(state.students, parsed.students);
+            state.schools = mergeBackupRecords(state.schools, parsed.schools);
+            state.guides = mergeBackupRecords(state.guides, parsed.guides);
+            state.vehicles = mergeBackupRecords(state.vehicles, parsed.vehicles);
+            saveState(); renderAll(); showToast("Okul / öğrenci bilgi yedeği mevcut kayıtlarla birleştirildi."); return;
           }
 
           const nextState = {
@@ -29766,6 +29869,8 @@
 
       const backupBtn2 = $("#backupBtn2");
       if (backupBtn2) backupBtn2.addEventListener("click", backupData);
+      $("#personnelInfoBackupBtn")?.addEventListener("click", backupPersonnelInformation);
+      $("#schoolInfoBackupBtn")?.addEventListener("click", backupSchoolInformation);
 
       const importBtn = $("#importBtn");
       if (importBtn) importBtn.addEventListener("click", () => $("#importFile").click());
