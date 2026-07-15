@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.24</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.25</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -5724,7 +5724,7 @@
     }
 
 
-    /* v4.44.24 - Finans sekmelerinde senkron aylık dönem seçimi */
+    /* v4.44.25 - Finans sekmelerinde senkron aylık dönem seçimi */
     .finance-section-period {
       flex: 0 0 auto;
       display: flex;
@@ -12773,7 +12773,7 @@
     }
 
 
-    /* v4.44.24 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
+    /* v4.44.25 - Komuta Paneli hızlı operasyon düğmeleri ve Geri Dön rengi */
     .btn-return {
       color: #f1e8ff !important;
       background: rgba(139,92,246,.16) !important;
@@ -12976,7 +12976,7 @@
       }
     }
 
-    /* v4.44.24 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
+    /* v4.44.25 - Sıradaki yolcu alanı ile dış kart arasında dengeli oran */
     @media (min-width: 1080px) {
       #screen-command .command-dashboard { grid-template-rows: auto auto auto auto; }
       #screen-command .command-service-grid,
@@ -12989,7 +12989,7 @@
     }
 
 
-    /* v4.44.24 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
+    /* v4.44.25 - Menü, Temel Kayıtlar, yedekleme ve Komuta Paneli */
     .registry-flow,
     .registry-guide { display: none !important; }
     .registry-fixed-zone { display: grid; gap: 8px; }
@@ -13040,7 +13040,7 @@
 
   
 
-    /* v4.44.24 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
+    /* v4.44.25 - Hızlı kullanıcı geçişi, Şoför Modu oranı ve rota bölme */
     .session-controls { position: relative; }
     .session-user-chip {
       cursor: pointer;
@@ -13144,7 +13144,7 @@
     .route-segment-btn em { color:var(--muted); font-size:10px; font-style:normal; font-weight:850; }
 
 
-    /* v4.44.24 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
+    /* v4.44.25 - Tema uyumlu tarih seçiciler, rapor dışa aktarma ve finans yerleşim düzeltmeleri */
     html,
     body {
       color-scheme: dark;
@@ -13294,7 +13294,7 @@
 
   
 
-    /* v4.44.24 - zorunlu intro, komuta yerleşimi, gradyan grafikler ve fatura uyarısı */
+    /* v4.44.25 - zorunlu intro, komuta yerleşimi, gradyan grafikler ve fatura uyarısı */
     .sys-splash-skip { display: none !important; }
     #sysSplash { cursor: default; }
 
@@ -13416,6 +13416,274 @@
       #screen-command .command-live-total { width: 100%; min-width: 0; }
       .command-invoice-alert { grid-template-columns: auto minmax(0,1fr); }
       .command-invoice-alert .command-card-state { grid-column: 2; justify-self: start; }
+    }
+
+
+
+    /* v4.44.25 - Ayarlar ekranı simetrik ve uyumlu panel sistemi */
+    #screen-settings .settings-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-auto-flow: row dense;
+      grid-auto-rows: auto;
+      align-items: stretch;
+      align-content: start;
+      gap: 16px;
+      padding: 4px 8px 26px 4px;
+    }
+
+    #screen-settings .settings-panel {
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      padding: 18px;
+      gap: 14px;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(var(--accent-rgb), .055), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.048), rgba(255,255,255,.024)),
+        var(--panel);
+    }
+
+    #screen-settings .settings-panel:not(.settings-theme-compact) > .panel-header {
+      min-height: 68px;
+      margin: 0;
+      padding: 0 0 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #screen-settings .settings-panel > .panel-header > div:first-child {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    #screen-settings .settings-panel .panel-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    #screen-settings .settings-panel .panel-sub {
+      max-width: none;
+      margin-top: 6px;
+      min-height: 34px;
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    #screen-settings .settings-panel > .settings-actions,
+    #screen-settings .settings-export-group .settings-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 9px;
+      align-items: stretch;
+    }
+
+    #screen-settings .settings-panel > .settings-actions .btn,
+    #screen-settings .settings-export-group .settings-actions .btn {
+      width: 100%;
+      min-height: 42px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #screen-settings .settings-note,
+    #screen-settings .pwa-status,
+    #screen-settings .fuel-connection-note {
+      width: 100%;
+      margin-top: auto;
+      box-sizing: border-box;
+    }
+
+    #screen-settings .settings-theme-compact {
+      grid-column: 1 / -1;
+      order: 1;
+      min-height: 112px;
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: minmax(190px, 250px) minmax(0, 1fr) minmax(190px, 250px);
+      align-items: center;
+      gap: 16px;
+      overflow: visible;
+    }
+
+    #screen-settings .settings-theme-compact .panel-header {
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    #screen-settings .settings-theme-compact .panel-sub {
+      min-height: 0;
+      margin-top: 5px;
+    }
+
+    #screen-settings .settings-theme-compact .theme-picker {
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    #screen-settings .settings-theme-compact .theme-preview-row,
+    body[data-theme] #screen-settings .settings-theme-compact .theme-preview-row {
+      grid-template-columns: repeat(10, minmax(44px, 1fr));
+      gap: 6px;
+    }
+
+    #screen-settings .settings-theme-compact .theme-status {
+      min-height: 48px;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #screen-settings .settings-data-card { grid-column: span 6; order: 2; }
+    #screen-settings .settings-pwa-card { grid-column: span 6; order: 3; }
+    #screen-settings .fuel-settings-card { grid-column: 1 / -1; order: 4; }
+    #screen-settings #backupRecoveryCard { grid-column: 1 / -1; order: 5; }
+    #screen-settings .settings-csv-card { grid-column: span 4; order: 6; }
+    #screen-settings .settings-license-card { grid-column: span 4; order: 7; }
+    #screen-settings .settings-version-card { grid-column: span 4; order: 8; }
+    #screen-settings .settings-demo-card { grid-column: span 8; order: 9; }
+    #screen-settings .settings-danger-card { grid-column: span 4; order: 10; }
+    #screen-settings #userManagementCard { grid-column: 1 / -1; order: 11; }
+    #screen-settings #auditLogCard { grid-column: 1 / -1; order: 12; }
+
+    #screen-settings .settings-data-card,
+    #screen-settings .settings-pwa-card {
+      min-height: 292px;
+    }
+
+    #screen-settings .settings-csv-card,
+    #screen-settings .settings-license-card,
+    #screen-settings .settings-version-card {
+      min-height: 390px;
+    }
+
+    #screen-settings .settings-demo-card,
+    #screen-settings .settings-danger-card {
+      min-height: 260px;
+    }
+
+    #screen-settings .settings-export-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    #screen-settings .settings-export-group,
+    #screen-settings .backup-control-box,
+    #screen-settings .backup-list-box,
+    #screen-settings .pwa-install-body,
+    #screen-settings .version-box > div,
+    #screen-settings .demo-data-status,
+    #screen-settings .role-permission-note > div {
+      border-radius: 14px;
+    }
+
+    #screen-settings .version-box {
+      flex: 1 1 auto;
+      align-content: start;
+    }
+
+    #screen-settings .version-box > div {
+      min-height: 44px;
+    }
+
+    #screen-settings .fuel-settings-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: end;
+      gap: 12px;
+    }
+
+    #screen-settings .backup-recovery-grid,
+    #screen-settings .security-grid {
+      align-items: stretch;
+    }
+
+    #screen-settings .backup-control-box,
+    #screen-settings .backup-list-box,
+    #screen-settings .security-form,
+    #screen-settings .user-list {
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    #screen-settings .audit-toolbar {
+      align-items: stretch;
+    }
+
+    #screen-settings .audit-toolbar > * {
+      min-height: 42px;
+    }
+
+    @media (max-width: 1380px) {
+      #screen-settings .settings-theme-compact {
+        grid-template-columns: 220px minmax(0, 1fr);
+      }
+      #screen-settings .settings-theme-compact .theme-status {
+        grid-column: 1 / -1;
+        min-height: 42px;
+      }
+      #screen-settings .settings-theme-compact .theme-preview-row,
+      body[data-theme] #screen-settings .settings-theme-compact .theme-preview-row {
+        grid-template-columns: repeat(5, minmax(48px, 1fr));
+      }
+    }
+
+    @media (max-width: 1120px) {
+      #screen-settings .settings-data-card,
+      #screen-settings .settings-pwa-card,
+      #screen-settings .settings-csv-card,
+      #screen-settings .settings-license-card,
+      #screen-settings .settings-version-card,
+      #screen-settings .settings-demo-card,
+      #screen-settings .settings-danger-card {
+        grid-column: 1 / -1;
+        min-height: 0;
+      }
+      #screen-settings .settings-export-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      #screen-settings .settings-grid {
+        gap: 12px;
+        padding-right: 3px;
+      }
+      #screen-settings .settings-panel {
+        padding: 15px;
+        border-radius: 17px;
+      }
+      #screen-settings .settings-theme-compact {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+      #screen-settings .settings-theme-compact .theme-picker,
+      #screen-settings .settings-export-grid,
+      #screen-settings .fuel-settings-grid {
+        grid-template-columns: 1fr;
+      }
+      #screen-settings .settings-theme-compact .theme-preview-row,
+      body[data-theme] #screen-settings .settings-theme-compact .theme-preview-row {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+      #screen-settings .settings-panel > .settings-actions,
+      #screen-settings .settings-export-group .settings-actions {
+        grid-template-columns: 1fr;
+      }
     }
 
   </style>
@@ -13576,7 +13844,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.24</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.25</div>
         </div>
       </div>
 
@@ -17118,7 +17386,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.24</strong>
+                <strong>v4.44.25</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -17163,7 +17431,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.24";
+    const APP_VERSION = "4.44.25";
     const SCHEMA_VERSION = 33;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -22698,7 +22966,7 @@
       };
     }
 
-    // v4.44.24 - Komuta Paneli hızlı servis işlemleri
+    // v4.44.25 - Komuta Paneli hızlı servis işlemleri
     function styleReturnButtons(root = document) {
       const scope = root && typeof root.querySelectorAll === "function" ? root : document;
       scope.querySelectorAll("button, a.btn").forEach((button) => {
