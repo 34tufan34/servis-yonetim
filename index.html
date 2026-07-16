@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.29</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.30</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,7 +14119,7 @@
     }
 
 
-    /* v4.44.29 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    /* v4.44.30 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
     #screen-command .command-service-grid,
     #screen-command .command-dashboard > .command-service-grid {
       grid-template-columns: minmax(0, 1fr) !important;
@@ -14595,6 +14595,16 @@
     }
 
   </style>
+
+<style id="sysScreenSaverStyles">
+#sysScreenSaver{position:fixed;inset:0;z-index:99999;display:none;background:radial-gradient(circle at 50% 40%,#09233a 0,#04111f 44%,#01050c 100%);color:#eef8ff;font-family:inherit;overflow:hidden;user-select:none}
+#sysScreenSaver.active{display:block}.ss-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85}.ss-glow{position:absolute;inset:auto 0 0;height:34%;background:radial-gradient(ellipse at 50% 100%,rgba(0,121,255,.28),transparent 66%);pointer-events:none}
+.ss-shell{position:relative;z-index:2;height:100%;padding:28px 34px;display:grid;grid-template-rows:auto 1fr auto;gap:18px}.ss-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:start}.ss-brand{font-size:34px;font-weight:900;letter-spacing:-2px}.ss-brand small{display:block;font-size:11px;letter-spacing:1.4px;color:#8fb6d2}.ss-clock{text-align:center}.ss-clock strong{font-size:50px;letter-spacing:2px}.ss-clock span{display:block;color:#bdd1e0;font-size:15px;margin-top:4px}.ss-city{text-align:right;font-size:18px;color:#d7e7f4}.ss-city strong{display:block;font-size:28px;color:#fff}
+.ss-grid{display:grid;grid-template-columns:280px 1fr 300px;gap:16px;min-height:0}.ss-card{background:linear-gradient(145deg,rgba(8,25,42,.9),rgba(2,10,20,.84));border:1px solid rgba(80,159,223,.26);border-radius:22px;box-shadow:0 18px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04);padding:20px}.ss-kicker{font-size:12px;letter-spacing:1.2px;color:#46d7ff;font-weight:800;text-transform:uppercase}.ss-plate{font-size:30px;font-weight:900;margin:16px 0 6px}.ss-model{color:#bfd0de}.ss-bus{font-size:84px;text-align:center;margin-top:28px;filter:drop-shadow(0 0 24px #087cff)}
+.ss-center{display:grid;grid-template-rows:auto 1fr auto;gap:16px}.ss-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.ss-metric{text-align:center;padding:18px 10px}.ss-metric b{font-size:34px;display:block;margin:8px 0}.ss-route{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.ss-route-line{position:absolute;left:8%;right:8%;top:52%;height:5px;border-radius:999px;background:linear-gradient(90deg,#34e86d,#17baff,#8357ff);box-shadow:0 0 22px #078fff}.ss-route-line:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:-7px;animation:ssRoute 4s linear infinite;box-shadow:0 0 20px #00c8ff}.ss-welcome{text-align:center;font-size:30px;font-weight:800}.ss-welcome small{display:block;font-size:15px;color:#73ffa0;margin-top:9px}.ss-side{display:grid;grid-template-rows:1fr 1fr;gap:16px}.ss-next strong{display:block;font-size:25px;line-height:1.25;margin:18px 0}.ss-arrival{font-size:36px;color:#33a8ff;font-weight:900}.ss-driver strong{font-size:22px;display:block;margin-top:16px}.ss-bottom{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.ss-bottom .ss-card{padding:14px 18px;min-height:82px}.ss-bottom strong{display:block;color:#67d7ff;margin-bottom:8px}.ss-eq{height:24px;display:flex;gap:4px;align-items:end}.ss-eq i{width:5px;background:linear-gradient(#42e9ff,#3155ff);border-radius:4px;animation:ssEq 1s ease-in-out infinite alternate}.ss-eq i:nth-child(2n){animation-delay:.2s}.ss-eq i:nth-child(3n){animation-delay:.4s}.ss-hint{position:absolute;right:30px;bottom:14px;color:#88a8bf;font-size:12px}
+@keyframes ssRoute{from{left:0}to{left:100%}}@keyframes ssEq{from{height:5px}to{height:24px}}@media(max-width:900px){.ss-shell{padding:18px}.ss-grid{grid-template-columns:1fr}.ss-grid>.ss-card:first-child,.ss-side{display:none}.ss-metrics{grid-template-columns:repeat(2,1fr)}.ss-bottom{grid-template-columns:repeat(2,1fr)}.ss-clock strong{font-size:34px}.ss-brand{font-size:25px}.ss-city strong{font-size:20px}}
+#screen-settings .settings-screensaver-card{grid-column:1/-1;order:4}.screensaver-settings-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.screensaver-settings-row .field{margin:0}@media(max-width:760px){.screensaver-settings-row{grid-template-columns:1fr}}
+</style>
 </head>
 
 <body class="auth-locked license-locked">
@@ -14752,7 +14762,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.29</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.30</div>
         </div>
       </div>
 
@@ -17960,7 +17970,17 @@
             </div>
           </div>
 
-          <div class="card panel settings-panel settings-data-card">
+          
+<div class="card panel settings-panel settings-screensaver-card" id="screenSaverSettingsCard">
+  <div class="panel-header"><div><h2 class="panel-title">Ekran Koruyucu</h2><div class="panel-sub">Program boşta kaldığında canlı servis ekranını otomatik açar. Dokununca programa döner.</div></div><span class="pill" id="screenSaverStatus">Açık</span></div>
+  <div class="screensaver-settings-row">
+    <div class="field"><label for="screenSaverEnabled">Durum</label><select id="screenSaverEnabled"><option value="1">Açık</option><option value="0">Kapalı</option></select></div>
+    <div class="field"><label for="screenSaverMinutes">Bekleme Süresi</label><select id="screenSaverMinutes"><option value="1">1 dakika</option><option value="2">2 dakika</option><option value="5">5 dakika</option><option value="10">10 dakika</option></select></div>
+    <div class="field"><label>Önizleme</label><button class="btn primary" id="previewScreenSaverBtn" type="button">Şimdi Göster</button></div>
+  </div>
+  <div class="settings-note">Ekran koruyucu kritik veri giriş ekranlarında otomatik açılmaz. Saat, aktif servis, yolcu, yakıt ve uyarı bilgileri program kayıtlarından canlı yenilenir.</div>
+</div>
+<div class="card panel settings-panel settings-data-card">
             <div class="panel-header">
               <div>
                 <h2 class="panel-title">Veri Yedekleme</h2>
@@ -18368,7 +18388,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.29</strong>
+                <strong>v4.44.30</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -18413,7 +18433,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.29";
+    const APP_VERSION = "4.44.30";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -34641,5 +34661,39 @@
       if ($("#screen-driver")?.classList.contains("active")) renderDriverPanel();
     }, 30000);
   </script>
+
+<div id="sysScreenSaver" aria-hidden="true">
+ <canvas class="ss-canvas" id="ssCanvas"></canvas><div class="ss-glow"></div>
+ <div class="ss-shell">
+  <div class="ss-top"><div class="ss-brand">SYS<small>SERVİS YÖNETİM SİSTEMİ</small></div><div class="ss-clock"><strong id="ssClock">00:00:00</strong><span id="ssDate">-</span></div><div class="ss-city"><strong>İSTANBUL</strong><span id="ssWeather">Canlı operasyon ekranı</span></div></div>
+  <div class="ss-grid">
+   <div class="ss-card"><div class="ss-kicker" id="ssServiceState">AKTİF SERVİS</div><div class="ss-plate" id="ssPlate">SERVİS BEKLENİYOR</div><div class="ss-model" id="ssVehicle">Araç bilgisi</div><div class="ss-bus">🚌</div></div>
+   <div class="ss-center"><div class="ss-metrics"><div class="ss-card ss-metric"><span>YOLCU</span><b id="ssPassengerCount">0</b><small>Aktif yolcu</small></div><div class="ss-card ss-metric"><span>BİNDİ</span><b id="ssBoarded">0</b><small>Bugün</small></div><div class="ss-card ss-metric"><span>İNDİ</span><b id="ssDropped">0</b><small>Bugün</small></div><div class="ss-card ss-metric"><span>GECİKME</span><b id="ssDelay">00:00</b><small>Dakika</small></div></div><div class="ss-card ss-route"><div class="ss-route-line"></div><div class="ss-welcome">HOŞ GELDİNİZ<small>EMNİYET KEMERİNİZİ TAKMAYI UNUTMAYINIZ</small></div></div><div class="ss-card"><div class="ss-kicker">AKTİF UYARILAR</div><div id="ssAlerts" style="margin-top:12px;color:#dcecf8">Araç bakım ve evrak durumu kontrol ediliyor.</div></div></div>
+   <div class="ss-side"><div class="ss-card ss-next"><div class="ss-kicker">SONRAKİ DURAK</div><strong id="ssNextStop">Aktif rota bulunmuyor</strong><span>TAHMİNİ VARIŞ</span><div class="ss-arrival" id="ssArrival">--:--</div></div><div class="ss-card ss-driver"><div class="ss-kicker">ŞOFÖR BİLGİSİ</div><strong id="ssDriver">Kayıtlı şoför</strong><span id="ssShift">Günün seferi bekleniyor</span></div></div>
+  </div>
+  <div class="ss-bottom"><div class="ss-card"><strong>YAKIT FİYATLARI</strong><span id="ssFuel">Shell / Opet güncel değerler</span></div><div class="ss-card"><strong>YAKLAŞAN BAKIM</strong><span id="ssMaintenance">Kontrol ediliyor</span></div><div class="ss-card"><strong>GÜVENLİ SÜRÜŞ</strong><span>Sevdikleriniz sizi bekliyor</span></div><div class="ss-card"><strong>CANLI GRAFİK</strong><div class="ss-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+ </div><div class="ss-hint">Programa dönmek için ekrana dokunun</div>
+</div>
+
+<script id="sysScreenSaverScript">
+(()=>{
+ const KEY='SYS_SCREEN_SAVER_V1'; let timer=null,clockTimer=null,animId=null,lastActivity=Date.now();
+ const $s=(q)=>document.querySelector(q); const cfg=()=>{try{return {...{enabled:true,minutes:2},...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{return {enabled:true,minutes:2}}};
+ function saveCfg(){const c={enabled:$s('#screenSaverEnabled')?.value!=='0',minutes:Number($s('#screenSaverMinutes')?.value||2)};localStorage.setItem(KEY,JSON.stringify(c));updateSettings();reset();}
+ function updateSettings(){const c=cfg(); if($s('#screenSaverEnabled'))$s('#screenSaverEnabled').value=c.enabled?'1':'0';if($s('#screenSaverMinutes'))$s('#screenSaverMinutes').value=String(c.minutes);if($s('#screenSaverStatus'))$s('#screenSaverStatus').textContent=c.enabled?`${c.minutes} dk sonra`:'Kapalı';}
+ function criticalScreen(){const id=document.querySelector('.module-screen.active')?.id||''; if(['screen-settings','screen-records','screen-finance','screen-address-book'].includes(id))return true;const a=document.activeElement;return !!(a&&['INPUT','TEXTAREA','SELECT'].includes(a.tagName));}
+ function reset(){lastActivity=Date.now();clearTimeout(timer);const c=cfg();if(!c.enabled||$s('#sysScreenSaver')?.classList.contains('active'))return;timer=setTimeout(()=>{if(!criticalScreen())show();else reset()},Math.max(1,c.minutes)*60000)}
+ function txt(id,f='-'){return ($s(id)?.textContent||f).trim()||f}
+ function sync(){const now=new Date();$s('#ssClock').textContent=now.toLocaleTimeString('tr-TR');$s('#ssDate').textContent=now.toLocaleDateString('tr-TR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+ const live=Number(txt('#commandLiveCount','0'))||0;$s('#ssServiceState').textContent=live?'AKTİF SERVİS':'SERVİS BEKLEMEDE';const pActive=!$s('#commandPersonnelCard')?.classList.contains('is-idle')&&txt('#commandPersonnelState','').toLowerCase().includes('canlı');const card=pActive?$s('#commandPersonnelCard'):$s('#commandSchoolCard');$s('#ssNextStop').textContent=card?.querySelector('.command-next-name')?.textContent?.trim()||txt('#commandLiveTitle','Aktif rota bulunmuyor');$s('#ssPassengerCount').textContent=live?txt('#commandLiveCount','1'):'0';$s('#ssFuel').textContent=`Shell ${txt('#shellFuelPrice','-')} • Opet ${txt('#opetFuelPrice','-')}`;$s('#ssMaintenance').textContent=txt('#commandMaintenanceText','Araç bakım ve evrakları güncel');$s('#ssAlerts').textContent=txt('#commandInvoiceReminderText',txt('#commandMaintenanceText','Aktif uyarı bulunmuyor'));
+ try{const v=(window.state?.vehicles||[])[0];if(v){$s('#ssPlate').textContent=v.plate||'PLAKA YOK';$s('#ssVehicle').textContent=[v.brand,v.model].filter(Boolean).join(' ')||'Araç';$s('#ssDriver').textContent=v.driverName||v.driver||'Kayıtlı şoför';}}catch{}
+ $s('#ssArrival').textContent=new Date(now.getTime()+5*60000).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+ }
+ function draw(){const c=$s('#ssCanvas');if(!c)return;const dpr=Math.min(devicePixelRatio||1,2),w=innerWidth,h=innerHeight;c.width=w*dpr;c.height=h*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);let t=0;function frame(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';for(let j=0;j<4;j++){x.beginPath();for(let i=0;i<=w;i+=12){const y=h*.68+Math.sin(i*.012+t+j)*25+j*18;x.lineTo(i,y)}const g=x.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,220,255,.03)');g.addColorStop(.5,'rgba(20,110,255,.42)');g.addColorStop(1,'rgba(180,35,255,.04)');x.strokeStyle=g;x.lineWidth=2;x.stroke()}t+=.018;animId=requestAnimationFrame(frame)}frame()}
+ function show(){const el=$s('#sysScreenSaver');if(!el)return;sync();el.classList.add('active');el.setAttribute('aria-hidden','false');clockTimer=setInterval(sync,1000);draw()}
+ function hide(){const el=$s('#sysScreenSaver');if(!el?.classList.contains('active'))return;el.classList.remove('active');el.setAttribute('aria-hidden','true');clearInterval(clockTimer);cancelAnimationFrame(animId);reset()}
+ document.addEventListener('DOMContentLoaded',()=>{updateSettings();['pointerdown','keydown','mousemove','touchstart','scroll'].forEach(e=>document.addEventListener(e,ev=>{if(ev.target.closest?.('#sysScreenSaver'))return;reset()},{passive:true}));$s('#screenSaverEnabled')?.addEventListener('change',saveCfg);$s('#screenSaverMinutes')?.addEventListener('change',saveCfg);$s('#previewScreenSaverBtn')?.addEventListener('click',show);$s('#sysScreenSaver')?.addEventListener('pointerdown',hide);$s('#sysScreenSaver')?.addEventListener('keydown',hide);reset()});
+})();
+</script>
 </body>
 </html>
