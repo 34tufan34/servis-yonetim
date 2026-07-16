@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.27</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.28</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -3994,7 +3994,7 @@
     }
 
 
-    /* v4.44.27 - Yeni dengeli tema seti */
+    /* v4.44.28 - Yeni dengeli tema seti */
     body[data-theme="ocean"] {
       --bg: #031119;
       --panel: #08212c;
@@ -13812,7 +13812,7 @@
     }
 
 
-    /* v4.44.27 - Ayarlar/Yedek kesilme ve yerleşim düzeltmesi */
+    /* v4.44.28 - Ayarlar/Yedek kesilme ve yerleşim düzeltmesi */
     #screen-settings .settings-grid {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       grid-auto-flow: row;
@@ -14030,7 +14030,7 @@
 
   
 
-    /* v4.44.27 - Komuta Paneli kalan süre ve pasif Servisi Bitir durumu */
+    /* v4.44.28 - Komuta Paneli kalan süre ve pasif Servisi Bitir durumu */
     #screen-command .command-next-top {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto auto;
@@ -14117,7 +14117,68 @@
         grid-row: 1;
       }
     }
-</style>
+
+
+    /* v4.44.28 - Araç amortisman modülü */
+    .vehicle-depreciation-note {
+      padding: 10px 12px;
+      border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--panel-2) 86%, transparent);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .vehicle-depreciation-preview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .vehicle-depreciation-metric {
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+      border-radius: 12px;
+      background: linear-gradient(145deg, color-mix(in srgb, var(--panel-2) 94%, transparent), color-mix(in srgb, var(--accent) 7%, var(--panel)));
+    }
+    .vehicle-depreciation-metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .vehicle-depreciation-metric strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .vehicle-depreciation-metric.risk {
+      border-color: color-mix(in srgb, var(--danger) 48%, var(--line));
+      background: color-mix(in srgb, var(--danger) 9%, var(--panel));
+    }
+    .vehicle-depreciation-status {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    @media (max-width: 1080px) {
+      .vehicle-depreciation-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      .vehicle-depreciation-preview { grid-template-columns: 1fr; }
+    }
+
+  </style>
 </head>
 
 <body class="auth-locked license-locked">
@@ -14275,7 +14336,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.27</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.28</div>
         </div>
       </div>
 
@@ -15400,6 +15461,7 @@
 
                   <div class="mini-tabs" id="vehicleFormTabs">
                     <button class="mini-tab active" type="button" data-vehicle-form-page="main">Araç / Şoför</button>
+                    <button class="mini-tab" type="button" data-vehicle-form-page="depreciation">Amortisman</button>
                     <button class="mini-tab" type="button" data-vehicle-form-page="documents">Bakım / Evrak</button>
                   </div>
 
@@ -15409,13 +15471,42 @@
                       <div class="field"><label for="vehicleCapacity">Kapasite *</label><input id="vehicleCapacity" type="number" min="1" step="1" placeholder="Örn. 16" required /></div>
                     </div>
                     <div class="two">
+                      <div class="field"><label for="vehicleBrand">Marka</label><input id="vehicleBrand" placeholder="Örn. Ford" /></div>
+                      <div class="field"><label for="vehicleModel">Model</label><input id="vehicleModel" placeholder="Örn. Transit 16+1" /></div>
+                    </div>
+                    <div class="two">
+                      <div class="field"><label for="vehicleModelYear">Model Yılı</label><input id="vehicleModelYear" type="number" min="1950" max="2100" step="1" placeholder="Örn. 2022" /></div>
+                      <div class="field"><label for="vehicleCurrentKm">Güncel Kilometre</label><input id="vehicleCurrentKm" type="number" min="0" step="1" placeholder="Örn. 185000" /></div>
+                    </div>
+                    <div class="two">
                       <div class="field"><label for="driverName">Şoför Adı</label><input id="driverName" placeholder="Örn. Mehmet Kaya" /></div>
                       <div class="field"><label for="driverPhone">Şoför Telefon</label><input id="driverPhone" inputmode="tel" placeholder="05xx xxx xx xx" /></div>
                     </div>
+                    <div class="field"><label for="vehicleStatus">Durum</label><select id="vehicleStatus"><option value="Aktif">Aktif</option><option value="Pasif">Pasif</option><option value="Bakımda">Bakımda</option></select></div>
+                  </div>
+
+                  <div class="vehicle-form-page" id="vehicleFormPage-depreciation">
+                    <div class="vehicle-depreciation-note"><strong>Hesaplama yöntemi:</strong> Doğrusal amortisman kullanılır. Araç modeli kayıt ve raporlama içindir; aylık tutar alış bedeli, kalıntı değer, alış tarihi ve faydalı ömür üzerinden hesaplanır. Piyasa değer kaybı için iki farklı tarihli piyasa değeri girilmelidir.</div>
                     <div class="two">
-                      <div class="field"><label for="vehicleCurrentKm">Güncel Kilometre</label><input id="vehicleCurrentKm" type="number" min="0" step="1" placeholder="Örn. 185000" /></div>
-                      <div class="field"><label for="vehicleStatus">Durum</label><select id="vehicleStatus"><option value="Aktif">Aktif</option><option value="Pasif">Pasif</option><option value="Bakımda">Bakımda</option></select></div>
+                      <div class="field"><label for="vehicleDepreciationEnabled">Amortisman Hesabı</label><select id="vehicleDepreciationEnabled"><option value="false">Hesaba Dahil Etme</option><option value="true">Aylık Maliyete Dahil Et</option></select></div>
+                      <div class="field"><label for="vehiclePurchaseDate">Alış Tarihi</label><input id="vehiclePurchaseDate" type="date" /></div>
                     </div>
+                    <div class="two">
+                      <div class="field"><label for="vehiclePurchasePrice">Alış Bedeli (TL)</label><input id="vehiclePurchasePrice" type="number" min="0" step="0.01" placeholder="Örn. 1500000" /></div>
+                      <div class="field"><label for="vehicleResidualValue">Kalıntı / Tahmini Satış Değeri (TL)</label><input id="vehicleResidualValue" type="number" min="0" step="0.01" placeholder="Örn. 300000" /></div>
+                    </div>
+                    <div class="two">
+                      <div class="field"><label for="vehicleUsefulLifeYears">Faydalı Ömür (Yıl)</label><input id="vehicleUsefulLifeYears" type="number" min="1" max="30" step="1" value="5" /></div>
+                      <div class="field"><label for="vehicleCurrentMarketValue">Güncel Piyasa Değeri (TL)</label><input id="vehicleCurrentMarketValue" type="number" min="0" step="0.01" placeholder="İsteğe bağlı" /></div>
+                    </div>
+                    <div class="two">
+                      <div class="field"><label for="vehiclePreviousMarketValue">Önceki Piyasa Değeri (TL)</label><input id="vehiclePreviousMarketValue" type="number" min="0" step="0.01" placeholder="İsteğe bağlı" /></div>
+                      <div class="field"><label for="vehiclePreviousValuationDate">Önceki Değerleme Tarihi</label><input id="vehiclePreviousValuationDate" type="date" /></div>
+                    </div>
+                    <div class="field"><label for="vehicleCurrentValuationDate">Güncel Değerleme Tarihi</label><input id="vehicleCurrentValuationDate" type="date" /></div>
+                    <div class="form-section-title">Anlık Hesaplama</div>
+                    <div class="vehicle-depreciation-preview" id="vehicleDepreciationPreview"></div>
+                    <div class="vehicle-depreciation-status" id="vehicleDepreciationStatus"></div>
                   </div>
 
                   <div class="vehicle-form-page" id="vehicleFormPage-documents">
@@ -17837,11 +17928,11 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.27</strong>
+                <strong>v4.44.28</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
-                <strong id="schemaVersion">31</strong>
+                <strong id="schemaVersion">34</strong>
               </div>
               <div>
                 <span>Kayıt Anahtarı</span>
@@ -17882,8 +17973,8 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.27";
-    const SCHEMA_VERSION = 33;
+    const APP_VERSION = "4.44.28";
+    const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
       invoiced: "Faturalı",
@@ -17995,6 +18086,21 @@
       state.vehicleExpenses = state.vehicleExpenses.map((record) => ({
         ...record,
         fuelOpeningFill: Boolean(record?.fuelOpeningFill)
+      }));
+      state.vehicles = state.vehicles.map((vehicle) => ({
+        ...vehicle,
+        brand: String(vehicle?.brand || ""),
+        model: String(vehicle?.model || ""),
+        modelYear: Number(vehicle?.modelYear || 0),
+        depreciationEnabled: Boolean(vehicle?.depreciationEnabled),
+        purchaseDate: String(vehicle?.purchaseDate || ""),
+        purchasePrice: Number(vehicle?.purchasePrice || 0),
+        usefulLifeYears: Math.max(1, Number(vehicle?.usefulLifeYears || 5)),
+        residualValue: Math.max(0, Number(vehicle?.residualValue || 0)),
+        previousMarketValue: Math.max(0, Number(vehicle?.previousMarketValue || 0)),
+        previousValuationDate: String(vehicle?.previousValuationDate || ""),
+        currentMarketValue: Math.max(0, Number(vehicle?.currentMarketValue || 0)),
+        currentValuationDate: String(vehicle?.currentValuationDate || "")
       }));
       state.jobs = state.jobs.map((job) => ({
         ...job,
@@ -18201,6 +18307,132 @@
     function uniqueSorted(values) {
       return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))]
         .sort((a, b) => a.localeCompare(b, "tr-TR"));
+    }
+
+    function depreciationMonthIndex(value) {
+      const match = String(value || "").slice(0, 7).match(/^(\d{4})-(\d{2})$/);
+      if (!match) return null;
+      return Number(match[1]) * 12 + Number(match[2]) - 1;
+    }
+
+    function vehicleDepreciationProfile(vehicle, month = currentMonthISO()) {
+      const enabled = Boolean(vehicle?.depreciationEnabled);
+      const purchasePrice = Math.max(0, Number(vehicle?.purchasePrice || 0));
+      const residualValue = Math.max(0, Math.min(purchasePrice, Number(vehicle?.residualValue || 0)));
+      const usefulLifeYears = Math.max(1, Number(vehicle?.usefulLifeYears || 5));
+      const usefulMonths = Math.max(12, Math.round(usefulLifeYears * 12));
+      const purchaseMonth = String(vehicle?.purchaseDate || "").slice(0, 7);
+      const selectedMonth = String(month || currentMonthISO()).slice(0, 7);
+      const purchaseIndex = depreciationMonthIndex(purchaseMonth);
+      const selectedIndex = depreciationMonthIndex(selectedMonth);
+      const depreciableBase = Math.max(0, purchasePrice - residualValue);
+      const monthlyBase = usefulMonths > 0 ? depreciableBase / usefulMonths : 0;
+      const elapsedMonths = purchaseIndex === null || selectedIndex === null
+        ? 0
+        : Math.max(0, Math.min(usefulMonths, selectedIndex - purchaseIndex + 1));
+      const activeInMonth = enabled && purchasePrice > 0 && purchaseIndex !== null && selectedIndex !== null && selectedIndex >= purchaseIndex && selectedIndex < purchaseIndex + usefulMonths;
+      const monthlyDepreciation = activeInMonth ? monthlyBase : 0;
+      const accumulatedDepreciation = enabled ? Math.min(depreciableBase, monthlyBase * elapsedMonths) : 0;
+      const bookValue = purchasePrice > 0 ? Math.max(residualValue, purchasePrice - accumulatedDepreciation) : 0;
+      const remainingMonths = enabled ? Math.max(0, usefulMonths - elapsedMonths) : usefulMonths;
+
+      const previousMarketValue = Math.max(0, Number(vehicle?.previousMarketValue || 0));
+      const currentMarketValue = Math.max(0, Number(vehicle?.currentMarketValue || 0));
+      const previousIndex = depreciationMonthIndex(vehicle?.previousValuationDate);
+      const currentIndex = depreciationMonthIndex(vehicle?.currentValuationDate);
+      const marketPeriodMonths = previousIndex !== null && currentIndex !== null ? Math.max(1, currentIndex - previousIndex) : 0;
+      const marketLossTotal = previousMarketValue > 0 && currentMarketValue > 0 ? Math.max(0, previousMarketValue - currentMarketValue) : 0;
+      const marketMonthlyLoss = marketPeriodMonths > 0 ? marketLossTotal / marketPeriodMonths : 0;
+
+      return {
+        enabled, purchasePrice, residualValue, usefulLifeYears, usefulMonths, purchaseMonth, selectedMonth,
+        depreciableBase, monthlyBase, monthlyDepreciation, accumulatedDepreciation, bookValue, remainingMonths,
+        activeInMonth, elapsedMonths, previousMarketValue, currentMarketValue, marketLossTotal, marketMonthlyLoss,
+        marketPeriodMonths
+      };
+    }
+
+    function vehicleMonthlyDepreciation(vehicleId, month = currentMonthISO()) {
+      const vehicle = state.vehicles.find((item) => item.id === vehicleId);
+      return vehicle ? Number(vehicleDepreciationProfile(vehicle, month).monthlyDepreciation || 0) : 0;
+    }
+
+    function vehicleDepreciationTotals(month = getFinanceMonth()) {
+      const rows = state.vehicles.map((vehicle) => ({ vehicle, profile: vehicleDepreciationProfile(vehicle, month) }));
+      const total = rows.reduce((sum, row) => sum + Number(row.profile.monthlyDepreciation || 0), 0);
+      const enabledCount = rows.filter((row) => row.profile.enabled).length;
+      const activeCount = rows.filter((row) => row.profile.activeInMonth).length;
+      return { rows, total, enabledCount, activeCount };
+    }
+
+    function vehicleDepreciationAllocation(vehicleId, month = getFinanceMonth()) {
+      const amount = vehicleMonthlyDepreciation(vehicleId, month);
+      const jobRows = state.jobs.filter((job) => profitabilityJobVehicleId(job) === vehicleId && (jobOverlapsMonth(job, month) || Boolean(getFinanceRecord(job.id, month)) || financeDispatchesForJob(job.id, month).length > 0));
+      const schoolRows = state.schools.filter((school) => school.vehicleId === vehicleId && (school.status === "Aktif" || state.schoolServiceSessions.some((session) => session.schoolId === school.id && String(session.date || "").startsWith(month))));
+      const items = [
+        ...jobRows.map((job) => ({ kind: "job", id: job.id, weight: Math.max(0, Number(jobRealizedTripsForMonth(job, month) || 0)) })),
+        ...schoolRows.map((school) => ({ kind: "school", id: school.id, weight: Math.max(0, state.schoolServiceSessions.filter((session) => session.schoolId === school.id && String(session.date || "").startsWith(month) && session.status === "Tamamlandı").length) }))
+      ];
+      const positiveWeight = items.reduce((sum, item) => sum + item.weight, 0);
+      const fallbackWeight = items.length ? 1 / items.length : 0;
+      const job = {};
+      const school = {};
+      items.forEach((item) => {
+        const share = positiveWeight > 0 ? item.weight / positiveWeight : fallbackWeight;
+        if (item.kind === "job") job[item.id] = amount * share;
+        else school[item.id] = amount * share;
+      });
+      return { amount, job, school, unallocated: items.length ? 0 : amount };
+    }
+
+    function vehicleDepreciationForJob(jobId, month = getFinanceMonth()) {
+      const job = getJob(jobId);
+      const vehicleId = profitabilityJobVehicleId(job);
+      return vehicleId ? Number(vehicleDepreciationAllocation(vehicleId, month).job[jobId] || 0) : 0;
+    }
+
+    function vehicleDepreciationForSchool(schoolId, month = getFinanceMonth()) {
+      const school = getSchool(schoolId);
+      return school?.vehicleId ? Number(vehicleDepreciationAllocation(school.vehicleId, month).school[schoolId] || 0) : 0;
+    }
+
+    function vehicleDepreciationDraft() {
+      return {
+        depreciationEnabled: $("#vehicleDepreciationEnabled")?.value === "true",
+        purchaseDate: $("#vehiclePurchaseDate")?.value || "",
+        purchasePrice: Number($("#vehiclePurchasePrice")?.value || 0),
+        usefulLifeYears: Number($("#vehicleUsefulLifeYears")?.value || 5),
+        residualValue: Number($("#vehicleResidualValue")?.value || 0),
+        previousMarketValue: Number($("#vehiclePreviousMarketValue")?.value || 0),
+        previousValuationDate: $("#vehiclePreviousValuationDate")?.value || "",
+        currentMarketValue: Number($("#vehicleCurrentMarketValue")?.value || 0),
+        currentValuationDate: $("#vehicleCurrentValuationDate")?.value || ""
+      };
+    }
+
+    function updateVehicleDepreciationPreview() {
+      const host = $("#vehicleDepreciationPreview");
+      const status = $("#vehicleDepreciationStatus");
+      if (!host || !status) return;
+      const profile = vehicleDepreciationProfile(vehicleDepreciationDraft(), currentMonthISO());
+      const risk = profile.purchasePrice > 0 && profile.residualValue >= profile.purchasePrice;
+      host.innerHTML = [
+        { label: "Aylık Muhasebe Amortismanı", value: profile.monthlyBase > 0 ? formatTRY(profile.monthlyBase) : "-" },
+        { label: "Bu Ay Maliyete Giren", value: profile.monthlyDepreciation > 0 ? formatTRY(profile.monthlyDepreciation) : "-" },
+        { label: "Birikmiş Amortisman", value: profile.accumulatedDepreciation > 0 ? formatTRY(profile.accumulatedDepreciation) : "-" },
+        { label: "Kalan Defter Değeri", value: profile.purchasePrice > 0 ? formatTRY(profile.bookValue) : "-", risk },
+        { label: "Kalan Süre", value: profile.enabled ? `${profile.remainingMonths} ay` : "Hesap dışı" },
+        { label: "Piyasa Değeri", value: profile.currentMarketValue > 0 ? formatTRY(profile.currentMarketValue) : "-" },
+        { label: "Tahmini Piyasa Kaybı / Ay", value: profile.marketMonthlyLoss > 0 ? formatTRY(profile.marketMonthlyLoss) : "-" },
+        { label: "Piyasa Değeri Farkı", value: profile.marketLossTotal > 0 ? formatTRY(profile.marketLossTotal) : "-" }
+      ].map((item) => `<div class="vehicle-depreciation-metric ${item.risk ? "risk" : ""}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`).join("");
+      const notes = [];
+      if (!profile.enabled) notes.push("Amortisman finans ve KM maliyetine dahil edilmiyor.");
+      else if (!profile.purchaseDate || profile.purchasePrice <= 0) notes.push("Hesap için alış tarihi ve alış bedeli girilmeli.");
+      else if (!profile.activeInMonth && profile.remainingMonths <= 0) notes.push("Faydalı ömür tamamlanmış görünüyor.");
+      else notes.push("Aylık amortisman Finans, Kârlılık ve KM Analizi maliyetlerine dahil edilir.");
+      if (risk) notes.push("Kalıntı değer alış bedelinden düşük olmalıdır.");
+      status.innerHTML = notes.map((note) => `<span>• ${escapeHtml(note)}</span>`).join("");
     }
 
     function duplicatePhoneSet() {
@@ -21161,9 +21393,11 @@
       const openingFuelCost = rows.reduce((sum,row)=>sum+Number(row.openingFuelCost||0),0);
       const revenue = rows.reduce((sum,row)=>sum+Number(row.revenue||0),0);
       const cost = rows.reduce((sum,row)=>sum+Number(row.totalCost||0),0);
+      const depreciationCost = rows.reduce((sum,row)=>sum+Number(row.depreciationCost||0),0);
       const net = rows.reduce((sum,row)=>sum+Number(row.net||0),0);
       const fuelKm = distance > 0 ? fuelConsumptionCost / distance : null;
       const fuel100Km = fuelKm === null ? null : fuelKm * 100;
+      const depreciationKm = distance > 0 ? depreciationCost / distance : null;
       const costKm = distance > 0 ? cost / distance : null;
       const revenueKm = distance > 0 ? revenue / distance : null;
       const netKm = distance > 0 ? net / distance : null;
@@ -21173,6 +21407,8 @@
         {label:"KM Hesabına Giren Yakıt",value:formatTRY(fuelConsumptionCost),risk:false,note:openingFuelCost>0?"Başlangıç dolumu hariç":"Başlangıç dolumu işaretlenmemiş"},
         {label:"Yakıt Gideri / KM",value:fuelKm===null?"-":`${formatTRY(fuelKm)} / km`,risk:false,note:"Tüketim yakıtı ÷ mesafe"},
         {label:"100 KM Yakıt Gideri",value:fuel100Km===null?"-":`${formatTRY(fuel100Km)} / 100 km`,risk:false},
+        {label:"Aylık Amortisman",value:formatTRY(depreciationCost),risk:false,note:"Seçili ayda maliyete dahil edilen araç değer kaybı"},
+        {label:"Amortisman / KM",value:depreciationKm===null?"-":`${formatTRY(depreciationKm)} / km`,risk:false},
         {label:"Toplam Maliyet / KM",value:costKm===null?"-":`${formatTRY(costKm)} / km`,risk:false},
         {label:"Gelir / KM",value:revenueKm===null?"-":`${formatTRY(revenueKm)} / km`,risk:false},
         {label:netKm===null?"KM Sonucu":netKm>=0?"KM Başına Kâr":"KM Başına Zarar",value:netKm===null?"-":`${formatTRY(Math.abs(netKm))} / km`,risk:netKm!==null&&netKm<0,note:netKm===null?"KM verisi yetersiz":netKm>=0?"Gelir maliyetin üzerinde":"Maliyet gelirin üzerinde"}
@@ -21180,14 +21416,14 @@
       renderVehicleKmCostChart(rows);
       renderVehicleKmTrendChart(filter, month);
       if (!rows.length) { host.innerHTML='<div class="empty">Seçilen araç ve dönem için analiz kaydı yok.</div>'; return; }
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt Gideri</th><th>Yakıt ₺/KM</th><th>Yakıt ₺/100 KM</th><th>Araç Gideri ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Mesafe / Kaynak</th><th>Yakıt Gideri</th><th>Yakıt ₺/KM</th><th>Yakıt ₺/100 KM</th><th>Nakit Araç Gideri ₺/KM</th><th>Amortisman ₺/KM</th><th>Toplam Maliyet ₺/KM</th><th>Gelir ₺/KM</th><th>Net ₺/KM</th><th>KM Durumu</th><th>İşlem</th></tr></thead><tbody>${rows.map((row)=>{
         const info=row.kmInfo||vehicleKmDistanceInfo(row.id,month);
         const cls=row.netPerKm===null?"":row.netPerKm<0?"vehicle-km-loss":"vehicle-km-profit";
         const status=row.netPerKm===null?"Hesaplanamadı":row.netPerKm<0?"KM başına zarar":"KM başına kâr";
         const fuel100 = row.fuelCostPerKm === null ? null : row.fuelCostPerKm * 100;
         const fuelHistory = state.vehicleExpenses.filter((expense) => expense.vehicleId === row.id && expense.type === "Yakıt");
         const needsOpeningBaseline = fuelHistory.length >= 2 && !fuelHistory.some(vehicleExpenseIsOpeningFuel);
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong><br><span class="muted">KM hesabı: ${escapeHtml(formatTRY(row.fuelConsumptionCost||0))}${row.openingFuelCost>0?` · ${escapeHtml(formatTRY(row.openingFuelCost))} başlangıç hariç`:""}</span></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.vehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.vehicleCostPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions table-action-row vehicle-km-row-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button>${needsOpeningBaseline?`<button class="btn small" type="button" data-action="mark-opening-fuel" data-id="${escapeHtml(row.id)}">İlk Yakıtı Başlangıç Yap</button>`:""}</div></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span class="muted">${escapeHtml(row.secondary)}</span></td><td><strong>${row.estimatedKm?`${escapeHtml(row.estimatedKm.toLocaleString("tr-TR"))} km`:"-"}</strong><br><span class="vehicle-km-source">${escapeHtml(info.source)}${info.startKm&&info.endKm?` · ${escapeHtml(info.startKm.toLocaleString("tr-TR"))} → ${escapeHtml(info.endKm.toLocaleString("tr-TR"))}`:""}</span></td><td><strong>${escapeHtml(formatTRY(row.fuelCost||0))}</strong><br><span class="muted">KM hesabı: ${escapeHtml(formatTRY(row.fuelConsumptionCost||0))}${row.openingFuelCost>0?` · ${escapeHtml(formatTRY(row.openingFuelCost))} başlangıç hariç`:""}</span></td><td>${row.fuelCostPerKm===null?"-":`<strong>${escapeHtml(formatTRY(row.fuelCostPerKm))}</strong>`}</td><td>${fuel100===null?"-":escapeHtml(formatTRY(fuel100))}</td><td>${row.cashVehicleCostPerKm===null?"-":escapeHtml(formatTRY(row.cashVehicleCostPerKm))}</td><td>${row.depreciationPerKm===null?"-":escapeHtml(formatTRY(row.depreciationPerKm))}</td><td><strong>${row.kmCost===null?"-":escapeHtml(formatTRY(row.kmCost))}</strong></td><td>${row.revenuePerKm===null?"-":escapeHtml(formatTRY(row.revenuePerKm))}</td><td><strong class="${cls}">${row.netPerKm===null?"-":escapeHtml(formatTRY(row.netPerKm))}</strong></td><td><span class="pill ${row.netPerKm!==null&&row.netPerKm>=0?"active":row.netPerKm!==null?"passive":""}">${escapeHtml(status)}</span></td><td><div class="document-actions table-action-row vehicle-km-row-actions">${info.recordId?`<button class="btn small" type="button" data-action="edit-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Düzenle</button><button class="btn small danger" type="button" data-action="delete-vehicle-km" data-id="${escapeHtml(info.recordId)}">KM Sil</button>`:`<button class="btn small primary" type="button" data-action="new-vehicle-km" data-id="${escapeHtml(row.id)}">KM Gir</button>`}<button class="btn small" type="button" data-action="profit-open-vehicle" data-id="${escapeHtml(row.id)}">Giderler</button>${needsOpeningBaseline?`<button class="btn small" type="button" data-action="mark-opening-fuel" data-id="${escapeHtml(row.id)}">İlk Yakıtı Başlangıç Yap</button>`:""}</div></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -21818,7 +22054,7 @@
     }
 
     function activateVehicleFormPage(name = "main") {
-      const valid = name === "documents" ? "documents" : "main";
+      const valid = ["main", "depreciation", "documents"].includes(name) ? name : "main";
       $$("#vehicleFormTabs .mini-tab").forEach((button) => button.classList.toggle("active", button.dataset.vehicleFormPage === valid));
       $$("#vehicleForm .vehicle-form-page").forEach((page) => page.classList.remove("active"));
       $(`#vehicleFormPage-${valid}`)?.classList.add("active");
@@ -22130,10 +22366,12 @@
       if (!host) return;
       if (!state.vehicles.length) { host.innerHTML = `<div class="empty">Henüz araç yok. Önce araç kartı oluştur.</div>`; return; }
       const rows = [...state.vehicles].sort((a,b) => String(a.plate).localeCompare(String(b.plate), "tr-TR"));
-      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Durum</th><th>Plaka / KM</th><th>Bakım</th><th>Evrak Sağlığı</th><th>Şoför</th><th>İşlem</th></tr></thead><tbody>${rows.map((vehicle) => {
+      host.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Durum</th><th>Plaka / Araç</th><th>Amortisman</th><th>Bakım</th><th>Evrak Sağlığı</th><th>Şoför</th><th>İşlem</th></tr></thead><tbody>${rows.map((vehicle) => {
         const health = vehicleHealth(vehicle);
         const nextMaintenance = vehicle.nextMaintenanceDate ? jobDateText(vehicle.nextMaintenanceDate) : vehicle.nextMaintenanceKm ? Number(vehicle.nextMaintenanceKm).toLocaleString("tr-TR") + " km" : "Plan yok";
-        return `<tr><td><span class="pill ${vehicle.status === "Aktif" ? "active" : "passive"}">${escapeHtml(vehicle.status || "Aktif")}</span></td><td><strong>${escapeHtml(vehicle.plate)}</strong><br><span class="muted">${Number(vehicle.currentKm || 0).toLocaleString("tr-TR")} km · ${escapeHtml(vehicle.capacity)} kişi</span></td><td>${vehicle.lastMaintenanceDate ? escapeHtml(jobDateText(vehicle.lastMaintenanceDate)) : "Kayıt yok"}<br><span class="muted">Sonraki: ${escapeHtml(nextMaintenance)}</span></td><td><span class="vehicle-health-pill ${escapeHtml(health.className)}">${escapeHtml(health.label)}</span><br><span class="muted">Muayene: ${vehicle.inspectionExpiry ? escapeHtml(jobDateText(vehicle.inspectionExpiry)) : "Eksik"}</span></td><td>${escapeHtml(vehicle.driverName || "-")}<br><span class="muted">${escapeHtml(vehicle.driverPhone || "-")}</span></td><td><button class="btn small" data-action="edit-vehicle" data-id="${escapeHtml(vehicle.id)}">Düzenle</button><button class="btn small" data-action="maintenance-vehicle" data-id="${escapeHtml(vehicle.id)}">Bakım</button><button class="btn small primary" data-action="open-vehicle-km" data-id="${escapeHtml(vehicle.id)}">KM Analizi</button><button class="btn small danger" data-action="delete-vehicle" data-id="${escapeHtml(vehicle.id)}">Sil</button></td></tr>`;
+        const depreciation = vehicleDepreciationProfile(vehicle, currentMonthISO());
+        const vehicleModelText = [vehicle.brand, vehicle.model, vehicle.modelYear || ""].filter(Boolean).join(" · ") || "Model bilgisi yok";
+        return `<tr><td><span class="pill ${vehicle.status === "Aktif" ? "active" : "passive"}">${escapeHtml(vehicle.status || "Aktif")}</span></td><td><strong>${escapeHtml(vehicle.plate)}</strong><br><span class="muted">${escapeHtml(vehicleModelText)} · ${Number(vehicle.currentKm || 0).toLocaleString("tr-TR")} km · ${escapeHtml(vehicle.capacity)} kişi</span></td><td><strong>${depreciation.monthlyDepreciation > 0 ? escapeHtml(formatTRY(depreciation.monthlyDepreciation)) : "-"}</strong><br><span class="muted">${depreciation.enabled ? `Defter: ${escapeHtml(formatTRY(depreciation.bookValue))}` : "Hesap dışı"}</span></td><td>${vehicle.lastMaintenanceDate ? escapeHtml(jobDateText(vehicle.lastMaintenanceDate)) : "Kayıt yok"}<br><span class="muted">Sonraki: ${escapeHtml(nextMaintenance)}</span></td><td><span class="vehicle-health-pill ${escapeHtml(health.className)}">${escapeHtml(health.label)}</span><br><span class="muted">Muayene: ${vehicle.inspectionExpiry ? escapeHtml(jobDateText(vehicle.inspectionExpiry)) : "Eksik"}</span></td><td>${escapeHtml(vehicle.driverName || "-")}<br><span class="muted">${escapeHtml(vehicle.driverPhone || "-")}</span></td><td><button class="btn small" data-action="edit-vehicle" data-id="${escapeHtml(vehicle.id)}">Düzenle</button><button class="btn small" data-action="maintenance-vehicle" data-id="${escapeHtml(vehicle.id)}">Bakım</button><button class="btn small primary" data-action="open-vehicle-km" data-id="${escapeHtml(vehicle.id)}">KM Analizi</button><button class="btn small danger" data-action="delete-vehicle" data-id="${escapeHtml(vehicle.id)}">Sil</button></td></tr>`;
       }).join("")}</tbody></table></div>`;
     }
 
@@ -26532,13 +26770,14 @@
       const personnel = personnelFinanceTotals(month);
       const school = schoolFinanceTotals(month, false);
       const vehicle = vehicleExpenseTotals(month, false);
+      const depreciation = vehicleDepreciationTotals(month);
       const staff = staffPaymentTotals(month, false);
       const totalExpected = personnel.expected + school.expected;
       const totalAccrual = personnel.accrual + school.expected;
       const totalCollected = personnel.collected + school.paid;
       const totalReceivable = personnel.receivable + school.remaining;
       const totalVat = personnel.vat + school.vat;
-      const netResult = totalAccrual - vehicle.total - staff.total;
+      const netResult = totalAccrual - vehicle.total - depreciation.total - staff.total;
       const overdueReceivable = personnel.overdueReceivable + school.overdueRemaining;
       const overdueReceivableCount = personnel.overdueCount + school.overdueUnpaidCount + school.overduePartialCount;
       const staffRiskRecordCount = staffPaymentRows(month, false).filter(({ record, status }) => {
@@ -26574,7 +26813,8 @@
         { label: "Okul Tahakkuku", value: formatTRY(school.expected), risk: false },
         { label: "Toplam Tahsilat", value: formatTRY(totalCollected), risk: false, note: "Faturalı personel ve okul kayıtlarında KDV dahil kasa girişi" },
         { label: "Hesaplanan KDV", value: formatTRY(totalVat), risk: false, note: `Personel ${formatTRY(personnel.vat)} · Okul ${formatTRY(school.vat)} · kâr hesabına eklenmez` },
-        { label: "Araç Giderleri", value: formatTRY(vehicle.total), risk: vehicle.riskCount > 0, note: vehicle.riskCount > 0 ? `${vehicle.riskCount} bağlantı veya pay hatası` : "Normal operasyon gideri", action: "finance-jump-vehicle-expenses" },
+        { label: "Araç Giderleri", value: formatTRY(vehicle.total), risk: vehicle.riskCount > 0, note: vehicle.riskCount > 0 ? `${vehicle.riskCount} bağlantı veya pay hatası` : "Nakit araç giderleri", action: "finance-jump-vehicle-expenses" },
+        { label: "Aylık Amortisman", value: formatTRY(depreciation.total), risk: false, note: `${depreciation.activeCount} araç seçili ayda maliyete dahil` },
         { label: "Şoför / Rehber Ödemeleri", value: formatTRY(staff.total), risk: staff.riskCount > 0, note: staff.overdueCount > 0 ? `${staff.overdueCount} vadesi geçmiş ödeme` : (staff.allocationRiskCount > 0 ? `${staff.allocationRiskCount} bağlantı/pay hatası` : "Normal personel gideri"), action: "finance-jump-staff-payments" },
         { label: "Net Operasyon Sonucu", value: formatTRY(netResult), risk: netResult < 0, note: netResult < 0 ? "Giderler geliri aşıyor" : "KDV hariç operasyon sonucu" },
         { label: "Toplam Alacak", value: formatTRY(totalReceivable), risk: overdueReceivable > 0, note: overdueReceivable > 0 ? `${overdueReceivableCount} vadesi geçmiş kayıt` : "Vadesi geçmemiş bakiye", action: "finance-jump-general-receivable" },
@@ -27432,15 +27672,17 @@
     }
 
     function vehicleExpenseTotalForJob(jobId, month = getFinanceMonth()) {
-      return state.vehicleExpenses
+      const cashExpense = state.vehicleExpenses
         .filter((expense) => expense.jobId === jobId && String(expense.date || "").startsWith(month))
         .reduce((sum, expense) => sum + vehicleExpensePersonnelAmount(expense), 0);
+      return cashExpense + vehicleDepreciationForJob(jobId, month);
     }
 
     function vehicleExpenseTotalForSchool(schoolId, month = getFinanceMonth()) {
-      return state.vehicleExpenses
+      const cashExpense = state.vehicleExpenses
         .filter((expense) => expense.schoolId === schoolId && String(expense.date || "").startsWith(month))
         .reduce((sum, expense) => sum + vehicleExpenseSchoolAmount(expense), 0);
+      return cashExpense + vehicleDepreciationForSchool(schoolId, month);
     }
 
     function vehicleExpenseLinkType(expense) {
@@ -28109,7 +28351,9 @@
         const revenue = personnelRevenue + schoolRevenue;
         const collected = personnelCollected + schoolCollected;
         const vehicleExpenseRowsForMonth = state.vehicleExpenses.filter((expense) => expense.vehicleId === vehicle.id && String(expense.date || "").startsWith(month));
-        const vehicleCost = vehicleExpenseRowsForMonth.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
+        const cashVehicleCost = vehicleExpenseRowsForMonth.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
+        const depreciationCost = vehicleMonthlyDepreciation(vehicle.id, month);
+        const vehicleCost = cashVehicleCost + depreciationCost;
         const fuelStats = vehicleFuelConsumptionSummary(vehicleExpenseRowsForMonth);
         const fuelCost = fuelStats.purchaseCost;
         const fuelLiters = fuelStats.purchaseLiters;
@@ -28128,6 +28372,8 @@
         const estimatedKm = kmInfo.distance > 0 ? kmInfo.distance : null;
         const fuelConsumptionPer100 = estimatedKm && fuelConsumptionLiters > 0 ? fuelConsumptionLiters / estimatedKm * 100 : null;
         const fuelCostPerKm = estimatedKm ? fuelConsumptionCost / estimatedKm : null;
+        const cashVehicleCostPerKm = estimatedKm ? cashVehicleCost / estimatedKm : null;
+        const depreciationPerKm = estimatedKm ? depreciationCost / estimatedKm : null;
         const vehicleCostPerKm = estimatedKm ? vehicleCost / estimatedKm : null;
         const kmCost = estimatedKm ? totalCost / estimatedKm : null;
         const revenuePerKm = estimatedKm ? revenue / estimatedKm : null;
@@ -28136,10 +28382,10 @@
         return {
           kind: "vehicles", id: vehicle.id, name: vehicle.plate || "Plakasız araç",
           secondary: `${vehicle.driverName || "Şoför yok"} · ${jobs.length} iş · ${schools.length} okul`,
-          revenue, collected, vehicleCost, fuelCost, fuelLiters, fuelConsumptionCost, fuelConsumptionLiters, openingFuelCost, openingFuelLiters, staffCost, totalCost, net, margin, activity,
+          revenue, collected, vehicleCost, cashVehicleCost, depreciationCost, fuelCost, fuelLiters, fuelConsumptionCost, fuelConsumptionLiters, openingFuelCost, openingFuelLiters, staffCost, totalCost, net, margin, activity,
           activityLabel: "sefer", unitRevenue: activity > 0 ? revenue / activity : null,
           unitCost: activity > 0 ? totalCost / activity : null, estimatedKm, kmInfo,
-          fuelConsumptionPer100, fuelCostPerKm, vehicleCostPerKm, kmCost, revenuePerKm, netPerKm,
+          fuelConsumptionPer100, fuelCostPerKm, cashVehicleCostPerKm, depreciationPerKm, vehicleCostPerKm, kmCost, revenuePerKm, netPerKm,
           status: stateInfo
         };
       }).filter((row) => row.revenue > 0 || row.totalCost > 0 || state.vehicles.find((vehicle) => vehicle.id === row.id)?.status === "Aktif")
@@ -28494,12 +28740,12 @@
       const staffTable = staffRows.map(({record,values,status,vehicle:rowVehicle,job,school:rowSchool})=>`<tr><td><strong>${escapeHtml(record.workerName||"-")}</strong><br><span>${escapeHtml(record.workerType==="guide"?"Rehber":"Şoför")} · ${escapeHtml(record.workerPhone||"-")}</span></td><td>${escapeHtml(rowVehicle?.plate||"-")}</td><td>${escapeHtml(job?.name||rowSchool?.name||"Genel")}</td><td>${escapeHtml(STAFF_PAYMENT_MODELS[record.paymentModel]||record.paymentModel||"-")}</td><td>${values.activity.trips} sefer / ${values.activity.days} gün</td><td class="money">${escapeHtml(formatTRY(values.liability))}</td><td class="money">${escapeHtml(formatTRY(values.settled))}</td><td class="money">${escapeHtml(formatTRY(values.remaining))}</td><td>${escapeHtml(record.dueDate||"-")}</td><td><span class="report-status ${status.label==="Vadesi Geçti"?"risk":"ok"}">${escapeHtml(status.label)}</span></td></tr>`);
       const privateTable = privateRows.map((row)=>`<tr><td><span class="report-status ${row.status==="active"?"risk":"ok"}">${row.status==="active"?"Devam ediyor":"Tamamlandı"}</span></td><td><strong>${escapeHtml(row.vehiclePlate||vehicleLabel(row.vehicleId))}</strong></td><td>${escapeHtml(row.person||"-")}</td><td>${escapeHtml(row.purpose||"-")}</td><td>${escapeHtml(jobDateText(row.startDate))} · ${Number(row.startKm||0).toLocaleString("tr-TR")} km</td><td>${row.status==="active"?"-":`${escapeHtml(jobDateText(row.endDate))} · ${Number(row.endKm||0).toLocaleString("tr-TR")} km`}</td><td>${row.status==="active"?"-":`${Number(row.distanceKm||0).toLocaleString("tr-TR")} km`}</td><td class="money">${row.status==="active"?"-":escapeHtml(formatTRY(row.estimatedFuelCost||0))}</td><td>${escapeHtml(row.note||"-")}</td></tr>`);
       const profitabilityTable = profitRows.map((row)=>`<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary||"-")}</span></td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.vehicleCost))}</td><td class="money">${escapeHtml(formatTRY(row.staffCost))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.margin===null?"-":`%${escapeHtml(Number(row.margin).toLocaleString("tr-TR",{maximumFractionDigits:1}))}`}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
-      const vehicleTable = vehicleRows.map((row)=>`<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary||"-")}</span></td><td>${row.estimatedKm?`${Number(row.estimatedKm).toLocaleString("tr-TR")} km`:"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
+      const vehicleTable = vehicleRows.map((row)=>`<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(row.secondary||"-")}</span></td><td>${row.estimatedKm?`${Number(row.estimatedKm).toLocaleString("tr-TR")} km`:"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td class="money">${escapeHtml(formatTRY(row.depreciationCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`);
       const alertTable = vehicleAlerts.map((alert)=>`<tr><td><strong>${escapeHtml(alert.plate||"Araç")}</strong></td><td>${escapeHtml(alert.title||alert.message||"Uyarı")}</td><td>${escapeHtml(alert.message||"-")}</td><td><span class="report-status ${alert.severity==="danger"?"risk":"ok"}">${escapeHtml(alert.severity==="danger"?"Kritik":"Uyarı")}</span></td></tr>`);
 
       return `${financeReportHeaderHtml("Genel Yönetim Raporu — Tam Kapsam", "Seçilen dönemdeki tüm finans, tahsilat, gider, hakediş, bakım, özel kullanım, KM ve kârlılık kayıtları. Özet değil, ayrıntılı yönetim dökümüdür.", month)}
       ${financeReportKpisHtml([
-        {label:"Toplam Gelir",value:formatTRY(totals.revenue)},{label:"Toplam Tahsilat",value:formatTRY(totals.collected)},{label:"Toplam Alacak",value:formatTRY(totals.receivable),risk:totals.receivable>0&&month<currentMonthISO()},{label:"Hesaplanan KDV",value:formatTRY(totals.vat)},{label:"Araç Giderleri",value:formatTRY(vehicle.total)},{label:"Şoför / Rehber",value:formatTRY(staff.total)},{label:"Dağıtılmış Mekanik",value:formatTRY(maintenanceAllocatedForMonth("",month))},{label:"Net Operasyon Sonucu",value:formatTRY(totals.net),risk:totals.net<0},{label:"Açık Risk",value:`${riskItems.length} başlık`,risk:riskItems.length>0}
+        {label:"Toplam Gelir",value:formatTRY(totals.revenue)},{label:"Toplam Tahsilat",value:formatTRY(totals.collected)},{label:"Toplam Alacak",value:formatTRY(totals.receivable),risk:totals.receivable>0&&month<currentMonthISO()},{label:"Hesaplanan KDV",value:formatTRY(totals.vat)},{label:"Araç Giderleri",value:formatTRY(vehicle.total)},{label:"Aylık Amortisman",value:formatTRY(totals.depreciation.total)},{label:"Şoför / Rehber",value:formatTRY(staff.total)},{label:"Dağıtılmış Mekanik",value:formatTRY(maintenanceAllocatedForMonth("",month))},{label:"Net Operasyon Sonucu",value:formatTRY(totals.net),risk:totals.net<0},{label:"Açık Risk",value:`${riskItems.length} başlık`,risk:riskItems.length>0}
       ])}
       <div class="report-chart-grid"><div class="report-chart-card"><strong>12 Aylık Finans Eğilimi</strong><span>Gelir, tahsilat ve gider hareketi.</span>${financeReportTrendHtml(month)}</div><div class="report-chart-card"><strong>Tahsilat Performansı</strong><span>Personel ve okul kasa hedefleri ile gerçekleşen tahsilatlar.</span>${financeReportBarsHtml(collectionItems)}</div></div>
       <div class="report-chart-grid three"><div class="report-chart-card"><strong>Gider Kategorileri</strong><span>Araç ve dağıtılmış mekanik giderlerin ağırlığı.</span>${financeReportBarsHtml(categoryItems.length?categoryItems:[{label:"Veri yok",value:0}])}</div><div class="report-chart-card"><strong>Operasyon Kârlılığı</strong><span>En yüksek net katkıya sahip kayıtlar.</span>${financeReportBarsHtml(profitRows.slice(0,8).map((row)=>({label:row.name,value:row.net,className:row.net<0?"red":"green"})))}</div><div class="report-chart-card"><strong>Araç Toplam Maliyeti / KM</strong><span>Filoda kilometre başına toplam maliyet.</span>${financeReportBarsHtml(vehicleKmItems.length?vehicleKmItems:[{label:"KM verisi yok",value:0}])}</div></div>
@@ -28511,7 +28757,7 @@
       <div class="report-section report-section-splittable"><div class="report-section-title"><strong>5. Şoför / Rehber Hakediş ve Ödeme Detayı</strong><span>${staffRows.length} kayıt</span></div>${financeReportTableHtml(["Çalışan","Araç","Operasyon","Model","Faaliyet","Hakediş","Ödenen","Kalan","Vade","Durum"],staffTable)}</div>
       <div class="report-section report-section-splittable"><div class="report-section-title"><strong>6. Özel Araç Kullanımı</strong><span>${privateRows.length} kayıt</span></div>${financeReportTableHtml(["Durum","Araç","Kullanan","Amaç","Başlangıç","Bitiş","Mesafe","Tahmini Yakıt Gideri","Not"],privateTable)}</div>
       <div class="report-section report-section-splittable"><div class="report-section-title"><strong>7. Kârlılık Detayı</strong><span>${profitRows.length} operasyon</span></div>${financeReportTableHtml(["Operasyon","Gelir","Araç","Personel","Toplam Maliyet","Net","Marj","Durum"],profitabilityTable)}</div>
-      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>8. Araç KM ve TL/KM Detayı</strong><span>${vehicleRows.length} araç</span></div>${financeReportTableHtml(["Araç","Mesafe","Yakıt Gideri","Yakıt ₺/KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Durum"],vehicleTable)}</div>
+      <div class="report-section report-section-splittable"><div class="report-section-title"><strong>8. Araç KM ve TL/KM Detayı</strong><span>${vehicleRows.length} araç</span></div>${financeReportTableHtml(["Araç","Mesafe","Yakıt Gideri","Amortisman","Yakıt ₺/KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Durum"],vehicleTable)}</div>
       <div class="report-section report-section-splittable"><div class="report-section-title"><strong>9. Araç Bakım, Muayene ve Evrak Uyarıları</strong><span>${vehicleAlerts.length} uyarı</span></div>${financeReportTableHtml(["Araç","Başlık","Açıklama","Seviye"],alertTable)}</div>
       ${financeReportFooterHtml()}`;
     }
@@ -28575,10 +28821,10 @@
       const rows = profitabilityVehicleRows(month).filter((row) => selected === "Tümü" || row.id === selected);
       const totals = rows.reduce((acc,row)=>{
         acc.revenue+=row.revenue; acc.collected+=row.collected; acc.vehicle+=row.vehicleCost;
-        acc.fuelCost+=row.fuelCost; acc.fuelLiters+=row.fuelLiters; acc.staff+=row.staffCost;
+        acc.depreciation+=Number(row.depreciationCost||0); acc.fuelCost+=row.fuelCost; acc.fuelLiters+=row.fuelLiters; acc.staff+=row.staffCost;
         acc.cost+=row.totalCost; acc.net+=row.net; acc.trips+=row.activity; acc.km+=Number(row.estimatedKm||0);
         return acc;
-      },{revenue:0,collected:0,vehicle:0,fuelCost:0,fuelLiters:0,staff:0,cost:0,net:0,trips:0,km:0});
+      },{revenue:0,collected:0,vehicle:0,depreciation:0,fuelCost:0,fuelLiters:0,staff:0,cost:0,net:0,trips:0,km:0});
       const alerts = getVehicleAlerts().filter((alert) => selected === "Tümü" || alert.vehicleId === selected);
       const fuelPerKm = totals.km > 0 ? totals.fuelCost / totals.km : null;
       const kmCost = totals.km > 0 ? totals.cost / totals.km : null;
@@ -28587,7 +28833,7 @@
       const tableRows = rows.map((row)=>{
         const vehicle=state.vehicles.find((item)=>item.id===row.id);
         const alertCount=getVehicleAlerts(row.id).length;
-        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.estimatedKm?escapeHtml(`${row.estimatedKm.toLocaleString("tr-TR")} km`):"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm*100)} / 100 km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`;
+        return `<tr><td><strong>${escapeHtml(row.name)}</strong><br><span>${escapeHtml(vehicle?.driverName||"Şoför yok")} · ${escapeHtml(vehicle?.status||"-")}</span></td><td>${escapeHtml(String(row.activity||0))}</td><td class="money">${escapeHtml(formatTRY(row.revenue))}</td><td class="money">${escapeHtml(formatTRY(row.totalCost))}</td><td class="money ${row.net<0?"negative":"positive"}">${escapeHtml(formatTRY(row.net))}</td><td>${row.estimatedKm?escapeHtml(`${row.estimatedKm.toLocaleString("tr-TR")} km`):"-"}</td><td class="money">${escapeHtml(formatTRY(row.fuelCost||0))}</td><td class="money">${escapeHtml(formatTRY(row.depreciationCost||0))}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm)} / km`)}</td><td>${row.fuelCostPerKm===null?"-":escapeHtml(`${formatTRY(row.fuelCostPerKm*100)} / 100 km`)}</td><td>${row.kmCost===null?"-":escapeHtml(`${formatTRY(row.kmCost)} / km`)}</td><td>${row.revenuePerKm===null?"-":escapeHtml(`${formatTRY(row.revenuePerKm)} / km`)}</td><td class="money ${row.netPerKm!==null&&row.netPerKm<0?"negative":"positive"}">${row.netPerKm===null?"-":escapeHtml(`${formatTRY(row.netPerKm)} / km`)}</td><td>${alertCount}</td><td><span class="report-status ${row.status.risk?"risk":"ok"}">${escapeHtml(row.status.label)}</span></td></tr>`;
       });
       const alertItems=alerts.slice(0,12).map((alert)=>({risk:alert.severity==="danger",text:`${alert.plate||"Araç"}: ${alert.message||alert.title||"Uyarı"}`}));
       return `${financeReportHeaderHtml("Araç KM, Maliyet ve Kârlılık Raporu", "Araç bazında gerçek yakıt gideri, kilometre maliyeti, kilometre başına gelir ve kâr/zarar analizi.", month)}${financeReportKpisHtml([
@@ -28596,13 +28842,14 @@
         {label:"Net Katkı",value:formatTRY(totals.net),risk:totals.net<0},
         {label:"Toplam Mesafe",value:totals.km>0?`${totals.km.toLocaleString("tr-TR")} km`:"-"},
         {label:"Toplam Yakıt Gideri",value:formatTRY(totals.fuelCost)},
+        {label:"Aylık Amortisman",value:formatTRY(totals.depreciation)},
         {label:"Yakıt Gideri / KM",value:fuelPerKm===null?"-":`${formatTRY(fuelPerKm)} / km`},
         {label:"Toplam Maliyet / KM",value:kmCost===null?"-":`${formatTRY(kmCost)} / km`},
         {label:"Gelir / KM",value:kmRevenue===null?"-":`${formatTRY(kmRevenue)} / km`},
         {label:kmNet!==null&&kmNet<0?"Zarar / KM":"Kâr / KM",value:kmNet===null?"-":`${formatTRY(Math.abs(kmNet))} / km`,risk:kmNet!==null&&kmNet<0},
         {label:"Gerçekleşen Sefer",value:`${totals.trips} sefer`},
         {label:"Bakım / Evrak Uyarısı",value:`${alerts.length} kayıt`,risk:alerts.length>0}
-      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı KM Performansı</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç","Sefer","Gelir","Toplam Maliyet","Net","Mesafe","Yakıt Gideri","Yakıt ₺/KM","Yakıt ₺/100 KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Uyarı","Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
+      ])}<div class="report-section"><div class="report-section-title"><strong>Araç Bazlı KM Performansı</strong><span>${rows.length} araç</span></div>${financeReportTableHtml(["Araç","Sefer","Gelir","Toplam Maliyet","Net","Mesafe","Yakıt Gideri","Amortisman","Yakıt ₺/KM","Yakıt ₺/100 KM","Toplam ₺/KM","Gelir ₺/KM","Net ₺/KM","Uyarı","Durum"],tableRows)}</div><div class="report-section"><div class="report-section-title"><strong>Bakım ve Evrak Uyarıları</strong><span>Yaklaşan veya geçmiş kayıtlar</span></div>${financeReportRiskHtml(alertItems)}</div>${financeReportFooterHtml()}`;
     }
 
     function renderInvoiceCollectionFinanceReport(month) {
@@ -28704,8 +28951,8 @@
         const selected=$("#financeReportSchool")?.value||"Tümü"; const rows=schoolFinanceRows(month,false).filter((row)=>selected==="Tümü"||row.student.schoolId===selected).map((row)=>[month,row.school?.name||"",row.student.name||"",row.student.guardianName||"",row.billingLabel,row.netExpected,row.vatAmount,row.cashExpected,row.paid,row.remaining,row.invoiceNo||"",row.invoiceDate||"",row.status.label]);
         downloadFinanceReportCsv(`okul-servisi-detay-${month}.csv`,["Ay","Okul","Öğrenci","Veli","Fatura Türü","KDV Hariç","KDV","Kasa Hedefi","Tahsilat","Kalan","Fatura No","Fatura Tarihi","Durum"],rows);
       } else if (type === "vehicle") {
-        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.vehicleCost,row.fuelCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.fuelCostPerKm??"",row.vehicleCostPerKm??"",row.kmCost??"",row.revenuePerKm??"",row.netPerKm??"",getVehicleAlerts(row.id).length,row.status.label]);
-        downloadFinanceReportCsv(`arac-km-detay-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Araç Gideri","Yakıt Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Mesafe KM","Yakıt TL/KM","Araç Gideri TL/KM","Toplam Maliyet TL/KM","Gelir TL/KM","Net TL/KM","Uyarı","Durum"],rows);
+        const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=profitabilityVehicleRows(month).filter((row)=>selected==="Tümü"||row.id===selected).map((row)=>[month,row.name,row.secondary,row.activity,row.revenue,row.collected,row.cashVehicleCost,row.depreciationCost,row.vehicleCost,row.fuelCost,row.staffCost,row.totalCost,row.net,row.margin??"",row.estimatedKm??"",row.fuelCostPerKm??"",row.cashVehicleCostPerKm??"",row.depreciationPerKm??"",row.vehicleCostPerKm??"",row.kmCost??"",row.revenuePerKm??"",row.netPerKm??"",getVehicleAlerts(row.id).length,row.status.label]);
+        downloadFinanceReportCsv(`arac-km-detay-${month}.csv`,["Ay","Araç","Açıklama","Sefer","Gelir","Tahsilat","Nakit Araç Gideri","Amortisman","Araç Toplamı","Yakıt Gideri","Şoför/Rehber","Toplam Maliyet","Net Katkı","Marj %","Mesafe KM","Yakıt TL/KM","Nakit Araç TL/KM","Amortisman TL/KM","Araç Toplamı TL/KM","Toplam Maliyet TL/KM","Gelir TL/KM","Net TL/KM","Uyarı","Durum"],rows);
       } else if (type === "maintenance") {
         const selected=$("#financeReportVehicle")?.value||"Tümü"; const rows=state.vehicleMaintenance.filter((row)=>(selected==="Tümü"||row.vehicleId===selected)&&(String(row.date||"").startsWith(month)||maintenanceAllocatedInMonth(row,month)>0)).map((row)=>[month,row.date,row.vehiclePlate||vehicleLabel(row.vehicleId),row.type||"Diğer",row.description||row.note||"",row.km||0,row.amount||0,maintenanceAllocationMonths(row),maintenanceAllocatedInMonth(row,month),maintenanceAllocationEndMonth(row),row.supplier||""]);
         downloadFinanceReportCsv(`bakim-mekanik-detay-${month}.csv`,["Ay","Tarih","Araç","Kategori","İşlem","KM","Gerçek Ödeme","Dağıtım Ayı","Bu Aya Düşen","Bitiş Ayı","Tedarikçi"],rows);
@@ -28730,7 +28977,10 @@
         state.vehicleMaintenance.filter((row)=>String(row.date||"").startsWith(month)||maintenanceAllocatedInMonth(row,month)>0).forEach((row)=>rows.push(["Bakım & Mekanik",row.date,row.vehiclePlate||vehicleLabel(row.vehicleId),row.type||"",0,maintenanceAllocatedInMonth(row,month),0,0,row.km||"",`${row.amount||0} gerçek ödeme / ${maintenanceAllocationMonths(row)} ay`]));
         staffPaymentRows(month,false).forEach(({record,values,status})=>rows.push(["Şoför/Rehber",month,record.workerName||"",record.workerType||"",0,values.liability,values.settled,values.remaining,"",status.label]));
         state.privateVehicleUses.filter((row)=>row.status==="active"||privateUseReportDate(row).startsWith(month)).forEach((row)=>rows.push(["Özel Kullanım",row.startDate,row.vehiclePlate||vehicleLabel(row.vehicleId),row.person||"",0,row.estimatedFuelCost||0,0,0,row.distanceKm||"",row.purpose||""]));
-        profitabilityVehicleRows(month).forEach((row)=>rows.push(["Araç KM",month,row.name,row.secondary||"",row.revenue,row.totalCost,row.collected,0,row.estimatedKm||"",row.netPerKm===null?"":`${row.netPerKm} TL/KM`]));
+        profitabilityVehicleRows(month).forEach((row)=>{
+          rows.push(["Araç Amortismanı",month,row.name,row.secondary||"",0,row.depreciationCost||0,0,0,row.estimatedKm||"",row.depreciationPerKm===null?"":`${row.depreciationPerKm} TL/KM`]);
+          rows.push(["Araç KM",month,row.name,row.secondary||"",row.revenue,row.totalCost,row.collected,0,row.estimatedKm||"",row.netPerKm===null?"":`${row.netPerKm} TL/KM`]);
+        });
         downloadFinanceReportCsv(`genel-yonetim-tam-detay-${month}.csv`,["Bölüm","Tarih/Ay","Ana Kayıt","Açıklama","Gelir/Hakediş","Gider/Maliyet","Tahsilat/Ödeme","Açık Bakiye","KM","Durum/Not"],rows);
       }
       showToast("Detaylı rapor CSV indirildi.");
@@ -28924,15 +29174,16 @@
       const personnel = personnelFinanceTotals(month);
       const school = schoolFinanceTotals(month, false);
       const vehicle = vehicleExpenseTotals(month, false);
+      const depreciation = vehicleDepreciationTotals(month);
       const staff = staffPaymentTotals(month, false);
       const revenue = personnel.accrual + school.expected;
       const collected = personnel.collected + school.paid;
       const receivable = personnel.receivable + school.remaining;
       const cashTarget = personnel.cashTarget + school.cashExpected;
       const vat = personnel.vat + school.vat;
-      const totalExpense = vehicle.total + staff.total;
+      const totalExpense = vehicle.total + depreciation.total + staff.total;
       const net = revenue - totalExpense;
-      return { personnel, school, vehicle, staff, totalExpense, revenue, collected, receivable, cashTarget, vat, net };
+      return { personnel, school, vehicle, depreciation, staff, totalExpense, revenue, collected, receivable, cashTarget, vat, net };
     }
 
     function renderFinanceTrendChart() {
@@ -29462,6 +29713,9 @@
       $("#vehicleId").value = "";
       $("#vehicleForm").reset();
       $("#vehicleStatus").value = "Aktif";
+      $("#vehicleUsefulLifeYears").value = "5";
+      $("#vehicleDepreciationEnabled").value = "false";
+      updateVehicleDepreciationPreview();
       activateVehicleFormPage("main");
     }
 
@@ -29595,6 +29849,9 @@
         id,
         plate,
         capacity,
+        brand: $("#vehicleBrand").value.trim(),
+        model: $("#vehicleModel").value.trim(),
+        modelYear: Number($("#vehicleModelYear").value || 0),
         driverName: $("#driverName").value.trim(),
         driverPhone: $("#driverPhone").value.trim(),
         currentKm: Number($("#vehicleCurrentKm").value || 0),
@@ -29609,8 +29866,30 @@
         mtvDueDate: $("#vehicleMtvDueDate").value,
         tireChangeDate: $("#vehicleTireChangeDate").value,
         documentNote: $("#vehicleDocumentNote").value.trim(),
+        depreciationEnabled: $("#vehicleDepreciationEnabled").value === "true",
+        purchaseDate: $("#vehiclePurchaseDate").value,
+        purchasePrice: Number($("#vehiclePurchasePrice").value || 0),
+        usefulLifeYears: Math.max(1, Number($("#vehicleUsefulLifeYears").value || 5)),
+        residualValue: Math.max(0, Number($("#vehicleResidualValue").value || 0)),
+        previousMarketValue: Math.max(0, Number($("#vehiclePreviousMarketValue").value || 0)),
+        previousValuationDate: $("#vehiclePreviousValuationDate").value,
+        currentMarketValue: Math.max(0, Number($("#vehicleCurrentMarketValue").value || 0)),
+        currentValuationDate: $("#vehicleCurrentValuationDate").value,
         status: $("#vehicleStatus").value
       };
+
+      if (vehicle.depreciationEnabled) {
+        if (!vehicle.purchaseDate || vehicle.purchasePrice <= 0) {
+          showToast("Amortisman için alış tarihi ve alış bedeli zorunlu.");
+          activateVehicleFormPage("depreciation");
+          return;
+        }
+        if (vehicle.residualValue >= vehicle.purchasePrice) {
+          showToast("Kalıntı değer alış bedelinden düşük olmalı.");
+          activateVehicleFormPage("depreciation");
+          return;
+        }
+      }
 
       const index = state.vehicles.findIndex((item) => item.id === id);
       if (index >= 0) state.vehicles[index] = vehicle;
@@ -29710,6 +29989,9 @@
       $("#vehicleId").value = vehicle.id;
       $("#vehiclePlate").value = vehicle.plate || "";
       $("#vehicleCapacity").value = vehicle.capacity || "";
+      $("#vehicleBrand").value = vehicle.brand || "";
+      $("#vehicleModel").value = vehicle.model || "";
+      $("#vehicleModelYear").value = vehicle.modelYear || "";
       $("#driverName").value = vehicle.driverName || "";
       $("#driverPhone").value = vehicle.driverPhone || "";
       $("#vehicleCurrentKm").value = vehicle.currentKm || "";
@@ -29724,7 +30006,17 @@
       $("#vehicleMtvDueDate").value = vehicle.mtvDueDate || "";
       $("#vehicleTireChangeDate").value = vehicle.tireChangeDate || "";
       $("#vehicleDocumentNote").value = vehicle.documentNote || "";
+      $("#vehicleDepreciationEnabled").value = vehicle.depreciationEnabled ? "true" : "false";
+      $("#vehiclePurchaseDate").value = vehicle.purchaseDate || "";
+      $("#vehiclePurchasePrice").value = vehicle.purchasePrice || "";
+      $("#vehicleUsefulLifeYears").value = vehicle.usefulLifeYears || 5;
+      $("#vehicleResidualValue").value = vehicle.residualValue || "";
+      $("#vehiclePreviousMarketValue").value = vehicle.previousMarketValue || "";
+      $("#vehiclePreviousValuationDate").value = vehicle.previousValuationDate || "";
+      $("#vehicleCurrentMarketValue").value = vehicle.currentMarketValue || "";
+      $("#vehicleCurrentValuationDate").value = vehicle.currentValuationDate || "";
       $("#vehicleStatus").value = vehicle.status || "Aktif";
+      updateVehicleDepreciationPreview();
       activateVehicleFormPage("main");
       activateModule("registry");
       activateRegistryTab("vehicles");
@@ -31256,6 +31548,11 @@
       $("#cancelVehicleEditBtn").addEventListener("click", clearVehicleForm);
       $$("#vehicleModuleTabs .vehicle-module-tab").forEach((button) => button.addEventListener("click", () => activateVehicleSubTab(button.dataset.vehicleSubtab)));
       $$("#vehicleFormTabs .mini-tab").forEach((button) => button.addEventListener("click", () => activateVehicleFormPage(button.dataset.vehicleFormPage)));
+      ["vehicleDepreciationEnabled","vehiclePurchaseDate","vehiclePurchasePrice","vehicleUsefulLifeYears","vehicleResidualValue","vehiclePreviousMarketValue","vehiclePreviousValuationDate","vehicleCurrentMarketValue","vehicleCurrentValuationDate"].forEach((id) => {
+        $("#" + id)?.addEventListener("input", updateVehicleDepreciationPreview);
+        $("#" + id)?.addEventListener("change", updateVehicleDepreciationPreview);
+      });
+      updateVehicleDepreciationPreview();
       $("#clearTripFormBtn").addEventListener("click", clearTripForm);
       $("#cancelTripEditBtn").addEventListener("click", clearTripForm);
       $("#clearStudentFormBtn").addEventListener("click", clearStudentForm);
