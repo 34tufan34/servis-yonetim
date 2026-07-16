@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.33</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.34</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,7 +14119,7 @@
     }
 
 
-    /* v4.44.33 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    /* v4.44.34 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
     #screen-command .command-service-grid,
     #screen-command .command-dashboard > .command-service-grid {
       grid-template-columns: minmax(0, 1fr) !important;
@@ -14596,7 +14596,7 @@
 
   
 
-/* v4.44.33 - Komuta Paneli kart çakışması kesin düzeltme */
+/* v4.44.34 - Komuta Paneli kart çakışması kesin düzeltme */
 #screen-command .command-service-grid,
 #screen-command .command-dashboard > .command-service-grid {
   display: grid !important;
@@ -14697,7 +14697,7 @@
 #screen-settings .settings-screensaver-card{grid-column:1/-1;order:4}.screensaver-settings-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.screensaver-settings-row .field{margin:0}@media(max-width:760px){.screensaver-settings-row{grid-template-columns:1fr}}
 
 
-/* v4.44.33 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
+/* v4.44.34 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
 #sysScreenSaver .ss-route{padding-bottom:74px}
 #sysScreenSaver .ss-welcome{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);min-width:420px;padding:14px 24px;border:1px solid rgba(68,215,255,.28);border-radius:18px;background:rgba(3,14,28,.82);box-shadow:0 16px 42px rgba(0,0,0,.35)}
 #sysScreenSaver .ss-welcome small{margin-top:10px;font-size:16px}
@@ -14724,6 +14724,97 @@
  #screen-command .command-next-passenger{grid-column:2/-1!important;margin-top:10px!important;padding:14px 16px!important;gap:10px!important;min-height:170px!important;overflow:visible!important}
  #screen-command .command-status-rail{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
  #screen-command #commandFuelPanel{position:relative!important;z-index:1!important;margin-top:0!important}
+}
+
+
+/* v4.44.34 - Komuta Paneli tam akış ve yakıt/bakım çakışma düzeltmesi */
+#screen-command {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+#screen-command .command-dashboard {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+  min-height: 100% !important;
+  overflow: visible !important;
+  gap: 14px !important;
+  padding: 0 2px 18px !important;
+}
+#screen-command .command-dashboard > * {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  position: relative !important;
+}
+#screen-command .command-service-grid,
+#screen-command .command-dashboard > .command-service-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-rows: max-content !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  gap: 16px !important;
+  margin: 0 !important;
+}
+#screen-command .command-service-card {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+}
+#screen-command #commandFuelPanel,
+#screen-command .fuel-live-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 150px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 14px 16px 16px !important;
+  gap: 10px !important;
+  z-index: auto !important;
+}
+#screen-command .fuel-live-head {
+  flex: 0 0 auto !important;
+  min-height: 40px !important;
+}
+#screen-command .fuel-live-grid {
+  flex: 0 0 auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 72px !important;
+  overflow: visible !important;
+}
+#screen-command .fuel-price-card {
+  height: auto !important;
+  min-height: 72px !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: 10px 13px !important;
+}
+#screen-command .command-maintenance-alert,
+#screen-command .command-invoice-alert {
+  display: grid !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 58px !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: auto !important;
+  overflow: hidden !important;
+}
+#screen-command .command-invoice-alert.hidden { display: none !important; }
+@media (max-width: 760px) {
+  #screen-command .fuel-live-grid { grid-template-columns: 1fr !important; }
+  #screen-command #commandFuelPanel,
+  #screen-command .fuel-live-panel { min-height: 0 !important; }
 }
 </style>
 </head>
@@ -14883,7 +14974,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.33</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.34</div>
         </div>
       </div>
 
@@ -18509,7 +18600,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.33</strong>
+                <strong>v4.44.34</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -18554,7 +18645,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.33";
+    const APP_VERSION = "4.44.34";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
