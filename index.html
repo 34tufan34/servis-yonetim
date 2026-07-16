@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Hızlı İşlemler v4.44.28</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.29</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,6 +14119,422 @@
     }
 
 
+    /* v4.44.29 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    #screen-command .command-service-grid,
+    #screen-command .command-dashboard > .command-service-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 14px;
+    }
+
+    #screen-command .command-service-card {
+      min-height: 0;
+      gap: 14px;
+      padding: clamp(16px, 1.45vw, 22px);
+      border-radius: 22px;
+      overflow: visible;
+    }
+
+    #screen-command .command-card-summary {
+      flex: 0 0 auto;
+      grid-template-columns: 64px minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    #screen-command .live-beacon {
+      width: 62px;
+      height: 62px;
+    }
+
+    #screen-command .live-beacon-core {
+      width: 38px;
+      height: 38px;
+      font-size: 15px;
+    }
+
+    #screen-command .command-card-title {
+      font-size: clamp(24px, 2.15vw, 31px);
+      margin-bottom: 7px;
+    }
+
+    #screen-command .command-card-meta {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    #screen-command .command-next-passenger {
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      padding: clamp(18px, 1.8vw, 26px);
+      display: grid;
+      gap: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(var(--accent-rgb), .30);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(var(--accent-rgb), .10), transparent 33%),
+        linear-gradient(135deg, rgba(var(--accent-rgb), .06), rgba(255,255,255,.018)),
+        rgba(0,0,0,.10);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.018);
+      overflow: visible;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    #screen-command .command-next-passenger:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--accent-rgb), .46);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(var(--accent-rgb), .14), transparent 35%),
+        linear-gradient(135deg, rgba(var(--accent-rgb), .08), rgba(255,255,255,.025)),
+        rgba(0,0,0,.12);
+    }
+
+    #screen-command .command-next-passenger.is-empty {
+      border-color: color-mix(in srgb, var(--line) 86%, rgba(var(--accent-rgb), .14));
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.025), rgba(var(--accent-rgb), .025)),
+        rgba(0,0,0,.08);
+    }
+
+    #screen-command .command-next-head {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(18px, 2.5vw, 34px);
+      align-items: center;
+    }
+
+    #screen-command .command-next-person {
+      min-width: 0;
+      display: grid;
+      gap: 7px;
+    }
+
+    #screen-command .command-next-label {
+      color: color-mix(in srgb, rgb(var(--accent-rgb)) 72%, var(--text) 28%);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .13em;
+    }
+
+    #screen-command .command-next-name {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      font-size: clamp(24px, 2.8vw, 38px);
+      line-height: 1.06;
+      letter-spacing: -.045em;
+    }
+
+    #screen-command .command-next-address {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      color: color-mix(in srgb, var(--text) 78%, var(--muted) 22%);
+      font-size: clamp(12px, 1.1vw, 15px);
+      line-height: 1.45;
+    }
+
+    #screen-command .command-next-tools {
+      display: grid;
+      grid-template-columns: minmax(190px, 230px) auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    #screen-command .command-countdown-hero {
+      min-width: 190px;
+      min-height: 76px;
+      padding: 12px 20px;
+      border-radius: 18px;
+      gap: 5px;
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .18), rgba(var(--accent-rgb), .06)),
+        rgba(0,0,0,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.025), 0 12px 28px rgba(0,0,0,.12);
+    }
+
+    #screen-command .command-countdown-hero small {
+      font-size: 9px;
+      letter-spacing: .12em;
+    }
+
+    #screen-command .command-countdown-hero strong {
+      font-size: clamp(22px, 2.1vw, 31px);
+      letter-spacing: -.04em;
+    }
+
+    #screen-command .command-next-current {
+      min-height: 42px;
+      padding: 8px 15px;
+      font-size: 11px;
+      border-radius: 999px;
+    }
+
+    #screen-command .command-next-info-grid {
+      display: grid;
+      grid-template-columns: minmax(150px, .72fr) minmax(150px, .72fr) minmax(280px, 1.55fr);
+      gap: 14px;
+    }
+
+    #screen-command .command-info-card {
+      min-width: 0;
+      min-height: 88px;
+      padding: 15px 17px;
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.032);
+    }
+
+    #screen-command .command-info-card > span:last-child {
+      min-width: 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    #screen-command .command-info-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: color-mix(in srgb, var(--text) 72%, rgb(var(--accent-rgb)) 28%);
+      background: rgba(var(--accent-rgb), .10);
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    #screen-command .command-info-card small {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    #screen-command .command-info-card strong {
+      min-width: 0;
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      color: var(--text);
+      font-size: clamp(15px, 1.3vw, 19px);
+      line-height: 1.3;
+    }
+
+    #screen-command .command-stage {
+      border-color: rgba(var(--accent-rgb), .28);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .08), rgba(255,255,255,.025));
+    }
+
+    #screen-command .command-service-card.is-live .command-next-passenger {
+      border-color: rgba(34,197,94,.42);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(34,197,94,.14), transparent 34%),
+        linear-gradient(135deg, rgba(34,197,94,.08), rgba(var(--accent-rgb), .04)),
+        rgba(0,0,0,.12);
+    }
+
+    #screen-command .command-quick-actions {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 9px;
+      padding-top: 12px;
+    }
+
+    #screen-command .command-quick-btn {
+      min-height: 48px;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 13px;
+      font-size: 11px;
+    }
+
+    #screen-command .command-quick-btn span {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    #screen-command .command-quick-btn strong {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    #screen-command .command-quick-btn.bindi {
+      color: #dcfce7;
+      background: linear-gradient(135deg, rgba(22,163,74,.24), rgba(34,197,94,.09));
+      border-color: rgba(74,222,128,.42);
+    }
+
+    #screen-command .command-quick-btn.indi {
+      color: #e0f2fe;
+      background: linear-gradient(135deg, rgba(2,132,199,.25), rgba(14,165,233,.09));
+      border-color: rgba(56,189,248,.42);
+    }
+
+    #screen-command .command-quick-btn.yok {
+      color: #ffe4e6;
+      background: linear-gradient(135deg, rgba(190,18,60,.23), rgba(244,63,94,.08));
+      border-color: rgba(251,113,133,.40);
+    }
+
+    #screen-command .command-quick-btn.izinli {
+      color: #f3e8ff;
+      background: linear-gradient(135deg, rgba(126,34,206,.24), rgba(168,85,247,.09));
+      border-color: rgba(192,132,252,.42);
+    }
+
+    #screen-command .command-quick-btn.detail {
+      color: #ccfbf1;
+      background: linear-gradient(135deg, rgba(13,148,136,.20), rgba(20,184,166,.07));
+      border-color: rgba(45,212,191,.36);
+    }
+
+    body[data-theme="light"] #screen-command .command-next-passenger {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .07), #ffffff);
+      box-shadow: 0 12px 28px rgba(15,23,42,.06);
+    }
+
+    body[data-theme="light"] #screen-command .command-info-card {
+      background: #ffffff;
+      border-color: #d8e0ea;
+    }
+
+    body[data-theme="light"] #screen-command .command-quick-btn.bindi { color: #166534; background: #f0fdf4; border-color: #86efac; }
+    body[data-theme="light"] #screen-command .command-quick-btn.indi { color: #075985; background: #f0f9ff; border-color: #7dd3fc; }
+    body[data-theme="light"] #screen-command .command-quick-btn.yok { color: #9f1239; background: #fff1f2; border-color: #fda4af; }
+    body[data-theme="light"] #screen-command .command-quick-btn.izinli { color: #6b21a8; background: #faf5ff; border-color: #d8b4fe; }
+    body[data-theme="light"] #screen-command .command-quick-btn.detail { color: #115e59; background: #f0fdfa; border-color: #5eead4; }
+
+    @media (max-width: 1180px) {
+      #screen-command .command-next-tools {
+        grid-template-columns: minmax(170px, 210px) auto;
+      }
+      #screen-command .command-next-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      #screen-command .command-stage {
+        grid-column: 1 / -1;
+      }
+      #screen-command .command-quick-actions {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      #screen-command .command-service-card {
+        padding: 13px;
+        gap: 11px;
+        border-radius: 18px;
+      }
+      #screen-command .command-card-summary {
+        grid-template-columns: 50px minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+      #screen-command .live-beacon {
+        width: 48px;
+        height: 48px;
+      }
+      #screen-command .live-beacon-core {
+        width: 31px;
+        height: 31px;
+      }
+      #screen-command .command-card-title {
+        font-size: 21px;
+      }
+      #screen-command .command-card-meta {
+        font-size: 10px;
+      }
+      #screen-command .command-card-state {
+        padding: 6px 8px;
+        font-size: 8px;
+      }
+      #screen-command .command-next-passenger {
+        padding: 16px;
+        gap: 14px;
+        border-radius: 16px;
+      }
+      #screen-command .command-next-head {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      #screen-command .command-next-name {
+        font-size: clamp(22px, 7vw, 29px);
+      }
+      #screen-command .command-next-tools {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+      #screen-command .command-countdown-hero {
+        min-width: 0;
+        min-height: 64px;
+        width: 100%;
+      }
+      #screen-command .command-countdown-hero strong {
+        font-size: 23px;
+      }
+      #screen-command .command-next-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+      #screen-command .command-info-card {
+        min-height: 76px;
+        padding: 11px;
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 9px;
+      }
+      #screen-command .command-info-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        font-size: 14px;
+      }
+      #screen-command .command-info-card strong {
+        font-size: 14px;
+      }
+      #screen-command .command-quick-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+      #screen-command .command-quick-btn {
+        min-height: 44px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      #screen-command .command-card-summary {
+        grid-template-columns: 44px minmax(0, 1fr);
+      }
+      #screen-command .command-card-state {
+        grid-column: 2;
+        justify-self: start;
+      }
+      #screen-command .command-next-tools,
+      #screen-command .command-next-info-grid {
+        grid-template-columns: 1fr;
+      }
+      #screen-command .command-next-current {
+        justify-self: start;
+      }
+      #screen-command .command-stage {
+        grid-column: auto;
+      }
+    }
+
+
     /* v4.44.28 - Araç amortisman modülü */
     .vehicle-depreciation-note {
       padding: 10px 12px;
@@ -14336,7 +14752,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.28</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.29</div>
         </div>
       </div>
 
@@ -14431,15 +14847,27 @@
                   <span class="command-card-kicker">Personel Operasyonu</span>
                   <span class="command-card-title">Personel Servisi</span>
                   <span class="command-card-meta" id="commandPersonnelMeta">Başlatılmış servis bulunmuyor.</span>
-                  <span class="command-next-passenger is-empty" id="commandPersonnelNext">
-                    <span class="command-next-top"><span class="command-next-label">Sıradaki Personel</span><span class="command-next-current">Beklemede</span></span>
-                    <strong class="command-next-name">Aktif operasyon yok</strong>
-                    <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
-                    <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
-                  </span>
                 </span>
                 <span class="command-card-state" id="commandPersonnelState">Beklemede</span>
               </button>
+              <div class="command-next-passenger is-empty" id="commandPersonnelNext" data-action="open-personnel-live" role="button" tabindex="0" aria-label="Sıradaki personel ayrıntılarını aç">
+                <div class="command-next-head">
+                  <div class="command-next-person">
+                    <span class="command-next-label">Sıradaki Personel</span>
+                    <strong class="command-next-name">Aktif operasyon yok</strong>
+                    <span class="command-next-address">Servis başladığında yolcu adresi burada görünür.</span>
+                  </div>
+                  <div class="command-next-tools">
+                    <span class="command-countdown-hero is-neutral"><small>Kalan Süre</small><strong>-</strong></span>
+                    <span class="command-next-current">Beklemede</span>
+                  </div>
+                </div>
+                <div class="command-next-info-grid">
+                  <span class="command-info-card command-order"><span class="command-info-icon">▦</span><span><small>Sıra</small><strong>-</strong></span></span>
+                  <span class="command-info-card command-waiting"><span class="command-info-icon">◎</span><span><small>Bekleyen</small><strong>-</strong></span></span>
+                  <span class="command-info-card command-stage"><span class="command-info-icon">⌖</span><span><small>Operasyon Aşaması</small><strong>Servis başladığında operasyon aşaması burada görünür.</strong></span></span>
+                </div>
+              </div>
               <div class="command-quick-actions" aria-label="Personel servisi hızlı işlemleri">
                 <button class="command-quick-btn period" id="commandPersonnelMorningBtn" type="button" data-action="command-personnel-start" data-period="morning"><span>☀</span><strong>Sabah Servisi</strong></button>
                 <button class="command-quick-btn period" id="commandPersonnelEveningBtn" type="button" data-action="command-personnel-start" data-period="evening"><span>☾</span><strong>Akşam Servisi</strong></button>
@@ -14459,15 +14887,27 @@
                   <span class="command-card-kicker">Okul Operasyonu</span>
                   <span class="command-card-title">Okul Servisi</span>
                   <span class="command-card-meta" id="commandSchoolMeta">Başlatılmış servis bulunmuyor.</span>
-                  <span class="command-next-passenger is-empty" id="commandSchoolNext">
-                    <span class="command-next-top"><span class="command-next-label">Sıradaki Öğrenci</span><span class="command-next-current">Beklemede</span></span>
-                    <strong class="command-next-name">Aktif operasyon yok</strong>
-                    <span class="command-next-detail">Servis başladığında yolcu durumu burada görünür.</span>
-                    <span class="command-status-rail" aria-hidden="true"><span class="command-status-chip bindi"><i>↗</i>Bindi</span><span class="command-status-chip indi"><i>↘</i>İndi</span><span class="command-status-chip yok"><i>×</i>Yok</span></span>
-                  </span>
                 </span>
                 <span class="command-card-state" id="commandSchoolState">Beklemede</span>
               </button>
+              <div class="command-next-passenger is-empty" id="commandSchoolNext" data-action="open-school-live" role="button" tabindex="0" aria-label="Sıradaki öğrenci ayrıntılarını aç">
+                <div class="command-next-head">
+                  <div class="command-next-person">
+                    <span class="command-next-label">Sıradaki Öğrenci</span>
+                    <strong class="command-next-name">Aktif operasyon yok</strong>
+                    <span class="command-next-address">Servis başladığında yolcu adresi burada görünür.</span>
+                  </div>
+                  <div class="command-next-tools">
+                    <span class="command-countdown-hero is-neutral"><small>Kalan Süre</small><strong>-</strong></span>
+                    <span class="command-next-current">Beklemede</span>
+                  </div>
+                </div>
+                <div class="command-next-info-grid">
+                  <span class="command-info-card command-order"><span class="command-info-icon">▦</span><span><small>Sıra</small><strong>-</strong></span></span>
+                  <span class="command-info-card command-waiting"><span class="command-info-icon">◎</span><span><small>Bekleyen</small><strong>-</strong></span></span>
+                  <span class="command-info-card command-stage"><span class="command-info-icon">⌖</span><span><small>Operasyon Aşaması</small><strong>Servis başladığında operasyon aşaması burada görünür.</strong></span></span>
+                </div>
+              </div>
               <div class="command-quick-actions" aria-label="Okul servisi hızlı işlemleri">
                 <button class="command-quick-btn period" id="commandSchoolMorningBtn" type="button" data-action="command-school-start" data-period="morning"><span>☀</span><strong>Sabah Servisi</strong></button>
                 <button class="command-quick-btn period" id="commandSchoolEveningBtn" type="button" data-action="command-school-start" data-period="evening"><span>☾</span><strong>Akşam Servisi</strong></button>
@@ -17928,7 +18368,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.28</strong>
+                <strong>v4.44.29</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -17973,7 +18413,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.28";
+    const APP_VERSION = "4.44.29";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -23559,32 +23999,35 @@
       const countdownClass = String(options.countdownClass || "is-neutral").trim();
       const passengerLabel = String(options.passengerLabel || "Sıradaki Yolcu").trim();
       const countdownLabel = empty ? "Kalan Süre" : (recommended === "İndi" ? "İnişe Kalan" : "Binişe Kalan");
-      const chips = [
-        { label: "Bindi", cls: "bindi", icon: "↗" },
-        { label: "İndi", cls: "indi", icon: "↘" },
-        { label: "Yok", cls: "yok", icon: "×" }
-      ].map((chip) => {
-        const active = !empty && normalizedStatus === chip.label;
-        const suggested = !empty && normalizedStatus === "Bekliyor" && recommended === chip.label;
-        return `<span class="command-status-chip ${chip.cls}${active ? " is-active" : ""}${suggested ? " is-suggested" : ""}"><i>${chip.icon}</i>${chip.label}</span>`;
-      }).join("");
       return `
-        <span class="command-next-top">
-          <span class="command-next-label">${escapeHtml(passengerLabel)}</span>
-          <span class="command-countdown-hero ${escapeHtml(countdownClass)}">
-            <small>${escapeHtml(countdownLabel)}</small>
-            <strong>${escapeHtml(empty ? "-" : countdownText)}</strong>
+        <div class="command-next-head">
+          <div class="command-next-person">
+            <span class="command-next-label">${escapeHtml(passengerLabel)}</span>
+            <strong class="command-next-name">${escapeHtml(name || "Aktif operasyon yok")}</strong>
+            <span class="command-next-address">${address ? `⌖ ${escapeHtml(address)}` : "Servis başladığında yolcu adresi burada görünür."}</span>
+          </div>
+          <div class="command-next-tools">
+            <span class="command-countdown-hero ${escapeHtml(countdownClass)}">
+              <small>${escapeHtml(countdownLabel)}</small>
+              <strong>${escapeHtml(empty ? "-" : countdownText)}</strong>
+            </span>
+            <span class="command-next-current ${statusClass(normalizedStatus)}">${escapeHtml(statusText)}</span>
+          </div>
+        </div>
+        <div class="command-next-info-grid" aria-label="Canlı servis bilgileri">
+          <span class="command-info-card command-order">
+            <span class="command-info-icon" aria-hidden="true">▦</span>
+            <span><small>Sıra</small><strong>${empty ? "-" : `${order || 1} / ${total || 1}`}</strong></span>
           </span>
-          <span class="command-next-current ${statusClass(normalizedStatus)}">${escapeHtml(statusText)}</span>
-        </span>
-        <strong class="command-next-name">${escapeHtml(name || "Aktif operasyon yok")}</strong>
-        <span class="command-next-address">${address ? `⌖ ${escapeHtml(address)}` : "Servis başladığında yolcu adresi burada görünür."}</span>
-        <span class="command-live-metrics" aria-label="Canlı servis bilgileri">
-          <span><small>Sıra</small><strong>${empty ? "-" : `${order || 1} / ${total || 1}`}</strong></span>
-          <span><small>Bekleyen</small><strong>${empty ? "-" : `${remaining} kişi`}</strong></span>
-        </span>
-        <span class="command-next-detail">${escapeHtml(detail || "Servis başladığında operasyon aşaması burada görünür.")}</span>
-        <span class="command-status-rail" aria-hidden="true">${chips}</span>
+          <span class="command-info-card command-waiting">
+            <span class="command-info-icon" aria-hidden="true">◎</span>
+            <span><small>Bekleyen</small><strong>${empty ? "-" : `${remaining} kişi`}</strong></span>
+          </span>
+          <span class="command-info-card command-stage">
+            <span class="command-info-icon" aria-hidden="true">⌖</span>
+            <span><small>Operasyon Aşaması</small><strong>${escapeHtml(detail || "Servis başladığında operasyon aşaması burada görünür.")}</strong></span>
+          </span>
+        </div>
       `;
     }
 
