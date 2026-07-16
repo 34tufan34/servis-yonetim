@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.34</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.35</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,7 +14119,7 @@
     }
 
 
-    /* v4.44.34 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    /* v4.44.35 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
     #screen-command .command-service-grid,
     #screen-command .command-dashboard > .command-service-grid {
       grid-template-columns: minmax(0, 1fr) !important;
@@ -14596,7 +14596,7 @@
 
   
 
-/* v4.44.34 - Komuta Paneli kart çakışması kesin düzeltme */
+/* v4.44.35 - Komuta Paneli kart çakışması kesin düzeltme */
 #screen-command .command-service-grid,
 #screen-command .command-dashboard > .command-service-grid {
   display: grid !important;
@@ -14697,7 +14697,7 @@
 #screen-settings .settings-screensaver-card{grid-column:1/-1;order:4}.screensaver-settings-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.screensaver-settings-row .field{margin:0}@media(max-width:760px){.screensaver-settings-row{grid-template-columns:1fr}}
 
 
-/* v4.44.34 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
+/* v4.44.35 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
 #sysScreenSaver .ss-route{padding-bottom:74px}
 #sysScreenSaver .ss-welcome{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);min-width:420px;padding:14px 24px;border:1px solid rgba(68,215,255,.28);border-radius:18px;background:rgba(3,14,28,.82);box-shadow:0 16px 42px rgba(0,0,0,.35)}
 #sysScreenSaver .ss-welcome small{margin-top:10px;font-size:16px}
@@ -14727,7 +14727,7 @@
 }
 
 
-/* v4.44.34 - Komuta Paneli tam akış ve yakıt/bakım çakışma düzeltmesi */
+/* v4.44.35 - Komuta Paneli tam akış ve yakıt/bakım çakışma düzeltmesi */
 #screen-command {
   overflow-y: auto !important;
   overflow-x: hidden !important;
@@ -14816,6 +14816,17 @@
   #screen-command #commandFuelPanel,
   #screen-command .fuel-live-panel { min-height: 0 !important; }
 }
+
+
+    /* v4.44.35 - Tek aktif servis, rota ve ekran koruyucu uyumu */
+    #screen-command .command-service-card.command-live-hidden { display:none !important; }
+    #screen-command .command-service-grid.single-live { grid-template-columns:minmax(0,1fr) !important; }
+    #screen-command .command-service-grid.single-live .command-service-card { width:100%; }
+    .command-countdown-hero strong { white-space:normal; text-align:center; line-height:1.12; }
+    #sysScreenSaver .ss-arrival { font-size:clamp(20px,2vw,32px); line-height:1.18; white-space:normal; }
+    #sysScreenSaver .ss-route { min-height:280px; }
+    #sysScreenSaver .ss-bus svg { transform:scale(1.06); filter:drop-shadow(0 18px 28px rgba(0,145,255,.28)); }
+    @media(max-width:1079px){#screen-command .command-service-grid.single-live{grid-template-columns:1fr!important}}
 </style>
 </head>
 
@@ -14974,7 +14985,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.34</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.35</div>
         </div>
       </div>
 
@@ -18600,7 +18611,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.34</strong>
+                <strong>v4.44.35</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -18645,7 +18656,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.34";
+    const APP_VERSION = "4.44.35";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -18969,7 +18980,11 @@
     }
 
     function todayISO() {
-      return new Date().toISOString().slice(0, 10);
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
     }
 
     function digitsOnly(value) {
@@ -24230,7 +24245,7 @@
       const countdownText = String(options.countdownText || "Saat bilgisi yok").trim();
       const countdownClass = String(options.countdownClass || "is-neutral").trim();
       const passengerLabel = String(options.passengerLabel || "Sıradaki Yolcu").trim();
-      const countdownLabel = empty ? "Kalan Süre" : (recommended === "İndi" ? "İnişe Kalan" : "Binişe Kalan");
+      const countdownLabel = String(options.countdownLabel || (empty ? "Kalan Süre" : (recommended === "İndi" ? "Varışa Kalan" : "Binişe Kalan"))).trim();
       return `
         <div class="command-next-head">
           <div class="command-next-person">
@@ -24267,36 +24282,64 @@
       if (!session) return null;
       const people = servicePeopleForSession(session);
       if (!people.length) return null;
+      const job = getJob(session.jobId);
+      const company = job ? getCompany(job.companyId) : getCompanyByRoute(session.routeId);
       const statusOf = (item) => servicePhaseStatus(item, getAttendance(session.date, session.routeId, item.id), session.period, session.date, session);
-      let index = Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1));
-      let person = people[index];
-      let status = statusOf(person);
-      if (status !== "Bekliyor") {
-        const pendingIndex = people.findIndex((item) => statusOf(item) === "Bekliyor");
-        if (pendingIndex >= 0) {
-          index = pendingIndex;
-          person = people[index];
-          status = "Bekliyor";
+      const pendingIndex = people.findIndex((item) => statusOf(item) === "Bekliyor");
+      const phase = serviceSessionPhase(session);
+
+      if (pendingIndex < 0) {
+        const isMorningFinal = session.period === "morning";
+        const isEveningFinal = session.period === "evening" && phase === "dropoff";
+        if (isMorningFinal || isEveningFinal) {
+          const destination = isMorningFinal ? companyWorkplaceMapQuery(company) : companyEveningFinalMapQuery(company);
+          const destinationName = isMorningFinal
+            ? (company?.name ? `${company.name} İş Yeri` : "Kayıtlı İş Yeri")
+            : (company?.eveningFinalAddress || company?.eveningFinalMapQuery || "Kayıtlı Son Varış Noktası");
+          const shift = jobShiftByKey(job, session.shiftKey || "");
+          const planned = isMorningFinal ? (shift?.startTime || job?.morningTime || company?.morningTime || "") : (shift?.endTime || job?.eveningTime || company?.eveningTime || "");
+          const countdown = serviceCountdown(planned, session.date, "Varış");
+          return {
+            passengerLabel: "Sıradaki Rota",
+            name: destinationName,
+            status: "Yolda",
+            period: session.period,
+            recommendedStatus: "İndi",
+            address: destination || "Son varış noktası kaydedilmemiş",
+            detail: isMorningFinal ? "Sabah rotasının son noktası · İş yeri" : "Akşam dağıtımının son noktası",
+            order: people.length + 1,
+            total: people.length + 1,
+            remaining: 0,
+            countdownLabel: "Varışa Kalan",
+            countdownText: planned ? countdown.text : "Varış saati girilmemiş",
+            countdownClass: countdown.className
+          };
         }
       }
-      const shift = jobShiftByKey(getJob(session.jobId), session.shiftKey || "");
-      const planned = servicePlannedTime(person, session.period, getJob(session.jobId), shift);
-      const countdown = serviceCountdown(planned, session.date);
-      const phase = session.period === "evening"
-        ? (serviceSessionPhase(session) === "dropoff" ? "Eve dağıtım aşaması" : "Toplu biniş kontrolü")
+
+      let index = pendingIndex >= 0 ? pendingIndex : Math.max(0, Math.min(Number(session.currentIndex || 0), people.length - 1));
+      const person = people[index];
+      const status = statusOf(person);
+      const shift = jobShiftByKey(job, session.shiftKey || "");
+      const planned = servicePlannedTime(person, session.period, job, shift);
+      const isDropoff = session.period === "evening" && phase === "dropoff";
+      const countdown = serviceCountdown(planned, session.date, isDropoff ? "Varış" : "Biniş");
+      const phaseText = session.period === "evening"
+        ? (isDropoff ? "Eve dağıtım aşaması" : "Toplu biniş kontrolü")
         : "Sabah toplama aşaması";
       return {
-        passengerLabel: "Sıradaki Personel",
+        passengerLabel: "Sıradaki Rota",
         name: person.name,
         status,
         period: session.period,
-        recommendedStatus: session.period === "evening" && serviceSessionPhase(session) === "dropoff" ? "İndi" : "Bindi",
+        recommendedStatus: isDropoff ? "İndi" : "Bindi",
         address: personAddressForPeriod(person, session.period) || "Adres girilmemiş",
-        detail: `${servicePeriodLabel(session.period)} · ${phase}`,
+        detail: `${servicePeriodLabel(session.period)} · ${phaseText}`,
         order: index + 1,
-        total: people.length,
+        total: people.length + 1,
         remaining: people.filter((item) => statusOf(item) === "Bekliyor").length,
-        countdownText: planned ? countdown.text : "Saat bilgisi yok",
+        countdownLabel: isDropoff ? "Varışa Kalan" : "Binişe Kalan",
+        countdownText: planned ? countdown.text : (isDropoff ? "Varış saati girilmemiş" : "Biniş saati girilmemiş"),
         countdownClass: countdown.className
       };
     }
@@ -24557,6 +24600,11 @@
 
       personnelCard.classList.toggle("is-live", personnelSessions.length > 0);
       schoolCard.classList.toggle("is-live", schoolSessions.length > 0);
+      const onlyPersonnelLive = personnelSessions.length > 0 && schoolSessions.length === 0;
+      const onlySchoolLive = schoolSessions.length > 0 && personnelSessions.length === 0;
+      personnelCard.classList.toggle("command-live-hidden", onlySchoolLive);
+      schoolCard.classList.toggle("command-live-hidden", onlyPersonnelLive);
+      personnelCard.closest(".command-service-grid")?.classList.toggle("single-live", onlyPersonnelLive || onlySchoolLive);
 
       if (personnelSession) {
         const company = getCompanyByRoute(personnelSession.routeId);
@@ -26268,19 +26316,24 @@
       return shift?.endTime || job?.eveningTime || "";
     }
 
-    function serviceCountdown(timeValue, dateValue = getServiceDate()) {
+    function serviceCountdown(timeValue, dateValue = getServiceDate(), mode = "Biniş") {
       const minutes = timeToMinutes(timeValue);
-      if (minutes === null) return { text: "Biniş saati girilmemiş", className: "is-neutral" };
+      const label = mode === "Varış" ? "Varış" : "Biniş";
+      if (minutes === null) return { text: `${label} saati girilmemiş`, className: "is-neutral" };
+      const serviceDate = String(dateValue || todayISO()).slice(0, 10);
       const now = new Date();
-      const serviceDate = String(dateValue || todayISO());
-      const today = todayISO();
-      if (serviceDate !== today) return { text: `Planlanan ${timeValue}`, className: "is-ok" };
-      let diff = minutes - currentMinutes();
-      if (diff < -720) diff += 1440;
-      if (diff > 720) diff -= 1440;
-      if (diff > 1) return { text: `${timeValue} · ${diff} dk kaldı`, className: "is-ok" };
-      if (diff >= -1) return { text: `${timeValue} · Biniş zamanı`, className: "is-now" };
-      return { text: `${timeValue} · ${Math.abs(diff)} dk geçti`, className: "is-late" };
+      const target = new Date(`${serviceDate}T${String(timeValue).padStart(5, "0")}:00`);
+      if (Number.isNaN(target.getTime())) return { text: `${label} saati girilmemiş`, className: "is-neutral" };
+      const diff = Math.round((target.getTime() - now.getTime()) / 60000);
+      if (diff > 1) {
+        const hours = Math.floor(diff / 60), mins = diff % 60;
+        const remaining = hours > 0 ? `${hours} sa ${mins} dk` : `${mins} dk`;
+        return { text: `${timeValue} · ${remaining} kaldı`, className: "is-ok" };
+      }
+      if (diff >= -1) return { text: `${timeValue} · ${label} zamanı`, className: "is-now" };
+      const late = Math.abs(diff), hours = Math.floor(late / 60), mins = late % 60;
+      const passed = hours > 0 ? `${hours} sa ${mins} dk` : `${mins} dk`;
+      return { text: `${timeValue} · ${passed} geçti`, className: "is-late" };
     }
 
     function dispatchServiceKey(period, shiftKey = "") { return `${shiftKey || "default"}:${period || "morning"}`; }
@@ -34881,7 +34934,7 @@
   <div class="ss-grid">
    <div class="ss-card"><div class="ss-kicker" id="ssServiceState">AKTİF SERVİS</div><div class="ss-plate" id="ssPlate">SERVİS BEKLENİYOR</div><div class="ss-model" id="ssVehicle">Araç bilgisi</div><div class="ss-bus" aria-label="Servis minibüsü"><svg viewBox="0 0 520 250" role="img" aria-hidden="true"><defs><linearGradient id="busBody" x1="0" x2="1"><stop stop-color="#d9ecf7"/><stop offset=".55" stop-color="#ffffff"/><stop offset="1" stop-color="#8fb4c9"/></linearGradient><filter id="busGlow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M58 168V95c0-32 22-55 54-60l232-17c34-3 63 17 75 48l27 68c6 15 9 29 9 44v14H58z" fill="url(#busBody)" stroke="#7fd6ff" stroke-width="4"/><path d="M115 50h86v70h-99V79c0-12 5-22 13-29zm101-4 118-9c21-2 40 11 48 31l19 52H216z" fill="#071c31" stroke="#3cbcff" stroke-width="3"/><path d="M74 139h365" stroke="#168cff" stroke-width="10" opacity=".9"/><rect x="90" y="151" width="310" height="26" rx="10" fill="#edf7ff" opacity=".95"/><text x="245" y="171" text-anchor="middle" font-size="23" font-weight="900" fill="#0d72c9">SYS SERVİS YÖNETİM</text><circle cx="145" cy="193" r="33" fill="#07111e" stroke="#56c9ff" stroke-width="7"/><circle cx="374" cy="193" r="33" fill="#07111e" stroke="#56c9ff" stroke-width="7"/><circle cx="145" cy="193" r="12" fill="#8ca4b5"/><circle cx="374" cy="193" r="12" fill="#8ca4b5"/><path d="M448 142l35 8v34h-27" fill="#dcecf6" stroke="#7fd6ff" stroke-width="4"/><path d="M464 161h22" stroke="#00aaff" stroke-width="8" filter="url(#busGlow)"/><path d="M58 147H31v32h27" fill="#dcecf6" stroke="#7fd6ff" stroke-width="4"/><path d="M31 164H8" stroke="#00aaff" stroke-width="8" filter="url(#busGlow)"/></svg></div></div>
    <div class="ss-center"><div class="ss-metrics"><div class="ss-card ss-metric"><span>YOLCU</span><b id="ssPassengerCount">0</b><small>Aktif yolcu</small></div><div class="ss-card ss-metric"><span>BİNDİ</span><b id="ssBoarded">0</b><small>Bugün</small></div><div class="ss-card ss-metric"><span>İNDİ</span><b id="ssDropped">0</b><small>Bugün</small></div><div class="ss-card ss-metric"><span>GECİKME</span><b id="ssDelay">00:00</b><small>Dakika</small></div></div><div class="ss-card ss-route"><div class="ss-route-line"></div><div class="ss-welcome">HOŞ GELDİNİZ<small>EMNİYET KEMERİNİZİ TAKMAYI UNUTMAYINIZ</small></div></div><div class="ss-card"><div class="ss-kicker">AKTİF UYARILAR</div><div id="ssAlerts" style="margin-top:12px;color:#dcecf8">Araç bakım ve evrak durumu kontrol ediliyor.</div></div></div>
-   <div class="ss-side"><div class="ss-card ss-next"><div class="ss-kicker">SONRAKİ DURAK</div><strong id="ssNextStop">Aktif rota bulunmuyor</strong><span>TAHMİNİ VARIŞ</span><div class="ss-arrival" id="ssArrival">--:--</div></div><div class="ss-card ss-driver"><div class="ss-kicker">ŞOFÖR BİLGİSİ</div><strong id="ssDriver">Kayıtlı şoför</strong><span id="ssShift">Günün seferi bekleniyor</span></div></div>
+   <div class="ss-side"><div class="ss-card ss-next"><div class="ss-kicker">SIRADAKİ ROTA</div><strong id="ssNextStop">Aktif rota bulunmuyor</strong><span>VARIŞA KALAN</span><div class="ss-arrival" id="ssArrival">--:--</div></div><div class="ss-card ss-driver"><div class="ss-kicker">ŞOFÖR BİLGİSİ</div><strong id="ssDriver">Kayıtlı şoför</strong><span id="ssShift">Günün seferi bekleniyor</span></div></div>
   </div>
   <div class="ss-bottom"><div class="ss-card"><strong>YAKIT FİYATLARI</strong><div class="ss-fuel-logos"><div class="ss-fuel-brand"><span id="ssShellLogo"></span><div><strong>Shell</strong><span id="ssShellPrice">-</span></div></div><div class="ss-fuel-brand"><span id="ssOpetLogo"></span><div><strong>Opet</strong><span id="ssOpetPrice">-</span></div></div></div></div><div class="ss-card"><strong>YAKLAŞAN BAKIM</strong><span id="ssMaintenance">Kontrol ediliyor</span></div><div class="ss-card"><strong>GÜVENLİ SÜRÜŞ</strong><span>Sevdikleriniz sizi bekliyor</span></div><div class="ss-card"><strong>SEFER İLERLEME</strong><div class="ss-progress-chart"><div class="ss-progress-track"><div class="ss-progress-fill" id="ssProgressFill"></div></div><div class="ss-progress-stats"><span><b id="ssCompletedStops">0</b>Tamamlandı</span><span><b id="ssRemainingStops">0</b>Kalan</span><span><b id="ssOnboard">0</b>Araçta</span></div></div></div></div>
  </div><div class="ss-hint">Programa dönmek için ekrana dokunun</div>
@@ -34899,7 +34952,7 @@
  function sync(){const now=new Date();$s('#ssClock').textContent=now.toLocaleTimeString('tr-TR');$s('#ssDate').textContent=now.toLocaleDateString('tr-TR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
  const live=Number(txt('#commandLiveCount','0'))||0;$s('#ssServiceState').textContent=live?'AKTİF SERVİS':'SERVİS BEKLEMEDE';const pActive=!$s('#commandPersonnelCard')?.classList.contains('is-idle')&&txt('#commandPersonnelState','').toLowerCase().includes('canlı');const card=pActive?$s('#commandPersonnelCard'):$s('#commandSchoolCard');$s('#ssNextStop').textContent=card?.querySelector('.command-next-name')?.textContent?.trim()||txt('#commandLiveTitle','Aktif rota bulunmuyor');$s('#ssPassengerCount').textContent=live?txt('#commandLiveCount','1'):'0';$s('#ssShellPrice').textContent=txt('#shellFuelPrice','-');$s('#ssOpetPrice').textContent=txt('#opetFuelPrice','-');const sh=document.querySelector('#shellFuelCard .fuel-brand-logo img');const op=document.querySelector('#opetFuelCard .fuel-brand-logo img');if(sh&&!$s('#ssShellLogo img'))$s('#ssShellLogo').innerHTML=`<img src="${sh.src}" alt="Shell">`;if(op&&!$s('#ssOpetLogo img'))$s('#ssOpetLogo').innerHTML=`<img src="${op.src}" alt="Opet">`;const waiting=Number((card?.querySelector('.command-next-passenger [data-waiting]')?.textContent||'0').replace(/\D/g,''))||0;const total=Math.max(waiting+1,Number(txt('#commandLiveCount','0'))||0,1);const done=Math.max(0,total-waiting);$s('#ssCompletedStops').textContent=String(done);$s('#ssRemainingStops').textContent=String(waiting);$s('#ssOnboard').textContent=txt('#ssPassengerCount','0');$s('#ssProgressFill').style.width=`${Math.min(100,Math.round(done/total*100))}%`;$s('#ssMaintenance').textContent=txt('#commandMaintenanceText','Araç bakım ve evrakları güncel');$s('#ssAlerts').textContent=txt('#commandInvoiceReminderText',txt('#commandMaintenanceText','Aktif uyarı bulunmuyor'));
  try{const v=(window.state?.vehicles||[])[0];if(v){$s('#ssPlate').textContent=v.plate||'PLAKA YOK';$s('#ssVehicle').textContent=[v.brand,v.model].filter(Boolean).join(' ')||'Araç';$s('#ssDriver').textContent=v.driverName||v.driver||'Kayıtlı şoför';}}catch{}
- $s('#ssArrival').textContent=new Date(now.getTime()+5*60000).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+ const liveCountdown=card?.querySelector('.command-countdown-hero strong')?.textContent?.trim()||'--';$s('#ssArrival').textContent=liveCountdown;
  }
  function draw(){const c=$s('#ssCanvas');if(!c)return;const dpr=Math.min(devicePixelRatio||1,2),w=innerWidth,h=innerHeight;c.width=w*dpr;c.height=h*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);let t=0;function frame(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';for(let j=0;j<4;j++){x.beginPath();for(let i=0;i<=w;i+=12){const y=h*.68+Math.sin(i*.012+t+j)*25+j*18;x.lineTo(i,y)}const g=x.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,220,255,.03)');g.addColorStop(.5,'rgba(20,110,255,.42)');g.addColorStop(1,'rgba(180,35,255,.04)');x.strokeStyle=g;x.lineWidth=2;x.stroke()}t+=.018;animId=requestAnimationFrame(frame)}frame()}
  function show(){const el=$s('#sysScreenSaver');if(!el)return;sync();el.classList.add('active');el.setAttribute('aria-hidden','false');clockTimer=setInterval(sync,1000);draw()}
