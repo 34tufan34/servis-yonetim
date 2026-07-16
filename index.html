@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.35</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.36</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,7 +14119,7 @@
     }
 
 
-    /* v4.44.35 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    /* v4.44.36 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
     #screen-command .command-service-grid,
     #screen-command .command-dashboard > .command-service-grid {
       grid-template-columns: minmax(0, 1fr) !important;
@@ -14596,7 +14596,7 @@
 
   
 
-/* v4.44.35 - Komuta Paneli kart çakışması kesin düzeltme */
+/* v4.44.36 - Komuta Paneli kart çakışması kesin düzeltme */
 #screen-command .command-service-grid,
 #screen-command .command-dashboard > .command-service-grid {
   display: grid !important;
@@ -14697,7 +14697,7 @@
 #screen-settings .settings-screensaver-card{grid-column:1/-1;order:4}.screensaver-settings-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.screensaver-settings-row .field{margin:0}@media(max-width:760px){.screensaver-settings-row{grid-template-columns:1fr}}
 
 
-/* v4.44.35 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
+/* v4.44.36 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
 #sysScreenSaver .ss-route{padding-bottom:74px}
 #sysScreenSaver .ss-welcome{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);min-width:420px;padding:14px 24px;border:1px solid rgba(68,215,255,.28);border-radius:18px;background:rgba(3,14,28,.82);box-shadow:0 16px 42px rgba(0,0,0,.35)}
 #sysScreenSaver .ss-welcome small{margin-top:10px;font-size:16px}
@@ -14727,7 +14727,7 @@
 }
 
 
-/* v4.44.35 - Komuta Paneli tam akış ve yakıt/bakım çakışma düzeltmesi */
+/* v4.44.36 - Komuta Paneli tam akış ve yakıt/bakım çakışma düzeltmesi */
 #screen-command {
   overflow-y: auto !important;
   overflow-x: hidden !important;
@@ -14818,7 +14818,7 @@
 }
 
 
-    /* v4.44.35 - Tek aktif servis, rota ve ekran koruyucu uyumu */
+    /* v4.44.36 - Tek aktif servis, rota ve ekran koruyucu uyumu */
     #screen-command .command-service-card.command-live-hidden { display:none !important; }
     #screen-command .command-service-grid.single-live { grid-template-columns:minmax(0,1fr) !important; }
     #screen-command .command-service-grid.single-live .command-service-card { width:100%; }
@@ -14827,6 +14827,48 @@
     #sysScreenSaver .ss-route { min-height:280px; }
     #sysScreenSaver .ss-bus svg { transform:scale(1.06); filter:drop-shadow(0 18px 28px rgba(0,145,255,.28)); }
     @media(max-width:1079px){#screen-command .command-service-grid.single-live{grid-template-columns:1fr!important}}
+
+
+/* v4.44.36 - Günlük operasyon sıfırlama ve görsel ekran koruyucu */
+.command-overview-actions{display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.command-day-reset-btn{min-height:38px;border-color:rgba(239,68,68,.42)!important;background:rgba(239,68,68,.12)!important;color:#fecaca!important;font-weight:900}
+.command-day-reset-btn:hover{background:rgba(239,68,68,.22)!important}
+@media(max-width:700px){.command-overview{align-items:stretch}.command-overview-actions{justify-content:space-between}.command-day-reset-btn{flex:1 1 auto}}
+
+#sysScreenSaver{background:radial-gradient(circle at 50% 42%,rgba(var(--accent-rgb),.12),transparent 34%),linear-gradient(180deg,#02060d 0%,#030a14 54%,#02060c 100%)!important}
+#sysScreenSaver .ss-shell{padding:20px 24px 18px;gap:12px;grid-template-rows:auto minmax(0,1fr) auto}
+#sysScreenSaver .ss-top{align-items:center;padding:0 8px}
+#sysScreenSaver .ss-brand{font-style:italic;font-size:38px;color:#f8fbff;text-shadow:0 0 24px rgba(var(--accent-rgb),.28)}
+#sysScreenSaver .ss-clock strong{font-size:46px}
+#sysScreenSaver .ss-city strong{font-size:22px}
+#sysScreenSaver .ss-grid{grid-template-columns:240px minmax(0,1fr) 250px;gap:10px}
+#sysScreenSaver .ss-card{border-color:rgba(var(--accent-rgb),.32);border-radius:16px;padding:14px;background:linear-gradient(145deg,rgba(4,16,30,.96),rgba(2,8,17,.92));box-shadow:0 10px 34px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.035)}
+#sysScreenSaver .ss-kicker{color:var(--accent);font-size:11px}
+#sysScreenSaver .ss-plate{font-size:26px;margin:12px 0 4px}
+#sysScreenSaver .ss-bus{height:150px;margin-top:8px}
+#sysScreenSaver .ss-bus svg{width:220px}
+#sysScreenSaver .ss-center{grid-template-rows:auto minmax(250px,1fr) auto;gap:10px}
+#sysScreenSaver .ss-metrics{gap:8px}
+#sysScreenSaver .ss-metric{padding:12px 6px}
+#sysScreenSaver .ss-metric b{font-size:28px;margin:5px 0}
+#sysScreenSaver .ss-route{min-height:260px!important;padding-bottom:86px;background:radial-gradient(circle at 50% 58%,rgba(var(--accent-rgb),.14),transparent 42%),linear-gradient(180deg,rgba(3,12,24,.92),rgba(1,7,15,.98))}
+#sysScreenSaver .ss-route::before{content:"";position:absolute;inset:10% 6% 28%;background:linear-gradient(rgba(var(--accent-rgb),.09) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--accent-rgb),.09) 1px,transparent 1px);background-size:28px 28px;transform:perspective(450px) rotateX(62deg);transform-origin:center bottom;opacity:.62}
+#sysScreenSaver .ss-route-line{left:6%;right:6%;top:54%;height:6px;background:linear-gradient(90deg,#22c55e,var(--accent),#2563eb);box-shadow:0 0 18px rgba(var(--accent-rgb),.72)}
+#sysScreenSaver .ss-welcome{bottom:16px!important;padding:11px 22px!important;font-size:18px!important;min-width:360px!important}
+#sysScreenSaver .ss-welcome small{font-size:13px!important;margin-top:5px!important;color:#86efac}
+#sysScreenSaver .ss-side{gap:10px}
+#sysScreenSaver .ss-next strong{font-size:20px;margin:14px 0}
+#sysScreenSaver .ss-arrival{font-size:28px}
+#sysScreenSaver .ss-bottom{grid-template-columns:1.15fr 1fr 1fr .95fr 1.75fr;gap:8px}
+#sysScreenSaver .ss-bottom .ss-card{min-height:108px;padding:12px 14px}
+#sysScreenSaver .ss-fuel-logos{gap:8px;margin-top:6px}
+#sysScreenSaver .ss-fuel-brand{grid-template-columns:44px 1fr;padding:6px 8px}
+#sysScreenSaver .ss-fuel-brand img{max-width:44px;max-height:38px}
+#sysScreenSaver .ss-progress-track{height:15px}
+#sysScreenSaver .ss-progress-stats b{font-size:20px}
+#sysScreenSaver .ss-hint{opacity:.68}
+@media(max-width:1180px){#sysScreenSaver .ss-grid{grid-template-columns:220px minmax(0,1fr) 220px}#sysScreenSaver .ss-bottom{grid-template-columns:repeat(3,1fr)}#sysScreenSaver .ss-bottom .ss-card:last-child{grid-column:span 2}}
+@media(max-width:900px){#sysScreenSaver .ss-shell{overflow:auto}#sysScreenSaver .ss-grid{grid-template-columns:1fr}#sysScreenSaver .ss-center{grid-template-rows:auto minmax(240px,1fr) auto}#sysScreenSaver .ss-bottom{grid-template-columns:repeat(2,1fr)}#sysScreenSaver .ss-bottom .ss-card:last-child{grid-column:1/-1}}
 </style>
 </head>
 
@@ -14985,7 +15027,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.35</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.36</div>
         </div>
       </div>
 
@@ -15066,9 +15108,12 @@
               <h2 class="command-overview-title" id="commandLiveTitle">Aktif servis yok</h2>
               <div class="command-overview-text" id="commandLiveText">Bir servis başlatıldığında ilgili bölüm burada canlı olarak hareket edecek.</div>
             </div>
-            <div class="command-live-total">
-              <strong id="commandLiveCount">0</strong>
-              <span>Canlı Servis</span>
+            <div class="command-overview-actions">
+              <button class="btn small danger command-day-reset-btn" id="resetTodayOperationsBtn" type="button" title="Bugünün biniş, iniş, servis ve çetele kayıtlarını siler">Bugünü Sıfırla</button>
+              <div class="command-live-total">
+                <strong id="commandLiveCount">0</strong>
+                <span>Canlı Servis</span>
+              </div>
             </div>
           </section>
 
@@ -18611,7 +18656,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.35</strong>
+                <strong>v4.44.36</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -18656,7 +18701,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.35";
+    const APP_VERSION = "4.44.36";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -34939,6 +34984,40 @@
   <div class="ss-bottom"><div class="ss-card"><strong>YAKIT FİYATLARI</strong><div class="ss-fuel-logos"><div class="ss-fuel-brand"><span id="ssShellLogo"></span><div><strong>Shell</strong><span id="ssShellPrice">-</span></div></div><div class="ss-fuel-brand"><span id="ssOpetLogo"></span><div><strong>Opet</strong><span id="ssOpetPrice">-</span></div></div></div></div><div class="ss-card"><strong>YAKLAŞAN BAKIM</strong><span id="ssMaintenance">Kontrol ediliyor</span></div><div class="ss-card"><strong>GÜVENLİ SÜRÜŞ</strong><span>Sevdikleriniz sizi bekliyor</span></div><div class="ss-card"><strong>SEFER İLERLEME</strong><div class="ss-progress-chart"><div class="ss-progress-track"><div class="ss-progress-fill" id="ssProgressFill"></div></div><div class="ss-progress-stats"><span><b id="ssCompletedStops">0</b>Tamamlandı</span><span><b id="ssRemainingStops">0</b>Kalan</span><span><b id="ssOnboard">0</b>Araçta</span></div></div></div></div>
  </div><div class="ss-hint">Programa dönmek için ekrana dokunun</div>
 </div>
+
+<script id="dailyOperationsResetScript">
+(()=>{
+  function countForDate(list,date){return Array.isArray(list)?list.filter(x=>String(x?.date||x?.serviceDate||"").slice(0,10)===date).length:0}
+  function resetTodayOperations(){
+    const date=(typeof todayISO==="function"?todayISO():new Date().toLocaleDateString("sv-SE"));
+    const summary={
+      personnelAttendance:countForDate(state.attendance,date),
+      schoolAttendance:countForDate(state.schoolAttendance,date),
+      dispatches:countForDate(state.dispatches,date),
+      personnelSessions:countForDate(state.serviceSessions,date),
+      schoolSessions:countForDate(state.schoolServiceSessions,date),
+      trips:countForDate(state.trips,date)
+    };
+    const total=Object.values(summary).reduce((a,b)=>a+b,0);
+    if(!total){alert(`${date} tarihine ait silinecek günlük servis veya çetele kaydı bulunmuyor.`);return}
+    const first=confirm(`${date} tarihindeki günlük servis kayıtları sıfırlanacak.\n\nPersonel biniş/iniş ve çetele: ${summary.personnelAttendance}\nOkul biniş/iniş: ${summary.schoolAttendance}\nSefer/servis kayıtları: ${summary.dispatches+summary.personnelSessions+summary.schoolSessions+summary.trips}\n\nAraç, personel, firma ve finans kayıtları silinmez. Devam edilsin mi?`);
+    if(!first)return;
+    if(!confirm("Bu işlem geri alınamaz. Bugünün tüm biniş, iniş, aktif servis ve çetele kayıtlarını kalıcı olarak silmek istediğine emin misin?"))return;
+    const keep=x=>String(x?.date||x?.serviceDate||"").slice(0,10)!==date;
+    state.attendance=(state.attendance||[]).filter(keep);
+    state.schoolAttendance=(state.schoolAttendance||[]).filter(keep);
+    state.dispatches=(state.dispatches||[]).filter(keep);
+    state.serviceSessions=(state.serviceSessions||[]).filter(keep);
+    state.schoolServiceSessions=(state.schoolServiceSessions||[]).filter(keep);
+    state.trips=(state.trips||[]).filter(keep);
+    if(typeof saveState==="function")saveState();
+    if(typeof appendAudit==="function")appendAudit("Servis", "Günlük operasyon kayıtları sıfırlandı", `${date} · ${total} kayıt`);
+    if(typeof renderAll==="function")renderAll();
+    alert(`${date} tarihindeki günlük servis, biniş/iniş ve çetele kayıtları sıfırlandı.`);
+  }
+  document.addEventListener("DOMContentLoaded",()=>document.getElementById("resetTodayOperationsBtn")?.addEventListener("click",resetTodayOperations));
+})();
+</script>
 
 <script id="sysScreenSaverScript">
 (()=>{
