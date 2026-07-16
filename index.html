@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.32</title>
+  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.33</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -14119,7 +14119,7 @@
     }
 
 
-    /* v4.44.32 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
+    /* v4.44.33 - Onaylı geniş ve okunaklı Komuta Paneli operasyon kartı */
     #screen-command .command-service-grid,
     #screen-command .command-dashboard > .command-service-grid {
       grid-template-columns: minmax(0, 1fr) !important;
@@ -14594,7 +14594,98 @@
       .vehicle-depreciation-preview { grid-template-columns: 1fr; }
     }
 
-  </style>
+  
+
+/* v4.44.33 - Komuta Paneli kart çakışması kesin düzeltme */
+#screen-command .command-service-grid,
+#screen-command .command-dashboard > .command-service-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-rows: max-content !important;
+  align-items: start !important;
+  gap: 16px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+  margin: 0 0 14px !important;
+}
+#screen-command .command-service-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 18px 20px !important;
+  gap: 14px !important;
+  overflow: hidden !important;
+  align-self: start !important;
+}
+#screen-command .command-card-summary {
+  flex: 0 0 auto !important;
+  min-height: 64px !important;
+}
+#screen-command .command-next-passenger {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+#screen-command .command-next-info-grid {
+  align-items: stretch !important;
+}
+#screen-command .command-quick-actions {
+  position: static !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-top: 12px !important;
+  overflow: visible !important;
+}
+/* Servis beklemedeyken gereksiz işlem düğmelerini gizle. */
+#screen-command .command-service-card:not(.is-live) .command-quick-btn.bindi,
+#screen-command .command-service-card:not(.is-live) .command-quick-btn.indi,
+#screen-command .command-service-card:not(.is-live) .command-quick-btn.yok,
+#screen-command .command-service-card:not(.is-live) .command-quick-btn.izinli,
+#screen-command .command-service-card:not(.is-live) .command-quick-btn.finish {
+  display: none !important;
+}
+#screen-command .command-service-card:not(.is-live) .command-quick-actions {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+#screen-command .command-service-card.is-live .command-quick-actions {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+#screen-command #commandPersonnelCard,
+#screen-command #commandSchoolCard {
+  z-index: auto !important;
+}
+#screen-command #commandFuelPanel {
+  clear: both !important;
+  position: relative !important;
+  z-index: 0 !important;
+  margin-top: 0 !important;
+}
+@media (min-width:1080px) and (max-height:760px) {
+  #screen-command .command-service-card { padding: 14px 16px !important; gap: 10px !important; }
+  #screen-command .command-card-summary { min-height: 56px !important; }
+  #screen-command .command-next-passenger { padding: 14px 16px !important; gap: 12px !important; }
+  #screen-command .command-next-name { font-size: clamp(22px,2.2vw,31px) !important; }
+  #screen-command .command-info-card { min-height: 72px !important; padding: 11px 13px !important; }
+  #screen-command .command-quick-btn { min-height: 40px !important; }
+}
+@media (max-width:900px) {
+  #screen-command .command-service-card:not(.is-live) .command-quick-actions,
+  #screen-command .command-service-card.is-live .command-quick-actions {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+}
+
+</style>
 
 <style id="sysScreenSaverStyles">
 #sysScreenSaver{position:fixed;inset:0;z-index:99999;display:none;background:radial-gradient(circle at 50% 40%,#09233a 0,#04111f 44%,#01050c 100%);color:#eef8ff;font-family:inherit;overflow:hidden;user-select:none}
@@ -14606,7 +14697,7 @@
 #screen-settings .settings-screensaver-card{grid-column:1/-1;order:4}.screensaver-settings-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.screensaver-settings-row .field{margin:0}@media(max-width:760px){.screensaver-settings-row{grid-template-columns:1fr}}
 
 
-/* v4.44.32 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
+/* v4.44.33 - Ekran koruyucu görsel düzeni ve Komuta Paneli çakışma düzeltmesi */
 #sysScreenSaver .ss-route{padding-bottom:74px}
 #sysScreenSaver .ss-welcome{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);min-width:420px;padding:14px 24px;border:1px solid rgba(68,215,255,.28);border-radius:18px;background:rgba(3,14,28,.82);box-shadow:0 16px 42px rgba(0,0,0,.35)}
 #sysScreenSaver .ss-welcome small{margin-top:10px;font-size:16px}
@@ -14792,7 +14883,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.32</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.33</div>
         </div>
       </div>
 
@@ -18418,7 +18509,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.32</strong>
+                <strong>v4.44.33</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -18463,7 +18554,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.32";
+    const APP_VERSION = "4.44.33";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
