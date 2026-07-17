@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | Komuta Paneli Geniş Operasyon Kartı v4.44.37</title>
+  <title>Servis Yönetim Sistemi | v4.44.40</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -15147,7 +15147,7 @@
 </style>
 
 <style id="v4_44_39_command_side_by_side_fix">
-/* v4.44.39 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
+/* v4.44.40 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
 @media (min-width: 1080px) {
   #screen-command .command-service-grid,
   #screen-command .command-dashboard > .command-service-grid {
@@ -15298,6 +15298,123 @@
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+
+    /* v4.44.40 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
+    #screen-command .command-overview {
+      min-height: 96px !important;
+      height: auto !important;
+      overflow: visible !important;
+      align-items: center !important;
+      padding: 14px 16px !important;
+    }
+    #screen-command .command-overview-actions {
+      position: static !important;
+      display: grid !important;
+      grid-template-columns: minmax(126px, auto) 104px !important;
+      align-items: stretch !important;
+      align-self: stretch !important;
+      gap: 10px !important;
+      margin: 0 !important;
+      transform: none !important;
+    }
+    #screen-command .command-day-reset-btn {
+      position: static !important;
+      align-self: center !important;
+      min-height: 42px !important;
+      margin: 0 !important;
+      transform: none !important;
+      z-index: auto !important;
+      border-color: rgba(var(--accent-rgb), .42) !important;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .18), rgba(var(--accent-rgb), .08)) !important;
+      color: var(--text) !important;
+      box-shadow: none !important;
+      white-space: nowrap;
+    }
+    #screen-command .command-day-reset-btn:hover {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), .28), rgba(var(--accent-rgb), .14)) !important;
+      border-color: rgba(var(--accent-rgb), .62) !important;
+    }
+    #screen-command .command-live-total {
+      min-width: 104px !important;
+      min-height: 68px !important;
+      height: auto !important;
+      align-self: stretch !important;
+    }
+    #screen-command .command-dashboard {
+      grid-template-rows: auto auto auto auto auto !important;
+    }
+
+    .person-address-book-field select {
+      border-color: rgba(var(--accent-rgb), .34);
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .11), rgba(var(--accent-rgb), .035)),
+        var(--panel);
+    }
+    .person-address-book-field .field-help {
+      color: color-mix(in srgb, var(--muted) 82%, rgb(var(--accent-rgb)) 18%);
+    }
+
+    input[type="time"],
+    input[type="date"],
+    input[type="month"],
+    input[type="datetime-local"] {
+      accent-color: rgb(var(--accent-rgb));
+      border-color: rgba(var(--accent-rgb), .28);
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .09), rgba(var(--accent-rgb), .025)),
+        var(--panel);
+      color: var(--text);
+    }
+    input[type="time"]:focus,
+    input[type="date"]:focus,
+    input[type="month"]:focus,
+    input[type="datetime-local"]:focus {
+      border-color: rgba(var(--accent-rgb), .68);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .12);
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator,
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="month"]::-webkit-calendar-picker-indicator,
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: .92;
+      padding: 5px;
+      border-radius: 8px;
+      background-color: rgba(var(--accent-rgb), .14);
+    }
+    body:not([data-theme="light"]) input[type="time"]::-webkit-calendar-picker-indicator,
+    body:not([data-theme="light"]) input[type="date"]::-webkit-calendar-picker-indicator,
+    body:not([data-theme="light"]) input[type="month"]::-webkit-calendar-picker-indicator,
+    body:not([data-theme="light"]) input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) saturate(.7);
+    }
+    body[data-theme="light"] input[type="time"]::-webkit-calendar-picker-indicator,
+    body[data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator,
+    body[data-theme="light"] input[type="month"]::-webkit-calendar-picker-indicator,
+    body[data-theme="light"] input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: none;
+    }
+    input[type="time"]::-webkit-datetime-edit-fields-wrapper,
+    input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+    input[type="month"]::-webkit-datetime-edit-fields-wrapper,
+    input[type="datetime-local"]::-webkit-datetime-edit-fields-wrapper {
+      color: var(--text);
+    }
+    input[type="time"]::-webkit-datetime-edit-text,
+    input[type="date"]::-webkit-datetime-edit-text,
+    input[type="month"]::-webkit-datetime-edit-text,
+    input[type="datetime-local"]::-webkit-datetime-edit-text {
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      #screen-command .command-overview-actions {
+        width: 100% !important;
+        grid-template-columns: minmax(0, 1fr) minmax(90px, .55fr) !important;
+      }
+      #screen-command .command-day-reset-btn { white-space: normal; }
+    }
 </style>
 
 </head>
@@ -15457,7 +15574,7 @@
         <div class="brand-mark">SYS</div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.37</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.40</div>
         </div>
       </div>
 
@@ -15539,7 +15656,7 @@
               <div class="command-overview-text" id="commandLiveText">Bir servis başlatıldığında ilgili bölüm burada canlı olarak hareket edecek.</div>
             </div>
             <div class="command-overview-actions">
-              <button class="btn small danger command-day-reset-btn" id="resetTodayOperationsBtn" type="button" title="Bugünün biniş, iniş, servis ve çetele kayıtlarını siler">Bugünü Sıfırla</button>
+              <button class="btn small command-day-reset-btn" id="resetTodayOperationsBtn" type="button" title="Bugünün biniş, iniş, servis ve çetele kayıtlarını siler">Bugünü Sıfırla</button>
               <div class="command-live-total">
                 <strong id="commandLiveCount">0</strong>
                 <span>Canlı Servis</span>
@@ -15956,6 +16073,14 @@
                     </div>
                   </div>
 
+                  <div class="field person-address-book-field">
+                    <label for="personMorningAddressBookSelect">Adres Defterinden Sabah Adresi</label>
+                    <select id="personMorningAddressBookSelect">
+                      <option value="">Manuel adres gir</option>
+                    </select>
+                    <small class="field-help">Seçilen kayıt sabah adresi ve harita arama metnini otomatik doldurur.</small>
+                  </div>
+
                   <div class="field">
                     <label for="personMorningAddress">Sabah Biniş Adresi</label>
                     <input id="personMorningAddress" placeholder="Örn. Kıptaş Tepecik Konutları giriş kapısı" />
@@ -15964,6 +16089,14 @@
                   <div class="field">
                     <label for="personMorningMapQuery">Sabah Harita Arama Metni</label>
                     <input id="personMorningMapQuery" placeholder="Örn. Kıptaş Tepecik Konutları Büyükçekmece" />
+                  </div>
+
+                  <div class="field person-address-book-field">
+                    <label for="personEveningAddressBookSelect">Adres Defterinden Akşam Adresi</label>
+                    <select id="personEveningAddressBookSelect">
+                      <option value="">Manuel adres gir</option>
+                    </select>
+                    <small class="field-help">Seçilen kayıt akşam adresi ve harita arama metnini otomatik doldurur.</small>
                   </div>
 
                   <div class="field">
@@ -19086,7 +19219,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.37</strong>
+                <strong>v4.44.40</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -19131,7 +19264,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.37";
+    const APP_VERSION = "4.44.40";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -30701,6 +30834,36 @@
       return state.addressBook;
     }
 
+    function renderPersonAddressBookOptions() {
+      const rows = [...addressBookRows()].sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "tr-TR"));
+      ["personMorningAddressBookSelect", "personEveningAddressBookSelect"].forEach((id) => {
+        const select = $("#" + id);
+        if (!select) return;
+        const current = select.value;
+        select.innerHTML = `<option value="">Manuel adres gir</option>${rows.map((item) => {
+          const label = `${item.name || "İsimsiz Konum"}${item.note ? ` · ${item.note}` : ""}`;
+          return `<option value="${escapeHtml(item.id)}">${escapeHtml(label)}</option>`;
+        }).join("")}`;
+        if (rows.some((item) => item.id === current)) select.value = current;
+      });
+    }
+
+    function applyPersonAddressBookSelection(kind) {
+      const morning = kind === "morning";
+      const select = $(morning ? "#personMorningAddressBookSelect" : "#personEveningAddressBookSelect");
+      const item = addressBookRows().find((entry) => entry.id === String(select?.value || ""));
+      if (!item) return;
+      const location = String(item.location || "").trim();
+      if (morning) {
+        $("#personMorningAddress").value = location;
+        $("#personMorningMapQuery").value = location;
+      } else {
+        $("#personEveningAddress").value = location;
+        $("#personEveningMapQuery").value = location;
+      }
+      showToast(`${item.name || "Adres"} personel formuna aktarıldı.`);
+    }
+
     function clearAddressBookForm() {
       if ($("#addressBookId")) $("#addressBookId").value = "";
       if ($("#addressBookForm")) $("#addressBookForm").reset();
@@ -30744,6 +30907,7 @@
       appendAudit("Adres Defteri", "Adres silindi", item.name || item.location || "Konum");
       clearAddressBookForm();
       saveState();
+      renderAddressBook();
       showToast("Adres kaydı silindi.");
     }
 
@@ -30756,6 +30920,7 @@
         .filter((item) => !query || normalize(`${item.name || ""} ${item.location || ""} ${item.note || ""}`).includes(query));
       const badge = $("#addressBookCountBadge");
       if (badge) badge.textContent = `${addressBookRows().length} kayıt`;
+      renderPersonAddressBookOptions();
 
       if (!rows.length) {
         host.innerHTML = `<div class="address-book-empty">${query ? "Aramana uygun adres bulunamadı." : "Henüz adres kaydı yok.<br>Soldaki formdan ilk konumu kaydet."}</div>`;
@@ -30800,6 +30965,7 @@
       }
       clearAddressBookForm();
       saveState();
+      renderAddressBook();
       showToast("Adres defterine kaydedildi.");
     }
 
@@ -30807,6 +30973,8 @@
       $("#addressBookForm")?.addEventListener("submit", handleAddressBookSubmit);
       $("#clearAddressBookBtn")?.addEventListener("click", clearAddressBookForm);
       $("#addressBookSearch")?.addEventListener("input", renderAddressBook);
+      $("#personMorningAddressBookSelect")?.addEventListener("change", () => applyPersonAddressBookSelection("morning"));
+      $("#personEveningAddressBookSelect")?.addEventListener("change", () => applyPersonAddressBookSelection("evening"));
       $("#addressBookList")?.addEventListener("click", (event) => {
         const button = event.target.closest("[data-address-action]");
         if (!button) return;
@@ -30900,6 +31068,8 @@
       updatePersonCompanyAutoFields();
       $("#personMorningOrder").value = "";
       $("#personEveningOrder").value = "";
+      $("#personMorningAddressBookSelect").value = "";
+      $("#personEveningAddressBookSelect").value = "";
       $("#personMorningAddress").value = "";
       $("#personMorningMapQuery").value = "";
       $("#personEveningAddress").value = "";
@@ -31158,10 +31328,15 @@
       $("#personStop").value = person.stop || "";
       $("#personMorningOrder").value = person.morningOrder || "";
       $("#personEveningOrder").value = person.eveningOrder || "";
+      renderPersonAddressBookOptions();
       $("#personMorningAddress").value = person.morningAddress || "";
       $("#personMorningMapQuery").value = person.morningMapQuery || "";
       $("#personEveningAddress").value = person.eveningAddress || "";
       $("#personEveningMapQuery").value = person.eveningMapQuery || "";
+      const morningAddressBookItem = addressBookRows().find((item) => [person.morningAddress, person.morningMapQuery].filter(Boolean).includes(item.location));
+      const eveningAddressBookItem = addressBookRows().find((item) => [person.eveningAddress, person.eveningMapQuery].filter(Boolean).includes(item.location));
+      $("#personMorningAddressBookSelect").value = morningAddressBookItem?.id || "";
+      $("#personEveningAddressBookSelect").value = eveningAddressBookItem?.id || "";
       $("#personStartDate").value = person.startDate || "";
       $("#personEndDate").value = person.endDate || "";
       $("#personLeaveUntil").value = person.leaveUntil || "";
@@ -35483,7 +35658,7 @@
 <script id="dailyOperationsResetScript">
 (()=>{
   function countForDate(list,date){return Array.isArray(list)?list.filter(x=>String(x?.date||x?.serviceDate||"").slice(0,10)===date).length:0}
-  function resetTodayOperations(){
+  async function resetTodayOperations(){
     const date=(typeof todayISO==="function"?todayISO():new Date().toLocaleDateString("sv-SE"));
     const summary={
       personnelAttendance:countForDate(state.attendance,date),
@@ -35494,10 +35669,11 @@
       trips:countForDate(state.trips,date)
     };
     const total=Object.values(summary).reduce((a,b)=>a+b,0);
-    if(!total){alert(`${date} tarihine ait silinecek günlük servis veya çetele kaydı bulunmuyor.`);return}
-    const first=confirm(`${date} tarihindeki günlük servis kayıtları sıfırlanacak.\n\nPersonel biniş/iniş ve çetele: ${summary.personnelAttendance}\nOkul biniş/iniş: ${summary.schoolAttendance}\nSefer/servis kayıtları: ${summary.dispatches+summary.personnelSessions+summary.schoolSessions+summary.trips}\n\nAraç, personel, firma ve finans kayıtları silinmez. Devam edilsin mi?`);
+    if(!total){showToast(`${date} tarihine ait silinecek günlük servis veya çetele kaydı bulunmuyor.`);return}
+    const first=await appConfirm(`${date} tarihindeki günlük servis kayıtları sıfırlanacak.\n\nPersonel biniş/iniş ve çetele: ${summary.personnelAttendance}\nOkul biniş/iniş: ${summary.schoolAttendance}\nSefer/servis kayıtları: ${summary.dispatches+summary.personnelSessions+summary.schoolSessions+summary.trips}\n\nAraç, personel, firma ve finans kayıtları silinmez.`,{title:"Bugünü Sıfırla",icon:"↺",confirmText:"Devam Et",cancelText:"Vazgeç"});
     if(!first)return;
-    if(!confirm("Bu işlem geri alınamaz. Bugünün tüm biniş, iniş, aktif servis ve çetele kayıtlarını kalıcı olarak silmek istediğine emin misin?"))return;
+    const second=await appConfirm("Bu işlem geri alınamaz. Bugünün tüm biniş, iniş, aktif servis ve çetele kayıtları kalıcı olarak silinecek.",{title:"Son Onay",icon:"!",danger:true,confirmText:"Bugünü Sıfırla",cancelText:"İptal"});
+    if(!second)return;
     const keep=x=>String(x?.date||x?.serviceDate||"").slice(0,10)!==date;
     state.attendance=(state.attendance||[]).filter(keep);
     state.schoolAttendance=(state.schoolAttendance||[]).filter(keep);
@@ -35508,7 +35684,7 @@
     if(typeof saveState==="function")saveState();
     if(typeof appendAudit==="function")appendAudit("Servis", "Günlük operasyon kayıtları sıfırlandı", `${date} · ${total} kayıt`);
     if(typeof renderAll==="function")renderAll();
-    alert(`${date} tarihindeki günlük servis, biniş/iniş ve çetele kayıtları sıfırlandı.`);
+    showToast(`${date} tarihindeki günlük servis, biniş/iniş ve çetele kayıtları sıfırlandı.`);
   }
   document.addEventListener("DOMContentLoaded",()=>document.getElementById("resetTodayOperationsBtn")?.addEventListener("click",resetTodayOperations));
 })();
