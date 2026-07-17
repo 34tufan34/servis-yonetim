@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.44.41</title>
+  <title>Servis Yönetim Sistemi | v4.44.42</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -15147,7 +15147,7 @@
 </style>
 
 <style id="v4_44_39_command_side_by_side_fix">
-/* v4.44.41 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
+/* v4.44.42 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
 @media (min-width: 1080px) {
   #screen-command .command-service-grid,
   #screen-command .command-dashboard > .command-service-grid {
@@ -15300,7 +15300,7 @@
 }
 
 
-    /* v4.44.41 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
+    /* v4.44.42 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
     #screen-command .command-overview {
       min-height: 96px !important;
       height: auto !important;
@@ -15417,7 +15417,7 @@
     }
 
 
-    /* v4.44.41 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
+    /* v4.44.42 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
     .nav-btn { position: relative; }
     .nav-warning-badge {
       margin-left:auto; min-width:21px; height:21px; padding:0 6px; border-radius:999px;
@@ -15487,6 +15487,41 @@
     #sysScreenSaver .ss41-footer{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.ss41-mini-card{padding:12px 14px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center}.ss41-mini-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;color:var(--ss41-accent);background:rgba(var(--accent-rgb),.10);font-size:20px}.ss41-mini-card small,.ss41-mini-card strong{display:block}.ss41-mini-card small{color:#7f93a6;font-size:9px;text-transform:uppercase;letter-spacing:.08em}.ss41-mini-card strong{margin-top:4px;font-size:11px;line-height:1.3}.ss41-safe{border-color:rgba(34,197,94,.25)}.ss41-safe .ss41-mini-icon{color:#86efac;background:rgba(34,197,94,.10)}
     @media(max-width:1100px){#sysScreenSaver{overflow:auto!important}#sysScreenSaver .ss41-shell{height:auto;min-height:100%;grid-template-rows:auto auto auto}#sysScreenSaver .ss41-header{grid-template-columns:1fr;gap:8px;text-align:center;padding:12px}.ss41-brand{justify-content:center}.ss41-header-state{justify-self:center!important;text-align:center!important}.ss41-main{grid-template-columns:1fr!important}.ss41-footer{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ss41-route-map{min-height:300px}.ss41-van-wrap{height:190px}}
 
+
+
+    /* v4.44.42 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
+    .modern-sys-logo { color:#eafaff; overflow:hidden; background:linear-gradient(145deg,rgba(var(--accent-rgb),.24),rgba(56,189,248,.10)) !important; border:1px solid rgba(var(--accent-rgb),.38); box-shadow:0 12px 30px rgba(var(--accent-rgb),.22) !important; }
+    .modern-sys-logo svg { width:34px; height:34px; display:block; filter:drop-shadow(0 5px 10px rgba(var(--accent-rgb),.28)); }
+    .auth-brand-mark.modern-sys-logo,.license-brand-mark.modern-sys-logo { display:grid; place-items:center; }
+
+    #school-tab-payments { overflow-y:auto !important; overflow-x:hidden !important; padding-bottom:28px; }
+    #school-tab-payments .payment-panel { height:auto !important; min-height:max-content !important; overflow:visible !important; padding-bottom:24px !important; }
+    #school-tab-payments .payment-table-host { flex:0 0 auto !important; min-height:280px; overflow:visible !important; padding-bottom:18px; }
+    #school-tab-payments .payment-table-host .table-wrap { max-height:none !important; overflow:auto !important; }
+
+    .tab,.mini-tab,.vehicle-module-tab { position:relative; }
+    .tab-warning-badge { min-width:18px; height:18px; padding:0 5px; margin-left:6px; display:inline-grid; place-items:center; border-radius:999px; background:linear-gradient(135deg,var(--warning),var(--danger)); color:#fff; border:1px solid rgba(255,255,255,.2); font-size:9px; font-weight:950; line-height:1; vertical-align:middle; }
+    .tab-warning-badge.hidden { display:none !important; }
+
+    #screen-command .command-countdown-hero { min-width:190px; max-width:260px; }
+    #screen-command .command-countdown-hero small { color:color-mix(in srgb,var(--accent) 68%,var(--text) 32%); }
+    #screen-command .command-countdown-hero strong { color:color-mix(in srgb,var(--text) 78%,var(--accent) 22%) !important; font-size:clamp(13px,1.05vw,17px) !important; line-height:1.18 !important; overflow-wrap:anywhere; }
+    #screen-command .command-countdown-hero.is-late strong { color:color-mix(in srgb,var(--warning) 78%,var(--text) 22%) !important; }
+    #screen-command .command-countdown-hero.is-ok strong,#screen-command .command-countdown-hero.is-now strong { color:color-mix(in srgb,#22c55e 70%,var(--text) 30%) !important; }
+
+    .school-ledger-cell-stack { display:grid; grid-template-columns:1fr 1fr; gap:3px; min-width:54px; }
+    .school-ledger-cell-stack .school-ledger-cell { min-width:24px; width:100%; padding:5px 2px; font-size:10px; }
+    .school-ledger-cell-stack .school-ledger-period { display:block; font-size:7px; opacity:.75; margin-bottom:1px; }
+
+    @media (max-width:760px) {
+      #screen-command .command-countdown-hero { min-width:0; max-width:none; width:100%; }
+      #school-tab-payments .payment-panel { padding-bottom:36px !important; }
+    }
+
+    /* v4.44.42 - Okul tahsilat alt paneli tam görünürlük */
+    #screen-school { overflow-y:auto !important; }
+    #school-tab-payments.school-tab-screen:not(.hidden) { display:block !important; height:auto !important; min-height:100%; overflow:visible !important; }
+    #school-tab-payments .payment-summary, #school-tab-payments .payment-student-info, #school-tab-payments .payment-table-host { position:relative; z-index:1; }
 </style>
 
 </head>
@@ -15532,7 +15567,7 @@
   <div class="license-gate" id="licenseGate" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
     <div class="license-card" id="licenseCard">
       <div class="license-brand">
-        <div class="license-brand-mark">SYS</div>
+        <div class="license-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
         <div>
           <div class="license-title" id="licenseTitle">Lisans Doğrulama</div>
           <div class="license-copy" id="licenseCopy">Uygulamayı bu cihazda kullanmak için lisans kodunu doğrula.</div>
@@ -15566,7 +15601,7 @@
   <div class="auth-gate" id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <div class="auth-card">
       <div class="auth-brand">
-        <div class="auth-brand-mark">SYS</div>
+        <div class="auth-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
         <div>
           <div class="auth-title" id="authTitle">Güvenli Giriş</div>
           <div class="auth-copy" id="authCopy">Kullanıcı adın ve şifrenle oturum aç.</div>
@@ -15643,10 +15678,10 @@
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-mark">SYS</div>
+        <div class="brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.41</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.42</div>
         </div>
       </div>
 
@@ -16210,7 +16245,7 @@
 
               <div class="toolbar simple-toolbar">
                 <input id="personSearch" placeholder="Ad, sicil, telefon, firma, departman veya durak ara..." />
-                <button class="btn small" id="exportPeopleCsvBtn" type="button">CSV Aktar</button>
+                <button class="btn small" id="exportPeopleCsvBtn" type="button">CSV Aktar</button><button class="btn small primary" id="exportPeoplePdfBtn" type="button">PDF</button>
               </div>
 
               <div id="peopleTableHost"></div>
@@ -16555,7 +16590,7 @@
               </div>
               <div class="ledger-control-actions">
                 <button class="btn small" id="saveTripPriceBtn" type="button">Fiyatı Kaydet</button>
-                <button class="btn small" id="exportLedgerCsvBtn" type="button">Aylık CSV</button>
+                <button class="btn small" id="exportLedgerCsvBtn" type="button">Aylık CSV</button><button class="btn small primary" id="exportLedgerPdfBtn" type="button">Aylık PDF</button>
                 <button class="btn small primary" id="openLargeLedgerBtn" type="button">Çeteleyi Aç</button>
                 <button class="btn small hidden" id="closeLargeLedgerBtn" type="button">Geri Dön</button>
               </div>
@@ -17474,12 +17509,12 @@
                 <h2 class="panel-title">Okul Servisi Aylık Çetele</h2>
                 <div class="panel-sub">Sabah ve akşam öğrenci yoklamaları günlük servis kayıtlarından otomatik oluşur. Hücreye dokunarak düzeltme yapabilirsin.</div>
               </div>
-              <button class="btn small" id="exportSchoolLedgerCsvBtn" type="button">CSV İndir</button>
+              <div class="header-actions"><button class="btn small" id="exportSchoolLedgerCsvBtn" type="button">CSV İndir</button><button class="btn small primary" id="exportSchoolLedgerPdfBtn" type="button">PDF / Yazdır</button></div>
             </div>
             <div class="school-ledger-toolbar">
               <div class="field"><label for="schoolLedgerMonth">Ay</label><input id="schoolLedgerMonth" type="month" /></div>
               <div class="field"><label for="schoolLedgerSchool">Okul</label><select id="schoolLedgerSchool"></select></div>
-              <div class="field"><label for="schoolLedgerPeriod">Sefer</label><select id="schoolLedgerPeriod"><option value="morning">Sabah Alma</option><option value="evening">Akşam Bırakma</option></select></div>
+              <div class="field"><label for="schoolLedgerPeriod">Sefer</label><select id="schoolLedgerPeriod"><option value="both">Sabah + Akşam</option><option value="morning">Sadece Sabah</option><option value="evening">Sadece Akşam</option></select></div>
             </div>
             <div class="school-ledger-summary" id="schoolLedgerSummary"></div>
             <div class="school-ledger-legend"><span><i class="present">✓</i> Katıldı</span><span><i class="absent">Y</i> Yok</span><span><i class="alternate">A</i> Farklı adres</span><span><i class="pending">–</i> Kayıt yok</span></div>
@@ -17494,6 +17529,7 @@
                 <h2 class="panel-title">Öğrenci Fatura ve Tahsilat Takibi</h2>
                 <div class="panel-sub">Her öğrenci ve ay için faturalı veya faturasız çalışma türünü seç; KDV, tahsilat ve kalan alacağı ayrı izle.</div>
               </div>
+              <div class="header-actions"><button class="btn small primary" id="printSchoolPaymentReportBtn" type="button">Tahsilat PDF</button></div>
             </div>
 
             <div class="payment-filter-controls">
@@ -17898,7 +17934,7 @@
                     <div class="panel-sub">Seçili ayın yakıt, bakım ve operasyon paylarını toplu olarak incele.</div>
                   </div>
                   <div class="vehicle-expense-actions">
-<button class="btn" id="exportVehicleExpensesCsvBtn" type="button">Gider CSV</button>
+<button class="btn" id="exportVehicleExpensesCsvBtn" type="button">Gider CSV</button><button class="btn primary" id="exportVehicleExpensesPdfBtn" type="button">Gider PDF</button>
 <button class="btn primary" id="newVehicleExpenseBtn" type="button">Yeni Gider</button>
 </div>
                 </div>
@@ -18202,7 +18238,7 @@
                 </select>
               </div>
               <div class="finance-controls-actions">
-                <button class="btn" id="exportFinanceCsvBtn" type="button">Personel Finans CSV</button>
+                <button class="btn" id="exportFinanceCsvBtn" type="button">Personel Finans CSV</button><button class="btn primary" id="exportFinancePdfBtn" type="button">Personel Finans PDF</button>
                 <button class="btn primary" id="newFinanceRecordBtn" type="button">Yeni Finans Kaydı</button>
               </div>
             </section>
@@ -18266,7 +18302,7 @@
                   <input id="profitabilitySearch" placeholder="İş, firma, okul, araç veya şoför ara..." />
                 </div>
                 <div class="profitability-actions">
-                  <button class="btn" id="exportProfitabilityCsvBtn" type="button">Kârlılık CSV</button>
+                  <button class="btn" id="exportProfitabilityCsvBtn" type="button">Kârlılık CSV</button><button class="btn primary" id="exportProfitabilityPdfBtn" type="button">Kârlılık PDF</button>
                 </div>
               </div>
 
@@ -18484,7 +18520,7 @@
                   <input id="staffPaymentSearch" placeholder="Ad, telefon, plaka, iş, okul veya not ara..." />
                 </div>
                 <div class="staff-payment-actions">
-                  <button class="btn" id="exportStaffPaymentsCsvBtn" type="button">Ödeme CSV</button>
+                  <button class="btn" id="exportStaffPaymentsCsvBtn" type="button">Ödeme CSV</button><button class="btn primary" id="exportStaffPaymentsPdfBtn" type="button">Ödeme PDF</button>
                   <button class="btn primary" id="newStaffPaymentBtn" type="button">Yeni Ödeme Kaydı</button>
                 </div>
               </div>
@@ -18713,7 +18749,7 @@
                 <input id="financeSchoolSearch" placeholder="Öğrenci, veli, telefon, okul veya sınıf ara..." />
               </div>
               <div class="finance-school-actions">
-                <button class="btn" id="exportSchoolFinanceCsvBtn" type="button">Okul Finans CSV</button>
+                <button class="btn" id="exportSchoolFinanceCsvBtn" type="button">Okul Finans CSV</button><button class="btn primary" id="exportSchoolFinancePdfBtn" type="button">Okul Finans PDF</button>
                 <button class="btn primary" id="openSchoolPaymentsFromFinanceBtn" type="button">Tahsilat Ekranına Git</button>
               </div>
             </div>
@@ -19233,7 +19269,7 @@
                 <h2 class="panel-title">İşlem Geçmişi</h2>
                 <div class="panel-sub">Giriş, kayıt, silme, servis ve finans hareketleri.</div>
               </div>
-              <button class="btn small" id="exportAuditCsvBtn" type="button">CSV Aktar</button>
+              <button class="btn small" id="exportAuditCsvBtn" type="button">CSV Aktar</button><button class="btn small primary" id="exportAuditPdfBtn" type="button">PDF</button>
             </div>
 
             <div class="audit-toolbar">
@@ -19302,7 +19338,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.41</strong>
+                <strong>v4.44.42</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -19347,7 +19383,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.41";
+    const APP_VERSION = "4.44.42";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -21416,7 +21452,7 @@
         const countdown = serviceCountdown(plannedTime, date);
         const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
         const stageLabel = period === "evening" ? (phase === "boarding" ? "BİNİŞ AŞAMASI" : "DAĞITIM AŞAMASI") : "CANLI SERVİS";
-        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button>`;
+        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" type="button" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(currentPerson.id)}">Yok</button><button class="btn small" type="button" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(currentPerson.id)}">İzinli</button>`;
         const routeButtons = period === "evening" && phase === "boarding"
           ? ""
           : `<button class="btn small map-btn" type="button" data-action="open-map" data-person-id="${escapeHtml(currentPerson.id)}">Haritada Aç</button><button class="btn small map-btn" type="button" data-action="open-ordered-map">Sıralı Harita</button>`;
@@ -21439,7 +21475,7 @@
         const plannedTime = servicePlannedTime(person, period, job, shift);
         const countdown = serviceCountdown(plannedTime, date);
         const primaryStatus = period === "evening" ? (phase === "boarding" ? "Bindi" : "İndi") : "Bindi";
-        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button>`;
+        const absenceButtons = period === "evening" && phase === "dropoff" ? "" : `<button class="btn small danger" data-action="service-mark" data-status="Yok" data-person-id="${escapeHtml(person.id)}">Yok</button><button class="btn small" data-action="service-mark" data-status="İzinli" data-person-id="${escapeHtml(person.id)}">İzinli</button>`;
         const rowMapButton = period === "evening" && phase === "boarding" ? "" : `<button class="btn small map-btn" data-action="open-map" data-person-id="${escapeHtml(person.id)}">Harita</button>`;
         return `<tr><td><strong>${index + 1}</strong>${activeRow ? '<br><span class="pill active">Seçili</span>' : ''}</td><td><button class="btn small order-btn" data-action="service-order-up" data-person-id="${escapeHtml(person.id)}">↑</button><button class="btn small order-btn" data-action="service-order-down" data-person-id="${escapeHtml(person.id)}">↓</button></td><td><strong>${escapeHtml(person.name)}</strong><br><span class="muted">${escapeHtml(person.employeeNo || "")}</span></td><td>${escapeHtml(address || "-")}</td><td><strong>${escapeHtml(plannedTime || "-")}</strong><br><span class="muted">${escapeHtml(countdown.text)}</span></td><td><span class="pill ${statusClass(status)}">${escapeHtml(status)}</span></td><td>${rowMapButton}<button class="btn small" data-action="service-jump" data-index="${index}">Seç</button><button class="btn small primary" data-action="service-mark" data-status="${primaryStatus}" data-person-id="${escapeHtml(person.id)}">${primaryStatus}</button>${absenceButtons}</td></tr>`;
       }).join("")}</tbody></table></div>`;
@@ -24067,6 +24103,7 @@
                     <td><strong>Sabah:</strong> ${escapeHtml(student.morningOrder || "-")}<br><strong>Akşam:</strong> ${escapeHtml(student.eveningOrder || "-")}</td>
                     <td><strong>${escapeHtml(formatTRY(student.monthlyFee))}</strong></td>
                     <td>
+                      <button class="btn small" type="button" data-action="call-student-guardian" data-id="${escapeHtml(student.id)}">Veliyi Ara</button>
                       <button class="btn small" data-action="edit-student" data-id="${escapeHtml(student.id)}">Düzenle</button>
                       <button class="btn small danger" data-action="delete-student" data-id="${escapeHtml(student.id)}">Sil</button>
                     </td>
@@ -26093,6 +26130,7 @@
                   <td>
                     <div class="payment-actions">
                       <button class="btn small primary" type="button" data-action="select-payment-student" data-id="${escapeHtml(row.student.id)}">Kaydı Aç</button>
+                      <button class="btn small" type="button" data-action="call-student-guardian" data-id="${escapeHtml(row.student.id)}">Veliyi Ara</button>
                       ${row.records.length ? `<button class="btn small danger" type="button" data-action="delete-school-payment" data-id="${escapeHtml(row.records[row.records.length - 1].id)}">Son Kaydı Sil</button>` : ""}
                     </div>
                   </td>
@@ -26966,15 +27004,7 @@
       const field=schoolAttendanceField(period); const header=["Öğrenci","Sınıf",...Array.from({length:days},(_,i)=>String(i+1))];
       const lines=[header.map(csvCell).join(";")];
       students.forEach(student=>{const row=[student.name||"",student.className||""];for(let d=1;d<=days;d++){const rec=getSchoolAttendance(schoolLedgerDate(month,d),schoolId,student.id);row.push(rec?.[field]||"")}lines.push(row.map(csvCell).join(";"))});
-      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `okul-cetelesi-${month}-${period}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+      downloadTextFile(`okul-cetelesi-${month}-${period}.csv`,"\ufeff"+lines.join("\n"),"text/csv;charset=utf-8");
       showToast("Okul çetelesi CSV olarak indirildi.");
     }
 
@@ -33214,7 +33244,7 @@
       $("#exportSchoolLedgerCsvBtn")?.addEventListener("click", exportSchoolLedgerCsv);
       $("#schoolLedgerHost")?.addEventListener("click", (event) => {
         const button = event.target.closest('[data-action="cycle-school-ledger"]');
-        if (button) cycleSchoolLedgerCell(button.dataset.date || "", button.dataset.studentId || "");
+        if (button) cycleSchoolLedgerCell(button.dataset.date || "", button.dataset.studentId || "", button.dataset.period || "");
       });
       $("#refreshSchoolReportBtn").addEventListener("click", renderSchoolReport);
       $("#printSchoolReportBtn")?.addEventListener("click", printSchoolAttendanceReport);
@@ -35951,6 +35981,145 @@
   function hide(){const el=$q('#sysScreenSaver');if(!el?.classList.contains('active'))return;el.classList.remove('active');el.setAttribute('aria-hidden','true');clearInterval(clockTimer);cancelAnimationFrame(frameId);reset()}
   document.addEventListener('DOMContentLoaded',()=>{updateSettings();['pointerdown','keydown','mousemove','touchstart','scroll'].forEach(type=>document.addEventListener(type,event=>{if(event.target.closest?.('#sysScreenSaver'))return;reset()},{passive:true}));$q('#screenSaverEnabled')?.addEventListener('change',saveCfg);$q('#screenSaverMinutes')?.addEventListener('change',saveCfg);$q('#previewScreenSaverBtn')?.addEventListener('click',show);$q('#sysScreenSaver')?.addEventListener('pointerdown',hide);$q('#sysScreenSaver')?.addEventListener('keydown',hide);reset()});
 })();
+
+
+  /* v4.44.42 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
+  function serviceCountdown(timeValue, dateValue = getServiceDate(), mode = "Biniş") {
+    const minutes = timeToMinutes(timeValue);
+    const label = mode === "Varış" ? "Varış" : "Biniş";
+    if (minutes === null) return { text: `${label} saati girilmemiş`, className: "is-neutral" };
+    const serviceDate = String(dateValue || todayISO()).slice(0, 10);
+    const now = new Date();
+    const target = new Date(`${serviceDate}T${String(timeValue).padStart(5, "0")}:00`);
+    if (Number.isNaN(target.getTime())) return { text: `${label} saati girilmemiş`, className: "is-neutral" };
+    const diff = Math.round((target.getTime() - now.getTime()) / 60000);
+    const duration = (value) => {
+      const abs = Math.abs(value), hours = Math.floor(abs / 60), mins = abs % 60;
+      if (hours && mins) return `${hours} sa ${mins} dk`;
+      if (hours) return `${hours} sa`;
+      return `${mins} dk`;
+    };
+    if (diff > 1) return { text: `${duration(diff)} kaldı`, className: "is-ok" };
+    if (diff >= -1) return { text: `${label} zamanı`, className: "is-now" };
+    return { text: `${duration(diff)} gecikme`, className: "is-late" };
+  }
+
+  function setTabWarningBadge(selector, count, title) {
+    const tab = document.querySelector(selector);
+    if (!tab) return;
+    let badge = tab.querySelector('.tab-warning-badge');
+    if (!badge) { badge=document.createElement('span'); badge.className='tab-warning-badge hidden'; tab.appendChild(badge); }
+    const n=Math.max(0,Number(count||0)); badge.classList.toggle('hidden',!n); badge.textContent=n>99?'99+':String(n); badge.title=n?`${title}: ${n}`:'';
+  }
+
+  function currentSchoolPaymentRiskCount() {
+    const month=currentMonthISO();
+    return (state.students||[]).filter(s=>s.status!=="Pasif").reduce((sum,student)=>{
+      const b=schoolMonthBillingInfo(student,month); return sum + ((b.remaining||0)>0.01?1:0);
+    },0);
+  }
+
+  function renderSidebarWarnings() {
+    const personnel=getOperationWarnings().length;
+    const vehicles=getVehicleAlerts().length;
+    const school=schoolWarningCount();
+    const payments=currentSchoolPaymentRiskCount();
+    const finance=financeSidebarWarningCount();
+    setSidebarWarningBadge("navPersonnelWarning", personnel+vehicles, "Personel ve araç uyarıları");
+    setSidebarWarningBadge("navSchoolWarning", school+payments, "Okul servisi uyarıları");
+    setSidebarWarningBadge("navFinanceWarning", finance, "Finans uyarıları");
+    setTabWarningBadge('#personnelTabs [data-tab="service"]',personnel,'Personel operasyon uyarısı');
+    setTabWarningBadge('#personnelTabs [data-tab="vehicles"]',vehicles,'Araç ve evrak uyarısı');
+    setTabWarningBadge('#schoolTabs [data-school-tab="operation"]',school,'Okul operasyon uyarısı');
+    setTabWarningBadge('#schoolTabs [data-school-tab="payments"]',payments,'Okul tahsilat uyarısı');
+    setTabWarningBadge('#schoolTabs [data-school-tab="reports"]',school,'Okul kayıt uyarısı');
+    setTabWarningBadge('#financeTabs [data-finance-tab="invoices"]',finance,'Fatura ve tahsilat uyarısı');
+    setTabWarningBadge('#financeTabs [data-finance-tab="maintenance"]',vehicles,'Bakım ve evrak uyarısı');
+    setTabWarningBadge('#financeTabs [data-finance-tab="profitability"]',finance+payments,'Kârlılık riski');
+  }
+
+  function callStudentGuardian(studentId) {
+    const student=getStudent(studentId);
+    const raw=String(student?.guardianPhone||'').trim();
+    if(!student||!raw){showToast('Bu öğrenci için veli telefonu kayıtlı değil.');return;}
+    const phone=raw.replace(/[^\d+]/g,'');
+    window.location.href=`tel:${phone}`;
+  }
+
+  function genericReportHtml(title, selectors, subtitle='') {
+    const content=selectors.map(sel=>document.querySelector(sel)?.innerHTML||'').filter(Boolean).join('<div style="height:14px"></div>');
+    if(!content||content.includes('service-empty')&&content.length<300) return '';
+    return `<article class="personnel-print-sheet"><h1 style="font-size:22px;margin:0 0 4px">${escapeHtml(title)}</h1><p style="margin:0 0 16px;color:#4b5563;font-size:12px">${escapeHtml(subtitle||'')} ${subtitle?'· ':''}Oluşturma: ${escapeHtml(new Date().toLocaleString('tr-TR'))}</p>${content}</article>`;
+  }
+  function printGenericReport(title, selectors, subtitle='') {
+    const html=genericReportHtml(title,selectors,subtitle); if(!html){showToast('PDF hazırlanacak rapor verisi bulunamadı.');return;}
+    openUnifiedReportPreview({title,html,mode:'generic'}); showToast('PDF önizlemesi hazır.');
+  }
+
+  function buildSchoolPaymentPrintSheet() {
+    renderSchoolPayments();
+    const rows=getSchoolPaymentRows(); if(!rows.length) return '';
+    const month=$('#schoolPaymentMonth')?.value||currentMonthISO();
+    const schoolId=$('#schoolPaymentSchool')?.value||'Tümü';
+    const title=`Okul Tahsilat Raporu · ${schoolId==='Tümü'?'Tüm Okullar':schoolLabel(schoolId)}`;
+    const totals={target:rows.reduce((s,r)=>s+r.cashExpected,0),paid:rows.reduce((s,r)=>s+r.paid,0),remaining:rows.reduce((s,r)=>s+r.remaining,0)};
+    return `<article class="personnel-print-sheet"><h1 style="font-size:22px;margin:0 0 4px">${escapeHtml(title)}</h1><p style="margin:0 0 14px;color:#4b5563;font-size:12px">Dönem: ${escapeHtml(month)} · Oluşturma: ${escapeHtml(new Date().toLocaleString('tr-TR'))}</p><div class="print-summary" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px"><div class="insight-chip"><div class="insight-label">Tahsilat Hedefi</div><div class="insight-value">${escapeHtml(formatTRY(totals.target))}</div></div><div class="insight-chip"><div class="insight-label">Tahsil Edilen</div><div class="insight-value">${escapeHtml(formatTRY(totals.paid))}</div></div><div class="insight-chip ${totals.remaining>0?'risk':''}"><div class="insight-label">Kalan</div><div class="insight-value">${escapeHtml(formatTRY(totals.remaining))}</div></div></div><div class="table-wrap"><table><thead><tr><th>Öğrenci</th><th>Veli</th><th>Okul</th><th>Tür</th><th>Hedef</th><th>Tahsil</th><th>Kalan</th><th>Durum</th><th>Fatura / Son Ödeme</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${escapeHtml(r.student.name||'-')}</strong></td><td>${escapeHtml(r.student.guardianName||'-')}<br><span class="muted">${escapeHtml(r.student.guardianPhone||'-')}</span></td><td>${escapeHtml(r.school?.name||'-')}</td><td>${escapeHtml(r.billingLabel)}</td><td>${escapeHtml(formatTRY(r.cashExpected))}</td><td>${escapeHtml(formatTRY(r.paid))}</td><td>${escapeHtml(formatTRY(r.remaining))}</td><td>${escapeHtml(r.status.label)}</td><td>${escapeHtml(r.invoiceNo||'Fatura yok')}<br><span class="muted">${escapeHtml(r.lastPayment?.date||'-')}</span></td></tr>`).join('')}</tbody></table></div></article>`;
+  }
+  function printSchoolPaymentReport(){const html=buildSchoolPaymentPrintSheet();if(!html){showToast('Tahsilat raporu için kayıt bulunamadı.');return;}openUnifiedReportPreview({title:'Okul Tahsilat Raporu',html,mode:'school'});}
+
+  function schoolLedgerPeriodValue(){return $('#schoolLedgerPeriod')?.value||'both';}
+  function renderSchoolLedger(){
+    const host=$('#schoolLedgerHost'),summary=$('#schoolLedgerSummary');if(!host||!summary)return;
+    const month=schoolLedgerMonthValue(),schoolId=schoolLedgerSchoolValue(),period=schoolLedgerPeriodValue(),school=getSchool(schoolId),days=schoolLedgerDays(month);
+    const students=state.students.filter(s=>s.schoolId===schoolId&&s.status!=='Pasif').sort((a,b)=>String(a.name).localeCompare(String(b.name),'tr-TR'));
+    let morningPresent=0,eveningPresent=0,absent=0,missing=0;
+    const periods=period==='both'?['morning','evening']:[period];
+    const rows=students.map(student=>{
+      const cells=[];
+      for(let day=1;day<=days;day++){
+        const date=schoolLedgerDate(month,day);const rec=getSchoolAttendance(date,schoolId,student.id);
+        const buttons=periods.map(pr=>{const field=schoolAttendanceField(pr),status=rec?.[field]||'Bekliyor',meta=schoolLedgerStatusMeta(status,pr);if(meta.cls==='present'){if(pr==='morning')morningPresent++;else eveningPresent++;}else if(meta.cls==='absent')absent++;else if(meta.cls==='pending')missing++;return `<button class="school-ledger-cell ${meta.cls} ${date===todayISO()?'today':''}" type="button" data-action="cycle-school-ledger" data-period="${pr}" data-date="${date}" data-student-id="${escapeHtml(student.id)}" title="${escapeHtml(meta.title)}"><span class="school-ledger-period">${pr==='morning'?'S':'A'}</span>${meta.text}</button>`;}).join('');
+        cells.push(`<td><div class="school-ledger-cell-stack" style="grid-template-columns:repeat(${periods.length},1fr)">${buttons}</div></td>`);
+      }
+      return `<tr><td class="student-col"><strong>${escapeHtml(student.name||'İsimsiz öğrenci')}</strong><br><span class="muted">${escapeHtml(student.className||'Sınıf yok')} · ${escapeHtml(student.guardianName||'Veli yok')}</span></td>${cells.join('')}</tr>`;
+    }).join('');
+    summary.innerHTML=[{label:'Okul',value:school?.name||'Seçilmedi'},{label:'Öğrenci',value:students.length},{label:'Sabah Katılım',value:morningPresent},{label:'Akşam Katılım',value:eveningPresent},{label:'Eksik Kayıt',value:missing,risk:missing>0}].map(i=>`<div class="insight-chip ${i.risk?'risk':''}"><div class="insight-label">${escapeHtml(i.label)}</div><div class="insight-value">${escapeHtml(i.value)}</div></div>`).join('');
+    if(!school){host.innerHTML='<div class="service-empty">Çetele için okul seç.</div>';return;}if(!students.length){host.innerHTML='<div class="service-empty">Bu okul için öğrenci kaydı bulunmuyor.</div>';return;}
+    host.innerHTML=`<table class="school-ledger-table"><thead><tr><th class="student-col">Öğrenci</th>${Array.from({length:days},(_,i)=>`<th class="day-col">${i+1}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  function cycleSchoolLedgerCell(date,studentId,requestedPeriod=''){
+    const schoolId=schoolLedgerSchoolValue(),period=requestedPeriod||schoolLedgerPeriodValue();if(!schoolId||!studentId||period==='both')return;
+    const field=schoolAttendanceField(period),record=getOrCreateSchoolAttendance(date,schoolId,studentId),current=record[field]||'Bekliyor';
+    const cycle=period==='morning'?['Bekliyor','Bindi','Yok']:['Bekliyor','İndi','Başka Adreste İndi','Yok'];
+    record[field]=cycle[(Math.max(0,cycle.indexOf(current))+1)%cycle.length];record.updatedAt=new Date().toISOString();saveState();renderSchoolLedger();renderSchoolReport();renderSidebarWarnings();
+  }
+  function exportSchoolLedgerCsv(){
+    const month=schoolLedgerMonthValue(),schoolId=schoolLedgerSchoolValue(),school=getSchool(schoolId),days=schoolLedgerDays(month);if(!school){showToast('Önce okul seç.');return;}
+    const students=state.students.filter(s=>s.schoolId===schoolId&&s.status!=='Pasif').sort((a,b)=>String(a.name).localeCompare(String(b.name),'tr-TR'));
+    const header=['Öğrenci','Sınıf'];for(let d=1;d<=days;d++){header.push(`${d} Sabah`,`${d} Akşam`);}const lines=[header.map(csvCell).join(';')];
+    students.forEach(student=>{const row=[student.name||'',student.className||''];for(let d=1;d<=days;d++){const rec=getSchoolAttendance(schoolLedgerDate(month,d),schoolId,student.id);row.push(rec?.morningStatus||'',rec?.eveningStatus||'');}lines.push(row.map(csvCell).join(';'));});
+    downloadTextFile(`okul-cetelesi-${month}-sabah-aksam.csv`,'\ufeff'+lines.join('\n'),'text/csv;charset=utf-8');showToast('Sabah ve akşam okul çetelesi CSV olarak indirildi.');
+  }
+  function printSchoolLedgerReport(){
+    renderSchoolLedger();const school=getSchool(schoolLedgerSchoolValue()),month=schoolLedgerMonthValue();if(!school){showToast('Önce okul seç.');return;}
+    const html=genericReportHtml(`${school.name} · Sabah ve Akşam Çetele`,['#schoolLedgerSummary','#schoolLedgerHost'],`Dönem: ${month}`);if(!html){showToast('PDF hazırlanacak çetele verisi yok.');return;}openUnifiedReportPreview({title:`${school.name} · Okul Çetelesi`,html,mode:'school'});
+  }
+
+  function bindV4442Actions(){
+    $('#printSchoolPaymentReportBtn')?.addEventListener('click',printSchoolPaymentReport);
+    $('#exportSchoolLedgerPdfBtn')?.addEventListener('click',printSchoolLedgerReport);
+    $('#exportPeoplePdfBtn')?.addEventListener('click',()=>printGenericReport('Personel Listesi',['#peopleTableHost']));
+    $('#exportLedgerPdfBtn')?.addEventListener('click',()=>printGenericReport('Aylık Personel Çetelesi',['#ledgerSummary','#ledgerCalendarHost'],`Dönem: ${getLedgerMonth()}`));
+    $('#exportVehicleExpensesPdfBtn')?.addEventListener('click',()=>printGenericReport('Araç Giderleri Raporu',['#vehicleExpenseSummary','#vehicleExpenseTableHost']));
+    $('#exportFinancePdfBtn')?.addEventListener('click',()=>printGenericReport('Personel Finans Raporu',['#financeSummary','#financePersonnelProfitTableHost','#financeTableHost']));
+    $('#exportProfitabilityPdfBtn')?.addEventListener('click',()=>printGenericReport('Kârlılık Raporu',['#profitabilitySummary','#profitabilityTableHost']));
+    $('#exportStaffPaymentsPdfBtn')?.addEventListener('click',()=>printGenericReport('Şoför ve Rehber Ödeme Raporu',['#staffPaymentSummary','#staffPaymentTableHost']));
+    $('#exportSchoolFinancePdfBtn')?.addEventListener('click',()=>printGenericReport('Okul Finans Raporu',['#financeSchoolSummary','#financeSchoolTableHost']));
+    $('#exportAuditPdfBtn')?.addEventListener('click',()=>printGenericReport('Denetim Kayıtları',['#auditTableHost','#auditList']));
+    document.body.addEventListener('click',e=>{const b=e.target.closest('[data-action="call-student-guardian"]');if(b){e.preventDefault();e.stopImmediatePropagation();callStudentGuardian(b.dataset.id||'');}},true);
+    renderSidebarWarnings();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(bindV4442Actions,0));else setTimeout(bindV4442Actions,0);
 </script>
 
 </body>
