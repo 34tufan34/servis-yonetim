@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.44.45</title>
+  <title>Servis Yönetim Sistemi | v4.44.46</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -15147,7 +15147,7 @@
 </style>
 
 <style id="v4_44_39_command_side_by_side_fix">
-/* v4.44.45 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
+/* v4.44.46 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
 @media (min-width: 1080px) {
   #screen-command .command-service-grid,
   #screen-command .command-dashboard > .command-service-grid {
@@ -15300,7 +15300,7 @@
 }
 
 
-    /* v4.44.45 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
+    /* v4.44.46 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
     #screen-command .command-overview {
       min-height: 96px !important;
       height: auto !important;
@@ -15417,7 +15417,7 @@
     }
 
 
-    /* v4.44.45 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
+    /* v4.44.46 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
     .nav-btn { position: relative; }
     .nav-warning-badge {
       margin-left:auto; min-width:21px; height:21px; padding:0 6px; border-radius:999px;
@@ -15489,7 +15489,7 @@
 
 
 
-    /* v4.44.45 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
+    /* v4.44.46 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
     .modern-sys-logo { color:#eafaff; overflow:hidden; background:linear-gradient(145deg,rgba(var(--accent-rgb),.24),rgba(56,189,248,.10)) !important; border:1px solid rgba(var(--accent-rgb),.38); box-shadow:0 12px 30px rgba(var(--accent-rgb),.22) !important; }
     .modern-sys-logo svg { width:34px; height:34px; display:block; filter:drop-shadow(0 5px 10px rgba(var(--accent-rgb),.28)); }
     .auth-brand-mark.modern-sys-logo,.license-brand-mark.modern-sys-logo { display:grid; place-items:center; }
@@ -15518,13 +15518,13 @@
       #school-tab-payments .payment-panel { padding-bottom:36px !important; }
     }
 
-    /* v4.44.45 - Okul tahsilat alt paneli tam görünürlük */
+    /* v4.44.46 - Okul tahsilat alt paneli tam görünürlük */
     #screen-school { overflow-y:auto !important; }
     #school-tab-payments.school-tab-screen:not(.hidden) { display:block !important; height:auto !important; min-height:100%; overflow:visible !important; }
     #school-tab-payments .payment-summary, #school-tab-payments .payment-student-info, #school-tab-payments .payment-table-host { position:relative; z-index:1; }
 
 
-    /* v4.44.45 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
+    /* v4.44.46 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
     .driver-panel-head-search {
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(230px, 360px);
@@ -15599,7 +15599,7 @@
     }
 
 
-    /* v4.44.45 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
+    /* v4.44.46 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
     .driver-panel-head-call {
       display:grid !important;
       grid-template-columns:minmax(0,1fr) auto;
@@ -15677,7 +15677,7 @@
     }
 
 
-    /* v4.44.45 - Kullanıcı tarafından seçilen SYS kurumsal logosu */
+    /* v4.44.46 - Kullanıcı tarafından seçilen SYS kurumsal logosu */
     .modern-sys-logo {
       overflow: hidden !important;
       padding: 0 !important;
@@ -15755,6 +15755,78 @@
       .brand-mark.modern-sys-logo { width: 76px !important; flex-basis: 76px !important; height: 41px !important; }
       .auth-brand-mark.modern-sys-logo,
       .license-brand-mark.modern-sys-logo { width: 108px !important; flex-basis: 108px !important; height: 48px !important; }
+    }
+
+
+    /* v4.44.46 - Şeffaf kurumsal logo ve ayrı günlük sıfırlama */
+    .modern-sys-logo,
+    .brand-mark.modern-sys-logo,
+    .auth-brand-mark.modern-sys-logo,
+    .license-brand-mark.modern-sys-logo,
+    .pwa-install-mark.modern-sys-logo,
+    .report-brand-mark.modern-sys-logo,
+    .sys-splash-logo,
+    #sysScreenSaver .ss41-logo {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      overflow: visible !important;
+    }
+    .sys-splash-logo-shell {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+    .modern-sys-logo img,
+    .sys-splash-logo img,
+    #sysScreenSaver .ss41-logo img {
+      object-fit: contain !important;
+      background: transparent !important;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,.28));
+    }
+    .command-card-reset-row {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(var(--accent-rgb),.14);
+    }
+    .command-separate-reset-btn {
+      width: 100%;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 11px;
+      border: 1px solid rgba(var(--accent-rgb),.34);
+      color: color-mix(in srgb,var(--accent) 76%,#fff 24%);
+      background: linear-gradient(135deg,rgba(var(--accent-rgb),.16),rgba(var(--accent-rgb),.055));
+      font: inherit;
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .command-separate-reset-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--accent-rgb),.56);
+      background: linear-gradient(135deg,rgba(var(--accent-rgb),.25),rgba(var(--accent-rgb),.09));
+    }
+    .command-separate-reset-btn span {
+      width: 23px;
+      height: 23px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(var(--accent-rgb),.14);
+      font-size: 14px;
+    }
+    .command-separate-reset-btn.school {
+      color: color-mix(in srgb,var(--accent) 62%,#bfdbfe 38%);
+    }
+    body[data-theme="light"] .command-separate-reset-btn {
+      color: color-mix(in srgb,var(--accent) 82%,#0f172a 18%);
+      background: color-mix(in srgb,var(--accent) 8%,#fff 92%);
     }
 </style>
 
@@ -15915,7 +15987,7 @@
         <div class="brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.45</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.46</div>
         </div>
       </div>
 
@@ -16000,7 +16072,6 @@
               <div class="command-overview-text" id="commandLiveText">Bir servis başlatıldığında ilgili bölüm burada canlı olarak hareket edecek.</div>
             </div>
             <div class="command-overview-actions">
-              <button class="btn small command-day-reset-btn" id="resetTodayOperationsBtn" type="button" title="Bugünün biniş, iniş, servis ve çetele kayıtlarını siler">Bugünü Sıfırla</button>
               <div class="command-live-total">
                 <strong id="commandLiveCount">0</strong>
                 <span>Canlı Servis</span>
@@ -16047,6 +16118,9 @@
                 <button class="command-quick-btn finish is-inactive" id="commandPersonnelFinishBtn" type="button" data-action="command-personnel-finish" disabled><span>■</span><strong>Servisi Bitir</strong></button>
                 <button class="command-quick-btn detail" type="button" data-action="open-personnel-live"><span>›</span><strong>Detaya Git</strong></button>
               </div>
+              <div class="command-card-reset-row">
+                <button class="command-separate-reset-btn personnel" id="resetTodayPersonnelBtn" type="button" title="Yalnızca bugünün personel servisi, biniş/iniş ve çetele kayıtlarını siler"><span>↺</span><strong>Personel Bugününü Sıfırla</strong></button>
+              </div>
             </section>
 
             <section class="command-service-card" id="commandSchoolCard">
@@ -16086,6 +16160,9 @@
                 <button class="command-quick-btn yok" type="button" data-action="command-school-mark" data-status="Yok"><span>×</span><strong>Yok</strong></button>
                 <button class="command-quick-btn finish is-inactive" id="commandSchoolFinishBtn" type="button" data-action="command-school-finish" disabled><span>■</span><strong>Servisi Bitir</strong></button>
                 <button class="command-quick-btn detail" type="button" data-action="open-school-live"><span>›</span><strong>Detaya Git</strong></button>
+              </div>
+              <div class="command-card-reset-row">
+                <button class="command-separate-reset-btn school" id="resetTodaySchoolBtn" type="button" title="Yalnızca bugünün okul servisi, biniş/iniş ve çetele kayıtlarını siler"><span>↺</span><strong>Okul Bugününü Sıfırla</strong></button>
               </div>
             </section>
           </div>
@@ -19584,7 +19661,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.45</strong>
+                <strong>v4.44.46</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -19629,7 +19706,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.45";
+    const APP_VERSION = "4.44.46";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -36196,36 +36273,70 @@
 
 <script id="dailyOperationsResetScript">
 (()=>{
-  function countForDate(list,date){return Array.isArray(list)?list.filter(x=>String(x?.date||x?.serviceDate||"").slice(0,10)===date).length:0}
-  async function resetTodayOperations(){
+  function recordDate(item){return String(item?.date||item?.serviceDate||"").slice(0,10)}
+  function countForDate(list,date){return Array.isArray(list)?list.filter(x=>recordDate(x)===date).length:0}
+  function removeDate(list,date){return (Array.isArray(list)?list:[]).filter(x=>recordDate(x)!==date)}
+
+  async function resetPersonnelToday(){
     const date=(typeof todayISO==="function"?todayISO():new Date().toLocaleDateString("sv-SE"));
     const summary={
-      personnelAttendance:countForDate(state.attendance,date),
-      schoolAttendance:countForDate(state.schoolAttendance,date),
+      attendance:countForDate(state.attendance,date),
+      dayMarks:countForDate(state.dayMarks,date),
       dispatches:countForDate(state.dispatches,date),
-      personnelSessions:countForDate(state.serviceSessions,date),
-      schoolSessions:countForDate(state.schoolServiceSessions,date),
+      sessions:countForDate(state.serviceSessions,date),
       trips:countForDate(state.trips,date)
     };
     const total=Object.values(summary).reduce((a,b)=>a+b,0);
-    if(!total){showToast(`${date} tarihine ait silinecek günlük servis veya çetele kaydı bulunmuyor.`);return}
-    const first=await appConfirm(`${date} tarihindeki günlük servis kayıtları sıfırlanacak.\n\nPersonel biniş/iniş ve çetele: ${summary.personnelAttendance}\nOkul biniş/iniş: ${summary.schoolAttendance}\nSefer/servis kayıtları: ${summary.dispatches+summary.personnelSessions+summary.schoolSessions+summary.trips}\n\nAraç, personel, firma ve finans kayıtları silinmez.`,{title:"Bugünü Sıfırla",icon:"↺",confirmText:"Devam Et",cancelText:"Vazgeç"});
-    if(!first)return;
-    const second=await appConfirm("Bu işlem geri alınamaz. Bugünün tüm biniş, iniş, aktif servis ve çetele kayıtları kalıcı olarak silinecek.",{title:"Son Onay",icon:"!",danger:true,confirmText:"Bugünü Sıfırla",cancelText:"İptal"});
-    if(!second)return;
-    const keep=x=>String(x?.date||x?.serviceDate||"").slice(0,10)!==date;
-    state.attendance=(state.attendance||[]).filter(keep);
-    state.schoolAttendance=(state.schoolAttendance||[]).filter(keep);
-    state.dispatches=(state.dispatches||[]).filter(keep);
-    state.serviceSessions=(state.serviceSessions||[]).filter(keep);
-    state.schoolServiceSessions=(state.schoolServiceSessions||[]).filter(keep);
-    state.trips=(state.trips||[]).filter(keep);
+    if(!total){showToast(`${date} tarihine ait silinecek personel servisi veya çetele kaydı bulunmuyor.`);return}
+    const ok=await appConfirm(`${date} tarihindeki yalnızca PERSONEL SERVİSİ kayıtları silinecek.
+
+Biniş/iniş ve çetele: ${summary.attendance+summary.dayMarks}
+Servis/sefer kayıtları: ${summary.dispatches+summary.sessions+summary.trips}
+
+Okul servisi, araç, personel, firma ve finans kayıtları silinmez.`,{title:"Personel Bugününü Sıfırla",icon:"↺",confirmText:"Personeli Sıfırla",cancelText:"Vazgeç"});
+    if(!ok)return;
+    const finalOk=await appConfirm("Bu işlem geri alınamaz. Bugünün personel biniş, iniş, çetele ve servis kayıtları kalıcı olarak silinecek.",{title:"Son Onay",icon:"!",danger:true,confirmText:"Personeli Sıfırla",cancelText:"İptal"});
+    if(!finalOk)return;
+    state.attendance=removeDate(state.attendance,date);
+    state.dayMarks=removeDate(state.dayMarks,date);
+    state.dispatches=removeDate(state.dispatches,date);
+    state.serviceSessions=removeDate(state.serviceSessions,date);
+    state.trips=removeDate(state.trips,date);
     if(typeof saveState==="function")saveState();
-    if(typeof appendAudit==="function")appendAudit("Servis", "Günlük operasyon kayıtları sıfırlandı", `${date} · ${total} kayıt`);
+    if(typeof appendAudit==="function")appendAudit("Personel Servisi","Günlük personel kayıtları sıfırlandı",`${date} · ${total} kayıt`);
     if(typeof renderAll==="function")renderAll();
-    showToast(`${date} tarihindeki günlük servis, biniş/iniş ve çetele kayıtları sıfırlandı.`);
+    showToast(`${date} tarihindeki personel servisi ve çetele kayıtları sıfırlandı.`);
   }
-  document.addEventListener("DOMContentLoaded",()=>document.getElementById("resetTodayOperationsBtn")?.addEventListener("click",resetTodayOperations));
+
+  async function resetSchoolToday(){
+    const date=(typeof todayISO==="function"?todayISO():new Date().toLocaleDateString("sv-SE"));
+    const summary={
+      attendance:countForDate(state.schoolAttendance,date),
+      sessions:countForDate(state.schoolServiceSessions,date)
+    };
+    const total=summary.attendance+summary.sessions;
+    if(!total){showToast(`${date} tarihine ait silinecek okul servisi veya çetele kaydı bulunmuyor.`);return}
+    const ok=await appConfirm(`${date} tarihindeki yalnızca OKUL SERVİSİ kayıtları silinecek.
+
+Öğrenci biniş/iniş ve çetele: ${summary.attendance}
+Okul servis kayıtları: ${summary.sessions}
+
+Personel servisi, araç, öğrenci, okul ve finans kayıtları silinmez.`,{title:"Okul Bugününü Sıfırla",icon:"↺",confirmText:"Okulu Sıfırla",cancelText:"Vazgeç"});
+    if(!ok)return;
+    const finalOk=await appConfirm("Bu işlem geri alınamaz. Bugünün okul servisi, öğrenci biniş/iniş ve çetele kayıtları kalıcı olarak silinecek.",{title:"Son Onay",icon:"!",danger:true,confirmText:"Okulu Sıfırla",cancelText:"İptal"});
+    if(!finalOk)return;
+    state.schoolAttendance=removeDate(state.schoolAttendance,date);
+    state.schoolServiceSessions=removeDate(state.schoolServiceSessions,date);
+    if(typeof saveState==="function")saveState();
+    if(typeof appendAudit==="function")appendAudit("Okul Servisi","Günlük okul kayıtları sıfırlandı",`${date} · ${total} kayıt`);
+    if(typeof renderAll==="function")renderAll();
+    showToast(`${date} tarihindeki okul servisi ve çetele kayıtları sıfırlandı.`);
+  }
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("resetTodayPersonnelBtn")?.addEventListener("click",resetPersonnelToday);
+    document.getElementById("resetTodaySchoolBtn")?.addEventListener("click",resetSchoolToday);
+  });
 })();
 </script>
 
@@ -36268,7 +36379,7 @@
 })();
 
 
-  /* v4.44.45 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
+  /* v4.44.46 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
   function serviceCountdown(timeValue, dateValue = getServiceDate(), mode = "Biniş") {
     const minutes = timeToMinutes(timeValue);
     const label = mode === "Varış" ? "Varış" : "Biniş";
@@ -36409,7 +36520,7 @@
 
 
 <script>
-  /* v4.44.45 - kompakt çetele PDF, öğrenci bazlı veli raporu */
+  /* v4.44.46 - kompakt çetele PDF, öğrenci bazlı veli raporu */
   function schoolReportStudentValue(){ return document.querySelector('#schoolReportStudent')?.value || ''; }
   function renderSchoolReportStudentOptions(){
     const select=document.querySelector('#schoolReportStudent'); if(!select) return;
