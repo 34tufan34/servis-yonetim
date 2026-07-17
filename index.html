@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.44.44</title>
+  <title>Servis Yönetim Sistemi | v4.44.45</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -15147,7 +15147,7 @@
 </style>
 
 <style id="v4_44_39_command_side_by_side_fix">
-/* v4.44.44 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
+/* v4.44.45 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
 @media (min-width: 1080px) {
   #screen-command .command-service-grid,
   #screen-command .command-dashboard > .command-service-grid {
@@ -15300,7 +15300,7 @@
 }
 
 
-    /* v4.44.44 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
+    /* v4.44.45 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
     #screen-command .command-overview {
       min-height: 96px !important;
       height: auto !important;
@@ -15417,7 +15417,7 @@
     }
 
 
-    /* v4.44.44 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
+    /* v4.44.45 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
     .nav-btn { position: relative; }
     .nav-warning-badge {
       margin-left:auto; min-width:21px; height:21px; padding:0 6px; border-radius:999px;
@@ -15489,7 +15489,7 @@
 
 
 
-    /* v4.44.44 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
+    /* v4.44.45 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
     .modern-sys-logo { color:#eafaff; overflow:hidden; background:linear-gradient(145deg,rgba(var(--accent-rgb),.24),rgba(56,189,248,.10)) !important; border:1px solid rgba(var(--accent-rgb),.38); box-shadow:0 12px 30px rgba(var(--accent-rgb),.22) !important; }
     .modern-sys-logo svg { width:34px; height:34px; display:block; filter:drop-shadow(0 5px 10px rgba(var(--accent-rgb),.28)); }
     .auth-brand-mark.modern-sys-logo,.license-brand-mark.modern-sys-logo { display:grid; place-items:center; }
@@ -15518,13 +15518,13 @@
       #school-tab-payments .payment-panel { padding-bottom:36px !important; }
     }
 
-    /* v4.44.44 - Okul tahsilat alt paneli tam görünürlük */
+    /* v4.44.45 - Okul tahsilat alt paneli tam görünürlük */
     #screen-school { overflow-y:auto !important; }
     #school-tab-payments.school-tab-screen:not(.hidden) { display:block !important; height:auto !important; min-height:100%; overflow:visible !important; }
     #school-tab-payments .payment-summary, #school-tab-payments .payment-student-info, #school-tab-payments .payment-table-host { position:relative; z-index:1; }
 
 
-    /* v4.44.44 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
+    /* v4.44.45 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
     .driver-panel-head-search {
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(230px, 360px);
@@ -15599,7 +15599,7 @@
     }
 
 
-    /* v4.44.44 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
+    /* v4.44.45 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
     .driver-panel-head-call {
       display:grid !important;
       grid-template-columns:minmax(0,1fr) auto;
@@ -15675,6 +15675,87 @@
       .driver-passenger-main .driver-status-pill { grid-column:2; justify-self:start; }
       .driver-current-tools { grid-template-columns:1fr; }
     }
+
+
+    /* v4.44.45 - Kullanıcı tarafından seçilen SYS kurumsal logosu */
+    .modern-sys-logo {
+      overflow: hidden !important;
+      padding: 0 !important;
+      color: transparent !important;
+      background: #010814 !important;
+      border: 1px solid rgba(90, 176, 255, .28) !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .30), 0 0 22px rgba(45, 142, 255, .10) !important;
+    }
+    .modern-sys-logo img,
+    .sys-splash-logo img,
+    #sysScreenSaver .ss41-logo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .brand-mark.modern-sys-logo {
+      width: 86px !important;
+      height: 46px !important;
+      flex: 0 0 86px !important;
+      border-radius: 11px !important;
+    }
+    .auth-brand-mark.modern-sys-logo {
+      width: 128px !important;
+      height: 56px !important;
+      flex: 0 0 128px !important;
+      border-radius: 14px !important;
+    }
+    .license-brand-mark.modern-sys-logo {
+      width: 136px !important;
+      height: 58px !important;
+      flex: 0 0 136px !important;
+      border-radius: 14px !important;
+    }
+    .pwa-install-mark.modern-sys-logo {
+      width: 106px !important;
+      height: 54px !important;
+      flex: 0 0 106px !important;
+      border-radius: 13px !important;
+    }
+    .report-brand-mark.modern-sys-logo {
+      width: 108px !important;
+      height: 46px !important;
+      border-radius: 10px !important;
+      background: #010814 !important;
+    }
+    .sys-splash-logo-shell {
+      width: 190px !important;
+      height: 116px !important;
+    }
+    .sys-splash-logo {
+      width: 154px !important;
+      height: 66px !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      border-radius: 15px !important;
+      background: #010814 !important;
+      border: 1px solid rgba(90, 176, 255, .28) !important;
+      box-shadow: 0 18px 60px rgba(0,0,0,.38), 0 0 30px rgba(45,142,255,.14) !important;
+    }
+    #sysScreenSaver .ss41-logo {
+      width: 112px !important;
+      height: 48px !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      border-radius: 12px !important;
+      background: #010814 !important;
+      border: 1px solid rgba(var(--accent-rgb), .24) !important;
+      box-shadow: 0 0 28px rgba(var(--accent-rgb), .12) !important;
+    }
+    @media (max-width: 680px) {
+      .brand-mark.modern-sys-logo { width: 76px !important; flex-basis: 76px !important; height: 41px !important; }
+      .auth-brand-mark.modern-sys-logo,
+      .license-brand-mark.modern-sys-logo { width: 108px !important; flex-basis: 108px !important; height: 48px !important; }
+    }
 </style>
 
 </head>
@@ -15689,7 +15770,7 @@
       <div class="sys-splash-logo-shell" aria-hidden="true">
         <div class="sys-splash-ring"></div>
         <div class="sys-splash-ring-2"></div>
-        <div class="sys-splash-logo">SYS</div>
+        <div class="sys-splash-logo"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
       </div>
       <div class="sys-splash-title">Servis Yönetim Sistemi</div>
       <div class="sys-splash-subtitle">Operasyon başlatılıyor</div>
@@ -15720,7 +15801,7 @@
   <div class="license-gate" id="licenseGate" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
     <div class="license-card" id="licenseCard">
       <div class="license-brand">
-        <div class="license-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
+        <div class="license-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
         <div>
           <div class="license-title" id="licenseTitle">Lisans Doğrulama</div>
           <div class="license-copy" id="licenseCopy">Uygulamayı bu cihazda kullanmak için lisans kodunu doğrula.</div>
@@ -15754,7 +15835,7 @@
   <div class="auth-gate" id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <div class="auth-card">
       <div class="auth-brand">
-        <div class="auth-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
+        <div class="auth-brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
         <div>
           <div class="auth-title" id="authTitle">Güvenli Giriş</div>
           <div class="auth-copy" id="authCopy">Kullanıcı adın ve şifrenle oturum aç.</div>
@@ -15831,10 +15912,10 @@
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysLogoGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><path d="M13 16h30c6 0 10 4 10 10v3H26c-3 0-5 2-5 5s2 5 5 5h18c7 0 12 5 12 12S51 63 44 63H14v-9h28c3 0 5-2 5-5s-2-5-5-5H24c-7 0-12-5-12-12s5-12 12-12h20c0-3-2-5-5-5H13z" fill="url(#sysLogoGradient)"/><path d="M8 8h31l-5 8H8z" fill="currentColor" opacity=".9"/><circle cx="18" cy="54" r="4" fill="currentColor"/><circle cx="46" cy="54" r="4" fill="currentColor"/></svg></div>
+        <div class="brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.44</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.45</div>
         </div>
       </div>
 
@@ -19129,7 +19210,7 @@
             </div>
 
             <div class="pwa-install-body">
-              <div class="pwa-install-mark modern-sys-logo" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysIconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><rect x="4" y="4" width="56" height="56" rx="18" fill="#07161b"/><path d="M14 18h25c8 0 13 5 13 13v2H28c-3 0-5 2-5 5s2 5 5 5h11c7 0 12 5 12 11H40c0-2-1-3-4-3H26c-8 0-14-6-14-14s6-14 14-14h14c-1-3-3-5-7-5H14z" fill="url(#sysIconGrad)"/><path d="M12 49c9-7 19-7 29 0" fill="none" stroke="#e2f8ff" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="51" r="3.2" fill="#e2f8ff"/><circle cx="43" cy="51" r="3.2" fill="#e2f8ff"/></svg></div>
+              <div class="pwa-install-mark modern-sys-logo" aria-hidden="true"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
               <div class="pwa-install-copy">
                 <strong>Servis Yönetim Sistemi</strong>
                 <span>Kurulumdan sonra tam ekran açılır. Uygulama dosyaları cihaz önbelleğinde saklanır.</span>
@@ -19503,7 +19584,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.44</strong>
+                <strong>v4.44.45</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -19548,7 +19629,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.44";
+    const APP_VERSION = "4.44.45";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -30379,7 +30460,7 @@
       return `
         <div class="report-sheet-header">
           <div class="report-brand">
-            <div class="report-brand-mark modern-sys-logo"><svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="sysIconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs><rect x="4" y="4" width="56" height="56" rx="18" fill="#07161b"/><path d="M14 18h25c8 0 13 5 13 13v2H28c-3 0-5 2-5 5s2 5 5 5h11c7 0 12 5 12 11H40c0-2-1-3-4-3H26c-8 0-14-6-14-14s6-14 14-14h14c-1-3-3-5-7-5H14z" fill="url(#sysIconGrad)"/><path d="M12 49c9-7 19-7 29 0" fill="none" stroke="#e2f8ff" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="51" r="3.2" fill="#e2f8ff"/><circle cx="43" cy="51" r="3.2" fill="#e2f8ff"/></svg></div>
+            <div class="report-brand-mark modern-sys-logo"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
             <div><strong>${escapeHtml(companyName)}</strong><span>Servis Yönetim Sistemi · Yönetici Raporu</span></div>
           </div>
           <div class="report-meta">
@@ -36047,7 +36128,7 @@
   <canvas id="ss41Canvas" class="ss41-canvas"></canvas>
   <div class="ss41-shell">
     <header class="ss41-header">
-      <div class="ss41-brand"><span class="ss41-logo">SYS</span><span><strong>Servis Yönetim Sistemi</strong><small>Canlı Sürüş Merkezi</small></span></div>
+      <div class="ss41-brand"><span class="ss41-logo"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></span><span><strong>Servis Yönetim Sistemi</strong><small>Canlı Sürüş Merkezi</small></span></div>
       <div class="ss41-clock"><strong id="ss41Clock">00:00:00</strong><span id="ss41Date">-</span></div>
       <div class="ss41-header-state"><span class="ss41-live-dot"></span><strong id="ss41LiveState">SERVİS BEKLEMEDE</strong><small>Dokun · Programa dön</small></div>
     </header>
@@ -36187,7 +36268,7 @@
 })();
 
 
-  /* v4.44.44 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
+  /* v4.44.45 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
   function serviceCountdown(timeValue, dateValue = getServiceDate(), mode = "Biniş") {
     const minutes = timeToMinutes(timeValue);
     const label = mode === "Varış" ? "Varış" : "Biniş";
@@ -36328,7 +36409,7 @@
 
 
 <script>
-  /* v4.44.44 - kompakt çetele PDF, öğrenci bazlı veli raporu */
+  /* v4.44.45 - kompakt çetele PDF, öğrenci bazlı veli raporu */
   function schoolReportStudentValue(){ return document.querySelector('#schoolReportStudent')?.value || ''; }
   function renderSchoolReportStudentOptions(){
     const select=document.querySelector('#schoolReportStudent'); if(!select) return;
