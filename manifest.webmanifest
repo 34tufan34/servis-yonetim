@@ -1,14 +1,14 @@
 {
   "name": "Servis Yönetim Sistemi",
-  "short_name": "Servis SYS",
-  "description": "Personel ve okul servisleri için operasyon, finans, bakım ve raporlama sistemi.",
+  "short_name": "Servis Yönetimi",
+  "description": "Personel ve okul servisleri için çevrimdışı yönetim sistemi",
   "lang": "tr",
   "start_url": "./index.html",
   "scope": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "any",
-  "background_color": "#08090d",
-  "theme_color": "#08090d",
+  "background_color": "#07161b",
+  "theme_color": "#0f766e",
   "icons": [
     {
       "src": "./icons/icon-192.png",
@@ -22,9 +22,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "display_override": [
-    "fullscreen",
-    "standalone"
   ]
 }
