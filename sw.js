@@ -1,13 +1,13 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-44-47";
+const CACHE_NAME = "servis-sys-v4-44-48";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/sys-logo-wide.png",
+  "./icons/icon-192-v48.png",
+  "./icons/icon-512-v48.png",
+  "./icons/sys-logo-v48.png",
   "./icons/shell-logo.png"
 ];
 
