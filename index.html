@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Servis Yönetim Sistemi | v4.44.46</title>
+  <title>Servis Yönetim Sistemi | v4.44.47</title>
   <meta name="theme-color" content="#08090d" />
   <meta name="color-scheme" content="dark light" />
   <meta name="application-name" content="Servis Yönetim Sistemi" />
@@ -15147,7 +15147,7 @@
 </style>
 
 <style id="v4_44_39_command_side_by_side_fix">
-/* v4.44.46 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
+/* v4.44.47 - Komuta kartlarını masaüstünde yan yana getir ve süre metnini oranla */
 @media (min-width: 1080px) {
   #screen-command .command-service-grid,
   #screen-command .command-dashboard > .command-service-grid {
@@ -15300,7 +15300,7 @@
 }
 
 
-    /* v4.44.46 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
+    /* v4.44.47 - Komuta sıfırlama yerleşimi, personel adres defteri ve tema uyumlu saat alanları */
     #screen-command .command-overview {
       min-height: 96px !important;
       height: auto !important;
@@ -15417,7 +15417,7 @@
     }
 
 
-    /* v4.44.46 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
+    /* v4.44.47 - Komuta, uyarı rozetleri, okul çetelesi ve sürüş ekranı */
     .nav-btn { position: relative; }
     .nav-warning-badge {
       margin-left:auto; min-width:21px; height:21px; padding:0 6px; border-radius:999px;
@@ -15489,7 +15489,7 @@
 
 
 
-    /* v4.44.46 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
+    /* v4.44.47 - Tahsilat görünümü, birleşik çetele, PDF ve modern logo */
     .modern-sys-logo { color:#eafaff; overflow:hidden; background:linear-gradient(145deg,rgba(var(--accent-rgb),.24),rgba(56,189,248,.10)) !important; border:1px solid rgba(var(--accent-rgb),.38); box-shadow:0 12px 30px rgba(var(--accent-rgb),.22) !important; }
     .modern-sys-logo svg { width:34px; height:34px; display:block; filter:drop-shadow(0 5px 10px rgba(var(--accent-rgb),.28)); }
     .auth-brand-mark.modern-sys-logo,.license-brand-mark.modern-sys-logo { display:grid; place-items:center; }
@@ -15518,13 +15518,13 @@
       #school-tab-payments .payment-panel { padding-bottom:36px !important; }
     }
 
-    /* v4.44.46 - Okul tahsilat alt paneli tam görünürlük */
+    /* v4.44.47 - Okul tahsilat alt paneli tam görünürlük */
     #screen-school { overflow-y:auto !important; }
     #school-tab-payments.school-tab-screen:not(.hidden) { display:block !important; height:auto !important; min-height:100%; overflow:visible !important; }
     #school-tab-payments .payment-summary, #school-tab-payments .payment-student-info, #school-tab-payments .payment-table-host { position:relative; z-index:1; }
 
 
-    /* v4.44.46 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
+    /* v4.44.47 - Çetele PDF, veli raporu, şoför arama ve canlı sekme */
     .driver-panel-head-search {
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(230px, 360px);
@@ -15599,7 +15599,7 @@
     }
 
 
-    /* v4.44.46 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
+    /* v4.44.47 - Şoför Modunda telefonla arama ve PDF başlık görünürlüğü */
     .driver-panel-head-call {
       display:grid !important;
       grid-template-columns:minmax(0,1fr) auto;
@@ -15677,7 +15677,7 @@
     }
 
 
-    /* v4.44.46 - Kullanıcı tarafından seçilen SYS kurumsal logosu */
+    /* v4.44.47 - Kullanıcı tarafından seçilen SYS kurumsal logosu */
     .modern-sys-logo {
       overflow: hidden !important;
       padding: 0 !important;
@@ -15758,7 +15758,7 @@
     }
 
 
-    /* v4.44.46 - Şeffaf kurumsal logo ve ayrı günlük sıfırlama */
+    /* v4.44.47 - Şeffaf kurumsal logo ve ayrı günlük sıfırlama */
     .modern-sys-logo,
     .brand-mark.modern-sys-logo,
     .auth-brand-mark.modern-sys-logo,
@@ -15828,6 +15828,80 @@
       color: color-mix(in srgb,var(--accent) 82%,#0f172a 18%);
       background: color-mix(in srgb,var(--accent) 8%,#fff 92%);
     }
+
+
+    /* v4.44.47 - Şeffaf SYS işareti, açık tema, adres seçenekleri, genel arama ve amortisman görünümü */
+    .modern-sys-logo, .brand-mark.modern-sys-logo, .auth-brand-mark.modern-sys-logo,
+    .license-brand-mark.modern-sys-logo, .pwa-install-mark.modern-sys-logo,
+    .report-brand-mark.modern-sys-logo, .sys-splash-logo, #sysScreenSaver .ss41-logo {
+      background: transparent !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important;
+    }
+    .modern-sys-logo img, .sys-splash-logo img, #sysScreenSaver .ss41-logo img {
+      width: 100% !important; height: 100% !important; object-fit: contain !important; background: transparent !important; filter: drop-shadow(0 8px 14px rgba(0,0,0,.24));
+    }
+    .brand-mark.modern-sys-logo { width: 88px !important; flex-basis: 88px !important; height: 36px !important; }
+    .auth-brand-mark.modern-sys-logo, .license-brand-mark.modern-sys-logo { width: 132px !important; height: 48px !important; }
+    .pwa-install-mark.modern-sys-logo { width: 96px !important; height: 38px !important; }
+    .report-brand-mark.modern-sys-logo { width: 112px !important; height: 42px !important; }
+
+    body[data-theme="light"] {
+      --bg:#edf5f7; --panel:#ffffff; --panel-2:#f5fafb; --panel-3:#e4f1f3; --text:#102f3a; --muted:#58727b;
+      --line:rgba(13,91,108,.18); --red:#0d8fa6; --red-2:#23b7c9; --green:#16845c; --yellow:#c57a10; --blue:#2563eb; --danger:#c83d4d; --accent-rgb:13,143,166;
+      background:radial-gradient(circle at 10% 0%,rgba(35,183,201,.16),transparent 31%),radial-gradient(circle at 92% 8%,rgba(37,99,235,.10),transparent 28%),linear-gradient(145deg,#f7fcfd 0%,#edf5f7 52%,#f8fbfc 100%) !important;
+    }
+    body[data-theme="light"] .sidebar { background:rgba(248,253,254,.96) !important; border-right-color:rgba(13,91,108,.16); }
+    body[data-theme="light"] .topbar { background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(244,251,252,.94)) !important; border-bottom-color:rgba(13,91,108,.14); }
+    body[data-theme="light"] .card, body[data-theme="light"] .panel, body[data-theme="light"] .sidebar-footer, body[data-theme="light"] .table-wrap { background:#ffffff !important; border-color:rgba(13,91,108,.16) !important; }
+    body[data-theme="light"] .panel-title, body[data-theme="light"] h1, body[data-theme="light"] h2, body[data-theme="light"] h3, body[data-theme="light"] strong { color:#123744; }
+    body[data-theme="light"] .panel-sub, body[data-theme="light"] .lead, body[data-theme="light"] .muted, body[data-theme="light"] .field-help, body[data-theme="light"] small { color:#5a737c !important; }
+    body[data-theme="light"] label { color:#274d59; }
+    body[data-theme="light"] input, body[data-theme="light"] select, body[data-theme="light"] textarea { color:#123744 !important; background:#f9fcfd !important; border-color:#b8d4da !important; }
+    body[data-theme="light"] input::placeholder, body[data-theme="light"] textarea::placeholder { color:#799098 !important; }
+    body[data-theme="light"] th { color:#0e5263 !important; background:#dff1f4 !important; border-color:#b8d4da !important; }
+    body[data-theme="light"] td { color:#1f4450; border-color:#d6e6e9 !important; }
+    body[data-theme="light"] .btn.primary { color:#fff !important; background:linear-gradient(135deg,#0d8fa6,#0b6f83) !important; border-color:#0b6f83 !important; box-shadow:0 9px 20px rgba(13,143,166,.20) !important; }
+    body[data-theme="light"] .btn.primary:hover { background:linear-gradient(135deg,#0b8197,#095f71) !important; }
+    body[data-theme="light"] .tab.active, body[data-theme="light"] .mini-tab.active { color:#075f71 !important; background:#e0f6f8 !important; border-color:#73cbd5 !important; box-shadow:0 5px 14px rgba(13,143,166,.12) !important; }
+    body[data-theme="light"] .nav button.active { color:#0b5362 !important; background:linear-gradient(135deg,#dff6f8,#ffffff) !important; border-color:#80cdd6 !important; }
+    body[data-theme="light"] .modern-sys-logo img { filter:drop-shadow(0 7px 12px rgba(13,91,108,.18)); }
+
+    .address-book-source-field { padding:10px 12px; border:1px dashed rgba(var(--accent-rgb),.30); border-radius:14px; background:rgba(var(--accent-rgb),.055); }
+    .address-book-source-field select { margin-top:2px; }
+
+    #tab-service { overflow-y:auto !important; overflow-x:hidden !important; padding-bottom:24px; }
+    #tab-service .service-panel { height:auto !important; min-height:100% !important; overflow:visible !important; }
+    #serviceListLauncherNote { display:grid !important; flex:0 0 auto !important; min-height:170px !important; margin-bottom:20px !important; position:relative; z-index:1; }
+
+    .global-smart-search-btn { border-color:rgba(var(--accent-rgb),.32) !important; background:rgba(var(--accent-rgb),.09) !important; }
+    .global-search-layer { position:fixed; inset:0; z-index:100000; display:none; place-items:start center; padding:8vh 20px 20px; background:rgba(2,10,14,.72); backdrop-filter:blur(12px); }
+    .global-search-layer.open { display:grid; }
+    .global-search-card { width:min(820px,96vw); max-height:82vh; overflow:hidden; display:flex; flex-direction:column; gap:14px; padding:20px; border:1px solid rgba(var(--accent-rgb),.34); border-radius:22px; color:var(--text); background:linear-gradient(145deg,rgba(var(--accent-rgb),.10),transparent 28%),var(--panel); box-shadow:0 28px 90px rgba(0,0,0,.46); }
+    .global-search-head { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; }
+    .global-search-kicker { color:var(--accent); font-size:10px; font-weight:950; letter-spacing:.14em; }
+    .global-search-head h2 { margin:5px 0 4px; font-size:26px; }
+    .global-search-head p { margin:0; color:var(--muted); font-size:12px; }
+    .global-search-input-shell { display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:center; padding:9px 13px; border:1px solid rgba(var(--accent-rgb),.40); border-radius:15px; background:rgba(var(--accent-rgb),.07); }
+    .global-search-input-shell span { color:var(--accent); font-size:28px; }
+    .global-search-input-shell input { border:0 !important; background:transparent !important; min-height:42px; font-size:17px; box-shadow:none !important; }
+    .global-search-hint { color:var(--muted); font-size:11px; }
+    .global-search-results { min-height:120px; overflow:auto; display:grid; align-content:start; gap:8px; padding-right:3px; }
+    .global-search-result { width:100%; display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:11px; align-items:center; padding:11px 12px; border:1px solid var(--line); border-radius:14px; color:var(--text); background:rgba(255,255,255,.035); text-align:left; }
+    .global-search-result:hover, .global-search-result.is-first { border-color:rgba(var(--accent-rgb),.52); background:rgba(var(--accent-rgb),.10); }
+    .global-search-result-icon { width:40px; height:40px; display:grid; place-items:center; border-radius:12px; color:var(--accent); background:rgba(var(--accent-rgb),.12); font-size:19px; }
+    .global-search-result strong, .global-search-result small { display:block; }
+    .global-search-result small { margin-top:3px; color:var(--muted); font-size:10px; }
+    .global-search-result em { color:var(--muted); font-size:10px; font-style:normal; }
+    .global-search-empty { padding:30px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:16px; }
+
+    .depreciation-dashboard-card { display:grid; gap:14px; overflow:visible; }
+    .depreciation-summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    .depreciation-summary-chip { padding:13px; border:1px solid rgba(var(--accent-rgb),.22); border-radius:15px; background:rgba(var(--accent-rgb),.06); }
+    .depreciation-summary-chip span, .depreciation-summary-chip strong { display:block; }
+    .depreciation-summary-chip span { color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.08em; }
+    .depreciation-summary-chip strong { margin-top:7px; font-size:19px; }
+    #financeDepreciationTable .table-wrap { max-height:none; overflow:auto; }
+    @media(max-width:900px){ .depreciation-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.global-search-head{align-items:stretch}.global-search-head>.btn{align-self:flex-start} }
+    @media(max-width:620px){ .depreciation-summary-grid{grid-template-columns:1fr}.global-search-layer{padding:12px}.global-search-card{max-height:94vh;padding:14px}.global-search-result{grid-template-columns:36px minmax(0,1fr)}.global-search-result em{grid-column:2}.global-smart-search-btn{font-size:0}.global-smart-search-btn::after{content:'⌕';font-size:17px} }
 </style>
 
 </head>
@@ -15967,6 +16041,18 @@
     </div>
   </div>
 
+  <div class="global-search-layer" id="globalSearchLayer" aria-hidden="true">
+    <section class="global-search-card" role="dialog" aria-modal="true" aria-labelledby="globalSearchTitle">
+      <div class="global-search-head">
+        <div><div class="global-search-kicker">AKILLI GENEL ARAMA</div><h2 id="globalSearchTitle">Programda ne arıyorsun?</h2><p>Bölüm, kayıt, rapor veya benzer bir kelime yaz. Örnek: yakıt, mazot, öğrenci, amortisman, fatura.</p></div>
+        <button class="btn small" id="closeGlobalSearchBtn" type="button">Kapat</button>
+      </div>
+      <div class="global-search-input-shell"><span aria-hidden="true">⌕</span><input id="globalSearchInput" autocomplete="off" placeholder="Örn. mazot gideri, araç değeri, veli tahsilatı..." /></div>
+      <div class="global-search-hint">Kısayol: <strong>Ctrl + K</strong> · Yazım hatalarında yakın sonuçlar da gösterilir.</div>
+      <div class="global-search-results" id="globalSearchResults"></div>
+    </section>
+  </div>
+
   <div class="quick-finance-layer" id="quickFinanceEntryLayer" aria-hidden="true">
     <section class="quick-finance-card" role="dialog" aria-modal="true" aria-labelledby="quickFinanceEntryTitle">
       <div class="quick-finance-head">
@@ -15987,7 +16073,7 @@
         <div class="brand-mark modern-sys-logo" aria-label="Servis Yönetim Sistemi logosu"><img src="./icons/sys-logo-wide.png" alt="" draggable="false" /></div>
         <div>
           <div class="brand-title">Servis Yönetim<br>Sistemi</div>
-          <div class="brand-sub">Servis Yönetimi v4.44.46</div>
+          <div class="brand-sub">Servis Yönetimi v4.44.47</div>
         </div>
       </div>
 
@@ -16056,6 +16142,7 @@
             <div class="quick-user-switch-head"><strong>Hızlı Kullanıcı Değiştir</strong><span>Şifre ile güvenli geçiş</span></div>
             <div class="quick-user-switch-list" id="quickUserSwitchList"></div>
           </div>
+          <button class="btn small global-smart-search-btn" id="globalSmartSearchBtn" type="button" title="Bölüm, kayıt veya rapor ara">⌕ Genel Ara</button>
           <button class="btn small fullscreen-btn" id="fullscreenBtn" type="button" title="Tam ekran görünümünü aç">⛶ Tam Ekran</button>
           <button class="btn small" id="lockSessionBtn" type="button">Kilitle</button>
           <button class="btn small danger" id="logoutBtn" type="button">Çıkış</button>
@@ -16798,6 +16885,12 @@
                     </div>
                   </div>
 
+                  <div class="field address-book-source-field">
+                    <label for="companyAddressBookSelect">Adres Defterinden Firma Adresi</label>
+                    <select id="companyAddressBookSelect"><option value="">Manuel adres gir</option></select>
+                    <small class="field-help">Seçilen kayıt firma adresi ve harita metnini doldurur.</small>
+                  </div>
+
                   <div class="field">
                     <label for="companyAddress">Firma Adresi</label>
                     <textarea id="companyAddress" placeholder="Personelin gideceği ana işyeri adresi"></textarea>
@@ -16819,6 +16912,12 @@
                       <label for="companyEveningTime">Akşam Servis Saati</label>
                       <input id="companyEveningTime" type="time" />
                     </div>
+                  </div>
+
+                  <div class="field address-book-source-field">
+                    <label for="companyEveningFinalAddressBookSelect">Adres Defterinden Akşam Son Nokta</label>
+                    <select id="companyEveningFinalAddressBookSelect"><option value="">Manuel adres gir</option></select>
+                    <small class="field-help">Seçilen kayıt akşam son nokta ve harita metnini doldurur.</small>
                   </div>
 
                   <div class="field">
@@ -17554,6 +17653,12 @@
                 </div>
 
                 <div class="student-form-page" id="studentFormPage-service">
+                  <div class="field address-book-source-field">
+                    <label for="studentHomeAddressBookSelect">Adres Defterinden Öğrenci Adresi</label>
+                    <select id="studentHomeAddressBookSelect"><option value="">Manuel adres gir</option></select>
+                    <small class="field-help">Seçilen kayıt öğrenci adresi ve harita metnini doldurur.</small>
+                  </div>
+
                   <div class="field">
                     <label for="studentHomeAddress">Ev / Biniş Adresi *</label>
                     <textarea id="studentHomeAddress" placeholder="Örn. Mahalle, sokak, bina ve kapı bilgisi" required></textarea>
@@ -17637,6 +17742,12 @@
                 <div class="field">
                   <label for="schoolName">Okul Adı *</label>
                   <input id="schoolName" placeholder="Örn. Cumhuriyet Ortaokulu" required />
+                </div>
+
+                <div class="field address-book-source-field">
+                  <label for="schoolAddressBookSelect">Adres Defterinden Okul Adresi</label>
+                  <select id="schoolAddressBookSelect"><option value="">Manuel adres gir</option></select>
+                  <small class="field-help">Seçilen kayıt okul adresi ve harita metnini doldurur.</small>
                 </div>
 
                 <div class="field">
@@ -18012,6 +18123,7 @@
             <button class="tab" type="button" data-finance-tab="school">Okul Finans</button>
             <button class="tab" type="button" data-finance-tab="invoices">Fatura Tahsilat</button>
             <button class="tab" type="button" data-finance-tab="maintenance">Bakım & Mekanik</button>
+            <button class="tab" type="button" data-finance-tab="depreciation">Amortisman</button>
             <button class="tab" type="button" data-finance-tab="cost-report">Maliyet Dağılımı</button>
             <button class="tab" type="button" data-finance-tab="profitability">Kârlılık</button>
             <button class="tab" type="button" data-finance-tab="staff">Şoför / Rehber</button>
@@ -18067,6 +18179,26 @@
               </section>
             </div>
 
+          </div>
+
+          <div class="finance-tab-screen hidden" id="finance-tab-depreciation">
+            <section class="card finance-section-period" data-finance-section-period>
+              <div class="finance-section-period-copy"><span>Araç Amortismanı</span><strong class="finance-section-month-title">Aylık görünüm</strong></div>
+              <div class="finance-section-period-actions">
+                <button class="btn small ghost" type="button" data-finance-month-step="-1">‹ Önceki</button>
+                <div class="field"><label>Görüntülenecek Ay</label><input class="finance-month-sync" type="month" aria-label="Amortisman ay seçimi" /></div>
+                <button class="btn small ghost" type="button" data-finance-month-step="1">Sonraki ›</button>
+                <button class="btn small" type="button" data-finance-month-current>Bu Ay</button>
+              </div>
+            </section>
+            <section class="card depreciation-dashboard-card">
+              <div class="panel-header">
+                <div><h2 class="panel-title">Araç Amortisman Verileri</h2><div class="panel-sub">Aylık amortisman, birikmiş tutar, defter değeri ve piyasa değerini araç bazında gösterir.</div></div>
+                <button class="btn small primary" type="button" data-smart-open="vehicle-depreciation">Amortisman Kaydına Git</button>
+              </div>
+              <div class="depreciation-summary-grid" id="financeDepreciationSummary"></div>
+              <div id="financeDepreciationTable"></div>
+            </section>
           </div>
 
           <div class="finance-tab-screen hidden" id="finance-tab-flow">
@@ -19661,7 +19793,7 @@
             <div class="version-box">
               <div>
                 <span>Uygulama Sürümü</span>
-                <strong>v4.44.46</strong>
+                <strong>v4.44.47</strong>
               </div>
               <div>
                 <span>Veri Şeması</span>
@@ -19706,7 +19838,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.44.46";
+    const APP_VERSION = "4.44.47";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -27992,6 +28124,7 @@
         clearStaffPaymentForm();
       }
       renderFinanceDashboard();
+      renderVehicleDepreciationDashboard();
       if (options.notify !== false) showToast(`${financeMonthTitle(targetMonth)} finans verileri yüklendi.`);
     }
 
@@ -31037,7 +31170,7 @@
 
     function activateFinanceTab(tabName) {
       const requestedName = tabName === "accruals" ? "personnel" : tabName;
-      const targetName = ["overview", "flow", "maintenance", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"].includes(requestedName) ? requestedName : "overview";
+      const targetName = ["overview", "flow", "maintenance", "depreciation", "cost-report", "km", "personnel", "profitability", "invoices", "staff", "school", "reports"].includes(requestedName) ? requestedName : "overview";
       $$("#financeTabs .tab").forEach((button) => button.classList.toggle("active", button.dataset.financeTab === targetName));
       $$("#screen-finance .finance-tab-screen").forEach((screen) => screen.classList.add("hidden"));
       $("#finance-tab-" + targetName)?.classList.remove("hidden");
@@ -31046,6 +31179,7 @@
       if (targetName === "overview") renderFinanceCharts();
       if (targetName === "flow") { renderFinanceFlowSummary(); renderFinanceFlowTable(); renderVehicleExpenses(); activateFinanceFlowTab("entry", { scroll: false, instant: true }); }
       if (targetName === "maintenance") { renderVehicleMaintenanceOptions(); renderVehicleMaintenanceMonthSummary(); renderVehicleMaintenanceTable(); updateMaintenanceAllocationPreview(); }
+      if (targetName === "depreciation") renderVehicleDepreciationDashboard();
       if (targetName === "cost-report") { renderVehicleCostReportOptions(); renderVehicleCostReport(); }
       if (targetName === "km") activateVehicleKmSubTab("analysis", { scroll: false, instant: true });
       if (targetName === "personnel") { renderFinanceSummary(); renderFinancePersonnelProfitTable(); renderFinanceTable(); }
@@ -31558,6 +31692,29 @@
       });
     }
 
+
+    function renderVehicleDepreciationDashboard() {
+      const summary = $("#financeDepreciationSummary");
+      const table = $("#financeDepreciationTable");
+      if (!summary || !table) return;
+      const month = getFinanceMonth();
+      const rows = state.vehicles.map((vehicle) => ({ vehicle, profile: vehicleDepreciationProfile(vehicle, month) }));
+      const enabled = rows.filter((row) => row.profile.enabled);
+      const monthly = rows.reduce((sum, row) => sum + Number(row.profile.monthlyDepreciation || 0), 0);
+      const book = rows.reduce((sum, row) => sum + Number(row.profile.bookValue || 0), 0);
+      const market = rows.reduce((sum, row) => sum + Number(row.vehicle.currentMarketValue || 0), 0);
+      summary.innerHTML = [
+        ["Bu Ay Amortisman", formatTRY(monthly)],
+        ["Hesaba Dahil Araç", `${enabled.length} / ${rows.length}`],
+        ["Toplam Defter Değeri", formatTRY(book)],
+        ["Kayıtlı Piyasa Değeri", market > 0 ? formatTRY(market) : "-"]
+      ].map(([label, value]) => `<div class="depreciation-summary-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("");
+      if (!rows.length) {
+        table.innerHTML = '<div class="empty">Henüz araç kaydı yok. Temel Kayıtlar → Araç / Şoför bölümünden araç ekle.</div>';
+        return;
+      }
+      table.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Araç</th><th>Durum</th><th>Alış Bedeli</th><th>Aylık Amortisman</th><th>Bu Ay Maliyeti</th><th>Birikmiş</th><th>Defter Değeri</th><th>Piyasa Değeri</th><th>İşlem</th></tr></thead><tbody>${rows.map(({ vehicle, profile }) => `<tr><td><strong>${escapeHtml(vehicle.plate || "-")}</strong><br><span class="muted">${escapeHtml([vehicle.brand, vehicle.model, vehicle.modelYear].filter(Boolean).join(" ") || "Model girilmemiş")}</span></td><td><span class="pill ${profile.enabled ? "active" : "passive"}">${profile.enabled ? "Maliyete Dahil" : "Hesap Dışı"}</span></td><td>${vehicle.purchasePrice ? escapeHtml(formatTRY(vehicle.purchasePrice)) : "-"}</td><td><strong>${profile.monthlyBase ? escapeHtml(formatTRY(profile.monthlyBase)) : "-"}</strong></td><td>${profile.monthlyDepreciation ? escapeHtml(formatTRY(profile.monthlyDepreciation)) : "-"}</td><td>${profile.accumulatedDepreciation ? escapeHtml(formatTRY(profile.accumulatedDepreciation)) : "-"}</td><td><strong>${profile.bookValue ? escapeHtml(formatTRY(profile.bookValue)) : "-"}</strong></td><td>${vehicle.currentMarketValue ? escapeHtml(formatTRY(vehicle.currentMarketValue)) : "-"}</td><td><button class="btn small primary" type="button" data-action="open-depreciation-vehicle" data-id="${escapeHtml(vehicle.id)}">Düzenle</button></td></tr>`).join("")}</tbody></table></div>`;
+    }
 
     function renderAll() {
       applyTheme();
@@ -36379,7 +36536,7 @@ Personel servisi, araç, öğrenci, okul ve finans kayıtları silinmez.`,{title
 })();
 
 
-  /* v4.44.46 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
+  /* v4.44.47 - PDF, okul tahsilat, birleşik çetele ve alt sekme uyarıları */
   function serviceCountdown(timeValue, dateValue = getServiceDate(), mode = "Biniş") {
     const minutes = timeToMinutes(timeValue);
     const label = mode === "Varış" ? "Varış" : "Biniş";
@@ -36520,7 +36677,7 @@ Personel servisi, araç, öğrenci, okul ve finans kayıtları silinmez.`,{title
 
 
 <script>
-  /* v4.44.46 - kompakt çetele PDF, öğrenci bazlı veli raporu */
+  /* v4.44.47 - kompakt çetele PDF, öğrenci bazlı veli raporu */
   function schoolReportStudentValue(){ return document.querySelector('#schoolReportStudent')?.value || ''; }
   function renderSchoolReportStudentOptions(){
     const select=document.querySelector('#schoolReportStudent'); if(!select) return;
@@ -36628,6 +36785,136 @@ Personel servisi, araç, öğrenci, okul ve finans kayıtları silinmez.`,{title
     renderSchoolReportStudentOptions();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(bindV4443Actions,10));else setTimeout(bindV4443Actions,10);
+</script>
+
+<script>
+(function(){
+  'use strict';
+  const $q=(s,r=document)=>r.querySelector(s);
+  const $qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const trNorm=(value)=>String(value||'').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/ş/g,'s').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ö/g,'o').replace(/ç/g,'c').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+
+  const addressTargets={
+    personMorningAddressBookSelect:['personMorningAddress','personMorningMapQuery','sabah personel'],
+    personEveningAddressBookSelect:['personEveningAddress','personEveningMapQuery','akşam personel'],
+    companyAddressBookSelect:['companyAddress','companyMapQuery','firma'],
+    companyEveningFinalAddressBookSelect:['companyEveningFinalAddress','companyEveningFinalMapQuery','akşam son nokta'],
+    studentHomeAddressBookSelect:['studentHomeAddress','studentMapQuery','öğrenci'],
+    schoolAddressBookSelect:['schoolAddress','schoolMapQuery','okul']
+  };
+  function rows(){ return Array.isArray(state?.addressBook)?state.addressBook:[]; }
+  function addressLabel(item){ return `${item.name||'İsimsiz Konum'}${item.note?` · ${item.note}`:''}`; }
+  function renderAllAddressBookOptions(){
+    const list=[...rows()].sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'tr-TR'));
+    Object.keys(addressTargets).forEach(id=>{
+      const select=$q('#'+id); if(!select)return;
+      const current=select.value;
+      select.innerHTML=`<option value="">Manuel adres gir</option>${list.map(item=>`<option value="${String(item.id).replace(/"/g,'&quot;')}">${addressLabel(item).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</option>`).join('')}`;
+      if(list.some(item=>String(item.id)===String(current)))select.value=current;
+    });
+    syncAllAddressSelections();
+  }
+  function syncAllAddressSelections(){
+    Object.entries(addressTargets).forEach(([id,[addressId,mapId]])=>{
+      const select=$q('#'+id),address=$q('#'+addressId),map=$q('#'+mapId); if(!select)return;
+      const values=[address?.value,map?.value].map(v=>String(v||'').trim()).filter(Boolean);
+      const hit=rows().find(item=>values.includes(String(item.location||'').trim()));
+      select.value=hit?.id||'';
+    });
+  }
+  function applyAddressSelection(select){
+    const target=addressTargets[select.id]; if(!target)return;
+    const item=rows().find(row=>String(row.id)===String(select.value)); if(!item)return;
+    const location=String(item.location||'').trim();
+    const [addressId,mapId,label]=target;
+    if($q('#'+addressId))$q('#'+addressId).value=location;
+    if($q('#'+mapId))$q('#'+mapId).value=location;
+    window.showToast?.(`${item.name||'Adres'} ${label} alanına aktarıldı.`);
+  }
+
+  function levenshtein(a,b){
+    a=trNorm(a);b=trNorm(b); if(!a)return b.length;if(!b)return a.length;
+    const row=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old;}}
+    return row[b.length];
+  }
+  const searchEntries=[
+    {icon:'⌂',title:'Komuta Paneli',desc:'Canlı servis ve operasyon ekranı',aliases:'ana ekran komuta operasyon canlı servis yönetim',module:'command'},
+    {icon:'P',title:'Personel Servisini Başlat',desc:'Sabah veya akşam personel operasyonu',aliases:'personel servis baslat sefer bindi indi rota',module:'personnel',tab:'service'},
+    {icon:'👥',title:'Personel Kayıtları',desc:'Personel ekle, düzenle ve adres seç',aliases:'calisan personel kayit kisi eleman adres telefon',module:'registry',registry:'people'},
+    {icon:'▦',title:'Personel Çetelesi',desc:'Aylık servis ve tatil kayıtları',aliases:'cetele yoklama devam puantaj aylik personel',module:'personnel',tab:'ledger'},
+    {icon:'▤',title:'Personel Raporları',desc:'Yoklama, PDF ve firma raporu',aliases:'personel rapor pdf yoklama firma',module:'personnel',tab:'reports'},
+    {icon:'🏢',title:'Firma Kayıtları',desc:'Firma adresi, araç ve servis saatleri',aliases:'firma sirket isyeri adres musteri',module:'registry',registry:'companies'},
+    {icon:'✎',title:'İş / Sözleşme',desc:'Fiyat, vardiya ve sözleşme bağlantıları',aliases:'sozlesme is fiyat vardiya hak edis hakediş',module:'registry',registry:'jobs'},
+    {icon:'🎓',title:'Okul Servisi',desc:'Öğrenci operasyonunu başlat',aliases:'okul ogrenci servis baslat veli',module:'school',school:'operation'},
+    {icon:'🧒',title:'Öğrenci Kayıtları',desc:'Öğrenci, veli, adres ve ücret',aliases:'ogrenci cocuk veli telefon adres kayit',module:'registry',registry:'students'},
+    {icon:'🏫',title:'Okul Kayıtları',desc:'Okul adresi ve servis saatleri',aliases:'okul kayit adres giris cikis',module:'registry',registry:'schools'},
+    {icon:'▦',title:'Okul Çetelesi',desc:'Sabah ve akşam öğrenci çetelesi',aliases:'okul cetele yoklama sabah aksam',module:'school',school:'ledger'},
+    {icon:'₺',title:'Okul Tahsilatları',desc:'Veli ödemeleri ve alacaklar',aliases:'okul tahsilat veli odeme para aidat',module:'school',school:'payments'},
+    {icon:'☎',title:'Şoför Modu',desc:'Sürüş ekranı ve telefonla arama',aliases:'sofor sürücü ara telefon yolcu',module:'driver'},
+    {icon:'⌖',title:'Adres Defteri',desc:'Kayıtlı adres ve konumlar',aliases:'adres konum harita maps navigasyon',module:'addresses'},
+    {icon:'🚐',title:'Araç / Şoför Kaydı',desc:'Araç, plaka, bakım ve evraklar',aliases:'arac minibus plaka sofor ruhsat',module:'registry',registry:'vehicles'},
+    {icon:'◫',title:'Amortisman',desc:'Araç aylık amortisman ve defter değeri',aliases:'amortisman arac degeri alis bedeli yipranma maliyet',module:'finance',finance:'depreciation'},
+    {icon:'⛽',title:'Yakıt ve Gider Kaydı',desc:'Mazot, motorin ve diğer giderler',aliases:'yakit mazot motorin benzin gider masraf litre',module:'finance',finance:'flow'},
+    {icon:'KM',title:'KM Analizi',desc:'Yakıt ve toplam maliyet / kilometre',aliases:'kilometre km yakit tuketim maliyet kar zarar',module:'finance',finance:'km'},
+    {icon:'₺',title:'Finans Özeti',desc:'Gelir, gider ve aylık sonuç',aliases:'finans para gelir gider kar zarar ozet',module:'finance',finance:'overview'},
+    {icon:'↗',title:'Kârlılık',desc:'İş bazında kâr ve zarar',aliases:'karlilik kar zarar firma okul basabas',module:'finance',finance:'profitability'},
+    {icon:'🧾',title:'Fatura Tahsilat',desc:'Fatura, KDV ve ödeme takibi',aliases:'fatura tahsilat kdv odeme alacak',module:'finance',finance:'invoices'},
+    {icon:'🔧',title:'Bakım & Mekanik',desc:'Araç bakım ve mekanik giderleri',aliases:'bakim mekanik tamir yag lastik',module:'finance',finance:'maintenance'},
+    {icon:'▤',title:'Finans Raporları',desc:'PDF ve CSV yönetim raporları',aliases:'rapor pdf csv yonetim finans',module:'finance',finance:'reports'},
+    {icon:'⚙',title:'Ayarlar / Yedek',desc:'Tema, yedek ve kullanıcı ayarları',aliases:'ayar yedek tema sifirla kullanici lisans',module:'settings'}
+  ];
+  function scoreEntry(entry,query){
+    const q=trNorm(query), hay=trNorm(`${entry.title} ${entry.desc} ${entry.aliases}`);
+    if(!q)return 10; if(hay.includes(q))return hay.startsWith(q)?120:100;
+    const qTokens=q.split(' '),hTokens=hay.split(' '); let score=0;
+    qTokens.forEach(token=>{
+      if(hTokens.some(h=>h.startsWith(token)))score+=35;
+      else {const best=Math.min(...hTokens.map(h=>levenshtein(token,h))); if(best<=1)score+=25; else if(best<=2)score+=12;}
+    });
+    return score;
+  }
+  function renderSearchResults(query=''){
+    const host=$q('#globalSearchResults'); if(!host)return;
+    const rows=searchEntries.map(entry=>({entry,score:scoreEntry(entry,query)})).filter(x=>!query||x.score>0).sort((a,b)=>b.score-a.score).slice(0,12);
+    if(!rows.length){host.innerHTML='<div class="global-search-empty">Yakın bir sonuç bulunamadı. Daha kısa bir kelime dene.</div>';return;}
+    host.innerHTML=rows.map((row,index)=>`<button class="global-search-result ${index===0?'is-first':''}" type="button" data-search-index="${searchEntries.indexOf(row.entry)}"><span class="global-search-result-icon">${row.entry.icon}</span><span><strong>${row.entry.title}</strong><small>${row.entry.desc}</small></span><em>${row.score>=100?'Tam eşleşme':'Yakın sonuç'}</em></button>`).join('');
+  }
+  function openSearch(initial=''){ const layer=$q('#globalSearchLayer'); if(!layer)return; layer.classList.add('open');layer.setAttribute('aria-hidden','false');const input=$q('#globalSearchInput');input.value=initial;renderSearchResults(initial);setTimeout(()=>input.focus(),40); }
+  function closeSearch(){ const layer=$q('#globalSearchLayer');layer?.classList.remove('open');layer?.setAttribute('aria-hidden','true'); }
+  function navigateEntry(entry){
+    closeSearch();
+    if(entry.module)window.activateModule?.(entry.module);
+    if(entry.registry)setTimeout(()=>window.activateRegistryTab?.(entry.registry),40);
+    if(entry.tab)setTimeout(()=>window.activateTab?.(entry.tab),40);
+    if(entry.school)setTimeout(()=>window.activateSchoolTab?.(entry.school),40);
+    if(entry.finance)setTimeout(()=>window.activateFinanceTab?.(entry.finance),40);
+  }
+
+  function bind(){
+    renderAllAddressBookOptions();
+    Object.keys(addressTargets).forEach(id=>$q('#'+id)?.addEventListener('change',event=>applyAddressSelection(event.currentTarget)));
+    $q('#addressBookForm')?.addEventListener('submit',()=>setTimeout(renderAllAddressBookOptions,60));
+    $q('#addressBookList')?.addEventListener('click',()=>setTimeout(renderAllAddressBookOptions,80));
+    document.addEventListener('click',event=>{
+      const edit=event.target.closest('[data-action="edit-person"],[data-action="edit-company"],[data-action="edit-student"],[data-action="edit-school"]'); if(edit)setTimeout(syncAllAddressSelections,100);
+      const openDep=event.target.closest('[data-action="open-depreciation-vehicle"]'); if(openDep){window.editVehicle?.(openDep.dataset.id);setTimeout(()=>window.activateVehicleFormPage?.('depreciation'),80);}
+      const smart=event.target.closest('[data-smart-open="vehicle-depreciation"]'); if(smart){window.activateModule?.('registry');setTimeout(()=>{window.activateRegistryTab?.('vehicles');window.activateVehicleFormPage?.('depreciation');},60);}
+    });
+    $q('#globalSmartSearchBtn')?.addEventListener('click',()=>openSearch());
+    $q('#closeGlobalSearchBtn')?.addEventListener('click',closeSearch);
+    $q('#globalSearchLayer')?.addEventListener('click',event=>{if(event.target.id==='globalSearchLayer')closeSearch();});
+    $q('#globalSearchInput')?.addEventListener('input',event=>renderSearchResults(event.target.value));
+    $q('#globalSearchInput')?.addEventListener('keydown',event=>{if(event.key==='Enter'){const first=$q('#globalSearchResults .global-search-result');if(first)first.click();}if(event.key==='Escape')closeSearch();});
+    $q('#globalSearchResults')?.addEventListener('click',event=>{const button=event.target.closest('[data-search-index]');if(button)navigateEntry(searchEntries[Number(button.dataset.searchIndex)]);});
+    document.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&String(event.key).toLowerCase()==='k'){event.preventDefault();openSearch();}else if(event.key==='Escape')closeSearch();});
+    document.addEventListener('change',event=>{if(event.target.matches('.finance-month-sync,#vehicleDepreciationEnabled,#vehiclePurchaseDate,#vehiclePurchasePrice,#vehicleUsefulLifeYears,#vehicleResidualValue,#vehicleCurrentMarketValue'))setTimeout(renderVehicleDepreciationDashboard,40);});
+    $q('#vehicleForm')?.addEventListener('submit',()=>setTimeout(renderVehicleDepreciationDashboard,100));
+    renderSearchResults('');
+    renderVehicleDepreciationDashboard();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(bind,30));else setTimeout(bind,30);
+})();
 </script>
 </body>
 </html>
