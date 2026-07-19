@@ -1,10 +1,23 @@
-v4.47.5 TABLET MOTORİN FİYATI DÜZELTMESİ
+SERVİS YÖNETİM SİSTEMİ — v4.47.6
 
-APK GEREKİYOR.
+APK GEREKİYOR
+Bu değişiklik tablet APK'sı içindeki ekran koruyucu HTML/CSS dosyasını etkiler.
 
-Bu pakette gizli .github klasörü yoktur. Dosyaları aynı klasör yollarına yükleyin.
-GitHub Actions mevcut iş akışıyla APK üretmeye devam eder. Artifact adı eski görünebilir; APK içindeki gerçek sürüm 1.1.5 olacaktır.
+DÜZELTME
+- Ekran koruyucudaki beş alt bilgi paneli gerçek üçüncü grid satırına sabitlendi.
+- Paneller artık ekranın alt kenarından yaklaşık 18 px yukarıda ve tek hizada görünür.
+- Önceki sürümde ana içerik gizlenince alt paneller ikinci satıra yerleşiyor ve yukarıda kalıyordu.
 
-Commit: v4.47.5 tablet motorin fiyatı Android köprü düzeltmesi
+SÜRÜMLER
+- Web: 4.47.6
+- APK: 1.1.6
+- Android versionCode: 19
+- Cache: servis-sys-v4-47-6
 
-Uygulamayı kaldırmayın. Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+YÜKLEME
+1. ZIP içindeki dosyaları GitHub'a aynı klasör yollarıyla yükleyin.
+2. Commit: v4.47.6 ekran koruyucu alt panelleri aşağı hizalama
+3. Actions > Android APK Oluştur > Run workflow
+4. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+
+UYGULAMAYI KALDIRMAYIN VE VERİLERİ SİLMEYİN.
