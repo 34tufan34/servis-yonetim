@@ -20001,7 +20001,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.46.6";
+    const APP_VERSION = "4.46.7";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -35807,6 +35807,7 @@
 
     // v4.31.0 - Lisans istemcisi. Operasyon verilerinden ayrı localStorage anahtarlarında tutulur.
     let currentLicenseSession = null;
+    let lastLicenseValidationError = "";
 
     function createLicenseDeviceId() {
       const cryptoId = globalThis.crypto?.randomUUID?.();
@@ -35893,13 +35894,14 @@
       window.setTimeout(() => $("#licenseKeyInput")?.focus(), 50);
     }
 
-    function unlockLicensedApp(record, offline = false) {
+    function unlockLicensedApp(record, offline = false, reason = "") {
       currentLicenseSession = record;
       $("#licenseGate")?.classList.add("hidden");
       document.body.classList.remove("license-locked");
       renderLicenseSettings();
       if (offline) {
-        window.setTimeout(() => showToast("İnternet yok: lisans son doğrulamaya göre çevrimdışı kullanılıyor."), 350);
+        const detail = String(reason || lastLicenseValidationError || "Lisans sunucusuna ulaşılamadı.").trim();
+        window.setTimeout(() => showToast(`${detail} Son başarılı doğrulamaya göre çevrimdışı kullanım sürüyor.`), 350);
       }
     }
 
@@ -36005,8 +36007,11 @@
       try {
         response = await fetch(`${LICENSE_API_URL}${path}`, {
           method: "POST",
-          // Header özellikle gönderilmez: tarayıcı OPTIONS ön kontrolüne takılmadan
-          // basit POST yapar. Worker request.json() gövdeyi yine JSON olarak okur.
+          // Worker'ın üretim sözleşmesi JSON Content-Type bekler ve CORS'ta buna izin verir.
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
           body: JSON.stringify(payload),
           cache: "no-store",
           signal: controller?.signal
@@ -36066,6 +36071,7 @@
           deviceName: `Servis Yönetim · ${navigator.platform || "Cihaz"}`
         });
         const record = buildLicenseRecord(licenseKey, data);
+        lastLicenseValidationError = "";
         saveLicenseRecord(record);
         setLicenseGateStatus(data.message || "Lisans etkinleştirildi.", "success");
         window.setTimeout(() => unlockLicensedApp(record), 450);
@@ -36097,15 +36103,17 @@
           deviceId: record.deviceId || getLicenseDeviceId()
         });
         const next = buildLicenseRecord(record.licenseKey, data);
+        lastLicenseValidationError = "";
         saveLicenseRecord(next);
         setLicenseGateStatus("Lisans geçerli.", "success");
         window.setTimeout(() => unlockLicensedApp(next), manual ? 250 : 160);
         return true;
       } catch (error) {
         console.error("Lisans doğrulama hatası:", error);
+        lastLicenseValidationError = String(error?.message || "Lisans sunucusuna ulaşılamadı.");
         const grace = licenseGraceRemaining(record);
         if ((error.kind === "network" || error.kind === "server") && grace > 0) {
-          unlockLicensedApp(record, true);
+          unlockLicensedApp(record, true, lastLicenseValidationError);
           renderLicenseSettings("offline");
           return true;
         }
@@ -36155,8 +36163,9 @@
       const note = $("#licenseSettingsNote");
       if (note) {
         const remaining = Math.ceil(licenseGraceRemaining(record) / (24 * 60 * 60 * 1000));
+        const errorDetail = lastLicenseValidationError ? ` Son hata: ${lastLicenseValidationError}` : "";
         note.textContent = mode === "offline"
-          ? `Sunucuya ulaşılamadı. Gösterilen cihaz sayısı canlı değildir; son başarılı doğrulamadan kalmıştır. Çevrimdışı kullanım yaklaşık ${remaining} gün sürer.`
+          ? `Lisans sunucusuyla çevrim içi doğrulama tamamlanamadı. Gösterilen cihaz sayısı son başarılı doğrulamadan kalmıştır. Çevrimdışı kullanım yaklaşık ${remaining} gün sürer.${errorDetail}`
           : "Lisans doğrulandı. İşletme verileri cihazda kalır; lisans sunucusuna gönderilmez.";
       }
     }
