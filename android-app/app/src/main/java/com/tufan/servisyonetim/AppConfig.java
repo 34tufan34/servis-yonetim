@@ -8,7 +8,7 @@ public final class AppConfig {
     // APK, ağ veya Service Worker takılmasına bağlı kalmadan yerel kopyadan açılır.
     public static final String APP_URL = LOCAL_APP_URL;
     public static final String ALLOWED_HOST = "34tufan34.github.io";
-    public static final String WEB_VERSION = "4.47.2";
+    public static final String WEB_VERSION = "4.47.3";
     public static final String LICENSE_API_URL = "https://servis-lisans-api.ops-429.workers.dev";
-    public static final String APK_VERSION = "1.1.2";
+    public static final String APK_VERSION = "1.1.3";
 }

@@ -1,0 +1,26 @@
+SERVİS YÖNETİM SİSTEMİ — v4.47.3
+
+DÜZELTME
+- Komuta Paneli servis kartlarını aşağı iten 1fr grid satırı kaldırıldı.
+- Personel ve okul servis kartları aktif operasyon panelinin hemen altına alındı.
+- Gönderilen SYS logo görselinin içindeki büyük siyah canvas crop edildi.
+- Açılış logosu gerçek geniş formatına göre 1393:375 oranında gösteriliyor.
+- Sol menü, lisans ekranı ve ekran koruyucu aynı crop edilmiş logoyu kullanıyor.
+
+SÜRÜMLER
+- Web: 4.47.3
+- APK: 1.1.3
+- Android versionCode: 16
+- Cache: servis-sys-v4-47-3
+
+YÜKLEME
+- GitHub ana dizinine android-app, icons, index.html ve sw.js yükleyin.
+- Commit: v4.47.3 komuta boşluk ve açılış logo oran düzeltmesi
+- Actions > Android APK Oluştur > Run workflow
+- APK'yı kaldırmadan Güncelle olarak kurun.
+
+TEST SONUCU
+- Komuta paneli gerçek DOM üzerinde 1536x1024 görünümde test edildi.
+- Sağdaki eksik kayıt kartının yüksekliğinin sol tarafta boş satır oluşturduğu tespit edildi.
+- Ana ve yan kolonlar ayrı wrapper içine alınarak bu etki kaldırıldı.
+- Servis kartları aktif operasyon kartının hemen altına taşındı.
