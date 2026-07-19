@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.print.PrintAttributes;
@@ -63,6 +65,9 @@ public class MainActivity extends Activity {
     private String nativeBridgeScript = "";
     private String pendingVoicePrompt = "Şoför komutunu söyleyin";
     private PermissionRequest pendingWebAudioPermissionRequest;
+    private final Handler loadHandler = new Handler(Looper.getMainLooper());
+    private final Runnable loadSafetyTask = this::handleLoadSafetyTimeout;
+    private boolean loadErrorPageShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +98,9 @@ public class MainActivity extends Activity {
         nativeBridgeScript = readAssetText("native-bridge.js");
         configureWebView();
 
-        if (savedInstanceState != null) {
-            webView.restoreState(savedInstanceState);
-        } else {
-            webView.loadUrl(AppConfig.APP_URL);
-        }
+        // WebView geçmişindeki yarım kalmış uzak sayfayı geri yükleme.
+        // APK içindeki doğrulanmış uygulama kopyası her açılışta doğrudan yüklenir.
+        webView.loadUrl(AppConfig.APP_URL);
     }
 
     private void configureWebView() {
@@ -107,6 +110,8 @@ public class MainActivity extends Activity {
         settings.setDatabaseEnabled(true);
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccess(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setLoadsImagesAutomatically(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -138,6 +143,22 @@ public class MainActivity extends Activity {
 
     private final class ServisWebViewClient extends WebViewClient {
         @Override
+        public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            loadErrorPageShown = false;
+            progressBar.setProgress(5);
+            progressBar.setVisibility(View.VISIBLE);
+            scheduleLoadSafety();
+        }
+
+        @Override
+        public void onPageCommitVisible(WebView view, String url) {
+            super.onPageCommitVisible(view, url);
+            // İlk içerik ekrana geldiğinde üstteki ince yükleme çubuğunu kaldır.
+            progressBar.setVisibility(View.GONE);
+        }
+
+        @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             return handleNavigation(request.getUrl());
         }
@@ -150,6 +171,7 @@ public class MainActivity extends Activity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            cancelLoadSafety();
             progressBar.setVisibility(View.GONE);
             if (!nativeBridgeScript.trim().isEmpty() && isTrustedAppUrl(Uri.parse(url))) {
                 view.evaluateJavascript(nativeBridgeScript, null);
@@ -160,8 +182,9 @@ public class MainActivity extends Activity {
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
             if (request.isForMainFrame()) {
+                cancelLoadSafety();
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this, getString(R.string.offline_message), Toast.LENGTH_LONG).show();
+                showLoadErrorPage("Uygulama sayfası yüklenemedi. Android System WebView bileşenini güncelleyip tekrar deneyin.");
             }
         }
     }
@@ -262,7 +285,7 @@ public class MainActivity extends Activity {
     private boolean handleNavigation(Uri uri) {
         if (uri == null) return false;
         String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase();
-        if (("http".equals(scheme) || "https".equals(scheme)) && isTrustedAppUrl(uri)) {
+        if (isTrustedAppUrl(uri)) {
             return false;
         }
 
@@ -287,11 +310,62 @@ public class MainActivity extends Activity {
 
     private boolean isTrustedAppUrl(Uri uri) {
         if (uri == null) return false;
+        String scheme = uri.getScheme() == null ? "" : uri.getScheme();
+        String path = uri.getPath() == null ? "" : uri.getPath();
+        if ("file".equalsIgnoreCase(scheme) && path.startsWith("/android_asset/www/")) {
+            return true;
+        }
         String host = uri.getHost();
-        return "https".equalsIgnoreCase(uri.getScheme())
+        return "https".equalsIgnoreCase(scheme)
                 && host != null
                 && (host.equalsIgnoreCase(AppConfig.ALLOWED_HOST)
                 || host.toLowerCase().endsWith("." + AppConfig.ALLOWED_HOST));
+    }
+
+    private void scheduleLoadSafety() {
+        loadHandler.removeCallbacks(loadSafetyTask);
+        loadHandler.postDelayed(loadSafetyTask, 15000);
+    }
+
+    private void cancelLoadSafety() {
+        loadHandler.removeCallbacks(loadSafetyTask);
+    }
+
+    private void handleLoadSafetyTimeout() {
+        if (webView == null) return;
+        progressBar.setVisibility(View.GONE);
+        webView.evaluateJavascript(
+                "(function(){try{var s=document.getElementById('sysSplash');if(s)s.remove();"
+                        + "if(document.body){document.body.style.visibility='visible';document.body.style.opacity='1';}"
+                        + "return !!(document.body&&document.body.children.length);}catch(e){return false;}})()",
+                value -> {
+                    if ("true".equals(value)) {
+                        if (!nativeBridgeScript.trim().isEmpty()) {
+                            webView.evaluateJavascript(nativeBridgeScript, null);
+                        }
+                        return;
+                    }
+                    showLoadErrorPage("Uygulama 15 saniye içinde açılamadı. Android System WebView ve Chrome uygulamalarını güncelleyin.");
+                }
+        );
+    }
+
+    private void showLoadErrorPage(String message) {
+        if (webView == null || loadErrorPageShown) return;
+        loadErrorPageShown = true;
+        cancelLoadSafety();
+        progressBar.setVisibility(View.GONE);
+        webView.stopLoading();
+        String safeMessage = message == null ? "Uygulama yüklenemedi." : message;
+        String html = "<!doctype html><html><head><meta charset='utf-8'>"
+                + "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+                + "<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08090d;color:#fff;font:16px system-ui;padding:24px;box-sizing:border-box}"
+                + ".box{max-width:560px;background:#122026;border:1px solid #31505a;border-radius:20px;padding:28px;box-shadow:0 20px 60px #0008}"
+                + "h2{margin-top:0}p{color:#b9d0d4;line-height:1.6}button{border:0;border-radius:12px;padding:13px 18px;font-weight:800;background:#19d3cf;color:#071012}</style></head>"
+                + "<body><div class='box'><h2>Uygulama açılamadı</h2><p>" + android.text.TextUtils.htmlEncode(safeMessage) + "</p>"
+                + "<a style='display:inline-block;text-decoration:none;border-radius:12px;padding:13px 18px;font-weight:800;background:#19d3cf;color:#071012' href='"
+                + AppConfig.LOCAL_APP_URL + "'>Tekrar Dene</a></div></body></html>";
+        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
     }
 
     private void handleDownload(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
@@ -516,6 +590,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        cancelLoadSafety();
         if (androidBridge != null) androidBridge.shutdown();
         if (webView != null) {
             webView.removeJavascriptInterface("AndroidBridge");
