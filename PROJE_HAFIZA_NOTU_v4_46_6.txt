@@ -1,0 +1,18 @@
+SERVİS YÖNETİM SİSTEMİ — v4.46.6
+Tarih: 19.07.2026
+
+SÜRÜMLER
+- Web: 4.46.6
+- APK: 1.0.8 / versionCode 9
+- Service Worker: servis-sys-v4-46-6
+
+DÜZELTMELER
+- Açılış demosu yerel APK hızlı yüklense bile en az 7,2 saniye görünür.
+- Açılış logosu 2880x880 şeffaf 4K kaynaktan gösterilir.
+- Logo üzerindeki WebView rasterleştirme/blur filtreleri kaldırıldı.
+- PC lisans isteğinde OPTIONS ön kontrolüne takılmayan basit POST kullanılır.
+- Çevrimdışı lisans ekranında cihaz sayısının canlı değil son bilinen kayıt olduğu açıkça yazılır.
+
+LİSANS NOTU
+- Tablette 3/5 görünmesi sunucuda üç aktif cihaz kaydı olduğunu gösterir.
+- Gerçekte iki cihaz varsa bir eski kayıt D1 üzerinden pasifleştirilmelidir.

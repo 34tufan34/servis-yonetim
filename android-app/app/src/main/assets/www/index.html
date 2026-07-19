@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Servis Yönetim Sistemi | v4.44.54</title>
+<title>Servis Yönetim Sistemi | v4.46.6</title>
 <meta content="#08090d" name="theme-color"/>
 <meta content="dark light" name="color-scheme"/>
 <meta content="Servis Yönetim Sistemi" name="application-name"/>
@@ -16387,7 +16387,31 @@
     body[data-theme="light"] .sys-splash-logo .sys-splash-vector-logo {
       filter:drop-shadow(0 4px 6px rgba(11,48,60,.22)) drop-shadow(0 0 12px rgba(var(--accent-rgb),.10));
     }
-</style></head>
+</style>
+<style id="v4-46-6-splash-quality-fix">
+/* v4.46.6 - 4K açılış logosu ve tam intro süresi */
+.sys-splash-logo {
+  width:min(500px,86vw) !important;
+  height:auto !important;
+  aspect-ratio:720 / 220 !important;
+  overflow:visible !important;
+}
+.sys-splash-logo .sys-splash-hd-logo {
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  image-rendering:auto !important;
+  filter:none !important;
+  transform:none !important;
+  backface-visibility:visible !important;
+}
+@media(max-width:700px){
+  .sys-splash-logo{width:min(420px,84vw) !important;}
+}
+</style>
+</head>
 <body class="auth-locked license-locked">
 <div aria-label="Servis Yönetim Sistemi açılıyor" class="sys-splash" id="sysSplash" role="status" tabindex="0">
 <div class="sys-splash-scan"></div>
@@ -16396,12 +16420,7 @@
 <div aria-hidden="true" class="sys-splash-logo-shell">
 <div class="sys-splash-ring"></div>
 <div class="sys-splash-ring-2"></div>
-<div class="sys-splash-logo"><svg class="sys-splash-vector-logo" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1370 398" role="img" aria-label="SYS">
-<defs>
-<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".28" stop-color="#eef4f8"/><stop offset=".58" stop-color="#aab6c0"/><stop offset=".72" stop-color="#f8fbfd"/><stop offset="1" stop-color="#8c99a3"/></linearGradient>
-<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21d6ff"/><stop offset=".55" stop-color="#0784ef"/><stop offset="1" stop-color="#0054cc"/></linearGradient></defs>
-<g fill-rule="evenodd"><path d="M 754 213 L 746 213 L 713 245 L 638 245 L 634 232 L 627 232 L 608 283 L 588 372 L 678 376 L 687 371 L 721 272 L 721 257 Z M 1281 192 L 1244 155 L 928 155 L 919 166 L 924 195 L 963 231 L 1175 231 L 1189 242 L 1189 266 L 1164 289 L 882 289 L 868 312 L 867 329 L 857 338 L 853 367 L 861 376 L 1163 375 L 1184 365 L 1200 365 L 1209 355 L 1221 354 L 1259 316 L 1283 267 Z M 28 371 L 330 374 L 376 365 L 418 338 L 451 285 L 452 255 L 461 231 L 451 189 L 430 166 L 406 153 L 98 155 L 91 166 L 95 196 L 131 231 L 348 231 L 362 242 L 362 263 L 336 289 L 66 288 L 28 353 Z M 945 25 L 834 20 L 774 81 L 757 106 L 763 106 L 829 38 L 846 37 L 850 109 L 845 121 L 850 122 L 916 53 L 939 40 Z M 926 121 L 943 131 L 997 133 L 1012 128 L 1030 108 L 1298 108 L 1318 97 L 1349 27 L 1345 22 L 1032 19 L 994 32 L 988 42 L 958 59 L 945 85 L 934 93 Z M 99 124 L 106 130 L 184 132 L 200 113 L 217 105 L 482 104 L 488 95 L 470 89 L 470 34 L 501 31 L 504 62 L 515 24 L 194 21 L 165 32 L 135 56 L 108 92 Z" fill="url(#s)"/><path d="M 502 29 L 471 32 L 473 93 L 495 94 L 499 54 L 508 49 Z M 531 25 L 531 40 L 542 47 L 553 84 L 558 87 L 564 109 L 571 114 L 587 157 L 593 162 L 610 211 L 630 216 L 636 244 L 715 244 L 746 212 L 762 208 L 765 193 L 779 179 L 792 178 L 798 161 L 812 153 L 826 134 L 844 129 L 849 111 L 848 29 L 834 33 L 763 107 L 747 112 L 719 141 L 692 144 L 672 119 L 630 21 L 535 20 Z" fill="url(#b)"/></g>
-</svg></div>
+<div class="sys-splash-logo"><img class="sys-splash-hd-logo" src="./icons/sys-logo-splash-4k.png" alt="SYS" draggable="false" decoding="sync" fetchpriority="high"/></div>
 </div>
 <div class="sys-splash-title">Servis Yönetim Sistemi</div>
 <div class="sys-splash-subtitle">Operasyon başlatılıyor</div>
@@ -16422,10 +16441,18 @@
         window.setTimeout(() => splash.remove(), 680);
       };
 
-      // Açılış introsu zorunludur; ağ/lisans kontrolünden bağımsız kapanır.
+      // Açılış introsu zorunludur ve en az 7,2 saniye görünür.
+      // APK artık yerel dosyadan çok hızlı açıldığı için load olayı intro süresini kısaltmaz.
+      const splashStartedAt = performance.now();
+      const minimumVisibleMs = 7200;
+      const hardCloseMs = 9000;
+      const closeAfterMinimum = () => {
+        const elapsed = performance.now() - splashStartedAt;
+        window.setTimeout(closeSplash, Math.max(0, minimumVisibleMs - elapsed));
+      };
       window.__closeServisSplash = closeSplash;
-      window.setTimeout(closeSplash, 6000);
-      window.addEventListener("load", () => window.setTimeout(closeSplash, 900), { once: true });
+      window.setTimeout(closeSplash, hardCloseMs);
+      window.addEventListener("load", closeAfterMinimum, { once: true });
     })();
   </script>
 <div aria-labelledby="licenseTitle" aria-modal="true" class="license-gate" id="licenseGate" role="dialog">
@@ -19974,7 +20001,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.46.5";
+    const APP_VERSION = "4.46.6";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -35978,7 +36005,8 @@
       try {
         response = await fetch(`${LICENSE_API_URL}${path}`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          // Header özellikle gönderilmez: tarayıcı OPTIONS ön kontrolüne takılmadan
+          // basit POST yapar. Worker request.json() gövdeyi yine JSON olarak okur.
           body: JSON.stringify(payload),
           cache: "no-store",
           signal: controller?.signal
@@ -35987,7 +36015,7 @@
         const timedOut = error?.name === "AbortError";
         const networkError = new Error(timedOut
           ? "Lisans sunucusu zamanında yanıt vermedi. Tekrar dene."
-          : "Lisans sunucusuna ulaşılamadı.");
+          : "Lisans sunucusu tarayıcı doğrulamasına yanıt vermedi. İnternet açık olsa bile Cloudflare CORS ayarı engelliyor olabilir.");
         networkError.kind = "network";
         networkError.cause = error;
         throw networkError;
@@ -36115,7 +36143,9 @@
         return;
       }
       $("#licenseSettingsCompany").textContent = record.companyName || "-";
-      $("#licenseSettingsDevices").textContent = `${record.activeDevices || 1} / ${record.maxDevices || 1}`;
+      $("#licenseSettingsDevices").textContent = mode === "offline"
+        ? `${record.activeDevices || 1} / ${record.maxDevices || 1} · son bilinen`
+        : `${record.activeDevices || 1} / ${record.maxDevices || 1}`;
       $("#licenseSettingsExpiry").textContent = record.expiresAt ? formatLicenseDate(record.expiresAt) : "Süresiz";
       $("#licenseSettingsChecked").textContent = formatLicenseDate(record.lastValidatedAt, true);
       if (badge) {
@@ -36126,7 +36156,7 @@
       if (note) {
         const remaining = Math.ceil(licenseGraceRemaining(record) / (24 * 60 * 60 * 1000));
         note.textContent = mode === "offline"
-          ? `Sunucuya ulaşılamadı. Son başarılı doğrulamaya göre çevrimdışı kullanım sürüyor. Yaklaşık ${remaining} gün hak kaldı.`
+          ? `Sunucuya ulaşılamadı. Gösterilen cihaz sayısı canlı değildir; son başarılı doğrulamadan kalmıştır. Çevrimdışı kullanım yaklaşık ${remaining} gün sürer.`
           : "Lisans doğrulandı. İşletme verileri cihazda kalır; lisans sunucusuna gönderilmez.";
       }
     }

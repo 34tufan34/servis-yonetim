@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-46-5";
+const CACHE_NAME = "servis-sys-v4-46-6";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const APP_SHELL = [
   "./icons/icon-192-v50.png",
   "./icons/icon-512-v50.png",
   "./icons/sys-logo-v50.png",
+  "./icons/sys-logo-splash-4k.png",
   "./icons/shell-logo.png",
   "./fuel-prices.json"
 ];

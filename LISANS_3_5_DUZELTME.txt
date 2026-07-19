@@ -1,0 +1,37 @@
+LİSANS 3/5 -> 2/5 DÜZELTME
+
+1) Cloudflare > Storage & Databases > D1 > servis-lisans-db > Console
+
+2) Önce aktif cihazları listele:
+
+SELECT
+  d.id,
+  d.device_name,
+  d.device_id,
+  d.is_active,
+  d.first_seen_at,
+  d.last_seen_at
+FROM devices d
+JOIN licenses l ON l.id = d.license_id
+WHERE REPLACE(REPLACE(UPPER(l.license_key), '-', ''), ' ', '') =
+      REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+ORDER BY d.last_seen_at DESC;
+
+3) Eski olan tek kaydı device_id ile pasifleştir:
+
+UPDATE devices
+SET is_active = 0
+WHERE device_id = 'ESKI-CIHAZ-ID-BURAYA';
+
+4) Sonucu kontrol et:
+
+SELECT COUNT(*) AS aktif_cihaz
+FROM devices d
+JOIN licenses l ON l.id = d.license_id
+WHERE d.is_active = 1
+  AND REPLACE(REPLACE(UPPER(l.license_key), '-', ''), ' ', '') =
+      REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '');
+
+Beklenen sonuç: 2
+
+UYARI: Rastgele cihaz kaydı silme. Önce listeyi kontrol et.
