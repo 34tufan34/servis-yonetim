@@ -1,22 +1,32 @@
-SERVİS YÖNETİM SİSTEMİ — v4.47.6
+SERVİS YÖNETİM SİSTEMİ — v4.47.7
 
 APK GEREKİYOR
-Bu değişiklik tablet APK'sı içindeki ekran koruyucu HTML/CSS dosyasını etkiler.
+Bu değişiklik ekran koruyucu görsel katmanlarını ve personel servisi rapor ekranını etkiler.
+Tablet APK kullanıyorsanız yeni APK üretip güncelleme olarak kurmanız gerekir.
 
-DÜZELTME
-- Ekran koruyucudaki beş alt bilgi paneli gerçek üçüncü grid satırına sabitlendi.
-- Paneller artık ekranın alt kenarından yaklaşık 18 px yukarıda ve tek hizada görünür.
-- Önceki sürümde ana içerik gizlenince alt paneller ikinci satıra yerleşiyor ve yukarıda kalıyordu.
+DÜZELTMELER
+- Ekran koruyucuda turuncu canlı efekt, aracın üzerindeki gerçek neon bölgelerine hizalandı.
+- Neon katman için yeni araç görseli ve ayrı maske dosyası eklendi.
+- Personel Servisi > Yoklama Raporu ekranında, aylık yoklama özetinin altındaki tablo penceresi büyütüldü.
+- Alt tablo artık daha yüksek görünüyor ve içerik daha rahat okunuyor.
 
 SÜRÜMLER
-- Web: 4.47.6
-- APK: 1.1.6
-- Android versionCode: 19
-- Cache: servis-sys-v4-47-6
+- Web: 4.47.7
+- APK: 1.1.7
+- Android versionCode: 20
+- Cache: servis-sys-v4-47-7
+
+GÜNCELLENEN DOSYALAR
+- index.html
+- sw.js
+- android-app/app/build.gradle
+- .github/workflows/build-android-apk.yml
+- icons/screensaver-vehicle-v477.png
+- icons/screensaver-neon-mask-v477.png
 
 YÜKLEME
 1. ZIP içindeki dosyaları GitHub'a aynı klasör yollarıyla yükleyin.
-2. Commit: v4.47.6 ekran koruyucu alt panelleri aşağı hizalama
+2. Commit: v4.47.7 neon efekt hizası ve yoklama raporu pencere büyütme
 3. Actions > Android APK Oluştur > Run workflow
 4. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
 

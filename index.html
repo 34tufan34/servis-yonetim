@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Servis Yönetim Sistemi | v4.47.6</title>
+<title>Servis Yönetim Sistemi | v4.47.7</title>
 <meta content="#08090d" name="theme-color"/>
 <meta content="dark light" name="color-scheme"/>
 <meta content="Servis Yönetim Sistemi" name="application-name"/>
@@ -17014,7 +17014,7 @@
 #screen-command #commandFuelPanel .fuel-price-value > span { font-size: 10px !important; }
 #screen-command #commandFuelPanel .fuel-price-change { width: 100% !important; font-size: 11px !important; line-height: 1.15 !important; }
 #screen-command #commandFuelPanel .pill#fuelLiveBadge { align-self: flex-end !important; }
-#sysScreenSaver::before { background: url('icons/screensaver-vehicle-v474.png?v=4741') center center / cover no-repeat !important; opacity: 1 !important; }
+#sysScreenSaver::before { background: url('icons/screensaver-vehicle-v477.png?v=4771') center center / cover no-repeat !important; opacity: 1 !important; }
 #sysScreenSaver::after { background: linear-gradient(180deg, rgba(1,6,12,.22), rgba(1,6,12,.44)) !important; }
 #sysScreenSaver .ss41-canvas { opacity: .05 !important; }
 @media (max-width: 900px) {
@@ -17036,6 +17036,48 @@
   #sysScreenSaver .ss41-main,
   #sysScreenSaver .ss41-footer { grid-row: auto !important; }
 }
+</style>
+<style id="v4-47-7-screensaver-neon-and-report-fix">
+/* v4.47.7 - Ekran koruyucu neon efekt hizası + personel yoklama tablo penceresi büyütme */
+#sysScreenSaver .ss477-neon-layers{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen}
+#sysScreenSaver .ss477-neon-base,
+#sysScreenSaver .ss477-neon-sweep,
+#sysScreenSaver .ss477-neon-flare{position:absolute;display:block;background-repeat:no-repeat;background-position:center center;background-size:cover}
+#sysScreenSaver .ss477-neon-base,
+#sysScreenSaver .ss477-neon-sweep{inset:0}
+#sysScreenSaver .ss477-neon-base{
+  background:linear-gradient(180deg,rgba(255,168,102,.10),rgba(255,111,0,.16)),radial-gradient(circle at 52% 44%,rgba(255,175,105,.22),transparent 34%),rgba(255,132,34,.88);
+  -webkit-mask:url('icons/screensaver-neon-mask-v477.png?v=4771') center center / cover no-repeat;
+  mask:url('icons/screensaver-neon-mask-v477.png?v=4771') center center / cover no-repeat;
+  opacity:.42;
+  filter:blur(.5px) drop-shadow(0 0 10px rgba(255,127,39,.40)) drop-shadow(0 0 26px rgba(255,145,44,.26));
+  animation:ss477Breath 3.6s ease-in-out infinite;
+}
+#sysScreenSaver .ss477-neon-sweep{
+  background:linear-gradient(102deg,transparent 22%,rgba(255,245,215,.18) 36%,rgba(255,236,188,.92) 47%,rgba(255,145,34,.98) 52%,rgba(255,224,166,.80) 57%,transparent 74%);
+  -webkit-mask:url('icons/screensaver-neon-mask-v477.png?v=4771') center center / cover no-repeat;
+  mask:url('icons/screensaver-neon-mask-v477.png?v=4771') center center / cover no-repeat;
+  opacity:.78;
+  filter:blur(1.3px) drop-shadow(0 0 16px rgba(255,177,92,.46)) drop-shadow(0 0 34px rgba(255,128,32,.32));
+  transform:translateX(-44%);
+  animation:ss477Sweep 5.4s linear infinite;
+}
+#sysScreenSaver .ss477-neon-flare{
+  background:radial-gradient(circle,rgba(255,247,223,.80) 0%,rgba(255,181,92,.44) 28%,rgba(255,132,34,0) 68%);
+  opacity:.34;
+  filter:blur(4px);
+  animation:ss477Pulse 3.8s ease-in-out infinite;
+}
+#sysScreenSaver .ss477-neon-flare.f1{left:46.8%;top:38.2%;width:8.8%;height:8.2%;animation-delay:.2s}
+#sysScreenSaver .ss477-neon-flare.f2{left:56.1%;top:40.7%;width:8.4%;height:7.7%;animation-delay:1.3s}
+#sysScreenSaver .ss477-neon-flare.f3{left:64.6%;top:43.4%;width:7.6%;height:7.1%;animation-delay:2.2s}
+@keyframes ss477Breath{0%,100%{opacity:.30;filter:blur(.5px) drop-shadow(0 0 8px rgba(255,127,39,.32)) drop-shadow(0 0 20px rgba(255,145,44,.20))}50%{opacity:.52;filter:blur(.7px) drop-shadow(0 0 14px rgba(255,160,64,.48)) drop-shadow(0 0 34px rgba(255,140,44,.32))}}
+@keyframes ss477Sweep{0%{transform:translateX(-44%)}100%{transform:translateX(44%)}}
+@keyframes ss477Pulse{0%,100%{opacity:.18;transform:scale(.90)}50%{opacity:.40;transform:scale(1.09)}}
+.personnel-report-panel .personnel-report-table{min-height:460px!important;height:min(62dvh,760px)!important}
+.personnel-report-panel .personnel-report-table .table-wrap{min-height:100%}
+@media(max-width:1100px){.personnel-report-panel .personnel-report-table{min-height:400px!important;height:min(58dvh,680px)!important}}
+@media(max-width:760px){.personnel-report-panel .personnel-report-table{min-height:340px!important;height:min(54dvh,560px)!important}}
 </style>
 </head>
 <body class="auth-locked license-locked">
@@ -37633,6 +37675,7 @@
   </script>
 <div aria-hidden="true" id="sysScreenSaver" tabindex="0">
 <canvas class="ss41-canvas" id="ss41Canvas"></canvas>
+<div aria-hidden="true" class="ss477-neon-layers"><span class="ss477-neon-base"></span><span class="ss477-neon-sweep"></span><span class="ss477-neon-flare f1"></span><span class="ss477-neon-flare f2"></span><span class="ss477-neon-flare f3"></span></div>
 <div aria-hidden="true" class="ss472-pings">
   <span class="ss472-ping p1"></span><span class="ss472-ping p2"></span><span class="ss472-ping p3"></span><span class="ss472-ping p4"></span>
   <span class="ss472-ping p5"></span><span class="ss472-ping p6"></span><span class="ss472-ping p7"></span><span class="ss472-ping p8"></span>
