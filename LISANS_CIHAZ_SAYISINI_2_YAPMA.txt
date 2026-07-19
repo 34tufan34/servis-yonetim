@@ -1,0 +1,62 @@
+LİSANS CİHAZ SAYISINI 2'YE DÜŞÜRME
+
+Bu yöntem, en son doğrulama yapan iki aktif cihazı korur ve eski aktif kayıtları pasif yapar.
+
+ÖNCE:
+1. PC'de Lisansı Şimdi Kontrol Et düğmesine basın.
+2. Tablette lisans kontrolünü çalıştırın.
+Böylece gerçek iki cihazın last_seen_at zamanı en güncel olur.
+
+Cloudflare > Storage & Databases > D1 > servis-lisans-db > Console
+
+1) Önce aktif cihazları görün:
+
+SELECT
+  d.id,
+  d.device_name,
+  d.device_id,
+  d.is_active,
+  d.first_seen_at,
+  d.last_seen_at
+FROM devices d
+JOIN licenses l ON l.id = d.license_id
+WHERE d.is_active = 1
+  AND REPLACE(REPLACE(UPPER(l.license_key), '-', ''), ' ', '') =
+      REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+ORDER BY datetime(d.last_seen_at) DESC;
+
+2) En son görülen iki aktif cihazı koruyup diğerlerini pasifleştirin:
+
+UPDATE devices
+SET is_active = 0
+WHERE license_id = (
+  SELECT id
+  FROM licenses
+  WHERE REPLACE(REPLACE(UPPER(license_key), '-', ''), ' ', '') =
+        REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+  LIMIT 1
+)
+AND is_active = 1
+AND id NOT IN (
+  SELECT d2.id
+  FROM devices d2
+  JOIN licenses l2 ON l2.id = d2.license_id
+  WHERE d2.is_active = 1
+    AND REPLACE(REPLACE(UPPER(l2.license_key), '-', ''), ' ', '') =
+        REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+  ORDER BY datetime(d2.last_seen_at) DESC
+  LIMIT 2
+);
+
+3) Sonucu kontrol edin:
+
+SELECT COUNT(*) AS aktif_cihaz
+FROM devices d
+JOIN licenses l ON l.id = d.license_id
+WHERE d.is_active = 1
+  AND REPLACE(REPLACE(UPPER(l.license_key), '-', ''), ' ', '') =
+      REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '');
+
+Beklenen sonuç: 2
+
+UYARI: İki gerçek cihazda lisans kontrolü yapmadan otomatik sorguyu çalıştırmayın.

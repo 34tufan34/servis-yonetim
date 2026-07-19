@@ -1,0 +1,8 @@
+SERVİS YÖNETİM v4.46.9
+
+- PC lisans bağlantı düzeltmeleri v4.46.8 üzerinden devam eder.
+- Açılış SYS logosu 500px yerine 268px masaüstü / 224px mobil gösterilir.
+- Sahte 4K büyütme yerine 720x220 temiz kaynak 3x yoğunlukta kullanılır.
+- Açılış intro süresi 7,2 saniye korunur.
+- Görünen sürüm etiketleri v4.46.9 olarak düzeltildi.
+- APK 1.0.10 / versionCode 11.
