@@ -1,0 +1,36 @@
+LİSANS CİHAZ KAYITLARINI BİR DEFALIK TEMİZLEME
+
+Bu işlem, uygulama verileri daha önce silindiği için aynı tablet adına oluşan eski aktif cihaz kayıtlarını pasifleştirir.
+
+Cloudflare > D1 > servis-lisans-db > Console bölümünde çalıştır:
+
+1. Cihazları listele
+
+SELECT
+  d.device_name,
+  d.device_id,
+  d.is_active,
+  d.first_seen_at,
+  d.last_seen_at
+FROM devices d
+JOIN licenses l ON l.id = d.license_id
+WHERE REPLACE(REPLACE(UPPER(l.license_key), '-', ''), ' ', '') =
+      REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+ORDER BY d.last_seen_at DESC;
+
+2. Bu lisansa bağlı eski aktif cihazların tamamını pasifleştir
+
+UPDATE devices
+SET is_active = 0
+WHERE license_id = (
+  SELECT id
+  FROM licenses
+  WHERE REPLACE(REPLACE(UPPER(license_key), '-', ''), ' ', '') =
+        REPLACE(REPLACE(UPPER('LISANS-KODUNU-BURAYA-YAZ'), '-', ''), ' ', '')
+);
+
+3. APK 1.0.6 kurulduktan sonra önce bilgisayarda, sonra tablette lisansı yeniden etkinleştir.
+Beklenen sonuç: 2 / 5.
+
+UYARI
+Önce APK 1.0.6'yı kurmadan tekrar tekrar uygulama verisi temizleme.

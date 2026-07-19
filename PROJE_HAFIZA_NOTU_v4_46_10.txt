@@ -1,0 +1,16 @@
+SERVİS YÖNETİM SİSTEMİ — v4.46.10
+
+DÜZELTME:
+- Üst uygulama başlığında kalan v4.46.6 etiketi kaldırıldı.
+- Açılış ekranı, ayarlar ve üst başlık aynı web sürümünü gösterir.
+- Web sürümü: 4.46.10
+- APK sürümü: 1.0.11
+- Android versionCode: 12
+- Service Worker önbelleği: servis-sys-v4-46-10
+
+YÜKLEME:
+1. GitHub ana dizinine android-app, index.html ve sw.js dosyalarını yükleyin.
+2. Commit mesajı:
+   v4.46.10 sürüm etiketi eşitleme
+3. Actions > Android APK Oluştur > Run workflow
+4. Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.

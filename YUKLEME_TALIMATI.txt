@@ -1,13 +1,20 @@
-1. Programda Bana Ulaş → Ayarlar / Yedek → JSON Yedek Al işlemini yapın.
-2. Bu ZIP dosyasını çıkarın.
-3. GitHub'da 34tufan34/servis-yonetim deposunun ana dizinine girin.
-4. Şu dosyaları yükleyin:
-   - index.html
-   - sw.js
-   - manifest.webmanifest
-   - KURULUM.txt
-   - PROJE_HAFIZA_NOTU_v4_39_0.txt
-5. Commit açıklaması: v4.39.0 tam ekran km özel kullanım ve hızlı finans
-6. Commit directly to the main branch seçili kalsın.
-7. GitHub Pages tamamlanınca uygulamayı tamamen kapatıp yeniden açın.
-8. Gerekirse Bana Ulaş → Ayarlar / Yedek → Çevrimdışı Dosyaları Güncelle işlemini çalıştırın.
+GITHUB YÜKLEME TALİMATI — v4.46.4
+
+1. ZIP dosyasını bilgisayarda çıkar.
+2. GitHub'da 34tufan34/servis-yonetim deposunu aç.
+3. Add file > Upload files seç.
+4. Paketin içindeki dosya ve klasörleri depo ana dizinine yükle.
+5. Aynı isimli dosyaların üzerine yazılmasına izin ver.
+6. Commit mesajı:
+   v4.46.4 tablet açılış ve sabit lisans cihaz kimliği
+7. Commit directly to the main branch seçili kalsın.
+8. GitHub Pages yayını tamamlandıktan sonra Actions sekmesini aç.
+9. Android APK Oluştur iş akışını Run workflow ile başlat.
+10. İşlem bitince Artifacts bölümünden servis-yonetim-apk-v1.0.6 dosyasını indir.
+11. APK'yı mevcut uygulamanın üzerine kur; önceki uygulamayı kaldırma.
+
+YÜKLEMEDEN ÖNCE
+Programdan Tam JSON Yedek Al.
+
+YÜKLEMEDEN SONRA
+Ayarlar > Çevrimdışı Dosyaları Güncelle işlemini bir kez çalıştır.

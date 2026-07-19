@@ -1,0 +1,14 @@
+Servis Yönetim Sistemi v4.46.5 / APK 1.0.7
+
+Düzeltmeler:
+- APK ana uygulamayı artık android_asset içindeki yerel kopyadan açar.
+- GitHub Pages, DNS veya eski Service Worker gecikmesi APK açılışını engellemez.
+- Siyah ekran ve üstte takılı kalan yatay yükleme çubuğu için 15 saniyelik native güvenlik kontrolü eklendi.
+- İlk içerik görünür görünmez native yükleme çubuğu kapanır.
+- Service Worker navigasyonu cache-first çalışır; ağ isteği 7-10 saniye içinde kesilir.
+- Service Worker kurulumu tek bir eksik ikon nedeniyle tamamen başarısız olmaz.
+- Lisans için sabit Android cihaz kimliği ve asenkron lisans köprüsü korunmuştur.
+
+Not:
+APK yerel kopyadan çalıştığı için yeni web sürümlerinin tablete gelmesi için yeni APK oluşturulmalıdır.
+PC/GitHub Pages sürümü Service Worker üzerinden güncellenmeye devam eder.

@@ -1,0 +1,38 @@
+SERVİS YÖNETİM SİSTEMİ — v4.46.4
+
+WEB SÜRÜMÜ: 4.46.4
+APK SÜRÜMÜ: 1.0.6 / versionCode 7
+VERİ ŞEMASI: 33
+GITHUB PAGES: https://34tufan34.github.io/servis-yonetim/
+PAKET KİMLİĞİ: com.tufan.servisyonetim
+
+BU SÜRÜMDE DÜZELTİLEN KRİTİK HATALAR
+
+1. TABLETTE AÇILIŞ EKRANINDA KALMA
+- Android lisans isteği senkron yapıdan arka plan isteğine çevrildi.
+- Lisans sunucusu gecikse bile WebView JavaScript'i ve açılış animasyonu kilitlenmez.
+- İstek için 12 saniyelik istemci zaman aşımı eklendi.
+- Sunucu cevap vermezse kullanıcıya hata ve yeniden deneme seçeneği gösterilir.
+- Açılış ekranı lisans/ağ kontrolünden bağımsız olarak kapanır.
+
+2. AYNI TABLETİN YENİ CİHAZ SAYILMASI
+- Lisans cihaz kimliği artık Android ANDROID_ID üzerinden SHA-256 ile üretilir.
+- Uygulama verileri silinse veya uygulama yeniden kurularak aynı imza anahtarıyla yüklenirse aynı tablet aynı lisans cihaz kimliğini kullanır.
+- Tarayıcı/PWA kullanımında mevcut localStorage kimliği geriye dönük olarak korunur.
+- Önceden sunucuda oluşmuş fazla cihaz kayıtları otomatik silinmez; Cloudflare D1 üzerinden bir defa pasifleştirilmelidir.
+
+3. ÖNBELLEK VE SÜRÜM
+- APP_VERSION: 4.46.4
+- Service Worker önbelleği: servis-sys-v4-46-4
+- Android WEB_VERSION: 4.46.4
+- Android APK_VERSION: 1.0.6
+- GitHub Actions APK çıktısı: servis-yonetim-apk-v1.0.6
+
+DAĞITIM NOTU
+Bu güncelleme Android Java köprüsünü değiştirdiği için yalnızca index.html yüklemek yeterli değildir.
+GitHub'a tam paket yüklenmeli ve GitHub Actions üzerinden APK 1.0.6 yeniden oluşturulmalıdır.
+Mevcut APK 1.0.5, sabit Android cihaz kimliği ve asenkron lisans isteğini içermez.
+
+UYARI
+Uygulama verilerini silmek lisans hakkını artık tekrar tüketmeyecek şekilde düzeltilmiştir; ancak cihazdaki operasyon kayıtlarını yine siler.
+Veri temizlemeden önce mutlaka Tam JSON Yedek Al kullanılmalıdır.

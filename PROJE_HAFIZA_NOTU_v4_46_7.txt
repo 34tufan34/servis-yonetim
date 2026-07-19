@@ -1,0 +1,13 @@
+SERVİS YÖNETİM SİSTEMİ v4.46.7
+
+DÜZELTME
+- PC/web lisans doğrulamasında JSON Content-Type yeniden etkinleştirildi.
+- Cloudflare Worker üretim sözleşmesi ve mevcut CORS izinleriyle uyum geri getirildi.
+- Her sunucu hatasının yanlış biçimde “internet yok” diye gösterilmesi kaldırıldı.
+- Çevrimdışı kullanımda gerçek hata mesajı Lisans Bilgisi alanında gösterilir.
+
+SÜRÜMLER
+- Web: 4.46.7
+- APK: 1.0.9
+- Android versionCode: 10
+- Service Worker cache: servis-sys-v4-46-7
