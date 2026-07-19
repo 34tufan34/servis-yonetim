@@ -1,32 +1,27 @@
-SERVİS YÖNETİM SİSTEMİ — v4.47.7
+SERVİS YÖNETİM SİSTEMİ — v4.47.8
 
 APK GEREKİYOR
-Bu değişiklik ekran koruyucu görsel katmanlarını ve personel servisi rapor ekranını etkiler.
-Tablet APK kullanıyorsanız yeni APK üretip güncelleme olarak kurmanız gerekir.
+Bu düzeltme tablet APK içindeki ekran koruyucu HTML/CSS ve maske dosyasını değiştirir.
 
-DÜZELTMELER
-- Ekran koruyucuda turuncu canlı efekt, aracın üzerindeki gerçek neon bölgelerine hizalandı.
-- Neon katman için yeni araç görseli ve ayrı maske dosyası eklendi.
-- Personel Servisi > Yoklama Raporu ekranında, aylık yoklama özetinin altındaki tablo penceresi büyütüldü.
-- Alt tablo artık daha yüksek görünüyor ve içerik daha rahat okunuyor.
+SORUN
+- Önceki neon maske dosyası yanlışlıkla tüm ekranı kaplıyordu.
+- Bu nedenle bütün renkler tek bir resim katmanı gibi sağa-sola hareket ediyordu.
+
+DÜZELTME
+- Maske yeniden üretildi ve yalnızca araç üzerindeki gerçek turuncu neon hatlar seçildi.
+- Artık araç resmi hareket etmiyor.
+- Sadece neon çizgilerin içindeki parlaklık akıyor.
+- Yanlış konumdaki ek parlama noktaları kapatıldı.
 
 SÜRÜMLER
-- Web: 4.47.7
-- APK: 1.1.7
-- Android versionCode: 20
-- Cache: servis-sys-v4-47-7
-
-GÜNCELLENEN DOSYALAR
-- index.html
-- sw.js
-- android-app/app/build.gradle
-- .github/workflows/build-android-apk.yml
-- icons/screensaver-vehicle-v477.png
-- icons/screensaver-neon-mask-v477.png
+- Web: 4.47.8
+- APK: 1.1.8
+- Android versionCode: 21
+- Cache: servis-sys-v4-47-8
 
 YÜKLEME
 1. ZIP içindeki dosyaları GitHub'a aynı klasör yollarıyla yükleyin.
-2. Commit: v4.47.7 neon efekt hizası ve yoklama raporu pencere büyütme
+2. Commit: v4.47.8 ekran koruyucu neon maske düzeltmesi
 3. Actions > Android APK Oluştur > Run workflow
 4. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
 
