@@ -10,8 +10,8 @@ android {
         applicationId "com.tufan.servisyonetim"
         minSdk 24
         targetSdk 35
-        versionCode 16
-        versionName "1.1.3"
+        versionCode 17
+        versionName "1.1.4"
     }
 
     def releaseKeystorePath = System.getenv("SERVIS_KEYSTORE_FILE")

@@ -1,11 +1,26 @@
-SERVİS YÖNETİM v4.46.8 — PC LİSANS BAĞLANTI DÜZELTMESİ
+SERVİS YÖNETİM v4.47.4 — SADECE GÜNCELLENEN DOSYALAR
 
-Değişiklik:
-- Tarayıcı lisans isteğinde cache:no-store kaldırıldı.
-- Content-Type text/plain;charset=UTF-8 yapıldı.
-- Böylece Cloudflare OPTIONS/CORS ön kontrolü tetiklenmeden basit POST gönderilir.
-- Worker tarafında request.json() aynı JSON gövdeyi okumaya devam eder.
-- APK değişmedi; yeniden APK üretmek gerekmez.
+BU GÜNCELLEMEDE APK GEREKİYOR.
+Neden: Tablet, index.html, sw.js ve ekran koruyucu görselini APK içindeki yerel dosyalardan açıyor.
 
-GitHub ana dizinine index.html ve sw.js yükleyin.
-Commit: v4.46.8 PC lisans CORS kesin düzeltme
+GitHub ana dizinine bu paketteki dosyaları aynı klasör yollarıyla yükleyin.
+
+Değişen kök dosyalar:
+- index.html
+- sw.js
+- icons/screensaver-vehicle-v474.png
+
+Değişen Android dosyaları:
+- android-app/app/build.gradle
+- android-app/app/src/main/assets/www/index.html
+- android-app/app/src/main/assets/www/sw.js
+- android-app/app/src/main/assets/www/icons/screensaver-vehicle-v474.png
+- android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java
+
+Commit:
+v4.47.4 yakıt paneli ve ekran koruyucu düzeltmesi
+
+Ardından:
+Actions > Android APK Oluştur > Run workflow
+Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+Uygulamayı kaldırmayın ve verileri silmeyin.
