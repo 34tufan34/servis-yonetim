@@ -1,0 +1,26 @@
+SERVİS YÖNETİM SİSTEMİ — v4.47.2
+
+YAPILAN DÜZELTMELER
+- Komuta panelinde Personel Servisi ve Okul Servisi kartları boşluğu dolduracak şekilde büyütüldü.
+- Kart içi yazılar, sayaçlar ve hızlı işlem alanları daha büyük hale getirildi.
+- SYS logoları açılış, lisans ve ekran koruyucuda orantılı şekilde büyütüldü.
+- Ekran koruyucu, kullanıcının gönderdiği Mercedes Sprinter görseliyle yeniden tasarlandı.
+- Ekran koruyucu üzerine farklı bölgelerde sırayla yanıp sönen neon sinyal animasyonları eklendi.
+- Service Worker önbelleği yenilendi.
+
+SÜRÜMLER
+- Web sürümü: 4.47.2
+- APK sürümü: 1.1.2
+- Android versionCode: 15
+- Cache adı: servis-sys-v4-47-2
+
+YÜKLEME
+1. GitHub ana dizinine android-app, icons, index.html ve sw.js dosyalarını yükleyin.
+2. Commit mesajı: v4.47.2 komuta paneli büyütme ve yeni ekran koruyucu
+3. Actions > Android APK Oluştur > Run workflow
+4. Yeni APK'yı mevcut kurulumun üzerine Güncelle olarak kurun.
+
+UYARI VE ÖNERİ
+- Logo ve ekran koruyucu değişimleri için eski önbellek kalırsa Ctrl+F5 yapın.
+- Android uygulamada eski görüntü görünürse yeni APK'yı mutlaka önce GitHub Actions'tan yeniden üretin.
+- İsterseniz sonraki adımda bu ekran koruyucuya gerçek plaka, canlı rota ve araç durumunu daha görünür bir katman olarak ayrıca ekleyebilirim.
