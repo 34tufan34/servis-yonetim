@@ -1,0 +1,24 @@
+SERVİS YÖNETİM SİSTEMİ — v4.47.1
+
+YAPILAN DÜZELTMELER
+- Kullanıcının gönderdiği yeni SYS logosu tüm ana alanlara uygulandı.
+- Sol üst marka, lisans ekranı, açılış ekranı ve ekran koruyucu aynı logo dosyasını kullanır.
+- Komuta / Kontrol Paneli tek bakış düzenine geçirildi.
+- Personel kartı, okul kartı, eksik kayıt kartı ve yakıt paneli tek sayfada daha kompakt görünür.
+- Hızlı işlem butonları ve kart içi yazılar sıkıştırıldı.
+
+SÜRÜMLER
+- Web sürümü: 4.47.1
+- APK sürümü: 1.1.1
+- Android versionCode: 14
+- Service Worker önbelleği: servis-sys-v4-47-1
+
+YÜKLEME
+1. GitHub ana dizinine android-app, icons, index.html ve sw.js dosyalarını yükleyin.
+2. Commit mesajı: v4.47.1 logo ve komuta paneli tek bakış düzeni
+3. Actions > Android APK Oluştur > Run workflow
+4. Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+
+UYARI
+- Gizli pencere veya eski service worker kullanılıyorsa Ctrl+F5 ile yenileyin.
+- Yeni logo görünmezse tarayıcıda eski önbellek kalmış olabilir; yalnızca service worker önbelleğini temizleyin.
