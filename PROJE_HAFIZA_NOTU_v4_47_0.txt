@@ -1,0 +1,24 @@
+SERVİS YÖNETİM SİSTEMİ — v4.47.0
+
+YENİ: GEÇMİŞ SERVİS TAMAMLAMA
+- Komuta Paneline Eksik Kayıt Kontrolü eklendi.
+- Son 14 gün personel, son 7 gün okul servisleri plan / tamamlanma açısından taranır.
+- Yönetici; normal akış, önceki günden kopya veya manuel yoklama ile geçmiş servisi tamamlayabilir.
+- Personel çetelesi, sefer hakedişi, yoklama ve servis oturumu birlikte güncellenir.
+- Okul geçmiş kaydında veli / WhatsApp bildirimi gönderilmez.
+- Servis Yapılmadı / Tatil seçeneği eksik kaydı gelir üretmeden kapatır.
+- Her düzeltme kullanıcı, tarih, yöntem ve açıklamayla işlem geçmişine yazılır.
+- Geçmiş düzeltme işlemi yalnız Yönetici rolünde görünür.
+
+SÜRÜMLER
+Web: 4.47.0
+Veri şeması: 35
+APK: 1.1.0
+Android versionCode: 13
+
+YÜKLEME
+1. Kolay yükleme paketinin içeriğini GitHub ana dizinine yükleyin.
+2. Commit: v4.47.0 geçmiş servis tamamlama sistemi
+3. Actions > Android APK Oluştur > Run workflow
+4. Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+5. Uygulamayı kaldırmayın ve verileri temizlemeyin.
