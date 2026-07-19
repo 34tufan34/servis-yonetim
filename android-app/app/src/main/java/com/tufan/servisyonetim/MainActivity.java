@@ -445,6 +445,13 @@ public class MainActivity extends Activity {
         }
     }
 
+    void evaluateJavascript(String script) {
+        if (webView == null || script == null || script.trim().isEmpty()) return;
+        webView.post(() -> {
+            if (webView != null) webView.evaluateJavascript(script, null);
+        });
+    }
+
     private void deliverVoiceResult(String spokenText, String errorMessage) {
         if (webView == null) return;
         String spoken = spokenText == null ? "" : spokenText;

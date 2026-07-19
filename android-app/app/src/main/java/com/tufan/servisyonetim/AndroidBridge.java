@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Base64;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -59,11 +61,54 @@ public final class AndroidBridge {
     }
 
     /**
-     * Lisans isteğini Android'in yerel ağ katmanından gönderir.
-     * Böylece bazı WebView sürümlerindeki CORS / fetch sorunları aşılır.
+     * Uygulama verileri silinse bile aynı Android cihazında değişmeyen lisans kimliği.
+     * ANDROID_ID, aynı imza anahtarı ve Android kullanıcı profili için kararlıdır.
+     */
+    @JavascriptInterface
+    public String getStableDeviceId() {
+        try {
+            String androidId = Settings.Secure.getString(
+                    activity.getContentResolver(),
+                    Settings.Secure.ANDROID_ID
+            );
+            if (androidId == null || androidId.trim().isEmpty()) return "";
+            String source = activity.getPackageName() + "|" + androidId.trim();
+            return "SYS-AND-" + sha256Hex(source).substring(0, 32).toUpperCase(Locale.ROOT);
+        } catch (Exception error) {
+            return "";
+        }
+    }
+
+    /**
+     * Geriye dönük uyumluluk için senkron lisans isteği.
+     * Yeni web sürümü requestLicenseAsync metodunu kullanır.
      */
     @JavascriptInterface
     public String requestLicense(String path, String jsonPayload) {
+        return performLicenseRequest(path, jsonPayload);
+    }
+
+    /**
+     * Lisans isteğini arka planda çalıştırır. Böylece WebView JavaScript'i ve
+     * açılış ekranı ağ isteği boyunca kilitlenmez.
+     */
+    @JavascriptInterface
+    public void requestLicenseAsync(String requestId, String path, String jsonPayload) {
+        final String safeRequestId = requestId == null ? "" : requestId.trim();
+        if (safeRequestId.isEmpty() || safeRequestId.length() > 120) return;
+
+        executor.execute(() -> {
+            String envelope = performLicenseRequest(path, jsonPayload);
+            String script = "(function(){if(window.__servisResolveNativeLicenseRequest){"
+                    + "window.__servisResolveNativeLicenseRequest("
+                    + JSONObject.quote(safeRequestId) + ","
+                    + JSONObject.quote(envelope)
+                    + ");}})();";
+            activity.evaluateJavascript(script);
+        });
+    }
+
+    private String performLicenseRequest(String path, String jsonPayload) {
         JSONObject result = new JSONObject();
         HttpURLConnection connection = null;
 
@@ -79,8 +124,8 @@ public final class AndroidBridge {
 
             URL url = new URL(AppConfig.LICENSE_API_URL + path);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(15000);
-            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(7000);
+            connection.setReadTimeout(7000);
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setUseCaches(false);
@@ -232,6 +277,16 @@ public final class AndroidBridge {
         });
     }
 
+
+    private String sha256Hex(String value) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+        StringBuilder hex = new StringBuilder(bytes.length * 2);
+        for (byte item : bytes) {
+            hex.append(String.format(Locale.ROOT, "%02x", item & 0xff));
+        }
+        return hex.toString();
+    }
 
     private String readText(InputStream input) throws Exception {
         if (input == null) return "";
