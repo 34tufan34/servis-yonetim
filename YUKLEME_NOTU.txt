@@ -1,0 +1,11 @@
+SERVİS YÖNETİM v4.46.8 — PC LİSANS BAĞLANTI DÜZELTMESİ
+
+Değişiklik:
+- Tarayıcı lisans isteğinde cache:no-store kaldırıldı.
+- Content-Type text/plain;charset=UTF-8 yapıldı.
+- Böylece Cloudflare OPTIONS/CORS ön kontrolü tetiklenmeden basit POST gönderilir.
+- Worker tarafında request.json() aynı JSON gövdeyi okumaya devam eder.
+- APK değişmedi; yeniden APK üretmek gerekmez.
+
+GitHub ana dizinine index.html ve sw.js yükleyin.
+Commit: v4.46.8 PC lisans CORS kesin düzeltme

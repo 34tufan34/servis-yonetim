@@ -20001,7 +20001,7 @@
 
     const STORAGE_KEY = "SYS_V1_PERSONEL_SERVISI";
     // v4.44.17 - Tema uyumlu açılır listeler, yeni halka grafik paleti ve canlı Komuta Paneli yolcu metrikleri.
-    const APP_VERSION = "4.46.7";
+    const APP_VERSION = "4.46.8";
     const SCHEMA_VERSION = 34;
     const DEFAULT_FINANCE_VAT_RATE = 10;
     const SCHOOL_BILLING_MODE_LABELS = {
@@ -36007,13 +36007,14 @@
       try {
         response = await fetch(`${LICENSE_API_URL}${path}`, {
           method: "POST",
-          // Worker'ın üretim sözleşmesi JSON Content-Type bekler ve CORS'ta buna izin verir.
+          // Tarayıcıda OPTIONS ön kontrolü oluşturmayan basit CORS isteği.
+          // Worker request.json() ile text/plain gövdeyi de JSON olarak okuyabilir.
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain;charset=UTF-8",
             "Accept": "application/json"
           },
           body: JSON.stringify(payload),
-          cache: "no-store",
+          credentials: "omit",
           signal: controller?.signal
         });
       } catch (error) {
