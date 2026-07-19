@@ -164,6 +164,68 @@ public final class AndroidBridge {
         return result.toString();
     }
 
+    /**
+     * WebView file:// kökeninden doğrudan GitHub JSON fetch isteği engellenebildiği için
+     * yakıt fiyatını Android ağ katmanından arka planda okur.
+     */
+    @JavascriptInterface
+    public void requestFuelPricesAsync(String requestId) {
+        final String safeRequestId = requestId == null ? "" : requestId.trim();
+        if (safeRequestId.isEmpty() || safeRequestId.length() > 120) return;
+
+        executor.execute(() -> {
+            String envelope = performFuelPricesRequest();
+            String script = "(function(){if(window.__servisResolveNativeFuelRequest){"
+                    + "window.__servisResolveNativeFuelRequest("
+                    + JSONObject.quote(safeRequestId) + ","
+                    + JSONObject.quote(envelope)
+                    + ");}})();";
+            activity.evaluateJavascript(script);
+        });
+    }
+
+    private String performFuelPricesRequest() {
+        JSONObject result = new JSONObject();
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(AppConfig.FUEL_PRICES_URL + "?_fuel=" + System.currentTimeMillis());
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(8000);
+            connection.setReadTimeout(8000);
+            connection.setRequestMethod("GET");
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("Cache-Control", "no-cache");
+            connection.setRequestProperty("Pragma", "no-cache");
+            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + AppConfig.APK_VERSION);
+
+            int status = connection.getResponseCode();
+            InputStream input = status >= 200 && status < 400
+                    ? connection.getInputStream()
+                    : connection.getErrorStream();
+
+            result.put("transportOk", true);
+            result.put("status", status);
+            result.put("body", readText(input));
+            result.put("sourceUrl", AppConfig.FUEL_PRICES_URL);
+        } catch (Exception error) {
+            try {
+                result.put("transportOk", false);
+                result.put("status", 0);
+                result.put("message", error.getMessage() == null
+                        ? "Motorin fiyat kaynağına ulaşılamadı."
+                        : error.getMessage());
+            } catch (Exception ignored) {
+                return "{\"transportOk\":false,\"status\":0,\"message\":\"Motorin fiyat kaynağına ulaşılamadı.\"}";
+            }
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+
+        return result.toString();
+    }
+
     @JavascriptInterface
     public void shareText(String title, String text, String url) {
         activity.runOnUiThread(() -> {

@@ -1,26 +1,10 @@
-SERVİS YÖNETİM v4.47.4 — SADECE GÜNCELLENEN DOSYALAR
+v4.47.5 TABLET MOTORİN FİYATI DÜZELTMESİ
 
-BU GÜNCELLEMEDE APK GEREKİYOR.
-Neden: Tablet, index.html, sw.js ve ekran koruyucu görselini APK içindeki yerel dosyalardan açıyor.
+APK GEREKİYOR.
 
-GitHub ana dizinine bu paketteki dosyaları aynı klasör yollarıyla yükleyin.
+Bu pakette gizli .github klasörü yoktur. Dosyaları aynı klasör yollarına yükleyin.
+GitHub Actions mevcut iş akışıyla APK üretmeye devam eder. Artifact adı eski görünebilir; APK içindeki gerçek sürüm 1.1.5 olacaktır.
 
-Değişen kök dosyalar:
-- index.html
-- sw.js
-- icons/screensaver-vehicle-v474.png
+Commit: v4.47.5 tablet motorin fiyatı Android köprü düzeltmesi
 
-Değişen Android dosyaları:
-- android-app/app/build.gradle
-- android-app/app/src/main/assets/www/index.html
-- android-app/app/src/main/assets/www/sw.js
-- android-app/app/src/main/assets/www/icons/screensaver-vehicle-v474.png
-- android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java
-
-Commit:
-v4.47.4 yakıt paneli ve ekran koruyucu düzeltmesi
-
-Ardından:
-Actions > Android APK Oluştur > Run workflow
-Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
-Uygulamayı kaldırmayın ve verileri silmeyin.
+Uygulamayı kaldırmayın. Yeni APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.

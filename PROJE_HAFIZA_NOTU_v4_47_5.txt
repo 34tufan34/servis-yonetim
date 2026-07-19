@@ -1,0 +1,24 @@
+SERVİS YÖNETİM SİSTEMİ — v4.47.5
+
+APK GEREKİYOR
+Bu sürüm AndroidBridge.java dosyasını değiştirir. Tablette motorin fiyatları artık WebView fetch yerine Android yerel ağ köprüsüyle okunur.
+
+DÜZELTME
+- PC'de çalışan fakat tablette Failed to fetch veren motorin fiyat sistemi düzeltildi.
+- Android uygulama GitHub Pages üzerindeki fuel-prices.json dosyasını native HttpURLConnection ile okur.
+- CORS ve file:// WebView kısıtlaması aşılır.
+- Son geçerli fiyat yine yerel olarak korunur.
+
+SÜRÜMLER
+- Web: 4.47.5
+- APK: 1.1.5
+- Android versionCode: 18
+- Cache: servis-sys-v4-47-5
+
+YÜKLEME
+1. Paketteki dosyaları aynı GitHub klasör yollarına yükleyin.
+2. Commit: v4.47.5 tablet motorin fiyatı Android köprü düzeltmesi
+3. Actions > Android APK Oluştur > Run workflow
+4. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+
+UYGULAMAYI KALDIRMAYIN VE VERİLERİ SİLMEYİN.
