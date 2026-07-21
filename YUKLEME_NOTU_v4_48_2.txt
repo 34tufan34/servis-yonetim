@@ -1,0 +1,11 @@
+v4.48.2 SYS AI TAM PAKET
+
+Bu paket şunların tamamını tek güncellemede içerir:
+1. Komuta Paneli SYS AI görsel düzeni
+2. Finans Radarı
+3. Okul Öğrenci Güvenlik Merkezi
+4. Okul güvenlik, veli, rehber ve tahsilat analizleri
+
+Sadece sys-ai-test dalında uygulanmalıdır. Main dalına yüklenmemelidir.
+APK yeniden oluşturulup SYS AI Test uygulamasının üzerine kurulmalıdır.
+Normal v4.47.8 uygulama etkilenmez.

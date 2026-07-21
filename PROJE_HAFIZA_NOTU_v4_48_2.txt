@@ -1,0 +1,17 @@
+SYS Servis Yönetim Sistemi v4.48.2 — SYS AI Tam Paket
+
+Bu sürüm v4.48.1 görsel düzen ve Finans Radarı üzerine Okul Güvenlik Merkezi ekler.
+
+Eklenen okul AI kontrolleri:
+- Tamamlanan serviste bekleyen öğrenci
+- Farklı adreste inişte adres kaydı
+- Veli telefon doğrulaması
+- Biniş / iniş bildirim kaydı
+- Okula varış grup mesajı kontrolü
+- Rehber atama çakışması
+- Tekrarlayan yokluk ve farklı adreste iniş analizi
+- Eksik aylık ücret
+- Önceki aydan açık okul tahsilatı
+- Okul Güvenlik Skoru ve okul paneli
+
+Bu paket v4.48.1 görsel/finans güncellemesini de içerir; kullanıcı tek seferde v4.48.2 test sürümüne geçebilir.

@@ -1,0 +1,7 @@
+GÜVENLİ TEST YÜKLEMESİ
+1) GitHub Codespaces içinde sys-ai-test dalında olduğunuzu kontrol edin.
+2) ZIP paketini proje ana klasörüne yükleyin.
+3) unzip -o SYS_Servis_v4.48.1_SYS_AI_Gorsel_Finans_Degisen_Dosyalar.zip
+4) rm SYS_Servis_v4.48.1_SYS_AI_Gorsel_Finans_Degisen_Dosyalar.zip
+5) git add -A && git commit -m "v4.48.1 SYS AI görsel ve finans güncellemesi" && git push origin sys-ai-test
+6) Yalnız 1 - SYS AI Test APK Oluştur iş akışını kullanın.

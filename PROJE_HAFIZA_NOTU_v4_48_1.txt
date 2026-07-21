@@ -1,0 +1,13 @@
+SYS SERVİS YÖNETİMİ v4.48.1 · SYS AI GÖRSEL DÜZEN + FİNANS RADARI
+
+Yapılanlar:
+- Komuta Panelindeki SYS AI kartı dar sütuna uygun biçimde yeniden tasarlandı.
+- Başlık, açıklama, puan, metrik ve buton hizaları düzeltildi.
+- Sistem Güven Skoru anlatımı ve daha okunaklı risk kartları eklendi.
+- Finans > Genel Özet bölümüne SYS AI Finans Radarı eklendi.
+- Net sonuç, tahsilat oranı, gider oranı ve gecikmiş alacak tek kartta gösterilir.
+- Finansal zarar, düşük marj, düşük tahsilat, gecikmiş alacak, fatura bekleyen hakediş, yüksek gider oranı ve bağlantı hataları AI bulgularına eklendi.
+- Test APK sürümü 1.1.10 / versionCode 23 olarak yükseltildi.
+
+UYARI:
+Bu paket yalnız sys-ai-test dalında denenmelidir. main dalına birleştirmeyin ve üretim APK iş akışını çalıştırmayın.
