@@ -1,3 +1,66 @@
 plugins {
-    id 'com.android.application' version '8.7.3' apply false
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.tufan.servisyonetim'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.tufan.servisyonetim"
+        minSdk 24
+        targetSdk 35
+        versionCode 21
+        versionName "1.1.8"
+    }
+
+    def releaseKeystorePath = System.getenv("SERVIS_KEYSTORE_FILE")
+    def releaseStorePassword = System.getenv("SERVIS_STORE_PASSWORD")
+    def releaseKeyAlias = System.getenv("SERVIS_KEY_ALIAS")
+    def releaseKeyPassword = System.getenv("SERVIS_KEY_PASSWORD")
+
+    signingConfigs {
+        if (releaseKeystorePath && releaseStorePassword && releaseKeyAlias && releaseKeyPassword) {
+            release {
+                storeFile file(releaseKeystorePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+                enableV1Signing true
+                enableV2Signing true
+                enableV3Signing true
+                enableV4Signing true
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            if (signingConfigs.findByName("release") != null) {
+                signingConfig signingConfigs.release
+            }
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packaging {
+        resources {
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}']
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.15.0'
 }

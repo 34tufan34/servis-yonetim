@@ -1,1 +1,28 @@
-v4.48.0 SYS AI güvenli test sürümü. Önce Actions > “1 - SYS AI Test APK Oluştur” iş akışını çalıştır. Oluşan test uygulaması mevcut v4.47.8'in yanına ayrı kurulur. Memnun kalırsan üretim APK iş akışını çalıştır.
+SERVİS YÖNETİM SİSTEMİ — v4.47.8
+
+APK GEREKİYOR
+Bu düzeltme tablet APK içindeki ekran koruyucu HTML/CSS ve maske dosyasını değiştirir.
+
+SORUN
+- Önceki neon maske dosyası yanlışlıkla tüm ekranı kaplıyordu.
+- Bu nedenle bütün renkler tek bir resim katmanı gibi sağa-sola hareket ediyordu.
+
+DÜZELTME
+- Maske yeniden üretildi ve yalnızca araç üzerindeki gerçek turuncu neon hatlar seçildi.
+- Artık araç resmi hareket etmiyor.
+- Sadece neon çizgilerin içindeki parlaklık akıyor.
+- Yanlış konumdaki ek parlama noktaları kapatıldı.
+
+SÜRÜMLER
+- Web: 4.47.8
+- APK: 1.1.8
+- Android versionCode: 21
+- Cache: servis-sys-v4-47-8
+
+YÜKLEME
+1. ZIP içindeki dosyaları GitHub'a aynı klasör yollarıyla yükleyin.
+2. Commit: v4.47.8 ekran koruyucu neon maske düzeltmesi
+3. Actions > Android APK Oluştur > Run workflow
+4. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+
+UYGULAMAYI KALDIRMAYIN VE VERİLERİ SİLMEYİN.
