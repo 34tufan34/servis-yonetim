@@ -2,6 +2,9 @@ name: 1 - SYS AI Test APK Oluştur
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - sys-ai-test
 
 permissions:
   contents: read
