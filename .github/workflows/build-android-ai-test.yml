@@ -1,0 +1,46 @@
+name: 1 - SYS AI Test APK Oluştur
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Ayrı test uygulaması üret
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Kaynak kodu al
+        uses: actions/checkout@v4
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK kur
+        uses: android-actions/setup-android@v3
+
+      - name: Android 35 paketlerini kur
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Gradle kur
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: SYS AI test APK üret
+        working-directory: android-app
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Test APK dosyasını yayımla
+        uses: actions/upload-artifact@v4
+        with:
+          name: servis-yonetim-sys-ai-test-v4.48.0
+          path: android-app/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30

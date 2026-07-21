@@ -1,0 +1,46 @@
+SERVİS YÖNETİM SİSTEMİ — v4.48.0 · SYS AI AKILLI DENETÇİ
+
+APK GEREKİYOR
+Bu sürüm index.html ve Android uygulamasının yerel web varlığını değiştirir. Tablette denemek için GitHub Actions üzerinden APK v1.1.9 oluşturulmalı ve mevcut uygulamanın üzerine güncelleme olarak kurulmalıdır.
+
+EKLENENLER
+- Komuta Paneline SYS AI Akıllı Denetçi kartı.
+- 100 üzerinden operasyon güvenlik puanı.
+- Kritik, dikkat ve verimlilik önerisi sınıflandırması.
+- Firma, iş/sözleşme, araç, personel, okul, öğrenci, rehber, yoklama ve açık servis denetimleri.
+- Kapasite aşımı ve düşük doluluk analizi.
+- Tekrarlayan yokluk, adres, telefon, servis sırası ve tarih kontrolleri.
+- Servis başlamadan önce kritik personel ve okul servisi ön kontrolü.
+- Bulguyu ilgili kayıt ekranında açma, yönetici notu, 7 gün yoksayma ve günlük özet indirme.
+- AI modülünü tek düğmeyle devre dışı bırakma / etkinleştirme.
+
+GİZLİLİK
+Bu ilk sürüm verileri dışarı göndermez. Bulut yapay zekâ servisi veya API anahtarı kullanılmaz; analiz cihazdaki kayıtlar üzerinde açıklanabilir kurallarla yapılır.
+
+SÜRÜMLER
+- Web: 4.48.0
+- APK: 1.1.9
+- Android versionCode: 22
+- Veri şeması: 36
+- Cache: servis-sys-v4-48-0
+
+YÜKLEME
+1. Programdan Tam JSON Yedek Al.
+2. GitHub deposunun mevcut v4.47.8 ZIP yedeğini koru.
+3. Bu paketin içindeki dosya ve klasörleri depo ana dizinine yükle.
+4. Commit: v4.48.0 SYS AI Akıllı Denetçi deneme sürümü
+5. Actions > Android APK Oluştur > Run workflow.
+6. Artifacts bölümünden servis-yonetim-apk-v1.1.9 paketini indir.
+7. APK'yı mevcut uygulamanın üzerine Güncelle olarak kur. Uygulamayı kaldırma.
+8. Açılıştan sonra Ayarlar > Çevrimdışı Dosyaları Güncelle işlemini bir kez çalıştır.
+
+GERİ DÖNÜŞ
+- Kod için: saklanan v4.47.8 GitHub ZIP içeriğini depoya geri yükle ve APK v1.1.8'i yeniden oluştur/kur.
+- Veriler için: testten önce alınan Tam JSON yedeğini sakla.
+- Uygulamayı kaldırmak Android yerel verilerini silebilir; kaldırma işlemi yapma.
+
+GÜVENLİ TEST MODU
+- Yeni .github/workflows/build-android-ai-test.yml dosyası ayrı debug APK üretir.
+- Test APK uygulama kimliği com.tufan.servisyonetim.debug olur ve “SYS AI Test” adıyla mevcut üretim uygulamasının yanına kurulur.
+- İlk denemede üretim APK güncellenmemelidir.
+- Memnun kalınmazsa yalnızca test uygulaması kaldırılır; v4.47.8 ve üretim verileri korunur.
