@@ -1,0 +1,16 @@
+SYS Servis v4.48.10 · Sürüm Bilgisi Senkronizasyonu
+
+Kaynak: v4.48.9 Yakıt Gideri Kayıt Düzeltmesi.
+
+Düzeltilenler:
+- Ayarlar > Sürüm Bilgisi kartında kalan eski v4.47.0 metni kaldırıldı.
+- İç APP_VERSION sabiti 4.48.3'ten 4.48.10'a güncellendi.
+- Başlık, Ayarlar kartı, yedek meta bilgisi ve denetim kayıtları aynı sürümü göstermeye başladı.
+- Sürüm kartı artık APP_VERSION üzerinden dinamik olarak yazdırılır; sonraki güncellemelerde eski metin kalma riski azaltıldı.
+- Veri şeması başlangıç değeri 36 olarak eşitlendi.
+- Service Worker önbelleği v4.48.10 olarak yenilendi.
+- APK versionCode 32 / versionName 1.1.19.
+
+Kurulum:
+- SYS AI Test uygulamasının üzerine güncelleme olarak kurulmalıdır.
+- Normal v4.47.8 üretim uygulamasını kaldırmayın.

@@ -1,0 +1,6 @@
+PROJE HAFIZA NOTU v4.48.10
+- Kaynak: v4.48.9.
+- Kullanıcı geri bildirimi: Uygulama içinde sürüm 4.47.0 görünüyordu.
+- Kök neden: Ayarlar kartında v4.47.0 sabit yazılmış, APP_VERSION ise 4.48.3'te kalmıştı.
+- Çözüm: Görsel sürüm, APP_VERSION, AppConfig, Android versionName/versionCode ve önbellek sürümü senkronize edildi.
+- WEB 4.48.10 / APK 1.1.19 / versionCode 32 / schema 36.

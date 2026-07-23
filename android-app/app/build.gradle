@@ -10,8 +10,8 @@ android {
         applicationId "com.tufan.servisyonetim"
         minSdk 24
         targetSdk 35
-        versionCode 24
-        versionName "1.1.11"
+        versionCode 32
+        versionName "1.1.19"
     }
 
     def releaseKeystorePath = System.getenv("SERVIS_KEYSTORE_FILE")
@@ -20,6 +20,16 @@ android {
     def releaseKeyPassword = System.getenv("SERVIS_KEY_PASSWORD")
 
     signingConfigs {
+        debug {
+            storeFile file("../test-signing/sys-ai-test.jks")
+            storePassword "SYS-AI-Test-2026"
+            keyAlias "sys-ai-test"
+            keyPassword "SYS-AI-Test-2026"
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
+            enableV4Signing true
+        }
         if (releaseKeystorePath && releaseStorePassword && releaseKeyAlias && releaseKeyPassword) {
             release {
                 storeFile file(releaseKeystorePath)
@@ -38,6 +48,7 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
