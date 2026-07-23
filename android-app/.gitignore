@@ -5,3 +5,5 @@
 *.jks
 *.keystore
 !keystore/*.jks.enc
+!test-signing/
+!test-signing/sys-ai-test.jks
