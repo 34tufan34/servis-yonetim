@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
     private static final int VOICE_RECOGNITION_REQUEST = 1003;
     private static final int MICROPHONE_PERMISSION_REQUEST = 1004;
     private static final int WEB_AUDIO_PERMISSION_REQUEST = 1005;
+    private static final int CLOUD_FOLDER_REQUEST = 1010;
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -424,6 +425,20 @@ public class MainActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        if (requestCode == CLOUD_FOLDER_REQUEST) {
+            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                int flags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                try { getContentResolver().takePersistableUriPermission(uri, flags); } catch (Exception ignored) {}
+                getSharedPreferences(CloudBackupWorker.PREFS, Context.MODE_PRIVATE).edit().putString("treeUri", uri.toString()).putString("lastError", "").apply();
+                CloudBackupWorker.scheduleNext(this, getSharedPreferences(CloudBackupWorker.PREFS, Context.MODE_PRIVATE));
+                evaluateJavascript("(function(){if(window.__sysCloudFolderSelected)window.__sysCloudFolderSelected();})();");
+                Toast.makeText(this, "Google Drive yedek klasörü bağlandı.", Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+
         if (requestCode == VOICE_RECOGNITION_REQUEST) {
             if (resultCode == RESULT_OK && data != null) {
                 ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -486,6 +501,19 @@ public class MainActivity extends Activity {
             }
             pendingWebAudioPermissionRequest = null;
         }
+    }
+
+
+    void selectCloudBackupFolder() {
+        runOnUiThread(() -> {
+            try {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
+                startActivityForResult(intent, CLOUD_FOLDER_REQUEST);
+            } catch (Exception error) {
+                Toast.makeText(this, "Google Drive klasör seçicisi açılamadı.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     void startVoiceRecognition(String prompt) {

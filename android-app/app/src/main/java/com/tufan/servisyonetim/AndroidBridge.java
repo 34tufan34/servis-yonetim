@@ -226,6 +226,43 @@ public final class AndroidBridge {
         return result.toString();
     }
 
+
+    @JavascriptInterface
+    public void selectCloudBackupFolder() { activity.selectCloudBackupFolder(); }
+
+    @JavascriptInterface
+    public void syncBackupPayload(String jsonPayload) {
+        if (jsonPayload == null || jsonPayload.length() > 15000000) return;
+        activity.getSharedPreferences(CloudBackupWorker.PREFS, Context.MODE_PRIVATE).edit().putString("payload", jsonPayload).apply();
+    }
+
+    @JavascriptInterface
+    public void configureCloudBackup(String jsonConfig) {
+        try {
+            JSONObject c = new JSONObject(jsonConfig == null ? "{}" : jsonConfig);
+            android.content.SharedPreferences p = activity.getSharedPreferences(CloudBackupWorker.PREFS, Context.MODE_PRIVATE);
+            p.edit().putBoolean("enabled", c.optBoolean("enabled", false)).putString("time", c.optString("time", "23:30")).putInt("keepDays", Math.max(2, c.optInt("keepDays", 30))).putBoolean("wifiOnly", c.optBoolean("wifiOnly", false)).putString("password", c.optString("password", "")).apply();
+            CloudBackupWorker.scheduleNext(activity, p);
+        } catch (Exception error) { toast("Bulut yedekleme ayarları kaydedilemedi."); }
+    }
+
+    @JavascriptInterface
+    public String getCloudBackupStatus() {
+        try {
+            android.content.SharedPreferences p = activity.getSharedPreferences(CloudBackupWorker.PREFS, Context.MODE_PRIVATE);
+            JSONObject r = new JSONObject();
+            r.put("connected", !p.getString("treeUri", "").isEmpty());
+            r.put("lastSuccess", p.getString("lastSuccess", ""));
+            r.put("lastError", p.getString("lastError", ""));
+            r.put("lastFile", p.getString("lastFile", ""));
+            r.put("message", p.getString("treeUri", "").isEmpty() ? "Google Drive klasörünü seç." : "Drive klasörü hazır.");
+            return r.toString();
+        } catch (Exception error) { return "{\"connected\":false}"; }
+    }
+
+    @JavascriptInterface
+    public void runCloudBackupNow() { CloudBackupWorker.runNow(activity); toast("Bulut yedekleme kuyruğa alındı."); }
+
     @JavascriptInterface
     public void shareText(String title, String text, String url) {
         activity.runOnUiThread(() -> {

@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-11";
+const CACHE_NAME = "servis-sys-v4-48-12";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -14,7 +14,10 @@ const APP_SHELL = [
   "./icons/screensaver-neon-mask-v478.png",
   "./icons/sys-logo-splash-4k.png",
   "./icons/shell-logo.png",
-  "./fuel-prices.json"
+  "./fuel-prices.json",
+  "./icons/sys-cinema-command-v44812.webp",
+  "./scripts/bulut-yedek-v4_48_12.js",
+  "./scripts/komuta-sinema-v4_48_12.js"
 ];
 
 async function fetchWithTimeout(request, options = {}, timeoutMs = 8000) {
@@ -62,11 +65,17 @@ self.addEventListener("fetch", (event) => {
   if (isFuelPriceFile) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
-      const cached = await cache.match("./fuel-prices.json");
+      const cached = await cache.match("./fuel-prices.json",
+  "./icons/sys-cinema-command-v44812.webp",
+  "./scripts/bulut-yedek-v4_48_12.js",
+  "./scripts/komuta-sinema-v4_48_12.js");
       try {
         const fresh = await fetchWithTimeout(request, { cache: "no-store" }, 7000);
         if (!fresh.ok) throw new Error(`HTTP ${fresh.status}`);
-        await cache.put("./fuel-prices.json", fresh.clone());
+        await cache.put("./fuel-prices.json",
+  "./icons/sys-cinema-command-v44812.webp",
+  "./scripts/bulut-yedek-v4_48_12.js",
+  "./scripts/komuta-sinema-v4_48_12.js", fresh.clone());
         return fresh;
       } catch {
         return cached || Response.error();
