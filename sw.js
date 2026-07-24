@@ -1,9 +1,10 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-10";
+const CACHE_NAME = "servis-sys-v4-48-11";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./scripts/yakit-farki-v4_48_11.js",
   "./manifest.webmanifest",
   "./icons/icon-192-v50.png",
   "./icons/icon-512-v50.png",
