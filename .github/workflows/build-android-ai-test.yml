@@ -19,11 +19,12 @@ jobs:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
 
-      - name: Sürüm dosyasını APK içine eşitle
+      - name: Sürüm ve ayarlar dosyalarını APK içine eşitle
         shell: bash
         run: |
           mkdir -p android-app/app/src/main/assets/www/scripts
           cp scripts/app-version.js android-app/app/src/main/assets/www/scripts/app-version.js
+          cp scripts/settings-panel-v4_48_13.js android-app/app/src/main/assets/www/scripts/settings-panel-v4_48_13.js
 
       - name: Java 17 kur
         uses: actions/setup-java@v4
@@ -49,7 +50,7 @@ jobs:
       - name: Test APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: servis-yonetim-sys-ai-test-v4.48.12
+          name: servis-yonetim-sys-ai-test-v4.48.13
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
