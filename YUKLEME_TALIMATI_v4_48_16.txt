@@ -1,0 +1,6 @@
+1. Uygulamayı kaldırmayın ve verileri temizlemeyin.
+2. Güncelleme dosyalarını GitHub projesinin köküne kopyalayın.
+3. Commit ve Push yapın.
+4. Actions yeşil olunca APK artifactini indirin.
+5. APK'yı mevcut uygulamanın üzerine Güncelle olarak kurun.
+6. İlk açılışta lisans doğrulama ekranı birkaç saniye içinde kapanmalıdır.

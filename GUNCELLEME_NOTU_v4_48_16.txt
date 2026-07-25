@@ -1,0 +1,7 @@
+SYS Servis Yönetimi v4.48.16
+
+Düzeltme:
+- Lisans doğrulama ekranında takılmaya neden olan sonsuz DOM izleme döngüsü giderildi.
+- Motorin buton metni yalnızca değiştiğinde güncelleniyor.
+- AI komuta paneli, ekran açıldıktan sonra güvenli ve gecikmeli biçimde yeniden kuruluyor.
+- Mevcut veriler, lisans kaydı ve yedekler korunur.
