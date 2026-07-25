@@ -1,1 +1,0 @@
-v4.48.0 SYS AI güvenli test sürümü. Önce Actions > “1 - SYS AI Test APK Oluştur” iş akışını çalıştır. Oluşan test uygulaması mevcut v4.47.8'in yanına ayrı kurulur. Memnun kalırsan üretim APK iş akışını çalıştır.
