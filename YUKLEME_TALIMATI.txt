@@ -1,37 +1,14 @@
-GITHUB YÜKLEME TALİMATI — v4.48.0 SYS AI GÜVENLİ TEST
+SYS Servis v4.48.14 - Ayarlar Üst Sekme Düzeltmesi
 
-EN GÜVENLİ DENEME YÖNTEMİ
-Bu pakette ayrı kurulan “SYS AI Test” APK iş akışı vardır. Mevcut v4.47.8 uygulamasının üzerine kurulmaz; iki uygulama tablette yan yana durur.
+1. Bu paketin içindeki dosya ve klasörleri GitHub projesinin köküne yükleyin.
+2. Aynı isimli dosyalar için Replace / Değiştir seçin.
+3. Commit mesajı: v4.48.14 ayarlar üst sekmelerini düzelt
+4. Commit ve Sync Changes / Push yapın.
+5. GitHub Actions işleminde yeşil tik bekleyin.
+6. Artifacts bölümünden v4.48.14 APK paketini indirin.
+7. Tablette mevcut uygulamayı kaldırmadan Güncelle olarak kurun.
 
-YÜKLEMEDEN ÖNCE
-1. Mevcut v4.47.8 uygulamasından Ayarlar / Yedek > Tam JSON Yedek Al.
-2. v4.47.8 GitHub ZIP yedeğini ayrı yerde sakla.
-
-GITHUB'A YÜKLEME
-1. Bu ZIP'i çıkar.
-2. GitHub'da 34tufan34/servis-yonetim deposunu aç.
-3. Paketin içindeki dosya ve klasörleri depo ana dizinine aynı yolları koruyarak yükle.
-4. Aynı isimli dosyaların üzerine yazılmasına izin ver.
-5. Commit mesajı: v4.48.0 SYS AI güvenli test sürümü
-
-TEST APK OLUŞTURMA
-1. GitHub > Actions bölümünü aç.
-2. “1 - SYS AI Test APK Oluştur” iş akışını seç.
-3. Run workflow düğmesine bas.
-4. İşlem bitince Artifacts bölümünden “servis-yonetim-sys-ai-test-v4.48.0” dosyasını indir.
-5. ZIP içindeki app-debug.apk dosyasını kur.
-6. Tablette “SYS AI Test” adlı ikinci uygulama oluşur. Mevcut “Servis Yönetim Sistemi” uygulamasını kaldırma veya güncelleme.
-7. SYS AI Test uygulamasına test öncesi aldığın Tam JSON yedeğini içe aktar.
-
-MEMNUN KALMAZSAN
-- Yalnızca “SYS AI Test” uygulamasını kaldır. Mevcut v4.47.8 uygulaman ve verileri etkilenmez.
-- GitHub kodunu da eski hâle getirmek istersen sakladığın v4.47.8 ZIP içeriğini depoya geri yükle.
-
-MEMNUN KALIRSAN
-1. Tekrar GitHub > Actions bölümüne gir.
-2. “2 - Android APK Oluştur (Üretim)” iş akışını çalıştır.
-3. Artifacts > servis-yonetim-apk-v1.1.9 paketini indir.
-4. Bu üretim APK'sını mevcut uygulamanın üzerine Güncelle olarak kur. UYGULAMAYI KALDIRMA.
-
-ÖNEMLİ
-Android, daha yüksek versionCode ile kurulmuş uygulamanın üzerine daha düşük versionCode APK kurulumunu normalde kabul etmez. Bu yüzden ilk denemede üretim APK'sını değil, ayrı SYS AI Test APK'sını kullan.
+DİKKAT
+- Uygulama verilerini temizlemeyin.
+- Eski uygulamayı kaldırmayın.
+- Lisans kayıtlarını sıfırlamayın.

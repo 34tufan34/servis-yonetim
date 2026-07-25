@@ -1,0 +1,12 @@
+SYS Servis Yönetim Sistemi v4.48.14
+
+DÜZELTME
+- Ayarlar ekranının üst bölümündeki bölüm sekmeleri artık yatay kaydırmalı ve yarım görünen yapı kullanmaz.
+- Sekmeler ekran genişliğine göre otomatik satırlara bölünür.
+- Tablet ve dar ekranlarda iki sütun halinde, tam metin görünür.
+- Sekmelerin sabitlenerek üst başlığın altında kalması engellendi.
+- Tüm butonlarda otomatik yükseklik ve çok satırlı başlık desteği eklendi.
+
+KURULUM
+- GitHub projesinin köküne dosyaları aynı yollarla yükleyin.
+- Yeni APK üretildikten sonra mevcut uygulamayı kaldırmadan üzerine güncelleyin.

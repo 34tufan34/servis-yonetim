@@ -1,13 +1,13 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-13";
+const CACHE_NAME = "servis-sys-v4-48-14";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./fuel-prices.json",
   "./scripts/app-version.js",
-  "./scripts/settings-panel-v4_48_13.js",
+  "./scripts/settings-panel-v4_48_14.js",
   "./scripts/yakit-farki-v4_48_11.js",
   "./scripts/bulut-yedek-v4_48_12.js",
   "./icons/icon-192-v50.png",
