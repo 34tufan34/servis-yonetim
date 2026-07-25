@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        settings.setUserAgentString(settings.getUserAgentString() + " ServisYonetimAPK/" + AppConfig.APK_VERSION);
+        settings.setUserAgentString(settings.getUserAgentString() + " ServisYonetimAPK/" + BuildConfig.VERSION_NAME);
 
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);

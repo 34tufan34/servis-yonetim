@@ -42,12 +42,12 @@ public final class AndroidBridge {
 
     @JavascriptInterface
     public String getApkVersion() {
-        return AppConfig.APK_VERSION;
+        return BuildConfig.VERSION_NAME;
     }
 
     @JavascriptInterface
     public String getWebVersion() {
-        return AppConfig.WEB_VERSION;
+        return BuildConfig.VERSION_NAME;
     }
 
     @JavascriptInterface
@@ -131,7 +131,7 @@ public final class AndroidBridge {
             connection.setUseCaches(false);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + AppConfig.APK_VERSION);
+            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + BuildConfig.VERSION_NAME);
 
             byte[] payload = payloadText.getBytes(StandardCharsets.UTF_8);
             connection.setFixedLengthStreamingMode(payload.length);
@@ -198,7 +198,7 @@ public final class AndroidBridge {
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Cache-Control", "no-cache");
             connection.setRequestProperty("Pragma", "no-cache");
-            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + AppConfig.APK_VERSION);
+            connection.setRequestProperty("User-Agent", "ServisYonetimAPK/" + BuildConfig.VERSION_NAME);
 
             int status = connection.getResponseCode();
             InputStream input = status >= 200 && status < 400

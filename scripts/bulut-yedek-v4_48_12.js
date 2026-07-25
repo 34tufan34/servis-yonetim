@@ -8,7 +8,7 @@
   }
   function sync(){
     if(!native())return;
-    try{AndroidBridge.syncBackupPayload(JSON.stringify({exportedAt:new Date().toISOString(),appVersion:state.appVersion||"4.48.12",schemaVersion:state.schemaVersion||0,data:state}));}catch(e){console.warn("Bulut yedek senkronu başarısız",e);}
+    try{AndroidBridge.syncBackupPayload(JSON.stringify({exportedAt:new Date().toISOString(),appVersion:state.appVersion||"4.48.13",schemaVersion:state.schemaVersion||0,data:state}));}catch(e){console.warn("Bulut yedek senkronu başarısız",e);}
   }
   function configure(){
     const c={enabled:byId("cloudBackupEnabled")?.checked||false,time:byId("cloudBackupTime")?.value||"23:30",keepDays:Number(byId("cloudBackupKeep")?.value||30),wifiOnly:byId("cloudBackupWifi")?.checked||false,password:byId("cloudBackupPassword")?.value||""};

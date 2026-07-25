@@ -1,11 +1,15 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-12";
+const CACHE_NAME = "servis-sys-v4-48-13";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./scripts/yakit-farki-v4_48_11.js",
   "./manifest.webmanifest",
+  "./fuel-prices.json",
+  "./scripts/app-version.js",
+  "./scripts/settings-panel-v4_48_13.js",
+  "./scripts/yakit-farki-v4_48_11.js",
+  "./scripts/bulut-yedek-v4_48_12.js",
   "./icons/icon-192-v50.png",
   "./icons/icon-512-v50.png",
   "./icons/sys-logo-v50.png",
@@ -14,10 +18,7 @@ const APP_SHELL = [
   "./icons/screensaver-neon-mask-v478.png",
   "./icons/sys-logo-splash-4k.png",
   "./icons/shell-logo.png",
-  "./fuel-prices.json",
-  "./icons/sys-cinema-command-v44812.webp",
-  "./scripts/bulut-yedek-v4_48_12.js",
-  "./scripts/komuta-sinema-v4_48_12.js"
+  "./icons/sys-cinema-command-v44812.webp"
 ];
 
 async function fetchWithTimeout(request, options = {}, timeoutMs = 8000) {
@@ -36,8 +37,8 @@ async function cacheShell() {
     try {
       const response = await fetchWithTimeout(new Request(url, { cache: "reload" }), {}, 10000);
       if (response.ok) await cache.put(url, response.clone());
-    } catch {
-      // Tek bir ikon veya ağ gecikmesi Service Worker kurulumunu tamamen bozmasın.
+    } catch (_) {
+      // Tek bir dosya gecikirse Service Worker kurulumu tamamen bozulmasın.
     }
   }));
 }
@@ -65,19 +66,13 @@ self.addEventListener("fetch", (event) => {
   if (isFuelPriceFile) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
-      const cached = await cache.match("./fuel-prices.json",
-  "./icons/sys-cinema-command-v44812.webp",
-  "./scripts/bulut-yedek-v4_48_12.js",
-  "./scripts/komuta-sinema-v4_48_12.js");
+      const cached = await cache.match("./fuel-prices.json");
       try {
         const fresh = await fetchWithTimeout(request, { cache: "no-store" }, 7000);
         if (!fresh.ok) throw new Error(`HTTP ${fresh.status}`);
-        await cache.put("./fuel-prices.json",
-  "./icons/sys-cinema-command-v44812.webp",
-  "./scripts/bulut-yedek-v4_48_12.js",
-  "./scripts/komuta-sinema-v4_48_12.js", fresh.clone());
+        await cache.put("./fuel-prices.json", fresh.clone());
         return fresh;
-      } catch {
+      } catch (_) {
         return cached || Response.error();
       }
     })());
@@ -89,26 +84,22 @@ self.addEventListener("fetch", (event) => {
       const cache = await caches.open(CACHE_NAME);
       const cached = (await cache.match("./index.html")) || (await caches.match(request));
 
-      // Kayıtlı uygulama varsa açılış anında onu ver; ağ güncellemesini arka planda yap.
       if (cached) {
         event.waitUntil((async () => {
           try {
             const fresh = await fetchWithTimeout(request, { cache: "no-store" }, 7000);
             if (fresh.ok) await cache.put("./index.html", fresh.clone());
-          } catch {
-            // Ağ yoksa mevcut güvenli kopya kullanılmaya devam eder.
-          }
+          } catch (_) {}
         })());
         return cached;
       }
 
-      // İlk kurulumda da ağ sonsuza kadar beklenmez.
       try {
         const fresh = await fetchWithTimeout(request, { cache: "no-store" }, 10000);
         if (!fresh.ok) throw new Error(`HTTP ${fresh.status}`);
         await cache.put("./index.html", fresh.clone());
         return fresh;
-      } catch {
+      } catch (_) {
         return new Response(
           "<!doctype html><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><style>body{margin:0;background:#08090d;color:#fff;font:16px system-ui;display:grid;place-items:center;min-height:100vh}.box{max-width:520px;padding:28px;border:1px solid #29424a;border-radius:18px;background:#122026}button{padding:12px 18px;border:0;border-radius:10px;font-weight:700}</style><div class='box'><h2>Uygulama açılamadı</h2><p>İlk kurulum dosyaları henüz indirilemedi. İnternet bağlantısını kontrol edip tekrar deneyin.</p><button onclick='location.reload()'>Tekrar Dene</button></div>",
           { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } }
@@ -128,7 +119,7 @@ self.addEventListener("fetch", (event) => {
         await cache.put(request, fresh.clone());
       }
       return fresh;
-    } catch {
+    } catch (_) {
       return Response.error();
     }
   })());

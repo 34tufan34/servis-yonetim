@@ -19,18 +19,19 @@ def unifiedVersionName = appVersionMatcher.group(1)
 def versionParts = unifiedVersionName.tokenize(".").collect { it as int }
 
 if (versionParts.size() != 3) {
-    throw new GradleException("Sürüm numarası 4.48.12 biçiminde olmalıdır.")
+    throw new GradleException("Sürüm numarası 4.48.13 biçiminde olmalıdır.")
 }
 
-def githubRunNumber =
-        (System.getenv("GITHUB_RUN_NUMBER") ?: "1") as int
-
+def githubRunNumber = (System.getenv("GITHUB_RUN_NUMBER") ?: "1") as int
 def unifiedVersionCode = (versionParts[0] * 100000000) + (versionParts[1] * 1000000) + (versionParts[2] * 10000) + Math.min(githubRunNumber, 9999)
-        
 
 android {
     namespace 'com.tufan.servisyonetim'
     compileSdk 35
+
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         applicationId "com.tufan.servisyonetim"
@@ -73,7 +74,6 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-            
             signingConfig signingConfigs.debug
         }
         release {
