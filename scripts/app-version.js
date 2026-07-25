@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.14";
+  const VERSION = "4.48.15";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;

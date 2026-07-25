@@ -1,0 +1,18 @@
+SYS Servis Yönetim Sistemi v4.48.15
+
+DÜZELTMELER
+- Ayarlar panelindeki “Ayarlar ve Veri Güvenliği” başlığı artık kırpılmıyor.
+- Ayarlar üst sekmeleri ve bölüm başlıkları Türkçe karakterlerle tam görünüyor.
+- Motorin Fiyatlarını Güncelle düğmeleri dar ekranda tam görünür ve satıra uyumlu.
+- Motorin fiyatı için yerel dosya, GitHub RAW, jsDelivr, GitHub Pages ve Android ağ köprüsü yedekli kaynak sırası eklendi.
+- Android yakıt kaynağı aktif tek dala yönlendirildi.
+
+YENİ KOMUTA PANELİ
+- SYS AI Operasyon Zekâsı ve SYS AI Karar Nabzı, Komuta Panelindeki iki düğmeyle açılır.
+- Düğmelerin üzerinde açık uyarı sayısı görünür.
+- Kaldırılan büyük AI kartlarının yerine kritik, dikkat, güven skoru, fırsat ve son analiz zamanı özeti eklendi.
+
+KURULUM UYARISI
+- Android arayüzü ve yakıt bağlantısı değiştiği için yeni APK kurulmalıdır.
+- Mevcut uygulamayı kaldırmayın; APK'yı üzerine Güncelle olarak kurun.
+- Kurulumdan önce JSON ve Google Drive yedeği alın.

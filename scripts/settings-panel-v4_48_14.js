@@ -120,7 +120,7 @@
         </div>
         <div class="sys-settings-status-grid">
           <button type="button" class="sys-settings-status" data-open-group="system">
-            <span>SÜRÜM</span><strong id="sysSettingsVersion">v4.48.14</strong><small>Çalışan uygulama</small>
+            <span>SÜRÜM</span><strong id="sysSettingsVersion">v4.48.15</strong><small>Çalışan uygulama</small>
           </button>
           <button type="button" class="sys-settings-status" data-open-group="system">
             <span>LİSANS</span><strong id="sysSettingsLicense">Kontrol ediliyor</strong><small id="sysSettingsLicenseNote">Cihaz durumu</small>
@@ -254,14 +254,14 @@
   }
 
   function updateOverview() {
-    const version = window.SYS_DISPLAY_VERSION || window.SYS_APP_VERSION || window.state?.appVersion || $("#appVersionDisplay")?.textContent || "v4.48.14";
+    const version = window.SYS_DISPLAY_VERSION || window.SYS_APP_VERSION || window.state?.appVersion || $("#appVersionDisplay")?.textContent || "v4.48.15";
     const licenseBadge = $("#licenseSettingsBadge");
     const licenseCompany = $("#licenseSettingsCompany");
     const localBackup = $("#backupHealth");
     const cloudStatus = $("#cloudBackupStatus");
 
     const versionTarget = $("#sysSettingsVersion");
-    setText(versionTarget, compactText(version, "v4.48.14"));
+    setText(versionTarget, compactText(version, "v4.48.15"));
 
     const licenseTarget = $("#sysSettingsLicense");
     const licenseNote = $("#sysSettingsLicenseNote");
