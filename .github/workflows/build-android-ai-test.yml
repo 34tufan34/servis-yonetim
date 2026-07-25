@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - sys-ai-test
+      - sys-ai-test-v4-48-12-eski-panel
 
 permissions:
   contents: read
