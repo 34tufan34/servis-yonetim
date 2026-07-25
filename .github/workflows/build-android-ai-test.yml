@@ -18,6 +18,10 @@ jobs:
     steps:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
+              - name: Tek sürüm dosyasını APK içine eşitle
+        run: |
+          mkdir -p android-app/app/src/main/assets/www/scripts
+          cp scripts/app-version.js android-app/app/src/main/assets/www/scripts/app-version.js
 
       - name: Java 17 kur
         uses: actions/setup-java@v4

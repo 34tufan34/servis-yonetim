@@ -1,5 +1,32 @@
 plugins {
     id 'com.android.application'
+    def appVersionFile = rootProject.file("../scripts/app-version.js")
+
+if (!appVersionFile.exists()) {
+    throw new GradleException("scripts/app-version.js bulunamadı.")
+}
+
+def appVersionSource = appVersionFile.getText("UTF-8")
+def appVersionMatcher = appVersionSource =~ /const VERSION = "([^"]+)"/
+
+if (!appVersionMatcher.find()) {
+    throw new GradleException("app-version.js içinde VERSION değeri bulunamadı.")
+}
+
+def unifiedVersionName = appVersionMatcher.group(1)
+def versionParts = unifiedVersionName.tokenize(".").collect { it as int }
+
+if (versionParts.size() != 3) {
+    throw new GradleException("Sürüm numarası 4.48.12 biçiminde olmalıdır.")
+}
+
+def githubRunNumber = (System.getenv("GITHUB_RUN_NUMBER") ?: "1") as int
+
+def unifiedVersionCode =
+        versionParts[0] * 100000000 +
+        versionParts[1] * 1000000 +
+        versionParts[2] * 10000 +
+        Math.min(githubRunNumber, 9999)
 }
 
 android {
@@ -10,8 +37,8 @@ android {
         applicationId "com.tufan.servisyonetim"
         minSdk 24
         targetSdk 35
-        versionCode 40
-        versionName "1.1.27"
+        versionCode unifiedVersionCode
+        versionName unifiedVersionName
     }
 
     def releaseKeystorePath = System.getenv("SERVIS_KEYSTORE_FILE")
@@ -47,7 +74,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-            versionNameSuffix "-debug"
+            
             signingConfig signingConfigs.debug
         }
         release {
