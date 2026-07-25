@@ -1,0 +1,13 @@
+SYS Servis Yönetimi v4.48.17
+
+Bu güncellemede yapılanlar:
+- Komuta panelinden SYS AI kartları kaldırıldı.
+- Sağ panel, operasyon özeti ve aktif uyarılar kartı ile yeniden düzenlendi.
+- Mazot farkı paneli yüzdesel görünümle eklendi.
+- Takipli sözleşmeler için en yüksek yakıt artışı, kesim gereken sözleşme sayısı ve sınırdaki sözleşme sayısı gösterilir.
+- Komuta panelindeki yeni kart butonları ilgili kayıt ekranlarına yönlenir.
+- Motorin buton adları kısaltıldı ve tam görünüm için düzenlendi.
+- Uygulama sürümü v4.48.17 olarak güncellendi.
+
+APK UYARISI:
+Bu paket kaynak güncellemesidir. Tablet/telefon için APK gerekiyorsa GitHub Actions ile yeni APK üretmeniz gerekir.
