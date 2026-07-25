@@ -15,11 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
-        steps:
+    steps:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
 
       - name: Sürüm dosyasını APK içine eşitle
+        shell: bash
         run: |
           mkdir -p android-app/app/src/main/assets/www/scripts
           cp scripts/app-version.js android-app/app/src/main/assets/www/scripts/app-version.js
@@ -29,9 +30,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-
-      - name: Android SDK kur
-        uses: android-actions/setup-android@v3
 
       - name: Android SDK kur
         uses: android-actions/setup-android@v3
@@ -51,7 +49,7 @@ jobs:
       - name: Test APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: servis-yonetim-sys-ai-test-v4.48.3
+          name: servis-yonetim-sys-ai-test-v4.48.12
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
