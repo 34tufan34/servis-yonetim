@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - sys-ai-test
       - sys-ai-test-v4-48-12-eski-panel
 
 permissions:
