@@ -18,15 +18,18 @@ jobs:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
       - name: JavaScript sözdizimini kontrol et
-        run: node --check rotax-app/app/src/main/assets/www/app.js
-      - name: Bağımsızlık ve özellik kontrolü
+        run: node --check rotax-app/app/src/main/assets/www/scripts/app-version.js
+      - name: Bağımsızlık ve tam kapsam kontrolü
         shell: bash
         run: |
           grep -q "applicationId 'com.rotax.yonetim'" rotax-app/app/build.gradle
-          grep -q 'window.RotaX' rotax-app/app/src/main/assets/www/app.js
-          grep -q 'commandFuelPriceIncrease\|TL artışı' rotax-app/app/src/main/assets/www/app.js
-          grep -q 'ondblclick' rotax-app/app/src/main/assets/www/app.js
-          grep -q 'router.project-osrm.org' rotax-app/app/src/main/assets/www/app.js
+          grep -q 'ROTAX_FULL_V2_SERVIS_YONETIMI' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'function openWhatsAppMessage' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'guardianMessageForSchoolStatus' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'İş / Sözleşme Kaydı' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'Aylık Çetele' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'Yedekler / Kurtarma' rotax-app/app/src/main/assets/www/index.html
+          grep -q 'RotaX bağımsız sürümü lisans sunucusuna bağlı değildir' rotax-app/app/src/main/assets/www/index.html
       - name: Java 17 kur
         uses: actions/setup-java@v4
         with:
@@ -59,7 +62,7 @@ jobs:
       - name: APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: rotax-yonetim-v1.0.0
+          name: rotax-yonetim-v2.0.0
           path: rotax-app/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 90

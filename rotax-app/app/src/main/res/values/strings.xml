@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RotaX Servis Yönetimi</string>
+    <string name="offline_message">Uygulama açılamadı. Android System WebView bileşenini güncelleyip tekrar deneyin.</string>
+</resources>

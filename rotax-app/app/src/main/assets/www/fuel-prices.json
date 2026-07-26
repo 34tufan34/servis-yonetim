@@ -1,0 +1,22 @@
+{
+  "region": "İstanbul Avrupa",
+  "updatedAt": "2026-07-26T10:53:58.375Z",
+  "lastAttemptAt": "2026-07-26T10:53:58.375Z",
+  "priceDate": "2026-07-26",
+  "source": "Doviz.com dağıtıcı tablosu",
+  "sourceUrl": "https://www.doviz.com/akaryakit-fiyatlari",
+  "status": "ok",
+  "shell": {
+    "diesel": 78.53,
+    "product": "Shell Motorin",
+    "updated": true,
+    "officialUrl": "https://www.shell.com.tr/suruculer/shell-yakitlari/akaryakit-pompa-satis-fiyatlari.html"
+  },
+  "opet": {
+    "diesel": 78.49,
+    "product": "OPET Motorin",
+    "updated": true,
+    "officialUrl": "https://www.opet.com.tr/akaryakit-fiyatlari/istanbul-avrupa"
+  },
+  "errors": {}
+}
