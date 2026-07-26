@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Servis Yönetim Sistemi | Personel Servisi v3.8</title>
   <style>
     :root {
@@ -55,7 +55,10 @@
     }
 
     .app {
+      height: 100vh;
+      height: 100dvh;
       min-height: 100vh;
+      min-height: 100dvh;
     }
 
     .sidebar {
@@ -190,6 +193,7 @@
     .main {
       min-width: 0;
       margin-left: var(--sidebar);
+      height: 100vh;
       height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -3969,6 +3973,32 @@
       }
     }
 
+
+    /* === ANDROID TABLET / WEBVIEW TAM EKRAN UYUMLULUĞU === */
+    @supports not (height: 100dvh) {
+      html, body, .app, .main, .sidebar {
+        height: 100vh !important;
+      }
+    }
+
+    @media (min-width: 1101px) {
+      .main {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+      .content-scroll {
+        height: 0;
+        flex: 1 1 auto;
+        min-height: 0;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+      }
+      #screen-command,
+      #screen-command.active,
+      .command-dashboard {
+        height: 100% !important;
+        min-height: 0 !important;
+      }
+    }
 
     /* === KOMUTA PANELİ: TEK EKRAN / ALT HİZA GÜNCELLEMESİ === */
     #screen-command { height: 100%; min-height: 0; }
