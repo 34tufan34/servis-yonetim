@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.22";
+  const VERSION = "4.48.23";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -18,9 +18,9 @@
     window.__SYS_V44822_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_22.js?v=4.48.22";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.23";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.22 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.23 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
   }
 
