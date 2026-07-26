@@ -16,6 +16,21 @@ jobs:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
 
+      - name: Web uygulamasını APK içine eşitle
+        shell: bash
+        run: |
+          mkdir -p android-app/app/src/main/assets/www/scripts
+          cp index.html manifest.webmanifest sw.js fuel-prices.json fuel-prices.example.json android-app/app/src/main/assets/www/
+          cp -R scripts/. android-app/app/src/main/assets/www/scripts/
+          cp -R icons/. android-app/app/src/main/assets/www/icons/
+
+      - name: Uygulama sürümünü belirle
+        shell: bash
+        run: |
+          APP_VERSION="$(sed -n 's/^const VERSION = "\([^"]*\)";.*/\1/p' scripts/app-version.js)"
+          test -n "$APP_VERSION"
+          echo "APP_VERSION=$APP_VERSION" >> "$GITHUB_ENV"
+
       - name: Java 17 kur
         uses: actions/setup-java@v4
         with:
@@ -69,7 +84,7 @@ jobs:
       - name: APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: servis-yonetim-apk-v1.1.9
+          name: servis-yonetim-apk-v${{ env.APP_VERSION }}
           path: android-app/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 90
