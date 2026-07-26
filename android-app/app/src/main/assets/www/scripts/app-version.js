@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.19";
+  const VERSION = "4.48.20";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -13,16 +13,14 @@
     });
   }
 
-  function loadTabletCommandFix() {
-    if (window.__SYS_V44819_TABLET_COMMAND_FIX_LOADER__) return;
-    window.__SYS_V44819_TABLET_COMMAND_FIX_LOADER__ = true;
+  function loadCommandLayoutFix() {
+    if (window.__SYS_V44820_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44820_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/tablet-command-layout-v4_48_19.js?v=4.48.19";
+    script.src = "./scripts/command-layout-v4_48_20.js?v=4.48.20";
     script.defer = true;
-    script.onerror = () => {
-      console.error("SYS v4.48.19 tablet komuta paneli düzeltmesi yüklenemedi.");
-    };
+    script.onerror = () => console.error("SYS v4.48.20 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
   }
 
@@ -39,7 +37,7 @@
       }
     });
 
-    loadTabletCommandFix();
+    loadCommandLayoutFix();
   }
 
   if (document.readyState === "loading") {

@@ -1,0 +1,16 @@
+SYS v4.48.20 KURULUM
+
+1. ZIP dosyasını çıkartın.
+2. GitHub deposunda şu dalı açın:
+   sys-ai-test-v4-48-12-eski-panel
+3. ZIP içindeki tüm dosyaları klasör yapısını bozmadan deponun köküne yükleyin.
+4. Mevcut dosyaların üzerine yazılmasına izin verin.
+5. Commit mesajı:
+   v4.48.20 komuta paneli kesin hizalama düzeltmesi
+6. GitHub Actions tamamlandıktan sonra yeni APK'yı indirin.
+7. APK'yı mevcut uygulamanın üzerine güncelleme olarak kurun.
+
+UYARI
+- Uygulamayı kaldırmayın.
+- Verileri temizlemeyin.
+- index.html yüklemeyin.
