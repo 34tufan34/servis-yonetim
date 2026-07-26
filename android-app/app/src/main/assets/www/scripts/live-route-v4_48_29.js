@@ -205,16 +205,17 @@
       routeState = "GPS alındı · rota hazırlanıyor";
       refresh(false);
     }, (error) => {
+      watchId = null;
       latestPosition = null;
       routeResult = null;
-      routeState = error?.code === 1 ? "Konum izni verilmedi" : "GPS sinyali alınamıyor";
+      routeState = error?.code === 1 ? "Konum erişimi alınamadı · GPS / Rotayı Yenile" : "GPS sinyali alınamıyor";
       renderMetrics();
     }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
   }
 
   function installStyle() {
     const style = document.createElement("style");
-    style.id = "sys-live-route-v44827-style";
+    style.id = "sys-live-route-v44829-style";
     style.textContent = `
       .sys-live-route-host{grid-column:1/-1;width:100%;margin-top:9px}
       .sys-live-route{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid rgba(56,189,248,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,165,233,.10),rgba(15,23,42,.38))}
@@ -235,7 +236,7 @@
   }
 
   window.SYSLiveRoute = Object.freeze({
-    version: "4.48.27",
+    version: "4.48.29",
     parseCoordinate,
     refresh: () => { startGps(true); refresh(true); },
     status: () => ({ hasGps: Boolean(latestPosition), routeState, routeResult })

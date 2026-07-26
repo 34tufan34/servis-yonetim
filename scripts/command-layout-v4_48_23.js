@@ -106,8 +106,8 @@
 
       #screen-command .command-main-column {
         display: grid !important;
-        grid-template-rows: 138px minmax(0, 1fr) !important;
-        gap: 14px !important;
+        grid-template-rows: auto minmax(0, 1fr) !important;
+        gap: 6px !important;
       }
 
       #screen-command .command-service-grid {

@@ -110,6 +110,7 @@ public class MainActivity extends Activity {
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setGeolocationEnabled(true);
+        GeolocationPermissions.getInstance().clearAll();
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccess(true);
         settings.setAllowFileAccessFromFileURLs(true);
@@ -266,7 +267,7 @@ public class MainActivity extends Activity {
                 String origin,
                 GeolocationPermissions.Callback callback
         ) {
-            if (!isTrustedAppUrl(Uri.parse(origin))) {
+            if (!isTrustedGeolocationOrigin(origin)) {
                 callback.invoke(origin, false, false);
                 return;
             }
@@ -322,6 +323,14 @@ public class MainActivity extends Activity {
                 && host != null
                 && (host.equalsIgnoreCase(AppConfig.ALLOWED_HOST)
                 || host.toLowerCase().endsWith("." + AppConfig.ALLOWED_HOST));
+    }
+
+    private boolean isTrustedGeolocationOrigin(String origin) {
+        Uri originUri = Uri.parse(origin == null ? "" : origin);
+        if (isTrustedAppUrl(originUri)) return true;
+        if (!"file".equalsIgnoreCase(originUri.getScheme()) || webView == null) return false;
+        String currentUrl = webView.getUrl();
+        return currentUrl != null && isTrustedAppUrl(Uri.parse(currentUrl));
     }
 
     private void scheduleLoadSafety() {
@@ -485,6 +494,12 @@ public class MainActivity extends Activity {
             pendingGeoCallback.invoke(pendingGeoOrigin, granted, granted);
             pendingGeoCallback = null;
             pendingGeoOrigin = null;
+            if (granted && webView != null) {
+                webView.post(() -> webView.evaluateJavascript(
+                        "window.SYSLiveRoute&&window.SYSLiveRoute.refresh();",
+                        null
+                ));
+            }
             return;
         }
         if (requestCode == MICROPHONE_PERMISSION_REQUEST) {

@@ -20,7 +20,10 @@ const checks = [
   [html.includes("touch-action: manipulation"), "Çetele dokunmatik çift tıklama koruması eksik."],
   [liveRoute.includes('data-live-route-panel="${panel}"'), "Servis panellerinin GPS hedefi eksik."],
   [!liveRoute.includes("button[data-action*='open-']"), "Panel başlıklarını kaldırabilecek geniş seçici yeniden eklendi."],
-  [mainActivity.includes("settings.setGeolocationEnabled(true)"), "Android WebView konum desteği kapalı."]
+  [mainActivity.includes("settings.setGeolocationEnabled(true)"), "Android WebView konum desteği kapalı."],
+  [mainActivity.includes("isTrustedGeolocationOrigin(origin)"), "Yerel APK konum kaynağı güven zincirine bağlı değil."],
+  [mainActivity.includes("GeolocationPermissions.getInstance().clearAll()"), "Eski WebView konum reddi temizlenmiyor."],
+  [read("scripts/command-layout-v4_48_23.js").includes("grid-template-rows: auto minmax(0, 1fr)"), "Servis kartlarının üst boşluk düzeltmesi eksik."]
 ];
 
 const failures = checks.filter(([passed]) => !passed).map(([, message]) => message);
