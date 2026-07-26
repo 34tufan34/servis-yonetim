@@ -30,7 +30,7 @@ jobs:
       - name: Uygulama sürümünü belirle
         shell: bash
         run: |
-          APP_VERSION="$(sed -n 's/^const VERSION = "\([^"]*\)";.*/\1/p' scripts/app-version.js)"
+          APP_VERSION="$(sed -n 's/^[[:space:]]*const VERSION = "\([^"]*\)";.*/\1/p' scripts/app-version.js)"
           test -n "$APP_VERSION"
           echo "APP_VERSION=$APP_VERSION" >> "$GITHUB_ENV"
 
