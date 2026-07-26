@@ -53,7 +53,9 @@ jobs:
           ROTAX_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
         run: gradle --no-daemon :app:assembleRelease
       - name: APK imzasını doğrula
-        run: "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose rotax-app/app/build/outputs/apk/release/app-release.apk
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose \
+            rotax-app/app/build/outputs/apk/release/app-release.apk
       - name: APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
