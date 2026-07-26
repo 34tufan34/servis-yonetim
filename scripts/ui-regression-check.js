@@ -23,7 +23,8 @@ const checks = [
   [mainActivity.includes("settings.setGeolocationEnabled(true)"), "Android WebView konum desteği kapalı."],
   [mainActivity.includes("isTrustedGeolocationOrigin(origin)"), "Yerel APK konum kaynağı güven zincirine bağlı değil."],
   [mainActivity.includes("GeolocationPermissions.getInstance().clearAll()"), "Eski WebView konum reddi temizlenmiyor."],
-  [read("scripts/command-layout-v4_48_23.js").includes("grid-template-rows: auto minmax(0, 1fr)"), "Servis kartlarının üst boşluk düzeltmesi eksik."]
+  [read("scripts/command-layout-v4_48_23.js").includes("grid-template-rows: auto minmax(0, 1fr)"), "Servis kartlarının üst boşluk düzeltmesi eksik."],
+  [html.includes('id="commandFuelPriceIncrease"') && html.includes("currentPrice - top.result.referencePrice"), "Mazot farkının litre başına TL artışı eksik."]
 ];
 
 const failures = checks.filter(([passed]) => !passed).map(([, message]) => message);
