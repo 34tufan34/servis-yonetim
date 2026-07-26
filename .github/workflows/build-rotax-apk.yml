@@ -2,6 +2,9 @@ name: RotaX Bağımsız APK Oluştur
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - agent/rotax-independent-app
 
 permissions:
   contents: read
