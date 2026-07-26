@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07100f"><title>RotaX Yönetim</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<aside class="rail"><div class="brand"><span>RX</span><div><b>RotaX</b><small>Servis Yönetimi</small></div></div><nav id="nav"></nav><div class="rail-foot"><small>Bağımsız sistem</small><b>v1.0.0</b></div></aside>
+<main><header><div><small id="eyebrow">OPERASYON MERKEZİ</small><h1 id="pageTitle">Komuta Merkezi</h1></div><div class="header-actions"><span class="online" id="onlineState">● Çevrimiçi</span><button data-action="backup">Yedekle</button><button class="avatar">Y</button></div></header><section id="view"></section></main>
+<div class="modal hidden" id="modal"><form id="modalForm"><div class="modal-head"><div><small id="modalKicker"></small><h2 id="modalTitle"></h2></div><button type="button" data-close>×</button></div><div id="modalFields" class="form-grid"></div><div class="modal-actions"><button type="button" data-close>Vazgeç</button><button class="primary" type="submit">Kaydet</button></div></form></div>
+<div id="toast"></div><input id="restoreInput" type="file" accept="application/json" hidden>
+<script src="app.js"></script></body></html>

@@ -1,0 +1,39 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.rotax.yonetim'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.rotax.yonetim'
+        minSdk 24
+        targetSdk 35
+        versionCode 10000
+        versionName '1.0.0'
+    }
+    def keyFile = System.getenv('ROTAX_KEYSTORE_FILE')
+    def keyPass = System.getenv('ROTAX_KEY_PASSWORD')
+    signingConfigs {
+        if (keyFile && keyPass) {
+            release {
+                storeFile file(keyFile)
+                storePassword keyPass
+                keyAlias 'servis-release'
+                keyPassword keyPass
+                enableV1Signing true
+                enableV2Signing true
+                enableV3Signing true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            if (signingConfigs.findByName('release') != null) signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

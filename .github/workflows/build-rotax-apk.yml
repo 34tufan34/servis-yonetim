@@ -1,0 +1,60 @@
+name: RotaX Bağımsız APK Oluştur
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: RotaX imzalı APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Kaynak kodu al
+        uses: actions/checkout@v4
+      - name: JavaScript sözdizimini kontrol et
+        run: node --check rotax-app/app/src/main/assets/www/app.js
+      - name: Bağımsızlık ve özellik kontrolü
+        shell: bash
+        run: |
+          grep -q "applicationId 'com.rotax.yonetim'" rotax-app/app/build.gradle
+          grep -q 'window.RotaX' rotax-app/app/src/main/assets/www/app.js
+          grep -q 'commandFuelPriceIncrease\|TL artışı' rotax-app/app/src/main/assets/www/app.js
+          grep -q 'ondblclick' rotax-app/app/src/main/assets/www/app.js
+          grep -q 'router.project-osrm.org' rotax-app/app/src/main/assets/www/app.js
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Android SDK kur
+        uses: android-actions/setup-android@v3
+      - name: Android paketlerini kur
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Gradle kur
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: İmza dosyasını çöz
+        env:
+          APK_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
+        run: |
+          test -n "$APK_KEY_PASSWORD"
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in android-app/keystore/servis-release.jks.enc -out "$RUNNER_TEMP/rotax-release.jks" -pass env:APK_KEY_PASSWORD
+      - name: RotaX release APK üret
+        working-directory: rotax-app
+        env:
+          ROTAX_KEYSTORE_FILE: ${{ runner.temp }}/rotax-release.jks
+          ROTAX_KEY_PASSWORD: ${{ secrets.APK_KEY_PASSWORD }}
+        run: gradle --no-daemon :app:assembleRelease
+      - name: APK imzasını doğrula
+        run: "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose rotax-app/app/build/outputs/apk/release/app-release.apk
+      - name: APK dosyasını yayımla
+        uses: actions/upload-artifact@v4
+        with:
+          name: rotax-yonetim-v1.0.0
+          path: rotax-app/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 90
