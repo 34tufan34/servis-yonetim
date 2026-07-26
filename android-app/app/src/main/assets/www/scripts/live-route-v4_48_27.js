@@ -14,6 +14,8 @@
   let requestSerial = 0;
   let currentContext = null;
   let activated = false;
+  let watchId = null;
+  let requestedPanel = "";
 
   function parseCoordinate(value) {
     const text = String(value || "").trim();
@@ -52,6 +54,10 @@
 
   function activeContext() {
     try { return driverContext(); } catch (_) { return null; }
+  }
+
+  function panelContext(kind) {
+    try { return kind === "school" ? driverSchoolContext() : driverPersonnelContext(); } catch (_) { return null; }
   }
 
   function formatDistance(meters) {
@@ -108,15 +114,17 @@
     renderMetrics();
   }
 
-  function metricHtml(compact) {
-    const distance = routeResult ? formatDistance(routeResult.distance) : "—";
-    const duration = routeResult ? formatDuration(routeResult.duration) : "—";
-    const updated = routeResult ? new Date(routeResult.updatedAt).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }) : "";
+  function metricHtml(compact, panel, display) {
+    const result = display?.result ?? routeResult;
+    const state = display?.state ?? routeState;
+    const distance = result ? formatDistance(result.distance) : "—";
+    const duration = result ? formatDuration(result.duration) : "—";
+    const updated = result ? new Date(result.updatedAt).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }) : "";
     return `<div class="sys-live-route ${compact ? "compact" : ""}">
       <div class="sys-live-route-value"><small>Yolcuya Kalan</small><strong>${distance}</strong></div>
       <div class="sys-live-route-value"><small>Tahmini Varış</small><strong>${duration}</strong></div>
-      <div class="sys-live-route-state"><span class="sys-live-route-dot"></span><span>${routeState}${updated ? ` · ${updated}` : ""}</span></div>
-      <button class="sys-live-route-refresh" type="button" data-live-route-refresh>GPS / Rotayı Yenile</button>
+      <div class="sys-live-route-state"><span class="sys-live-route-dot"></span><span>${state}${updated ? ` · ${updated}` : ""}</span></div>
+      <button class="sys-live-route-refresh" type="button" data-live-route-refresh${panel ? ` data-live-route-panel="${panel}"` : ""}>GPS / Rotayı Yenile</button>
     </div>`;
   }
 
@@ -129,30 +137,33 @@
         host.className = "sys-live-route-host";
         driverCard.appendChild(host);
       }
-      const html = metricHtml(false);
+      const html = metricHtml(false, currentContext?.kind || "");
       if (host.innerHTML !== html) host.innerHTML = html;
     }
     ["personnel", "school"].forEach((panel) => {
       const card = document.getElementById(panel === "personnel" ? "commandPersonnelNext" : "commandSchoolNext");
       if (!card) return;
       let host = card.querySelector(".sys-live-route-host");
-      const context = currentContext?.kind === panel ? currentContext : null;
-      if (!context) {
-        host?.remove();
-        return;
-      }
       if (!host) {
         host = document.createElement("div");
         host.className = "sys-live-route-host";
         card.appendChild(host);
       }
-      const html = metricHtml(true);
+      const context = panelContext(panel);
+      const isCurrent = currentContext?.kind === panel;
+      const inactiveState = context?.current ? "GPS / Rotayı Yenile ile hesaplayın" : "Aktif yolcu bekleniyor";
+      const html = metricHtml(true, panel, isCurrent ? null : { result: null, state: inactiveState });
       if (host.innerHTML !== html) host.innerHTML = html;
     });
   }
 
   function removeExternalNavigation() {
-    document.querySelectorAll("#screen-command #commandOpenFuelJobsBtn, #screen-command #commandOpenSettingsFuelBtn, #screen-command button[data-action$='details'], #screen-command button[data-action*='open-'], #screen-command a[data-action*='open-'], #screen-driver button[data-driver-action='map'], #screen-driver button[data-driver-action='ordered-map']").forEach((element) => element.remove());
+    document.querySelectorAll("#screen-command #commandOpenFuelJobsBtn, #screen-command #commandOpenSettingsFuelBtn, #screen-command button[data-action$='details'], #screen-driver button[data-driver-action='map'], #screen-driver button[data-driver-action='ordered-map']").forEach((element) => element.remove());
+    document.querySelectorAll("#commandPersonnelCard > .command-card-summary, #commandSchoolCard > .command-card-summary").forEach((element) => {
+      element.removeAttribute("data-action");
+      element.removeAttribute("aria-label");
+      element.classList.add("sys-panel-static");
+    });
     ["commandPersonnelNext", "commandSchoolNext"].forEach((id) => {
       const card = document.getElementById(id);
       if (!card) return;
@@ -163,21 +174,33 @@
     });
   }
 
-  function refresh(force) {
+  function refresh(force, panel) {
     if (!activated) return;
     removeExternalNavigation();
-    currentContext = activeContext();
+    if (panel) requestedPanel = panel;
+    currentContext = requestedPanel ? panelContext(requestedPanel) : activeContext();
     requestRoute(currentContext, Boolean(force));
     renderMetrics();
   }
 
-  function startGps() {
+  function startGps(force) {
     if (!navigator.geolocation) {
       routeState = "Bu cihaz GPS konumu sunmuyor";
       renderMetrics();
       return;
     }
-    navigator.geolocation.watchPosition((position) => {
+    if (force && watchId !== null && navigator.geolocation.clearWatch) {
+      navigator.geolocation.clearWatch(watchId);
+      watchId = null;
+    }
+    if (watchId !== null) return;
+    if (force) {
+      latestPosition = null;
+      routeResult = null;
+      routeState = "GPS yeniden başlatılıyor";
+      renderMetrics();
+    }
+    watchId = navigator.geolocation.watchPosition((position) => {
       latestPosition = position;
       routeState = "GPS alındı · rota hazırlanıyor";
       refresh(false);
@@ -191,7 +214,7 @@
 
   function installStyle() {
     const style = document.createElement("style");
-    style.id = "sys-live-route-v44826-style";
+    style.id = "sys-live-route-v44827-style";
     style.textContent = `
       .sys-live-route-host{grid-column:1/-1;width:100%;margin-top:9px}
       .sys-live-route{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid rgba(56,189,248,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,165,233,.10),rgba(15,23,42,.38))}
@@ -212,9 +235,9 @@
   }
 
   window.SYSLiveRoute = Object.freeze({
-    version: "4.48.26",
+    version: "4.48.27",
     parseCoordinate,
-    refresh: () => refresh(true),
+    refresh: () => { startGps(true); refresh(true); },
     status: () => ({ hasGps: Boolean(latestPosition), routeState, routeResult })
   });
 
@@ -223,7 +246,9 @@
     if (refreshButton) {
       event.preventDefault();
       event.stopPropagation();
-      refresh(true);
+      const panel = refreshButton.dataset.liveRoutePanel || "";
+      startGps(true);
+      refresh(true, panel);
     }
   }, true);
 
@@ -243,6 +268,9 @@
     [document.getElementById("screen-command"), document.getElementById("screen-driver")].filter(Boolean).forEach((screen) => observer.observe(screen, { childList: true, subtree: true }));
     setInterval(() => refresh(false), REFRESH_MS);
     setTimeout(() => refresh(false), 300);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) startGps(true);
+    });
   }
 
   function boot() {

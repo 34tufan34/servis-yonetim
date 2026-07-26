@@ -109,6 +109,7 @@ public class MainActivity extends Activity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
+        settings.setGeolocationEnabled(true);
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccess(true);
         settings.setAllowFileAccessFromFileURLs(true);
