@@ -19,6 +19,9 @@ jobs:
       - name: Kaynak kodu al
         uses: actions/checkout@v4
 
+      - name: Arayüz regresyonlarını kontrol et
+        run: node scripts/ui-regression-check.js
+
       - name: Web uygulamasını APK içine eşitle
         shell: bash
         run: |
