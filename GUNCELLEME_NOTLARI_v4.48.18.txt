@@ -1,0 +1,10 @@
+SYS Servis Yönetimi v4.48.18
+
+- Komuta paneli masaüstü ve yatay tablet kullanımında tek ekrana sığacak biçimde sıkıştırıldı.
+- Personel ve okul servisi kartları aynı yükseklikte tam yerleşir.
+- Operasyon özeti, mazot farkı ve canlı yakıt takip kartları servis kartlarıyla üst-alt hizaya getirildi.
+- Shell ve OPET fiyat kartları yan yana gösterilir.
+- Komuta panelinde dikey kaydırma ihtiyacı kaldırıldı (1100 px ve üzeri ekranlarda).
+- Daha küçük ekranlarda güvenli kaydırmalı görünüm korunur.
+
+APK UYARISI: Tablette kullanmak için yeni APK üretilmelidir. Mevcut uygulamayı silmeden üzerine Güncelle olarak kurun.
