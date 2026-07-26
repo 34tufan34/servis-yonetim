@@ -19,7 +19,7 @@ def unifiedVersionName = appVersionMatcher.group(1)
 def versionParts = unifiedVersionName.tokenize(".").collect { it as int }
 
 if (versionParts.size() != 3) {
-    throw new GradleException("Sürüm numarası 4.48.20 biçiminde olmalıdır.")
+    throw new GradleException("Sürüm numarası 4.48.21 biçiminde olmalıdır.")
 }
 
 def githubRunNumber = (System.getenv("GITHUB_RUN_NUMBER") ?: "1") as int

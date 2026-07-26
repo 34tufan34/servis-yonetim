@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.20";
+  const VERSION = "4.48.21";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,13 +14,13 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44820_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44820_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44821_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44821_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_20.js?v=4.48.20";
+    script.src = "./scripts/command-layout-v4_48_21.js?v=4.48.21";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.20 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.21 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
   }
 
