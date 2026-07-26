@@ -12,6 +12,8 @@
   let routeResult = null;
   let routeState = "Konum izni bekleniyor";
   let requestSerial = 0;
+  let currentContext = null;
+  let activated = false;
 
   function parseCoordinate(value) {
     const text = String(value || "").trim();
@@ -46,30 +48,6 @@
       if (point) return { ...point, passengerId: String(passenger.id || ""), name: String(passenger.name || "Yolcu") };
     }
     return null;
-  }
-
-  function contexts() {
-    const result = [];
-    try {
-      const personnelSession = activePersonnelServiceSessions?.()[0] || null;
-      if (personnelSession) {
-        const currentKind = typeof driverModeKind === "string" ? driverModeKind : "personnel";
-        const previous = currentKind;
-        driverModeKind = "personnel";
-        result.push({ panel: "personnel", context: driverPersonnelContext() });
-        driverModeKind = previous;
-      }
-    } catch (_) {}
-    try {
-      const schoolSession = activeSchoolServiceSessions?.()[0] || null;
-      if (schoolSession) {
-        const previous = typeof driverModeKind === "string" ? driverModeKind : "school";
-        driverModeKind = "school";
-        result.push({ panel: "school", context: driverSchoolContext() });
-        driverModeKind = previous;
-      }
-    } catch (_) {}
-    return result;
   }
 
   function activeContext() {
@@ -154,18 +132,21 @@
       const html = metricHtml(false);
       if (host.innerHTML !== html) host.innerHTML = html;
     }
-    contexts().forEach(({ panel, context }) => {
+    ["personnel", "school"].forEach((panel) => {
       const card = document.getElementById(panel === "personnel" ? "commandPersonnelNext" : "commandSchoolNext");
       if (!card) return;
       let host = card.querySelector(".sys-live-route-host");
+      const context = currentContext?.kind === panel ? currentContext : null;
+      if (!context) {
+        host?.remove();
+        return;
+      }
       if (!host) {
         host = document.createElement("div");
         host.className = "sys-live-route-host";
         card.appendChild(host);
       }
-      const active = activeContext();
-      const samePassenger = active?.current?.id && context?.current?.id === active.current.id;
-      const html = samePassenger ? metricHtml(true) : `<div class="sys-live-route compact"><div class="sys-live-route-state"><span class="sys-live-route-dot"></span><span>${passengerTarget(context) ? "Şoför Modu bu servise geçtiğinde canlı rota hesaplanır" : "Yolcu koordinatı bekleniyor"}</span></div></div>`;
+      const html = metricHtml(true);
       if (host.innerHTML !== html) host.innerHTML = html;
     });
   }
@@ -183,9 +164,10 @@
   }
 
   function refresh(force) {
+    if (!activated) return;
     removeExternalNavigation();
-    const context = activeContext();
-    requestRoute(context, Boolean(force));
+    currentContext = activeContext();
+    requestRoute(currentContext, Boolean(force));
     renderMetrics();
   }
 
@@ -209,7 +191,7 @@
 
   function installStyle() {
     const style = document.createElement("style");
-    style.id = "sys-live-route-v44824-style";
+    style.id = "sys-live-route-v44825-style";
     style.textContent = `
       .sys-live-route-host{grid-column:1/-1;width:100%;margin-top:9px}
       .sys-live-route{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid rgba(56,189,248,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,165,233,.10),rgba(15,23,42,.38))}
@@ -230,7 +212,7 @@
   }
 
   window.SYSLiveRoute = Object.freeze({
-    version: "4.48.24",
+    version: "4.48.25",
     parseCoordinate,
     refresh: () => refresh(true),
     status: () => ({ hasGps: Boolean(latestPosition), routeState, routeResult })
@@ -245,16 +227,37 @@
     }
   }, true);
 
-  function boot() {
-    installStyle();
+  function activate() {
+    if (activated) return;
+    activated = true;
     startGps();
+    let pendingRender = 0;
     const observer = new MutationObserver(() => {
-      removeExternalNavigation();
-      renderMetrics();
+      if (pendingRender) return;
+      pendingRender = window.setTimeout(() => {
+        pendingRender = 0;
+        removeExternalNavigation();
+        renderMetrics();
+      }, 50);
     });
     [document.getElementById("screen-command"), document.getElementById("screen-driver")].filter(Boolean).forEach((screen) => observer.observe(screen, { childList: true, subtree: true }));
     setInterval(() => refresh(false), REFRESH_MS);
     setTimeout(() => refresh(false), 300);
+  }
+
+  function boot() {
+    installStyle();
+    const gate = document.getElementById("licenseGate");
+    if (!gate || gate.classList.contains("hidden")) {
+      activate();
+      return;
+    }
+    const gateObserver = new MutationObserver(() => {
+      if (!gate.classList.contains("hidden")) return;
+      gateObserver.disconnect();
+      activate();
+    });
+    gateObserver.observe(gate, { attributes: true, attributeFilter: ["class"] });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, { once: true });

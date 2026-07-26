@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.24";
+  const VERSION = "4.48.25";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,19 +14,19 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44824_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44824_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44825_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44825_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.24";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.25";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.24 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.25 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
 
     const routeScript = document.createElement("script");
-    routeScript.src = "./scripts/live-route-v4_48_24.js?v=4.48.24";
+    routeScript.src = "./scripts/live-route-v4_48_25.js?v=4.48.25";
     routeScript.defer = true;
-    routeScript.onerror = () => console.error("SYS v4.48.24 canlı GPS rota modülü yüklenemedi.");
+    routeScript.onerror = () => console.error("SYS v4.48.25 canlı GPS rota modülü yüklenemedi.");
     document.head.appendChild(routeScript);
   }
 
