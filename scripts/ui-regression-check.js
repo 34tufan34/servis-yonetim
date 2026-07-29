@@ -12,8 +12,11 @@ const mainActivity = read("android-app/app/src/main/java/com/tufan/servisyonetim
 const checks = [
   [html.includes('id="commandPersonnelCard"') && html.includes("Personel Servisi"), "Personel Servisi panel başlığı eksik."],
   [html.includes('id="commandSchoolCard"') && html.includes("Okul Servisi"), "Okul Servisi panel başlığı eksik."],
-  [html.includes('id="commandMissingServicePanel"') && html.includes('id="commandCompleteMissingServiceBtn"') && html.includes("Eksik Servisi Tamamla"), "Eksik Servisler komuta bölümü eksik."],
-  [html.includes('renderHistoricalServiceCard();') && html.includes('commandPanel.classList.toggle("permission-hidden", !allowed)'), "Yönetici girişinde eksik servis bölümünü yenileme güvencesi eksik."],
+  [!html.includes('id="commandMissingServicePanel"') && !html.includes('id="commandCompleteMissingServiceBtn"'), "Eksik Servisi Tamamla Komuta Paneli'nden kaldırılmamış."],
+  [html.includes('id="historicalServiceCard"') && html.includes('id="openHistoricalServiceBtn"'), "Eksik servis tamamlama sistemi Ayarlar'da bulunmuyor."],
+  [appVersion.includes("command-preview-v4_48_33.js"), "Alternatif komuta paneli yükleyicisi eksik."],
+  [read("scripts/command-preview-v4_48_33.js").includes("screen-command-preview") && read("scripts/command-preview-v4_48_33.js").includes("command-mercedes-v44833.png") === false, "Alternatif komuta paneli betiği eksik."],
+  [html.includes("command-mercedes-v44833.png"), "Mercedes komuta paneli görseli arayüzde kullanılmıyor."],
   [html.includes('personnelCard.classList.remove("command-live-hidden")') && html.includes('schoolCard.classList.remove("command-live-hidden")'), "Canlı servis sırasında iki kartın görünürlük güvencesi eksik."],
   [html.includes('addEventListener("dblclick"') && html.includes("cycleLedgerDay(target.dataset.date, 2)"), "Çetele çift tıklama işlemi eksik."],
   [html.includes("touch-action: manipulation"), "Çetele dokunmatik çift tıklama koruması eksik."],

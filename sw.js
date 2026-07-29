@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-32";
+const CACHE_NAME = "servis-sys-v4-48-33";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const APP_SHELL = [
   "./fuel-prices.json",
   "./scripts/app-version.js",
   "./scripts/command-layout-v4_48_23.js",
+  "./scripts/command-preview-v4_48_33.js",
   "./scripts/settings-panel-v4_48_14.js",
   "./scripts/settings-command-fix-v4_48_16.js",
   "./scripts/yakit-farki-v4_48_11.js",
@@ -20,7 +21,8 @@ const APP_SHELL = [
   "./icons/screensaver-neon-mask-v478.png",
   "./icons/sys-logo-splash-4k.png",
   "./icons/shell-logo.png",
-  "./icons/sys-cinema-command-v44812.webp"
+  "./icons/sys-cinema-command-v44812.webp",
+  "./icons/command-mercedes-v44833.png"
 ];
 
 async function fetchWithTimeout(request, options = {}, timeoutMs = 8000) {
