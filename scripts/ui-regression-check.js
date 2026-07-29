@@ -8,20 +8,16 @@ const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "u
 const html = read("index.html");
 const appVersion = read("scripts/app-version.js");
 const mainActivity = read("android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java");
-const routeMatch = appVersion.match(/live-route-v[\w_]+\.js/);
-
-if (!routeMatch) throw new Error("Canlı rota modülü app-version.js içinde bulunamadı.");
-const liveRoute = read(`scripts/${routeMatch[0]}`);
 
 const checks = [
   [html.includes('id="commandPersonnelCard"') && html.includes("Personel Servisi"), "Personel Servisi panel başlığı eksik."],
   [html.includes('id="commandSchoolCard"') && html.includes("Okul Servisi"), "Okul Servisi panel başlığı eksik."],
-  [html.includes('id="commandCompleteMissingServiceBtn"') && html.includes("Eksik Servisi Tamamla"), "Eksik Servisi Tamamla komuta düğmesi eksik."],
+  [html.includes('id="commandMissingServicePanel"') && html.includes('id="commandCompleteMissingServiceBtn"') && html.includes("Eksik Servisi Tamamla"), "Eksik Servisler komuta bölümü eksik."],
+  [html.includes('renderHistoricalServiceCard();') && html.includes('commandPanel.classList.toggle("permission-hidden", !allowed)'), "Yönetici girişinde eksik servis bölümünü yenileme güvencesi eksik."],
   [html.includes('personnelCard.classList.remove("command-live-hidden")') && html.includes('schoolCard.classList.remove("command-live-hidden")'), "Canlı servis sırasında iki kartın görünürlük güvencesi eksik."],
   [html.includes('addEventListener("dblclick"') && html.includes("cycleLedgerDay(target.dataset.date, 2)"), "Çetele çift tıklama işlemi eksik."],
   [html.includes("touch-action: manipulation"), "Çetele dokunmatik çift tıklama koruması eksik."],
-  [liveRoute.includes('data-live-route-panel="${panel}"'), "Servis panellerinin GPS hedefi eksik."],
-  [!liveRoute.includes("button[data-action*='open-']"), "Panel başlıklarını kaldırabilecek geniş seçici yeniden eklendi."],
+  [!appVersion.includes("live-route-") && !appVersion.includes("routeScript"), "Komuta paneli GPS modülü hâlâ yükleniyor."],
   [mainActivity.includes("settings.setGeolocationEnabled(true)"), "Android WebView konum desteği kapalı."],
   [mainActivity.includes("isTrustedGeolocationOrigin(origin)"), "Yerel APK konum kaynağı güven zincirine bağlı değil."],
   [mainActivity.includes("GeolocationPermissions.getInstance().clearAll()"), "Eski WebView konum reddi temizlenmiyor."],
