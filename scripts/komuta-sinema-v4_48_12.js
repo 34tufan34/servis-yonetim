@@ -85,7 +85,7 @@
       <div class="scc-grid">
         <section class="scc-hero">
           <div class="scc-hero-bg"></div>
-          <div class="scc-left-metrics"><article><span>Canlı Servis</span><b id="sccLive">0</b><small id="sccServiceType">Hazır</small></article><article><span id="sccCountLabel">Yolcu</span><b id="sccCount">0</b><small>Araçta / planlı</small></article></div>
+          <div class="scc-left-metrics"><article><span>Servis Aktif</span><b id="sccLive">0</b><small id="sccServiceType">Hazır</small></article><article><span id="sccCountLabel">Yolcu</span><b id="sccCount">0</b><small>Araçta / planlı</small></article></div>
           <div class="scc-next"><span>Sıradaki Durak</span><b id="sccNext">Servis başlamadı</b><small id="sccNextSub">Rota seçildiğinde gösterilir</small></div>
           <div class="scc-remaining"><span>Kalan Süre</span><b id="sccRemain">--</b><small>Tahmini</small></div>
           <div class="scc-ai"><i>AI</i><div><b id="sccAiTitle">SYS AI HAZIR</b><span id="sccAiText">Servis başlatıldığında operasyon analizi başlayacak.</span></div><em id="sccAiScore">●</em></div>

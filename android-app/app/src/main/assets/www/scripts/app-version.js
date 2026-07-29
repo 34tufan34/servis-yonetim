@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.34";
+  const VERSION = "4.48.35";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,19 +14,19 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44834_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44834_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44835_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44835_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.34";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.35";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.34 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.35 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
 
     const previewScript = document.createElement("script");
-    previewScript.src = "./scripts/command-preview-v4_48_34.js?v=4.48.34";
+    previewScript.src = "./scripts/command-preview-v4_48_35.js?v=4.48.35";
     previewScript.defer = true;
-    previewScript.onerror = () => console.error("SYS v4.48.34 alternatif komuta paneli yüklenemedi.");
+    previewScript.onerror = () => console.error("SYS v4.48.35 alternatif komuta paneli yüklenemedi.");
     document.head.appendChild(previewScript);
 
   }
