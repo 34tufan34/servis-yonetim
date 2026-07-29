@@ -28,6 +28,7 @@ def unifiedVersionCode = (versionParts[0] * 100000000) + (versionParts[1] * 1000
 android {
     namespace 'com.tufan.servisyonetim'
     compileSdk 35
+    buildToolsVersion '35.0.0'
 
     buildFeatures {
         buildConfig true

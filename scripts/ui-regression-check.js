@@ -16,6 +16,8 @@ const liveRoute = read(`scripts/${routeMatch[0]}`);
 const checks = [
   [html.includes('id="commandPersonnelCard"') && html.includes("Personel Servisi"), "Personel Servisi panel başlığı eksik."],
   [html.includes('id="commandSchoolCard"') && html.includes("Okul Servisi"), "Okul Servisi panel başlığı eksik."],
+  [html.includes('id="commandCompleteMissingServiceBtn"') && html.includes("Eksik Servisi Tamamla"), "Eksik Servisi Tamamla komuta düğmesi eksik."],
+  [html.includes('personnelCard.classList.remove("command-live-hidden")') && html.includes('schoolCard.classList.remove("command-live-hidden")'), "Canlı servis sırasında iki kartın görünürlük güvencesi eksik."],
   [html.includes('addEventListener("dblclick"') && html.includes("cycleLedgerDay(target.dataset.date, 2)"), "Çetele çift tıklama işlemi eksik."],
   [html.includes("touch-action: manipulation"), "Çetele dokunmatik çift tıklama koruması eksik."],
   [liveRoute.includes('data-live-route-panel="${panel}"'), "Servis panellerinin GPS hedefi eksik."],
