@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.36";
+  const VERSION = "4.48.37";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,39 +14,39 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44836_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44836_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44837_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44837_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.36";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.37";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.36 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.37 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
 
     const previewScript = document.createElement("script");
-    previewScript.src = "./scripts/command-preview-v4_48_36.js?v=4.48.36";
+    previewScript.src = "./scripts/command-preview-v4_48_37.js?v=4.48.37";
     previewScript.defer = true;
-    previewScript.onerror = () => console.error("SYS v4.48.36 alternatif komuta paneli yüklenemedi.");
+    previewScript.onerror = () => console.error("SYS v4.48.37 alternatif komuta paneli yüklenemedi.");
     document.head.appendChild(previewScript);
 
     const experienceScript = document.createElement("script");
-    experienceScript.src = "./scripts/sys-experience-v4_48_36.js?v=4.48.36";
+    experienceScript.src = "./scripts/sys-experience-v4_48_37.js?v=4.48.37";
     experienceScript.defer = true;
-    experienceScript.onerror = () => console.error("SYS v4.48.36 kullanım deneyimi yüklenemedi.");
+    experienceScript.onerror = () => console.error("SYS v4.48.37 kullanım deneyimi yüklenemedi.");
     document.head.appendChild(experienceScript);
 
   }
 
   function applyVersion() {
-    document.title = `Servis Yönetim Sistemi | ${DISPLAY_VERSION} · SYS AI`;
+    document.title = `Servis Yönetim Sistemi | ${DISPLAY_VERSION}`;
     setText("[data-app-version]", DISPLAY_VERSION);
 
     const appVersion = document.getElementById("appVersionDisplay");
-    if (appVersion) appVersion.textContent = `${DISPLAY_VERSION} · SYS AI`;
+    if (appVersion) appVersion.textContent = DISPLAY_VERSION;
 
     document.querySelectorAll(".brand-sub").forEach((element) => {
       if (/Servis Yönetimi/i.test(element.textContent || "")) {
-        element.textContent = `Servis Yönetimi ${DISPLAY_VERSION} · SYS AI`;
+        element.textContent = `Servis Yönetimi ${DISPLAY_VERSION}`;
       }
     });
 
