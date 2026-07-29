@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  if (window.__SYS_COMMAND_PREVIEW_V44833__) return;
-  window.__SYS_COMMAND_PREVIEW_V44833__ = true;
+  if (window.__SYS_COMMAND_PREVIEW_V44834__) return;
+  window.__SYS_COMMAND_PREVIEW_V44834__ = true;
 
   const $ = (selector, root = document) => root.querySelector(selector);
 
@@ -26,6 +26,7 @@
         <header class="command-preview-hero">
           <div class="command-preview-shade"></div>
           <div class="command-preview-topline"><span>SYS AI · OPERASYON MERKEZİ</span><b>ALTERNATİF TASARIM</b></div>
+          <div class="command-preview-clock"><strong id="previewClock">--:--</strong><span id="previewDate">Tarih hazırlanıyor</span></div>
           <div class="command-preview-intro">
             <p>Mercedes Executive Command</p>
             <h2 id="previewLiveTitle">Aktif servis yok</h2>
@@ -39,12 +40,14 @@
               <div class="command-preview-card-head"><span class="command-preview-icon">P</span><div><small>PERSONEL OPERASYONU</small><h3>Personel Servisi</h3></div><b id="previewPersonnelState">BEKLEMEDE</b></div>
               <p id="previewPersonnelMeta">Başlatılmış servis bulunmuyor.</p>
               <div class="command-preview-passenger"><small>SIRADAKİ PERSONEL</small><strong id="previewPersonnelName">Aktif operasyon yok</strong><span id="previewPersonnelAddress">Servis başladığında yolcu burada görünür.</span></div>
+              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Yok"]'>YOK</button></div>
               <div class="command-preview-actions"><button type="button" data-preview-proxy="#commandPersonnelSmartStartBtn">Servisi Başlat</button><button type="button" data-preview-action="personnel">Detaya Git</button></div>
             </article>
             <article class="command-preview-service school" id="previewSchoolCard">
               <div class="command-preview-card-head"><span class="command-preview-icon">O</span><div><small>OKUL OPERASYONU</small><h3>Okul Servisi</h3></div><b id="previewSchoolState">BEKLEMEDE</b></div>
               <p id="previewSchoolMeta">Başlatılmış servis bulunmuyor.</p>
               <div class="command-preview-passenger"><small>SIRADAKİ ÖĞRENCİ</small><strong id="previewSchoolName">Aktif operasyon yok</strong><span id="previewSchoolAddress">Servis başladığında öğrenci burada görünür.</span></div>
+              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="Yok"]'>YOK</button></div>
               <div class="command-preview-actions"><button type="button" data-preview-proxy="#commandSchoolSmartStartBtn">Servisi Başlat</button><button type="button" data-preview-action="school">Detaya Git</button></div>
             </article>
           </div>
@@ -114,6 +117,9 @@
     if ($("#previewRailStatus")) $("#previewRailStatus").textContent = liveCount ? `${liveCount} servis sahada` : "Operasyonlar beklemede";
     const alertText = $("#commandMaintenanceState")?.textContent || "0";
     if ($("#previewAlertCount")) $("#previewAlertCount").textContent = (alertText.match(/\d+/) || ["0"])[0];
+    const now = new Date();
+    if ($("#previewClock")) $("#previewClock").textContent = now.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+    if ($("#previewDate")) $("#previewDate").textContent = now.toLocaleDateString("tr-TR", { weekday: "long", day: "2-digit", month: "long" });
   }
 
   function install() {
