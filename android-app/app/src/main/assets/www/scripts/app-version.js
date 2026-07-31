@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.42";
+  const VERSION = "4.48.43";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,25 +14,25 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44842_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44842_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44843_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44843_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.42";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.43";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.42 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.43 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
 
     const previewScript = document.createElement("script");
-    previewScript.src = "./scripts/command-preview-v4_48_42.js?v=4.48.42";
+    previewScript.src = "./scripts/command-preview-v4_48_43.js?v=4.48.43";
     previewScript.defer = true;
-    previewScript.onerror = () => console.error("SYS v4.48.42 komuta paneli yüklenemedi.");
+    previewScript.onerror = () => console.error("SYS v4.48.43 komuta paneli yüklenemedi.");
     document.head.appendChild(previewScript);
 
     const experienceScript = document.createElement("script");
-    experienceScript.src = "./scripts/sys-experience-v4_48_42.js?v=4.48.42";
+    experienceScript.src = "./scripts/sys-experience-v4_48_43.js?v=4.48.43";
     experienceScript.defer = true;
-    experienceScript.onerror = () => console.error("SYS v4.48.42 kullanım deneyimi yüklenemedi.");
+    experienceScript.onerror = () => console.error("SYS v4.48.43 kullanım deneyimi yüklenemedi.");
     document.head.appendChild(experienceScript);
 
   }
