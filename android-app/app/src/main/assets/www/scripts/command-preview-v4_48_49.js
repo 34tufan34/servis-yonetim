@@ -6,12 +6,29 @@
 
 
   const $ = (selector, root = document) => root.querySelector(selector);
+  const escapePreviewHtml = (value) => String(value ?? "").replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
+
+  function installHealthRadarStyle() {
+    if ($("#sys-command-health-radar-v44852")) return;
+    const style = document.createElement("style");
+    style.id = "sys-command-health-radar-v44852";
+    style.textContent = `
+      .command-preview-health-radar{padding:12px 5px!important;border:0!important;border-bottom:1px solid rgba(56,189,248,.18)!important;border-radius:0!important;background:transparent!important;color:#f8fafc;flex:0 1 auto;min-height:0}
+      .preview-health-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.preview-health-head small{color:#7dd3fc!important;font-weight:900}.preview-health-badge{display:inline-flex!important;align-items:center;justify-content:center;margin:0!important;padding:4px 7px;border:1px solid rgba(34,197,94,.34);border-radius:999px;background:rgba(34,197,94,.12);color:#86efac!important;font-size:8px!important;font-weight:950;white-space:nowrap}.command-preview-health-radar.is-warning .preview-health-badge{border-color:rgba(245,158,11,.46);background:rgba(245,158,11,.13);color:#fde68a!important}.command-preview-health-radar.is-danger .preview-health-badge{border-color:rgba(248,113,113,.52);background:rgba(127,29,29,.30);color:#fecaca!important}
+      .preview-health-title{margin-top:6px!important;font-size:14px!important;line-height:1.22}.preview-health-list{display:grid;gap:5px;margin-top:8px}.preview-health-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 7px;border:1px solid rgba(56,189,248,.13);border-radius:9px;background:rgba(2,8,18,.38)}.preview-health-row>span{min-width:0;margin:0!important}.preview-health-row strong{margin:0!important;font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.preview-health-row small{margin-top:2px;color:#64748b!important;font-size:8px!important;letter-spacing:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.preview-health-state{margin:0!important;color:#86efac!important;font-size:8px!important;font-weight:900;white-space:nowrap}.preview-health-row.warning .preview-health-state{color:#fbbf24!important}.preview-health-row.danger .preview-health-state{color:#fca5a5!important}.preview-health-empty{padding:8px;border:1px dashed rgba(56,189,248,.20);border-radius:9px;color:#94a3b8;font-size:9px;line-height:1.35}
+      .preview-health-metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}.preview-health-metrics span{margin:0!important;padding:6px;border-radius:8px;background:rgba(148,163,184,.07);color:#94a3b8!important;font-size:8px!important}.preview-health-metrics b{display:block;color:#e2e8f0;font-size:12px}.preview-health-open{width:100%;min-height:30px!important;margin-top:7px!important;padding:6px!important;border-color:rgba(56,189,248,.35)!important;background:rgba(14,165,233,.09)!important;color:#7dd3fc!important;font-size:9px}
+      @media(max-width:1050px){.command-preview-health-radar{grid-column:1/-1!important;padding:12px!important;border:1px solid rgba(56,189,248,.24)!important;border-radius:16px!important}.preview-health-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+      @media(max-width:720px){.preview-health-list{grid-template-columns:1fr}.preview-health-metrics{grid-template-columns:1fr 1fr}}
+    `;
+    document.head.appendChild(style);
+  }
 
   function makePanel() {
     const nav = $(".nav");
     const main = $("#contentScroll");
     if (!nav || !main || $("#screen-command-preview")) return;
 
+    installHealthRadarStyle();
     const navButton = document.createElement("button");
     navButton.className = "nav-btn command-preview-nav";
     navButton.type = "button";
@@ -56,6 +73,13 @@
             </article>
           </div>
           <aside class="command-preview-rail">
+            <section class="command-preview-health-radar" id="previewHealthRadar">
+              <div class="preview-health-head"><small>ARAÇ SAĞLIĞI &amp; BAKIM RADARI</small><span class="preview-health-badge" id="previewHealthRadarBadge">GÜNCEL</span></div>
+              <strong class="preview-health-title" id="previewHealthRadarTitle">Bakım kayıtları izleniyor</strong>
+              <div class="preview-health-list" id="previewHealthRadarList"><div class="preview-health-empty">İlk bakım kaydından sonra tahminler burada görünür.</div></div>
+              <div class="preview-health-metrics"><span><b id="previewHealthAlertMetric">0</b>evrak / araç uyarısı</span><span><b id="previewHealthDebtMetric">0</b>açık bakım borcu</span></div>
+              <button class="preview-health-open" type="button" data-preview-action="maintenance">Bakım Takibini Aç</button>
+            </section>
             <div><small>SAHA DURUMU</small><strong id="previewRailStatus">Operasyonlar beklemede</strong></div>
             <div><small>ARAÇ UYARILARI</small><strong id="previewAlertCount">0</strong><span>bakım / evrak kaydı</span></div>
             <div class="command-preview-fuel"><small>MAZOT FİYATLARI</small><div class="preview-fuel-brand-row"><span class="preview-fuel-logo-host" id="previewShellLogo">SHELL</span><strong id="previewShellPrice">—</strong></div><div class="preview-fuel-brand-row"><span class="preview-fuel-logo-host" id="previewOpetLogo">OPET</span><strong id="previewOpetPrice">—</strong></div><span class="preview-discount-fuel" id="previewDiscountFuelPrice">İndirimli alış fiyatı Ayarlar’dan belirlenebilir.</span></div>
@@ -72,7 +96,7 @@
       screen.classList.add("active");
       document.body.classList.add("modern-command-active");
       if ($("#pageTitle")) $("#pageTitle").textContent = "Komuta Paneli";
-      if ($("#pageLead")) $("#pageLead").textContent = "Personel ve okul servislerini, saha durumunu ve mazot uyarılarını tek merkezden yönet.";
+      if ($("#pageLead")) $("#pageLead").textContent = "Personel ve okul servislerini, araç bakım tahminlerini, saha durumunu ve mazot uyarılarını tek merkezden yönet.";
       $("#sidebar")?.classList.remove("open");
       $("#contentScroll")?.scrollTo({ top: 0, behavior: "smooth" });
       syncPanel();
@@ -84,6 +108,10 @@
       const action = event.target.closest("[data-preview-action]")?.dataset.previewAction;
       if (action === "personnel") return $('[data-action="open-personnel-live"]')?.click();
       if (action === "school") return $('[data-action="open-school-live"]')?.click();
+      if (action === "maintenance") {
+        $('[data-module="finance"]')?.click();
+        window.setTimeout(() => $('[data-finance-tab="maintenance"]')?.click(), 60);
+      }
     });
 
     document.addEventListener("click", (event) => {
@@ -163,6 +191,28 @@
     if ($("#previewRailStatus")) $("#previewRailStatus").textContent = liveCount ? `${liveCount} servis sahada` : "Operasyonlar beklemede";
     const alertText = $("#commandMaintenanceState")?.textContent || "0";
     if ($("#previewAlertCount")) $("#previewAlertCount").textContent = (alertText.match(/\d+/) || ["0"])[0];
+    let health = null;
+    try { health = window.SYS_MAINTENANCE_INTELLIGENCE?.snapshot?.() || null; } catch (error) { console.warn("Bakım radarı güncellenemedi:", error); }
+    const radar = $("#previewHealthRadar");
+    const dueCount = Number(health?.dueCount || 0);
+    const warningCount = Number(health?.warningCount || 0);
+    radar?.classList.toggle("is-danger", dueCount > 0);
+    radar?.classList.toggle("is-warning", dueCount === 0 && warningCount > 0);
+    if ($("#previewHealthRadarBadge")) $("#previewHealthRadarBadge").textContent = dueCount > 0 ? `${dueCount} ACİL` : warningCount > 0 ? `${warningCount} YAKLAŞAN` : "GÜNCEL";
+    if ($("#previewHealthRadarTitle")) $("#previewHealthRadarTitle").textContent = dueCount > 0 ? "Bakım zamanı gelen araç var" : warningCount > 0 ? "Yaklaşan bakımlar var" : health?.rows?.length ? "Bakım planı güncel" : "İlk bakım kaydı bekleniyor";
+    const radarList = $("#previewHealthRadarList");
+    if (radarList) {
+      const topRows = Array.isArray(health?.topRows) ? health.topRows : [];
+      radarList.innerHTML = topRows.length ? topRows.map((row) => {
+        const remaining = row.remainingKm === null || row.remainingKm === undefined
+          ? (row.analysis?.remainingDays === null || row.analysis?.remainingDays === undefined ? "Öğreniyor" : row.analysis.remainingDays <= 0 ? `${Math.abs(row.analysis.remainingDays)} gün geçti` : `${row.analysis.remainingDays} gün`)
+          : row.remainingKm <= 0 ? `${Math.abs(row.remainingKm).toLocaleString("tr-TR")} km geçti` : `${row.remainingKm.toLocaleString("tr-TR")} km kaldı`;
+        const estimate = row.analysis?.estimatedDate ? new Date(`${row.analysis.estimatedDate}T00:00:00`).toLocaleDateString("tr-TR", { day: "2-digit", month: "short" }) : "tarih için yakıt KM bekleniyor";
+        return `<div class="preview-health-row ${escapePreviewHtml(row.stateName || "ok")}"><span><strong>${escapePreviewHtml(row.vehicle?.plate || row.vehiclePlate || "Araç")} · ${escapePreviewHtml(row.itemName || "Bakım")}</strong><small>${escapePreviewHtml(estimate)}</small></span><b class="preview-health-state">${escapePreviewHtml(remaining)}</b></div>`;
+      }).join("") : '<div class="preview-health-empty">Bakım türü veya parça kaydı eklediğinde, yakıt kilometreleriyle öğrenen tahminler burada görünür.</div>';
+    }
+    if ($("#previewHealthAlertMetric")) $("#previewHealthAlertMetric").textContent = String(Number(health?.vehicleAlertCount || 0));
+    if ($("#previewHealthDebtMetric")) $("#previewHealthDebtMetric").textContent = String(Number(health?.debtCount || 0));
     mirrorText("#shellFuelPrice", "#previewShellPrice", "—");
     mirrorText("#opetFuelPrice", "#previewOpetPrice", "—");
     mirrorText("#commandFuelPercent", "#previewFuelDifferencePercent", "%0");

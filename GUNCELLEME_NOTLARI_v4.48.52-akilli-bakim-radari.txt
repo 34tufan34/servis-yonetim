@@ -1,0 +1,12 @@
+Servis Yönetim Sistemi v4.48.52 - Akıllı Bakım ve Araç Sağlığı Radarı
+
+- Akıllı takip yalnız parça değişimini değil; periyodik bakım, yağ/filtre, fren, lastik, mekanik, muayene hazırlığı ve sigorta işlemlerini de kapsar.
+- Her bakım türü için başlangıç KM ve ay aralığı önerilir; kullanıcı isterse bu aralıkları değiştirebilir.
+- Sistem, aynı araçtaki aynı bakım veya parça geçmişinden gerçek değişim aralıklarını öğrenerek sonraki KM hedefini günceller.
+- Yakıt kaydında güncel kilometre zorunlu hale getirildi. Her yakıt KM kaydı aracın güncel kilometresini ve aylık kullanım hızını besler.
+- Tahmini bakım tarihi, bakımın süre sınırı ile yakıt kayıtlarından hesaplanan kullanım hızının erken olanına göre belirlenir.
+- Yeni bakım kaydı kaydedildiğinde kayıt ayı otomatik açılır, arama temizlenir, ilgili araç seçilir ve kaydedilen satır vurgulanır.
+- Bakım geçmişi boş görünürse arama veya farklı ay nedeniyle gizlenen kayıtlar için açıklayıcı yönlendirme gösterilir.
+- Komuta Paneli'nin sağ üst alanına Araç Sağlığı ve Bakım Radarı eklendi. En acil üç bakım, araç/evrak uyarısı ve açık bakım borcu burada gösterilir.
+- Veri şeması 38'e, uygulama sürümü 4.48.52'ye yükseltildi.
+- Uygulama kimliği korunmuştur: com.tufan.servisyonetim.komuta.v44849. Bu APK, v4.48.51 SYS Komuta uygulamasını günceller.

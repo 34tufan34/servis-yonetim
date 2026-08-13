@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, "..");
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
 const html = read("index.html");
 const appVersion = read("scripts/app-version.js");
+const commandPreview = read("scripts/command-preview-v4_48_49.js");
 const mainActivity = read("android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java");
 const fullHeightCommand = read("scripts/command-full-height-v4_48_49.js");
 const androidBuild = read("android-app/app/build.gradle");
@@ -22,11 +23,15 @@ const checks = [
   [html.includes('id="historicalServiceCard"') && html.includes('id="openHistoricalServiceBtn"'), "Eksik servis tamamlama sistemi Ayarlar'da bulunmuyor."],
   [appVersion.includes("command-preview-v4_48_49.js") && appVersion.includes("sys-experience-v4_48_49.js"), "Yeni deneyim yükleyicileri eksik."],
   [appVersion.includes("command-full-height-v4_48_49.js") && fullHeightCommand.includes("--sys-command-card-top") && fullHeightCommand.includes("height: 100% !important"), "Tam boy Personel ve Okul Servisi kart düzeni eksik."],
-  [androidBuild.includes('applicationId "com.tufan.servisyonetim.komuta.v44849"') && read("android-app/app/src/main/res/values/strings.xml").includes("SYS Komuta 4.48.51"), "Ayrı kurulabilir Komuta APK kimliği eksik."],
-  [appVersion.includes('const VERSION = "4.48.51"') && html.includes('const SCHEMA_VERSION = 37'), "v4.48.51 sürüm veya veri şeması yükseltmesi eksik."],
+  [androidBuild.includes('applicationId "com.tufan.servisyonetim.komuta.v44849"') && read("android-app/app/src/main/res/values/strings.xml").includes("SYS Komuta 4.48.52"), "Ayrı kurulabilir Komuta APK kimliği eksik."],
+  [appVersion.includes('const VERSION = "4.48.52"') && html.includes('const SCHEMA_VERSION = 38'), "v4.48.52 sürüm veya veri şeması yükseltmesi eksik."],
   [html.includes('data-finance-flow-tab="debts"') && html.includes('id="vehicleExpensePaymentStatus"') && html.includes("vehicleExpenseDebtAmount"), "Veresiye ve borç takip akışı eksik."],
   [html.includes('data-finance-flow-tab="annual"') && html.includes('id="financeAnnualYear"') && html.includes("financeAnnualRows"), "Seçilebilir yıllık gelir gider görünümü eksik."],
   [html.includes('id="maintenancePartSelect"') && html.includes("maintenancePartAnalysis") && html.includes("predictedNextKm"), "Parça seçimi veya KM tahmin sistemi eksik."],
+  [html.includes("Akıllı Bakım ve Parça Takibi") && html.includes("maintenanceTrackingAnalysis") && html.includes("maintenanceTrackingIntervalKm") && html.includes("maintenanceTrackingIntervalMonths"), "Bakım türlerini de kapsayan akıllı takip sistemi eksik."],
+  [html.includes('id="vehicleExpenseKmLabel"') && html.includes('type === "Yakıt" && km <= 0') && html.includes("vehicleMonthlyMileageEstimate") && html.includes("Yakıt KM kayıtları"), "Yakıt kilometresiyle öğrenen bakım tahmini eksik."],
+  [html.includes("data-maintenance-record-id") && html.includes("lastSavedMaintenanceId") && html.includes("Arama alanını temizleyerek tüm kayıtları görebilirsin"), "Yeni bakım kaydını görünür kılan geçmiş akışı eksik."],
+  [commandPreview.includes("previewHealthRadar") && commandPreview.includes("SYS_MAINTENANCE_INTELLIGENCE") && commandPreview.includes('data-preview-action="maintenance"'), "Komuta Paneli araç sağlığı ve bakım radarı eksik."],
   [maintenanceScreen.indexOf('class="workarea"') >= 0 && maintenanceScreen.indexOf('class="workarea"') < maintenanceScreen.indexOf('class="card maintenance-prediction-panel"'), "Akıllı parça değişim paneli bakım formu ve geçmişinin altına taşınmamış."],
   [read("scripts/sys-experience-v4_48_49.js").includes("command-mercedes-v44849.png") && read("scripts/sys-experience-v4_48_49.js").includes("modern-command-active") && read("scripts/command-preview-v4_48_49.js").includes("previewProfileAvatar"), "Modern Komuta Paneli entegrasyonu eksik."],
   [html.includes('id="userPhotoFile"') && html.includes("resizeUserPhoto") && html.includes("user.profilePhoto = profilePhoto") && html.includes("sessionUserAvatar"), "Kullanıcı profil resmi yönetimi eksik."],
