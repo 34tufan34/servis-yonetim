@@ -1,0 +1,15 @@
+Servis Yönetim Sistemi v4.48.50 - Finans ve Akıllı Bakım
+
+- Bakım kayıtlarına birden fazla değişen parça seçme ve özel parça ekleme alanı eklendi.
+- Her araç ve parça için geçmiş değişim kilometreleri ayrı analiz edilmeye başlandı.
+- Son dört gerçek değişim aralığı, yeni aralıklara daha fazla ağırlık verilerek sıradaki değişim KM'si tahmin edilir.
+- Tahmin güveni; Başlangıç, Orta ve Yüksek olarak gösterilir.
+- Parça değişim KM'si yaklaşan veya geçen kayıtlar Akıllı Parça Değişim Takibi tablosunda öne çıkarılır.
+- Araç giderleri ve bakım giderlerine Ödendi, Kısmi Ödendi ve Veresiye / Borç durumları eklendi.
+- Ödenen tutar, kalan borç ve son ödeme tarihi ayrı alanlarda takip edilir.
+- Veresiye / Borçlar alt bölümünde tüm açık ve vadesi geçmiş tedarikçi borçları listelenir.
+- Açık borç tek düğmeyle ödendi olarak kapatılabilir; ödeme hareketi kayıt geçmişine eklenir.
+- Yıllık Gelir / Gider alt bölümü eklendi. Seçilen yılın 12 aylık gelir, tahsilat, gider, açık borç ve net sonucu gösterilir.
+- Eski nakit ve banka giderleri geriye dönük olarak borca çevrilmez; mevcut kayıt uyumluluğu korunur.
+- Veri şeması 37'ye, uygulama sürümü 4.48.50'ye yükseltildi.
+- Uygulama kimliği değiştirilmedi: com.tufan.servisyonetim.komuta.v44849. Bu APK, önceki SYS Komuta uygulamasının üzerine güncelleme olarak kurulur.

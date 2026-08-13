@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-49-komuta-1";
+const CACHE_NAME = "servis-sys-v4-48-50-finance-maintenance-1";
 const APP_SHELL = [
   "./",
   "./index.html",

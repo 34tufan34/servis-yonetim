@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "4.48.49";
+  const VERSION = "4.48.50";
   const DISPLAY_VERSION = `v${VERSION}`;
 
   window.SYS_APP_VERSION = VERSION;
@@ -14,30 +14,30 @@
   }
 
   function loadCommandLayoutFix() {
-    if (window.__SYS_V44849_COMMAND_LAYOUT_LOADER__) return;
-    window.__SYS_V44849_COMMAND_LAYOUT_LOADER__ = true;
+    if (window.__SYS_V44850_COMMAND_LAYOUT_LOADER__) return;
+    window.__SYS_V44850_COMMAND_LAYOUT_LOADER__ = true;
 
     const script = document.createElement("script");
-    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.49";
+    script.src = "./scripts/command-layout-v4_48_23.js?v=4.48.50";
     script.defer = true;
-    script.onerror = () => console.error("SYS v4.48.49 komuta paneli düzeltmesi yüklenemedi.");
+    script.onerror = () => console.error("SYS v4.48.50 komuta paneli düzeltmesi yüklenemedi.");
     document.head.appendChild(script);
 
     const previewScript = document.createElement("script");
-    previewScript.src = "./scripts/command-preview-v4_48_49.js?v=4.48.49";
+    previewScript.src = "./scripts/command-preview-v4_48_49.js?v=4.48.50";
     previewScript.defer = true;
-    previewScript.onerror = () => console.error("SYS v4.48.49 komuta paneli yüklenemedi.");
+    previewScript.onerror = () => console.error("SYS v4.48.50 komuta paneli yüklenemedi.");
     document.head.appendChild(previewScript);
 
     const experienceScript = document.createElement("script");
-    experienceScript.src = "./scripts/sys-experience-v4_48_49.js?v=4.48.49";
+    experienceScript.src = "./scripts/sys-experience-v4_48_49.js?v=4.48.50";
     experienceScript.defer = true;
-    experienceScript.onerror = () => console.error("SYS v4.48.49 kullanım deneyimi yüklenemedi.");
+    experienceScript.onerror = () => console.error("SYS v4.48.50 kullanım deneyimi yüklenemedi.");
     experienceScript.addEventListener("load", () => {
       const fullHeightScript = document.createElement("script");
-      fullHeightScript.src = "./scripts/command-full-height-v4_48_49.js?v=4.48.49-komuta-1";
+      fullHeightScript.src = "./scripts/command-full-height-v4_48_49.js?v=4.48.50-komuta-1";
       fullHeightScript.defer = true;
-      fullHeightScript.onerror = () => console.error("SYS v4.48.49 tam boy komuta kartları yüklenemedi.");
+      fullHeightScript.onerror = () => console.error("SYS v4.48.50 tam boy komuta kartları yüklenemedi.");
       document.head.appendChild(fullHeightScript);
     }, { once: true });
     document.head.appendChild(experienceScript);
