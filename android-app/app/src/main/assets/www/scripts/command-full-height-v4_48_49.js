@@ -43,7 +43,8 @@
         min-height: 70px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
       }
 
       body.modern-command-active .command-preview-actions {

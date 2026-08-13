@@ -16,7 +16,7 @@ function sourceBlock(startText, endText) {
 
 const context = {
   console,
-  state: { vehicleMaintenance: [], vehicleExpenses: [], vehicleKmRecords: [], privateVehicleUses: [], documents: [], financeRecords: [], staffPayments: [], schoolPayments: [], vehicles: [] },
+  state: { vehicleMaintenance: [], maintenancePartCatalog: [], vehicleExpenses: [], vehicleKmRecords: [], privateVehicleUses: [], documents: [], financeRecords: [], staffPayments: [], schoolPayments: [], vehicles: [] },
   window: {},
   normalize: (value) => String(value ?? "").toLocaleLowerCase("tr-TR").trim(),
   todayISO: () => "2026-08-13",
@@ -52,7 +52,8 @@ const context = {
 vm.createContext(context);
 vm.runInContext([
   sourceBlock("    const EXPENSE_PAYMENT_STATUS_LABELS", "    function clampExpenseShare"),
-  sourceBlock("    const MAINTENANCE_PART_CATALOG", "    function renderVehicleMaintenanceOptions"),
+  sourceBlock("    const DEFAULT_MAINTENANCE_PART_CATALOG", "    function defaultMaintenancePartCatalog"),
+  sourceBlock("    const MAINTENANCE_TYPE_TRACKING_DEFAULTS", "    function renderVehicleMaintenanceOptions"),
   sourceBlock("    function financeAvailableYears", "    function profitabilityMargin"),
   "this.api = { vehicleExpenseDebtAmount, maintenancePartAnalysis, maintenanceTrackingAnalysis, maintenancePredictionRows, vehicleCurrentKmFromActivity, vehicleMonthlyMileageEstimate, financeAnnualRows };"
 ].join("\n"), context);
@@ -66,10 +67,11 @@ check(vehicleExpenseDebtAmount({ amount: 500, paymentMethod: "Nakit" }) === 0, "
 check(vehicleExpenseDebtAmount({ amount: 900, paymentMethod: "Veresiye" }) === 900, "Veresiye kaydı açık borç olmalı.");
 check(vehicleExpenseDebtAmount({ amount: 900, paymentStatus: "partial", paidAmount: 250 }) === 650, "Kısmi ödeme kalanı yanlış.");
 
+context.state.maintenancePartCatalog = [{ id: "part-brake", name: "Fren Balatası", category: "Fren Sistemi", status: "Aktif", defaultIntervalKm: 30000, defaultIntervalMonths: 24 }];
 context.state.vehicleMaintenance = [
-  { id: "m1", vehicleId: "v1", date: "2025-01-01", km: 100000, parts: [{ name: "Fren Balatası" }] },
-  { id: "m2", vehicleId: "v1", date: "2025-08-01", km: 120000, parts: [{ name: "Fren Balatası" }] },
-  { id: "m3", vehicleId: "v1", date: "2026-03-01", km: 142000, parts: [{ name: "Fren Balatası" }] }
+  { id: "m1", vehicleId: "v1", date: "2025-01-01", km: 100000, parts: [{ catalogPartId: "part-brake", name: "Fren Balatası" }] },
+  { id: "m2", vehicleId: "v1", date: "2025-08-01", km: 120000, parts: [{ catalogPartId: "part-brake", name: "Fren Balatası" }] },
+  { id: "m3", vehicleId: "v1", date: "2026-03-01", km: 142000, parts: [{ catalogPartId: "part-brake", name: "Fren Balatası" }] }
 ];
 context.state.vehicles = [{ id: "v1", plate: "34 TEST 01", currentKm: 146000 }];
 
@@ -80,6 +82,9 @@ check(prediction.nextKm === 163300, "Sonraki değişim tahmini yanlış.");
 
 const editPrediction = maintenancePartAnalysis("v1", "Fren Balatası", { excludeId: "m3", currentKm: 142000, currentDate: "2026-03-01" });
 check(editPrediction.nextKm === 163300, "Düzenleme sırasındaki tahmin yanlış.");
+context.state.maintenancePartCatalog[0].name = "Ön Fren Balatası";
+const renamedCatalogPrediction = maintenancePartAnalysis("v1", "Ön Fren Balatası", { catalogPartId: "part-brake" });
+check(renamedCatalogPrediction.nextKm === 163300, "Katalog adı değiştiğinde parça geçmişi kimlikle korunmalı.");
 
 context.state.vehicleExpenses = [
   { id: "fuel1", vehicleId: "v1", type: "Yakıt", date: "2026-01-01", km: 142000 },
@@ -103,4 +108,4 @@ const annual = financeAnnualRows(2026);
 check(annual.length === 12, "Yıllık görünüm 12 ay üretmeli.");
 check(annual[11].month === "2026-12" && annual[11].debt === 5, "Yıllık ay veya borç verisi yanlış.");
 
-console.log(`Finans ve bakım işlev kontrolleri geçti (15 kontrol). Tahmin: ${prediction.intervalKm} km → ${prediction.nextKm} km.`);
+console.log(`Finans ve bakım işlev kontrolleri geçti (16 kontrol). Tahmin: ${prediction.intervalKm} km → ${prediction.nextKm} km.`);

@@ -1,0 +1,11 @@
+Servis Yönetim Sistemi v4.48.54 - Komuta Akışı ve Parça Kataloğu
+
+- Komuta Paneli saat alanındaki profil fotoğrafı kaldırıldı; kullanıcı adı ve rol bilgisi korundu.
+- Personel ve okul panellerindeki sıradaki yolcu bilgileri panelin sol üstüne hizalandı.
+- Akşam personel servisi iki aşamalı hale getirildi: önce Bindi / Yok / İzinli, ardından Dağıtıma Başla ve dağıtım sırasında yalnızca İndi.
+- Sabah/akşam ve personel/okul türüne göre yalnızca geçerli hızlı işlem düğmeleri gösteriliyor.
+- Temel Kayıtlar bölümüne kalıcı Parça Kataloğu eklendi.
+- Bakım & Mekanik parça seçimi aktif katalog kayıtlarından besleniyor; hızlı eklenen yeni parçalar da kataloğa kaydoluyor.
+- Geçmiş bakım kayıtlarında kullanılan parçalar silinmek yerine pasifleştirilerek tahmin geçmişi korunuyor.
+- Bağımsız SYS AI menüsü kaldırıldı; okul, finans, araç ve operasyon ekranlarındaki bağlamsal denetim işlevleri korundu.
+- Uygulama sürümü 4.48.54, veri şeması 39 olarak güncellendi.

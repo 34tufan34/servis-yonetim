@@ -9,14 +9,15 @@
   const escapePreviewHtml = (value) => String(value ?? "").replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
 
   function installHealthRadarStyle() {
-    if ($("#sys-command-health-radar-v44853")) return;
+    if ($("#sys-command-health-radar-v44854")) return;
     const style = document.createElement("style");
-    style.id = "sys-command-health-radar-v44853";
+    style.id = "sys-command-health-radar-v44854";
     style.textContent = `
       .command-preview-health-radar{padding:12px 5px!important;border:0!important;border-bottom:1px solid rgba(56,189,248,.18)!important;border-radius:0!important;background:transparent!important;color:#f8fafc;flex:0 1 auto;min-height:0}
       .preview-health-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.preview-health-head small{color:#7dd3fc!important;font-weight:900}.preview-health-badge{display:inline-flex!important;align-items:center;justify-content:center;margin:0!important;padding:4px 7px;border:1px solid rgba(34,197,94,.34);border-radius:999px;background:rgba(34,197,94,.12);color:#86efac!important;font-size:8px!important;font-weight:950;white-space:nowrap}.command-preview-health-radar.is-warning .preview-health-badge{border-color:rgba(245,158,11,.46);background:rgba(245,158,11,.13);color:#fde68a!important}.command-preview-health-radar.is-danger .preview-health-badge{border-color:rgba(248,113,113,.52);background:rgba(127,29,29,.30);color:#fecaca!important}
       .preview-health-title{margin-top:6px!important;font-size:14px!important;line-height:1.22}.preview-health-list{display:grid;gap:5px;margin-top:8px}.preview-health-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 7px;border:1px solid rgba(56,189,248,.13);border-radius:9px;background:rgba(2,8,18,.38)}.preview-health-row>span{min-width:0;margin:0!important}.preview-health-row strong{margin:0!important;font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.preview-health-row small{margin-top:2px;color:#64748b!important;font-size:8px!important;letter-spacing:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.preview-health-state{margin:0!important;color:#86efac!important;font-size:8px!important;font-weight:900;white-space:nowrap}.preview-health-row.warning .preview-health-state{color:#fbbf24!important}.preview-health-row.danger .preview-health-state{color:#fca5a5!important}.preview-health-empty{padding:8px;border:1px dashed rgba(56,189,248,.20);border-radius:9px;color:#94a3b8;font-size:9px;line-height:1.35}
       .preview-health-metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}.preview-health-metrics span{margin:0!important;padding:6px;border-radius:8px;background:rgba(148,163,184,.07);color:#94a3b8!important;font-size:8px!important}.preview-health-metrics b{display:block;color:#e2e8f0;font-size:12px}.preview-health-open{width:100%;min-height:30px!important;margin-top:7px!important;padding:6px!important;border-color:rgba(56,189,248,.35)!important;background:rgba(14,165,233,.09)!important;color:#7dd3fc!important;font-size:9px}
+      .command-preview-marks{grid-template-columns:repeat(var(--preview-mark-count,3),minmax(0,1fr))!important}.command-preview-marks .izinli{color:#d8b4fe;border-color:rgba(168,85,247,.30)}.command-preview-marks.is-hidden,.command-preview-marks .is-hidden,.command-preview-distribution.is-hidden,.command-preview-actions button.is-hidden{display:none!important}
       @media(max-width:1050px){.command-preview-health-radar{grid-column:1/-1!important;padding:12px!important;border:1px solid rgba(56,189,248,.24)!important;border-radius:16px!important}.preview-health-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
       @media(max-width:720px){.preview-health-list{grid-template-columns:1fr}.preview-health-metrics{grid-template-columns:1fr 1fr}}
     `;
@@ -45,7 +46,7 @@
           <div class="command-preview-shade"></div>
           <div class="command-preview-topline"><span><strong>SYS</strong><i>KOMUTA PANELİ</i></span><b>● CANLI</b></div>
           <div class="command-preview-clock"><strong id="previewClock">--:--</strong><span id="previewDate">Tarih hazırlanıyor</span></div>
-          <div class="command-preview-profile"><div id="previewProfileAvatar">?</div><span><strong id="previewProfileName">Kullanıcı</strong><small id="previewProfileRole">-</small></span></div>
+          <div class="command-preview-profile"><span><strong id="previewProfileName">Kullanıcı</strong><small id="previewProfileRole">-</small></span></div>
           <div class="command-preview-intro">
             <p>Mercedes Executive Command</p>
             <h2 id="previewLiveTitle">Aktif servis yok</h2>
@@ -59,8 +60,8 @@
               <div class="command-preview-card-head"><span class="command-preview-icon">P</span><div><small>PERSONEL OPERASYONU</small><h3>Personel Servisi</h3></div><b id="previewPersonnelState">BEKLEMEDE</b></div>
               <p id="previewPersonnelMeta">Başlatılmış servis bulunmuyor.</p>
               <div class="command-preview-passenger"><small>SIRADAKİ PERSONEL</small><strong id="previewPersonnelName">Aktif operasyon yok</strong><span id="previewPersonnelAddress">Servis başladığında yolcu burada görünür.</span></div>
-              <div class="command-preview-stage"><small>AKŞAM SERVİSİ AKIŞI</small><strong id="previewPersonnelStage">Servis başlatılmayı bekliyor</strong><span id="previewPersonnelStageHelp">Akşam servisinde önce tüm personelin binişi onaylanır.</span></div>
-              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Yok"]'>YOK</button></div>
+              <div class="command-preview-stage"><small id="previewPersonnelStageLabel">AKŞAM SERVİSİ AKIŞI</small><strong id="previewPersonnelStage">Servis başlatılmayı bekliyor</strong><span id="previewPersonnelStageHelp">Akşam servisinde önce tüm personelin binişi onaylanır.</span></div>
+              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-status="Bindi" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-status="İndi" data-preview-proxy='[data-action="command-personnel-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-status="Yok" data-preview-proxy='[data-action="command-personnel-mark"][data-status="Yok"]'>YOK</button><button class="izinli" type="button" data-preview-status="İzinli" data-preview-proxy='[data-action="command-personnel-mark"][data-status="İzinli"]'>İZİNLİ</button></div>
               <button class="command-preview-distribution" id="previewPersonnelFinish" type="button" data-preview-proxy="#commandPersonnelFinishBtn" disabled>DAĞITIMA BAŞLA</button>
               <div class="command-preview-actions"><button id="previewPersonnelPrimary" type="button" data-preview-proxy="#commandPersonnelSmartStartBtn">Servisi Başlat</button><button type="button" data-preview-action="personnel">Detaya Git</button></div>
             </article>
@@ -68,7 +69,7 @@
               <div class="command-preview-card-head"><span class="command-preview-icon">O</span><div><small>OKUL OPERASYONU</small><h3>Okul Servisi</h3></div><b id="previewSchoolState">BEKLEMEDE</b></div>
               <p id="previewSchoolMeta">Başlatılmış servis bulunmuyor.</p>
               <div class="command-preview-passenger"><small>SIRADAKİ ÖĞRENCİ</small><strong id="previewSchoolName">Aktif operasyon yok</strong><span id="previewSchoolAddress">Servis başladığında öğrenci burada görünür.</span></div>
-              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-proxy='[data-action="command-school-mark"][data-status="Yok"]'>YOK</button></div>
+              <div class="command-preview-marks"><button class="bindi" type="button" data-preview-status="Bindi" data-preview-proxy='[data-action="command-school-mark"][data-status="Bindi"]'>BİNDİ</button><button class="indi" type="button" data-preview-status="İndi" data-preview-proxy='[data-action="command-school-mark"][data-status="İndi"]'>İNDİ</button><button class="yok" type="button" data-preview-status="Yok" data-preview-proxy='[data-action="command-school-mark"][data-status="Yok"]'>YOK</button><button class="izinli" type="button" data-preview-status="İzinli" data-preview-proxy='[data-action="command-school-mark"][data-status="İzinli"]'>İZİNLİ</button></div>
               <div class="command-preview-actions"><button id="previewSchoolPrimary" type="button" data-preview-proxy="#commandSchoolSmartStartBtn">Servisi Başlat</button><button type="button" data-preview-action="school">Detaya Git</button></div>
             </article>
           </div>
@@ -134,6 +135,42 @@
     mirrorText(`${sourceSelector} .command-next-address`, addressSelector, "Servis başladığında yolcu burada görünür.");
   }
 
+  function setPreviewVisible(element, visible) {
+    if (!element) return;
+    element.hidden = !visible;
+    element.classList.toggle("is-hidden", !visible);
+  }
+
+  function configurePreviewMarks(cardSelector, allowedStatuses) {
+    const host = $(`${cardSelector} .command-preview-marks`);
+    if (!host) return;
+    const allowed = new Set(allowedStatuses);
+    host.querySelectorAll("[data-preview-status]").forEach((button) => {
+      const visible = allowed.has(button.dataset.previewStatus);
+      setPreviewVisible(button, visible);
+      button.disabled = !visible;
+    });
+    host.style.setProperty("--preview-mark-count", String(Math.max(1, allowed.size)));
+    setPreviewVisible(host, allowed.size > 0);
+  }
+
+  function previewActiveSession(kind) {
+    try {
+      if (kind === "school" && typeof activeSchoolServiceSessions === "function") return activeSchoolServiceSessions()[0] || null;
+      if (kind === "personnel" && typeof activePersonnelServiceSessions === "function") return activePersonnelServiceSessions()[0] || null;
+    } catch (error) { console.warn("Komuta servisi okunamadı:", error); }
+    return null;
+  }
+
+  function previewRecommendedPeriod(kind) {
+    try { if (typeof commandRecommendedPeriod === "function") return commandRecommendedPeriod(kind); } catch (error) { console.warn("Önerilen servis dönemi okunamadı:", error); }
+    return "morning";
+  }
+
+  function previewStartLabel(kind) {
+    return previewRecommendedPeriod(kind) === "evening" ? "Akşam Servisini Başlat" : "Sabah Servisini Başlat";
+  }
+
   function syncPanel() {
     if (!$("#screen-command-preview")) return;
     mirrorText("#commandLiveTitle", "#previewLiveTitle", "Aktif servis yok");
@@ -147,43 +184,59 @@
     mirrorPassenger("#commandSchoolNext", "#previewSchoolName", "#previewSchoolAddress");
 
     const originalFinish = $("#commandPersonnelFinishBtn");
-    const personnelActive = $("#commandPersonnelCard")?.classList.contains("is-live") && !originalFinish?.classList.contains("is-inactive");
+    const personnelSession = previewActiveSession("personnel");
+    const personnelActive = Boolean(personnelSession) || Boolean($("#commandPersonnelCard")?.classList.contains("is-live") && !originalFinish?.classList.contains("is-inactive"));
     const personnelMeta = $("#commandPersonnelMeta")?.textContent || "";
-    const isEvening = personnelActive && /Akşam Dönüş/i.test(personnelMeta);
+    const personnelPeriod = personnelSession?.period || (/Akşam/i.test(personnelMeta) ? "evening" : "morning");
+    const isEvening = personnelActive && personnelPeriod === "evening";
+    let personnelPhase = "service";
+    try { personnelPhase = isEvening && typeof serviceSessionPhase === "function" ? serviceSessionPhase(personnelSession) : "service"; } catch {}
+    if (isEvening && !personnelSession) personnelPhase = $("#commandPersonnelNext .command-stage strong")?.textContent?.toLocaleLowerCase("tr-TR").includes("dağıt") ? "dropoff" : "boarding";
+    let personnelCounts = null;
+    try {
+      if (personnelSession && typeof serviceCounts === "function") personnelCounts = serviceCounts(personnelSession.date, personnelSession.routeId, personnelSession.period, personnelSession.jobId || "", personnelSession.shiftKey || "", personnelSession);
+    } catch (error) { console.warn("Personel servis sayımları okunamadı:", error); }
     const finishLabel = originalFinish?.querySelector("strong")?.textContent?.trim() || "Servisi Bitir";
-    const distributionReady = isEvening && finishLabel === "Dağıtıma Başla" && !originalFinish?.disabled;
-    const isDropoff = isEvening && $("#commandPersonnelNext .command-stage strong")?.textContent?.toLocaleLowerCase("tr-TR").includes("dağıt");
-    const personnelMarkButtons = [...document.querySelectorAll('#previewPersonnelCard [data-preview-proxy]')];
-    const markButton = (status) => personnelMarkButtons.find((button) => button.dataset.previewProxy?.includes(`data-status="${status}"`));
-    const bindiButton = markButton("Bindi");
-    const indiButton = markButton("İndi");
-    const yokButton = markButton("Yok");
-    if (bindiButton) bindiButton.disabled = !personnelActive || (isEvening && isDropoff);
-    if (yokButton) yokButton.disabled = !personnelActive || (isEvening && isDropoff);
-    if (indiButton) indiButton.disabled = !personnelActive || (isEvening && !isDropoff);
+    const fallbackDistributionReady = finishLabel === "Dağıtıma Başla" && !originalFinish?.disabled;
+    const boardingPending = Number(personnelCounts?.boardingPending ?? (fallbackDistributionReady ? 0 : 1));
+    const boarded = Number(personnelCounts?.bindi ?? (fallbackDistributionReady ? 1 : 0));
+    const isBoarding = isEvening && personnelPhase === "boarding";
+    const isDropoff = isEvening && personnelPhase === "dropoff";
+    configurePreviewMarks("#previewPersonnelCard", !personnelActive ? [] : isDropoff ? ["İndi"] : ["Bindi", "Yok", "İzinli"]);
+
     const previewFinish = $("#previewPersonnelFinish");
+    const showDistribution = isBoarding && (boardingPending > 0 || boarded > 0);
     if (previewFinish) {
-      previewFinish.textContent = distributionReady ? "SERVİS HAREKET ETTİ · DAĞITIMA BAŞLA" : finishLabel.toLocaleUpperCase("tr-TR");
-      previewFinish.disabled = !personnelActive || Boolean(originalFinish?.disabled);
+      setPreviewVisible(previewFinish, showDistribution);
+      previewFinish.textContent = boardingPending > 0 ? `${boardingPending} BİNİŞ BEKLİYOR` : "DAĞITIMA BAŞLA";
+      previewFinish.disabled = boardingPending > 0 || boarded <= 0 || Boolean(originalFinish?.disabled);
     }
     const previewPrimary = $("#previewPersonnelPrimary");
     if (previewPrimary) {
-      previewPrimary.textContent = personnelActive ? "Servisi Bitir" : "Servisi Başlat";
+      const showPrimary = !personnelActive || !showDistribution;
+      setPreviewVisible(previewPrimary, showPrimary);
+      previewPrimary.textContent = personnelActive ? "Servisi Bitir" : previewStartLabel("personnel");
       previewPrimary.dataset.previewProxy = personnelActive ? "#commandPersonnelFinishBtn" : "#commandPersonnelSmartStartBtn";
       previewPrimary.classList.toggle("is-service-active", personnelActive);
-      previewPrimary.disabled = personnelActive ? (distributionReady || Boolean(originalFinish?.disabled)) : false;
+      previewPrimary.disabled = personnelActive ? Boolean(originalFinish?.disabled) : false;
     }
     if ($("#previewPersonnelStage")) {
-      $("#previewPersonnelStage").textContent = !personnelActive ? "Servis başlatılmayı bekliyor" : !isEvening ? "Servis Aktif" : isDropoff ? "Personel Dağıtılıyor" : distributionReady ? "Dağıtıma Hazır" : "Personel Toplanıyor";
-      $("#previewPersonnelStageHelp").textContent = !isEvening ? "Aktif operasyon bilgileri yukarıdaki kartta gösterilir." : isDropoff ? "Yalnızca araca binen personeller için iniş onayı verilir." : distributionReady ? "Tüm binişler onaylandı. Araç artık dağıtıma çıkabilir." : "Tüm personel için Bindi, Yok veya İzinli seçimi tamamlanmalıdır.";
+      const startPeriod = previewRecommendedPeriod("personnel") === "evening" ? "Akşam" : "Sabah";
+      $("#previewPersonnelStageLabel").textContent = !personnelActive ? "ÖNERİLEN SERVİS" : isEvening ? "AKŞAM SERVİSİ AKIŞI" : "SABAH SERVİSİ AKIŞI";
+      $("#previewPersonnelStage").textContent = !personnelActive ? `${startPeriod} servisi başlatılabilir` : !isEvening ? "Personel Toplanıyor" : isDropoff ? "Personel Dağıtılıyor" : boardingPending === 0 && boarded > 0 ? "Dağıtıma Hazır" : "Biniş Kontrolü Yapılıyor";
+      $("#previewPersonnelStageHelp").textContent = !personnelActive ? "Servis başlayınca uygun yoklama düğmeleri otomatik açılır." : !isEvening ? "Her personel için Bindi, Yok veya İzinli kaydı girilir." : isDropoff ? "Yalnızca araca binen personeller için İndi onayı verilir." : boardingPending === 0 && boarded > 0 ? "Tüm binişler tamamlandı. Dağıtıma Başla düğmesi hazır." : `${boardingPending} personel için Bindi, Yok veya İzinli seçimi bekleniyor.`;
     }
 
     const personnelLive = personnelActive;
     const schoolFinish = $("#commandSchoolFinishBtn");
-    const schoolLive = $("#commandSchoolCard")?.classList.contains("is-live") && !schoolFinish?.classList.contains("is-inactive");
+    const schoolSession = previewActiveSession("school");
+    const schoolLive = Boolean(schoolSession) || Boolean($("#commandSchoolCard")?.classList.contains("is-live") && !schoolFinish?.classList.contains("is-inactive"));
+    const schoolMeta = $("#commandSchoolMeta")?.textContent || "";
+    const schoolPeriod = schoolSession?.period || (/Akşam/i.test(schoolMeta) ? "evening" : "morning");
+    configurePreviewMarks("#previewSchoolCard", !schoolLive ? [] : schoolPeriod === "evening" ? ["İndi", "İzinli"] : ["Bindi", "Yok", "İzinli"]);
     const schoolPrimary = $("#previewSchoolPrimary");
     if (schoolPrimary) {
-      schoolPrimary.textContent = schoolLive ? "Servisi Bitir" : "Servisi Başlat";
+      schoolPrimary.textContent = schoolLive ? "Servisi Bitir" : previewStartLabel("school");
       schoolPrimary.dataset.previewProxy = schoolLive ? "#commandSchoolFinishBtn" : "#commandSchoolSmartStartBtn";
       schoolPrimary.classList.toggle("is-service-active", Boolean(schoolLive));
       schoolPrimary.disabled = schoolLive ? Boolean(schoolFinish?.disabled) : false;
@@ -244,12 +297,6 @@
     if ($("#previewClock")) $("#previewClock").textContent = now.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
     if ($("#previewDate")) $("#previewDate").textContent = now.toLocaleDateString("tr-TR", { weekday: "long", day: "2-digit", month: "long" });
     const user = typeof activeUser !== "undefined" ? activeUser : null;
-    const profileAvatar = $("#previewProfileAvatar");
-    if (profileAvatar) {
-      profileAvatar.replaceChildren();
-      if (user?.profilePhoto) { const image = document.createElement("img"); image.alt = ""; image.src = user.profilePhoto; profileAvatar.appendChild(image); }
-      else profileAvatar.textContent = String((user?.fullName || user?.username || "?").split(/\s+/).map((part) => part[0] || "").join("").slice(0, 2).toLocaleUpperCase("tr-TR"));
-    }
     if ($("#previewProfileName")) $("#previewProfileName").textContent = user?.fullName || user?.username || "Kullanıcı";
     if ($("#previewProfileRole")) $("#previewProfileRole").textContent = user?.role === "admin" ? "Yönetici" : user?.role === "accounting" ? "Muhasebe" : "Operasyon";
   }
