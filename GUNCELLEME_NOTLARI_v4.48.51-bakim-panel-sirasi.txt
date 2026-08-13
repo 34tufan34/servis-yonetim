@@ -1,0 +1,5 @@
+Servis Yönetim Sistemi v4.48.51
+
+- Bakım & Mekanik ekranındaki kayıt formu ve bakım geçmişi üst sıraya alındı.
+- Akıllı Parça Değişim Takibi paneli, bakım işlemlerinin altına taşındı.
+- Mevcut veriler, tahmin hesapları ve ayrı kurulabilir Komuta uygulama kimliği korundu.
