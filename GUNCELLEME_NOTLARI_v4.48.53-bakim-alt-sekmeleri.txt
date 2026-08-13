@@ -1,0 +1,10 @@
+Servis Yönetim Sistemi v4.48.53 - Bakım Alt Sekmeleri ve Komuta Radarı
+
+- Bakım & Mekanik bölümü üç ayrı alt sekmeye ayrıldı: Kayıt Ekle, Bakım Geçmişi ve Akıllı Takip.
+- Bakım & Mekanik Gideri formu tam genişliğe ve daha geniş çalışma alanına kavuştu.
+- Yeni bakım kaydı kaydedildiğinde uygulama otomatik olarak Bakım Geçmişi sekmesine geçer ve yeni satırı gösterir.
+- Bakım geçmişi tablosu tam genişlikte ve daha yüksek bir alanda gösterilir.
+- Akıllı Bakım ve Parça Takibi panelinin iç boşlukları artırıldı; tahmin tablosuna daha fazla görünür alan verildi.
+- Komuta Paneli ARAÇ SAĞLIĞI & BAKIM RADARI, Okul Servisi kartının üst hizasından başlayacak şekilde uzatıldı.
+- Komuta Panelindeki “Bakım Takibini Aç” düğmesi doğrudan Akıllı Takip alt sekmesini açar.
+- Uygulama sürümü 4.48.53'e yükseltildi. Veri şeması değişmedi (38).

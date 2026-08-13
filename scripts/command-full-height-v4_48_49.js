@@ -51,10 +51,28 @@
       }
 
       body.modern-command-active .command-preview-rail {
-        height: auto !important;
+        height: 100% !important;
         max-height: 100% !important;
-        align-self: end !important;
-        overflow: hidden !important;
+        min-height: 0 !important;
+        align-self: stretch !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+
+      body.modern-command-active .command-preview-health-radar {
+        flex: 1 0 190px !important;
+        min-height: 190px !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      body.modern-command-active .command-preview-health-radar .preview-health-list {
+        flex: 1 1 auto !important;
+        align-content: start !important;
+      }
+
+      body.modern-command-active .command-preview-health-radar .preview-health-open {
+        margin-top: auto !important;
       }
     }
   `;

@@ -9,9 +9,9 @@
   const escapePreviewHtml = (value) => String(value ?? "").replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
 
   function installHealthRadarStyle() {
-    if ($("#sys-command-health-radar-v44852")) return;
+    if ($("#sys-command-health-radar-v44853")) return;
     const style = document.createElement("style");
-    style.id = "sys-command-health-radar-v44852";
+    style.id = "sys-command-health-radar-v44853";
     style.textContent = `
       .command-preview-health-radar{padding:12px 5px!important;border:0!important;border-bottom:1px solid rgba(56,189,248,.18)!important;border-radius:0!important;background:transparent!important;color:#f8fafc;flex:0 1 auto;min-height:0}
       .preview-health-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.preview-health-head small{color:#7dd3fc!important;font-weight:900}.preview-health-badge{display:inline-flex!important;align-items:center;justify-content:center;margin:0!important;padding:4px 7px;border:1px solid rgba(34,197,94,.34);border-radius:999px;background:rgba(34,197,94,.12);color:#86efac!important;font-size:8px!important;font-weight:950;white-space:nowrap}.command-preview-health-radar.is-warning .preview-health-badge{border-color:rgba(245,158,11,.46);background:rgba(245,158,11,.13);color:#fde68a!important}.command-preview-health-radar.is-danger .preview-health-badge{border-color:rgba(248,113,113,.52);background:rgba(127,29,29,.30);color:#fecaca!important}
@@ -110,7 +110,10 @@
       if (action === "school") return $('[data-action="open-school-live"]')?.click();
       if (action === "maintenance") {
         $('[data-module="finance"]')?.click();
-        window.setTimeout(() => $('[data-finance-tab="maintenance"]')?.click(), 60);
+        window.setTimeout(() => {
+          $('[data-finance-tab="maintenance"]')?.click();
+          window.setTimeout(() => $('[data-maintenance-subtab="intelligence"]')?.click(), 60);
+        }, 60);
       }
     });
 
