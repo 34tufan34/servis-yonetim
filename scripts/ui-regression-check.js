@@ -8,6 +8,8 @@ const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "u
 const html = read("index.html");
 const appVersion = read("scripts/app-version.js");
 const mainActivity = read("android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java");
+const fullHeightCommand = read("scripts/command-full-height-v4_48_49.js");
+const androidBuild = read("android-app/app/build.gradle");
 
 const checks = [
   [html.includes('id="commandPersonnelCard"') && html.includes("Personel Servisi"), "Personel Servisi panel başlığı eksik."],
@@ -15,6 +17,8 @@ const checks = [
   [!html.includes('id="commandMissingServicePanel"') && !html.includes('id="commandCompleteMissingServiceBtn"'), "Eksik Servisi Tamamla Komuta Paneli'nden kaldırılmamış."],
   [html.includes('id="historicalServiceCard"') && html.includes('id="openHistoricalServiceBtn"'), "Eksik servis tamamlama sistemi Ayarlar'da bulunmuyor."],
   [appVersion.includes("command-preview-v4_48_49.js") && appVersion.includes("sys-experience-v4_48_49.js"), "Yeni deneyim yükleyicileri eksik."],
+  [appVersion.includes("command-full-height-v4_48_49.js") && fullHeightCommand.includes("--sys-command-card-top") && fullHeightCommand.includes("height: 100% !important"), "Tam boy Personel ve Okul Servisi kart düzeni eksik."],
+  [androidBuild.includes('applicationId "com.tufan.servisyonetim.komuta.v44849"') && read("android-app/app/src/main/res/values/strings.xml").includes("SYS Komuta 4.48.49"), "Ayrı kurulabilir Komuta APK kimliği eksik."],
   [read("scripts/sys-experience-v4_48_49.js").includes("command-mercedes-v44849.png") && read("scripts/sys-experience-v4_48_49.js").includes("modern-command-active") && read("scripts/command-preview-v4_48_49.js").includes("previewProfileAvatar"), "Modern Komuta Paneli entegrasyonu eksik."],
   [html.includes('id="userPhotoFile"') && html.includes("resizeUserPhoto") && html.includes("user.profilePhoto = profilePhoto") && html.includes("sessionUserAvatar"), "Kullanıcı profil resmi yönetimi eksik."],
   [read("scripts/sys-experience-v4_48_48.js").includes("buildPriceOffersPanel") && read("scripts/sys-experience-v4_48_48.js").includes("#priceOffersHost") && read("scripts/sys-experience-v4_48_48.js").includes('insertBefore(navButton, financeNav)'), "Fiyat Teklifleri bağımsız menü bölümü eksik."],

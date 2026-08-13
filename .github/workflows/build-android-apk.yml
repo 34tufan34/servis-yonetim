@@ -2,6 +2,9 @@ name: 2 - Android APK Oluştur (Üretim)
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - agent/v4-48-49-komuta-tam-boy
 
 permissions:
   contents: read
@@ -87,7 +90,7 @@ jobs:
       - name: APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: servis-yonetim-apk-v${{ env.APP_VERSION }}
+          name: servis-yonetim-komuta-v${{ env.APP_VERSION }}
           path: android-app/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 90

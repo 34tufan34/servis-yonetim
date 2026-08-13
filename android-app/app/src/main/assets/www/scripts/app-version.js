@@ -33,6 +33,13 @@
     experienceScript.src = "./scripts/sys-experience-v4_48_49.js?v=4.48.49";
     experienceScript.defer = true;
     experienceScript.onerror = () => console.error("SYS v4.48.49 kullanım deneyimi yüklenemedi.");
+    experienceScript.addEventListener("load", () => {
+      const fullHeightScript = document.createElement("script");
+      fullHeightScript.src = "./scripts/command-full-height-v4_48_49.js?v=4.48.49-komuta-1";
+      fullHeightScript.defer = true;
+      fullHeightScript.onerror = () => console.error("SYS v4.48.49 tam boy komuta kartları yüklenemedi.");
+      document.head.appendChild(fullHeightScript);
+    }, { once: true });
     document.head.appendChild(experienceScript);
 
   }

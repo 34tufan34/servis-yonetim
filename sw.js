@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-49";
+const CACHE_NAME = "servis-sys-v4-48-49-komuta-1";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -10,6 +10,7 @@ const APP_SHELL = [
   "./scripts/command-layout-v4_48_23.js",
   "./scripts/command-preview-v4_48_49.js",
   "./scripts/sys-experience-v4_48_49.js",
+  "./scripts/command-full-height-v4_48_49.js",
   "./scripts/settings-panel-v4_48_14.js",
   "./scripts/settings-command-fix-v4_48_16.js",
   "./scripts/yakit-farki-v4_48_11.js",

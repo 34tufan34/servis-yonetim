@@ -1,0 +1,10 @@
+Servis Yönetim Sistemi v4.48.49 - Tam Boy Komuta APK
+
+- Kaynak taban: v4.48.49 modern Mercedes Komuta Paneli.
+- Personel Servisi ve Okul Servisi kartları geniş ekranda canlı servis
+  göstergesinin altından panelin alt sınırına kadar eşit yükseklikte uzatıldı.
+- Sağ saha ve mazot bilgi kartının kompakt yerleşimi korundu.
+- Dar ekran ve telefon görünümündeki kaydırmalı düzen korunarak taşma önlendi.
+- Uygulama adı "SYS Komuta 4.48.49" olarak ayarlandı.
+- Paket kimliği "com.tufan.servisyonetim.komuta.v44849" yapıldı; mevcut
+  Servis Yönetim Sistemi uygulamasının yanına ayrı bir uygulama olarak kurulur.
