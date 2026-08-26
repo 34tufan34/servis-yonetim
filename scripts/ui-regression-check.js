@@ -4,87 +4,71 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
-const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
+const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
+const exists = (file) => fs.existsSync(path.join(root, file));
+const branch = "agent/v4-48-49-komuta-tam-boy";
+
 const html = read("index.html");
-const appVersion = read("scripts/app-version.js");
-const commandPreview = read("scripts/command-preview-v4_48_49.js");
-const sysExperience = read("scripts/sys-experience-v4_48_49.js");
-const sysExperienceInstall = sysExperience.slice(sysExperience.indexOf("function install()"), sysExperience.indexOf("if (document.readyState", sysExperience.indexOf("function install()")));
-const mainActivity = read("android-app/app/src/main/java/com/tufan/servisyonetim/MainActivity.java");
-const fullHeightCommand = read("scripts/command-full-height-v4_48_49.js");
-const androidBuild = read("android-app/app/build.gradle");
-const maintenanceScreen = html.slice(
-  html.indexOf('id="finance-tab-maintenance"'),
-  html.indexOf('id="finance-tab-cost-report"')
-);
+const version = read("scripts/app-version.js");
+const command = read("scripts/command-preview-v4_49_0.js");
+const experience = read("scripts/sys-experience-v4_49_0.js");
+const architecture = read("scripts/information-architecture-v4_49_0.js");
+const storage = read("scripts/state-storage-v4_49_0.js");
+const settings = read("scripts/settings-panel-v4_49_0.js");
+const fuel = read("scripts/settings-fuel-v4_49_0.js");
+const build = read("android-app/app/build.gradle");
+const appConfig = read("android-app/app/src/main/java/com/tufan/servisyonetim/AppConfig.java");
+const workflow = read(".github/workflows/build-android-apk.yml");
+const sw = read("sw.js");
+const strings = read("android-app/app/src/main/res/values/strings.xml");
+const debugStrings = read("android-app/app/src/debug/res/values/strings.xml");
+const installStart = experience.indexOf("function install()");
+const experienceInstall = experience.slice(installStart, experience.indexOf("if (document.readyState", installStart));
+const dataImageCount = (html.match(/data:image\/png;base64,/g) || []).length;
 
 const checks = [
-  [html.includes('id="commandPersonnelCard"') && html.includes("Personel Servisi"), "Personel Servisi panel başlığı eksik."],
-  [html.includes('id="commandSchoolCard"') && html.includes("Okul Servisi"), "Okul Servisi panel başlığı eksik."],
-  [!html.includes('id="commandMissingServicePanel"') && !html.includes('id="commandCompleteMissingServiceBtn"'), "Eksik Servisi Tamamla Komuta Paneli'nden kaldırılmamış."],
-  [html.includes('id="historicalServiceCard"') && html.includes('id="openHistoricalServiceBtn"'), "Eksik servis tamamlama sistemi Ayarlar'da bulunmuyor."],
-  [appVersion.includes("command-preview-v4_48_49.js") && appVersion.includes("sys-experience-v4_48_49.js"), "Yeni deneyim yükleyicileri eksik."],
-  [appVersion.includes("command-full-height-v4_48_49.js") && fullHeightCommand.includes("--sys-command-card-top") && fullHeightCommand.includes("height: 100% !important"), "Tam boy Personel ve Okul Servisi kart düzeni eksik."],
-  [androidBuild.includes('applicationId "com.tufan.servisyonetim.komuta.v44849"') && read("android-app/app/src/main/res/values/strings.xml").includes("SYS Komuta 4.48.54"), "Ayrı kurulabilir Komuta APK kimliği eksik."],
-  [appVersion.includes('const VERSION = "4.48.54"') && html.includes('const SCHEMA_VERSION = 39'), "v4.48.54 sürüm veya veri şeması yükseltmesi eksik."],
-  [html.includes('data-finance-flow-tab="debts"') && html.includes('id="vehicleExpensePaymentStatus"') && html.includes("vehicleExpenseDebtAmount"), "Veresiye ve borç takip akışı eksik."],
-  [html.includes('data-finance-flow-tab="annual"') && html.includes('id="financeAnnualYear"') && html.includes("financeAnnualRows"), "Seçilebilir yıllık gelir gider görünümü eksik."],
-  [html.includes('id="maintenancePartSelect"') && html.includes("maintenancePartAnalysis") && html.includes("predictedNextKm"), "Parça seçimi veya KM tahmin sistemi eksik."],
-  [html.includes('data-registry-tab="parts"') && html.includes('id="maintenancePartCatalogForm"') && html.includes("maintenancePartCatalog: defaultMaintenancePartCatalog()"), "Temel Kayıtlar Parça Kataloğu veya kalıcı veri modeli eksik."],
-  [html.includes("maintenancePartCatalogItemById") && html.includes("catalogPartId") && html.includes("Geçmişi korumak için"), "Bakım parça seçimleri merkezi kataloğa veya geçmiş korumasına bağlı değil."],
-  [html.includes("Akıllı Bakım ve Parça Takibi") && html.includes("maintenanceTrackingAnalysis") && html.includes("maintenanceTrackingIntervalKm") && html.includes("maintenanceTrackingIntervalMonths"), "Bakım türlerini de kapsayan akıllı takip sistemi eksik."],
-  [html.includes('id="vehicleExpenseKmLabel"') && html.includes('type === "Yakıt" && km <= 0') && html.includes("vehicleMonthlyMileageEstimate") && html.includes("Yakıt KM kayıtları"), "Yakıt kilometresiyle öğrenen bakım tahmini eksik."],
-  [html.includes("data-maintenance-record-id") && html.includes("lastSavedMaintenanceId") && html.includes("Arama alanını temizleyerek tüm kayıtları görebilirsin"), "Yeni bakım kaydını görünür kılan geçmiş akışı eksik."],
-  [commandPreview.includes("previewHealthRadar") && commandPreview.includes("SYS_MAINTENANCE_INTELLIGENCE") && commandPreview.includes('data-preview-action="maintenance"'), "Komuta Paneli araç sağlığı ve bakım radarı eksik."],
-  [maintenanceScreen.includes('id="maintenanceSubtabs"') && maintenanceScreen.includes('data-maintenance-screen="entry"') && maintenanceScreen.includes('data-maintenance-screen="history"') && maintenanceScreen.includes('data-maintenance-screen="intelligence"'), "Bakım ekranının kayıt, geçmiş ve akıllı takip alt sekmeleri eksik."],
-  [html.includes('activateMaintenanceSubtab("history"') && html.includes("maintenance-history-panel") && html.includes("maintenance-entry-panel"), "Bakım kaydı sonrası geçmişi görünür kılan geniş panel akışı eksik."],
-  [fullHeightCommand.includes("align-self: stretch !important") && fullHeightCommand.includes("command-preview-health-radar") && fullHeightCommand.includes("flex: 1 0 190px"), "Komuta Paneli bakım radarı Okul Servisi üst hizasına uzatılmamış."],
-  [fullHeightCommand.includes("justify-content: flex-start !important") && fullHeightCommand.includes("align-items: stretch !important"), "Komuta Paneli sıradaki yolcu içeriği sol üste hizalanmamış."],
-  [sysExperience.includes("command-mercedes-v44849.png") && sysExperience.includes("modern-command-active") && !commandPreview.includes("previewProfileAvatar"), "Modern Komuta Paneli entegrasyonu veya saat yanındaki fotoğraf kaldırma işlemi eksik."],
-  [commandPreview.includes('data-preview-status="İzinli"') && commandPreview.includes("boardingPending") && commandPreview.includes('isDropoff ? ["İndi"]') && commandPreview.includes("DAĞITIMA BAŞLA"), "Komuta Paneli aşamaya göre biniş ve dağıtım düğmeleri eksik."],
-  [html.includes('id="userPhotoFile"') && html.includes("resizeUserPhoto") && html.includes("user.profilePhoto = profilePhoto") && html.includes("sessionUserAvatar"), "Kullanıcı profil resmi yönetimi eksik."],
-  [read("scripts/sys-experience-v4_48_48.js").includes("buildPriceOffersPanel") && read("scripts/sys-experience-v4_48_48.js").includes("#priceOffersHost") && read("scripts/sys-experience-v4_48_48.js").includes('insertBefore(navButton, financeNav)'), "Fiyat Teklifleri bağımsız menü bölümü eksik."],
-  [read("scripts/sys-experience-v4_48_48.js").includes("kmOfferDays") && read("scripts/sys-experience-v4_48_48.js").includes("totalEarning: price * totalDays") && read("scripts/sys-experience-v4_48_48.js").includes("TOPLAM KAZANÇ"), "Teklif gün ve toplam kazanç hesabı eksik."],
-  [sysExperience.includes('.command-preview-nav .dot') && sysExperience.includes('.nav-btn[data-module=\"finance\"] .dot'), "Ana menü renkli bölüm noktaları eksik."],
-  [read("scripts/command-preview-v4_48_49.js").includes('$(\".command-preview-nav\")?.click()'), "Uygulama başlangıcında Komuta Paneli açılmıyor."],
-  [html.includes('id="addressBookPhone"') && html.includes("item.phone") && html.includes("address-book-phone"), "Adres Defteri telefon kaydı eksik."],
-  [read("scripts/sys-experience-v4_48_48.js").includes("grid-template-columns:22px 38px") && read("scripts/sys-experience-v4_48_48.js").includes("flex-wrap:nowrap!important"), "Adres Defteri kompakt satır düzeni eksik."],
-  [read("scripts/sys-experience-v4_48_48.js").includes("installCurrentLocationAddress") && read("scripts/sys-experience-v4_48_48.js").includes("navigator.geolocation.getCurrentPosition") && read("scripts/sys-experience-v4_48_48.js").includes("Bulunduğum Konumu Ekle"), "Adres Defteri mevcut konum kaydı eksik."],
-  [read("scripts/sys-experience-v4_48_43.js").includes("installKmOfferRecords") && read("scripts/sys-experience-v4_48_43.js").includes("kmOfferCompany") && read("scripts/sys-experience-v4_48_43.js").includes("kmOfferUnitPrice"), "Kalıcı KM teklif kayıt modülü eksik."],
-  [read("scripts/sys-experience-v4_48_43.js").includes("price / totalKm") && read("scripts/sys-experience-v4_48_43.js").includes("kmOfferRecords"), "KM fiyatı otomatik hesaplama veya kalıcı kayıt eksik."],
-  [read("scripts/sys-experience-v4_48_42.js").includes("installDiscountFuelSettings") && read("scripts/sys-experience-v4_48_42.js").includes("discountFuelPercent") && read("scripts/sys-experience-v4_48_42.js").includes("discountFuelSource"), "İndirimli mazot ayarları eksik."],
-  [read("scripts/command-preview-v4_48_42.js").includes("previewDiscountFuelPrice") && read("scripts/command-preview-v4_48_42.js").includes("İndirimli alış:"), "İndirimli mazot Komuta Paneli özeti eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("screen-command-preview") && read("scripts/command-preview-v4_48_41.js").includes("previewClock"), "Komuta paneli geliştirmeleri eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("command-personnel-mark") && read("scripts/command-preview-v4_48_41.js").includes("command-school-mark"), "Yeni komuta hızlı yolcu işlemleri eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("Personel Toplanıyor") && read("scripts/command-preview-v4_48_41.js").includes("Personel Dağıtılıyor") && read("scripts/command-preview-v4_48_41.js").includes("SERVİS HAREKET ETTİ"), "Akşam personel servisi aşamaları yeni komuta panelinde eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("previewPersonnelPrimary") && read("scripts/command-preview-v4_48_41.js").includes('personnelActive ? "Servisi Bitir"'), "Aktif servis ana düğmesi güncellenmiyor."],
-  [html.includes('value="both">Sabah + Akşam') && html.includes('periods = correction.period === "both"'), "Sabah ve akşam toplu geçmiş servis tamamlama eksik."],
-  [!sysExperienceInstall.includes("buildAiHub()") && sysExperience.includes("collectAiPanels") && html.includes("renderSchoolAiCenter"), "Bağımsız SYS AI bölümü kaldırılmamış veya bağlamsal analizler korunmamış."],
-  [read("scripts/sys-experience-v4_48_41.js").includes("grid-template-columns:58px") && read("scripts/sys-experience-v4_48_41.js").includes("driver-finish-btn.ready:not"), "Şoför adı/adres yerleşimi veya bitir düğmesi düzeltmesi eksik."],
-  [read("scripts/sys-experience-v4_48_41.js").includes("navigator.contacts") && read("scripts/sys-experience-v4_48_41.js").includes("contactImportFile"), "Telefon rehberi içe aktarma eksik."],
-  [html.includes("SYS_FIRST_SETUP_PENDING_V1") && read("scripts/sys-experience-v4_48_41.js").includes("showFirstSetup"), "Tam sıfırlama sonrası ilk kurulum eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("previewFuelDifferenceTitle") && read("scripts/command-preview-v4_48_41.js").includes("previewShellPrice"), "Komuta paneli mazot özetleri eksik."],
-  [html.includes("selectAllAddressesBtn") && read("scripts/sys-experience-v4_48_41.js").includes("installAddressBulkDelete"), "Adres Defteri toplu silme eksik."],
-  [!read("scripts/command-preview-v4_48_41.js").includes("ÖN İZLEME") && read("scripts/sys-experience-v4_48_41.js").includes("command-panel-backend"), "Yeni komuta paneli ana panel olarak etkin değil."],
-  [html.includes("renderSchoolAiCenter") && html.includes("renderFinanceRiskDetail") && html.includes("renderVehicleAlerts"), "Bağlamsal okul, finans veya araç denetimleri korunmamış."],
-  [read("scripts/command-preview-v4_48_41.js").includes("previewShellLogo") && read("scripts/command-preview-v4_48_41.js").includes("previewFuelDifferencePercent"), "Mazot logoları veya güncel yüzde değeri eksik."],
-  [commandPreview.includes('!originalFinish?.classList.contains("is-inactive")') && commandPreview.includes("previewActiveSession"), "Komuta paneli aktif servis düğmesi güvenli biçimde doğrulanmıyor."],
-  [read("scripts/sys-experience-v4_48_41.js").includes("sysAiPersonnelSafetyCenter") && read("scripts/sys-experience-v4_48_41.js").includes("sys-ai-detail-findings"), "Personel güvenlik merkezi veya detaylı SYS AI bulguları eksik."],
-  [read("scripts/command-preview-v4_48_41.js").includes("commandFuelStatusPill") && read("scripts/sys-experience-v4_48_41.js").includes("previewFuelDifferencePercent.is-due"), "Mazot farkı eşik renkleri eksik."],
-  [html.includes("`${total} Servis Aktif`") && !html.includes("servis şu anda canlı"), "Servis Aktif terminolojisi uygulanmamış."],
-  [html.includes('id="authRememberDevice"') && html.includes("REMEMBERED_SESSION_KEY") && !html.includes("password: password"), "Güvenli cihaz hatırlama seçeneği eksik."],
-  [html.includes("command-mercedes-v44833.png"), "Mercedes komuta paneli görseli arayüzde kullanılmıyor."],
-  [html.includes('personnelCard.classList.remove("command-live-hidden")') && html.includes('schoolCard.classList.remove("command-live-hidden")'), "Canlı servis sırasında iki kartın görünürlük güvencesi eksik."],
-  [html.includes('addEventListener("dblclick"') && html.includes("cycleLedgerDay(target.dataset.date, 2)"), "Çetele çift tıklama işlemi eksik."],
-  [html.includes("touch-action: manipulation"), "Çetele dokunmatik çift tıklama koruması eksik."],
-  [!appVersion.includes("live-route-") && !appVersion.includes("routeScript"), "Komuta paneli GPS modülü hâlâ yükleniyor."],
-  [mainActivity.includes("settings.setGeolocationEnabled(true)"), "Android WebView konum desteği kapalı."],
-  [mainActivity.includes("isTrustedGeolocationOrigin(origin)"), "Yerel APK konum kaynağı güven zincirine bağlı değil."],
-  [mainActivity.includes("GeolocationPermissions.getInstance().clearAll()"), "Eski WebView konum reddi temizlenmiyor."],
-  [read("scripts/command-layout-v4_48_23.js").includes("grid-template-rows: auto minmax(0, 1fr)"), "Servis kartlarının üst boşluk düzeltmesi eksik."],
-  [html.includes('id="commandFuelPriceIncrease"') && html.includes("currentPrice - top.result.referencePrice"), "Mazot farkının litre başına TL artışı eksik."]
+  [version.includes('const VERSION = "4.49.0"') && html.includes("const SCHEMA_VERSION = 40"), "Sürüm 4.49.0 veya veri şeması 40 değil."],
+  [version.includes("command-preview-v4_49_0.js") && version.includes("sys-experience-v4_49_0.js") && version.includes("information-architecture-v4_49_0.js") && version.includes("state-storage-v4_49_0.js"), "Yeni modül yükleme zinciri eksik."],
+  [html.includes('data-module="operations"') && html.includes('id="screen-operations"'), "Operasyonlar merkezi eksik."],
+  [html.includes('data-module="vehicle"') && html.includes('id="screen-vehicle"'), "Araç Merkezi eksik."],
+  [html.includes("Sürüş Ekranı") && !html.includes('<span class="nav-label"><span class="dot"></span>Şoför Modu</span>'), "Şoför Modu menü adı sadeleştirilmemiş."],
+  [html.includes('data-registry-tab="addresses"') && html.includes('data-registry-tab="offers"'), "Adres ve fiyat teklifleri Temel Kayıtlar'a alınmamış."],
+  [html.includes('source: "#screen-addresses .address-book-layout"') && html.includes('source: "#priceOffersWorkarea"'), "Birleştirilen kayıt kaynakları eksik."],
+  [html.includes('data-registry-tab="parts"') && html.includes('id="maintenancePartCatalogForm"'), "Parça Kataloğu eksik."],
+  [html.includes('value="driver">Şoför</option>') && html.includes('modules: ["command", "driver"]'), "Şoför rolü veya sınırlı yetkisi eksik."],
+  [!html.includes('id="sessionUserAvatar"') && !command.includes("previewProfileAvatar"), "Komuta alanındaki profil resmi kaldırılmamış."],
+  [command.includes("boardingPending") && command.includes("DAĞITIMA BAŞLA") && command.includes('isDropoff ? ["İndi"]'), "Akşam biniş-dağıtım akışı eksik."],
+  [command.includes("previewHealthRadar") && command.includes("SYS_MAINTENANCE_INTELLIGENCE"), "Araç Sağlığı ve Bakım Radarı eksik."],
+  [read("scripts/command-full-height-v4_48_49.js").includes("justify-content: flex-start !important"), "Sıradaki yolcu sol üst hizası eksik."],
+  [html.includes('data-finance-flow-tab="debts"') && html.includes('id="vehicleExpensePaymentStatus"') && html.includes("vehicleExpenseDebtAmount"), "Veresiye ve borç sistemi eksik."],
+  [html.includes('data-finance-flow-tab="annual"') && html.includes('id="financeAnnualYear"') && html.includes("financeAnnualRows"), "Seçilebilir yıllık gelir-gider görünümü eksik."],
+  [html.includes('id="maintenancePartSelect"') && html.includes("maintenancePartAnalysis") && html.includes("maintenanceTrackingAnalysis"), "Bakım ve parça tahmin sistemi eksik."],
+  [html.includes('id="vehicleExpenseKmLabel"') && html.includes("vehicleMonthlyMileageEstimate") && html.includes("Yakıt KM kayıtları"), "Yakıt KM verisinin bakım tahminine bağlantısı eksik."],
+  [html.includes('id="maintenanceSubtabs"') && html.includes('data-maintenance-screen="history"') && html.includes('data-maintenance-screen="intelligence"'), "Bakım alt sekmeleri eksik."],
+  [architecture.includes("FINANCE_GROUPS") && architecture.includes("Gelir & Tahsilat") && architecture.includes("Gider & Borçlar"), "Finans menüsü gruplanmamış."],
+  [architecture.includes("vehicle-expense-summary-panel") && architecture.includes('data-finance-flow-screen="expenses"'), "Araç gideri özet/geçmiş birleştirmesi doğrulanamadı."],
+  [architecture.includes("#finance-tab-maintenance") && architecture.includes("#finance-tab-km") && architecture.includes("#finance-tab-depreciation"), "Araç modülleri Araç Merkezi'ne taşınmıyor."],
+  [architecture.includes("#historicalServiceCard") && architecture.includes("#operationsHistoryHost"), "Geçmiş servis düzeltmesi Operasyonlar'a taşınmıyor."],
+  [architecture.includes(".settings-csv-card") && architecture.includes("#finance-tab-reports"), "Rapor dışa aktarma Finans'a taşınmıyor."],
+  [!settings.includes('id: "operations"') && !settings.includes('id: "reports"') && settings.includes('id: "appearance"') && settings.includes('id: "backup"'), "Ayarlar tekrarları temizlenmemiş."],
+  [!experienceInstall.includes("buildAiHub()") && !experienceInstall.includes("buildPriceOffersPanel()"), "Bağımsız SYS AI veya Fiyat Teklifleri ekranı hâlâ kuruluyor."],
+  [experienceInstall.includes("installKmOfferRecords()") && experience.includes('#priceOffersWorkarea'), "Fiyat teklifleri kayıt motoru korunmamış."],
+  [storage.includes("SYS_SERVIS_YONETIM_V2") && storage.includes("snapshots") && storage.includes("collections") && storage.includes("SYS_STATE_ARCHIVE"), "IndexedDB veri arşivi eksik."],
+  [fuel.includes(branch) && appConfig.includes(branch), "Yakıt kaynağı doğru üretim dalına bağlı değil."],
+  [build.includes("syncWebAssets") && build.includes("generated/sysWebAssets") && build.includes("preBuild"), "APK web dosyalarını otomatik eşitlemiyor."],
+  [build.includes('applicationId "com.tufan.servisyonetim.komuta.v44849"'), "Ayrı kurulabilir uygulama kimliği değişmiş."],
+  [strings.includes("Servis Yönetimi 4.49.0") && debugStrings.includes("Servis Yönetimi 4.49.0 Test"), "Android uygulama adları güncel değil."],
+  [!exists("android-app/app/src/main/assets/www") && exists("android-app/app/src/main/assets/native-bridge.js"), "Eski kopya web ağacı kaldırılmamış veya native köprü kayıp."],
+  [!exists(".github/workflows/build-android-ai-test.yml") && workflow.includes("servis-yonetim-v${{ env.APP_VERSION }}"), "Tek üretim APK akışı sağlanmamış."],
+  [sw.includes("servis-sys-v4-49-0") && sw.includes("information-architecture-v4_49_0.js") && sw.includes("state-storage-v4_49_0.js"), "Service Worker yeni sürümü önbelleğe almıyor."],
+  [html.includes("command-mercedes-v44849.png") && !html.includes("command-mercedes-v44833.png"), "Komuta arka planı eski görsele bağlı."],
+  [html.includes("./icons/sys-logo-wide.png") && dataImageCount === 2, "Tekrarlanan gömülü SYS logoları temizlenmemiş."],
+  [html.includes('id="addressBookPhone"') && experience.includes("installCurrentLocationAddress") && experience.includes("installAddressBulkDelete"), "Adres Defteri özellikleri korunmamış."],
+  [html.includes("renderSchoolAiCenter") && html.includes("renderFinanceRiskDetail") && html.includes("renderVehicleAlerts"), "Bağlamsal akıllı denetimler kaybolmuş."],
+  [read("scripts/command-layout-v4_48_23.js").includes("grid-template-rows: auto minmax(0, 1fr)"), "Tam boy komuta kart yerleşimi eksik."],
+  [workflow.includes("node scripts/ui-regression-check.js") && workflow.includes("node scripts/finance-maintenance-regression-check.js"), "APK iş akışında regresyon testleri eksik."]
 ];
 
 const failures = checks.filter(([passed]) => !passed).map(([, message]) => message);
 if (failures.length) throw new Error(failures.join("\n"));
-console.log(`Arayüz regresyon kontrolleri geçti (${checks.length} kontrol).`);
+console.log(`Arayüz ve mimari regresyon kontrolleri geçti (${checks.length} kontrol).`);

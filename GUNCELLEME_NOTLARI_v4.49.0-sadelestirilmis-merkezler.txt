@@ -1,0 +1,39 @@
+SERVİS YÖNETİM SİSTEMİ — v4.49.0
+
+Bu sürüm, mevcut özellikleri silmeden tekrarlanan ekranları birleştirir.
+
+1. YENİ MERKEZLER
+- Operasyonlar: Personel, okul, sürüş ve geçmiş servis düzeltmeleri tek merkezde.
+- Araç Merkezi: Araç giderleri, bakım-mekanik, akıllı takip, yakıt/KM ve amortisman tek merkezde.
+- Finans: Gelir-tahsilat, gider-borçlar, maliyet-kârlılık ve raporlar anlaşılır gruplara ayrıldı.
+- Ayarlar: Yalnız görünüm, yedekleme, sistem, lisans, kullanıcı ve güvenlik ayarları bırakıldı.
+
+2. KOMUTA PANELİ
+- Personel ve Okul Servisi kartları tam boy görünümü korur.
+- Sıradaki yolcu bilgileri sol üstten başlar.
+- Saat yanındaki profil fotoğrafı kaldırıldı.
+- Akşam personel servisinde önce Bindi / Yok / İzinli kayıtları tamamlanır; ardından Dağıtıma Başla açılır.
+- Araç Sağlığı & Bakım Radarı doğrudan Araç Merkezi'ndeki bakım ekranını açar.
+
+3. TEMEL KAYITLAR
+- Adres Defteri ve KM Fiyat Teklifleri bağımsız menü olmaktan çıkarılıp Temel Kayıtlar'a eklendi.
+- Parça Kataloğu bakım ve parça seçimlerinin merkezi kaynağıdır.
+- Şoför rolü eklendi; bu rol yalnız Komuta Paneli ve Sürüş Ekranı'nı kullanır.
+
+4. BAKIM, YAKIT VE FİNANS
+- Bakım kaydı, bakım geçmişi ve akıllı takip alt sekmeleri korunarak Araç Merkezi'nde birleştirildi.
+- Yakıt alımında girilen kilometre araç KM geçmişini ve bakım tahminlerini besler.
+- Parça ve bakım aralıkları geçmiş kayıtlardan öğrenilerek sonraki KM/tarih tahmini üretilir.
+- Veresiye, kısmi ödeme ve açık borç takibi korunur.
+- Yıllık gelir-gider ekranı seçilebilir yıl ve 12 aylık toplamlarla çalışır.
+
+5. VERİ VE APK
+- LocalStorage uyumluluğu korunurken önemli koleksiyonlar IndexedDB arşivine de yazılır.
+- Yerel veri kaybolursa son cihaz arşivi otomatik kurtarma için kullanılabilir.
+- APK, kök web dosyalarını Gradle sırasında otomatik eşitler; depoda ikinci ve eski bir web kopyası tutulmaz.
+- Üretim APK'sı GitHub Actions içindeki “2 - Android APK Oluştur (Üretim)” akışında oluşturulur.
+- Uygulama kimliği değişmediği için mevcut Komuta sürümünün üzerine güncellenebilir; test uygulamalarından ayrı kurulur.
+
+Sürüm: 4.49.0
+Veri şeması: 40
+Üretim dalı: agent/v4-48-49-komuta-tam-boy

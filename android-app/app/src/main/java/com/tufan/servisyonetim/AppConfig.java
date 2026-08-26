@@ -9,5 +9,5 @@ public final class AppConfig {
     public static final String APP_URL = LOCAL_APP_URL;
     public static final String ALLOWED_HOST = "34tufan34.github.io";
     public static final String LICENSE_API_URL = "https://servis-lisans-api.ops-429.workers.dev";
-    public static final String FUEL_PRICES_URL = "https://raw.githubusercontent.com/34tufan34/servis-yonetim/sys-ai-test-v4-48-12-eski-panel/fuel-prices.json";
+    public static final String FUEL_PRICES_URL = "https://raw.githubusercontent.com/34tufan34/servis-yonetim/agent/v4-48-49-komuta-tam-boy/fuel-prices.json";
 }

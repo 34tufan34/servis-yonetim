@@ -1,26 +1,18 @@
 (function () {
   "use strict";
 
-  if (window.__SYS_SETTINGS_PANEL_V44814__) return;
-  window.__SYS_SETTINGS_PANEL_V44814__ = true;
+  if (window.__SYS_SETTINGS_PANEL_V4490__) return;
+  window.__SYS_SETTINGS_PANEL_V4490__ = true;
 
-  const STORAGE_KEY = "SYS_SETTINGS_PANEL_SECTIONS_V44814";
+  const STORAGE_KEY = "SYS_SETTINGS_PANEL_SECTIONS_V4490";
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
   const GROUPS = [
     {
-      id: "operations",
-      label: "Operasyon Düzeltmeleri",
-      eyebrow: "01 · OPERASYON",
-      description: "Eksik geçmiş servis kayıtlarını kontrollü biçimde tamamla.",
-      selectors: ["#historicalServiceCard"],
-      defaultOpen: true
-    },
-    {
       id: "appearance",
       label: "Görünüm ve Kullanım",
-      eyebrow: "02 · ARAYÜZ",
+      eyebrow: "01 · ARAYÜZ",
       description: "Tema, ekran koruyucu ve cihaz kullanım tercihlerini tek noktadan yönet.",
       selectors: [".theme-settings-card", "#screenSaverSettingsCard"],
       defaultOpen: true
@@ -28,7 +20,7 @@
     {
       id: "backup",
       label: "Yedekleme ve Veri Güvenliği",
-      eyebrow: "03 · VERİ GÜVENLİĞİ",
+      eyebrow: "02 · VERİ GÜVENLİĞİ",
       description: "JSON, yerel kurtarma ve Google Drive yedeklerini birlikte yönet.",
       selectors: [".settings-data-card", "#cloudBackupCard", "#backupRecoveryCard"],
       defaultOpen: true
@@ -36,23 +28,15 @@
     {
       id: "system",
       label: "Sistem ve Güncelleme",
-      eyebrow: "04 · SİSTEM",
-      description: "Çevrimdışı kullanım, yakıt kaynağı, lisans ve sürüm bilgilerini kontrol et.",
-      selectors: ["#pwaInstallCard", "#fuelPriceSettingsCard", "#licenseSettingsCard", ".settings-version-card"],
-      defaultOpen: true
-    },
-    {
-      id: "reports",
-      label: "Rapor ve Dışa Aktarma",
-      eyebrow: "05 · RAPORLAR",
-      description: "Personel ve çetele kayıtlarını CSV veya PDF olarak dışa aktar.",
-      selectors: [".settings-csv-card"],
+      eyebrow: "03 · SİSTEM",
+      description: "Çevrimdışı kullanım, lisans ve sürüm bilgilerini kontrol et.",
+      selectors: ["#pwaInstallCard", "#licenseSettingsCard", ".settings-version-card"],
       defaultOpen: true
     },
     {
       id: "security",
       label: "Kullanıcı ve Güvenlik",
-      eyebrow: "06 · YETKİLER",
+      eyebrow: "04 · YETKİLER",
       description: "Kullanıcı rollerini, erişimleri ve işlem geçmişini denetle.",
       selectors: ["#userManagementCard", "#auditLogCard"],
       defaultOpen: false
@@ -60,7 +44,7 @@
     {
       id: "danger",
       label: "Tehlikeli İşlemler",
-      eyebrow: "07 · DİKKAT",
+      eyebrow: "05 · DİKKAT",
       description: "Demo temizliği ve geri alınamayan veri silme işlemleri.",
       selectors: ["#fullDemoDataCard", ".settings-danger-card"],
       defaultOpen: false,
@@ -110,7 +94,7 @@
         <div class="sys-settings-hero-copy">
           <span class="sys-settings-kicker">SYS · YÖNETİM MERKEZİ</span>
           <h1>Ayarlar ve Veri Güvenliği</h1>
-          <p>Görünüm, yedekleme, sistem, rapor ve kullanıcı kontrolleri artık tek düzen içinde.</p>
+          <p>Görünüm, yedekleme, sistem ve kullanıcı kontrolleri sade bir düzende.</p>
         </div>
         <div class="sys-settings-quick-actions" aria-label="Hızlı ayar işlemleri">
           <button type="button" data-settings-action="#backupBtn">JSON Yedek Al</button>
@@ -120,7 +104,7 @@
         </div>
         <div class="sys-settings-status-grid">
           <button type="button" class="sys-settings-status" data-open-group="system">
-            <span>SÜRÜM</span><strong id="sysSettingsVersion">v4.48.16</strong><small>Çalışan uygulama</small>
+            <span>SÜRÜM</span><strong id="sysSettingsVersion">v4.49.0</strong><small>Çalışan uygulama</small>
           </button>
           <button type="button" class="sys-settings-status" data-open-group="system">
             <span>LİSANS</span><strong id="sysSettingsLicense">Kontrol ediliyor</strong><small id="sysSettingsLicenseNote">Cihaz durumu</small>
@@ -254,14 +238,14 @@
   }
 
   function updateOverview() {
-    const version = window.SYS_DISPLAY_VERSION || window.SYS_APP_VERSION || window.state?.appVersion || $("#appVersionDisplay")?.textContent || "v4.48.16";
+    const version = window.SYS_DISPLAY_VERSION || window.SYS_APP_VERSION || window.state?.appVersion || $("#appVersionDisplay")?.textContent || "v4.49.0";
     const licenseBadge = $("#licenseSettingsBadge");
     const licenseCompany = $("#licenseSettingsCompany");
     const localBackup = $("#backupHealth");
     const cloudStatus = $("#cloudBackupStatus");
 
     const versionTarget = $("#sysSettingsVersion");
-    setText(versionTarget, compactText(version, "v4.48.16"));
+    setText(versionTarget, compactText(version, "v4.49.0"));
 
     const licenseTarget = $("#sysSettingsLicense");
     const licenseNote = $("#sysSettingsLicenseNote");
@@ -287,9 +271,9 @@
   }
 
   function installStyles() {
-    if ($("#sysSettingsPanelV44814Styles")) return;
+    if ($("#sysSettingsPanelV4490Styles")) return;
     const style = createElement("style");
-    style.id = "sysSettingsPanelV44814Styles";
+    style.id = "sysSettingsPanelV4490Styles";
     style.textContent = `
       #screen-settings.sys-settings-redesign {
         --settings-accent: var(--red-2, #ff3347);

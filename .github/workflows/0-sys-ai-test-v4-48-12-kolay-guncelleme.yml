@@ -13,4 +13,4 @@ jobs:
       - name: Bilgi
         run: |
           echo "Bu eski v4.48.12 güncelleme akışı arşivlenmiştir."
-          echo "Yeni güncellemelerde 1 - SYS AI Test APK Oluştur akışını kullanın."
+          echo "Yeni güncellemelerde 2 - Android APK Oluştur (Üretim) akışını kullanın."

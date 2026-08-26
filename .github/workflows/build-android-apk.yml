@@ -24,14 +24,6 @@ jobs:
           node scripts/ui-regression-check.js
           node scripts/finance-maintenance-regression-check.js
 
-      - name: Web uygulamasını APK içine eşitle
-        shell: bash
-        run: |
-          mkdir -p android-app/app/src/main/assets/www/scripts
-          cp index.html manifest.webmanifest sw.js fuel-prices.json fuel-prices.example.json android-app/app/src/main/assets/www/
-          cp -R scripts/. android-app/app/src/main/assets/www/scripts/
-          cp -R icons/. android-app/app/src/main/assets/www/icons/
-
       - name: Uygulama sürümünü belirle
         shell: bash
         run: |
@@ -92,7 +84,7 @@ jobs:
       - name: APK dosyasını yayımla
         uses: actions/upload-artifact@v4
         with:
-          name: servis-yonetim-komuta-v${{ env.APP_VERSION }}
+          name: servis-yonetim-v${{ env.APP_VERSION }}
           path: android-app/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 90

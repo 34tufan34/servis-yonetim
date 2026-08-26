@@ -1,13 +1,13 @@
 (function () {
   "use strict";
-  if (window.__SYS_EXPERIENCE_V44843__) return;
-  window.__SYS_EXPERIENCE_V44843__ = true;
+  if (window.__SYS_EXPERIENCE_V44849__) return;
+  window.__SYS_EXPERIENCE_V44849__ = true;
 
   const $ = (selector, root = document) => root.querySelector(selector);
 
   function installStyles() {
     const style = document.createElement("style");
-    style.id = "sys-experience-v44843";
+    style.id = "sys-experience-v44849";
     style.textContent = `
       .command-preview-actions button{border-color:color-mix(in srgb,var(--accent) 42%,var(--border))!important;background:color-mix(in srgb,var(--accent) 13%,var(--panel-2))!important;color:var(--text)!important}.command-preview-actions .is-service-active{background:linear-gradient(135deg,rgba(185,28,28,.24),rgba(127,29,29,.18))!important;border-color:rgba(248,113,113,.52)!important;color:#fecaca!important;box-shadow:0 0 18px rgba(239,68,68,.12)}
       .sys-ai-nav .dot{background:#a78bfa!important;box-shadow:0 0 12px rgba(167,139,250,.8)}
@@ -21,120 +21,16 @@
     style.textContent += `.sys-ai-analysis-result{display:none;padding:18px;border:1px solid rgba(167,139,250,.3);border-radius:19px;background:linear-gradient(145deg,rgba(76,29,149,.13),var(--panel))}.sys-ai-analysis-result.active{display:block}.sys-ai-analysis-result h3{margin:5px 0 8px;font-size:22px}.sys-ai-analysis-result p{margin:0;color:var(--muted);line-height:1.55}.sys-ai-analysis-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.sys-ai-analysis-metrics div{padding:12px;border:1px solid var(--border);border-radius:13px;background:rgba(2,6,23,.32)}.sys-ai-analysis-metrics strong,.sys-ai-analysis-metrics span{display:block}.sys-ai-analysis-metrics strong{font-size:21px;color:#c4b5fd}.sys-ai-analysis-metrics span{margin-top:3px;color:var(--muted);font-size:9px}.preview-fuel-brand-row{display:flex!important;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}.preview-fuel-logo{display:inline-grid!important;place-items:center;min-width:48px;padding:5px 7px;border-radius:8px;font-size:8px!important;font-weight:950;letter-spacing:.04em}.preview-fuel-logo.shell{color:#d71920;background:#ffd500;border:1px solid #fff0a0}.preview-fuel-logo.opet{color:#fff;background:#0057a8;border:1px solid #44a2e8}.command-preview-fuel-difference #previewFuelDifferencePercent{font-size:25px;color:#fbbf24}@media(max-width:1000px){#screen-driver{overflow-y:auto!important;overflow-x:hidden!important}.driver-shell{height:auto!important;min-height:100%!important;overflow:visible!important}.driver-workspace{overflow:visible!important;min-height:auto!important}.driver-panel{min-height:320px!important}.driver-list{max-height:440px!important}}@media(max-width:620px){.sys-ai-analysis-metrics{grid-template-columns:1fr 1fr}.driver-panel{min-height:280px!important}}`;
     style.textContent += `:root{--accent:#38bdf8;--accent-rgb:56,189,248;--blue:#38bdf8;--green:#22c55e;--warning:#f59e0b}.sys-ai-hub-hero,.sys-ai-personnel-panel,.sys-ai-analysis-result,#sysAiHubContent>.school-ai-center,#sysAiHubContent>.sys-ai-finance-radar{background:radial-gradient(circle at 100% 0%,rgba(245,158,11,.10),transparent 34%),linear-gradient(145deg,rgba(10,18,31,.98),rgba(3,8,18,.98))!important;border-color:rgba(56,189,248,.28)!important;color:var(--text)!important}.sys-ai-hub-action{background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(5,10,20,.96))!important;border-color:rgba(56,189,248,.18)!important}.sys-ai-hub-action b,.sys-ai-analysis-result>small,.sys-ai-personnel-panel>header small{color:#38bdf8!important}.sys-ai-safety-findings,.sys-ai-detail-findings{display:grid;gap:8px;margin-top:13px}.sys-ai-finding{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid rgba(56,189,248,.16);border-radius:12px;background:rgba(2,8,18,.42)}.sys-ai-finding i{width:8px;height:8px;margin-top:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 9px rgba(34,197,94,.5)}.sys-ai-finding.warn i{background:#f59e0b;box-shadow:0 0 9px rgba(245,158,11,.5)}.sys-ai-finding.danger i{background:#ef4444;box-shadow:0 0 9px rgba(239,68,68,.5)}.sys-ai-finding strong,.sys-ai-finding span{display:block}.sys-ai-finding span{margin-top:2px;color:var(--muted);font-size:10px}.preview-fuel-logo-host{display:grid;place-items:center;width:58px;height:42px}.preview-fuel-logo-host .fuel-brand-logo{width:58px!important;height:42px!important;padding:3px!important}.preview-fuel-logo-host img{max-width:50px!important;max-height:35px!important;object-fit:contain}.command-preview-fuel-difference #previewFuelDifferencePercent.is-safe{color:#4ade80!important}.command-preview-fuel-difference #previewFuelDifferencePercent.is-due{color:#f87171!important;text-shadow:0 0 12px rgba(239,68,68,.35)}body.driver-focus-mode .content-scroll{padding-left:4px!important;padding-right:4px!important}#screen-driver,#screen-driver .driver-shell,#screen-driver .driver-workspace{width:100%!important;max-width:none!important}#screen-driver .driver-workspace{grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr)!important;gap:8px!important}#screen-driver .driver-panel{width:100%!important;border-radius:14px!important}@media(max-width:1000px){#screen-driver .driver-workspace{grid-template-columns:1fr!important}.driver-current-card{padding-left:12px!important;padding-right:12px!important}}`;
     style.textContent += `.discount-fuel-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}.discount-fuel-preview div{padding:12px;border:1px solid rgba(56,189,248,.2);border-radius:13px;background:rgba(2,8,18,.42)}.discount-fuel-preview span,.discount-fuel-preview strong{display:block}.discount-fuel-preview span{color:var(--muted);font-size:9px}.discount-fuel-preview strong{margin-top:5px;font-size:19px;color:#7dd3fc}.preview-discount-fuel{display:block!important;margin-top:10px!important;padding-top:8px;border-top:1px solid rgba(56,189,248,.16);color:#7dd3fc!important;font-size:9px!important;line-height:1.4}.discount-fuel-note{margin-top:10px;color:var(--muted);font-size:10px;line-height:1.5}@media(max-width:620px){.discount-fuel-preview{grid-template-columns:1fr}}`;
-    style.textContent += `.km-offer-form{display:grid;grid-template-columns:1.35fr repeat(3,1fr);gap:9px;align-items:end}.km-offer-auto{padding:12px;border:1px solid rgba(56,189,248,.24);border-radius:13px;background:rgba(2,8,18,.45)}.km-offer-auto span,.km-offer-auto strong{display:block}.km-offer-auto span{color:var(--muted);font-size:9px}.km-offer-auto strong{margin-top:5px;color:#7dd3fc;font-size:21px}.km-offer-list{display:grid;gap:8px;margin-top:15px}.km-offer-row{display:grid;grid-template-columns:minmax(150px,1.4fr) repeat(4,minmax(70px,.7fr)) auto;gap:8px;align-items:center;padding:11px;border:1px solid rgba(56,189,248,.16);border-radius:13px;background:rgba(2,8,18,.38)}.km-offer-row>div span,.km-offer-row>div strong{display:block}.km-offer-row>div span{color:var(--muted);font-size:8px;letter-spacing:.05em}.km-offer-row>div strong{margin-top:3px;font-size:12px}.km-offer-row-actions{display:flex;gap:6px}@media(max-width:900px){.km-offer-form{grid-template-columns:1fr 1fr}.km-offer-row{grid-template-columns:1fr 1fr}.km-offer-row-actions{grid-column:1/-1}}@media(max-width:560px){.km-offer-form{grid-template-columns:1fr}.km-offer-row{grid-template-columns:1fr 1fr}}`;
+    style.textContent += `.km-offer-form{display:grid;grid-template-columns:1.35fr repeat(4,1fr);gap:9px;align-items:end}.km-offer-auto{padding:12px;border:1px solid rgba(56,189,248,.24);border-radius:13px;background:rgba(2,8,18,.45)}.km-offer-auto span,.km-offer-auto strong{display:block}.km-offer-auto span{color:var(--muted);font-size:9px}.km-offer-auto strong{margin-top:5px;color:#7dd3fc;font-size:21px}.km-offer-list{display:grid;gap:8px;margin-top:15px}.km-offer-row{display:grid;grid-template-columns:minmax(150px,1.4fr) repeat(6,minmax(70px,.7fr)) auto;gap:8px;align-items:center;padding:11px;border:1px solid rgba(56,189,248,.16);border-radius:13px;background:rgba(2,8,18,.38)}.km-offer-row>div span,.km-offer-row>div strong{display:block}.km-offer-row>div span{color:var(--muted);font-size:8px;letter-spacing:.05em}.km-offer-row>div strong{margin-top:3px;font-size:12px}.km-offer-row-actions{display:flex;gap:6px}@media(max-width:1100px){.km-offer-form{grid-template-columns:1fr 1fr}.km-offer-row{grid-template-columns:1fr 1fr}.km-offer-row-actions{grid-column:1/-1}}@media(max-width:560px){.km-offer-form{grid-template-columns:1fr}.km-offer-row{grid-template-columns:1fr 1fr}}`;
+    style.textContent += `#screen-settings #kmOfferRecordsCard{grid-column:1/-1!important;order:5!important;width:100%!important;min-width:0!important;max-width:none!important;justify-self:stretch!important}#screen-settings #kmOfferRecordsCard .km-offer-form{width:100%;grid-template-columns:minmax(180px,1.35fr) repeat(3,minmax(130px,1fr))}#screen-settings #kmOfferRecordsCard .km-offer-auto{width:100%;box-sizing:border-box}.current-location-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.current-location-btn{border-color:rgba(56,189,248,.4)!important;background:rgba(14,165,233,.12)!important;color:#bae6fd!important}@media(max-width:900px){#screen-settings #kmOfferRecordsCard .km-offer-form{grid-template-columns:1fr 1fr}}@media(max-width:560px){#screen-settings #kmOfferRecordsCard .km-offer-form{grid-template-columns:1fr}}`;
+    style.textContent += `.address-book-row{grid-template-columns:22px 38px minmax(0,1fr) auto!important;gap:9px!important;min-height:0!important;padding:10px 12px!important;align-items:center!important}.address-book-row .address-bulk-select{margin:0!important;justify-self:center}.address-book-row .address-book-pin{width:38px!important;height:38px!important}.address-book-copy{min-width:0!important}.address-book-copy strong,.address-book-location,.address-book-note,.address-book-phone{max-width:100%;overflow-wrap:anywhere;word-break:break-word}.address-book-phone{display:inline-flex;color:#7dd3fc;text-decoration:none;font-size:11px;font-weight:800}.address-book-row-actions{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:6px!important}.address-book-row-actions .btn{white-space:nowrap!important;padding:7px 9px!important;font-size:10px!important}.price-offers-nav .dot{background:#38bdf8!important;box-shadow:0 0 11px rgba(56,189,248,.65)}#screen-price-offers{overflow-y:auto!important;padding-bottom:24px}.price-offers-shell{display:grid;gap:14px}.price-offers-hero{padding:20px;border:1px solid rgba(56,189,248,.25);border-radius:20px;background:radial-gradient(circle at 100% 0%,rgba(14,165,233,.15),transparent 38%),linear-gradient(145deg,rgba(10,18,31,.98),rgba(3,8,18,.98))}.price-offers-hero small{color:#7dd3fc;font-weight:950;letter-spacing:.12em}.price-offers-hero h2{margin:6px 0;font-size:clamp(24px,4vw,38px)}.price-offers-hero p{margin:0;color:var(--muted)}#priceOffersHost #kmOfferRecordsCard{margin:0!important;width:100%!important;max-width:none!important;padding:18px!important;background:rgba(8,15,27,.94)!important}@media(max-width:700px){.address-book-row{grid-template-columns:20px 34px minmax(0,1fr)!important}.address-book-row .address-book-pin{width:34px!important;height:34px!important}.address-book-row-actions{grid-column:2/-1!important;justify-content:flex-start!important}.address-book-row-actions .btn{flex:0 1 auto!important;padding:7px 8px!important}}`;
+    style.textContent += `.command-preview-nav .dot{background:#38bdf8!important;box-shadow:0 0 11px rgba(56,189,248,.75)!important}.nav-btn[data-module="personnel"] .dot{background:#22c55e!important;box-shadow:0 0 11px rgba(34,197,94,.7)!important}.nav-btn[data-module="school"] .dot{background:#f59e0b!important;box-shadow:0 0 11px rgba(245,158,11,.7)!important}.nav-btn[data-module="driver"] .dot{background:#a78bfa!important;box-shadow:0 0 11px rgba(167,139,250,.7)!important}.nav-btn[data-module="registry"] .dot{background:#3b82f6!important;box-shadow:0 0 11px rgba(59,130,246,.7)!important}.nav-btn[data-module="addresses"] .dot{background:#fb7185!important;box-shadow:0 0 11px rgba(251,113,133,.7)!important}.price-offers-nav .dot{background:#f97316!important;box-shadow:0 0 11px rgba(249,115,22,.7)!important}.nav-btn[data-module="finance"] .dot{background:#14b8a6!important;box-shadow:0 0 11px rgba(20,184,166,.7)!important}.sys-ai-nav .dot{background:#d946ef!important;box-shadow:0 0 11px rgba(217,70,239,.75)!important}.km-offer-auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.km-offer-total-earning{border-color:rgba(34,197,94,.28)!important;background:rgba(20,83,45,.16)!important}.km-offer-total-earning strong{color:#86efac!important}@media(max-width:560px){.km-offer-auto-grid{grid-template-columns:1fr}}`;
+    style.textContent += `.session-user-avatar,.user-avatar,.quick-user-option-avatar,.user-photo-preview,#previewProfileAvatar{overflow:hidden}.session-user-avatar img,.user-avatar img,.quick-user-option-avatar img,.user-photo-preview img,#previewProfileAvatar img{width:100%;height:100%;display:block;object-fit:cover}.session-user-avatar{border-radius:50%!important}.user-avatar{border-radius:50%!important}.quick-user-option-avatar{border-radius:50%!important}.user-photo-picker{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.user-photo-preview{width:72px;height:72px;flex:0 0 72px;display:grid;place-items:center;border:1px solid rgba(var(--accent-rgb),.35);border-radius:50%;background:rgba(var(--accent-rgb),.10);font-size:22px;font-weight:950}.user-photo-picker-actions{display:grid;gap:7px;min-width:0}.user-photo-picker-actions input[type=file]{width:100%;font-size:10px}.user-photo-picker-actions small{color:var(--muted);font-size:9px}`;
+    style.textContent += `body.modern-command-active .topbar{display:none!important}body.modern-command-active .content-scroll{padding:0!important}.command-preview-screen{height:100%!important;min-height:680px!important;border-radius:0!important}.command-preview-shell{position:relative!important;height:100%!important;min-height:680px!important;display:block!important;overflow:hidden!important;border-radius:0!important;background:#020711!important}.command-preview-hero{position:absolute!important;inset:0!important;border-radius:0!important;background-image:url('./icons/command-mercedes-v44849.png')!important;background-position:center center!important;background-size:cover!important}.command-preview-shade{background:linear-gradient(90deg,rgba(1,5,14,.68),rgba(1,5,14,.08) 48%,rgba(1,5,14,.34)),linear-gradient(0deg,rgba(1,5,14,.97) 0%,rgba(1,5,14,.15) 56%,rgba(1,5,14,.72) 100%)!important}.command-preview-topline{position:absolute!important;left:24px;right:24px;top:0;padding:18px 0!important;align-items:center;border-bottom:1px solid rgba(56,189,248,.16);font-size:11px!important}.command-preview-topline span{display:flex;align-items:center;gap:18px}.command-preview-topline span strong{font-size:25px;letter-spacing:.16em;color:#fff}.command-preview-topline span i{font-style:normal;letter-spacing:.22em;color:#dbeafe}.command-preview-topline b{margin-left:auto;margin-right:245px;color:#4ade80!important}.command-preview-clock{right:150px!important;top:18px!important;display:flex;align-items:center;gap:9px}.command-preview-clock strong{font-size:15px!important}.command-preview-clock span{display:none!important}.command-preview-profile{position:absolute;z-index:3;right:22px;top:10px;display:flex;align-items:center;gap:8px;padding:6px 9px 6px 6px;border:1px solid rgba(56,189,248,.24);border-radius:999px;background:rgba(2,8,18,.64);backdrop-filter:blur(14px)}#previewProfileAvatar{width:38px;height:38px;display:grid;place-items:center;border:1px solid #38bdf8;border-radius:50%;background:rgba(14,165,233,.14);color:#bae6fd;font-size:11px;font-weight:950}.command-preview-profile>span strong,.command-preview-profile>span small{display:block}.command-preview-profile>span strong{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.command-preview-profile>span small{margin-top:2px;color:#7dd3fc;font-size:8px}.command-preview-intro{display:none!important}.command-preview-live{left:24px!important;right:auto!important;top:84px!important;width:190px;justify-content:center;padding:9px 13px!important;border-color:rgba(56,189,248,.42)!important;border-radius:18px!important;background:rgba(2,8,18,.58)!important;box-shadow:0 0 26px rgba(14,165,233,.10)}.command-preview-live strong{font-size:28px!important;color:#7dd3fc!important}.command-preview-live span{font-size:9px!important}.command-preview-body{position:absolute!important;z-index:2;left:20px;right:20px;bottom:18px;display:grid!important;grid-template-columns:minmax(0,1fr) 280px!important;gap:14px!important;padding:0!important;align-items:end}.command-preview-services{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;align-items:end}.command-preview-service{padding:14px!important;border-color:rgba(56,189,248,.38)!important;border-radius:22px!important;background:linear-gradient(145deg,rgba(2,10,22,.76),rgba(2,7,15,.88))!important;backdrop-filter:blur(18px);box-shadow:0 18px 55px rgba(0,0,0,.36),inset 0 0 30px rgba(56,189,248,.025)!important}.command-preview-service.is-live{border-color:rgba(34,197,94,.62)!important;background:linear-gradient(145deg,rgba(5,46,28,.74),rgba(2,10,18,.90))!important}.command-preview-icon{width:42px!important;height:42px!important;border-radius:50%!important;background:rgba(14,165,233,.10)!important;border:1px solid rgba(56,189,248,.48);color:#7dd3fc!important;box-shadow:0 0 18px rgba(56,189,248,.12)}.command-preview-card-head h3{font-size:18px!important}.command-preview-card-head b{border:1px solid rgba(245,158,11,.42);background:rgba(245,158,11,.10)!important;color:#fbbf24!important}.command-preview-service>p{min-height:0!important;margin:7px 0!important;font-size:9px!important}.command-preview-passenger{padding:9px 11px!important;border-color:rgba(56,189,248,.14)!important;background:rgba(2,8,18,.34)!important}.command-preview-passenger strong{font-size:13px!important}.command-preview-stage{padding:7px 9px!important;margin-top:6px!important}.command-preview-stage span{display:none!important}.command-preview-marks{margin-top:6px!important}.command-preview-marks button{min-height:28px!important}.command-preview-distribution{min-height:31px!important;margin-top:6px!important}.command-preview-actions{padding-top:7px!important}.command-preview-actions button{min-height:36px!important;border-color:rgba(56,189,248,.42)!important;background:rgba(14,165,233,.09)!important;color:#7dd3fc!important}.command-preview-actions .is-service-active{border-color:rgba(248,113,113,.58)!important;background:rgba(127,29,29,.62)!important;color:#fecaca!important}.command-preview-rail{display:flex!important;gap:0!important;padding:13px;border:1px solid rgba(56,189,248,.42);border-radius:22px;background:linear-gradient(145deg,rgba(2,10,22,.78),rgba(2,7,15,.92));backdrop-filter:blur(18px);box-shadow:0 18px 55px rgba(0,0,0,.36)}.command-preview-rail>div{padding:10px 5px!important;border:0!important;border-bottom:1px solid rgba(56,189,248,.13)!important;border-radius:0!important;background:transparent!important}.command-preview-rail>div:last-child{border-bottom:0!important}.command-preview-rail small{color:#cbd5e1!important}.command-preview-fuel{border-color:rgba(56,189,248,.13)!important;background:transparent!important}.preview-fuel-brand-row{margin-top:5px!important}.preview-fuel-logo-host{width:46px!important;height:32px!important}.preview-fuel-logo-host .fuel-brand-logo{width:44px!important;height:30px!important}.preview-fuel-logo-host img{max-width:39px!important;max-height:27px!important}.preview-discount-fuel{margin-top:7px!important;padding:7px!important;border:1px solid rgba(34,197,94,.25)!important;border-radius:9px;background:rgba(20,83,45,.20);color:#86efac!important}.command-preview-fuel-difference{border-color:transparent!important;background:transparent!important}.command-preview-fuel-difference #previewFuelDifferencePercent{font-size:23px!important}`;
+    style.textContent += `@media(max-width:1050px){.command-preview-screen,.command-preview-shell{height:auto!important;min-height:100%!important;overflow:visible!important}.command-preview-hero{position:relative!important;height:420px}.command-preview-body{position:relative!important;left:auto;right:auto;bottom:auto;grid-template-columns:1fr!important;padding:12px!important;background:#020711}.command-preview-rail{display:grid!important;grid-template-columns:repeat(2,1fr)!important}.command-preview-services{grid-template-columns:1fr 1fr!important}}@media(max-width:720px){body.modern-command-active .content-scroll{overflow:auto!important}.command-preview-hero{height:340px}.command-preview-topline span i{display:none}.command-preview-topline b{display:none}.command-preview-clock{display:none}.command-preview-profile>span{display:none}.command-preview-live{top:76px!important;left:14px!important;width:145px}.command-preview-services{grid-template-columns:1fr!important}.command-preview-rail{grid-template-columns:1fr!important}.user-photo-picker{align-items:flex-start;flex-direction:column}}`;
+    style.textContent += `body.modern-command-active .topbar{display:flex!important}`;
+    style.textContent += `.command-preview-profile{gap:0!important;padding:7px 11px!important}@media(max-width:720px){.command-preview-profile{display:none!important}.command-preview-profile>span{display:block!important}}`;
     document.head.appendChild(style);
-  }
-
-  function buildAiHub() {
-    const main = $("#contentScroll");
-    const nav = $(".nav");
-    if (!main || !nav || $("#screen-sys-ai")) return;
-    const navButton = document.createElement("button");
-    navButton.className = "nav-btn sys-ai-nav";
-    navButton.type = "button";
-    navButton.innerHTML = '<span class="nav-label"><span class="dot"></span>SYS AI</span>';
-    nav.appendChild(navButton);
-    const screen = document.createElement("section");
-    screen.className = "module-screen";
-    screen.id = "screen-sys-ai";
-    screen.innerHTML = `<div class="sys-ai-hub">
-      <header class="sys-ai-hub-hero"><div><small>SYS AI · SİSTEM GENELİ AKILLI İŞLEMLER</small><h2>Akıllı Kontrol Merkezi</h2><p>Personel, okul, araç, finans ve geçmiş servis kontrollerini tek bölümden yönet.</p></div><div class="sys-ai-hub-state">● DENETİM HAZIR</div></header>
-      <section class="sys-ai-personnel-panel"><header><div><small>PERSONEL SERVİSİ ANALİZİ</small><h3>Personel operasyonu akıllı kontrolü</h3><p>Aktif personel, firma, güzergâh ve servis hareketlerini birlikte denetler.</p></div><button class="btn small" type="button" data-action="ai-open-dashboard">Personel Analizi Yap</button></header><div class="sys-ai-personnel-stats"><div><strong id="sysAiPersonnelCount">0</strong><span>AKTİF PERSONEL</span></div><div><strong id="sysAiCompanyCount">0</strong><span>AKTİF FİRMA</span></div><div><strong id="sysAiRouteCount">0</strong><span>GÜZERGÂH</span></div><div><strong id="sysAiPersonnelSessionCount">0</strong><span>AKTİF SERVİS</span></div></div></section>
-      <div class="sys-ai-hub-actions">
-        <button class="sys-ai-hub-action" data-action="ai-open-dashboard"><b>01</b><strong>Personel Servisi Zekâsı</strong><span>Personel, vardiya, firma, biniş ve dağıtım risklerini denetle.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-open-dashboard"><b>02</b><strong>Okul Güvenliği</strong><span>Öğrenci, veli, rehber, kapasite ve yoklama açıklarını incele.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-open-dashboard"><b>03</b><strong>Araç ve Evrak</strong><span>Bakım, muayene, sigorta ve kapasite uyarılarını kontrol et.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-open-dashboard"><b>04</b><strong>Finans Radarı</strong><span>Tahsilat, fatura, ödeme ve yakıt farkı risklerini incele.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-open-dashboard"><b>05</b><strong>Eksik Servis Denetimi</strong><span>Tamamlanmamış geçmiş seferleri ve çetele uyumunu bul.</span></button>
-        <button class="sys-ai-hub-action" data-action="school-ai-payments"><b>06</b><strong>Tahsilat İşlemleri</strong><span>Öğrenci ödeme açıklarını doğrudan görüntüle.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-refresh"><b>07</b><strong>Tüm Sistemi Tara</strong><span>Bütün akıllı bulguları tek işlemle yeniden hesapla.</span></button>
-        <button class="sys-ai-hub-action" data-action="ai-export"><b>08</b><strong>Akıllı Özet</strong><span>Günlük operasyon, okul ve finans özetini oluştur.</span></button>
-      </div><div class="sys-ai-hub-content" id="sysAiHubContent"><div class="sys-ai-hub-note">Okul güvenliği dâhil tüm akıllı denetimler artık bu merkezde toplanır.</div></div></div>`;
-    main.appendChild(screen);
-    const personnelSafetyCenter = $(".sys-ai-personnel-panel", screen);
-    if (personnelSafetyCenter) {
-      personnelSafetyCenter.id = "sysAiPersonnelSafetyCenter";
-      personnelSafetyCenter.querySelector("h3").textContent = "Personel Güvenlik Merkezi";
-      personnelSafetyCenter.querySelector("p").textContent = "Personel, telefon, adres, firma, güzergâh ve servis güvenlik bağlarını birlikte denetler.";
-      const safetyFindings = document.createElement("div");
-      safetyFindings.className = "sys-ai-safety-findings";
-      safetyFindings.id = "sysAiPersonnelSafetyFindings";
-      safetyFindings.innerHTML = '<div class="sys-ai-finding"><i></i><div><strong>Analize hazır</strong><span>Personel güvenlik bulguları tarama sonrasında burada ayrıntılı gösterilir.</span></div></div>';
-      personnelSafetyCenter.appendChild(safetyFindings);
-    }
-    const analysisResult = document.createElement("section");
-    analysisResult.className = "sys-ai-analysis-result";
-    analysisResult.id = "sysAiAnalysisResult";
-    $(".sys-ai-hub-actions", screen)?.after(analysisResult);
-    const analysisType = (action) => {
-      if (action.closest(".sys-ai-personnel-panel")) return "personnel";
-      return ({ "01": "personnel", "02": "school", "03": "vehicle", "04": "finance", "05": "missing" })[action.querySelector("b")?.textContent?.trim()] || "";
-    };
-    const showAnalysis = (type) => {
-      const activePeople = (state.people || []).filter((item) => item.status !== "Pasif").length;
-      const activeStudents = (state.students || []).filter((item) => item.status !== "Pasif").length;
-      const activeVehicles = (state.vehicles || []).filter((item) => item.status !== "Pasif").length;
-      const missingDocuments = (state.documents || []).filter((item) => !item.expiryDate || new Date(item.expiryDate) < new Date()).length;
-      const openSchool = (state.schoolServiceSessions || []).filter((item) => item.isActive).length;
-      const openPersonnel = (state.serviceSessions || []).filter((item) => item.isActive).length;
-      const unpaid = (state.schoolPayments || []).filter((item) => item.status !== "Ödendi").length;
-      const incomplete = (state.serviceSessions || []).filter((item) => !item.isActive && item.status !== "Tamamlandı").length;
-      const missingPersonPhone = (state.people || []).filter((item) => item.status !== "Pasif" && !String(item.phone || item.mobile || "").trim()).length;
-      const missingPersonAddress = (state.people || []).filter((item) => item.status !== "Pasif" && !String(item.address || item.location || "").trim()).length;
-      const unassignedPeople = (state.people || []).filter((item) => item.status !== "Pasif" && !item.routeId && !item.companyId).length;
-      const expiredMaintenance = (state.vehicleMaintenance || []).filter((item) => item.nextDate && new Date(item.nextDate) < new Date()).length;
-      const data = {
-        personnel: ["Personel Güvenlik Analizi", "Personel, firma, güzergâh ve aktif sefer bağlantıları birlikte tarandı.", [[activePeople,"Aktif personel"],[(state.companies||[]).length,"Firma"],[openPersonnel,"Aktif personel servisi"]], [[missingPersonPhone,"Telefonu eksik personel"],[missingPersonAddress,"Adresi eksik personel"],[unassignedPeople,"Firma/güzergâh ataması eksik"]]],
-        school: ["Öğrenci Güvenlik Analizi", "Öğrenci, veli, rehber ve okul servis oturumları güvenlik açısından incelendi.", [[activeStudents,"Aktif öğrenci"],[(state.guides||[]).length,"Rehber"],[openSchool,"Aktif okul servisi"]], [[Math.max(0,activeStudents-(state.guides||[]).length),"Rehber kapsaması kontrolü"],[(state.schoolAttendance||[]).filter(item=>item.status==="Bekliyor").length,"Bekleyen yoklama"],[openSchool,"Canlı okul operasyonu"]]],
-        vehicle: ["Araç ve Evrak Analizi", "Araç kapasitesi, bakım kayıtları ve süresi yaklaşan ya da eksik evraklar kontrol edildi.", [[activeVehicles,"Aktif araç"],[(state.vehicleMaintenance||[]).length,"Bakım kaydı"],[missingDocuments,"Evrak uyarısı"]], [[missingDocuments,"Eksik/süresi geçen evrak"],[expiredMaintenance,"Geciken bakım"],[(state.vehicles||[]).filter(item=>!item.driverName).length,"Şoför ataması eksik"]]],
-        finance: ["Finans Radarı Analizi", "Tahsilat, ödeme, fatura ve mazot farkı sinyalleri finans riski için tarandı.", [[(state.financeRecords||[]).length,"Finans kaydı"],[unpaid,"Açık ödeme"],[$("#commandFuelPercent")?.textContent||"%0","Mazot değişimi"]], [[unpaid,"Takip edilecek tahsilat"],[(state.financeRecords||[]).filter(item=>!item.invoiceNo).length,"Fatura numarası eksik"],[$("#commandFuelStatusPill")?.textContent||"Hazır","Mazot farkı durumu"]]],
-        missing: ["Eksik Servis Analizi", "Planlanmış seferler, kapanış durumları ve çetele uyumu eksik kayıtlar için tarandı.", [[incomplete,"Kontrol edilecek"],[(state.manualServiceCorrections||[]).length,"Düzeltme kaydı"],[(state.dayMarks||[]).length,"Çetele kaydı"]], [[incomplete,"Kapanışı kontrol edilecek sefer"],[(state.dayMarks||[]).filter(item=>!item.status).length,"Durumu eksik çetele"],[(state.manualServiceCorrections||[]).length,"Uygulanmış operasyon düzeltmesi"]]]
-      }[type];
-      if (!data) return;
-      analysisResult.innerHTML = `<small>SYS AI · DETAYLI ANALİZ</small><h3>${data[0]}</h3><p>${data[1]}</p><div class="sys-ai-analysis-metrics">${data[2].map(([value,label])=>`<div><strong>${value}</strong><span>${label}</span></div>`).join("")}</div><div class="sys-ai-detail-findings">${data[3].map(([value,label])=>`<div class="sys-ai-finding ${Number(value)>0?'warn':''}"><i></i><div><strong>${value}</strong><span>${label}</span></div></div>`).join("")}</div>`;
-      if (type === "personnel" && $("#sysAiPersonnelSafetyFindings")) $("#sysAiPersonnelSafetyFindings").innerHTML = data[3].map(([value,label])=>`<div class="sys-ai-finding ${Number(value)>0?'warn':''}"><i></i><div><strong>${value}</strong><span>${label}</span></div></div>`).join("");
-      analysisResult.classList.add("active");
-      window.setTimeout(() => analysisResult.scrollIntoView({ behavior: "smooth", block: "nearest" }), 1200);
-    };
-    const updatePersonnelSummary = () => {
-      const set = (selector, value) => { const element = $(selector); if (element) element.textContent = String(value); };
-      set("#sysAiPersonnelCount", (state.people || []).filter((item) => item.status !== "Pasif").length);
-      set("#sysAiCompanyCount", (state.companies || []).filter((item) => item.status !== "Pasif").length);
-      set("#sysAiRouteCount", (state.routes || []).filter((item) => item.status !== "Pasif").length);
-      set("#sysAiPersonnelSessionCount", (state.serviceSessions || []).filter((item) => item.isActive).length);
-    };
-    updatePersonnelSummary();
-    const collectAiPanels = () => {
-      const host = $("#sysAiHubContent");
-      if (!host) return;
-      ["#schoolAiSafetyCenter", "#sysAiInspectorCard", "#sysAiDomainPulseCard", "#sysAiCommandDock", "#sysAiFinanceRadar"].forEach((selector) => {
-        const panel = $(selector); if (panel && panel.parentElement !== host) host.appendChild(panel);
-      });
-    };
-    collectAiPanels();
-    new MutationObserver(collectAiPanels).observe(document.body, { childList: true, subtree: true });
-    navButton.addEventListener("click", () => {
-      document.querySelectorAll(".nav-btn").forEach((button) => button.classList.remove("active"));
-      document.querySelectorAll(".module-screen").forEach((item) => item.classList.remove("active"));
-      navButton.classList.add("active"); screen.classList.add("active");
-      if ($("#pageTitle")) $("#pageTitle").textContent = "SYS AI";
-      if ($("#pageLead")) $("#pageLead").textContent = "Sistem genelindeki akıllı denetim ve karar işlemleri.";
-      updatePersonnelSummary();
-      $("#sidebar")?.classList.remove("open"); screen.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    screen.addEventListener("click", (event) => {
-      const action = event.target.closest("[data-action]");
-      if (!action) return;
-      const card = action.classList.contains("sys-ai-hub-action") ? action : action.closest(".sys-ai-personnel-panel");
-      if (!card || card.classList.contains("scanning")) return;
-      const selectedAnalysis = analysisType(action);
-      if (selectedAnalysis) event.stopImmediatePropagation();
-      card.classList.add("scanning");
-      const stateLabel = $(".sys-ai-hub-state");
-      if (stateLabel) stateLabel.textContent = "◌ SİSTEM TARANIYOR";
-      window.setTimeout(() => { card.classList.remove("scanning"); if (stateLabel) stateLabel.textContent = "● ANALİZ TAMAMLANDI"; updatePersonnelSummary(); showAnalysis(selectedAnalysis); }, 1250);
-    }, true);
-    document.addEventListener("click", (event) => { if (event.target.closest(".nav-btn") !== navButton) navButton.classList.remove("active"); }, true);
   }
 
   function addImportedContacts(items) {
@@ -146,7 +42,7 @@
       if (!name && !phone) return;
       const note = [phone ? `Telefon: ${phone}` : "", item.note || ""].filter(Boolean).join(" · ");
       const key = `${name.toLocaleLowerCase("tr-TR")}|${note}`; if (existing.has(key)) return;
-      const now = new Date().toISOString(); state.addressBook.push({ id: uid("address"), name: name || phone, location: address || "Adres henüz eklenmedi", note, createdAt: now, updatedAt: now, source: "phone-import" }); existing.add(key); added += 1;
+      const now = new Date().toISOString(); state.addressBook.push({ id: uid("address"), name: name || phone, location: address || "Adres henüz eklenmedi", phone, note, createdAt: now, updatedAt: now, source: "phone-import" }); existing.add(key); added += 1;
     });
     saveState(); renderAddressBook(); showToast(added ? `${added} telefon kişisi adres defterine aktarıldı.` : "Yeni kişi bulunamadı veya kayıtlar zaten mevcut.");
   }
@@ -172,6 +68,43 @@
     });
     $("#importContactFileBtn").addEventListener("click", () => $("#contactImportFile").click());
     $("#contactImportFile").addEventListener("change", async (event) => { const file = event.target.files?.[0]; if (!file) return; try { addImportedContacts(parseContactFile(await file.text(), file.name)); } catch (error) { console.error(error); showToast("Rehber yedeği okunamadı. VCF, CSV veya JSON dosyasını kontrol et."); } event.target.value = ""; });
+  }
+
+  function installCurrentLocationAddress() {
+    const form = $("#addressBookForm");
+    const locationField = $("#addressBookLocation");
+    if (!form || !locationField || $("#addCurrentLocationBtn")) return;
+    const actions = document.createElement("div");
+    actions.className = "current-location-actions";
+    actions.innerHTML = '<button class="btn small current-location-btn" id="addCurrentLocationBtn" type="button">⌖ Bulunduğum Konumu Ekle</button><span class="address-book-hint" id="currentLocationStatus">Telefonun GPS konumunu koordinat olarak Adres Defteri’ne kaydeder.</span>';
+    locationField.after(actions);
+    $("#addCurrentLocationBtn").addEventListener("click", () => {
+      const button = $("#addCurrentLocationBtn");
+      const status = $("#currentLocationStatus");
+      if (!navigator.geolocation) { showToast("Bu cihaz GPS konumu almayı desteklemiyor."); return; }
+      button.disabled = true;
+      button.textContent = "⌖ Konum alınıyor…";
+      status.textContent = "GPS doğruluğu bekleniyor. Bu işlem birkaç saniye sürebilir.";
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = Number(position.coords.latitude).toFixed(6);
+        const longitude = Number(position.coords.longitude).toFixed(6);
+        const accuracy = Math.round(Number(position.coords.accuracy || 0));
+        if (!$("#addressBookName").value.trim()) $("#addressBookName").value = `Bulunduğum Konum · ${new Date().toLocaleDateString("tr-TR")}`;
+        locationField.value = `${latitude}, ${longitude}`;
+        const note = $("#addressBookNote");
+        if (note && !note.value.trim()) note.value = `GPS ile kaydedildi${accuracy ? ` · Yaklaşık doğruluk ${accuracy} m` : ""}`;
+        status.textContent = `Konum bulundu: ${latitude}, ${longitude}. Adres Defteri’ne kaydediliyor.`;
+        button.disabled = false;
+        button.textContent = "⌖ Bulunduğum Konumu Ekle";
+        form.requestSubmit ? form.requestSubmit() : $("#saveAddressBookBtn")?.click();
+      }, (error) => {
+        const message = error.code === 1 ? "Konum izni verilmedi. Telefon ayarlarından konum iznini açın." : error.code === 2 ? "GPS konumu bulunamadı. Açık bir alanda tekrar deneyin." : "Konum alınırken süre doldu. Tekrar deneyin.";
+        status.textContent = message;
+        button.disabled = false;
+        button.textContent = "⌖ Bulunduğum Konumu Ekle";
+        showToast(message);
+      }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 30000 });
+    });
   }
 
   function installAddressBulkDelete() {
@@ -247,45 +180,49 @@
   }
 
   function installKmOfferRecords() {
+    const priceHost = $("#priceOffersWorkarea");
     const anchor = $("#discountFuelSettingsCard") || $("#fuelPriceSettingsCard");
-    if (!anchor || $("#kmOfferRecordsCard")) return;
+    if ((!priceHost && !anchor) || $("#kmOfferRecordsCard")) return;
     state.settings = state.settings || {};
     if (!Array.isArray(state.settings.kmOfferRecords)) state.settings.kmOfferRecords = [];
     const card = document.createElement("div");
     card.className = "card panel settings-panel settings-wide-card";
     card.id = "kmOfferRecordsCard";
-    card.innerHTML = `<div class="panel-header"><div><h2 class="panel-title">KM Teklif Kayıtları</h2><div class="panel-sub">Gelen işleri firma, kilometre, personel ve fiyat bilgisiyle kalıcı olarak kaydet.</div></div></div><form id="kmOfferForm"><input id="kmOfferId" type="hidden"><div class="km-offer-form"><div class="field"><label for="kmOfferCompany">Firma Adı *</label><input id="kmOfferCompany" maxlength="100" required placeholder="Firma adı"></div><div class="field"><label for="kmOfferKm">Toplam KM *</label><input id="kmOfferKm" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="80"></div><div class="field"><label for="kmOfferPeople">Toplam Personel *</label><input id="kmOfferPeople" type="number" min="1" step="1" inputmode="numeric" required placeholder="4"></div><div class="field"><label for="kmOfferPrice">Fiyat *</label><input id="kmOfferPrice" type="number" min="0" step="0.01" inputmode="decimal" required placeholder="4500"></div></div><div class="km-offer-auto"><span>KM FİYATI · FİYAT / TOPLAM KM</span><strong id="kmOfferUnitPrice">₺0,00/km</strong></div><div class="settings-actions"><button class="btn primary" id="saveKmOfferBtn" type="submit">Teklifi Kaydet</button><button class="btn" id="clearKmOfferBtn" type="button">Temizle</button></div></form><div class="km-offer-list" id="kmOfferList"></div>`;
-    anchor.after(card);
+    card.innerHTML = `<div class="panel-header"><div><h2 class="panel-title">KM Teklif Kayıtları</h2><div class="panel-sub">Gelen işleri firma, kilometre, personel, gün ve fiyat bilgisiyle kalıcı olarak kaydet.</div></div></div><form id="kmOfferForm"><input id="kmOfferId" type="hidden"><div class="km-offer-form"><div class="field"><label for="kmOfferCompany">Firma Adı *</label><input id="kmOfferCompany" maxlength="100" required placeholder="Firma adı"></div><div class="field"><label for="kmOfferKm">Toplam KM *</label><input id="kmOfferKm" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="80"></div><div class="field"><label for="kmOfferPeople">Toplam Personel *</label><input id="kmOfferPeople" type="number" min="1" step="1" inputmode="numeric" required placeholder="4"></div><div class="field"><label for="kmOfferDays">Toplam Gün *</label><input id="kmOfferDays" type="number" min="1" step="1" inputmode="numeric" required placeholder="22"></div><div class="field"><label for="kmOfferPrice">Günlük Fiyat *</label><input id="kmOfferPrice" type="number" min="0" step="0.01" inputmode="decimal" required placeholder="4500"></div></div><div class="km-offer-auto-grid"><div class="km-offer-auto"><span>KM FİYATI · FİYAT / TOPLAM KM</span><strong id="kmOfferUnitPrice">₺0,00/km</strong></div><div class="km-offer-auto km-offer-total-earning"><span>TOPLAM KAZANÇ · FİYAT × TOPLAM GÜN</span><strong id="kmOfferTotalEarning">₺0,00</strong></div></div><div class="settings-actions"><button class="btn primary" id="saveKmOfferBtn" type="submit">Teklifi Kaydet</button><button class="btn" id="clearKmOfferBtn" type="button">Temizle</button></div></form><div class="km-offer-list" id="kmOfferList"></div>`;
+    if (priceHost) priceHost.appendChild(card); else anchor.after(card);
     const money = (value) => Number(value || 0).toLocaleString("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const calculate = () => {
-      const km = Number($("#kmOfferKm").value || 0), price = Number($("#kmOfferPrice").value || 0);
+      const km = Number($("#kmOfferKm").value || 0), price = Number($("#kmOfferPrice").value || 0), days = Number($("#kmOfferDays").value || 0);
       const unit = km > 0 ? price / km : 0;
+      const totalEarning = price * days;
       $("#kmOfferUnitPrice").textContent = `${money(unit)}/km`;
-      return unit;
+      $("#kmOfferTotalEarning").textContent = money(totalEarning);
+      return { unit, totalEarning };
     };
     const clear = () => { $("#kmOfferId").value = ""; $("#kmOfferForm").reset(); $("#saveKmOfferBtn").textContent = "Teklifi Kaydet"; calculate(); };
     const render = () => {
       const rows = [...state.settings.kmOfferRecords].sort((a,b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
-      $("#kmOfferList").innerHTML = rows.length ? rows.map((item) => `<article class="km-offer-row"><div><span>FİRMA</span><strong>${escapeHtml(item.company)}</strong></div><div><span>TOPLAM KM</span><strong>${Number(item.totalKm).toLocaleString("tr-TR")} km</strong></div><div><span>PERSONEL</span><strong>${Number(item.totalPeople).toLocaleString("tr-TR")} kişi</strong></div><div><span>FİYAT</span><strong>${money(item.price)}</strong></div><div><span>KM FİYATI</span><strong>${money(item.unitPrice)}/km</strong></div><div class="km-offer-row-actions"><button class="btn small" type="button" data-km-offer-edit="${escapeHtml(item.id)}">Düzenle</button><button class="btn small danger" type="button" data-km-offer-delete="${escapeHtml(item.id)}">Sil</button></div></article>`).join("") : '<div class="sys-ai-hub-note">Henüz KM teklif kaydı bulunmuyor.</div>';
+      $("#kmOfferList").innerHTML = rows.length ? rows.map((item) => { const days = Math.max(1, Number(item.totalDays || 1)); const totalEarning = Number.isFinite(Number(item.totalEarning)) ? Number(item.totalEarning) : Number(item.price || 0) * days; return `<article class="km-offer-row"><div><span>FİRMA</span><strong>${escapeHtml(item.company)}</strong></div><div><span>TOPLAM KM</span><strong>${Number(item.totalKm).toLocaleString("tr-TR")} km</strong></div><div><span>PERSONEL</span><strong>${Number(item.totalPeople).toLocaleString("tr-TR")} kişi</strong></div><div><span>TOPLAM GÜN</span><strong>${days.toLocaleString("tr-TR")} gün</strong></div><div><span>GÜNLÜK FİYAT</span><strong>${money(item.price)}</strong></div><div><span>KM FİYATI</span><strong>${money(item.unitPrice)}/km</strong></div><div><span>TOPLAM KAZANÇ</span><strong>${money(totalEarning)}</strong></div><div class="km-offer-row-actions"><button class="btn small" type="button" data-km-offer-edit="${escapeHtml(item.id)}">Düzenle</button><button class="btn small danger" type="button" data-km-offer-delete="${escapeHtml(item.id)}">Sil</button></div></article>`; }).join("") : '<div class="sys-ai-hub-note">Henüz KM teklif kaydı bulunmuyor.</div>';
     };
     $("#kmOfferKm").addEventListener("input", calculate);
+    $("#kmOfferDays").addEventListener("input", calculate);
     $("#kmOfferPrice").addEventListener("input", calculate);
     $("#clearKmOfferBtn").addEventListener("click", clear);
     $("#kmOfferForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      const company = $("#kmOfferCompany").value.trim(), totalKm = Number($("#kmOfferKm").value), totalPeople = Number($("#kmOfferPeople").value), price = Number($("#kmOfferPrice").value);
-      if (!company || totalKm <= 0 || totalPeople < 1 || price < 0) { showToast("Firma, KM, personel ve fiyat bilgilerini kontrol et."); return; }
+      const company = $("#kmOfferCompany").value.trim(), totalKm = Number($("#kmOfferKm").value), totalPeople = Number($("#kmOfferPeople").value), totalDays = Number($("#kmOfferDays").value), price = Number($("#kmOfferPrice").value);
+      if (!company || totalKm <= 0 || totalPeople < 1 || totalDays < 1 || price < 0) { showToast("Firma, KM, personel, gün ve fiyat bilgilerini kontrol et."); return; }
       const id = $("#kmOfferId").value || uid("kmOffer");
       const previous = state.settings.kmOfferRecords.find((item) => item.id === id);
-      const record = { id, company, totalKm, totalPeople, price, unitPrice: price / totalKm, createdAt: previous?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
+      const record = { id, company, totalKm, totalPeople, totalDays, price, unitPrice: price / totalKm, totalEarning: price * totalDays, createdAt: previous?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString() };
       state.settings.kmOfferRecords = previous ? state.settings.kmOfferRecords.map((item) => item.id === id ? record : item) : [...state.settings.kmOfferRecords, record];
-      appendAudit("KM Teklif", previous ? "Teklif güncellendi" : "Teklif kaydedildi", `${company} · ${totalKm} km · ${money(price)}`);
+      appendAudit("KM Teklif", previous ? "Teklif güncellendi" : "Teklif kaydedildi", `${company} · ${totalKm} km · ${totalDays} gün · ${money(price * totalDays)}`);
       saveState(); render(); clear(); showToast(previous ? "KM teklif kaydı güncellendi." : "KM teklif kaydı kalıcı olarak kaydedildi.");
     });
     $("#kmOfferList").addEventListener("click", async (event) => {
       const editId = event.target.closest("[data-km-offer-edit]")?.dataset.kmOfferEdit;
       const deleteId = event.target.closest("[data-km-offer-delete]")?.dataset.kmOfferDelete;
-      if (editId) { const item = state.settings.kmOfferRecords.find((row) => row.id === editId); if (!item) return; $("#kmOfferId").value=item.id; $("#kmOfferCompany").value=item.company; $("#kmOfferKm").value=item.totalKm; $("#kmOfferPeople").value=item.totalPeople; $("#kmOfferPrice").value=item.price; $("#saveKmOfferBtn").textContent="Değişiklikleri Kaydet"; calculate(); card.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+      if (editId) { const item = state.settings.kmOfferRecords.find((row) => row.id === editId); if (!item) return; $("#kmOfferId").value=item.id; $("#kmOfferCompany").value=item.company; $("#kmOfferKm").value=item.totalKm; $("#kmOfferPeople").value=item.totalPeople; $("#kmOfferDays").value=item.totalDays || 1; $("#kmOfferPrice").value=item.price; $("#saveKmOfferBtn").textContent="Değişiklikleri Kaydet"; calculate(); card.scrollIntoView({behavior:"smooth",block:"start"}); return; }
       if (deleteId) { const item = state.settings.kmOfferRecords.find((row) => row.id === deleteId); if (!item || !await appConfirm(`“${item.company}” KM teklif kaydı silinsin mi?`, { title:"KM Teklif Kaydını Sil", danger:true, confirmText:"Sil", icon:"!" })) return; state.settings.kmOfferRecords = state.settings.kmOfferRecords.filter((row) => row.id !== deleteId); appendAudit("KM Teklif", "Teklif silindi", item.company); saveState(); render(); showToast("KM teklif kaydı silindi."); }
     });
     render(); calculate();
@@ -300,6 +237,6 @@
     $("#skipFirstSetup").addEventListener("click", () => finish(false)); $("#saveFirstSetup").addEventListener("click", () => finish(true));
   }
 
-  function install() { installStyles(); buildAiHub(); installContactImport(); installAddressBulkDelete(); installDiscountFuelSettings(); installKmOfferRecords(); showFirstSetup(); }
+  function install() { installStyles(); installContactImport(); installCurrentLocationAddress(); installAddressBulkDelete(); installDiscountFuelSettings(); installKmOfferRecords(); showFirstSetup(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install, { once: true }); else install();
 })();

@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "servis-sys-v4-48-54-command-catalog-1";
+const CACHE_NAME = "servis-sys-v4-49-0-centers-1";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,11 +8,13 @@ const APP_SHELL = [
   "./fuel-prices.json",
   "./scripts/app-version.js",
   "./scripts/command-layout-v4_48_23.js",
-  "./scripts/command-preview-v4_48_49.js",
-  "./scripts/sys-experience-v4_48_49.js",
+  "./scripts/command-preview-v4_49_0.js",
+  "./scripts/sys-experience-v4_49_0.js",
+  "./scripts/information-architecture-v4_49_0.js",
+  "./scripts/state-storage-v4_49_0.js",
   "./scripts/command-full-height-v4_48_49.js",
-  "./scripts/settings-panel-v4_48_14.js",
-  "./scripts/settings-command-fix-v4_48_16.js",
+  "./scripts/settings-panel-v4_49_0.js",
+  "./scripts/settings-fuel-v4_49_0.js",
   "./scripts/yakit-farki-v4_48_11.js",
   "./scripts/bulut-yedek-v4_48_12.js",
   "./icons/icon-192-v50.png",
@@ -21,9 +23,7 @@ const APP_SHELL = [
   "./icons/screensaver-vehicle-v477.png",
   "./icons/screensaver-neon-mask-v477.png",
   "./icons/screensaver-neon-mask-v478.png",
-  "./icons/sys-logo-splash-4k.png",
   "./icons/shell-logo.png",
-  "./icons/sys-cinema-command-v44812.webp",
   "./icons/command-mercedes-v44849.png"
 ];
 
