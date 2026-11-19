@@ -1,13 +1,13 @@
 {
   "region": "İstanbul Avrupa",
-  "updatedAt": "2026-11-19T02:33:33.020Z",
-  "lastAttemptAt": "2026-11-19T02:33:33.020Z",
+  "updatedAt": "2026-11-19T11:37:49.568Z",
+  "lastAttemptAt": "2026-11-19T11:37:49.568Z",
   "priceDate": "2026-11-19",
   "source": "Doviz.com dağıtıcı tablosu",
   "sourceUrl": "https://www.doviz.com/akaryakit-fiyatlari",
   "status": "ok",
   "shell": {
-    "diesel": 95.3,
+    "diesel": 95.4,
     "product": "Shell Motorin",
     "updated": true,
     "officialUrl": "https://www.shell.com.tr/suruculer/shell-yakitlari/akaryakit-pompa-satis-fiyatlari.html"
